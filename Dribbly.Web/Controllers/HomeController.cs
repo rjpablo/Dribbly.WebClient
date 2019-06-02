@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Dribbly.Web.Models;
+using Dribbly.Web.ViewModels;
 
 namespace Dribbly.Web.Controllers
 {
@@ -12,7 +13,7 @@ namespace Dribbly.Web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(new HomeViewModel());
         }
 
         public IActionResult Privacy()
