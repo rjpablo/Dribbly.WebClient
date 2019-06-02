@@ -7,5 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "angular": "1.7.8",
+    "bootstrap": "4.3.0",
+    "jquery": "3.4.1",
+    "popper.js": "1.15.0"
+  },
+  "devDependencies": {
+    "del": "4.1.1",
+    "gulp": "4.0.2",
+    "merge-stream": "2.0.0",
+    "useref": "1.4.1"
+  }
 }
