@@ -7,11 +7,13 @@
 
     <environment include="Development">
         <link href="~/lib/bootstrap/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/font-awesome/font-awesome.css" rel="stylesheet">
     </environment>
     <environment exclude="Development">
         <link href="~/lib/bootstrap/bootstrap.min.scss" rel="stylesheet" />
     </environment>
     <link href="~/shared/modules/site/site.css" rel="stylesheet" />
+    <link href="~/shared/modules/site/components/navigator/navigator.css" rel="stylesheet" />
 </head>
 <body ng-controller="siteController as site">
     @RenderBody()
@@ -29,6 +31,7 @@
 
     <script src="~/shared/modules/site/site-module.js"></script>
     <script src="~/shared/modules/site/site-controller.js"></script>
+    <script src="~/shared/modules/site/components/navigator/navigator-controller.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

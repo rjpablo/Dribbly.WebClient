@@ -1,3 +1,17 @@
 ﻿body {
-    background: url('../../../images/backgrounds/site_background.jpg') fixed center;
+    /*background: url('../../../images/backgrounds/site_background.jpg') fixed center;*/
+    background-color: #000;
 }
+
+.bg-dark {
+    background-color: #282828 !important;
+    color: #777;
+}
+
+.nav li > a {
+    color: #777;
+}
+
+    .nav li > a:hover, .nav li > a:active, .nav li > a.active {
+        color: #2dc5c3;
+    }

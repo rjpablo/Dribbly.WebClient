@@ -1,0 +1,32 @@
+﻿<nav class="main-navigator navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="logo-link navbar-brand" href="#">
+            <img src="../../../../../images/logos/logo.png" />
+        </a>
+        <ul class="nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link"
+                   ng-class="{'active': nav.activeNavigationItem == 'courts'}"
+                   ng-click="nav.activeNavigationItem = 'courts'"
+                   href="#">Courts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   ng-class="{'active': nav.activeNavigationItem == 'players'}"
+                   ng-click="nav.activeNavigationItem = 'players'"
+                   href="#">Players</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   ng-class="{'active': nav.activeNavigationItem == 'teams'}"
+                   ng-click="nav.activeNavigationItem = 'teams'"
+                   href="#">Teams</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2 d-none d-md-block" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn d-inline d-md-none"><i class="fa fa-search text-secondary"></i></button>
+        </form>
+        <button type="button" class="btn btn-link text-secondary">Login</button>
+    </div>
+</nav>
