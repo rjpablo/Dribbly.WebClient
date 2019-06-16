@@ -23,6 +23,10 @@ var nodeLibs = {
             'bootstrap/dist/js/bootstrap.bundle.js'
         ],
         destination: 'bootstrap'
+    },
+    font_awesome:{
+        source: 'font-awesome/css/font-awesome.css',
+        destination: 'font-awesome'
     }
 };
 
