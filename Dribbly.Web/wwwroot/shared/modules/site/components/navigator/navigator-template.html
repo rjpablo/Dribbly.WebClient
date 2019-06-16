@@ -8,25 +8,27 @@
                 <a class="nav-link"
                    ng-class="{'active': nav.activeNavigationItem == 'courts'}"
                    ng-click="nav.activeNavigationItem = 'courts'"
-                   href="#">Courts</a>
+                   href="#">{{'site.Courts' | i18n}}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"
                    ng-class="{'active': nav.activeNavigationItem == 'players'}"
                    ng-click="nav.activeNavigationItem = 'players'"
-                   href="#">Players</a>
+                   href="#">{{'site.Players' | i18n}}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"
                    ng-class="{'active': nav.activeNavigationItem == 'teams'}"
                    ng-click="nav.activeNavigationItem = 'teams'"
-                   href="#">Teams</a>
+                   href="#">{{'site.Teams' | i18n}}</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2 d-none d-md-block" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2 d-none d-md-block"
+                   type="search"
+                   placeholder="{{'site.Search' | i18n}}">
             <button class="btn d-inline d-md-none"><i class="fa fa-search text-secondary"></i></button>
         </form>
-        <button type="button" class="btn btn-link text-secondary">Login</button>
+        <button type="button"class="btn btn-link text-secondary">{{'site.Login' | i18n}}</button>
     </div>
 </nav>
