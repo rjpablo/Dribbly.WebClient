@@ -8,6 +8,7 @@
                     Courts: 'Courts',
                     Login: 'Login',
                     Players: 'Players',
+                    Search: 'Search',
                     SiteName: 'Dribbly',
                     Teams: 'Teams'
                 }
