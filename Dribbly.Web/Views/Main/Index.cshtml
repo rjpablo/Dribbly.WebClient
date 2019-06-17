@@ -1,0 +1,16 @@
+﻿@model Dribbly.Web.ViewModels.MainViewModel
+
+@{
+    ViewData["Title"] = "Main";
+}
+
+<drbbly-home-container></drbbly-home-container>
+
+@section Scripts{
+    <script src="~/modules/main/main-module.js"></script>
+    <script src="~/modules/main/main-controller.js"></script>
+
+    @* home components *@
+    <script src="~/modules/main/components/home/home-container/home-container-service.js"></script>
+    <script src="~/modules/main/components/home/home-container/home-container-component.js"></script>
+}
