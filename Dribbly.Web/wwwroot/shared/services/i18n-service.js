@@ -10,7 +10,8 @@
                     Players: 'Players',
                     Search: 'Search',
                     SiteName: 'Dribbly',
-                    Teams: 'Teams'
+                    Teams: 'Teams',
+                    WelcomeToDribblyExclamation: 'Welcome to dribbly!'
                 }
             };
 

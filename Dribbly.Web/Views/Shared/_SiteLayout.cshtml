@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app="siteModule">
+<html ng-app="homeModule">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,6 +16,9 @@
     <link href="~/shared/modules/site/components/navigator/navigator.css" rel="stylesheet" />
 </head>
 <body ng-controller="siteController as site">
+
+    <drbbly-navigator></drbbly-navigator>
+
     @RenderBody()
 
     <environment include="Development">
@@ -33,7 +36,7 @@
     <script src="~/shared/modules/site/site-controller.js"></script>
     <script src="~/shared/services/i18n-service.js"></script>
     <script src="~/shared/filters/i18n-filter.js"></script>
-    
+
     <script src="~/shared/modules/site/components/navigator/navigator-controller.js"></script>
 
     @RenderSection("Scripts", required: false)

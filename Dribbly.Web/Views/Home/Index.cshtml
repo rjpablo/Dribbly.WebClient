@@ -1,8 +1,11 @@
 ﻿@model Dribbly.Web.ViewModels.HomeViewModel
-<drbbly-navigator></drbbly-navigator>
-<h1>Home - Welcome!</h1>
+
+<drbbly-home-container></drbbly-home-container>
 
 @section Scripts{
     <script src="~/modules/home/home-module.js"></script>
     <script src="~/modules/home/home-controller.js"></script>
+
+    <script src="~/modules/home/components/home-container/home-container-service.js"></script>
+    <script src="~/modules/home/components/home-container/home-container-component.js"></script>
 }
