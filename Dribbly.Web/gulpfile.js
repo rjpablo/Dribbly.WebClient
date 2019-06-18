@@ -24,9 +24,13 @@ var nodeLibs = {
         ],
         destination: 'bootstrap'
     },
-    font_awesome:{
+    font_awesome: {
         source: 'font-awesome/css/font-awesome.css',
         destination: 'font-awesome'
+    },
+    ui_router: {
+        source: 'angular-ui-router/release/angular-ui-router.js',
+        destination: 'angular-ui-router'
     }
 };
 

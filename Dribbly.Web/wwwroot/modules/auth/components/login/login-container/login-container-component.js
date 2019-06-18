@@ -2,11 +2,11 @@
     'use strict';
 
     angular
-        .module('homeModule')
-        .component('drbblyHomeContainer', {
+        .module('authModule')
+        .component('drbblyLoginContainer', {
             bindings: {},
             controllerAs: 'dhc',
-            templateUrl: '/modules/home/components/home-container/home-container-template.html',
+            templateUrl: '/modules/auth/components/login/login-container/login-container-template.html',
             controller: controllerFunc
         });
 

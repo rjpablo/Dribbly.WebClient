@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dribbly.Web.Controllers
 {
-    public class CourtsController : Controller
+    public class MainController : Controller
     {
         public IActionResult Index()
         {
-            return View(new CourtsViewModel());
+            return View(new MainViewModel());
         }
     }
 }

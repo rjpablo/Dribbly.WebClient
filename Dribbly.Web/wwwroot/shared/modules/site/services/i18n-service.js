@@ -6,6 +6,7 @@
             var _entries = {
                 site: {
                     Courts: 'Courts',
+                    Home: 'Home',
                     Login: 'Login',
                     Players: 'Players',
                     Search: 'Search',

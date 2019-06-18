@@ -4,7 +4,7 @@
     ViewData["Title"] = "Main";
 }
 
-<drbbly-home-container></drbbly-home-container>
+<div ui-view></div>
 
 @section Scripts{
     <script src="~/modules/main/main-module.js"></script>
@@ -13,4 +13,8 @@
     @* home components *@
     <script src="~/modules/main/components/home/home-container/home-container-service.js"></script>
     <script src="~/modules/main/components/home/home-container/home-container-component.js"></script>
+
+    @* courts components *@
+    <script src="~/modules/main/components/courts/courts-container/courts-container-service.js"></script>
+    <script src="~/modules/main/components/courts/courts-container/courts-container-component.js"></script>
 }

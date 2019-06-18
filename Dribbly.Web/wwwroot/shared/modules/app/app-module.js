@@ -1,6 +1,7 @@
 ﻿(function () {
     'use strict';
-    var module = angular.module('homeModule', [
+
+    var module = angular.module('appModule', [
         'siteModule'
     ]);
 })();

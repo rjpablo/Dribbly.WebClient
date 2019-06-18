@@ -2,6 +2,5 @@
 {
     public class BaseViewModel
     {
-        public string App { get; set; }
     }
 }

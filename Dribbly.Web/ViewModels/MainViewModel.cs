@@ -1,10 +1,10 @@
 ﻿namespace Dribbly.Web.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : SiteViewModel
     {
-        public MainViewModel() : base()
+        public MainViewModel() : base("mainModule")
         {
-            App = "Main";
+            
         }
     }
 }

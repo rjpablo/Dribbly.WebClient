@@ -1,5 +1,5 @@
 ﻿<nav class="main-navigator navbar navbar-dark bg-dark">
-    <a class="logo-link navbar-brand" href="#">
+    <a class="logo-link navbar-brand" ui-sref="home">
         <img src="../../../../../images/logos/logo.png" />
     </a>
     <ul class="nav mr-auto">
@@ -7,7 +7,7 @@
             <a class="nav-link"
                ng-class="{'active': nav.activeNavigationItem == 'courts'}"
                ng-click="nav.activeNavigationItem = 'courts'"
-               href="#">{{'site.Courts' | i18n}}</a>
+               ui-sref="courts">{{'site.Courts' | i18n}}</a>
         </li>
         <li class="nav-item">
             <a class="nav-link"
@@ -28,5 +28,5 @@
                placeholder="{{'site.Search' | i18n}}">
         <button class="btn d-inline d-md-none"><i class="fa fa-search text-secondary"></i></button>
     </form>
-    <button type="button" class="btn btn-link text-secondary">{{'site.Login' | i18n}}</button>
+    <a class="btn btn-link text-secondary" ui-sref="login">{{'site.Login' | i18n}}</a>
 </nav>
