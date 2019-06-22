@@ -4,14 +4,20 @@
     angular
         .module('mainModule')
         .component('drbblyCourtsContainer', {
-            bindings: {},
-            controllerAs: 'dhc',
+            bindings: {
+                app: '<'
+            },
+            controllerAs: 'dcc',
             templateUrl: '/modules/main/components/courts/courts-container/courts-container-template.html',
             controller: controllerFunc
         });
 
     controllerFunc.$inject = [];
     function controllerFunc() {
-        var dhc = this;
+        var dcc = this;
+
+        dcc.$onInit = function () {
+            dcc.app.showNavBar();
+        };
     }
 })();

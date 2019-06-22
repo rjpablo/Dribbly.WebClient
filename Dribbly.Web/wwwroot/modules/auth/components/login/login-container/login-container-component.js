@@ -4,14 +4,20 @@
     angular
         .module('authModule')
         .component('drbblyLoginContainer', {
-            bindings: {},
-            controllerAs: 'dhc',
+            bindings: {
+                app: '<'
+            },
+            controllerAs: 'dlc',
             templateUrl: '/modules/auth/components/login/login-container/login-container-template.html',
             controller: controllerFunc
         });
 
     controllerFunc.$inject = [];
     function controllerFunc() {
-        var dhc = this;
+        var dlc = this;
+
+        dlc.$onInit = function () {
+            dlc.app.hideNavBar();
+        };
     }
 })();

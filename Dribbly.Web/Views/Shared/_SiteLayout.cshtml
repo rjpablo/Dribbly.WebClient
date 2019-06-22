@@ -20,10 +20,7 @@
 </head>
 <body ng-controller="appController as app">
 
-    @if (Model.UsesNavigationBar)
-    {
-        <drbbly-navigator></drbbly-navigator>
-    }
+    <drbbly-navigator ng-if="app.navBarIsVisible"></drbbly-navigator>
 
     @RenderBody()
 

@@ -13,19 +13,21 @@
         $stateProvider
             .state('home', {
                 url: '/home',
-                template: '<drbbly-home-container></drbbly-home-container>'
+                template: '<drbbly-home-container app="app"></drbbly-home-container>'
             })
 
             .state('courts', {
                 url: '/courts',
-                template: '<drbbly-courts-container></drbbly-courts-container>'
+                template: '<drbbly-courts-container app="app"></drbbly-courts-container>'
             })
 
             .state('login', {
                 url: '/login',
-                template: '<drbbly-login-container></drbbly-login-container>'
+                template: '<drbbly-login-container app="app"></drbbly-login-container>'
             });
 
         $locationProvider.hashPrefix('');
     }
+
+    module.constant('events', {});
 })();
