@@ -5,13 +5,3 @@
     z-index: 4;
     box-shadow: 0px 2px 2px #1d1d1d;
 }
-
-    .main-navigator .logo-link {
-        padding: 0;
-        margin-top: -0.5rem;
-        margin-bottom: -0.5rem;
-    }
-
-.logo-link > img {
-    height: 2.5rem;
-}
