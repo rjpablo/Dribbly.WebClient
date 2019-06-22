@@ -5,20 +5,17 @@
     <ul class="nav mr-auto">
         <li class="nav-item active">
             <a class="nav-link"
-               ng-class="{'active': nav.activeNavigationItem == 'courts'}"
-               ng-click="nav.activeNavigationItem = 'courts'"
+               ng-class="{'active': nav.$state.current.name === 'courts'}"
                ui-sref="courts">{{'site.Courts' | i18n}}</a>
         </li>
         <li class="nav-item">
             <a class="nav-link"
-               ng-class="{'active': nav.activeNavigationItem == 'players'}"
-               ng-click="nav.activeNavigationItem = 'players'"
+               ng-class="{'active': nav.$state.current.name === 'players'}"
                href="#">{{'site.Players' | i18n}}</a>
         </li>
         <li class="nav-item">
             <a class="nav-link"
-               ng-class="{'active': nav.activeNavigationItem == 'teams'}"
-               ng-click="nav.activeNavigationItem = 'teams'"
+               ng-class="{'active': nav.$state.current.name === 'teams'}"
                href="#">{{'site.Teams' | i18n}}</a>
         </li>
     </ul>

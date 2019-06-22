@@ -9,16 +9,12 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = [];
-    function controllerFn() {
+    controllerFn.$inject = ['$state'];
+    function controllerFn($state) {
         var nav = this;
         
         nav.$onInit = function () {
-            nav.activeNavigationItem = 'courts';
+            nav.$state = $state;
         };
-
-        nav.setActiveNavigationItem = function () {
-
-        }
     }
 })();
