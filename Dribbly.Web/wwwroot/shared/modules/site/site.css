@@ -1,6 +1,8 @@
-﻿body {
+﻿
+body {
     background: url('../../../images/backgrounds/site_background.jpg') fixed center;
     /*background-color: #000;*/
+    font-family: 'Open Sans', sans-serif;
 }
 
 .bg-dark {
@@ -15,3 +17,53 @@
     .nav li > a:hover, .nav li > a:active, .nav li > a.active {
         color: #2dc5c3;
     }
+
+/****************
+    Icons
+****************/
+
+/* Register our own font */
+@font-face {
+    font-family: 'dribbly';
+    src: url('../../../fonts/dribbly/dribbly.eot');
+    src: url('../../../fonts/dribbly/dribbly.eot'), url('../../../fonts/dribbly/dribbly.ttf'), url('../../../fonts/dribbly/dribbly.woff'), url('../../../fonts/dribbly/dribbly.svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.drbbly-font {
+    font-family: dribbly;
+    font-style: normal;
+    font-weight: normal;
+}
+
+    .drbbly-font.court-inclined::before {
+        content: '\e903';
+    }
+
+    .drbbly-font.players::before {
+        content: '\e901';
+    }
+
+    .drbbly-font.games::before {
+        content: '\e904';
+    }
+
+    .drbbly-font.trashcan::before {
+        content: '\e905';
+    }
+
+    .drbbly-font.court-horizontal::before {
+        content: '\e900';
+    }
+
+/****************
+    Widths
+****************/
+
+@media (max-width: 575px) {
+
+    .w-xs-100 {
+        width: 100%;
+    }
+}

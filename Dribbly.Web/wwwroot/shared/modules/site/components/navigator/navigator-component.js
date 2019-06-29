@@ -16,5 +16,9 @@
         nav.$onInit = function () {
             nav.$state = $state;
         };
+
+        nav.searchClicked = function () {
+            alert('Not yet implemented');
+        };
     }
 })();

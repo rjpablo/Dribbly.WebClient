@@ -5,6 +5,12 @@
         'ui.router'
     ]);
 
+    module.constant('constants', {
+        site: {
+            name: 'Dribbly'
+        }
+    });
+
     module.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', configFn]);
     function configFn($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -28,6 +34,4 @@
 
         $locationProvider.hashPrefix('');
     }
-
-    module.constant('events', {});
 })();
