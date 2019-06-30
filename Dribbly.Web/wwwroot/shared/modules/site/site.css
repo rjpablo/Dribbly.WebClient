@@ -25,8 +25,8 @@ body {
 /* Register our own font */
 @font-face {
     font-family: 'dribbly';
-    src: url('../../../fonts/dribbly/dribbly.eot');
-    src: url('../../../fonts/dribbly/dribbly.eot'), url('../../../fonts/dribbly/dribbly.ttf'), url('../../../fonts/dribbly/dribbly.woff'), url('../../../fonts/dribbly/dribbly.svg');
+    src: url('../../../fonts/dribbly/dribbly.eot?#iefix') format('embedded-opentype');
+    src: url('../../../fonts/dribbly/dribbly.eot?#iefix') format('embedded-opentype'), url('../../../fonts/dribbly/dribbly.ttf') format('truetype'), url('../../../fonts/dribbly/dribbly.woff') format('woff'), url('../../../fonts/dribbly/dribbly.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
