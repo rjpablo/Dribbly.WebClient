@@ -28,6 +28,16 @@ var nodeLibs = {
         source: 'font-awesome/css/font-awesome.css',
         destination: 'font-awesome'
     },
+    fonts: {
+        source: [
+            'font-awesome/fonts/fontawesome-webfont.eot',
+            'font-awesome/fonts/fontawesome-webfont.svg',
+            'font-awesome/fonts/fontawesome-webfont.ttf',
+            'font-awesome/fonts/fontawesome-webfont.woff',
+            'font-awesome/fonts/fontawesome-webfont.woff2'
+        ],
+        destination: 'fonts'
+    },
     ui_router: {
         source: 'angular-ui-router/release/angular-ui-router.js',
         destination: 'angular-ui-router'
