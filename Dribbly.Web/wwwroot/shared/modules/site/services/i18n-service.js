@@ -8,11 +8,16 @@
                     Courts: 'Courts',
                     Home: 'Home',
                     Login: 'Login',
+                    Or: 'Or',
                     Players: 'Players',
                     Search: 'Search',
                     SiteName: 'Dribbly',
                     Teams: 'Teams',
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!'
+                },
+                auth: {
+                    LogIn: 'Log In',
+                    SignUp: 'Sign Up'
                 }
             };
 

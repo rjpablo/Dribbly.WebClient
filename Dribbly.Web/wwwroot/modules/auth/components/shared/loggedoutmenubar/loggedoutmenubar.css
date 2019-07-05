@@ -1,0 +1,15 @@
+﻿.logged-out-menu-bar{
+    display: inline-block;
+    width: 100%;
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@media (max-width: 575px) {
+
+    .logged-out-menu-bar {
+        position: fixed;
+        bottom: 0;
+    }
+}
