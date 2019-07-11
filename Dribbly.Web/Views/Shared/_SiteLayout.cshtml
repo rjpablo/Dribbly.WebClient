@@ -26,7 +26,7 @@
 </head>
 <body ng-controller="appController as app">
 
-    <drbbly-mobiletoolbar></drbbly-mobiletoolbar>
+    <drbbly-mobiletoolbar ng-if="app.mobileToolBarIsVisible"></drbbly-mobiletoolbar>
     <drbbly-navigator ng-if="app.navBarIsVisible"></drbbly-navigator>
     @*<drbbly-loggedoutmenubar></drbbly-loggedoutmenubar>*@
 

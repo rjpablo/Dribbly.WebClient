@@ -18,6 +18,7 @@
 
         dhc.$onInit = function () {
             dhc.app.showNavBar();
+            dlc.app.showMobileToolbar();
         };
     }
 })();

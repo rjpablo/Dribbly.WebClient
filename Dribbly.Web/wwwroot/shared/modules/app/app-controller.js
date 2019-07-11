@@ -13,5 +13,13 @@
                 app.navBarIsVisible = false;
             };
 
+            app.showMobileToolbar = function () {
+                app.mobileToolBarIsVisible = true;
+            };
+
+            app.hideMobileToolbar = function () {
+                app.mobileToolBarIsVisible = false;
+            };
+
         }]);
 })();
