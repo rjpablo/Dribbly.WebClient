@@ -24,6 +24,10 @@ var nodeLibs = {
         ],
         destination: 'bootstrap'
     },
+    bootstrap_social: {
+        source: 'bootstrap-social/bootstrap-social.css',
+        destination: 'bootstrap-social'
+    },
     font_awesome: {
         source: 'font-awesome/css/font-awesome.css',
         destination: 'font-awesome'

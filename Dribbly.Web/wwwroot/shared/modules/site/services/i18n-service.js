@@ -6,9 +6,10 @@
             var _entries = {
                 site: {
                     Courts: 'Courts',
+                    Email: 'Email',
                     Home: 'Home',
-                    Login: 'Login',
                     Or: 'Or',
+                    Password: 'Password',
                     Players: 'Players',
                     Search: 'Search',
                     SiteName: 'Dribbly',
@@ -16,7 +17,10 @@
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!'
                 },
                 auth: {
+                    DontHaveAnAccount: 'Don\'t have an account?',
                     LogIn: 'Log In',
+                    LogInWithFacebook: 'Log in with Facebook',
+                    LogInWithGoogle: 'Log in with Google',
                     SignUp: 'Sign Up'
                 }
             };

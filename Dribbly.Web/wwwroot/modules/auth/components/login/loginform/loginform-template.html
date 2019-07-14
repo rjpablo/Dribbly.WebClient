@@ -1,1 +1,29 @@
-﻿<div>I'm the login form</div>
+﻿<form name="dlf.frmLogin" class="drrbly-login-form">
+    <div class="form-group">
+        <input class="form-control" required ng-model="dlf.email" name="email" type="text" placeholder="{{'site.Email' | i18n}}" />
+    </div>
+    <div class="form-group">
+        <input class="form-control" required ng-model="dlf.password" name="password" type="password" placeholder="{{'site.Password' | i18n}}" />
+    </div>
+    <div class="form-group">
+        <button type="submit"
+                ng-click="dlf.login()"
+                ng-disabled="dlf.frmLogin.$invalid"
+                class="btn btn-primary w-100">
+            {{'auth.LogIn' | i18n}}
+        </button>
+    </div>
+    <p class="text-center">{{'auth.DontHaveAnAccount' | i18n}}<a class="btn btn-link" ng-click="dlf.signUp()">{{'auth.SignUp' | i18n}}</a></p>
+
+    <p class="text-center">{{ 'site.Or' | i18n }}</p>
+    <div class="social-auth">
+        <button class="btn btn-block btn-social btn-facebook" ng-click="dlf.loginExternal('Facebook')">
+            <i class="fa fa-facebook"></i>
+            <span>{{'auth.LogInWithFacebook' | i18n }}</span>
+        </button>
+        <button class="btn btn-block btn-social btn-google" ng-click="dlf.loginExternal('Google')">
+            <span class="fa fa-google"></span>
+            <span>{{'auth.LogInWithGoogle' | i18n }}</span>
+        </button>
+    </div>
+</form>

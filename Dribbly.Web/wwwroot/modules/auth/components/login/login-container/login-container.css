@@ -1,0 +1,15 @@
+﻿.login-container drbbly-sitelogo {
+    align-self: center;
+    margin-bottom: 15px;
+}
+
+    .login-container drbbly-sitelogo .site-logo > img {
+        height: 5rem;
+    }
+
+.login-form-container {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: #fff;
+    margin-top: 100px;
+}
