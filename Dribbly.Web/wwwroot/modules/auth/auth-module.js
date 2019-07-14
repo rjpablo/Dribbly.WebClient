@@ -1,4 +1,4 @@
 ﻿(function () {
     'use strict';
-    var module = angular.module('authModule', []);
+    var module = angular.module('authModule', ['LocalStorageModule']);
 })();

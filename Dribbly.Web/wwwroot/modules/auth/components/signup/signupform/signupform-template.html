@@ -1,17 +1,17 @@
 ﻿<form name="suf.frmSignUp">
     <div class="form-group">
-        <input class="form-control" required ng-model="suf.credentials.email" name="email" type="text" placeholder="{{'site.Email' | i18n}}" />
+        <input class="form-control" required ng-model="suf.model.userName" name="email" type="text" placeholder="{{'site.Email' | i18n}}" />
     </div>
     <div class="form-group">
-        <input class="form-control" required ng-model="suf.credentials.password" name="password" type="password" placeholder="{{'site.Password' | i18n}}" />
+        <input class="form-control" required ng-model="suf.model.password" name="password" type="password" placeholder="{{'site.Password' | i18n}}" />
     </div>
     <div class="form-group">
-        <input class="form-control" required ng-model="suf.credentials.confirmPassword" name="confirmPassword" type="password" placeholder="{{'site.ConfirmPassword' | i18n}}" />
+        <input class="form-control" required ng-model="suf.model.confirmPassword" name="confirmPassword" type="password" placeholder="{{'site.ConfirmPassword' | i18n}}" />
     </div>
     <div class="form-group">
         <button type="submit"
                 ng-click="suf.signUp()"
-                ng-disabled="suf.frmSignUp.$invalid"
+                ng-disabled="suf.frmSignUp.$invalid || suf.isBusy"
                 class="btn btn-primary btn-block">
             {{'auth.SignUp' | i18n}}
         </button>

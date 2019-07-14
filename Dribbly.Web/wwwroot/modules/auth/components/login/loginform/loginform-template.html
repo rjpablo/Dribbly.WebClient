@@ -1,14 +1,14 @@
 ﻿<form name="dlf.frmLogin" class="drrbly-login-form">
     <div class="form-group">
-        <input class="form-control" required ng-model="dlf.email" name="email" type="text" placeholder="{{'site.Email' | i18n}}" />
+        <input class="form-control" required ng-model="dlf.loginData.userName" name="email" type="text" placeholder="{{'site.Email' | i18n}}" />
     </div>
     <div class="form-group">
-        <input class="form-control" required ng-model="dlf.password" name="password" type="password" placeholder="{{'site.Password' | i18n}}" />
+        <input class="form-control" required ng-model="dlf.loginData.password" name="password" type="password" placeholder="{{'site.Password' | i18n}}" />
     </div>
     <div class="form-group">
         <button type="submit"
                 ng-click="dlf.login()"
-                ng-disabled="dlf.frmLogin.$invalid"
+                ng-disabled="dlf.frmLogin.$invalid || dlf.isBusy"
                 class="btn btn-primary w-100">
             {{'auth.LogIn' | i18n}}
         </button>

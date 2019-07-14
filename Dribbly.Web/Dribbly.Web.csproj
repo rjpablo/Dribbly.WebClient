@@ -30,7 +30,7 @@
   <ItemGroup>
     <Folder Include="Enums\" />
     <Folder Include="wwwroot\lib\" />
-    <Folder Include="wwwroot\modules\auth\components\" />
+    <Folder Include="wwwroot\shared\services\" />
   </ItemGroup>
 
 </Project>

@@ -42,6 +42,10 @@ var nodeLibs = {
         ],
         destination: 'fonts'
     },
+    local_storage: {
+        source: 'angular-local-storage/dist/angular-local-storage.js',
+        destination: 'angular-local-storage'
+    },
     ui_router: {
         source: 'angular-ui-router/release/angular-ui-router.js',
         destination: 'angular-ui-router'

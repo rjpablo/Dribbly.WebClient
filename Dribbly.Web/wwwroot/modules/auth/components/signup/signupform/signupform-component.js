@@ -10,12 +10,26 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = [];
-    function controllerFunc() {
+    controllerFunc.$inject = ['authService', '$state'];
+    function controllerFunc(authService, $state) {
         var suf = this;
 
         suf.signUp = function () {
-            console.log('sign up clicked');
+            suf.isBusy = true;
+            authService.signUp(suf.model)
+                .then(function (response) {
+                    $state.go('login')
+                        .catch(function () {
+                            suf.isBusy = false;
+                        });
+                })
+                .catch(function (error) {
+                    alert('Registration failed');
+                    console.log(error); //TODO: remove when error handling is implemented
+                    suf.model.password = '';
+                    suf.model.confirmPassword = '';
+                    suf.isBusy = false;
+                });
         };
     }
 })();

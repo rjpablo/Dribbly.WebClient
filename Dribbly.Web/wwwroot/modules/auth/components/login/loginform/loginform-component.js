@@ -10,16 +10,30 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = [];
-    function controllerFunc() {
+    controllerFunc.$inject = ['authService', '$state'];
+    function controllerFunc(authService, $state) {
         var dlf = this;
 
         dlf.login = function () {
-            console.log('log in');
-        };
-
-        dlf.signUp = function () {
-            console.log('sign up');
+            dlf.isBusy = true;
+            authService.login(dlf.loginData)
+                .then(function () {
+                    $state.go('home')
+                        .catch(function () {
+                            dlf.loginData.password = '';
+                            dlf.isBusy = false;
+                        });
+                })
+                .catch(function (err) {
+                    if (err && err.error_description) {
+                        alert(err.error_description);
+                    }
+                    else {
+                        alert('Login Failed');
+                    }
+                    dlf.loginData.password = '';
+                    dlf.isBusy = false;
+                });
         };
     }
 })();

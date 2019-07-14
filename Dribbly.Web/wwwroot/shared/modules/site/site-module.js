@@ -39,4 +39,9 @@
 
         $locationProvider.hashPrefix('');
     }
+
+    module.run(['authService', runFn]);
+    function runFn(authService) {
+        authService.fillAuthData();
+    }
 })();
