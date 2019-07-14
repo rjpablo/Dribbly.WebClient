@@ -14,16 +14,6 @@
         </button>
     </div>
     <p class="text-center">{{'auth.DontHaveAnAccount' | i18n}}<a class="btn btn-link" ng-click="dlf.signUp()">{{'auth.SignUp' | i18n}}</a></p>
-
     <p class="text-center">{{ 'site.Or' | i18n }}</p>
-    <div class="social-auth">
-        <button class="btn btn-block btn-social btn-facebook" ng-click="dlf.loginExternal('Facebook')">
-            <i class="fa fa-facebook"></i>
-            <span>{{'auth.LogInWithFacebook' | i18n }}</span>
-        </button>
-        <button class="btn btn-block btn-social btn-google" ng-click="dlf.loginExternal('Google')">
-            <span class="fa fa-google"></span>
-            <span>{{'auth.LogInWithGoogle' | i18n }}</span>
-        </button>
-    </div>
+    <drbbly-socialauth></drbbly-socialauth>
 </form>

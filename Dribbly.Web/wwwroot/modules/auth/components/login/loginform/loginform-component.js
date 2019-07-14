@@ -21,9 +21,5 @@
         dlf.signUp = function () {
             console.log('sign up');
         };
-
-        dlf.loginExternal = function (type) {
-            alert('log in with ' + type + ' - Not yet implemented.');
-        };
     }
 })();
