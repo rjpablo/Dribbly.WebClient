@@ -30,6 +30,11 @@
             .state('login', {
                 url: '/login',
                 template: '<drbbly-login-container app="app"></drbbly-login-container>'
+            })
+
+            .state('signUp', {
+                url: '/signup',
+                template: '<drbbly-signup-container app="app"></drbbly-signup-container>'
             });
 
         $locationProvider.hashPrefix('');

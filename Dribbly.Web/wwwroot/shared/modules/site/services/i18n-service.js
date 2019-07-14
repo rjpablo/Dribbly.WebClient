@@ -10,6 +10,7 @@
                     Home: 'Home',
                     Or: 'Or',
                     Password: 'Password',
+                    ConfirmPassword: 'Confirm Password',
                     Players: 'Players',
                     Search: 'Search',
                     SiteName: 'Dribbly',
@@ -17,6 +18,7 @@
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!'
                 },
                 auth: {
+                    AlreadyHaveAnAccount: 'Already have an account?',
                     DontHaveAnAccount: 'Don\'t have an account?',
                     LogIn: 'Log In',
                     LogInWithFacebook: 'Log in with Facebook',
