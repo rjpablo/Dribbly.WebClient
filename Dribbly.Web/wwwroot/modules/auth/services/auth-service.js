@@ -5,7 +5,8 @@
         .factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
 
             //var serviceBase = 'http://localhost:1842/'; //use this when auth API is running in Visual Studio
-            var serviceBase = 'http://localhost:9020/'; //use this to auth API in local IIS server
+            //var serviceBase = 'http://localhost:9020/'; //use this to auth API in local IIS server
+            var serviceBase = 'http://www.dribbly001.somee.com/'; //use somee test server
             var authServiceFactory = {};
 
             var _authentication = {
