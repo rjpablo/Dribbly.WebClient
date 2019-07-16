@@ -17,8 +17,7 @@
         var sup = this;
 
         sup.$onInit = function () {
-            sup.app.hideNavBar();
-            sup.app.hideMobileToolbar();
+
         };
     }
 })();

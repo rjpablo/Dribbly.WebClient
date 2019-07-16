@@ -18,7 +18,7 @@
             dlf.isBusy = true;
             authService.login(dlf.loginData)
                 .then(function () {
-                    $state.go('home')
+                    $state.go('main.home')
                         .catch(function () {
                             dlf.loginData.password = '';
                             dlf.isBusy = false;

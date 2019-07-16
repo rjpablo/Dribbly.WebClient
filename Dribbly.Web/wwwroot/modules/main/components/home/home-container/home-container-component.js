@@ -17,8 +17,7 @@
         var dhc = this;
 
         dhc.$onInit = function () {
-            dhc.app.showNavBar();
-            dhc.app.showMobileToolbar();
+
         };
     }
 })();

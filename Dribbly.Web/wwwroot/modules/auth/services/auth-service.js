@@ -10,7 +10,7 @@
             var authServiceFactory = {};
 
             var _authentication = {
-                isAuth: false,
+                isAuthenticated: false,
                 userName: ""
             };
 
@@ -33,7 +33,7 @@
 
                         localStorageService.set('authorizationData', { token: response.data.access_token, userName: loginData.userName });
 
-                        _authentication.isAuth = true;
+                        _authentication.isAuthenticated = true;
                         _authentication.userName = loginData.userName;
 
                         deferred.resolve(response);
@@ -51,7 +51,7 @@
 
                 localStorageService.remove('authorizationData');
 
-                _authentication.isAuth = false;
+                _authentication.isAuthenticated = false;
                 _authentication.userName = "";
 
             };
@@ -60,7 +60,7 @@
 
                 var authData = localStorageService.get('authorizationData');
                 if (authData) {
-                    _authentication.isAuth = true;
+                    _authentication.isAuthenticated = true;
                     _authentication.userName = authData.userName;
                 }
 

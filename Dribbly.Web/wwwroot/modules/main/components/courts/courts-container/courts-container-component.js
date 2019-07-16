@@ -17,8 +17,7 @@
         var dcc = this;
 
         dcc.$onInit = function () {
-            dcc.app.showMobileToolbar();
-            dcc.app.showNavBar();
+
         };
     }
 })();

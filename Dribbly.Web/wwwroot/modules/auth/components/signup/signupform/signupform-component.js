@@ -18,7 +18,7 @@
             suf.isBusy = true;
             authService.signUp(suf.model)
                 .then(function (response) {
-                    $state.go('login')
+                    $state.go('auth.login')
                         .catch(function () {
                             suf.isBusy = false;
                         });

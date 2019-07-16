@@ -3,31 +3,31 @@
     <ul class="nav mr-0 mr-sm-auto w-xs-100">
         <li class="nav-item active">
             <a class="nav-link"
-               ng-class="{'active': nav.$state.current.name === 'courts'}"
-               ui-sref="courts">
+               ng-class="{'active': nav.$state.current.name === 'main.courts'}"
+               ui-sref="main.courts">
                 <span class="d-block d-sm-inline text-center drbbly-font court-inclined menu-item-icon"></span>
                 <span class="d-block d-sm-inline menu-item-text">{{'site.Courts' | i18n}}</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link"
-               ng-class="{'active': nav.$state.current.name === 'players'}"
-               href="#">
+               ng-class="{'active': nav.$state.current.name === 'main.players'}"
+               ui-sref="main.players">
                 <span class="d-block d-sm-inline text-center drbbly-font players menu-item-icon"></span>
                 <span class="d-block d-sm-inline menu-item-text">{{'site.Players' | i18n}}</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link"
-               ng-class="{'active': nav.$state.current.name === 'teams'}"
-               href="#">
+               ng-class="{'active': nav.$state.current.name === 'main.teams'}"
+               ui-sref="main.teams">
                 <span class="d-block d-sm-inline text-center drbbly-font games menu-item-icon"></span>
                 <span class="d-block d-sm-inline menu-item-text">{{'site.Teams' | i18n}}</span>
             </a>
         </li>
         <li class="nav-item d-inline d-sm-none">
             <a class="nav-link"
-               ng-class="{'active': nav.$state.current.name === 'teams'}"
+               ng-class="{'active': nav.$state.current.name === 'main.teams'}"
                ng-click="nav.searchClicked()">
                 <i class="d-block d-sm-inline text-center fa fa-search text-secondary menu-item-icon"></i>
                 <span class="d-block d-sm-inline menu-item-text">{{'site.Search' | i18n}}</span>

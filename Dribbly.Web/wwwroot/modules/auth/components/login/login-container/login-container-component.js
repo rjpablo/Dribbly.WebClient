@@ -17,8 +17,7 @@
         var dlc = this;
 
         dlc.$onInit = function () {
-            dlc.app.hideNavBar();
-            dlc.app.hideMobileToolbar();
+
         };
     }
 })();
