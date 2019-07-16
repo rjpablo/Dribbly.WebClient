@@ -10,6 +10,6 @@
 
     .logged-out-menu-bar {
         position: fixed;
-        bottom: 0;
+        bottom: 50px;
     }
 }
