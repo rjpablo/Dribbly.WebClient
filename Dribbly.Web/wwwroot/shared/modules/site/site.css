@@ -66,4 +66,21 @@ body {
     .w-xs-100 {
         width: 100%;
     }
+
+    /* for things that should not show on mobile design */
+    .non-mobile {
+        display: none !important;
+    }
+}
+
+/*******************
+    Miscellaneous
+*******************/
+
+@media (min-width: 576px) {
+
+    /* for things that are only for mobile design */
+    .mobile-only {
+        display: none !important;
+    }
 }
