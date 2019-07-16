@@ -5,12 +5,13 @@
         .service('i18nService', [function () {
             var _entries = {
                 site: {
+                    ConfirmPassword: 'Confirm Password',
                     Courts: 'Courts',
                     Email: 'Email',
                     Home: 'Home',
+                    LogOut: 'Log Out',
                     Or: 'Or',
                     Password: 'Password',
-                    ConfirmPassword: 'Confirm Password',
                     Players: 'Players',
                     Search: 'Search',
                     SiteName: 'Dribbly',

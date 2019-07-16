@@ -9,8 +9,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$state'];
-    function controllerFn($state) {
+    controllerFn.$inject = ['authService', '$state', '$window'];
+    function controllerFn(authService, $state, $window) {
         var nav = this;
         
         nav.$onInit = function () {
@@ -19,6 +19,18 @@
 
         nav.searchClicked = function () {
             alert('Not yet implemented');
+        };
+
+        nav.logOut = function () {
+            authService.logOut();
+            $state.go('main.home', { reload: true })
+                .finally(function () {
+                    $window.location.reload();
+                });
+        };
+
+        nav.isAuthenticated = function () {
+            return authService.authentication.isAuthenticated;
         };
     }
 })();

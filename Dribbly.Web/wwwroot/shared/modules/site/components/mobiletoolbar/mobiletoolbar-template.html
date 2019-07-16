@@ -1,4 +1,4 @@
-﻿<div class="container-fluid mobile-toolbar">
+﻿<div class="container-fluid mobile-toolbar mobile-only">
     <div class="row">
         <div class="col">
             <drbbly-sitelogo></drbbly-sitelogo>
@@ -8,10 +8,14 @@
                         <i class="menu-item-icon fa fa-search text-secondary"></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link">
+                <li ng-if="mtb.isAuthenticated()"
+                    class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
                         <i class="menu-item-icon fa fa-user text-secondary"></i>
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" ng-click="mtb.logOut()">{{'site.LogOut' | i18n}}</a>
+                    </div>
                 </li>
             </ul>
         </div>

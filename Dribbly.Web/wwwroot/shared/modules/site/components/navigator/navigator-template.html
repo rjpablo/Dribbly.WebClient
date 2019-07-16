@@ -40,7 +40,15 @@
                placeholder="{{'site.Search' | i18n}}">
         <button class="btn d-inline d-md-none"><i class="fa fa-search text-secondary"></i></button>
     </form>
-    <!--<a class="btn btn-link text-secondary" ui-sref="login">
-        <small>{{'site.Login' | i18n}}</small>
-    </a>-->
+    <ul class="nav float-right dropdown non-mobile">
+        <li ng-if="nav.isAuthenticated()"
+            class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+                <i class="menu-item-icon fa fa-user text-secondary"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" ng-click="nav.logOut()">{{'site.LogOut' | i18n}}</a>
+            </div>
+        </li>
+    </ul>
 </nav>
