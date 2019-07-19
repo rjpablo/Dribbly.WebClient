@@ -52,9 +52,12 @@
         $locationProvider.hashPrefix('');
     }
 
-    module.run(['authService', '$transitions', runFn]);
-    function runFn(authService, $transitions) {
+    module.run(['authService', '$transitions', '$rootScope', runFn]);
+    function runFn(authService, $transitions, $rootScope) {
         authService.fillAuthData();
+        $rootScope.$root = {
+            auth: authService.authentication
+        };
 
         $transitions.onEnter({}, function (transition, state) {
             console.log('Entered new state: ' + state.name);

@@ -9,6 +9,7 @@
                     Courts: 'Courts',
                     Email: 'Email',
                     Home: 'Home',
+                    LoggedInAs: 'logged in as ',
                     LogOut: 'Log Out',
                     Or: 'Or',
                     Password: 'Password',
