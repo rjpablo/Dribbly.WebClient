@@ -17,9 +17,21 @@ var nodeLibs = {
         source: 'angular/angular.js',
         destination: 'angular'
     },
+    angular_animate: {
+        source: 'angular-animate/angular-animate.js',
+        destination: 'angular-animate'
+    },
     angular_sanitize:{
         source: 'angular-sanitize/angular-sanitize.js',
         destination: 'angular-sanitize'
+    },
+    angular_touch: {
+        source: 'angular-touch/angular-touch.js',
+        destination: 'angular-touch'
+    },
+    angular_ui_bootstrap: {
+        source: 'angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+        destination: 'angular-ui-bootstrap'
     },
     bootstrap: {
         source: [

@@ -3,7 +3,10 @@
 
     var module = angular.module('siteModule', [
         'ui.router',
-        'ngSanitize'
+        'ngSanitize',
+        'ngAnimate',
+        'ngTouch',
+        'ui.bootstrap'
     ]);
 
     module.constant('constants', {
