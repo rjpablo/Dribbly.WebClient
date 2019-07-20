@@ -14,7 +14,7 @@
                         <i class="menu-item-icon fa fa-user text-secondary"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <h6 class="dropdown-header">{{'site.LoggedInAs' | i18n}}<strong class="text-capitalize">{{$root.auth.userName}}</strong></h6>
+                        <h6 class="dropdown-header" ng-bind-html="'site.LoggedInAs' | i18n:({userName: $root.auth.userName})"></h6>
                         <a class="dropdown-item" ng-click="mtb.logOut()">{{'site.LogOut' | i18n}}</a>
                     </div>
                 </li>
