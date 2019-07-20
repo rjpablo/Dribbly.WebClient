@@ -2,7 +2,8 @@
     'use strict';
 
     var module = angular.module('siteModule', [
-        'ui.router'
+        'ui.router',
+        'ngSanitize'
     ]);
 
     module.constant('constants', {

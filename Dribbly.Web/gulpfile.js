@@ -17,6 +17,10 @@ var nodeLibs = {
         source: 'angular/angular.js',
         destination: 'angular'
     },
+    angular_sanitize:{
+        source: 'angular-sanitize/angular-sanitize.js',
+        destination: 'angular-sanitize'
+    },
     bootstrap: {
         source: [
             'bootstrap/dist/css/bootstrap.css',
