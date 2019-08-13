@@ -12,12 +12,23 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = [];
-    function controllerFunc() {
+    controllerFunc.$inject = ['modalService'];
+    function controllerFunc(modalService) {
         var dhc = this;
 
         dhc.$onInit = function () {
 
+        };
+
+        dhc.openModal = function () {
+            modalService.show({
+                view: '<drbbly-modal></drbbly-modal>',
+                model: { msg: 'Hello modal!' }
+            }).then(function (result) {
+                alert(result);
+            }).catch(function (reason) {
+                alert(reason);
+            });
         };
     }
 })();
