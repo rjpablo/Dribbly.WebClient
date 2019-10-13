@@ -15,8 +15,8 @@
         }
     });
 
-    module.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', configFn]);
-    function configFn($stateProvider, $urlRouterProvider, $locationProvider) {
+    module.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', configFn]);
+    function configFn($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
         $urlRouterProvider.otherwise('home');
 
@@ -54,6 +54,8 @@
             });
 
         $locationProvider.hashPrefix('');
+
+        $httpProvider.interceptors.push('authInterceptorService');
     }
 
     module.run(['authService', '$transitions', '$rootScope', runFn]);
