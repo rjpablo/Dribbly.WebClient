@@ -107,12 +107,20 @@
                 return deferred.promise;
             };
 
+            //TEST FUNCTIONALITY ONLY
+            var _test = function () {
+                $http.post(serviceBase + 'api/account/test')
+                    .then(function () { alert('Test successful!'); })
+                    .catch(function () { alert('Test failed!'); });
+            };
+
             authServiceFactory.signUp = signUp;
             authServiceFactory.login = _login;
             authServiceFactory.logOut = _logOut;
             authServiceFactory.fillAuthData = _fillAuthData;
             authServiceFactory.authentication = _authentication;
             authServiceFactory.refreshToken = _refreshToken;
+            authServiceFactory.test = _test;
 
             return authServiceFactory;
         }]);

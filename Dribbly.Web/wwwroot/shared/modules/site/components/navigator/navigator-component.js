@@ -32,5 +32,10 @@
         nav.isAuthenticated = function () {
             return authService.authentication.isAuthenticated;
         };
+
+        //TEST FUNCTIONALITY ONLY
+        nav.test = function () {
+            authService.test();
+        };
     }
 })();
