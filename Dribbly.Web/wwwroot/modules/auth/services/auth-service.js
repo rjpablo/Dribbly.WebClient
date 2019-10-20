@@ -2,14 +2,10 @@
     'use strict';
 
     angular.module('siteModule')
-        .factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
+        .factory('authService', ['$http', '$q', 'localStorageService', 'settingsService',
+            function ($http, $q, localStorageService, settingsService) {
 
-            var serviceBase = 'https://localhost:44394/'; //use this when auth API is running in Visual Studio
-            //var serviceBase = 'http://localhost:9020/'; //use this to auth API in local IIS server
-            //var serviceBase = 'http://www.dribbly001.somee.com/'; //use somee test server
             var authServiceFactory = {};
-            var _clientId = 'dribbly-web';
-            var _clientSecret = '5YV7M1r981yoGhELyB84aC+KiYksxZf1OY3++C1CtRM=';
             var _useRefreshTokens = true;
 
             var _authentication = {
@@ -21,18 +17,18 @@
 
                 _logOut();
 
-                return $http.post(serviceBase + 'api/account/register', registration);
+                return $http.post(settingsService.serviceBase + 'api/account/register', registration);
 
             };
 
             var _login = function (loginData) {
 
                 var data = 'grant_type=password&username=' + loginData.userName + '&password=' + loginData.password +
-                    '&client_id=' + _clientId;
+                    '&client_id=' + settingsService.clientId;
 
                 var deferred = $q.defer();
 
-                $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
                     .then(function (response) {
 
                         localStorageService.set('authorizationData', {
@@ -86,11 +82,11 @@
 
                     if (authData.useRefreshTokens) {
 
-                        var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + _clientId;
+                        var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + settingsService.clientId;
 
                         localStorageService.remove('authorizationData');
 
-                        $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                        $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
                             .then(function (response) {
                                 localStorageService.set('authorizationData', {
                                     token: response.data.access_token, userName: response.data.userName,
@@ -109,7 +105,7 @@
 
             //TEST FUNCTIONALITY ONLY
             var _test = function () {
-                $http.post(serviceBase + 'api/account/test')
+                $http.post(settingsService.serviceBase + 'api/account/test')
                     .then(function () { alert('Test successful!'); })
                     .catch(function () { alert('Test failed!'); });
             };
