@@ -10,15 +10,15 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = [];
-    function controllerFunc() {
+    controllerFunc.$inject = ['authService'];
+    function controllerFunc(authService) {
         var dsa = this;
 
         dsa.$onInit = function () {
         };
 
-        dsa.loginExternal = function (type) {
-            alert('log in with ' + type + ' - Not yet implemented.');
+        dsa.loginExternal = function (provider) {
+            authService.loginExternal(provider);
         };
     }
 })();
