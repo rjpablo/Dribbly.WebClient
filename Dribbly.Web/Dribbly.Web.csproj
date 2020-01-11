@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="Enums\" />
     <Folder Include="wwwroot\lib\" />
+    <Folder Include="wwwroot\lib\angular-ui-router-title\" />
     <Folder Include="wwwroot\shared\services\" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('siteModule')
-        .service('i18nService', ['$timeout', function ($timeout) {
+        .service('i18nService', ['$timeout', 'constants', function ($timeout, constants) {
             var _entries = {
                 site: {
                     ConfirmPassword: 'Confirm Password',
@@ -15,7 +15,7 @@
                     Password: 'Password',
                     Players: 'Players',
                     Search: 'Search',
-                    SiteName: 'Dribbly',
+                    SiteName: constants.site.name,
                     Teams: 'Teams',
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!'
                 },

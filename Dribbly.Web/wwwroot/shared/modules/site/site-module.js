@@ -3,6 +3,7 @@
 
     var module = angular.module('siteModule', [
         'ui.router',
+        'drrbly.ui.router.title',
         'ngSanitize',
         'ngAnimate',
         'ngTouch',
@@ -29,12 +30,20 @@
 
             .state('main.home', {
                 url: '/home',
-                template: '<drbbly-home-container></drbbly-home-container>'
+                template: '<drbbly-home-container></drbbly-home-container>',
+                resolve: {
+                    $titleKey: function () {
+                        return 'site.Home';
+                    }
+                }
             })
 
             .state('main.courts', {
                 url: '/courts',
-                template: '<drbbly-courts-container></drbbly-courts-container>'
+                template: '<drbbly-courts-container></drbbly-courts-container>',
+                resolve: {
+                    $titleKey: () => { return 'site.Courts'; }
+                }
             })
 
             .state('auth', {
@@ -45,18 +54,30 @@
 
             .state('auth.login', {
                 url: '/login',
-                template: '<drbbly-login-container app="app"></drbbly-login-container>'
+                template: '<drbbly-login-container app="app"></drbbly-login-container>',
+                resolve: {
+                    $titleKey: () => { return 'auth.LogIn'; }
+                }
             })
 
             .state('auth.signUp', {
                 url: '/signup',
-                template: '<drbbly-signup-container app="app"></drbbly-signup-container>'
+                template: '<drbbly-signup-container app="app"></drbbly-signup-container>',
+                resolve: {
+                    $titleKey: () => { return 'auth.SignUp'; }
+                }
             });
 
         $locationProvider.hashPrefix('');
 
         $httpProvider.interceptors.push('authInterceptorService');
     }
+
+    module.config(['$titleProvider', 'constants', function ($titleProvider, constants) {
+        $titleProvider.documentTitle(function ($rootScope) {
+            return $rootScope.$root.$title ? $rootScope.$root.$title + ' - ' + constants.site.name : constants.site.name;
+        });
+    }]);
 
     module.run(['authService', '$transitions', '$rootScope', runFn]);
     function runFn(authService, $transitions, $rootScope) {
@@ -65,8 +86,8 @@
             auth: authService.authentication
         };
 
-        $transitions.onEnter({}, function (transition, state) {
-            console.log('Entered new state: ' + state.name);
+        $transitions.onSuccess({}, function (transition) {
+
         });
 
         $transitions.onRetain({}, function (transition, state) {

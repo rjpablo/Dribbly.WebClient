@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='copy, build' />
+﻿/// <binding BeforeBuild='build' />
 const gulp = require('gulp');
 const merge = require("merge-stream");
 const del = require("del");
@@ -8,6 +8,8 @@ var paths = {
     lib: './wwwroot/lib/'
 };
 
+//Only npm files that are listed here will be inlucde in the build
+//REMEMBER: keep alphabetical order
 var nodeLibs = {
     jquery: {
         source: 'jquery/dist/jquery.js',
@@ -21,7 +23,7 @@ var nodeLibs = {
         source: 'angular-animate/angular-animate.js',
         destination: 'angular-animate'
     },
-    angular_sanitize:{
+    angular_sanitize: {
         source: 'angular-sanitize/angular-sanitize.js',
         destination: 'angular-sanitize'
     },
