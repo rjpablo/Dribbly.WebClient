@@ -10,6 +10,10 @@ body {
     color: #777;
 }
 
+    .bg-dark .separator {
+        border: 1px #5a5a5a inset;
+    }
+
 .nav li > a {
     color: #777;
 }

@@ -1,0 +1,52 @@
+﻿.drbbly-sidenavigator {
+    position: fixed;
+    top: 0;
+    z-index: 2000; /* Stay on top */
+}
+
+    .drbbly-sidenavigator > .sidenav-content {
+        width: 200px; /* 0 width - change this with JavaScript */
+        height: 100%; /* 100% Full-height */
+        position: fixed; /* Stay in place */
+        top: 0;
+        left: -200px;
+        transition: 0.3s; /* 0.5 second transition effect to slide in the sidebar */
+    }
+
+        .drbbly-sidenavigator > .sidenav-content.drrbly-expanded {
+            left: 0px;
+        }
+
+    .drbbly-sidenavigator > .sidenav-backdrop {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    /* Header */
+
+    .drbbly-sidenavigator .header {
+        /*box-shadow: 0 0.125rem 0.25rem rgba(1, 1, 1, 0.5) !important;*/
+    }
+
+        .drbbly-sidenavigator .header > drbbly-sitelogo {
+            padding: 0.5rem 1rem;
+        }
+
+    .drbbly-sidenavigator a.username {
+        color: #fff;
+    }
+
+    /* Menu Items */
+    .drbbly-sidenavigator .nav {
+        margin: 0.5rem 0;
+    }
+
+        .drbbly-sidenavigator .nav > li {
+            width: 100%;
+        }
+
+        .drbbly-sidenavigator .nav .nav-link {
+            padding: 0.25rem 1rem;
+        }

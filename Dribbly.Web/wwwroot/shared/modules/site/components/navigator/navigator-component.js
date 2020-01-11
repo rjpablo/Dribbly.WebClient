@@ -9,12 +9,13 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['authService', '$state', '$window'];
-    function controllerFn(authService, $state, $window) {
+    controllerFn.$inject = ['authService', '$state', '$window', 'settingsService'];
+    function controllerFn(authService, $state, $window, settingsService) {
         var nav = this;
         
         nav.$onInit = function () {
             nav.$state = $state;
+            nav.usingSideNavigator = settingsService.useSideNavigator;
         };
 
         nav.searchClicked = function () {

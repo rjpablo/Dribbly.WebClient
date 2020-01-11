@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('siteModule')
-        .service('i18nService', [function () {
+        .service('i18nService', ['$timeout', function ($timeout) {
             var _entries = {
                 site: {
                     ConfirmPassword: 'Confirm Password',

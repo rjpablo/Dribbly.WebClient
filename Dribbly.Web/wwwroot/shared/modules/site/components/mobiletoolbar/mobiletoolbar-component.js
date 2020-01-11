@@ -9,8 +9,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$element', 'authService', '$state', '$window'];
-    function controllerFn($element, authService, $state, $window) {
+    controllerFn.$inject = ['$element', 'authService', '$state', '$window', '$rootScope'];
+    function controllerFn($element, authService, $state, $window, $rootScope) {
         var mtb = this;
 
         mtb.$onInit = function () {
@@ -28,5 +28,8 @@
         mtb.isAuthenticated = function () {
             return authService.authentication.isAuthenticated;
         };
+
+        mtb.toggleSideNavigator = () => $rootScope.$broadcast('toggle-sidenavigator');
+
     }
 })();

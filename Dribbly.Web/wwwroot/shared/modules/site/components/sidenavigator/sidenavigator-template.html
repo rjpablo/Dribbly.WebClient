@@ -1,0 +1,27 @@
+﻿<div ng-hide="dsn.isCollapsed" ng-click="dsn.close()" class="sidenav-backdrop"></div>
+<div class="sidenav-content bg-dark">
+    <div class="header px-3 py-2">
+        <drbbly-profilepicture ng-show="dsn.user" class="float-left d-inline mr-2" user="dsn.user"></drbbly-profilepicture>
+        <div class="d-inline-block">
+            <a class="d-block username" ui-sref="dsn.user.userId">
+                <strong>{{dsn.user.userName}}</strong>
+            </a>
+            <small ng-if="dsn.isAuthenticated()" ng-click="dsn.logOut()">{{'site.LogOut' | i18n}}</small>
+            <a ui-sref="auth.login" ng-if="!dsn.isAuthenticated()" ng-click="dsn.logIn()">{{'auth.LogIn' | i18n}}</a>
+        </div>
+    </div>
+    <div class="separator"></div>
+    <nav>
+        <ul class="nav">
+            <li ng-repeat="item in dsn.navItems">
+                <a class="nav-link"
+                   ng-class="{'active': dsn.$state.current.name === item.targetState}"
+                   ui-sref="{{::item.targetState}}" ng-click="dsn.close()">
+                    <span class="d-inline text-center drbbly-font menu-item-icon"
+                          ng-class="item.icon"></span>
+                    <span class="d-inline menu-item-text">{{item.textKey | i18n}}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

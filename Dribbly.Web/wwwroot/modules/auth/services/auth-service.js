@@ -7,6 +7,7 @@
 
                 var authServiceFactory = {};
                 var _useRefreshTokens = true;
+                var _temporaryProfilePicture = 'https://i7.pngguru.com/preview/178/419/741/computer-icons-avatar-login-user-avatar.jpg';
 
                 var _authentication = {
                     isAuthenticated: false,
@@ -35,12 +36,14 @@
                                 token: response.data.access_token,
                                 userName: loginData.userName,
                                 refreshToken: response.data.refresh_token,
-                                useRefreshTokens: _useRefreshTokens
+                                useRefreshTokens: _useRefreshTokens,
+                                profilePicture: _temporaryProfilePicture
                             });
 
                             _authentication.isAuthenticated = true;
                             _authentication.userName = loginData.userName;
                             _authentication.useRefreshTokens = _useRefreshTokens;
+                            _authentication.profilePicture = _temporaryProfilePicture;
 
                             deferred.resolve(response);
 
@@ -69,6 +72,7 @@
                         _authentication.isAuthenticated = true;
                         _authentication.userName = authData.userName;
                         _authentication.useRefreshTokens = authData.useRefreshTokens;
+                        _authentication.profilePicture = authData.profilePicture;
                     }
 
                 };

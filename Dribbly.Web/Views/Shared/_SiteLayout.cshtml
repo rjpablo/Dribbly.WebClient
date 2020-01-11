@@ -21,12 +21,15 @@
     @* Site *@
     <link href="~/shared/modules/site/site.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/navigator/navigator.css" rel="stylesheet" />
+    <link href="~/shared/modules/site/components/sidenavigator/sidenavigator.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/sitelogo/sitelogo.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/mobiletoolbar/mobiletoolbar.css" rel="stylesheet" />
     @* Auth *@
     <link href="~/modules/auth/components/shared/loggedoutmenubar/loggedoutmenubar.css" rel="stylesheet" />
     <link href="~/modules/auth/components/login/login-container/login-container.css" rel="stylesheet" />
     <link href="~/modules/auth/components/signup/signup-container/signup-container.css" rel="stylesheet" />
+    @* App *@
+    <link href="~/shared/modules/app/components/profilepicture/profilepicture.component.css" rel="stylesheet" />
 </head>
 <body ng-controller="appController as app">
 
@@ -65,17 +68,19 @@
     <script src="~/shared/modules/site/components/navigator/navigator-component.js"></script>
     <script src="~/shared/modules/site/components/sitelogo/sitelogo-component.js"></script>
     <script src="~/shared/modules/site/components/mobiletoolbar/mobiletoolbar-component.js"></script>
+    <script src="~/shared/modules/site/components/sidenavigator/sidenavigatorcomponent.js"></script>
     <script src="~/shared/modules/site/components/modal/modal-component.js"></script>
-
-    @* appModule files *@
-    <script src="~/shared/modules/app/app-module.js"></script>
-    <script src="~/shared/modules/app/app-controller.js"></script>
 
     @* authModule files *@
     <script src="~/modules/auth/auth-module.js"></script>
     <script src="~/modules/auth/services/auth-service.js"></script>
     <script src="~/modules/auth/services/authInterceptor-service.js"></script>
     <script src="~/modules/auth/auth-controller.js"></script>
+
+    @* appModule files *@
+    <script src="~/shared/modules/app/app-module.js"></script>
+    <script src="~/shared/modules/app/app-controller.js"></script>
+    <script src="~/shared/modules/app/components/profilepicture/profilepicture.component.js"></script>
 
     <script src="~/modules/auth/components/shared/socialauth/socialauth-component.js"></script>
     <script src="~/modules/auth/components/shared/loggedoutmenubar/loggedoutmenubar-component.js"></script>
