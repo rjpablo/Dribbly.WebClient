@@ -2,6 +2,7 @@
     'use strict';
 
     var module = angular.module('appModule', [
-        'siteModule'
+        'siteModule',
+        'authModule'
     ]);
 })();

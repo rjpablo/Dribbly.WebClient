@@ -1,0 +1,14 @@
+﻿<div>
+    <div class="photo-container"
+         ng-style="{'background-image': 'url(' + cli.court.primaryPhotoUrl + ')'}">
+        <div class="backdrop"></div>
+        <div class="primary-photo"
+             ng-style="{'background-image': 'url(' + cli.court.primaryPhotoUrl + ')'}"></div>
+        <span class="rate">{{ (cli.court.ratePerHour || 0) | currency:'P':0 }}<small>/hr</small></span>
+    </div>
+    <div class="details">
+        <span class="name d-block line-height-1">{{cli.court.name}}</span>
+        <small class="city text-muted d-block line-height-1">{{cli.court.city}}</small>
+        <drbbly-rating class="d-block" value="cli.court.rating"></drbbly-rating>
+    </div>
+</div>

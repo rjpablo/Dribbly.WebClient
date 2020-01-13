@@ -1,0 +1,46 @@
+﻿.drbbly-court-list-item {
+    display: inline-block;
+}
+
+    .drbbly-court-list-item .photo-container {
+        position: relative;
+        height: 100px;
+        width: 150px;
+        background-size: cover;
+        background-color: black;
+    }
+
+        .drbbly-court-list-item .photo-container > .backdrop {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: black;
+            opacity: 0.8;
+        }
+
+        .drbbly-court-list-item .photo-container .primary-photo {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: contain;
+        }
+
+    .drbbly-court-list-item .rate {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: #fff;
+        background-color: rgba(89, 125, 96, 0.9);
+        line-height: 1rem;
+        padding: 0.125rem;
+    }
+
+    .drbbly-court-list-item .details {
+    }
+
+        .drbbly-court-list-item .details .name {
+            color: white;
+            white-space: initial;
+        }

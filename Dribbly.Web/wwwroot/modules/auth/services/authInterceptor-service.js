@@ -42,6 +42,9 @@
                             }
                         }
                     }
+                    else {
+                        deferred.reject(rejection);
+                    }
                     return deferred.promise;
                 };
 

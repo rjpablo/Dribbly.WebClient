@@ -1,5 +1,5 @@
 ﻿<div class="container mt-5">
-    <div class="card">
-        <h2 class="card-header">{{'site.Courts' | i18n}}</h2>
-    </div>
+    <drbbly-courtlist ng-if="dcc.courts"
+                      courts="dcc.courts"
+                      title-key="{{'app.FeaturedCourts'}}"></drbbly-courtlist>
 </div>

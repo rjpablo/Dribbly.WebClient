@@ -19,6 +19,9 @@
                     Teams: 'Teams',
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!'
                 },
+                app: {
+                    FeaturedCourts: 'Featured Courts'
+                },
                 auth: {
                     AlreadyHaveAnAccount: 'Already have an account?',
                     DontHaveAnAccount: 'Don\'t have an account?',
