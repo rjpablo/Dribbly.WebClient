@@ -12,8 +12,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', '$rootScope', 'settingsService', '$element'];
-    function controllerFunc(authService, $rootScope, settingsService, $element) {
+    controllerFunc.$inject = ['$element'];
+    function controllerFunc($element) {
         var cli = this;
 
         cli.$onInit = function () {

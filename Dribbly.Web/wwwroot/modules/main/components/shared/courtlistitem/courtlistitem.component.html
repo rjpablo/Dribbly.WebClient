@@ -1,9 +1,7 @@
 ﻿<div>
-    <div class="photo-container"
-         ng-style="{'background-image': 'url(' + cli.court.primaryPhotoUrl + ')'}">
-        <div class="backdrop"></div>
-        <div class="primary-photo"
-             ng-style="{'background-image': 'url(' + cli.court.primaryPhotoUrl + ')'}"></div>
+    <div class="photo-container">
+        <drbbly-image class="primary-photo"
+                      image-url="{{cli.court.primaryPhotoUrl}}"></drbbly-image>
         <span class="rate">{{ (cli.court.ratePerHour || 0) | currency:'P':0 }}<small>/hr</small></span>
     </div>
     <div class="details">

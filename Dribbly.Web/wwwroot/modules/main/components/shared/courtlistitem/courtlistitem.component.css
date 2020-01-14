@@ -6,26 +6,11 @@
         position: relative;
         height: 100px;
         width: 150px;
-        background-size: cover;
-        background-color: black;
     }
 
-        .drbbly-court-list-item .photo-container > .backdrop {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            background: black;
-            opacity: 0.8;
-        }
-
-        .drbbly-court-list-item .photo-container .primary-photo {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-            background-size: contain;
-        }
+    .drbbly-court-list-item .primary-photo {
+        position: absolute;
+    }
 
     .drbbly-court-list-item .rate {
         position: absolute;

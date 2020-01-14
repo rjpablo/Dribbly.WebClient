@@ -1,0 +1,22 @@
+﻿drbbly-image {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+drbbly-image .background {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-color: black;
+}
+
+drbbly-image .image {
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-color: rgba(1, 1, 1, 0.4);
+}
