@@ -8,7 +8,7 @@
                 app: '<'
             },
             controllerAs: 'dhc',
-            templateUrl: '/modules/main/components/home/home-container/home-container-template.html',
+            templateUrl: '/modules/main/containers/home-container/home-container.component.html',
             controller: controllerFunc
         });
 

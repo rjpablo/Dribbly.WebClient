@@ -8,6 +8,6 @@
                 imageUrl: '@'
             },
             controllerAs: 'dic',
-            templateUrl: '/modules/main/components/shared/image/image.component.html'
+            templateUrl: '/modules/main/components/image/image.component.html'
         });
 })();

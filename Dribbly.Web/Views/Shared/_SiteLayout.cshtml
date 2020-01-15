@@ -30,11 +30,11 @@
     <link href="~/modules/auth/components/signup/signup-container/signup-container.css" rel="stylesheet" />
     <link href="~/shared/modules/app/components/rating/rating.component.css" rel="stylesheet" />
     @* App *@
-    <link href="~/modules/main/components/shared/image/image.component.css" rel="stylesheet" />
+    <link href="~/modules/main/components/image/image.component.css" rel="stylesheet" />
+    <link href="~/modules/main/components/court-list-item/court-list-item.component.css" rel="stylesheet" />
+    <link href="~/modules/main/components/court-list/court-list.component.css" rel="stylesheet" />
     <link href="~/shared/modules/app/components/profilepicture/profilepicture.component.css" rel="stylesheet" />
-    <link href="~/modules/main/components/shared/courtlistitem/courtlistitem.component.css" rel="stylesheet" />
-    <link href="~/modules/main/components/shared/courtlist/courtlist.component.css" rel="stylesheet" />
-    <link href="~/modules/main/components/courts/courts-container/courts-container.component.css" rel="stylesheet" />
+    <link href="~/modules/main/containers/courts-container/courts-container.component.css" rel="stylesheet" />
 </head>
 <body ng-controller="appController as app">
 
@@ -93,10 +93,10 @@
 
     @*mainModule components*@
     <script src="~/shared/modules/app/components/rating/rating.component.js"></script>
-    <script src="~/modules/main/components/shared/image/image.component.js"></script>
     <script src="~/shared/modules/app/components/profilepicture/profilepicture.component.js"></script>
-    <script src="~/modules/main/components/shared/courtlist/courtlist.component.js"></script>
-    <script src="~/modules/main/components/shared/courtlistitem/courtlistitem.component.js"></script>
+    <script src="~/modules/main/components/image/image.component.js"></script>
+    <script src="~/modules/main/components/court-list-item/court-list-item.component.js"></script>
+    <script src="~/modules/main/components/court-list/court-list.component.js"></script>
 
     <script src="~/modules/auth/components/shared/socialauth/socialauth-component.js"></script>
     <script src="~/modules/auth/components/shared/loggedoutmenubar/loggedoutmenubar-component.js"></script>
@@ -105,6 +105,18 @@
     <script src="~/modules/auth/components/signup/signup-container/signup-container-component.js"></script>
     <script src="~/modules/auth/components/signup/signupform/signupform-component.js"></script>
 
-    @RenderSection("Scripts", required: false)
+    @*main Module*@
+    <script src="~/modules/main/main-module.js"></script>
+    <script src="~/modules/main/main-controller.js"></script>
+
+    @*Containers*@
+
+    <script src="~/modules/main/containers/home-container/home-container.service.js"></script>
+    <script src="~/modules/main/containers/home-container/home-container.component.js"></script>
+
+    <script src="~/modules/main/containers/courts-container/courts-container-service.js"></script>
+    <script src="~/modules/main/containers/courts-container/courts-container.component.js"></script>
+
+    <script src="~/modules/main/containers/main-container/main-container.component.js"></script>
 </body>
 </html>

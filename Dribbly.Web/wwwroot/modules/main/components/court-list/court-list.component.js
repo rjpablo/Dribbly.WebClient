@@ -9,7 +9,7 @@
                 titleKey: '@'
             },
             controllerAs: 'dcl',
-            templateUrl: '/modules/main/components/shared/courtlist/courtlist.component.html',
+            templateUrl: '/modules/main/components/court-list/court-list.component.html',
             controller: controllerFunc
         });
 

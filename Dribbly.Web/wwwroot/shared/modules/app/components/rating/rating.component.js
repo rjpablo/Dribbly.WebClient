@@ -16,7 +16,6 @@
         var drc = this;
 
         drc.$onInit = function () {
-            console.log(drc.value);
             $element.addClass('drbbly-rating');
         };
     }

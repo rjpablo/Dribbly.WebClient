@@ -8,7 +8,7 @@
                 court: '<'
             },
             controllerAs: 'cli',
-            templateUrl: '/modules/main/components/shared/courtlistitem/courtlistitem.component.html',
+            templateUrl: '/modules/main/components/court-list-item/court-list-item.component.html',
             controller: controllerFunc
         });
 

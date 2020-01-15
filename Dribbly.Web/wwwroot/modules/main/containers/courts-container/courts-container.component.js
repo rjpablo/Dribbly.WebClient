@@ -8,7 +8,7 @@
                 app: '<'
             },
             controllerAs: 'dcc',
-            templateUrl: '/modules/main/components/courts/courts-container/courts-container-template.html',
+            templateUrl: '/modules/main/containers/courts-container/courts-container.component.html',
             controller: controllerFunc
         });
 

@@ -8,7 +8,7 @@
                 app: '<'
             },
             controllerAs: 'dmc',
-            templateUrl: '/modules/main/components/shared/main-container/main-container-template.html',
+            templateUrl: '/modules/main/containers/main-container/main-container.component.html',
             controller: controllerFunc
         });
 
