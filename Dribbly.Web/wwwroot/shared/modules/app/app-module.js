@@ -13,11 +13,15 @@
         });
     }]);
 
-    module.run(['authService', '$transitions', '$rootScope', runFn]);
-    function runFn(authService, $transitions, $rootScope) {
+    module.run(['authService', '$transitions', '$rootScope', 'drbblyToolbarService', runFn]);
+    function runFn(authService, $transitions, $rootScope, drbblyToolbarService) {
         authService.fillAuthData();
         $rootScope.$root = {
             auth: authService.authentication
         };
+
+        $transitions.onSuccess({}, function (trans) {
+            drbblyToolbarService.reset();
+        });
     }
 })();

@@ -3,23 +3,13 @@
         <div class="col">
             <button class="btn ml-n2" ng-click="mtb.toggleSideNavigator()"><i class="fa fa-bars"></i></button>
             <span class="py-2 d-inline-block">{{$root.$title}}</span>
-            <ul class="nav float-right">
-                <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="menu-item-icon fa fa-search text-secondary"></i>
-                    </a>
-                </li>
-                <li ng-if="mtb.isAuthenticated()"
-                    class="nav-item">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-                        <i class="menu-item-icon fa fa-user text-secondary"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <h6 class="dropdown-header" ng-bind-html="'site.LoggedInAs' | i18n:({userName: $root.auth.userName})"></h6>
-                        <a class="dropdown-item" ng-click="mtb.logOut()">{{'site.LogOut' | i18n}}</a>
-                    </div>
-                </li>
-            </ul>
+
+            <button ng-repeat="item in mtb.items"
+                    class="btn ml-n2 float-right"
+                    ng-class="item.buttonClass"
+                    ng-click="item.action()">
+                <i ng-class="item.iconClass"></i>
+            </button>
         </div>
     </div>
 </div>

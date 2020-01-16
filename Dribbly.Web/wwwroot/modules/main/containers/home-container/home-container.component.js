@@ -12,12 +12,12 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['modalService'];
-    function controllerFunc(modalService) {
+    controllerFunc.$inject = ['modalService', 'drbblyToolbarService'];
+    function controllerFunc(modalService, drbblyToolbarService) {
         var dhc = this;
 
         dhc.$onInit = function () {
-
+            drbblyToolbarService.setItems([]);
         };
 
         dhc.openModal = function () {

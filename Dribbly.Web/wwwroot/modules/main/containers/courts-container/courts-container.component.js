@@ -12,12 +12,13 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['courtsService', '$element'];
-    function controllerFunc(courtsService, $element) {
+    controllerFunc.$inject = ['courtsService', '$element', 'drbblyToolbarService'];
+    function controllerFunc(courtsService, $element, drbblyToolbarService) {
         var dcc = this;
 
         dcc.$onInit = function () {
             $element.addClass('drbbly-courts-container');
+            setToolbarItems();
 
             courtsService.getAllCourts()
                 .then(function (data) {
@@ -27,5 +28,23 @@
                     console.log('failed to retrieve courts:' + error.exceptionMessage);
                 });
         };
+
+        function setToolbarItems() {
+            var buildItem = drbblyToolbarService.buildItem;
+            drbblyToolbarService.setItems([
+                {
+                    iconClass: 'fa fa-plus',
+                    action: addCourt
+                }, buildItem('fa fa-search', toggleSearch)
+            ]);
+        }
+
+        function addCourt() {
+            console.log('addCourt');
+        }
+
+        function toggleSearch() {
+            console.log('toggleSearch');
+        }
     }
 })();
