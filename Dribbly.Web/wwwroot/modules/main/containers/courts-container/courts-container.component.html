@@ -1,5 +1,7 @@
 ﻿<div class="container mt-5">
-    <drbbly-courtlist ng-if="dcc.courts"
-                      courts="dcc.courts"
-                      title-key="{{'app.FeaturedCourts'}}"></drbbly-courtlist>
+    <div drbbly-overlay="dcc.courtsListOverlay">
+        <drbbly-courtlist ng-if="dcc.courts"
+                          courts="dcc.courts"
+                          title-key="{{'app.FeaturedCourts'}}"></drbbly-courtlist>
+    </div>
 </div>

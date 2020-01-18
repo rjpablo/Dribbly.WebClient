@@ -12,24 +12,27 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['courtsService', '$element', 'drbblyToolbarService', 'drbblyCourtshelperService'];
-    function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService) {
+    controllerFunc.$inject = ['courtsService', '$element', 'drbblyToolbarService', 'drbblyCourtshelperService',
+        'drbblyOverlayService', '$timeout'];
+    function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService,
+        drbblyOverlayService, $timeout) {
         var dcc = this;
 
         dcc.$onInit = function () {
             $element.addClass('drbbly-courts-container');
+            dcc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             loadCourts();
             setToolbarItems();
         };
 
         function loadCourts() {
+            dcc.courtsListOverlay.setToBusy();
             drbblyCourtsService.getAllCourts()
                 .then(function (data) {
                     dcc.courts = data;
+                    dcc.courtsListOverlay.setToReady();
                 })
-                .catch(function (error) {
-                    console.log('failed to retrieve courts:' + error.exceptionMessage);
-                });
+                .catch(dcc.courtsListOverlay.setToError);
         }
 
         function setToolbarItems() {

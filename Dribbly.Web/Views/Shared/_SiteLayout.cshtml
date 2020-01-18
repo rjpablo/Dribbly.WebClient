@@ -20,6 +20,7 @@
     </environment>
     @* Site *@
     <link href="~/shared/modules/site/site.css" rel="stylesheet" />
+    <link href="~/shared/modules/site/directives/overlay/overlay.directive.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/navigator/navigator.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/sidenavigator/sidenavigator.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/sitelogo/sitelogo.css" rel="stylesheet" />
@@ -35,10 +36,13 @@
     <link href="~/modules/main/components/court-list/court-list.component.css" rel="stylesheet" />
     <link href="~/shared/modules/app/components/profilepicture/profilepicture.component.css" rel="stylesheet" />
     <link href="~/modules/main/containers/courts-container/courts-container.component.css" rel="stylesheet" />
+    <link href="~/shared/modules/app/app.css" rel="stylesheet" />
 </head>
 <body ng-controller="appController as app">
 
-    @RenderBody()
+    <div id="app-overlay" drbbly-overlay="app.overlay">
+        @RenderBody()
+    </div>
 
     @*Third Party*@
     <environment include="Development">
@@ -72,6 +76,7 @@
     <script src="~/shared/modules/site/services/settings-service.js"></script>
     <script src="~/shared/modules/site/services/http-service.js"></script>
     <script src="~/shared/modules/site/services/i18n-service.js"></script>
+    <script src="~/shared/modules/site/services/overlay.service.js"></script>
     <script src="~/shared/modules/site/services/modal-service.js"></script>
     <script src="~/shared/modules/site/filters/i18n-filter.js"></script>
     <script src="~/shared/modules/site/directives/i18n.directive.js"></script>
@@ -81,6 +86,7 @@
     <script src="~/shared/modules/site/components/mobiletoolbar/mobiletoolbar-component.js"></script>
     <script src="~/shared/modules/site/components/sidenavigator/sidenavigatorcomponent.js"></script>
     <script src="~/shared/modules/site/components/modal/modal-component.js"></script>
+    <script src="~/shared/modules/site/directives/overlay/overlay.directive.js"></script>
 
     @* authModule files *@
     <script src="~/modules/auth/auth-module.js"></script>

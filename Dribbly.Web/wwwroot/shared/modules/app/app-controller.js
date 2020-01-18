@@ -2,24 +2,30 @@
     'use strict';
 
     angular.module('appModule')
-        .controller('appController', [function () {
-            var app = this;
+        .controller('appController', ['$rootScope', 'drbblyOverlayService', '$timeout', ctrlFn]);
+    function ctrlFn($rootScope, drbblyOverlayService, $timeout) {
+        var app = this;
+        app.overlay = drbblyOverlayService.buildOverlay();
 
-            app.showNavBar = function () {
-                app.navBarIsVisible = true;
-            };
+        $rootScope.$on('set-app-overlay', function (evt, options) {
+            app.overlay.setStatus(options.status, options.messageOverride);
+        });
 
-            app.hideNavBar = function () {
-                app.navBarIsVisible = false;
-            };
+        app.showNavBar = function () {
+            app.navBarIsVisible = true;
+        };
 
-            app.showMobileToolbar = function () {
-                app.mobileToolBarIsVisible = true;
-            };
+        app.hideNavBar = function () {
+            app.navBarIsVisible = false;
+        };
 
-            app.hideMobileToolbar = function () {
-                app.mobileToolBarIsVisible = false;
-            };
+        app.showMobileToolbar = function () {
+            app.mobileToolBarIsVisible = true;
+        };
 
-        }]);
+        app.hideMobileToolbar = function () {
+            app.mobileToolBarIsVisible = false;
+        };
+
+    }
 })();
