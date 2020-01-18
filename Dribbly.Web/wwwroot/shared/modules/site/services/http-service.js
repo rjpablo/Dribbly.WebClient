@@ -4,7 +4,6 @@
     angular.module('siteModule')
         .service('drbblyhttpService', ['$http', 'settingsService', '$q',
             function ($http, settingsService, $q) {
-                var _service = this;
 
                 function _get(url, config) {
                     var deferred = $q.defer();
@@ -19,8 +18,24 @@
                     return deferred.promise;
                 }
 
-                _service.get = _get;
+                function _post(url, data) {
+                    var deferred = $q.defer();
+                    $http.post(settingsService.serviceBase + url, data)
+                        .then(function (response) {
+                            deferred.resolve(response.data);
+                        })
+                        .catch(function (response) {
+                            deferred.reject(response.data);
+                        });
 
-                return _service;
+                    return deferred.promise;
+                }
+
+                var service = {
+                    get: _get,
+                    post: _post
+                };
+
+                return service;
             }]);
 })();

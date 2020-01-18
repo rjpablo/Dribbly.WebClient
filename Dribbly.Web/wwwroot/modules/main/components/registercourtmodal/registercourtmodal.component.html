@@ -1,0 +1,59 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" i18n="{{::'main.CourtRegistrationTitle'}}"></h3>
+</div>
+<div class="modal-body">
+    <form name="rcm.frmCourtDetails">
+        <fieldset ng-disabled="rcm.isBusy">
+            <div class="form-group">
+                <lable for="txtName">
+                    {{::'main.CourtNamePrompt' | i18n}}
+                    <input type="text"
+                           name="txtName"
+                           ng-model="rcm.court.name"
+                           class="form-control"
+                           required
+                           max="100" />
+                </lable>
+            </div>
+            <div class="form-group">
+                <lable for="txtAddress">
+                    {{::'app.Address' | i18n}}
+                    <input type="text"
+                           name="txtAddress"
+                           ng-model="rcm.court.address"
+                           class="form-control"
+                           required />
+                </lable>
+            </div>
+            <div class="form-group">
+                <lable for="txtRatePerHour">
+                    {{::'app.RatePerHour' | i18n}}
+                    <input type="number"
+                           name="txtRatePerHour"
+                           ng-model="rcm.court.ratePerHour"
+                           class="form-control" />
+                </lable>
+            </div>
+            <div class="form-group">
+                <lable for="txtPhoto">
+                    {{::'app.PrimaryPhoto' | i18n}}
+                    <input type="text"
+                           name="txtPhoto"
+                           ng-model="rcm.court.primaryPhotoUrl"
+                           class="form-control" />
+                </lable>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button i18n="{{::'site.Submit'}}"
+            class="btn btn-primary"
+            ng-disabled="rcm.isBusy || rcm.frmCourtDetails.$invalid || rcm.frmCourtDetails.$prestine"
+            type="button"
+            ng-click="rcm.submit()"></button>
+    <button i18n="{{::'site.Cancel'}}"
+            class="btn btn-warning"
+            type="button"
+            ng-click="rcm.cancel()"></button>
+</div>

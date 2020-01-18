@@ -5,6 +5,7 @@
         .service('i18nService', ['$timeout', 'constants', function ($timeout, constants) {
             var _entries = {
                 site: {
+                    Cancel: 'Cancel',
                     ConfirmPassword: 'Confirm Password',
                     Courts: 'Courts',
                     Email: 'Email',
@@ -16,11 +17,19 @@
                     Players: 'Players',
                     Search: 'Search',
                     SiteName: constants.site.name,
+                    Submit: 'Submit',
                     Teams: 'Teams',
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!'
                 },
                 app: {
-                    FeaturedCourts: 'Featured Courts'
+                    Address: 'Address',
+                    FeaturedCourts: 'Featured Courts',
+                    PrimaryPhoto: 'PrimaryPhoto',
+                    RatePerHour: 'Rate Per Hour'
+                },
+                main: {
+                    CourtRegistrationTitle: 'Register Court Details',
+                    CourtNamePrompt: 'Name of the court'
                 },
                 auth: {
                     AlreadyHaveAnAccount: 'Already have an account?',

@@ -5,8 +5,8 @@
         .service('settingsService', ['$location', function ($location) {
             var _service = this;
             var _siteRoot = 'http://localhost:30585/';
-            //var _serviceBase = 'https://localhost:44394/'; //use this when auth API is running in Visual Studio
             var _hostName = $location.host();
+            //var _serviceBase = 'https://localhost:44394/'; //use this when auth API is running in Visual Studio
             var _serviceBase = 'http://' + _hostName + ':1080/'; //use this to auth API in local IIS server
             //var _serviceBase = 'http://localhost:1080/'; //use this to auth API in local IIS server
             //var _serviceBase = 'http://www.dribbly001.somee.com/'; //use somee test server
