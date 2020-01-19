@@ -12,12 +12,25 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['drbblyCourtsService'];
-    function controllerFn(drbblyCourtsService) {
+    controllerFn.$inject = ['drbblyCourtsService', 'modalService'];
+    function controllerFn(drbblyCourtsService, modalService) {
         var rcm = this;
 
         rcm.$onInit = function () {
 
+        };
+
+        rcm.openLocationPicker = function () {
+            return modalService.show({
+                view: '<drbbly-locationpicker></drbbly-locationpicker>',
+                model: {}
+            })
+                .then(function (selectedLocation) {
+                    console.log(selectedLocation);
+                })
+                .catch(function () {
+
+                });
         };
 
         rcm.submit = function () {

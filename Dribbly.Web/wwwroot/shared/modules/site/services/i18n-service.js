@@ -27,10 +27,12 @@
                     Address: 'Address',
                     FeaturedCourts: 'Featured Courts',
                     PrimaryPhoto: 'PrimaryPhoto',
-                    RatePerHour: 'Rate Per Hour'
+                    RatePerHour: 'Rate Per Hour',
+                    SearchTheMap: 'Search the map'
                 },
                 main: {
                     CourtRegistrationTitle: 'Register Court Details',
+                    CourtLocationPrompt: 'Enter the court\'s location or select it from the map below',
                     CourtNamePrompt: 'Name of the court'
                 },
                 auth: {
