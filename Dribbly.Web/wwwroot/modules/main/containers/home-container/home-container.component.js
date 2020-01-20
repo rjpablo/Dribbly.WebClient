@@ -12,8 +12,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['modalService', 'drbblyToolbarService'];
-    function controllerFunc(modalService, drbblyToolbarService) {
+    controllerFunc.$inject = ['modalService', 'drbblyToolbarService', 'drbblyCommonService', '$timeout'];
+    function controllerFunc(modalService, drbblyToolbarService, drbblyCommonService, $timeout) {
         var dhc = this;
 
         dhc.$onInit = function () {
@@ -21,14 +21,11 @@
         };
 
         dhc.openModal = function () {
-            modalService.show({
-                view: '<drbbly-modal></drbbly-modal>',
-                model: { msg: 'Hello modal!' }
-            }).then(function (result) {
-                alert(result);
-            }).catch(function (reason) {
-                alert(reason);
-            });
+            modalService.confirm('site.WelcomeToDribblyExclamation',
+                'site.WelcomeToDribblyExclamation', null, 'YesNoCancel')
+                .then(function (response) {
+                    console.log('alert response: ' + response);
+                });
         };
     }
 })();

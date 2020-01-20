@@ -9,10 +9,10 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['authService', '$state', '$window', 'settingsService'];
-    function controllerFn(authService, $state, $window, settingsService) {
+    controllerFn.$inject = ['authService', '$state', '$window', 'settingsService', 'modalService'];
+    function controllerFn(authService, $state, $window, settingsService, modalService) {
         var nav = this;
-        
+
         nav.$onInit = function () {
             nav.$state = $state;
             nav.usingSideNavigator = settingsService.useSideNavigator;
@@ -23,10 +23,15 @@
         };
 
         nav.logOut = function () {
-            authService.logOut();
-            $state.go('main.home', { reload: true })
-                .finally(function () {
-                    $window.location.reload();
+            modalService.confirm('site.LogOutConfirmationMsg1', 'site.LogOutConfirmationMsg2', null, 'YesCancel')
+                .then(function (response) {
+                    if (response) {
+                        authService.logOut();
+                        $state.go('main.home', { reload: true })
+                            .finally(function () {
+                                $window.location.reload();
+                            });
+                    }
                 });
         };
 

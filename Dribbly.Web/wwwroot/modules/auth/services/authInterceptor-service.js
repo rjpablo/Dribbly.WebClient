@@ -1,8 +1,8 @@
 ﻿(function () {
     'use strict';
     angular.module('authModule')
-        .factory('authInterceptorService', ['$q', '$injector', '$location', 'localStorageService',
-            function ($q, $injector, $location, localStorageService) {
+        .factory('authInterceptorService', ['$q', '$injector', 'drbblyCommonService', 'localStorageService',
+            function ($q, $injector, drbblyCommonService, localStorageService) {
 
                 var authInterceptorServiceFactory = {};
 
@@ -43,6 +43,7 @@
                         }
                     }
                     else {
+                        drbblyCommonService.handleError(rejection);
                         deferred.reject(rejection);
                     }
                     return deferred.promise;
@@ -55,6 +56,7 @@
                             deferred.resolve(response);
                         })
                         .catch(function (response) {
+                            drbblyCommonService.handleError(rejection);
                             deferred.reject(response);
                         });
                 };

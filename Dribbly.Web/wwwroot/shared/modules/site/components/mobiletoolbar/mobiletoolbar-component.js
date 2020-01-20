@@ -10,9 +10,9 @@
         });
 
     controllerFn.$inject = ['$element', 'authService', '$state', '$window', '$rootScope',
-        'drbblyToolbarService'];
+        'drbblyToolbarService', 'modalService'];
     function controllerFn($element, authService, $state, $window, $rootScope,
-        drbblyToolbarService) {
+        drbblyToolbarService, modalService) {
         var mtb = this;
 
         mtb.$onInit = function () {
@@ -21,10 +21,15 @@
         };
 
         mtb.logOut = function () {
-            authService.logOut();
-            $state.go('main.home', { reload: true })
-                .finally(function () {
-                    $window.location.reload();
+            modalService.confirm('site.LogOutConfirmationMsg1', 'site.LogOutConfirmationMsg2', null, 'YesCancel')
+                .then(function (response) {
+                    if (response) {
+                        authService.logOut();
+                        $state.go('main.home', { reload: true })
+                            .finally(function () {
+                                $window.location.reload();
+                            });
+                    }
                 });
         };
 

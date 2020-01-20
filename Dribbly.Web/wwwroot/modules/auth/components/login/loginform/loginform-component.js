@@ -25,12 +25,6 @@
                         });
                 })
                 .catch(function (err) {
-                    if (err && err.error_description) {
-                        alert(err.error_description);
-                    }
-                    else {
-                        alert('Login Failed');
-                    }
                     dlf.loginData.password = '';
                     dlf.isBusy = false;
                 });

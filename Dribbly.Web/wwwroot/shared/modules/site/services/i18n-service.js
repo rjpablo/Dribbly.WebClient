@@ -7,11 +7,16 @@
                 site: {
                     Cancel: 'Cancel',
                     ConfirmPassword: 'Confirm Password',
+                    Continue: 'Continue',
                     Courts: 'Courts',
                     Email: 'Email',
                     Home: 'Home',
                     LoggedInAs: 'logged in as <strong class="text-capitalize">{userName}</strong>',
                     LogOut: 'Log Out',
+                    LogOutConfirmationMsg1: 'Action is not yet over...',
+                    LogOutConfirmationMsg2: 'Are you sure you want to log out?',
+                    No: 'No',
+                    Ok: 'Ok',
                     Or: 'Or',
                     OverlayErrorMsg: 'Oh no! The shot missed :(',
                     OverlayBusyMsg: 'Hold on tight... A shot on the way!',
@@ -21,7 +26,8 @@
                     SiteName: constants.site.name,
                     Submit: 'Submit',
                     Teams: 'Teams',
-                    WelcomeToDribblyExclamation: 'Welcome to dribbly!'
+                    WelcomeToDribblyExclamation: 'Welcome to dribbly!',
+                    Yes: 'Yes'
                 },
                 app: {
                     Address: 'Address',
