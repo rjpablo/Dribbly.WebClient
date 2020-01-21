@@ -11,8 +11,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['authService', '$state', '$window', '$element'];
-    function controllerFn(authService, $state, $window, $element) {
+    controllerFn.$inject = ['authService', '$state', '$window', '$element', 'modalService'];
+    function controllerFn(authService, $state, $window, $element, modalService) {
         var dsn = this;
         var _widget;
 
@@ -75,10 +75,15 @@
         };
 
         dsn.logOut = function () {
-            authService.logOut();
-            $state.go('main.home', { reload: true })
-                .finally(function () {
-                    $window.location.reload();
+            modalService.confirm('site.LogOutConfirmationMsg1', 'site.LogOutConfirmationMsg2', null, 'YesCancel')
+                .then(function (response) {
+                    if (response) {
+                        authService.logOut();
+                        $state.go('main.home', { reload: true })
+                            .finally(function () {
+                                $window.location.reload();
+                            });
+                    }
                 });
         };
 

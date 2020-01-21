@@ -11,11 +11,13 @@
   "dependencies": {
     "angular": "1.7.8",
     "angular-animate": "1.7.8",
+    "angular-confirm1": "1.1.0",
     "angular-local-storage": "0.7.1",
     "angular-sanitize": "1.7.8",
     "angular-touch": "1.7.8",
     "angular-ui-bootstrap": "2.5.6",
     "angular-ui-router": "1.0.22",
+    "angularjs-toaster": "3.0.0",
     "bootstrap": "4.3.0",
     "bootstrap-social": "5.1.1",
     "font-awesome": "4.7.0",

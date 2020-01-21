@@ -51,7 +51,39 @@
                 options.scope = scope;
             }
 
+            function alert(msg1Key, msg2Key, titleKey) {
+                return _show({
+                    view: '<drbbly-alertmodal></drbbly-alertmodal>',
+                    model: {
+                        msg1Key: msg1Key,
+                        msg2Key: msg2Key,
+                        titleKey: titleKey,
+                        options: {
+                            buttonsPreset: 'OkOnly'
+                        }
+                    },
+                    backdrop: 'static'
+                });
+            }
+
+            function confirm(msg1Key, msg2Key, titleKey, buttonsPreset) {
+                return _show({
+                    view: '<drbbly-alertmodal></drbbly-alertmodal>',
+                    model: {
+                        msg1Key: msg1Key,
+                        msg2Key: msg2Key,
+                        titleKey: titleKey,
+                        options: {
+                            buttonsPreset: buttonsPreset || 'YesNo'
+                        }
+                    },
+                    backdrop: 'static'
+                });
+            }
+
             this.show = _show;
+            this.alert = alert;
+            this.confirm = confirm;
 
             return this;
         }]);

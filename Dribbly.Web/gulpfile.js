@@ -35,6 +35,13 @@ var nodeLibs = {
         source: 'angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
         destination: 'angular-ui-bootstrap'
     },
+    angularjs_toaster: {
+        source: [
+            'angularjs-toaster/toaster.js',
+            'angularjs-toaster/toaster.css'
+        ],
+        destination: 'angularjs-toaster'
+    },
     bootstrap: {
         source: [
             'bootstrap/dist/css/bootstrap.css',

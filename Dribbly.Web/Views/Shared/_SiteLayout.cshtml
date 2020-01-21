@@ -12,15 +12,18 @@
         <link href="~/lib/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="~/lib/font-awesome/font-awesome.css" rel="stylesheet">
         <link href="~/lib/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
+        <link href="~/lib/angularjs-toaster/toaster.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <link href="~/lib/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="~/lib/font-awesome/font-awesome.css" rel="stylesheet">
         <link href="~/lib/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
+        <link href="~/lib/angularjs-toaster/toaster.css" rel="stylesheet" />
     </environment>
     @* Site *@
     <link href="~/shared/modules/site/site.css" rel="stylesheet" />
     <link href="~/shared/modules/site/directives/overlay/overlay.directive.css" rel="stylesheet" />
+    <link href="~/shared/modules/site/components/alertmodal/alertmodal.component.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/navigator/navigator.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/sidenavigator/sidenavigator.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/sitelogo/sitelogo.css" rel="stylesheet" />
@@ -40,7 +43,7 @@
     <link href="~/shared/modules/app/app.css" rel="stylesheet" />
 </head>
 <body ng-controller="appController as app">
-
+    <toaster-container toaster-options="{'time-out': 2000, 'position-class': 'toast-top-center'}"></toaster-container>
     <div id="app-overlay" drbbly-overlay="app.overlay">
         @RenderBody()
     </div>
@@ -58,6 +61,7 @@
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY&libraries=placeses,visualization,drawing,geometry,places"></script>
         <script src="~/lib/ngmap/ng-map.js"></script>
         <script src="~/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="~/lib/angularjs-toaster/toaster.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/lib/jquery/jquery.js"></script>
@@ -71,6 +75,7 @@
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY&libraries=placeses,visualization,drawing,geometry,places"></script>
         <script src="~/lib/ngmap/ng-map.js"></script>
         <script src="~/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="~/lib/angularjs-toaster/toaster.js"></script>
     </environment>
 
     @*Custom Modules*@
@@ -79,6 +84,8 @@
     @* siteModule files *@
     <script src="~/shared/modules/site/site-module.js"></script>
     <script src="~/shared/modules/site/services/settings-service.js"></script>
+    <script src="~/shared/modules/site/services/toast.service.js"></script>
+    <script src="~/shared/modules/site/services/common.service.js"></script>
     <script src="~/shared/modules/site/services/http-service.js"></script>
     <script src="~/shared/modules/site/services/i18n-service.js"></script>
     <script src="~/shared/modules/site/services/overlay.service.js"></script>
@@ -86,6 +93,7 @@
     <script src="~/shared/modules/site/filters/i18n-filter.js"></script>
     <script src="~/shared/modules/site/directives/i18n.directive.js"></script>
     <script src="~/shared/modules/site/site-controller.js"></script>
+    <script src="~/shared/modules/site/components/alertmodal/alertmodal.component.js"></script>
     <script src="~/shared/modules/site/components/navigator/navigator-component.js"></script>
     <script src="~/shared/modules/site/components/sitelogo/sitelogo-component.js"></script>
     <script src="~/shared/modules/site/components/mobiletoolbar/mobiletoolbar-component.js"></script>
