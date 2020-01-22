@@ -2,11 +2,10 @@
     <div class="photo-container">
         <drbbly-image class="primary-photo"
                       image-url="{{cli.court.primaryPhotoUrl}}"></drbbly-image>
-        <span class="rate">{{ (cli.court.ratePerHour || 0) | currency:'P':0 }}<small>/hr</small></span>
+        <span class="rate">{{ (cli.court.ratePerHour || 0) | currency:'P':0 }}<small>{{::'site.SlashHour' | i18n}}</small></span>
     </div>
     <div class="details">
         <span class="name d-block line-height-1">{{cli.court.name}}</span>
-        <small class="city text-muted d-block line-height-1">{{cli.court.address}}</small>
         <drbbly-rating class="d-block" value="cli.court.rating"></drbbly-rating>
     </div>
 </div>

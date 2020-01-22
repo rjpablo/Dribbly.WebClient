@@ -1,44 +1,14 @@
-﻿<div class="modal-header">
-    <h3 class="modal-title">Pick A Location</h3>
+﻿<div class="block form-group">
+    <input class="form-control"
+           type="text"
+           places-auto-complete
+           size=80
+           ng-model="dlp.address"
+           component-restrictions="{country:'ph'}"
+           types="{{dlp.types}}"
+           on-place-changed="dlp.placeChanged()"
+           placeholder="{{::'app.SearchTheMap' | i18n}}" />
 </div>
-<div class="modal-body">
-    <form name="dlp.locationPickerForm" class="" data-toggle="validator">
-        <div class="block form-group" ng-class="{'has-error': !dlp.selectedLocation.geometry && dlp.locationPickerForm.$submitted}">
-            <input class="form-control"
-                   type="text"
-                   places-auto-complete
-                   size=80
-                   ng-model="dlp.address"
-                   component-restrictions="{country:'ph'}"
-                   types="{{dlp.types}}"
-                   on-place-changed="dlp.placeChanged()"
-                   placeholder="{{::'app.SearchTheMap' | i18n}}" />
-            <div class="help-block" ng-messages="dlp.locationPickerForm.address.$error || dlp.selectedLocation.geometry" role="alert">
-                <div ng-show="!dlp.selectedLocation.geometry">Location on map is required.</div>
-            </div>
-            <div class="map-container" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY">
-                <ng-map id="locationPickerMap" center="{{dlp.center}}" zoom="{{dlp.zoom}}" on-click="dlp.mapClicked()"></ng-map>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label">City:</label>
-            <span ng-if="dlp.selectedLocation.city.longName && dlp.selectedLocation.city.country">
-                {{dlp.selectedLocation.city.longName + ', ' + dlp.selectedLocation.city.country.longName}}
-            </span>
-        </div>
-        <div class="form-group" ng-show="dlp.requireCompleteAddress"
-             ng-class="{'has-error':dlp.locationPickerForm.fullAddress.$invalid &&
-             (dlp.locationPickerForm.fullAddress.$touched || dlp.locationPickerForm.$submitted)}">
-            <label class="control-label" for="fullAddress">Complete Address:*</label>
-            <input name="fullAddress" class="form-control" ng-model="dlp.ompleteAddress" required ng-minlength="15" placeholder="Enter complete address" />
-            <div class="help-block" ng-messages="dlp.locationPickerForm.fullAddress.$error" role="alert">
-                <div ng-message="required">Please enter the full address.</div>
-                <div ng-message="minlength">This doesn't appear to be a complete address.</div>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="dlp.ok(dlp.locationPickerForm)">Done</button>
-    <button class="btn btn-warning" type="button" ng-click="dlp.cancel()">Cancel</button>
+<div class="map-container" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY">
+    <ng-map id="locationPickerMap" center="{{dlp.center}}" zoom="{{dlp.zoom}}" on-click="dlp.mapClicked()"></ng-map>
 </div>

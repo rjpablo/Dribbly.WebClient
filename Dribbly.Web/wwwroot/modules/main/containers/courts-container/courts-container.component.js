@@ -22,7 +22,7 @@
             $element.addClass('drbbly-courts-container');
             dcc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             loadCourts();
-            setToolbarItems();
+            $timeout(setToolbarItems, 100); //using timetout to wait for toolbar to initialized
         };
 
         function loadCourts() {

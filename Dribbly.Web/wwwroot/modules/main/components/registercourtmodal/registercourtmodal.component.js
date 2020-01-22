@@ -5,7 +5,8 @@
         .component('drbblyRegistercourtmodal', {
             bindings: {
                 model: '<',
-                context: '<'
+                context: '<',
+                options: '<'
             },
             controllerAs: 'rcm',
             templateUrl: '/modules/main/components/registercourtmodal/registercourtmodal.component.html',
@@ -17,20 +18,28 @@
         var rcm = this;
 
         rcm.$onInit = function () {
-
         };
 
         rcm.openLocationPicker = function () {
             return modalService.show({
-                view: '<drbbly-locationpicker></drbbly-locationpicker>',
-                model: {}
+                view: '<drbbly-locationpickermodal></drbbly-locationpickermodal>',
+                model: rcm.model,
+                optoins: rcm.options
             })
                 .then(function (selectedLocation) {
-                    console.log(selectedLocation);
+                    if (selectedLocation) {
+                        rcm.court.latitude = selectedLocation.latitude;
+                        rcm.court.longitude = selectedLocation.longitude;
+                    }
                 })
                 .catch(function () {
 
                 });
+        };
+
+        rcm.locationSelected = function (latLng) {
+            rcm.latitude = latLng.latitude;
+            rcm.longitude = latLng.longitude;
         };
 
         rcm.submit = function () {

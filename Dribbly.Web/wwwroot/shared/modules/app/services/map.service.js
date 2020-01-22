@@ -2,9 +2,11 @@
     'use strict';
 
     angular.module('appModule')
-        .service('mapService', ['$http', map]);
+        .service('mapService', ['drbblyToastService', 'modalService', '$q', map]);
 
-    function map($http) {
+    function map(drbblyToastService, modalService, $q) {
+
+        var _geocoder = new google.maps.Geocoder;
 
         var _getAddressCoordinates = function (address, callback) {
             var geocoder = new google.maps.Geocoder;
@@ -18,8 +20,19 @@
         };
 
         var _getAddress = function (latLng) {
-            return $http.get('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY&latlng='
-                + latLng.lat() + ',' + latLng.lng() + '&sensor=false');
+            var deferred = $q.defer();
+            _geocoder.geocode({ 'location': latLng }, (results, status) => {
+                if (status === 'OK') {
+                    deferred.resolve(results.length ? _getAddressComponents(results[0]) : null);
+                }
+                else {
+                    deferred.reject(status);
+                }
+            });
+            return deferred.promise;
+            // Old way:
+            //return $http.get('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY&latlng='
+            //    + latLng.lat() + ',' + latLng.lng() + '&sensor=false');
         };
 
         var _getCurrentPosition = function (cbSuccess, cbError) {
@@ -52,6 +65,7 @@
                 });
             });
 
+            components.geometry = place.geometry;
             return components;
         };
 
@@ -83,27 +97,21 @@
 
         var _validateCity = function (city) {
             if (!city) {
-                commonServices.toast.error('Failed to retrieve location details.' +
-                    ' Please try a different location.');
+                modalService.alert('site.Error_Map_FailedToRetrieveLocation');
                 return false;
             } else {
 
                 if (city.country) {
 
                     if (city.country.shortName !== 'PH') {
-                        alert('We\'re very sorry but we currently only support locations' +
-                            ' within the Philippines. We\'re currently working to expand our' +
-                            ' coverage. We\'ll let you know once were done. Thank you for understanding.');
+                        modalService.alert('site.Error_Map_PhOnly');
                         return false;
                     } else if (!city.shortName) {
-                        alert('Could not retrieve city name.' +
-                            ' Please try a different location.');
+                        modalService.alert('site.Error_Map_CityNameNotFound');
                         return false;
                     }
                 } else {
-                    alert('Could not retrieve country name.' +
-                        ' Please try a different location.');
-
+                    alert('site.Error_Map_CountryNameNotFound');
                     return false;
                 }
             }
@@ -119,6 +127,7 @@
         this.getLngFromLocation = _getLngFromLocation;
         this.getAddressComponents = _getAddressComponents;
         this.getCityFromLocation = _getCityFromLocation;
+        this.getPlaceComponents = _getAddressComponents;
         this.validateCity = _validateCity;
         return this;
     }

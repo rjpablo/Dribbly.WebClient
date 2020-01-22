@@ -4,23 +4,19 @@
     angular.module('appModule')
         .component('drbblyLocationpicker', {
             bindings: {
-                context: '<',
-                startPosition: '<',
-                onLocationSelect: '&',
-                requiredCompleteAddress: '<?'
+                onLocationSelected: '<?',
+                initialPosition: '<?'
             },
             controllerAs: 'dlp',
             templateUrl: '/shared/modules/app/components/locationpicker/locationpicker.component.html',
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['NgMap', 'mapService', '$timeout'];
-    function controllerFn(NgMap, mapService, $timeout) {
+    controllerFn.$inject = ['NgMap', 'mapService', '$timeout', 'modalService'];
+    function controllerFn(NgMap, mapService, $timeout, modalService) {
         var dlp = this;
 
         dlp.$onInit = function () {
-            dlp.address;
-            dlp.completeAddress;
             dlp.types = ['geocode'];
             dlp.center = '15,121';
 
@@ -43,11 +39,11 @@
         };
 
         function setInitialPosition() {
-            if (dlp.startPosition) {
-                dlp.address = dlp.startPosition.formatted_address;
-                dlp.completeAddress = dlp.startPosition.formatted_address;
-                dlp.selectedLocation = dlp.startPosition;
-                resetMark(dlp.startPosition.geometry);
+            if (dlp.initialPosition) {
+                dlp.address = startPosition.formatted_address;
+                dlp.completeAddress = startPosition.formatted_address;
+                dlp.selectedLocation = startPosition;
+                resetMark(startPosition.geometry);
             } else {
                 focusCurrentPosition();
             }
@@ -74,10 +70,11 @@
         };
 
         dlp.mapClicked = function (e) {
-            mapService.getAddress(e.latLng).then(function (res) {
-                if (res.data.results.length > 0) {
-                    var place = res.data.results[0];
-                    validatePlace(place);
+            mapService.getAddress(e.latLng).then(function (location) {
+                if (location) {
+                    if (validatePlace(location)) {
+                        returnSelectedLocation(location);
+                    }
                 } else {
                     console.log('No address was retrieved.' +
                         'Please try a different location.');
@@ -88,6 +85,16 @@
             });
         };
 
+        function returnSelectedLocation(place) {
+            if (dlp.onLocationSelected) {
+                var latLng = {
+                    latitude: place.geometry.location.lat(),
+                    longitude: place.geometry.location.lng()
+                };
+                dlp.onLocationSelected(latLng);
+            }
+        }
+
         function resetMark(e) {
             if (dlp.locationMarker) { //delete marker if existing
                 dlp.locationMarker.setMap(null);
@@ -97,20 +104,17 @@
             dlp.locationMarker = mapService.addMarker(e.latLng || e.location, dlp.map, true);
         }
 
-        dlp.placeChanged = function (a, b, c, d) {
+        dlp.placeChanged = function () {
             if (dlp.map) {
                 var place = this.getPlace();
                 if (place.geometry) {
-                    validatePlace(place);
+                    validatePlace(mapService.getAddressComponents(place));
                 } else {
                     mapService.getAddressCoordinates(dlp.address, function (res, t) {
                         if (res.length > 0) {
-                            place = res[0];
-
-                            if (validatePlace(place)) {
+                            if (validatePlace(mapService.getAddressComponents(place[0]))) {
                                 dlp.$apply();
                             }
-
                         } else {
                             console.log('Unable to find entered location.');
                         }
@@ -122,26 +126,24 @@
         };
 
         function validatePlace(place) {
-            var city = mapService.getCityFromLocation(place);
-
-            if (mapService.validateCity(city)) {
+            if (place.country_short === 'PH') {
                 dlp.completeAddress = place.formatted_address;
                 dlp.selectedLocation = place;
-                dlp.selectedLocation.city = city;
                 resetMark(place.geometry);
-                dlp.map.setCenter(place.geometry.location || place.geometry.latLng);
                 return true;
+                //dlp.map.setCenter(place.geometry.location || place.geometry.latLng);
+            } else {
+                modalService.alert('site.Error_Map_PhOnly');
+                return false;
             }
         }
 
-        dlp.ok = function (theForm) {
-            theForm.$submitted = true;
-            if (!(dlp.requireCompleteAddress && theForm.fullAddress.$invalid) && dlp.selectedLocation.geometry) {
-                dlp.selectedLocation.formatted_address = theForm.fullAddress.$modelValue;
-                dlp.context.submit(dlp.selectedLocation);
-            } else {
-                console.log('Please fix error(s).');
-            }
+        dlp.ok = function () {
+            var result = {
+                latitude: dlp.selectedLocation.geometry.location.lat(),
+                longitude: dlp.selectedLocation.geometry.location.lng()
+            };
+            dlp.context.submit(result);
         };
 
         dlp.cancel = function (e) {

@@ -1,18 +1,18 @@
-﻿.drbbly-court-list-item {
+﻿drbbly-courtlistitem {
     display: inline-block;
 }
 
-    .drbbly-court-list-item .photo-container {
+    drbbly-courtlistitem .photo-container {
         position: relative;
         height: 100px;
         width: 150px;
     }
 
-    .drbbly-court-list-item .primary-photo {
+    drbbly-courtlistitem .primary-photo {
         position: absolute;
     }
 
-    .drbbly-court-list-item .rate {
+    drbbly-courtlistitem .rate {
         position: absolute;
         right: 0;
         bottom: 0;
@@ -22,10 +22,10 @@
         padding: 0.125rem;
     }
 
-    .drbbly-court-list-item .details {
+    drbbly-courtlistitem .details {
     }
 
-        .drbbly-court-list-item .details .name {
+        drbbly-courtlistitem .details .name {
             color: white;
             white-space: initial;
         }
