@@ -28,6 +28,10 @@
             setClass();
 
             dsn.navItems = [{
+                textKey: 'site.Home',
+                targetState: 'main.home',
+                icon: 'players'
+            }, {
                 textKey: 'site.Courts',
                 targetState: 'main.courts',
                 icon: 'court-inclined'
