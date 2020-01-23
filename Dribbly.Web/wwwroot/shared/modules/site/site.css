@@ -106,3 +106,13 @@ body {
         display: none !important;
     }
 }
+
+/*************************
+    Library Overrides
+*************************/
+
+/* NgMap */
+.pac-container{
+    z-index: 1050 !important; /*Allows auto complete results to show over bootstrap modals. Modals have 1050 z-index*/
+}
+

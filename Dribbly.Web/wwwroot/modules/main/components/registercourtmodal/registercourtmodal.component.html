@@ -16,13 +16,8 @@
                 </lable>
             </div>
             <div class="form-group">
-                <lable for="txtAddress">
-                    {{::'app.Address' | i18n}}
-                    <input type="text"
-                           name="txtAddress"
-                           ng-model="rcm.court.address"
-                           class="form-control"
-                           required />
+                <lable> {{::'app.LocationPickFromTheMap' | i18n}}
+                    <drbbly-locationpicker on-location-selected="rcm.locationSelected"></drbbly-locationpicker>
                 </lable>
             </div>
             <div class="form-group">
@@ -37,10 +32,7 @@
             <div class="form-group">
                 <lable for="txtPhoto">
                     {{::'app.PrimaryPhoto' | i18n}}
-                    <input type="text"
-                           name="txtPhoto"
-                           ng-model="rcm.court.primaryPhotoUrl"
-                           class="form-control" />
+                    <a ng-class="" class="btn btn-link">Select a photo</a>
                 </lable>
             </div>
         </fieldset>

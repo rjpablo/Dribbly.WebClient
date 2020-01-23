@@ -1,0 +1,14 @@
+﻿<div class="block form-group">
+    <input class="form-control"
+           type="text"
+           places-auto-complete
+           size=80
+           ng-model="dlp.address"
+           component-restrictions="{country:'ph'}"
+           types="{{dlp.types}}"
+           on-place-changed="dlp.placeChanged()"
+           placeholder="{{::'app.SearchTheMap' | i18n}}" />
+</div>
+<div class="map-container" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY">
+    <ng-map id="locationPickerMap" center="{{dlp.center}}" zoom="{{dlp.zoom}}" on-click="dlp.mapClicked()"></ng-map>
+</div>

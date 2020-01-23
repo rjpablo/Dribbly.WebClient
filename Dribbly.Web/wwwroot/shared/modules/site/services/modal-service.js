@@ -38,7 +38,7 @@
             function setDefaultOptions(options) {
                 options.ariaLabelledBy = 'modal-title';
                 options.ariaDescribedBy = 'modal-body';
-                options.template = options.view.replace('><', ' model="mod.model" context="mod.context"><');
+                options.template = options.view.replace('><', ' model="mod.model" options="mod.options" context="mod.context"><');
                 options.controller = controllerFn;
                 options.controllerAs = 'mod';
                 options.bindToController = true;
@@ -47,7 +47,8 @@
                 options.backdropClass = 'show';
 
                 var scope = $rootScope.$new();
-                scope.model = options.model;
+                scope.model = options.model || {};
+                scope.options = options.options;
                 options.scope = scope;
             }
 

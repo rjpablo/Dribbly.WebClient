@@ -2,6 +2,7 @@
     'use strict';
 
     var module = angular.module('appModule', [
+        'ngMap',
         'drrbly.ui.router.title',
         'siteModule',
         'authModule'

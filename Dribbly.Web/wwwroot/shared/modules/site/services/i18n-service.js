@@ -9,7 +9,16 @@
                     ConfirmPassword: 'Confirm Password',
                     Continue: 'Continue',
                     Courts: 'Courts',
+                    Done: 'Done',
                     Email: 'Email',
+                    Error_Map_CityNameNotFound: 'Could not retrieve city name.' +
+                        ' Please try a different location.',
+                    Error_Map_CountryNameNotFound: 'Could not retrieve country name.' +
+                        ' Please try a different location.',
+                    Error_Map_FailedToRetrieveLocation: 'Failed to retrieve location details. Please try a different location.',
+                    Error_Map_PhOnly: 'We\'re very sorry but we currently only support locations' +
+                        ' within the Philippines. We\'re currently working to expand our' +
+                        ' coverage. We\'ll let you know once were done. Thank you for understanding.',
                     Home: 'Home',
                     LoggedInAs: 'logged in as <strong class="text-capitalize">{userName}</strong>',
                     LogOut: 'Log Out',
@@ -24,6 +33,7 @@
                     Players: 'Players',
                     Search: 'Search',
                     SiteName: constants.site.name,
+                    SlashHour: '/hr',
                     Submit: 'Submit',
                     Teams: 'Teams',
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!',
@@ -31,12 +41,16 @@
                 },
                 app: {
                     Address: 'Address',
+                    Browse: 'Browse',
                     FeaturedCourts: 'Featured Courts',
+                    LocationPickFromTheMap:'Location: (Please select from the map)',
                     PrimaryPhoto: 'PrimaryPhoto',
-                    RatePerHour: 'Rate Per Hour'
+                    RatePerHour: 'Rate Per Hour',
+                    SearchTheMap: 'Search the map'
                 },
                 main: {
                     CourtRegistrationTitle: 'Register Court Details',
+                    CourtLocationPrompt: 'Enter the court\'s location or select it from the map below',
                     CourtNamePrompt: 'Name of the court'
                 },
                 auth: {
