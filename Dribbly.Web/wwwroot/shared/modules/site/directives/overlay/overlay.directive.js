@@ -12,7 +12,9 @@
                     var ovl = ctrl;
 
                     scope.$watch('ovl.options', function (newValue, oldValue) {
-                        update();
+                        if (ovl.overlay) {
+                            update();
+                        }
                     }, true);
 
                     scope.$watch('ovl.overlay._status', function (newValue, oldValue) {
@@ -91,7 +93,7 @@
                         if (ovl.overlay.msgOverride === null || ovl.overlay.msgOverride === undefined) {
                             return getItem(item, itemDefault);
                         }
-                        return ovl.overlay.msgOverride;       
+                        return ovl.overlay.msgOverride;
                     }
 
                     function getItem(item, itemDefault) {
@@ -100,7 +102,7 @@
                                 return ovl.options[item];
                             }
                         }
-                        return itemDefault;                       
+                        return itemDefault;
                     }
 
                 }
