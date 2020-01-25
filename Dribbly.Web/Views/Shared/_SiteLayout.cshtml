@@ -24,10 +24,11 @@
     <link href="~/shared/modules/site/site.css" rel="stylesheet" />
     <link href="~/shared/modules/site/directives/overlay/overlay.directive.css" rel="stylesheet" />
     <link href="~/shared/modules/site/components/alertmodal/alertmodal.component.css" rel="stylesheet" />
-    <link href="~/shared/modules/site/components/navigator/navigator.css" rel="stylesheet" />
-    <link href="~/shared/modules/site/components/sidenavigator/sidenavigator.css" rel="stylesheet" />
-    <link href="~/shared/modules/site/components/sitelogo/sitelogo.css" rel="stylesheet" />
-    <link href="~/shared/modules/site/components/mobiletoolbar/mobiletoolbar.css" rel="stylesheet" />
+    <link href="~/shared/modules/site/components/modal/modal.component.css" rel="stylesheet" />
+    <link href="~/shared/modules/site/components/navigator/navigator.component.css" rel="stylesheet" />
+    <link href="~/shared/modules/site/components/sidenavigator/sidenavigator.component.css" rel="stylesheet" />
+    <link href="~/shared/modules/site/components/sitelogo/sitelogo.component.css" rel="stylesheet" />
+    <link href="~/shared/modules/site/components/mobiletoolbar/mobiletoolbar.component.css" rel="stylesheet" />
     @* Auth *@
     <link href="~/modules/auth/components/shared/loggedoutmenubar/loggedoutmenubar.css" rel="stylesheet" />
     <link href="~/modules/auth/components/login/login-container/login-container.css" rel="stylesheet" />
@@ -35,11 +36,11 @@
     <link href="~/shared/modules/app/components/rating/rating.component.css" rel="stylesheet" />
     @* App *@
     <link href="~/modules/main/components/image/image.component.css" rel="stylesheet" />
-    <link href="~/modules/main/components/court-list-item/court-list-item.component.css" rel="stylesheet" />
-    <link href="~/modules/main/components/court-list/court-list.component.css" rel="stylesheet" />
+    <link href="~/modules/main/components/courtlistitem/courtlistitem.component.css" rel="stylesheet" />
+    <link href="~/modules/main/components/courtlist/courtlist.component.css" rel="stylesheet" />
     <link href="~/shared/modules/app/components/profilepicture/profilepicture.component.css" rel="stylesheet" />
     <link href="~/shared/modules/app/components/locationpicker/locationpicker.component.css" rel="stylesheet" />
-    <link href="~/modules/main/containers/courts-container/courts-container.component.css" rel="stylesheet" />
+    <link href="~/modules/main/containers/courtscontainer/courtscontainer.component.css" rel="stylesheet" />
     <link href="~/shared/modules/app/app.css" rel="stylesheet" />
 </head>
 <body ng-controller="appController as app">
@@ -99,11 +100,11 @@
     <script src="~/shared/modules/site/directives/i18n.directive.js"></script>
     <script src="~/shared/modules/site/site-controller.js"></script>
     <script src="~/shared/modules/site/components/alertmodal/alertmodal.component.js"></script>
-    <script src="~/shared/modules/site/components/navigator/navigator-component.js"></script>
-    <script src="~/shared/modules/site/components/sitelogo/sitelogo-component.js"></script>
-    <script src="~/shared/modules/site/components/mobiletoolbar/mobiletoolbar-component.js"></script>
-    <script src="~/shared/modules/site/components/sidenavigator/sidenavigatorcomponent.js"></script>
-    <script src="~/shared/modules/site/components/modal/modal-component.js"></script>
+    <script src="~/shared/modules/site/components/navigator/navigator.component.js"></script>
+    <script src="~/shared/modules/site/components/sitelogo/sitelogo.component.js"></script>
+    <script src="~/shared/modules/site/components/mobiletoolbar/mobiletoolbar.component.js"></script>
+    <script src="~/shared/modules/site/components/sidenavigator/sidenavigator.component.js"></script>
+    <script src="~/shared/modules/site/components/modal/modal.component.js"></script>
     <script src="~/shared/modules/site/directives/overlay/overlay.directive.js"></script>
 
     @* authModule files *@
@@ -133,9 +134,9 @@
 
     @*mainModule components*@
     <script src="~/modules/main/components/image/image.component.js"></script>
-    <script src="~/modules/main/components/court-list-item/court-list-item.component.js"></script>
+    <script src="~/modules/main/components/courtlistitem/courtlistitem.component.js"></script>
     <script src="~/modules/main/components/registercourtmodal/registercourtmodal.component.js"></script>
-    <script src="~/modules/main/components/court-list/court-list.component.js"></script>
+    <script src="~/modules/main/components/courtlist/courtlist.component.js"></script>
 
     <script src="~/modules/auth/components/shared/socialauth/socialauth-component.js"></script>
     <script src="~/modules/auth/components/shared/loggedoutmenubar/loggedoutmenubar-component.js"></script>
@@ -146,12 +147,12 @@
 
     @*Containers*@
 
-    <script src="~/modules/main/containers/home-container/home-container.service.js"></script>
-    <script src="~/modules/main/containers/home-container/home-container.component.js"></script>
+    <script src="~/modules/main/containers/homecontainer/homecontainer.service.js"></script>
+    <script src="~/modules/main/containers/homecontainer/homecontainer.component.js"></script>
 
-    <script src="~/modules/main/containers/courts-container/courts-container-service.js"></script>
-    <script src="~/modules/main/containers/courts-container/courts-container.component.js"></script>
+    <script src="~/modules/main/containers/courtscontainer/courtscontainer.service.js"></script>
+    <script src="~/modules/main/containers/courtscontainer/courtscontainer.component.js"></script>
 
-    <script src="~/modules/main/containers/main-container/main-container.component.js"></script>
+    <script src="~/modules/main/containers/maincontainer/maincontainer.component.js"></script>
 </body>
 </html>

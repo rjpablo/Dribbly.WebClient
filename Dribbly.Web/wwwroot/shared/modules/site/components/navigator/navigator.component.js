@@ -5,7 +5,7 @@
         .component('drbblyNavigator', {
             bindings: {},
             controllerAs: 'nav',
-            templateUrl: '/shared/modules/site/components/navigator/navigator-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 

@@ -5,7 +5,7 @@
         .component('drbblySitelogo', {
             bindings: {},
             controllerAs: 'dsl',
-            templateUrl: '/shared/modules/site/components/sitelogo/sitelogo-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 

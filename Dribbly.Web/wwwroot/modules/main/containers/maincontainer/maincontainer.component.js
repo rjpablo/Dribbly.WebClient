@@ -8,7 +8,7 @@
                 app: '<'
             },
             controllerAs: 'dmc',
-            templateUrl: '/modules/main/containers/main-container/main-container.component.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 

@@ -7,7 +7,7 @@
                 widget: '='
             },
             controllerAs: 'dsn',
-            templateUrl: '/shared/modules/site/components/sidenavigator/sidenavigator-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 

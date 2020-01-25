@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('appModule')
+        .module('mainModule')
         .component('drbblyCourtlistitem', {
             bindings: {
                 court: '<'
             },
             controllerAs: 'cli',
-            templateUrl: '/modules/main/components/court-list-item/court-list-item.component.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 

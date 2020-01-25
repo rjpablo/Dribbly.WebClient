@@ -2,14 +2,14 @@
     'use strict';
 
     angular
-        .module('appModule')
+        .module('mainModule')
         .component('drbblyCourtlist', {
             bindings: {
                 courts: '<',
                 titleKey: '@'
             },
             controllerAs: 'dcl',
-            templateUrl: '/modules/main/components/court-list/court-list.component.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 

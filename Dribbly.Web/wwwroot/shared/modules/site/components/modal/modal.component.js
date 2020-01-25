@@ -8,7 +8,7 @@
                 context: '<'
             },
             controllerAs: 'mod',
-            templateUrl: '/shared/modules/site/components/modal/modal-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 

@@ -5,7 +5,7 @@
         .component('drbblyMobiletoolbar', {
             bindings: {},
             controllerAs: 'mtb',
-            templateUrl: '/shared/modules/site/components/mobiletoolbar/mobiletoolbar-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 
