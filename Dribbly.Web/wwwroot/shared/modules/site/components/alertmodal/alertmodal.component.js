@@ -8,7 +8,7 @@
                 context: '<'
             },
             controllerAs: 'dam',
-            templateUrl: '/shared/modules/site/components/alertmodal/alertmodal.component.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 

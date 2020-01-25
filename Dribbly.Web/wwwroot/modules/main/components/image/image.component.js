@@ -2,12 +2,12 @@
     'use strict';
 
     angular
-        .module('appModule')
+        .module('mainModule')
         .component('drbblyImage', {
             bindings: {
                 imageUrl: '@'
             },
             controllerAs: 'dic',
-            templateUrl: '/modules/main/components/image/image.component.html'
+            templateUrl: 'drbbly-default'
         });
 })();

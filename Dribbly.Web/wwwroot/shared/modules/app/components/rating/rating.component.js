@@ -7,7 +7,7 @@
                 value: '<'
             },
             controllerAs: 'drc',
-            templateUrl: '/shared/modules/app/components/rating/rating.component.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 

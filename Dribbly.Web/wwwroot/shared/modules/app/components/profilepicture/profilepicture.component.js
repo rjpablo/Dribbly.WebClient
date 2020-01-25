@@ -7,7 +7,7 @@
                 user: '<'
             },
             controllerAs: 'dpp',
-            templateUrl: '/shared/modules/app/components/profilepicture/profilepicture.component.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 

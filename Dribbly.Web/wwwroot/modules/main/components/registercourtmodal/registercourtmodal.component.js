@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('siteModule')
+    angular.module('mainModule')
         .component('drbblyRegistercourtmodal', {
             bindings: {
                 model: '<',
@@ -9,7 +9,7 @@
                 options: '<'
             },
             controllerAs: 'rcm',
-            templateUrl: '/modules/main/components/registercourtmodal/registercourtmodal.component.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 
