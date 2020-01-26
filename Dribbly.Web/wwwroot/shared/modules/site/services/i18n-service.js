@@ -9,6 +9,7 @@
                     ConfirmPassword: 'Confirm Password',
                     Continue: 'Continue',
                     Courts: 'Courts',
+                    CourtDetails: 'Court Details',
                     Done: 'Done',
                     Email: 'Email',
                     Error_Map_CityNameNotFound: 'Could not retrieve city name.' +
@@ -43,10 +44,14 @@
                     Address: 'Address',
                     Browse: 'Browse',
                     FeaturedCourts: 'Featured Courts',
-                    LocationPickFromTheMap:'Location: (Please select from the map)',
+                    LocationPickFromTheMap: 'Location: (Please select from the map)',
+                    NoAdditionalInfo: '<small class="text-muted">No additional info provided</small>',
                     PrimaryPhoto: 'PrimaryPhoto',
+                    Private: 'Private',
+                    Public: 'Public',
                     RatePerHour: 'Rate Per Hour',
-                    SearchTheMap: 'Search the map'
+                    SearchTheMap: 'Search the map',
+                    ViewOnMap: 'View On Map'
                 },
                 main: {
                     CourtRegistrationTitle: 'Register Court Details',

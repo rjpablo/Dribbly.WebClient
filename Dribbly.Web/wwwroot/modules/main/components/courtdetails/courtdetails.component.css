@@ -1,0 +1,8 @@
+﻿drbbly-courtdetails > div.photo-container{
+    height: 15rem;
+}
+
+drbbly-courtdetails .court-details .name{
+    color: #fff;
+    font-weight: bold;
+}

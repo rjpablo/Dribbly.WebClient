@@ -34,6 +34,14 @@
                 }
             })
 
+            .state('main.court', {
+                url: '/court/:id',
+                template: '<drbbly-courtviewercontainer></drbbly-courtviewercontainer>',
+                resolve: {
+                    $titleKey: () => { return 'site.CourtDetails'; }
+                }
+            })
+
             .state('auth', {
                 abstract: true,
                 url: '',

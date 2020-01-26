@@ -5,17 +5,27 @@
         .service('drbblyCourtsService', ['drbblyhttpService', function (drbblyhttpService) {
             var api = 'api/courts/';
 
+            function getAllCourts() {
+                return drbblyhttpService.get(api + 'getAllCourts');
+            }
+
+            function getCourt(id) {
+                return drbblyhttpService.get(api + 'getCourt/' + id);
+            }
+
             function register(courtDetails) {
                 return drbblyhttpService.post(api + 'register', courtDetails);
             }
 
-            function getAllCourts() {
-                return drbblyhttpService.post(api + 'getAllCourts', courtDetails);
+            function updateCourt(courtDetails) {
+                return drbblyhttpService.post(api + 'updateCourt', courtDetails);
             }
 
             var _service = {
                 getAllCourts: getAllCourts,
-                register: register
+                getCourt: getCourt,
+                register: register,
+                updateCourt: updateCourt
             };
 
             return _service;

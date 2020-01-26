@@ -3,7 +3,7 @@
 
     angular
         .module('mainModule')
-        .component('drbblyCourtsContainer', {
+        .component('drbblyCourtviewercontainer', {
             bindings: {
                 app: '<'
             },
@@ -13,27 +13,36 @@
         });
 
     controllerFunc.$inject = ['drbblyCourtsService', '$element', 'drbblyToolbarService', 'drbblyCourtshelperService',
-        'drbblyOverlayService', '$timeout'];
+        'drbblyOverlayService', '$timeout', '$stateParams'];
     function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService,
-        drbblyOverlayService, $timeout) {
+        drbblyOverlayService, $timeout, $stateParams) {
         var dcc = this;
+        var _courtId;
 
         dcc.$onInit = function () {
-            $element.addClass('drbbly-courts-container');
-            dcc.courtsListOverlay = drbblyOverlayService.buildOverlay();
-            loadCourts();
-            $timeout(setToolbarItems, 100); //using timetout to wait for toolbar to initialized
+            _courtId = $stateParams.id;
+            dcc.courtsDetailsOverlay = drbblyOverlayService.buildOverlay();
+            loadCourt();
         };
 
-        function loadCourts() {
-            dcc.courtsListOverlay.setToBusy();
-            drbblyCourtsService.getAllCourts()
+        function loadCourt() {
+            dcc.courtsDetailsOverlay.setToBusy();
+            drbblyCourtsService.getCourt(_courtId)
                 .then(function (data) {
-                    dcc.courts = data;
-                    dcc.courtsListOverlay.setToReady();
+                    dcc.court = data;
+                    dcc.courtsDetailsOverlay.setToReady();
                 })
-                .catch(dcc.courtsListOverlay.setToError);
+                .catch(dcc.courtsDetailsOverlay.setToError);
         }
+
+        dcc.onCourtUpdate = function (court) {
+            dcc.courtsDetailsOverlay.setToBusy();
+            drbblyCourtsService.updateCourt(court)
+                .then(function () {
+                    dcc.court = court;
+                })
+                .finally(dcc.courtsDetailsOverlay.setToReady);
+        };
 
         function setToolbarItems() {
             var buildItem = drbblyToolbarService.buildItem;

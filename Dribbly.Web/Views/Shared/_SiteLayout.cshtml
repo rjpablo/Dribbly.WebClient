@@ -13,13 +13,16 @@
         <link href="~/lib/font-awesome/font-awesome.css" rel="stylesheet">
         <link href="~/lib/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
         <link href="~/lib/angularjs-toaster/toaster.css" rel="stylesheet" />
+        <link href="~/lib/angular-bootstrap-colorpicker/colorpicker.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <link href="~/lib/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="~/lib/font-awesome/font-awesome.css" rel="stylesheet">
         <link href="~/lib/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
         <link href="~/lib/angularjs-toaster/toaster.css" rel="stylesheet" />
+        <link href="~/lib/angular-bootstrap-colorpicker/colorpicker.css" rel="stylesheet" />
     </environment>
+
     @* Site *@
     <link href="~/shared/modules/site/site.css" rel="stylesheet" />
     <link href="~/shared/modules/site/directives/overlay/overlay.directive.css" rel="stylesheet" />
@@ -35,13 +38,18 @@
     <link href="~/modules/auth/components/signup/signup-container/signup-container.css" rel="stylesheet" />
     <link href="~/shared/modules/app/components/rating/rating.component.css" rel="stylesheet" />
     @* App *@
+    <link href="~/shared/modules/app/components/profilepicture/profilepicture.component.css" rel="stylesheet" />
+    <link href="~/shared/modules/app/components/texteditor/texteditor.component.css" rel="stylesheet" />
+    <link href="~/shared/modules/app/components/locationpicker/locationpicker.component.css" rel="stylesheet" />
+    <link href="~/shared/modules/app/app.css" rel="stylesheet" />
+
+    @* Main *@
     <link href="~/modules/main/components/image/image.component.css" rel="stylesheet" />
     <link href="~/modules/main/components/courtlistitem/courtlistitem.component.css" rel="stylesheet" />
     <link href="~/modules/main/components/courtlist/courtlist.component.css" rel="stylesheet" />
-    <link href="~/shared/modules/app/components/profilepicture/profilepicture.component.css" rel="stylesheet" />
-    <link href="~/shared/modules/app/components/locationpicker/locationpicker.component.css" rel="stylesheet" />
+    <link href="~/modules/main/components/courtdetails/courtdetails.component.css" rel="stylesheet" />
+    <link href="~/modules/main/containers/courtviewercontainer/courtviewercontainer.component.css" rel="stylesheet" />
     <link href="~/modules/main/containers/courtscontainer/courtscontainer.component.css" rel="stylesheet" />
-    <link href="~/shared/modules/app/app.css" rel="stylesheet" />
 </head>
 <body ng-controller="appController as app">
     <toaster-container toaster-options="{'time-out': 2000, 'position-class': 'toast-top-center'}"></toaster-container>
@@ -49,40 +57,43 @@
         @RenderBody()
     </div>
 
+    <script src="~/lib-extensions/array-extension.js"></script>
+
     @*Third Party*@
     <environment include="Development">
         <script src="~/lib/jquery/jquery.js"></script>
         <script src="~/lib/bootstrap/bootstrap.bundle.js"></script>
         <script src="~/lib/angular/angular.js"></script>
+        <script src="~/lib-extensions/angular-extension.js"></script>
         <script src="~/lib/angular-ui-router/angular-ui-router.js"></script>
         <script src="~/lib/angular-local-storage/angular-local-storage.js"></script>
-        <script src="~/lib/angular-sanitize/angular-sanitize.js"></script>
+        <script src="~/lib-extensions/angular-sanitize-custom.js"></script>
         <script src="~/lib/angular-animate/angular-animate.js"></script>
         <script src="~/lib/angular-touch/angular-touch.js"></script>
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY&libraries=placeses,visualization,drawing,geometry,places"></script>
         <script src="~/lib/ngmap/ng-map.js"></script>
         <script src="~/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="~/lib/angularjs-toaster/toaster.js"></script>
+        <script src="~/lib/angular-bootstrap-colorpicker/bootstrap-colorpicker-module.js"></script>
+        <script src="~/lib-extensions/angular-wysiwyg-custom.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/lib/jquery/jquery.js"></script>
         <script src="~/lib/bootstrap/bootstrap.bundle.js"></script>
         <script src="~/lib/angular/angular.js"></script>
+        <script src="~/lib-extensions/angular-extension.js"></script>
         <script src="~/lib/angular-ui-router/angular-ui-router.js"></script>
         <script src="~/lib/angular-local-storage/angular-local-storage.js"></script>
-        <script src="~/lib/angular-sanitize/angular-sanitize.js"></script>
+        <script src="~/lib-extensions/angular-sanitize-custom.js"></script>
         <script src="~/lib/angular-animate/angular-animate.js"></script>
         <script src="~/lib/angular-touch/angular-touch.js"></script>
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY&libraries=placeses,visualization,drawing,geometry,places"></script>
         <script src="~/lib/ngmap/ng-map.js"></script>
         <script src="~/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="~/lib/angularjs-toaster/toaster.js"></script>
+        <script src="~/lib/angular-bootstrap-colorpicker/bootstrap-colorpicker-module.js"></script>
+        <script src="~/lib-extensions/angular-wysiwyg-custom.js"></script>
     </environment>
-
-    @* Library Extensions *@
-    <script src="~/lib-extensions/array-extension.js"></script>
-    <script src="~/lib-extensions/angular-extension.js"></script>
-
 
     @*Custom Modules*@
     <script src="~/custom/uiroutertitle/uiroutertitle.module.js"></script>
@@ -125,6 +136,7 @@
     <script src="~/shared/modules/app/components/rating/rating.component.js"></script>
     <script src="~/shared/modules/app/components/profilepicture/profilepicture.component.js"></script>
     <script src="~/shared/modules/app/components/locationpicker/locationpicker.component.js"></script>
+    <script src="~/shared/modules/app/components/texteditor/texteditor.component.js"></script>
 
     @*main Module*@
     <script src="~/modules/main/main-module.js"></script>
@@ -135,7 +147,9 @@
     @*mainModule components*@
     <script src="~/modules/main/components/image/image.component.js"></script>
     <script src="~/modules/main/components/courtlistitem/courtlistitem.component.js"></script>
+    <script src="~/modules/main/components/courtdetails/courtdetails.component.js"></script>
     <script src="~/modules/main/components/registercourtmodal/registercourtmodal.component.js"></script>
+    <script src="~/modules/main/containers/courtviewercontainer/courtviewercontainer.component.js"></script>
     <script src="~/modules/main/components/courtlist/courtlist.component.js"></script>
 
     <script src="~/modules/auth/components/shared/socialauth/socialauth-component.js"></script>
@@ -150,7 +164,7 @@
     <script src="~/modules/main/containers/homecontainer/homecontainer.service.js"></script>
     <script src="~/modules/main/containers/homecontainer/homecontainer.component.js"></script>
 
-    <script src="~/modules/main/containers/courtscontainer/courtscontainer.service.js"></script>
+    @*<script src="~/modules/main/containers/courtscontainer/courtscontainer.service.js"></script>*@
     <script src="~/modules/main/containers/courtscontainer/courtscontainer.component.js"></script>
 
     <script src="~/modules/main/containers/maincontainer/maincontainer.component.js"></script>

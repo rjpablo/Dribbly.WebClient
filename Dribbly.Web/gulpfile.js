@@ -23,10 +23,18 @@ var nodeLibs = {
         source: 'angular-animate/angular-animate.js',
         destination: 'angular-animate'
     },
-    angular_sanitize: {
-        source: 'angular-sanitize/angular-sanitize.js',
-        destination: 'angular-sanitize'
+    angular_bootstrap_colorpicker: {
+        source: [
+            'angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
+            'angular-bootstrap-colorpicker/css/colorpicker.css'
+        ],
+        destination: 'angular-bootstrap-colorpicker'
     },
+    //we are using a customized version of this
+    //angular_sanitize: {
+    //    source: 'angular-sanitize/angular-sanitize.js',
+    //    destination: 'angular-sanitize'
+    //},
     angular_touch: {
         source: 'angular-touch/angular-touch.js',
         destination: 'angular-touch'
@@ -35,6 +43,11 @@ var nodeLibs = {
         source: 'angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
         destination: 'angular-ui-bootstrap'
     },
+    // we are using a customized version of this
+    //angular_wysiwyg: {
+    //    source: 'angular-wysiwyg/dist/angular-wysiwyg.js',
+    //    destination: 'angular-wysiwyg'
+    //},
     angularjs_toaster: {
         source: [
             'angularjs-toaster/toaster.js',

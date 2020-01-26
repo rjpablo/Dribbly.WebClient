@@ -1,6 +1,9 @@
 ﻿(function () {
     'use strict';
 
+    //fix for custom ng-sanitize incompatibility with AngularJS 1.7
+    angular.lowercase = angular.$$lowercase;
+
     angular.drbblyRawModuleNames = [];
 
     var originalModuleFunc = angular.module;

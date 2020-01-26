@@ -2,6 +2,7 @@
     'use strict';
 
     var module = angular.module('appModule', [
+        'wysiwyg.module',
         'ngMap',
         'drrbly.ui.router.title',
         'siteModule',
