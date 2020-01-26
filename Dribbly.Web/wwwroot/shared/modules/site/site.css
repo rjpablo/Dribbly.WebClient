@@ -20,6 +20,12 @@ body {
     overflow-y: auto;
 }
 
+#drbbly-sitefooter {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
 .bg-dark {
     background-color: #282828 !important;
     color: #777;

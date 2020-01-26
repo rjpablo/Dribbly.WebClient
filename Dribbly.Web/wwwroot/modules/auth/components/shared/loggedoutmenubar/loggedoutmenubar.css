@@ -1,6 +1,4 @@
 ﻿.logged-out-menu-bar{
-    position: fixed;
-    bottom: 0;
     display: inline-block;
     width: 100%;
     background-color: #fff;
