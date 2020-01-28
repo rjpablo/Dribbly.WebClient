@@ -12,12 +12,13 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyCourtsService', '$element', 'drbblyToolbarService', 'drbblyCourtshelperService',
-        'drbblyOverlayService', '$timeout', '$stateParams'];
-    function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService,
-        drbblyOverlayService, $timeout, $stateParams) {
+    controllerFunc.$inject = ['drbblyCourtsService', 'drbblyToolbarService', 'drbblyCourtshelperService',
+        'drbblyOverlayService', '$stateParams', 'drbblyFooterService', '$scope'];
+    function controllerFunc(drbblyCourtsService, drbblyToolbarService, drbblyCourtshelperService,
+        drbblyOverlayService, $stateParams, drbblyFooterService, $scope) {
         var dcc = this;
         var _courtId;
+        var _priceComponent;
 
         dcc.$onInit = function () {
             _courtId = $stateParams.id;
@@ -31,6 +32,7 @@
                 .then(function (data) {
                     dcc.court = data;
                     dcc.courtsDetailsOverlay.setToReady();
+                    createPriceComponent();
                 })
                 .catch(dcc.courtsDetailsOverlay.setToError);
         }
@@ -42,6 +44,17 @@
                     dcc.court = court;
                 })
                 .finally(dcc.courtsDetailsOverlay.setToReady);
+        };
+
+        function createPriceComponent() {
+            _priceComponent = drbblyFooterService.addFooterItem({
+                scope: $scope,
+                template: '<drbbly-courtprice court="dcc.court"></dribbly-courtprice>'
+            });
+        }
+
+        dcc.$onDestroy = function () {
+            _priceComponent.remove();
         };
 
         function setToolbarItems() {

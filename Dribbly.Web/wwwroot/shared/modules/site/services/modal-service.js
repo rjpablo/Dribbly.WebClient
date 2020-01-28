@@ -42,6 +42,7 @@
                 options.controller = controllerFn;
                 options.controllerAs = 'mod';
                 options.bindToController = true;
+                options.keyboard = true;
                 //Fix for: modal and  backdrop not showing
                 options.windowClass = 'show';
                 options.backdropClass = 'show';

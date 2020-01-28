@@ -1,0 +1,12 @@
+﻿<div class="row">
+    <div class="col-12">
+        <div class="d-inline-block">
+            <h4 class="d-inline amount">{{cpc.court.ratePerHour | currency}}</h4>&nbsp;
+            <small>{{::'site.SlashHour' | i18n}}</small>
+        </div>
+        <button class="btn btn-outline-light float-right"
+                ng-click="cpc.onBookNow()">
+            {{::'app.BookNow' | i18n}}
+        </button>
+    </div>
+</div>

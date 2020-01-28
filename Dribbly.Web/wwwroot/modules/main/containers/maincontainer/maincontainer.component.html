@@ -1,8 +1,9 @@
 ﻿<drbbly-mobiletoolbar></drbbly-mobiletoolbar>
 <drbbly-navigator></drbbly-navigator>
 <drbbly-sidenavigator class="mobile-only" widget="dmc.sideNavigator"></drbbly-sidenavigator>
-
-<ui-view id="page-body-container" class="d-block"></ui-view>
-<footer id="drbbly-sitefooter">
-    <drbbly-loggedoutmenubar ng-if="!dmc.isAuthenticated()"></drbbly-loggedoutmenubar>
-</footer>
+<div id="page-body-container">
+    <ui-view class="d-block"></ui-view>
+</div>
+<drbbly-footer id="drbbly-sitefooter"
+               on-init="dmc.app.onFooterInit"
+               on-content-change="dmc.app.onSectionResize"></drbbly-footer>

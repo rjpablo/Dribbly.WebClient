@@ -41,10 +41,12 @@
     <link href="~/shared/modules/app/components/profilepicture/profilepicture.component.css" rel="stylesheet" />
     <link href="~/shared/modules/app/components/texteditor/texteditor.component.css" rel="stylesheet" />
     <link href="~/shared/modules/app/components/locationpicker/locationpicker.component.css" rel="stylesheet" />
+    <link href="~/shared/modules/app/components/footer/footer.component.css" rel="stylesheet" />
     <link href="~/shared/modules/app/app.css" rel="stylesheet" />
 
     @* Main *@
     <link href="~/modules/main/components/image/image.component.css" rel="stylesheet" />
+    <link href="~/modules/main/components/courtprice/courtprice.component.css" rel="stylesheet" />
     <link href="~/modules/main/components/courtlistitem/courtlistitem.component.css" rel="stylesheet" />
     <link href="~/modules/main/components/courtlist/courtlist.component.css" rel="stylesheet" />
     <link href="~/modules/main/components/courtdetails/courtdetails.component.css" rel="stylesheet" />
@@ -53,9 +55,7 @@
 </head>
 <body ng-controller="appController as app">
     <toaster-container toaster-options="{'time-out': 2000, 'position-class': 'toast-top-center'}"></toaster-container>
-    <div id="app-overlay" drbbly-overlay="app.overlay">
-        @RenderBody()
-    </div>
+    @RenderBody()
 
     <script src="~/lib-extensions/array-extension.js"></script>
 
@@ -130,6 +130,7 @@
 
     @*appModule services*@
     <script src="~/shared/modules/app/services/toolbar.service.js"></script>
+    <script src="~/shared/modules/app/services/footer.service.js"></script>
     <script src="~/shared/modules/app/services/map.service.js"></script>
 
     @*appModule components*@
@@ -137,6 +138,7 @@
     <script src="~/shared/modules/app/components/profilepicture/profilepicture.component.js"></script>
     <script src="~/shared/modules/app/components/locationpicker/locationpicker.component.js"></script>
     <script src="~/shared/modules/app/components/texteditor/texteditor.component.js"></script>
+    <script src="~/shared/modules/app/components/footer/footer.component.js"></script>
 
     @*main Module*@
     <script src="~/modules/main/main-module.js"></script>
@@ -146,6 +148,7 @@
 
     @*mainModule components*@
     <script src="~/modules/main/components/image/image.component.js"></script>
+    <script src="~/modules/main/components/courtprice/courtprice.component.js"></script>
     <script src="~/modules/main/components/courtlistitem/courtlistitem.component.js"></script>
     <script src="~/modules/main/components/courtdetails/courtdetails.component.js"></script>
     <script src="~/modules/main/components/registercourtmodal/registercourtmodal.component.js"></script>

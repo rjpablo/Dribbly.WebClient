@@ -42,6 +42,7 @@
                 },
                 app: {
                     Address: 'Address',
+                    BookNow: 'Book Now',
                     Browse: 'Browse',
                     FeaturedCourts: 'Featured Courts',
                     LocationPickFromTheMap: 'Location: (Please select from the map)',

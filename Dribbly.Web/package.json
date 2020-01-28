@@ -14,11 +14,9 @@
     "angular-bootstrap-colorpicker": "^3.0.32",
     "angular-confirm1": "1.1.0",
     "angular-local-storage": "0.7.1",
-    //"angular-sanitize": "1.7.8", //we are using a customized version of this
     "angular-touch": "1.7.8",
     "angular-ui-bootstrap": "2.5.6",
     "angular-ui-router": "1.0.22",
-    //"angular-wysiwyg": "^1.2.4", //we are using a customized version of this 
     "angularjs-toaster": "3.0.0",
     "bootstrap": "4.3.0",
     "bootstrap-social": "5.1.1",

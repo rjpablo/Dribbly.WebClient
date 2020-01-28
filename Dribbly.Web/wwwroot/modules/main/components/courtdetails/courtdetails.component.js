@@ -13,8 +13,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$element'];
-    function controllerFunc($element) {
+    controllerFunc.$inject = [];
+    function controllerFunc() {
         var dcd = this;
 
         dcd.$onInit = function () {
