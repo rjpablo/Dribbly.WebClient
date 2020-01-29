@@ -52,6 +52,7 @@
                     Public: 'Public',
                     RatePerHour: 'Rate Per Hour',
                     SearchTheMap: 'Search the map',
+                    ViewFullDetails: 'View Full Details',
                     ViewOnMap: 'View On Map'
                 },
                 main: {

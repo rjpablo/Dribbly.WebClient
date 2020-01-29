@@ -1,0 +1,71 @@
+﻿<div class="modal-body">
+    <div class="photo-container mx-n3 mt-n3">
+        <drbbly-image class="primary-photo"
+                      image-url="{{cpm.model.court.primaryPhotoUrl || './images/default_images/court_default_1.png'}}"></drbbly-image>
+    </div>
+    <div class="row court-details">
+        <div class="col-12 hilighted-details py-2">
+            <span class="name d-block line-height-1">{{cpm.model.court.name}}</span>
+            <span class="rate">
+                {{ (cpm.model.court.ratePerHour || 0) | currency:'P':0 }}
+                <small>{{::'site.SlashHour' | i18n}}</small>
+            </span>
+            <drbbly-rating class="d-block" value="cpm.model.court.rating"></drbbly-rating>
+            <span ng-if="cpm.model.court.isPublic" class="badge badge-success">{{::'app.Public' | i18n}}</span>
+            <span ng-if="!cpm.model.court.isPublic" class="badge badge-primary">{{::'app.Private' | i18n}}</span>
+        </div>
+        <div class="more-details col-12 bg-light py-2">
+            <table class="table">
+                <tr>
+                    <td>
+                        <i class="fa fa-money"></i>
+                    </td>
+                    <td>
+                        <span class="rate">
+                            {{ (cpm.model.court.ratePerHour || 0) | currency:'P':0 }}
+                            <small>{{::'site.SlashHour' | i18n}}</small>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-map-marker"></i>
+                    </td>
+                    <td>
+                        <span class="">{{'San Juan City'}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-user"></i>
+                    </td>
+                    <td>
+                        <span>{{'John Cena'}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-calendar"></i>
+                    </td>
+                    <td>
+                        <span>{{cpm.model.court.dateAdded | date}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-info-circle"></i>
+                    </td>
+                    <td>
+                        <div ng-bind-html="cpm.model.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="controls">
+        <a ui-sref="main.court({id: cpm.model.court.id})" target="_blank" class="btn-block btn btn-primary">
+            {{::'app.ViewFullDetails' | i18n}}&nbsp;
+            <i class="fa fa-external-link"></i>
+        </a>
+    </div>
+</div>

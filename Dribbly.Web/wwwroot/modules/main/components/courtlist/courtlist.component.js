@@ -13,13 +13,20 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', '$rootScope', 'settingsService', '$element'];
-    function controllerFunc(authService, $rootScope, settingsService, $element) {
+    controllerFunc.$inject = ['modalService', '$element'];
+    function controllerFunc(modalService, $element) {
         var dcl = this;
 
         dcl.$onInit = function () {
             $element.addClass('drbbly-court-list');
             console.log(dcl.courts.length);
+        };
+
+        dcl.onItemClick = function (court) {
+            modalService.show({
+                view: '<drbbly-courtpreviewmodal></drbbly-courtpreviewmodal>',
+                model: { court: court }
+            });
         };
     }
 })();

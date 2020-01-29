@@ -5,7 +5,8 @@
         .module('mainModule')
         .component('drbblyCourtlistitem', {
             bindings: {
-                court: '<'
+                court: '<',
+                onClick: '<?'
             },
             controllerAs: 'cli',
             templateUrl: 'drbbly-default',
@@ -18,6 +19,13 @@
 
         cli.$onInit = function () {
             $element.addClass('drbbly-court-list-item');
+        };
+
+        cli.clicked = function (e) {
+            if (cli.onClick) {
+                cli.onClick(cli.court);
+                e.preventDefault();
+            }
         };
     }
 })();

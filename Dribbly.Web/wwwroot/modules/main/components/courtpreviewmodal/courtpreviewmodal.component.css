@@ -1,0 +1,16 @@
+﻿drbbly-courtpreviewmodal .photo-container {
+    height: 15rem !important;
+}
+
+drbbly-courtpreviewmodal .hilighted-details {
+    background: #000;
+    color: #fff;
+}
+
+drbbly-courtpreviewmodal .court-details .rate {
+    color: #28a745;
+}
+
+drbbly-courtpreviewmodal .court-details td:first-child {
+    width: 35px;
+}
