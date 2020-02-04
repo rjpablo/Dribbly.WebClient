@@ -12,9 +12,10 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = [];
-    function controllerFn() {
+    controllerFn.$inject = ['$scope'];
+    function controllerFn($scope) {
         var dam = this;
+        var _okToClose;
 
         dam.$onInit = function () {
             if (dam.model.options) {
@@ -48,7 +49,21 @@
                     }
                 }
             }
+
+            dam.context.setOnInterrupt(dam.onInterrupt);
         };
+
+        dam.onInterrupt = function () {
+            _okToClose = true;
+            dam.context.dismiss();
+        };
+
+        $scope.$on('modal.closing', function (event, reason, result) {
+            if (!_okToClose) {
+                event.preventDefault();
+                dam.onInterrupt();
+            }
+        });
 
         function buildButton(textKey, returnValue, buttonClass) {
             return {

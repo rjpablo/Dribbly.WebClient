@@ -26,7 +26,9 @@
             modalService.show({
                 view: '<drbbly-courtpreviewmodal></drbbly-courtpreviewmodal>',
                 model: { court: court }
-            });
+            })
+                .then(function () { /*do nothing*/ })
+                .catch(function () { /*do nothing*/ });
         };
     }
 })();

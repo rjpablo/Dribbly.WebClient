@@ -25,7 +25,8 @@
                 'site.WelcomeToDribblyExclamation', null, 'YesNoCancel')
                 .then(function (response) {
                     console.log('alert response: ' + response);
-                });
+                })
+                .catch(() => console.log('Alert was dismissed'));
         };
     }
 })();
