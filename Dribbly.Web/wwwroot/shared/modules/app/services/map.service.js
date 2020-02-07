@@ -31,7 +31,7 @@
             });
             return deferred.promise;
             // Old way:
-            //return $http.get('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY&latlng='
+            //return $http.get('https://maps.googleapis.com/maps/api/geocode/json?key=######&latlng='
             //    + latLng.lat() + ',' + latLng.lng() + '&sensor=false');
         };
 
