@@ -13,25 +13,20 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = [];
-    function controllerFunc() {
+    controllerFunc.$inject = ['modalService', 'drbblyCourtshelperService'];
+    function controllerFunc(modalService, drbblyCourtshelperService) {
         var dcd = this;
 
         dcd.$onInit = function () {
-            dcd.tempCourt = angular.copy(dcd.court);
+
         };
 
         dcd.edit = function () {
-            dcd.isEditing = true;
-        };
-
-        dcd.save = function () {
-            dcd.isEditing = false;
-            dcd.onUpdate(dcd.tempCourt);
-        };
-
-        dcd.cancel = function () {
-            dcd.isEditing = false;
+            drbblyCourtshelperService.editCourt(dcd.court)
+                .then(function () {
+                    dcd.onUpdate();
+                })
+                .catch(function () { /*do nothing*/ });
         };
     }
 })();

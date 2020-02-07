@@ -25,6 +25,7 @@
                     LogOut: 'Log Out',
                     LogOutConfirmationMsg1: 'Action is not yet over...',
                     LogOutConfirmationMsg2: 'Are you sure you want to log out?',
+                    Name: 'Name',
                     No: 'No',
                     Ok: 'Ok',
                     Or: 'Or',
@@ -37,10 +38,12 @@
                     SlashHour: '/hr',
                     Submit: 'Submit',
                     Teams: 'Teams',
+                    UnsavedChangesWarningMessage: 'You may lose you unsaved Changes. Are you sure?',
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!',
                     Yes: 'Yes'
                 },
                 app: {
+                    AdditionalInfo: 'Additional Info',
                     Address: 'Address',
                     BookNow: 'Book Now',
                     Browse: 'Browse',

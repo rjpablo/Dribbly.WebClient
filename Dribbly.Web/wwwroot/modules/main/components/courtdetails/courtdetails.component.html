@@ -38,25 +38,11 @@
                 <i class="fa fa-info-circle"></i>
             </dt>
             <dd class="col-11">
-                <div ng-if="dcd.isEditing">
-                    <drbbly-texteditor class="d-block mb-1"
-                                       value="dcd.tempCourt.additionalInfo"></drbbly-texteditor>
-                    <button ng-click="dcd.cancel()"
-                            class="btn btn-secondary float-right">
-                        <span class="fa fa-remove" aria-hidden="true"></span>
-                    </button>
-                    <button ng-click="dcd.save()"
-                            class="btn btn-primary float-right">
-                        <span class="fa fa-check" aria-hidden="true"></span>
-                    </button>
-                </div>
-                <div ng-if="!dcd.isEditing">
-                    <div ng-bind-html="dcd.tempCourt.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
-                    <button ng-click="dcd.edit()"
-                            class="btn btn-secondary float-right">
-                        <span class="fa fa-pencil" aria-hidden="true"></span>
-                    </button>
-                </div>
+                <div ng-bind-html="dcd.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
+                <button ng-click="dcd.edit()"
+                        class="btn btn-secondary float-right">
+                    <span class="fa fa-pencil" aria-hidden="true"></span>
+                </button>
             </dd>
         </dl>
     </div>

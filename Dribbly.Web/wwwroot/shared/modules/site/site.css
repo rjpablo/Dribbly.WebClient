@@ -125,7 +125,18 @@ body {
 *************************/
 
 /* NgMap */
-.pac-container{
+.pac-container {
     z-index: 1050 !important; /*Allows auto complete results to show over bootstrap modals. Modals have 1050 z-index*/
 }
 
+/***** Bootstrap *****/
+/* Modals */
+.modal-content {
+    border-radius: 0;
+}
+
+@media (max-width: 575px) {
+    .modal-dialog {
+        margin: 0;
+    }
+}

@@ -37,16 +37,16 @@
                 .catch(dcc.courtsDetailsOverlay.setToError);
         }
 
-        dcc.onCourtUpdate = function (court) {
-            dcc.courtsDetailsOverlay.setToBusy();
-            drbblyCourtsService.updateCourt(court)
-                .then(function () {
-                    dcc.court = court;
-                })
-                .finally(dcc.courtsDetailsOverlay.setToReady);
+        dcc.onCourtUpdate = function () {
+            loadCourt();
         };
 
         function createPriceComponent() {
+
+            if (_priceComponent) {
+                _priceComponent.remove();
+            }
+
             _priceComponent = drbblyFooterService.addFooterItem({
                 scope: $scope,
                 template: '<drbbly-courtprice court="dcc.court"></dribbly-courtprice>'

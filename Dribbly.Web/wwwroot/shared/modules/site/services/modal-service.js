@@ -81,13 +81,17 @@
 
                     var scope = $rootScope.$new();
                     scope.model = modalOptions.model || {};
-                    scope.options = modalOptions.options;
+                    scope.options = modalOptions.options || {};
                     scope.context = {
                         setOnInterrupt: function (handler) {
                             modalOptions.scope.context.onInterrupt = handler;
                         }
                     };
                     modalOptions.scope = scope;
+                }
+
+                function showUnsaveChangesWarning() {
+                    return confirm('site.UnsavedChangesWarningMessage');
                 }
 
                 function alert(msg1Key, msg2Key, titleKey) {
@@ -120,11 +124,14 @@
                     });
                 }
 
-                this.show = _show;
-                this.alert = alert;
-                this.confirm = confirm;
+                var service = {
+                    show: _show,
+                    alert: alert,
+                    confirm: confirm,
+                    showUnsavedChangesWarning: showUnsaveChangesWarning
+                };
 
-                return this;
+                return service;
             }]);
 
 })();

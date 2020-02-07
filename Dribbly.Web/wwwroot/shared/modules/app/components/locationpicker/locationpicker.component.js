@@ -40,10 +40,7 @@
 
         function setInitialPosition() {
             if (dlp.initialPosition) {
-                dlp.address = startPosition.formatted_address;
-                dlp.completeAddress = startPosition.formatted_address;
-                dlp.selectedLocation = startPosition;
-                resetMark(startPosition.geometry);
+                resetMark(dlp.initialPosition);
             } else {
                 focusCurrentPosition();
             }
@@ -73,6 +70,7 @@
             mapService.getAddress(e.latLng).then(function (location) {
                 if (location) {
                     if (validatePlace(location)) {
+                        resetMark(e);
                         returnSelectedLocation(location);
                     }
                 } else {
@@ -108,17 +106,22 @@
             if (dlp.map) {
                 var place = this.getPlace();
                 if (place.geometry) {
-                    validatePlace(mapService.getAddressComponents(place));
+                    if (validatePlace(mapService.getAddressComponents(place))) {
+                        resetMark(place.geometry);
+                        returnSelectedLocation(place);
+                    }
                 } else {
-                    mapService.getAddressCoordinates(dlp.address, function (res, t) {
-                        if (res.length > 0) {
-                            if (validatePlace(mapService.getAddressComponents(place[0]))) {
-                                dlp.$apply();
-                            }
-                        } else {
-                            console.log('Unable to find entered location.');
-                        }
-                    });
+                    // this is executed when the user presses enter on the address search box
+                    // instead of selecting one of the suggestions, if any
+                    //mapService.getAddressCoordinates(dlp.address, function (res, t) {
+                    //    if (res.length > 0) {
+                    //        if (validatePlace(mapService.getAddressComponents(place[0]))) {
+                    //            dlp.$apply();
+                    //        }
+                    //    } else {
+                    //        console.log('Unable to find entered location.');
+                    //    }
+                    //});
                 }
             } else {
                 console.log('The map has not been initialized. Please wait until it is initialized.');
@@ -129,7 +132,6 @@
             if (place.country_short === 'PH') {
                 dlp.completeAddress = place.formatted_address;
                 dlp.selectedLocation = place;
-                resetMark(place.geometry);
                 return true;
                 //dlp.map.setCenter(place.geometry.location || place.geometry.latLng);
             } else {

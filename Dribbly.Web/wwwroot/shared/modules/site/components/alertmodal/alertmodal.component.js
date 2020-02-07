@@ -12,8 +12,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope'];
-    function controllerFn($scope) {
+    controllerFn.$inject = ['$scope', 'drbblyEventsService'];
+    function controllerFn($scope, drbblyEventsService) {
         var dam = this;
         var _okToClose;
 
@@ -51,6 +51,13 @@
             }
 
             dam.context.setOnInterrupt(dam.onInterrupt);
+            drbblyEventsService.on('modal.closing', function (event, reason, result) {
+                if (!_okToClose) {
+                    event.preventDefault();
+                    _okToClose = true;
+                    dam.context.dismiss(reason);
+                }
+            }, $scope);
         };
 
         dam.onInterrupt = function () {
@@ -58,17 +65,13 @@
             dam.context.dismiss();
         };
 
-        $scope.$on('modal.closing', function (event, reason, result) {
-            if (!_okToClose) {
-                event.preventDefault();
-                dam.onInterrupt();
-            }
-        });
-
         function buildButton(textKey, returnValue, buttonClass) {
             return {
                 textKey: textKey,
-                action: () => dam.context.submit(returnValue),
+                action: () => {
+                    _okToClose = true;
+                    dam.context.submit(returnValue);
+                },
                 class: buttonClass
             };
         }
