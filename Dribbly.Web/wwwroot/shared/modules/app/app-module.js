@@ -26,4 +26,10 @@
             drbblyToolbarService.reset();
         });
     }
+
+    module.config(['constants', function (constants) {
+        constants.settings = {
+            googleMapApiKey: 'googleMapApiKey'
+        };
+    }]);
 })();

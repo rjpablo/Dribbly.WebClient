@@ -12,11 +12,12 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['NgMap', 'mapService', '$timeout', 'modalService'];
-    function controllerFn(NgMap, mapService, $timeout, modalService) {
+    controllerFn.$inject = ['NgMap', 'mapService', '$timeout', 'modalService', 'settingsService', 'constants'];
+    function controllerFn(NgMap, mapService, $timeout, modalService, settingsService, constants) {
         var dlp = this;
 
         dlp.$onInit = function () {
+            dlp.mapApiKey = settingsService[constants.settings.googleMapApiKey];
             dlp.types = ['geocode'];
             dlp.center = '15,121';
 

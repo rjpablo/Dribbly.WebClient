@@ -13,7 +13,13 @@
             .state('main', {
                 abstract: true,
                 url: '',
-                template: '<drbbly-main-container app="app"></drbbly-main-container>'
+                resolve: {
+                    settings: ['settingsService', function (settingsService) {
+                        return settingsService.getInitialSettings();
+                    }]
+                },
+                component: 'drbblyMainContainer'
+                //template: '<drbbly-main-container app="app"></drbbly-main-container>'
             })
 
             .state('main.home', {
