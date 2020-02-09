@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyCourtsService', '$element', 'drbblyToolbarService', 'drbblyCourtshelperService',
-        'drbblyOverlayService', '$timeout'];
+        'drbblyOverlayService', '$timeout', '$state'];
     function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService,
-        drbblyOverlayService, $timeout) {
+        drbblyOverlayService, $timeout, $state) {
         var dcc = this;
 
         dcc.$onInit = function () {
@@ -47,11 +47,13 @@
 
         function addCourt() {
             drbblyCourtshelperService.registerCourt()
-                .then(function () {
-                    loadCourts();
+                .then(function (court) {
+                    if (court) {
+                        $state.go('main.court', { id: court.id });
+                    }
                 })
-                .catch(function (reason) {
-                    console.log('Court registration cancelled');
+                .catch(function () {
+                    // Court registration cancelled. Do nothing
                 });
         }
 

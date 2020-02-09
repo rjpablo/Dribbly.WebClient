@@ -80,7 +80,7 @@
         function editCourt(court) {
             drbblyCourtsService.updateCourt(court)
                 .then(function () {
-                    close();
+                    close(court);
                 })
                 .catch(function () {
                     //TODO: handle error
@@ -92,8 +92,9 @@
 
         function addCourt(court) {
             drbblyCourtsService.register(court)
-                .then(function () {
-                    close();
+                .then(function (id) {
+                    court.id = id;
+                    close(court);
                 })
                 .catch(function () {
                     //TODO: handle error
@@ -103,9 +104,9 @@
                 });
         }
 
-        function close() {
+        function close(court) {
             _okToClose = true;
-            aec.context.submit();
+            aec.context.submit(court);
         }
 
         aec.cancel = function () {

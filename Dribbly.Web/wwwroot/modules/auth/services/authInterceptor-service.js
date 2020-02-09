@@ -2,7 +2,8 @@
     'use strict';
     angular.module('authModule')
         .factory('authInterceptorService', ['$q', '$injector', 'drbblyCommonService', 'localStorageService',
-            function ($q, $injector, drbblyCommonService, localStorageService) {
+            '$window',
+            function ($q, $injector, drbblyCommonService, localStorageService, $window) {
 
                 var authInterceptorServiceFactory = {};
 

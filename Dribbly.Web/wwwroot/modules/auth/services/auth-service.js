@@ -35,6 +35,7 @@
                             localStorageService.set('authorizationData', {
                                 token: response.data.access_token,
                                 userName: loginData.userName,
+                                userId: response.data.userId,
                                 refreshToken: response.data.refresh_token,
                                 useRefreshTokens: _useRefreshTokens,
                                 profilePicture: _temporaryProfilePicture
@@ -44,6 +45,7 @@
                             _authentication.userName = loginData.userName;
                             _authentication.useRefreshTokens = _useRefreshTokens;
                             _authentication.profilePicture = _temporaryProfilePicture;
+                            _authentication.userId = response.data.userId;
 
                             deferred.resolve(response);
 
@@ -73,6 +75,7 @@
                         _authentication.userName = authData.userName;
                         _authentication.useRefreshTokens = authData.useRefreshTokens;
                         _authentication.profilePicture = authData.profilePicture;
+                        _authentication.userId = authData.userId;
                     }
 
                 };
@@ -96,6 +99,22 @@
                                         token: response.data.access_token, userName: response.data.userName,
                                         refreshToken: response.data.refresh_token, useRefreshTokens: _useRefreshTokens
                                     });
+
+                                    localStorageService.set('authorizationData', {
+                                        token: response.data.access_token,
+                                        userName: response.data.userName,
+                                        userId: response.data.userId,
+                                        refreshToken: response.data.refresh_token,
+                                        useRefreshTokens: _useRefreshTokens,
+                                        profilePicture: _temporaryProfilePicture
+                                    });
+
+                                    _authentication.isAuthenticated = true;
+                                    _authentication.userName = response.data.userName;
+                                    _authentication.useRefreshTokens = _useRefreshTokens;
+                                    _authentication.profilePicture = _temporaryProfilePicture;
+                                    _authentication.userId = response.data.userId;
+
                                     deferred.resolve(response);
                                 }).catch(function (err, status) {
                                     _logOut();
@@ -123,6 +142,7 @@
                             localStorageService.set('authorizationData', {
                                 token: response.data.access_token,
                                 userName: registerExternalData.userName,
+                                userId: response.data.userId,
                                 refreshToken: response.data.refresh_token,
                                 useRefreshTokens: _useRefreshTokens
                             });
@@ -130,6 +150,7 @@
                             _authentication.isAuthenticated = true;
                             _authentication.userName = loginData.userName;
                             _authentication.useRefreshTokens = _useRefreshTokens;
+                            _authentication.userId = response.data.userId;
 
                             deferred.resolve(response);
 
@@ -154,6 +175,7 @@
                             localStorageService.set('authorizationData', {
                                 token: response.data.access_token,
                                 userName: response.data.userName,
+                                userId: response.data.userId,
                                 refreshToken: response.data.refresh_token,
                                 useRefreshTokens: _useRefreshTokens
                             });
@@ -161,6 +183,7 @@
                             _authentication.isAuthenticated = true;
                             _authentication.userName = response.data.userName;
                             _authentication.useRefreshTokens = _useRefreshTokens;
+                            _authentication.userId = response.data.userId;
 
                             deferred.resolve(response);
 

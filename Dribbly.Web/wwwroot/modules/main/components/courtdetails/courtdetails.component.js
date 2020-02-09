@@ -13,12 +13,12 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['modalService', 'drbblyCourtshelperService'];
-    function controllerFunc(modalService, drbblyCourtshelperService) {
+    controllerFunc.$inject = ['authService', 'drbblyCourtshelperService'];
+    function controllerFunc(authService, drbblyCourtshelperService) {
         var dcd = this;
 
         dcd.$onInit = function () {
-
+            dcd.isOwned = dcd.court.ownerId === authService.authentication.userId;
         };
 
         dcd.edit = function () {
