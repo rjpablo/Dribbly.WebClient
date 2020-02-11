@@ -1,6 +1,17 @@
 ﻿<div class="mx-n3 photo-container">
     <drbbly-image class="primary-photo"
                   image-url="{{dcd.court.primaryPhotoUrl || './images/default_images/court_default_1.png'}}"></drbbly-image>
+    <div class="controls float-right">
+        <button class="btn btn-sm btn-outline-light"
+                ng-if="dcd.isOwned"
+                ngf-select="dcd.changePrimaryPicture($file)"
+                ng-model="dcd.profilePicture"
+                ngf-pattern="'image/*'"
+                ngf-accept="'image/*'"
+                ngf-max-size="20MB">
+            <span class="fa fa-pencil" aria-hidden="true"></span>
+        </button><br />
+    </div>
 </div>
 <div class="row court-details">
     <div class="col-12 my-2">

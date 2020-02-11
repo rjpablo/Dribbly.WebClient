@@ -13,8 +13,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', 'drbblyCourtshelperService'];
-    function controllerFunc(authService, drbblyCourtshelperService) {
+    controllerFunc.$inject = ['authService', 'drbblyCourtshelperService', 'drbblyFileService'];
+    function controllerFunc(authService, drbblyCourtshelperService, drbblyFileService) {
         var dcd = this;
 
         dcd.$onInit = function () {
@@ -27,6 +27,16 @@
                     dcd.onUpdate();
                 })
                 .catch(function () { /*do nothing*/ });
+        };
+
+        dcd.changePrimaryPicture = function (file) {
+            drbblyFileService.upload(file, 'api/courts/updateCourtPhoto/' + dcd.court.id)
+                .then(function (result) {
+                    dcd.onUpdate();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         };
     }
 })();

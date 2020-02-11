@@ -84,6 +84,10 @@ var nodeLibs = {
         source: 'angular-local-storage/dist/angular-local-storage.js',
         destination: 'angular-local-storage'
     },
+    ng_file_upload: {
+        source: 'ng-file-upload/ng-file-upload.js',
+        destination: 'ng-file-upload'
+    },
     ng_map: {
         source: 'ngmap/build/scripts/ng-map.js',
         destination: 'ngmap'

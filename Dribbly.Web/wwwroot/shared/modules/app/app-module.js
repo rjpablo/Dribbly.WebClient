@@ -6,7 +6,8 @@
         'ngMap',
         'drrbly.ui.router.title',
         'siteModule',
-        'authModule'
+        'authModule',
+        'ngFileUpload'
     ]);
 
     module.config(['$titleProvider', 'constants', function ($titleProvider, constants) {
