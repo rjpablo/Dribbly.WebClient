@@ -1,0 +1,9 @@
+.drbbly-court-list .list-container {
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+    .drbbly-court-list .list-container > drbbly-courtlistitem {
+        width: 150px;
+        vertical-align: top;
+    }

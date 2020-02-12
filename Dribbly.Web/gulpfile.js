@@ -2,10 +2,16 @@
 const gulp = require('gulp');
 const merge = require("merge-stream");
 const del = require("del");
+const rename = require("gulp-rename");
+const sass = require('gulp-sass');
 
 var paths = {
+    baseSrc: 'wwwroot/src/',
+    baseDest: 'wwwroot/dest/',
+    images: 'images/',
     node: './node_modules/',
-    lib: './wwwroot/lib/'
+    lib: './wwwroot/src/lib/',
+    srcDirs: ['lib/', 'lib-extensions/', 'modules/', 'shared/']
 };
 
 //Only npm files that are listed here will be inlucde in the build
@@ -100,7 +106,8 @@ var nodeLibs = {
 
 // CLEAN //
 var dirsToClean = [
-    paths.lib
+    paths.lib,
+    paths.baseDest
 ];
 
 function clean() {
@@ -135,7 +142,31 @@ function copy(source, destination) {
         .pipe(gulp.dest(destination));
 }
 
+// STYLES //
+gulp.task('styles', function () {
+
+    return gulp.src(paths.baseSrc + '**/*.+(css|scss)')
+        .pipe(rename(function (path) {
+            path.extname = ".css";
+        }))
+        .pipe(gulp.dest(paths.baseDest));
+});
+
+// FONTS //
+gulp.task('fonts', function () {
+    return gulp.src(paths.baseSrc + 'fonts/**/*')
+        .pipe(gulp.dest(paths.baseDest + 'fonts/'));
+});
+
+// IMAGES //
+gulp.task('images', function () {
+    return gulp.src(paths.baseSrc + 'images/**/*')
+        .pipe(gulp.dest(paths.baseDest + 'images/'));
+});
+
+
+
 // BUILD //
-gulp.task('build', gulp.series('clean', 'copy'), function (done) {
+gulp.task('build', gulp.series('clean', 'copy', 'fonts', 'images', 'styles'), function (done) {
     done();
 });
