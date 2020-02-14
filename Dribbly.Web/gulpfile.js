@@ -164,9 +164,19 @@ gulp.task('images', function () {
         .pipe(gulp.dest(paths.baseDest + 'images/'));
 });
 
+// scripts //
+gulp.task('scripts', function () {
+    return gulp.src(paths.baseSrc + '**/*.js')
+        .pipe(gulp.dest(paths.baseDest));
+});
 
+// html //
+gulp.task('html', function () {
+    return gulp.src(paths.baseSrc + '**/*.html')
+        .pipe(gulp.dest(paths.baseDest));
+});
 
 // BUILD //
-gulp.task('build', gulp.series('clean', 'copy', 'fonts', 'images', 'styles'), function (done) {
+gulp.task('build', gulp.series('clean', 'copy', gulp.parallel('fonts', 'images','scripts', 'html', 'styles')), function (done) {
     done();
 });

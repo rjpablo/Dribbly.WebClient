@@ -60,125 +60,125 @@
     <toaster-container toaster-options="{'time-out': 2000, 'position-class': 'toast-top-center'}"></toaster-container>
     @RenderBody()
 
-    <script src="~/src/lib-extensions/array-extension.js"></script>
+    <script src="~/dest/lib-extensions/array-extension.js"></script>
 
     @*Third Party*@
     <environment include="Development">
-        <script src="~/src/lib/jquery/jquery.js"></script>
-        <script src="~/src/lib/bootstrap/bootstrap.bundle.js"></script>
-        <script src="~/src/lib/angular/angular.js"></script>
-        <script src="~/src/lib-extensions/angular-extension.js"></script>
-        <script src="~/src/lib/angular-ui-router/angular-ui-router.js"></script>
-        <script src="~/src/lib/angular-local-storage/angular-local-storage.js"></script>
-        <script src="~/src/lib-extensions/angular-sanitize-custom.js"></script>
-        <script src="~/src/lib/angular-animate/angular-animate.js"></script>
-        <script src="~/src/lib/angular-touch/angular-touch.js"></script>
+        <script src="~/dest/lib/jquery/jquery.js"></script>
+        <script src="~/dest/lib/bootstrap/bootstrap.bundle.js"></script>
+        <script src="~/dest/lib/angular/angular.js"></script>
+        <script src="~/dest/lib-extensions/angular-extension.js"></script>
+        <script src="~/dest/lib/angular-ui-router/angular-ui-router.js"></script>
+        <script src="~/dest/lib/angular-local-storage/angular-local-storage.js"></script>
+        <script src="~/dest/lib-extensions/angular-sanitize-custom.js"></script>
+        <script src="~/dest/lib/angular-animate/angular-animate.js"></script>
+        <script src="~/dest/lib/angular-touch/angular-touch.js"></script>
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY&libraries=placeses,visualization,drawing,geometry,places"></script>
-        <script src="~/src/lib/ngmap/ng-map.js"></script>
-        <script src="~/src/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
-        <script src="~/src/lib/angularjs-toaster/toaster.js"></script>
-        <script src="~/src/lib/angular-bootstrap-colorpicker/bootstrap-colorpicker-module.js"></script>
-        <script src="~/src/lib-extensions/angular-wysiwyg-custom.js"></script>
-        <script src="~/src/lib/ng-file-upload/ng-file-upload.js"></script>
+        <script src="~/dest/lib/ngmap/ng-map.js"></script>
+        <script src="~/dest/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="~/dest/lib/angularjs-toaster/toaster.js"></script>
+        <script src="~/dest/lib/angular-bootstrap-colorpicker/bootstrap-colorpicker-module.js"></script>
+        <script src="~/dest/lib-extensions/angular-wysiwyg-custom.js"></script>
+        <script src="~/dest/lib/ng-file-upload/ng-file-upload.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/src/lib/jquery/jquery.js"></script>
-        <script src="~/src/lib/bootstrap/bootstrap.bundle.js"></script>
-        <script src="~/src/lib/angular/angular.js"></script>
-        <script src="~/src/lib-extensions/angular-extension.js"></script>
-        <script src="~/src/lib/angular-ui-router/angular-ui-router.js"></script>
-        <script src="~/src/lib/angular-local-storage/angular-local-storage.js"></script>
-        <script src="~/src/lib-extensions/angular-sanitize-custom.js"></script>
-        <script src="~/src/lib/angular-animate/angular-animate.js"></script>
-        <script src="~/src/lib/angular-touch/angular-touch.js"></script>
+        <script src="~/dest/lib/jquery/jquery.js"></script>
+        <script src="~/dest/lib/bootstrap/bootstrap.bundle.js"></script>
+        <script src="~/dest/lib/angular/angular.js"></script>
+        <script src="~/dest/lib-extensions/angular-extension.js"></script>
+        <script src="~/dest/lib/angular-ui-router/angular-ui-router.js"></script>
+        <script src="~/dest/lib/angular-local-storage/angular-local-storage.js"></script>
+        <script src="~/dest/lib-extensions/angular-sanitize-custom.js"></script>
+        <script src="~/dest/lib/angular-animate/angular-animate.js"></script>
+        <script src="~/dest/lib/angular-touch/angular-touch.js"></script>
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyCQwPkj7HcSjORBr6z8ZGf56e4uXNPHUuY&libraries=placeses,visualization,drawing,geometry,places"></script>
-        <script src="~/src/lib/ngmap/ng-map.js"></script>
-        <script src="~/src/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
-        <script src="~/src/lib/angularjs-toaster/toaster.js"></script>
-        <script src="~/src/lib/angular-bootstrap-colorpicker/bootstrap-colorpicker-module.js"></script>
-        <script src="~/src/lib-extensions/angular-wysiwyg-custom.js"></script>
-        <script src="~/src/lib/ng-file-upload/ng-file-upload.js"></script>
+        <script src="~/dest/lib/ngmap/ng-map.js"></script>
+        <script src="~/dest/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="~/dest/lib/angularjs-toaster/toaster.js"></script>
+        <script src="~/dest/lib/angular-bootstrap-colorpicker/bootstrap-colorpicker-module.js"></script>
+        <script src="~/dest/lib-extensions/angular-wysiwyg-custom.js"></script>
+        <script src="~/dest/lib/ng-file-upload/ng-file-upload.js"></script>
     </environment>
 
     @*Custom Modules*@
-    <script src="~/src/custom/uiroutertitle/uiroutertitle.module.js"></script>
+    <script src="~/dest/custom/uiroutertitle/uiroutertitle.module.js"></script>
 
     @* siteModule files *@
-    <script src="~/src/shared/modules/site/site-module.js"></script>
-    <script src="~/src/shared/modules/site/services/settings-service.js"></script>
-    <script src="~/src/shared/modules/site/services/events.service.js"></script>
-    <script src="~/src/shared/modules/site/services/toast.service.js"></script>
-    <script src="~/src/shared/modules/site/services/common.service.js"></script>
-    <script src="~/src/shared/modules/site/services/http-service.js"></script>
-    <script src="~/src/shared/modules/site/services/i18n-service.js"></script>
-    <script src="~/src/shared/modules/site/services/overlay.service.js"></script>
-    <script src="~/src/shared/modules/site/services/modal-service.js"></script>
-    <script src="~/src/shared/modules/site/filters/i18n-filter.js"></script>
-    <script src="~/src/shared/modules/site/directives/i18n.directive.js"></script>
-    <script src="~/src/shared/modules/site/site-controller.js"></script>
-    <script src="~/src/shared/modules/site/components/alertmodal/alertmodal.component.js"></script>
-    <script src="~/src/shared/modules/site/components/navigator/navigator.component.js"></script>
-    <script src="~/src/shared/modules/site/components/sitelogo/sitelogo.component.js"></script>
-    <script src="~/src/shared/modules/site/components/mobiletoolbar/mobiletoolbar.component.js"></script>
-    <script src="~/src/shared/modules/site/components/sidenavigator/sidenavigator.component.js"></script>
-    <script src="~/src/shared/modules/site/components/modal/modal.component.js"></script>
-    <script src="~/src/shared/modules/site/directives/overlay/overlay.directive.js"></script>
+    <script src="~/dest/shared/modules/site/site-module.js"></script>
+    <script src="~/dest/shared/modules/site/services/settings-service.js"></script>
+    <script src="~/dest/shared/modules/site/services/events.service.js"></script>
+    <script src="~/dest/shared/modules/site/services/toast.service.js"></script>
+    <script src="~/dest/shared/modules/site/services/common.service.js"></script>
+    <script src="~/dest/shared/modules/site/services/http-service.js"></script>
+    <script src="~/dest/shared/modules/site/services/i18n-service.js"></script>
+    <script src="~/dest/shared/modules/site/services/overlay.service.js"></script>
+    <script src="~/dest/shared/modules/site/services/modal-service.js"></script>
+    <script src="~/dest/shared/modules/site/filters/i18n-filter.js"></script>
+    <script src="~/dest/shared/modules/site/directives/i18n.directive.js"></script>
+    <script src="~/dest/shared/modules/site/site-controller.js"></script>
+    <script src="~/dest/shared/modules/site/components/alertmodal/alertmodal.component.js"></script>
+    <script src="~/dest/shared/modules/site/components/navigator/navigator.component.js"></script>
+    <script src="~/dest/shared/modules/site/components/sitelogo/sitelogo.component.js"></script>
+    <script src="~/dest/shared/modules/site/components/mobiletoolbar/mobiletoolbar.component.js"></script>
+    <script src="~/dest/shared/modules/site/components/sidenavigator/sidenavigator.component.js"></script>
+    <script src="~/dest/shared/modules/site/components/modal/modal.component.js"></script>
+    <script src="~/dest/shared/modules/site/directives/overlay/overlay.directive.js"></script>
 
     @* authModule files *@
-    <script src="~/src/modules/auth/auth-module.js"></script>
-    <script src="~/src/modules/auth/services/auth-service.js"></script>
-    <script src="~/src/modules/auth/services/authInterceptor-service.js"></script>
-    <script src="~/src/modules/auth/auth-controller.js"></script>
+    <script src="~/dest/modules/auth/auth-module.js"></script>
+    <script src="~/dest/modules/auth/services/auth-service.js"></script>
+    <script src="~/dest/modules/auth/services/authInterceptor-service.js"></script>
+    <script src="~/dest/modules/auth/auth-controller.js"></script>
 
     @* appModule files *@
-    <script src="~/src/shared/modules/app/app-module.js"></script>
-    <script src="~/src/shared/modules/app/app-controller.js"></script>
+    <script src="~/dest/shared/modules/app/app-module.js"></script>
+    <script src="~/dest/shared/modules/app/app-controller.js"></script>
 
     @*appModule services*@
-    <script src="~/src/shared/modules/app/services/toolbar.service.js"></script>
-    <script src="~/src/shared/modules/app/services/footer.service.js"></script>
-    <script src="~/src/shared/modules/app/services/map.service.js"></script>
+    <script src="~/dest/shared/modules/app/services/toolbar.service.js"></script>
+    <script src="~/dest/shared/modules/app/services/footer.service.js"></script>
+    <script src="~/dest/shared/modules/app/services/map.service.js"></script>
 
     @*appModule components*@
-    <script src="~/src/shared/modules/app/services/file.service.js"></script>
-    <script src="~/src/shared/modules/app/components/rating/rating.component.js"></script>
-    <script src="~/src/shared/modules/app/components/profilepicture/profilepicture.component.js"></script>
-    <script src="~/src/shared/modules/app/components/locationpicker/locationpicker.component.js"></script>
-    <script src="~/src/shared/modules/app/components/texteditor/texteditor.component.js"></script>
-    <script src="~/src/shared/modules/app/components/footer/footer.component.js"></script>
+    <script src="~/dest/shared/modules/app/services/file.service.js"></script>
+    <script src="~/dest/shared/modules/app/components/rating/rating.component.js"></script>
+    <script src="~/dest/shared/modules/app/components/profilepicture/profilepicture.component.js"></script>
+    <script src="~/dest/shared/modules/app/components/locationpicker/locationpicker.component.js"></script>
+    <script src="~/dest/shared/modules/app/components/texteditor/texteditor.component.js"></script>
+    <script src="~/dest/shared/modules/app/components/footer/footer.component.js"></script>
 
     @*main Module*@
-    <script src="~/src/modules/main/main-module.js"></script>
-    <script src="~/src/modules/main/main-controller.js"></script>
-    <script src="~/src/modules/main/services/courtshelper.service.js"></script>
-    <script src="~/src/modules/main/services/courts.service.js"></script>
+    <script src="~/dest/modules/main/main-module.js"></script>
+    <script src="~/dest/modules/main/main-controller.js"></script>
+    <script src="~/dest/modules/main/services/courtshelper.service.js"></script>
+    <script src="~/dest/modules/main/services/courts.service.js"></script>
 
     @*mainModule components*@
-    <script src="~/src/modules/main/components/image/image.component.js"></script>
-    <script src="~/src/modules/main/components/courtprice/courtprice.component.js"></script>
-    <script src="~/src/modules/main/components/courtlistitem/courtlistitem.component.js"></script>
-    <script src="~/src/modules/main/components/courtdetails/courtdetails.component.js"></script>
-    <script src="~/src/modules/main/components/addeditcourtmodal/addeditcourtmodal.component.js"></script>
-    <script src="~/src/modules/main/containers/courtviewercontainer/courtviewercontainer.component.js"></script>
-    <script src="~/src/modules/main/components/courtlist/courtlist.component.js"></script>
-    <script src="~/src/modules/main/components/courtpreviewmodal/courtpreviewmodal.component.js"></script>
+    <script src="~/dest/modules/main/components/image/image.component.js"></script>
+    <script src="~/dest/modules/main/components/courtprice/courtprice.component.js"></script>
+    <script src="~/dest/modules/main/components/courtlistitem/courtlistitem.component.js"></script>
+    <script src="~/dest/modules/main/components/courtdetails/courtdetails.component.js"></script>
+    <script src="~/dest/modules/main/components/addeditcourtmodal/addeditcourtmodal.component.js"></script>
+    <script src="~/dest/modules/main/containers/courtviewercontainer/courtviewercontainer.component.js"></script>
+    <script src="~/dest/modules/main/components/courtlist/courtlist.component.js"></script>
+    <script src="~/dest/modules/main/components/courtpreviewmodal/courtpreviewmodal.component.js"></script>
 
     @* authModule components *@
-    <script src="~/src/modules/auth/components/socialauth/socialauth.component.js"></script>
-    <script src="~/src/modules/auth/components/loggedoutmenubar/loggedoutmenubar.component.js"></script>
-    <script src="~/src/modules/auth/components/logincontainer/logincontainer.component.js"></script>
-    <script src="~/src/modules/auth/components/loginform/loginform.component.js"></script>
-    <script src="~/src/modules/auth/components/signupcontainer/signupcontainer.component.js"></script>
-    <script src="~/src/modules/auth/components/signupform/signupform.component.js"></script>
+    <script src="~/dest/modules/auth/components/socialauth/socialauth.component.js"></script>
+    <script src="~/dest/modules/auth/components/loggedoutmenubar/loggedoutmenubar.component.js"></script>
+    <script src="~/dest/modules/auth/components/logincontainer/logincontainer.component.js"></script>
+    <script src="~/dest/modules/auth/components/loginform/loginform.component.js"></script>
+    <script src="~/dest/modules/auth/components/signupcontainer/signupcontainer.component.js"></script>
+    <script src="~/dest/modules/auth/components/signupform/signupform.component.js"></script>
 
     @*Containers*@
 
-    <script src="~/src/modules/main/containers/homecontainer/homecontainer.service.js"></script>
-    <script src="~/src/modules/main/containers/homecontainer/homecontainer.component.js"></script>
+    <script src="~/dest/modules/main/containers/homecontainer/homecontainer.service.js"></script>
+    <script src="~/dest/modules/main/containers/homecontainer/homecontainer.component.js"></script>
 
-    @*<script src="~/src/modules/main/containers/courtscontainer/courtscontainer.service.js"></script>*@
-    <script src="~/src/modules/main/containers/courtscontainer/courtscontainer.component.js"></script>
+    @*<script src="~/dest/modules/main/containers/courtscontainer/courtscontainer.service.js"></script>*@
+    <script src="~/dest/modules/main/containers/courtscontainer/courtscontainer.component.js"></script>
 
-    <script src="~/src/modules/main/containers/maincontainer/maincontainer.component.js"></script>
+    <script src="~/dest/modules/main/containers/maincontainer/maincontainer.component.js"></script>
 </body>
 </html>
