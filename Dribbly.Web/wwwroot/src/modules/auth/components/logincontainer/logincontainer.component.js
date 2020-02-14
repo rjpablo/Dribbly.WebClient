@@ -3,12 +3,12 @@
 
     angular
         .module('authModule')
-        .component('drbblyLoginContainer', {
+        .component('drbblyLogincontainer', {
             bindings: {
                 app: '<'
             },
             controllerAs: 'dlc',
-            templateUrl: '/modules/auth/components/login/login-container/login-container-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 

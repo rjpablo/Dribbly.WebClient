@@ -56,7 +56,7 @@
 
             .state('auth.login', {
                 url: '/login',
-                template: '<drbbly-login-container app="app"></drbbly-login-container>',
+                template: '<drbbly-logincontainer app="app"></drbbly-logincontainer>',
                 resolve: {
                     $titleKey: () => { return 'auth.LogIn'; }
                 }
@@ -64,7 +64,7 @@
 
             .state('auth.signUp', {
                 url: '/signup',
-                template: '<drbbly-signup-container app="app"></drbbly-signup-container>',
+                template: '<drbbly-signupcontainer app="app"></drbbly-signupcontainer>',
                 resolve: {
                     $titleKey: () => { return 'auth.SignUp'; }
                 }

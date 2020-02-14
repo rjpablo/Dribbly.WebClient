@@ -6,7 +6,7 @@
         .component('drbblySocialauth', {
             bindings: {},
             controllerAs: 'dsa',
-            templateUrl: '/modules/auth/components/shared/socialauth/socialauth-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 

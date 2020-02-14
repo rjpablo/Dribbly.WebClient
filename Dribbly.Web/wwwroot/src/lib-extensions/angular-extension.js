@@ -17,7 +17,9 @@
             var moduleName = arguments[0];
             var dependencies = arguments[1];
 
-            if (moduleName === 'siteModule' || dependencies.drbblyIntersect(angular.drbblyRawModuleNames).drbblyAny()) {
+            if (moduleName === 'siteModule' ||
+                //check if this module depends on one of our modules
+                dependencies.drbblyIntersect(angular.drbblyRawModuleNames).drbblyAny()) {
                 //this is our module for sure
                 //(no one else is writing dependencies on our modules except us)
             }
@@ -59,6 +61,10 @@
                     }
                     else if (moduleName === 'site') {
                         options.templateUrl = './src/shared/modules/site/components/' + trimmedComponentName + '/'
+                            + trimmedComponentName + '.component.html';
+                    }
+                    else if (moduleName === 'auth') {
+                        options.templateUrl = './src/modules/auth/components/' + trimmedComponentName + '/'
                             + trimmedComponentName + '.component.html';
                     }
                 }

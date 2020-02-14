@@ -6,7 +6,7 @@
         .component('drbblyLoginform', {
             bindings: {},
             controllerAs: 'dlf',
-            templateUrl: '/modules/auth/components/login/loginform/loginform-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 

@@ -6,7 +6,7 @@
         .component('drbblySignupform', {
             bindings: {},
             controllerAs: 'suf',
-            templateUrl: '/modules/auth/components/signup/signupform/signupform-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 

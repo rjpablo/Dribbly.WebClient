@@ -6,7 +6,7 @@
         .component('drbblyLoggedoutmenubar', {
             bindings: {},
             controllerAs: 'lmb',
-            templateUrl: '/modules/auth/components/shared/loggedoutmenubar/loggedoutmenubar-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 

@@ -3,12 +3,12 @@
 
     angular
         .module('authModule')
-        .component('drbblySignupContainer', {
+        .component('drbblySignupcontainer', {
             bindings: {
                 app: '<'
             },
             controllerAs: 'sup',
-            templateUrl: '/modules/auth/components/signup/signup-container/signup-container-template.html',
+            templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 
