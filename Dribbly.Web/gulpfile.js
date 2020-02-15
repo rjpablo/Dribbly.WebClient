@@ -15,6 +15,10 @@ var paths = {
     srcDirs: ['lib/', 'lib-extensions/', 'modules/', 'shared/']
 };
 
+// used to exclude external libraries from watch since they
+// very rarely get updated
+var _notLib = '!' + paths.baseSrc + 'lib/**/*';
+
 //Only npm files that are listed here will be inlucde in the build
 //REMEMBER: keep alphabetical order
 var nodeLibs = {
@@ -184,18 +188,18 @@ gulp.task('build', gulp.series('clean', 'copy', gulp.parallel('fonts', 'images',
 
 // WATCH TASKS //
 gulp.task('watch-scripts', function (done) {
-    watch(paths.baseSrc + '**/*.js', gulp.series('scripts'));
+    watch([paths.baseSrc + '**/*.js', _notLib], gulp.series('scripts'));
     done();
 
 });
 
 gulp.task('watch-styles', function (done) {
-    watch(paths.baseSrc + '**/*.+(css|scss)', gulp.series('styles'));
+    watch([paths.baseSrc + '**/*.+(css|scss)', _notLib], gulp.series('styles'));
     done();
 });
 
 gulp.task('watch-html', function (done) {
-    watch(paths.baseSrc + '**/*.html', gulp.series('html'));
+    watch([paths.baseSrc + '**/*.html', _notLib], gulp.series('html'));
     done();
 });
 
