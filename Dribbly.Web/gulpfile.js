@@ -3,6 +3,7 @@ const gulp = require('gulp');
 const merge = require("merge-stream");
 const del = require("del");
 const rename = require("gulp-rename");
+const watch = require("gulp-watch");
 const sass = require('gulp-sass');
 
 var paths = {
@@ -178,5 +179,26 @@ gulp.task('html', function () {
 
 // BUILD //
 gulp.task('build', gulp.series('clean', 'copy', gulp.parallel('fonts', 'images','scripts', 'html', 'styles')), function (done) {
+    done();
+});
+
+// WATCH TASKS //
+gulp.task('watch-scripts', function (done) {
+    watch(paths.baseSrc + '**/*.js', gulp.series('scripts'));
+    done();
+
+});
+
+gulp.task('watch-styles', function (done) {
+    watch(paths.baseSrc + '**/*.+(css|scss)', gulp.series('styles'));
+    done();
+});
+
+gulp.task('watch-html', function (done) {
+    watch(paths.baseSrc + '**/*.html', gulp.series('html'));
+    done();
+});
+
+gulp.task('watch', gulp.parallel('watch-scripts', 'watch-styles', 'watch-html'), function (done) {
     done();
 });
