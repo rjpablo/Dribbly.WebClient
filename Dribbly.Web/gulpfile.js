@@ -69,7 +69,10 @@ var nodeLibs = {
     bootstrap: {
         source: [
             'bootstrap/dist/css/bootstrap.css',
-            'bootstrap/dist/js/bootstrap.bundle.js'
+            'bootstrap/dist/js/bootstrap.bundle.js',
+            'bootstrap/scss/_functions.scss',
+            'bootstrap/scss/_variables.scss',
+            'bootstrap/scss/mixins/_breakpoints.scss'
         ],
         destination: 'bootstrap'
     },

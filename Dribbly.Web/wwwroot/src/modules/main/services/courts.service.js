@@ -13,6 +13,10 @@
                 return drbblyhttpService.get(api + 'getCourt/' + id);
             }
 
+            function getCourtPhotos(id) {
+                return drbblyhttpService.get(api + 'getCourtPhotos/' + id);
+            }
+
             function register(courtDetails) {
                 return drbblyhttpService.post(api + 'register', courtDetails);
             }
@@ -24,6 +28,7 @@
             var _service = {
                 getAllCourts: getAllCourts,
                 getCourt: getCourt,
+                getCourtPhotos: getCourtPhotos,
                 register: register,
                 updateCourt: updateCourt
             };

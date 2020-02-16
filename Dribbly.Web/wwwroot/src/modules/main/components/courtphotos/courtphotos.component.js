@@ -19,7 +19,14 @@
         var dcp = this;
 
         dcp.$onInit = function () {
+            dcp.courtId = $stateParams.id;
+            drbblyCourtsService.getCourtPhotos(dcp.courtId)
+                .then(function (photos) {
+                    dcp.photos = photos;
+                })
+                .catch(function (error) {
 
+                });
         };
     }
 })();

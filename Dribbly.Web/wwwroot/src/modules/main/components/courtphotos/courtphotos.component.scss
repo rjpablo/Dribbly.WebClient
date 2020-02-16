@@ -1,0 +1,27 @@
+@import '../../../../lib/bootstrap/_functions.scss';
+@import '../../../../lib/bootstrap/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-courtphotos {
+
+    @include media-breakpoint-down(xl) {
+        drbbly-image {
+            height: 100px;
+            width: 20%;
+        }
+    }
+
+    @include media-breakpoint-down(lg) {
+        drbbly-image {
+            height: 100px;
+            width: 25%;
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        drbbly-image {
+            height: 100px;
+            width: 33.3333%;
+        }
+    }
+}
