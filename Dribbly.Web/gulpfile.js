@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='build' />
+﻿/// <binding BeforeBuild='scss-to-css' />
 const gulp = require('gulp');
 const merge = require("merge-stream");
 const del = require("del");
@@ -150,11 +150,20 @@ function copy(source, destination) {
 // STYLES //
 gulp.task('styles', function () {
 
-    return gulp.src(paths.baseSrc + '**/*.+(css|scss)')
+    return gulp.src(paths.baseSrc + '**/*.css')
+        .pipe(gulp.dest(paths.baseDest));
+});
+
+gulp.task('scss-to-css', function () {
+
+    return gulp.src([
+        paths.baseSrc + '**/*.scss',
+        '!' + paths.baseSrc + '**/_*.scss)'])
+        .pipe(sass())
         .pipe(rename(function (path) {
             path.extname = ".css";
         }))
-        .pipe(gulp.dest(paths.baseDest));
+        .pipe(gulp.dest(paths.baseSrc));
 });
 
 // FONTS //
@@ -182,7 +191,7 @@ gulp.task('html', function () {
 });
 
 // BUILD //
-gulp.task('build', gulp.series('clean', 'copy', gulp.parallel('fonts', 'images','scripts', 'html', 'styles')), function (done) {
+gulp.task('build', gulp.series('clean', 'copy', gulp.parallel('fonts', 'images', 'scripts', 'html', 'styles')), function (done) {
     done();
 });
 
@@ -194,7 +203,7 @@ gulp.task('watch-scripts', function (done) {
 });
 
 gulp.task('watch-styles', function (done) {
-    watch([paths.baseSrc + '**/*.+(css|scss)', _notLib], gulp.series('styles'));
+    watch([paths.baseSrc + '**/*.scss', _notLib], gulp.series('scss-to-css'));
     done();
 });
 

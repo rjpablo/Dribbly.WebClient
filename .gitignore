@@ -10,6 +10,9 @@
 #Documentation
 Documentation.docx
 
+#Compiles css files
+Dribbly.Web/wwwroot/src/**/*.css
+
 #NPM cache
 Appsnodejsnpm-cache
 

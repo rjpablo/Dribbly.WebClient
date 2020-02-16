@@ -47,24 +47,24 @@
                     var trimmedComponentName = componentName.replace('drbbly', '').toLowerCase();
                     if (moduleName === 'main') {
                         if (trimmedComponentName.indexOf('container') > -1) {
-                            options.templateUrl = './dest/modules/main/containers/' + trimmedComponentName + '/'
+                            options.templateUrl = './src/modules/main/containers/' + trimmedComponentName + '/'
                                 + trimmedComponentName + '.component.html';
                         }
                         else {
-                            options.templateUrl = './dest/modules/main/components/' + trimmedComponentName + '/'
+                            options.templateUrl = './src/modules/main/components/' + trimmedComponentName + '/'
                                 + trimmedComponentName + '.component.html';
                         }
                     }
                     else if (moduleName === 'app') {
-                        options.templateUrl = './dest/shared/modules/app/components/' + trimmedComponentName + '/'
+                        options.templateUrl = './src/shared/modules/app/components/' + trimmedComponentName + '/'
                             + trimmedComponentName + '.component.html';
                     }
                     else if (moduleName === 'site') {
-                        options.templateUrl = './dest/shared/modules/site/components/' + trimmedComponentName + '/'
+                        options.templateUrl = './src/shared/modules/site/components/' + trimmedComponentName + '/'
                             + trimmedComponentName + '.component.html';
                     }
                     else if (moduleName === 'auth') {
-                        options.templateUrl = './dest/modules/auth/components/' + trimmedComponentName + '/'
+                        options.templateUrl = './src/modules/auth/components/' + trimmedComponentName + '/'
                             + trimmedComponentName + '.component.html';
                     }
                 }
