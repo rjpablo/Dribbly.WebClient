@@ -41,8 +41,25 @@
             })
 
             .state('main.court', {
+                abstract: true,
                 url: '/court/:id',
                 template: '<drbbly-courtviewercontainer></drbbly-courtviewercontainer>',
+                resolve: {
+                    $titleKey: () => { return 'site.CourtDetails'; }
+                }
+            })
+
+            .state('main.court.details', {
+                url: '/details',
+                component: 'drbblyCourtdetails',
+                resolve: {
+                    $titleKey: () => { return 'site.CourtDetails'; }
+                }
+            })
+
+            .state('main.court.photos', {
+                url: '/photos',
+                component: 'drbblyCourtphotos',
                 resolve: {
                     $titleKey: () => { return 'site.CourtDetails'; }
                 }

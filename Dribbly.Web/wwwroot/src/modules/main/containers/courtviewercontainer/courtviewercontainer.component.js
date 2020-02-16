@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyCourtsService', 'drbblyToolbarService', 'drbblyCourtshelperService',
-        'drbblyOverlayService', '$stateParams', 'drbblyFooterService', '$scope'];
+        'drbblyOverlayService', '$stateParams', 'drbblyFooterService', '$scope', '$state'];
     function controllerFunc(drbblyCourtsService, drbblyToolbarService, drbblyCourtshelperService,
-        drbblyOverlayService, $stateParams, drbblyFooterService, $scope) {
+        drbblyOverlayService, $stateParams, drbblyFooterService, $scope, $state) {
         var dcc = this;
         var _courtId;
         var _priceComponent;
@@ -24,6 +24,7 @@
             _courtId = $stateParams.id;
             dcc.courtsDetailsOverlay = drbblyOverlayService.buildOverlay();
             loadCourt();
+            buildSubPages();
         };
 
         function loadCourt() {
@@ -79,6 +80,24 @@
 
         function toggleSearch() {
             console.log('toggleSearch');
+        }
+
+        function buildSubPages() {
+            dcc.subPages = [
+                {
+                    textKey: 'app.Details',
+                    targetStateName: 'main.court.details',
+                    targetStateParams: { id: _courtId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
+                },
+                {
+                    textKey: 'app.Photos',
+                    targetStateName: 'main.court.photos',
+                    targetStateParams: { id: _courtId }
+                }
+            ];
         }
     }
 })();

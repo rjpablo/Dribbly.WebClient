@@ -1,61 +1,63 @@
-﻿<div class="mx-n3 photo-container">
-    <drbbly-image class="primary-photo"
-                  image-url="{{dcd.court.primaryPhotoUrl || './images/default_images/court_default_1.png'}}"></drbbly-image>
-    <div class="controls float-right">
-        <button class="btn btn-sm btn-outline-light"
-                ng-if="dcd.isOwned"
-                ngf-select="dcd.changePrimaryPicture($file)"
-                ng-model="dcd.profilePicture"
-                ngf-pattern="'image/*'"
-                ngf-accept="'image/*'"
-                ngf-max-size="20MB">
-            <span class="fa fa-pencil" aria-hidden="true"></span>
-        </button><br />
+﻿<div drbbly-overlay="dcd.overlay">
+    <div ng-if="dcd.court" class="mx-n3 photo-container">
+        <drbbly-image class="primary-photo"
+                      image-url="{{dcd.court.primaryPhotoUrl || './images/default_images/court_default_1.png'}}"></drbbly-image>
+        <div class="controls float-right">
+            <button class="btn btn-sm btn-outline-light"
+                    ng-if="dcd.isOwned"
+                    ngf-select="dcd.changePrimaryPicture($file)"
+                    ng-model="dcd.profilePicture"
+                    ngf-pattern="'image/*'"
+                    ngf-accept="'image/*'"
+                    ngf-max-size="20MB">
+                <span class="fa fa-pencil" aria-hidden="true"></span>
+            </button><br />
+        </div>
     </div>
-</div>
-<div class="row court-details">
-    <div class="col-12 my-2">
-        <span class="name d-block line-height-1">{{dcd.court.name}}</span>
-        <drbbly-rating class="d-block" value="dcd.court.rating"></drbbly-rating>
-        <span ng-if="dcd.court.isPublic" class="badge badge-success">{{::'app.Public' | i18n}}</span>
-        <span ng-if="!dcd.court.isPublic" class="badge badge-primary">{{::'app.Private' | i18n}}</span>
-    </div>
-    <div class="more-details col-12 bg-light">
-        <dl class="row pt-3">
-            <dt class="col-1">
-                <i class="fa fa-map-marker"></i>
-            </dt>
-            <dd class="col-11">
-                <span class="mr-3">{{'San Juan City'}}</span>
-                <small>
-                    <!-- adding tabindex to make this look and behave like a normal link
-                    (i.e. blue font, underline when hovered, etc.) -->
-                    <a tabindex="0" ng-click="dcd.viewMap()">{{::'app.ViewOnMap' | i18n}}</a>
-                </small>
-            </dd>
-            <dt class="col-1">
-                <i class="fa fa-user"></i>
-            </dt>
-            <dd class="col-11">
-                <span>{{'John Cena'}}</span>
-            </dd>
-            <dt class="col-1">
-                <i class="fa fa-calendar"></i>
-            </dt>
-            <dd class="col-11">
-                <span>{{dcd.court.dateAdded | date}}</span>
-            </dd>
-            <dt class="col-1">
-                <i class="fa fa-info-circle"></i>
-            </dt>
-            <dd class="col-11">
-                <div ng-bind-html="dcd.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
-                <button ng-if="dcd.isOwned"
-                        ng-click="dcd.edit()"
-                        class="btn btn-secondary float-right">
-                    <span class="fa fa-pencil" aria-hidden="true"></span>
-                </button>
-            </dd>
-        </dl>
+    <div ng-if="dcd.court" class="row court-details">
+        <div class="col-12 my-2">
+            <span class="name d-block line-height-1">{{dcd.court.name}}</span>
+            <drbbly-rating class="d-block" value="dcd.court.rating"></drbbly-rating>
+            <span ng-if="dcd.court.isPublic" class="badge badge-success">{{::'app.Public' | i18n}}</span>
+            <span ng-if="!dcd.court.isPublic" class="badge badge-primary">{{::'app.Private' | i18n}}</span>
+        </div>
+        <div class="more-details col-12 bg-light">
+            <dl class="row pt-3">
+                <dt class="col-1">
+                    <i class="fa fa-map-marker"></i>
+                </dt>
+                <dd class="col-11">
+                    <span class="mr-3">{{'San Juan City'}}</span>
+                    <small>
+                        <!-- adding tabindex to make this look and behave like a normal link
+                        (i.e. blue font, underline when hovered, etc.) -->
+                        <a tabindex="0" ng-click="dcd.viewMap()">{{::'app.ViewOnMap' | i18n}}</a>
+                    </small>
+                </dd>
+                <dt class="col-1">
+                    <i class="fa fa-user"></i>
+                </dt>
+                <dd class="col-11">
+                    <span>{{'John Cena'}}</span>
+                </dd>
+                <dt class="col-1">
+                    <i class="fa fa-calendar"></i>
+                </dt>
+                <dd class="col-11">
+                    <span>{{dcd.court.dateAdded | date}}</span>
+                </dd>
+                <dt class="col-1">
+                    <i class="fa fa-info-circle"></i>
+                </dt>
+                <dd class="col-11">
+                    <div ng-bind-html="dcd.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
+                    <button ng-if="dcd.isOwned"
+                            ng-click="dcd.edit()"
+                            class="btn btn-secondary float-right">
+                        <span class="fa fa-pencil" aria-hidden="true"></span>
+                    </button>
+                </dd>
+            </dl>
+        </div>
     </div>
 </div>

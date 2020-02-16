@@ -1,3 +1,5 @@
+@import '../../scss/_variables.scss';
+
 
 body {
     background: url('../../../images/backgrounds/site_background.jpg') fixed center;
@@ -28,7 +30,7 @@ body {
 
 .bg-dark {
     background-color: #282828 !important;
-    color: #777;
+    color: $bgDarkFontColor;
 }
 
     .bg-dark .separator {

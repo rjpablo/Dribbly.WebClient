@@ -1,0 +1,10 @@
+﻿<nav class="mx-n3 bg-dark">
+    <div class="separator"></div>
+    <ul class="nav">
+        <li class="nav-item" ng-repeat="item in dan.navItems">
+            <a class="nav-link" ng-class="{'active': item.isActive}" ng-href="{{dan.getHref(item)}}">
+                <span ng-click="dan.itemClicked(item, $event)">{{::item.textKey | i18n}}</span>
+            </a>
+        </li>
+    </ul>
+</nav>

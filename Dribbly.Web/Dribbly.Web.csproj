@@ -34,6 +34,7 @@
   <ItemGroup>
     <Folder Include="Enums\" />
     <Folder Include="wwwroot\dest\" />
+    <Folder Include="wwwroot\dest\shared\scss\" />
     <Folder Include="wwwroot\src\lib\" />
     <Folder Include="wwwroot\src\lib\angular-ui-router-title\" />
   </ItemGroup>

@@ -1,0 +1,11 @@
+drbbly-appnavigator {
+
+    .nav > .nav-item > .nav-link {
+        padding: 0;
+
+        > span {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.9rem;
+        }
+    }
+}

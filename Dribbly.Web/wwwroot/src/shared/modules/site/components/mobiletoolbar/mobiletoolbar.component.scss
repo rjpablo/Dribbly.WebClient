@@ -1,13 +1,20 @@
-.mobile-toolbar {
-    background-color: #fff;
-}
+@import '../../../../scss/_variables.scss';
 
-    .mobile-toolbar .menu-item-icon {
+drbbly-mobiletoolbar
+{
+    background-color: #fff;
+
+    .menu-item-icon {
         line-height: 1.5rem;
         font-size: 1.5rem;
     }
 
-    .mobile-toolbar drbbly-sitelogo {
+    drbbly-sitelogo {
         display: inline-block;
         padding: 0.125rem 0;
     }
+
+    > div.bg-dark > .row > .col > * {
+        color: $bgDarkFontColor;
+    }
+}
