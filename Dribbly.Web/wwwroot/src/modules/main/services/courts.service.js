@@ -2,38 +2,53 @@
     'use strict';
 
     angular.module('mainModule')
-        .service('drbblyCourtsService', ['drbblyhttpService', function (drbblyhttpService) {
-            var api = 'api/courts/';
+        .service('drbblyCourtsService', ['drbblyhttpService', 'drbblyFileService', '$q',
+            function (drbblyhttpService, drbblyFileService, $q) {
+                var api = 'api/courts/';
 
-            function getAllCourts() {
-                return drbblyhttpService.get(api + 'getAllCourts');
-            }
+                function getAllCourts() {
+                    return drbblyhttpService.get(api + 'getAllCourts');
+                }
 
-            function getCourt(id) {
-                return drbblyhttpService.get(api + 'getCourt/' + id);
-            }
+                function getCourt(id) {
+                    return drbblyhttpService.get(api + 'getCourt/' + id);
+                }
 
-            function getCourtPhotos(id) {
-                return drbblyhttpService.get(api + 'getCourtPhotos/' + id);
-            }
+                function getCourtPhotos(id) {
+                    return drbblyhttpService.get(api + 'getCourtPhotos/' + id);
+                }
 
-            function register(courtDetails) {
-                return drbblyhttpService.post(api + 'register', courtDetails);
-            }
+                function register(courtDetails) {
+                    return drbblyhttpService.post(api + 'register', courtDetails);
+                }
 
-            function updateCourt(courtDetails) {
-                return drbblyhttpService.post(api + 'updateCourt', courtDetails);
-            }
+                function updateCourt(courtDetails) {
+                    return drbblyhttpService.post(api + 'updateCourt', courtDetails);
+                }
 
-            var _service = {
-                getAllCourts: getAllCourts,
-                getCourt: getCourt,
-                getCourtPhotos: getCourtPhotos,
-                register: register,
-                updateCourt: updateCourt
-            };
+                function addCourtPhotos(files, courtId) {
+                    var deferred = $q.defer();
+                    drbblyFileService.upload(files, 'api/courts/addCourtPhotos/' + courtId)
+                        .then(function (result) {
+                            deferred.resolve(result.data);
+                        })
+                        .catch(function (error) {
+                            deferred.reject(error);
+                        });
 
-            return _service;
-        }]);
+                    return deferred.promise;
+                }
+
+                var _service = {
+                    addCourtPhotos: addCourtPhotos,
+                    getAllCourts: getAllCourts,
+                    getCourt: getCourt,
+                    getCourtPhotos: getCourtPhotos,
+                    register: register,
+                    updateCourt: updateCourt
+                };
+
+                return _service;
+            }]);
 
 })();

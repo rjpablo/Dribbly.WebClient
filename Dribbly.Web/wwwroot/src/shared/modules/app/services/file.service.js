@@ -4,10 +4,17 @@
     angular.module('appModule')
         .service('drbblyFileService', ['Upload', 'settingsService', function (Upload, settingsService) {
 
-            function upload(file, apiMethod) {
+            function upload(files, apiMethod) {
+                var data;
+                if (files.length) {
+                    data = { files: files };
+                }
+                else {
+                    data = { file: files };
+                }
                 return Upload.upload({
                     url: settingsService.serviceBase + apiMethod,
-                    data: { file: file }
+                    data: data
                 });
             }
 

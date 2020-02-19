@@ -4,6 +4,10 @@
 
 drbbly-courtphotos {
 
+    .toolbar {
+        padding: 1rem 0.5rem 0;
+    }
+
     @include media-breakpoint-down(xl) {
         drbbly-image {
             height: 100px;

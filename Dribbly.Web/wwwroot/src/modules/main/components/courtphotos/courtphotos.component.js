@@ -28,5 +28,16 @@
 
                 });
         };
+               
+        dcp.addPhotos = function (files) {
+            //drbblyFileService.upload(files, 'api/courts/addPhotos/' + dcp.court.i)
+            drbblyCourtsService.addCourtPhotos(files, dcp.courtId)
+                .then(function (result) {
+                    dcp.photos.unshift(...result);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        };
     }
 })();

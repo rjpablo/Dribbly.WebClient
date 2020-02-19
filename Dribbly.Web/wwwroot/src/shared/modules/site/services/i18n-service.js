@@ -49,6 +49,7 @@
                     Browse: 'Browse',
                     Details: 'Details',
                     FeaturedCourts: 'Featured Courts',
+                    FoundCountPhotos: 'Found {count} photos',
                     LocationPickFromTheMap: 'Location: (Please select from the map)',
                     NoAdditionalInfo: '<small class="text-muted">No additional info provided</small>',
                     Photos: 'Photos',
@@ -57,6 +58,7 @@
                     Public: 'Public',
                     RatePerHour: 'Rate Per Hour',
                     SearchTheMap: 'Search the map',
+                    UploadAPhoto: 'Upload a photo',
                     ViewFullDetails: 'View Full Details',
                     ViewOnMap: 'View On Map'
                 },
