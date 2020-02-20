@@ -151,7 +151,16 @@ function copy(source, destination) {
 }
 
 // STYLES //
-gulp.task('styles', function () {
+gulp.task('compile-custom-bootstrap', function () {
+    return gulp.src(paths.baseSrc + 'custom/bootstrap/scss/bootstrap.scss')
+        .pipe(sass())
+        .pipe(rename(function (path) {
+            path.extname = ".css";
+        }))
+        .pipe(gulp.dest(paths.baseSrc + 'custom/bootstrap/dist/css/'));
+});
+
+gulp.task('styles', gulp.series('compile-custom-bootstrap'), function () {
 
     return gulp.src(paths.baseSrc + '**/*.css')
         .pipe(gulp.dest(paths.baseDest));
