@@ -47,6 +47,7 @@
                     Address: 'Address',
                     BookNow: 'Book Now',
                     Browse: 'Browse',
+                    CourtSearchPrompt: 'Enter a court name to search',
                     Details: 'Details',
                     FeaturedCourts: 'Featured Courts',
                     FoundCountPhotos: 'Found {count} photos',

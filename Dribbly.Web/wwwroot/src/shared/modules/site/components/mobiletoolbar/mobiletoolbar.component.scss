@@ -1,20 +1,23 @@
-@import '../../../../scss/_variables.scss';
+@import '../../../../../custom/bootstrap/scss/_variables.scss';
 
-drbbly-mobiletoolbar
-{
+drbbly-mobiletoolbar {
     background-color: #fff;
 
-    .menu-item-icon {
-        line-height: 1.5rem;
-        font-size: 1.5rem;
-    }
+    > div {
+        border-bottom: 2px solid $orange;
 
-    drbbly-sitelogo {
-        display: inline-block;
-        padding: 0.125rem 0;
-    }
+        > .row > .col > * {
+            color: $bgDarkFontColor;
+        }
 
-    > div.bg-dark > .row > .col > * {
-        color: $bgDarkFontColor;
+        .menu-item-icon {
+            line-height: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        drbbly-sitelogo {
+            display: inline-block;
+            padding: 0.125rem 0;
+        }
     }
 }
