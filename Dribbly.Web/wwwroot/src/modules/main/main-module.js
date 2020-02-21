@@ -43,7 +43,7 @@
             .state('main.court', {
                 abstract: true,
                 url: '/court/:id',
-                template: '<drbbly-courtviewercontainer></drbbly-courtviewercontainer>',
+                component: 'drbblyCourtviewercontainer',
                 resolve: {
                     $titleKey: () => { return 'site.CourtDetails'; }
                 }

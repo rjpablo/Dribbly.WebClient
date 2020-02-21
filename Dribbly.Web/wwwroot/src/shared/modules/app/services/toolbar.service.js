@@ -39,6 +39,18 @@
                 }
             }
 
+            function buildToolbar() {
+                return {
+                    _navItems: [],
+                    setNavItems: function (navItems) {
+                        this._navItems = navItems;
+                    },
+                    clearNavItems: function () {
+                        this._navItems = [];
+                    }
+                };
+            }
+
             function buildItem(iconClass, action, buttonClass) {
                 return {
                     iconClass: iconClass,
@@ -53,6 +65,7 @@
 
             var _service = {
                 buildItem: buildItem,
+                buildToolbar: buildToolbar,
                 getItems: getItems,
                 onSetItems: onSetItems,
                 reset: reset,

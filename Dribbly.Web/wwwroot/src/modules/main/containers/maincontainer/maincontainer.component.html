@@ -1,8 +1,8 @@
-﻿<drbbly-mobiletoolbar></drbbly-mobiletoolbar>
+﻿<drbbly-mobiletoolbar ng-if="dmc.app.toolbar" toolbar="dmc.app.toolbar"></drbbly-mobiletoolbar>
 <drbbly-navigator></drbbly-navigator>
 <drbbly-sidenavigator class="mobile-only" widget="dmc.sideNavigator"></drbbly-sidenavigator>
 <div id="page-body-container">
-    <ui-view class="d-block"></ui-view>
+    <ui-view ng-if="dmc.app" app="dmc.app" class="d-block"></ui-view>
 </div>
 <drbbly-footer id="drbbly-sitefooter"
                on-init="dmc.app.onFooterInit"

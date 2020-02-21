@@ -46,7 +46,7 @@ $orange:        #F47C3C !default;
 $yellow:        #ffc107 !default;
 $green:         #93C54B !default;
 $teal:          #20c997 !default;
-$cyan:          #29ABE0 !default;
+$cyan:          #2dc5c3 !default;
 
 $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -307,7 +307,7 @@ $headings-margin-bottom:      $spacer / 2 !default;
 $headings-font-family:        null !default;
 $headings-font-weight:        400 !default;
 $headings-line-height:        1.2 !default;
-$headings-color:              null !default;
+$headings-color:              $white !default;
 
 $display1-size:               6rem !default;
 $display2-size:               5.5rem !default;

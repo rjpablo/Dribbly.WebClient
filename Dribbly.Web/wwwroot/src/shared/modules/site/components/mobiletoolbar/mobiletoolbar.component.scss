@@ -6,6 +6,10 @@ drbbly-mobiletoolbar {
     > div {
         border-bottom: 2px solid $orange;
 
+        .sidenav-toggle > h4 {
+            color: $bgDarkFontColor;
+        }
+
         > .row > .col > * {
             color: $bgDarkFontColor;
         }

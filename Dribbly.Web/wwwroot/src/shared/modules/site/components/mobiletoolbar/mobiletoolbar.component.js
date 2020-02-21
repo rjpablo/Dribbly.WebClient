@@ -3,7 +3,9 @@
 
     angular.module('siteModule')
         .component('drbblyMobiletoolbar', {
-            bindings: {},
+            bindings: {
+                toolbar: '<'
+            },
             controllerAs: 'mtb',
             templateUrl: 'drbbly-default',
             controller: controllerFn

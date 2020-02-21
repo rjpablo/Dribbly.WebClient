@@ -56,6 +56,7 @@
 
         dcc.$onDestroy = function () {
             _priceComponent.remove();
+            dcc.app.toolbar.clearNavItems();
         };
 
         function setToolbarItems() {
@@ -83,7 +84,7 @@
         }
 
         function buildSubPages() {
-            dcc.subPages = [
+            dcc.app.toolbar.setNavItems([
                 {
                     textKey: 'app.Details',
                     targetStateName: 'main.court.details',
@@ -96,8 +97,13 @@
                     textKey: 'app.Photos',
                     targetStateName: 'main.court.photos',
                     targetStateParams: { id: _courtId }
+                },
+                {
+                    textKey: 'site.Players',
+                    targetStateName: 'main.court.players',
+                    targetStateParams: { id: _courtId }
                 }
-            ];
+            ]);
         }
     }
 })();

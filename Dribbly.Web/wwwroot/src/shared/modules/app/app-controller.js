@@ -2,13 +2,14 @@
     'use strict';
 
     angular.module('appModule')
-        .controller('appController', ['$rootScope', 'drbblyOverlayService', 'drbblyFooterService', ctrlFn]);
-    function ctrlFn($rootScope, drbblyOverlayService, drbblyFooterService) {
+        .controller('appController', ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService', ctrlFn]);
+    function ctrlFn($rootScope, drbblyOverlayService, drbblyToolbarService) {
         var app = this;
         app.overlay = drbblyOverlayService.buildOverlay();
 
         app.$onInit = function () {
             app.sections = {};
+            app.toolbar = drbblyToolbarService.buildToolbar();
         };
 
         function adjustSections() {
@@ -22,6 +23,10 @@
         $rootScope.$on('set-app-overlay', function (evt, options) {
             app.overlay.setStatus(options.status, options.messageOverride);
         });
+
+        app.setToolbarNavItems = function (navItems) {
+            app.toolbar.navItems = navItems;
+        };
 
         app.onFooterInit = function (footerComponent) {
             app.sections.footer = footerComponent.element[0];

@@ -1,4 +1,4 @@
-@import '../../scss/_variables.scss';
+@import '../../../custom/bootstrap/scss/_variables.scss';
 
 
 body {
@@ -41,7 +41,7 @@ body {
 
     .nav li > a:hover, .nav li > a:active, .nav li > a.active,
     .drbbly-header {
-        color: #2dc5c3;
+        color: $cyan;
     }
 
 /****************

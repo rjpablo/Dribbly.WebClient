@@ -1,19 +1,23 @@
 ﻿<div class="bg-dark container-fluid mobile-toolbar mobile-only">
     <div class="row">
-        <div class="col">
-            <button class="btn ml-n2 float-left" ng-click="mtb.toggleSideNavigator()">
-                <h4 class="m-0 d-inline"><i class="fa fa-bars"></i></h4>
+        <div class="col d-flex align-items-start">
+            <button class="btn ml-n2 sidenav-toggle" ng-click="mtb.toggleSideNavigator()">
+                <h4 class="m-0"><i class="fa fa-bars"></i></h4>
             </button>
-            <h4 class="m-0 d-inline float-left">
-                <span class="py-2 d-inline-block">{{$root.$title}}</span>
-            </h4>
-
-            <button ng-repeat="item in mtb.items"
-                    class="btn ml-n2 float-right"
-                    ng-class="item.buttonClass"
-                    ng-click="item.action()">
-                <i ng-class="item.iconClass"></i>
-            </button>
+            <div class="flex-grow-1">
+                <h4 class="m-0 d-inline text-white">
+                    <span class="py-2 d-inline-block">{{$root.$title}}</span>
+                </h4>
+                <button ng-repeat="item in mtb.items"
+                        class="btn ml-n2 float-right"
+                        ng-class="item.buttonClass"
+                        ng-click="item.action()">
+                    <i ng-class="item.iconClass"></i>
+                </button>
+                <div ng-if="mtb.toolbar._navItems && mtb.toolbar._navItems.length" class="app-navigator">
+                    <drbbly-appnavigator nav-items="mtb.toolbar._navItems"></drbbly-appnavigator>
+                </div>
+            </div>
         </div>
     </div>
 </div>
