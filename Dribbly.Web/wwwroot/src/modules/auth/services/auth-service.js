@@ -84,43 +84,37 @@
                     var deferred = $q.defer();
 
                     var authData = localStorageService.get('authorizationData');
+                    _logOut();
 
-                    if (authData) {
+                    if (authData && authData.useRefreshTokens) {
 
-                        if (authData.useRefreshTokens) {
+                        var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + settingsService.clientId;
 
-                            var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + settingsService.clientId;
-
-                            localStorageService.remove('authorizationData');
-
-                            $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-                                .then(function (response) {
-                                    localStorageService.set('authorizationData', {
-                                        token: response.data.access_token, userName: response.data.userName,
-                                        refreshToken: response.data.refresh_token, useRefreshTokens: _useRefreshTokens
-                                    });
-
-                                    localStorageService.set('authorizationData', {
-                                        token: response.data.access_token,
-                                        userName: response.data.userName,
-                                        userId: response.data.userId,
-                                        refreshToken: response.data.refresh_token,
-                                        useRefreshTokens: _useRefreshTokens,
-                                        profilePicture: _temporaryProfilePicture
-                                    });
-
-                                    _authentication.isAuthenticated = true;
-                                    _authentication.userName = response.data.userName;
-                                    _authentication.useRefreshTokens = _useRefreshTokens;
-                                    _authentication.profilePicture = _temporaryProfilePicture;
-                                    _authentication.userId = response.data.userId;
-
-                                    deferred.resolve(response);
-                                }).catch(function (err, status) {
-                                    _logOut();
-                                    deferred.reject(err);
+                        $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                            .then(function (response) {
+                                localStorageService.set('authorizationData', {
+                                    token: response.data.access_token,
+                                    userName: response.data.userName,
+                                    userId: response.data.userId,
+                                    refreshToken: response.data.refresh_token,
+                                    useRefreshTokens: _useRefreshTokens,
+                                    profilePicture: _temporaryProfilePicture
                                 });
-                        }
+
+                                _authentication.isAuthenticated = true;
+                                _authentication.userName = response.data.userName;
+                                _authentication.useRefreshTokens = _useRefreshTokens;
+                                _authentication.profilePicture = _temporaryProfilePicture;
+                                _authentication.userId = response.data.userId;
+
+                                deferred.resolve(response);
+                            }).catch(function (err, status) {
+                                _logOut();
+                                deferred.reject(err);
+                            });
+                    }
+                    else {
+                        deferred.reject();
                     }
 
                     return deferred.promise;

@@ -2,23 +2,31 @@
     'use strict';
 
     angular.module('siteModule')
-        .service('drbblyCommonService', ['drbblyToastService', '$log', '$location',
-            function (drbblyToastService, $log, $location) {
+        .service('drbblyCommonService', ['drbblyToastService', '$log', '$location', 'i18nService',
+            function (drbblyToastService, $log, $location, i18nService) {
 
-                var _handleError = function (error) {
+                var _handleError = function (error, friendlyMsgKey, friendlyMsgRaw) {
+                    var friendlyMsg;
+                    if (friendlyMsgKey) {
+                        friendlyMsg = i18nService.getString(friendlyMsgKey);
+                    }
+                    else {
+                        friendlyMsg = friendlyMsgRaw;
+                    }
+
                     switch (error.status) {
                         case 400: //bad request
-                            drbblyToastService.error(error.data.error_description);
+                            drbblyToastService.error(friendlyMsg || error.data.error_description);
                             $log.error(error.error_description);
                             break;
                         case 401: //unauthorized
-                            drbblyToastService.error('Access denied.');
+                            drbblyToastService.error(friendlyMsg || 'Access denied.');
                             $log.error(error.data.Message);
                             break;
                         case 500: //internal server error
                             if (error.data) {
                                 if (error.data.exceptionMessage) {
-                                    drbblyToastService.error(error.data.exceptionMessage);
+                                    drbblyToastService.error(friendlyMsg || error.data.exceptionMessage);
                                 } else {
                                     drbblyToastService.error('An internal error occured. Please try again.');
                                 }
@@ -29,16 +37,16 @@
                                 );
 
                             } else {
-                                drbblyToastService.error('An internal error occured. Please try again.');
+                                drbblyToastService.error(friendlyMsg || 'An internal error occured. Please try again.');
                             }
 
                             break;
                         case -1: //Unable to connect to server
-                            drbblyToastService.error('An unexpected error occured.');
+                            drbblyToastService.error(friendlyMsg || 'An unexpected error occured.');
                             $log.error('Could not send request.');
                             break;
                         default: //unknown error
-                            drbblyToastService.error('An unknown error occured.');
+                            drbblyToastService.error(friendlyMsg || 'An unknown error occured.');
                             $log.error('An unknown error occured.');
                     }
                 };

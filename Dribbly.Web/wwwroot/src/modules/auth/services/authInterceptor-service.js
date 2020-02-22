@@ -2,8 +2,8 @@
     'use strict';
     angular.module('authModule')
         .factory('authInterceptorService', ['$q', '$injector', 'drbblyCommonService', 'localStorageService',
-            '$window',
-            function ($q, $injector, drbblyCommonService, localStorageService, $window) {
+            '$location', '$state',
+            function ($q, $injector, drbblyCommonService, localStorageService, $location, $state) {
 
                 var authInterceptorServiceFactory = {};
 
@@ -22,29 +22,25 @@
                 var _responseError = function (rejection) {
                     var deferred = $q.defer();
                     if (rejection.status === 401) {
-                        var authService = $injector.get('authService');
                         var authData = localStorageService.get('authorizationData');
+                        var authService = $injector.get('authService');
 
-                        if (authData) {
-                            if (authData.useRefreshTokens) {
-                                authService.refreshToken()
-                                    .then(function () {
-                                        _retryHttpRequest(rejection.config, deferred);
-                                    })
-                                    .catch(function () {
-                                        deferred.reject(rejection);
-                                        authService.logOut();
-                                        var $state = $injector.get('$state');
-                                        $state.go('main.home', { reload: true })
-                                            .finally(function () {
-                                                $window.location.reload();
-                                            });
-                                    });
-                            }
+                        if (authData && authData.useRefreshTokens) {
+                            authService.refreshToken()
+                                .then(function () {
+                                    _retryHttpRequest(rejection.config, deferred);
+                                })
+                                .catch(function (error) {
+                                    drbblyCommonService.handleError(error, 'site.Error_Auth_SessionExpired');
+                                    deferred.reject(rejection);
+                                    redirectoToLogin();
+                                });
+                        }
+                        else {
+                            redirectoToLogin();
                         }
                     }
                     else {
-                        drbblyCommonService.handleError(rejection);
                         deferred.reject(rejection);
                     }
                     return deferred.promise;
@@ -56,11 +52,16 @@
                         .then(function (response) {
                             deferred.resolve(response);
                         })
-                        .catch(function (response) {
-                            drbblyCommonService.handleError(rejection);
-                            deferred.reject(response);
+                        .catch(function (error) {
+                            deferred.reject(error);
+                            redirectoToLogin();
                         });
                 };
+
+                function redirectoToLogin() {
+                    var resumeUrl = $location.url();
+                    $state.go('auth.login', { resumeUrl: resumeUrl });
+                }
 
                 authInterceptorServiceFactory.request = _request;
                 authInterceptorServiceFactory.responseError = _responseError;

@@ -12,6 +12,7 @@
                     CourtDetails: 'Court Details',
                     Done: 'Done',
                     Email: 'Email',
+                    Error_Auth_SessionExpired: 'Your session has expired. Please log in again to continue.',
                     Error_Map_CityNameNotFound: 'Could not retrieve city name.' +
                         ' Please try a different location.',
                     Error_Map_CountryNameNotFound: 'Could not retrieve country name.' +

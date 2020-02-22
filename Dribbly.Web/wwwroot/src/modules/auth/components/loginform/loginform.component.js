@@ -10,19 +10,26 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', '$state'];
-    function controllerFunc(authService, $state) {
+    controllerFunc.$inject = ['authService', '$state', '$stateParams', '$location'];
+    function controllerFunc(authService, $state, $stateParams, $location) {
         var dlf = this;
 
         dlf.login = function () {
+            var resumeUrl = $stateParams.resumeUrl;
             dlf.isBusy = true;
             authService.login(dlf.loginData)
                 .then(function () {
-                    $state.go('main.home')
-                        .catch(function () {
-                            dlf.loginData.password = '';
-                            dlf.isBusy = false;
-                        });
+                    dlf.loginData.password = '';
+
+                    if (resumeUrl) {
+                        $location.url(resumeUrl);
+                    }
+                    else {
+                        $state.go('main.home')
+                            .catch(function () {
+                                dlf.isBusy = false;
+                            });
+                    }
                 })
                 .catch(function (err) {
                     dlf.loginData.password = '';

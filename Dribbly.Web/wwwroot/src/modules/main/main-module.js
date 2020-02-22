@@ -73,6 +73,9 @@
 
             .state('auth.login', {
                 url: '/login',
+                params: {
+                    resumeUrl: ''
+                },
                 template: '<drbbly-logincontainer app="app"></drbbly-logincontainer>',
                 resolve: {
                     $titleKey: () => { return 'auth.LogIn'; }
