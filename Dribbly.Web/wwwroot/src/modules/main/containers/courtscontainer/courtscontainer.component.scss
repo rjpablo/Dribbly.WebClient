@@ -5,15 +5,13 @@ drbbly-courts-container {
     .search-section {
         padding-top: 3rem;
         background-image: url(../../../../images/backgrounds/basketball_court_1.jpg);
-        height: 250px;
+        height: 350px;
         background-size: cover;
         background-position-x: left;
         background-position-y: center;
 
         .search-textbox {
             color: $gray-800;
-            width: 80%;
-            margin: 0px auto;
             background-color: rgba(225, 225, 225, 0.9);
         }
     }

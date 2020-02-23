@@ -20,6 +20,10 @@ body {
     overflow-y: auto;
 }
 
+.top-bar {
+    border-bottom: 2px solid $orange;
+}
+
 #drbbly-sitefooter {
     position: fixed;
     width: 100%;

@@ -1,57 +1,64 @@
-﻿<nav class="main-navigator navbar non-mobile navbar-dark bg-dark p-0 px-sm-3"
-     ng-class="{'non-mobile': nav.usingSideNavigator}">
-    <drbbly-sitelogo class="d-none d-sm-block"></drbbly-sitelogo>
-    <ul class="nav mr-0 mr-sm-auto w-xs-100">
-        <li class="nav-item active">
-            <a class="nav-link"
-               ng-class="{'active': nav.$state.current.name === 'main.courts'}"
-               ui-sref="main.courts">
-                <span class="d-block d-sm-inline text-center drbbly-font court-inclined menu-item-icon"></span>
-                <span class="d-block d-sm-inline menu-item-text">{{'site.Courts' | i18n}}</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"
-               ng-class="{'active': nav.$state.current.name === 'main.players'}"
-               ui-sref="main.players">
-                <span class="d-block d-sm-inline text-center drbbly-font players menu-item-icon"></span>
-                <span class="d-block d-sm-inline menu-item-text">{{'site.Players' | i18n}}</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"
-               ng-class="{'active': nav.$state.current.name === 'main.teams'}"
-               ui-sref="main.teams">
-                <span class="d-block d-sm-inline text-center drbbly-font games menu-item-icon"></span>
-                <span class="d-block d-sm-inline menu-item-text">{{'site.Teams' | i18n}}</span>
-            </a>
-        </li>
-        <li class="nav-item d-inline d-sm-none">
-            <a class="nav-link"
-               ng-class="{'active': nav.$state.current.name === 'main.teams'}"
-               ng-click="nav.searchClicked()">
-                <i class="d-block d-sm-inline text-center fa fa-search text-secondary menu-item-icon"></i>
-                <span class="d-block d-sm-inline menu-item-text">{{'site.Search' | i18n}}</span>
-            </a>
-        </li>
-    </ul>
-    <form class="form-inline d-none d-sm-inline my-2">
-        <input class="form-control mr-sm-2 d-none d-md-block"
-               type="search"
-               placeholder="{{'site.Search' | i18n}}">
-        <button class="btn d-inline d-md-none"><i class="fa fa-search text-secondary"></i></button>
-    </form>
-    <ul class="nav float-right dropdown non-mobile">
-        <li ng-if="nav.isAuthenticated()"
-            class="nav-item">
-            <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-                <i class="menu-item-icon fa fa-user text-secondary"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <h6 class="dropdown-header" ng-bind-html="'site.LoggedInAs' | i18n:({userName: $root.auth.userName})"></h6>
-                <a class="dropdown-item" ng-click="nav.logOut()">{{'site.LogOut' | i18n}}</a>
-                <a class="dropdown-item" ng-click="nav.test()">Test API call</a> <!--TEST FUNCTIONALITY ONLY-->
-            </div>
-        </li>
-    </ul>
-</nav>
+﻿<div class="bg-dark top-bar non-mobile">
+    <nav class="container navbar navbar-dark p-0 px-sm-3"
+         ng-class="{'non-mobile': nav.usingSideNavigator}">
+        <drbbly-sitelogo class="d-none d-sm-block"></drbbly-sitelogo>
+        <ul class="nav mr-0 mr-sm-auto w-xs-100">
+            <li class="nav-item active">
+                <a class="nav-link"
+                   ng-class="{'active': nav.$state.current.name === 'main.courts'}"
+                   ui-sref="main.courts">
+                    <span class="d-block d-sm-inline text-center drbbly-font court-inclined menu-item-icon"></span>
+                    <span class="d-block d-sm-inline menu-item-text">{{'site.Courts' | i18n}}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   ng-class="{'active': nav.$state.current.name === 'main.players'}"
+                   ui-sref="main.players">
+                    <span class="d-block d-sm-inline text-center drbbly-font players menu-item-icon"></span>
+                    <span class="d-block d-sm-inline menu-item-text">{{'site.Players' | i18n}}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   ng-class="{'active': nav.$state.current.name === 'main.teams'}"
+                   ui-sref="main.teams">
+                    <span class="d-block d-sm-inline text-center drbbly-font games menu-item-icon"></span>
+                    <span class="d-block d-sm-inline menu-item-text">{{'site.Teams' | i18n}}</span>
+                </a>
+            </li>
+            <li class="nav-item d-inline d-sm-none">
+                <a class="nav-link"
+                   ng-class="{'active': nav.$state.current.name === 'main.teams'}"
+                   ng-click="nav.searchClicked()">
+                    <i class="d-block d-sm-inline text-center fa fa-search text-secondary menu-item-icon"></i>
+                    <span class="d-block d-sm-inline menu-item-text">{{'site.Search' | i18n}}</span>
+                </a>
+            </li>
+        </ul>
+        <form class="form-inline d-none d-sm-inline my-2">
+            <input class="form-control mr-sm-2 d-none d-md-block"
+                   type="search"
+                   placeholder="{{'site.Search' | i18n}}">
+            <button class="btn d-inline d-md-none"><i class="fa fa-search text-secondary"></i></button>
+        </form>
+        <ul class="nav ml-3 float-right dropdown non-mobile">
+            <li ng-if="nav.isAuthenticated()"
+                class="nav-item">
+                <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+                    <i class="menu-item-icon fa fa-user text-secondary"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <h6 class="dropdown-header" ng-bind-html="'site.LoggedInAs' | i18n:({userName: $root.auth.userName})"></h6>
+                    <a class="dropdown-item" ng-click="nav.logOut()">{{'site.LogOut' | i18n}}</a>
+                    <a class="dropdown-item" ng-click="nav.test()">Test API call</a> <!--TEST FUNCTIONALITY ONLY-->
+                </div>
+            </li>
+            <li ng-if="!nav.isAuthenticated()"
+                class="nav-item">
+                <a ui-sref="auth.login"
+                   class="btn btn-warning">{{::'auth.LogIn' | i18n}}</a>
+            </li>
+        </ul>
+    </nav>
+</div>
