@@ -65,6 +65,14 @@
                 }
             })
 
+            .state('main.court.schedule', {
+                url: '/schedule',
+                component: 'drbblyCourtschedulecontainer',
+                resolve: {
+                    $titleKey: () => { return 'site.CourtSchedule'; }
+                }
+            })
+
             .state('auth', {
                 abstract: true,
                 url: '',

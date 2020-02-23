@@ -99,8 +99,8 @@
                     targetStateParams: { id: _courtId }
                 },
                 {
-                    textKey: 'site.Players',
-                    targetStateName: 'main.court.players',
+                    textKey: 'site.Schedule',
+                    targetStateName: 'main.court.schedule',
                     targetStateParams: { id: _courtId }
                 }
             ]);
