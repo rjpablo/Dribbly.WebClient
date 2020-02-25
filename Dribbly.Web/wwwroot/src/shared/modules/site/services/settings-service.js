@@ -33,6 +33,8 @@
                 data.forEach(function (setting) {
                     _service[setting.key] = setting.value !== '' ? setting.value : setting.defaultValue;
                 });
+
+                _service.defaultDateFormat = 'short';
             }
 
             _service.getInitialSettings = _getInitialSettings;

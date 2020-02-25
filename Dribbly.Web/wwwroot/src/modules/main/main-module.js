@@ -65,6 +65,14 @@
                 }
             })
 
+            .state('main.court.games', {
+                url: '/games',
+                component: 'drbblyCourtgames',
+                resolve: {
+                    $titleKey: () => { return 'site.CourtGames'; }
+                }
+            })
+
             .state('main.court.schedule', {
                 url: '/schedule',
                 component: 'drbblyCourtschedulecontainer',
