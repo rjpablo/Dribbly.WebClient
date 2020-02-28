@@ -7,7 +7,8 @@
         'drrbly.ui.router.title',
         'siteModule',
         'authModule',
-        'ngFileUpload'
+        'ngFileUpload',
+        'daypilot'
     ]);
 
     module.config(['$titleProvider', 'constants', function ($titleProvider, constants) {
@@ -19,9 +20,7 @@
     module.run(['authService', '$transitions', '$rootScope', 'drbblyToolbarService', runFn]);
     function runFn(authService, $transitions, $rootScope, drbblyToolbarService) {
         authService.fillAuthData();
-        $rootScope.$root = {
-            auth: authService.authentication
-        };
+        $rootScope.$root.auth = authService.authentication;
 
         $transitions.onSuccess({}, function (trans) {
             drbblyToolbarService.reset();

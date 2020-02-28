@@ -1,5 +1,19 @@
 ﻿<div class="row mt-sm-3">
     <div class="col">
+        <div class="row bg-light">
+            <div class="col pt-3">
+                <div class="overflow-auto">
+                    <daypilot-calendar ng-if="cgc.schedulerOptions"
+                                       id="scheduler"
+                                       publish-as="cgc.scheduler"
+                                       config="cgc.schedulerOptions.config"
+                                       style="min-width: 500px;"
+                                       events="cgc.schedulerOptions.events"
+                                       on-event-click="cgc.schedulerOptions.onEventClick(args)"
+                                       on-time-range-selected="cgc.schedulerOptions.onTimeRangeSelected(args)"></daypilot-calendar>
+                </div>
+            </div>
+        </div>
         <div ng-if="cgc.games && cgc.games.length">
             <div class="bg-light row">
                 <div class="col">

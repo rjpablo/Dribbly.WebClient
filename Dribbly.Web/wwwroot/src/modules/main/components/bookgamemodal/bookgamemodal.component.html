@@ -1,0 +1,76 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" i18n="{{::'app.GameDetails'}}"></h3>
+</div>
+<div class="modal-body">
+    <form name="bgm.frmCourtDetails"
+          ng-if="bgm.saveModel">
+        <fieldset ng-disabled="bgm.isBusy">
+            <div class="form-group">
+                <lable for="txtName">
+                    {{::'app.Title' | i18n}}
+                    <input type="text"
+                           name="txtName"
+                           ng-model="bgm.saveModel.title"
+                           class="form-control"
+                           required
+                           max="100" />
+                </lable>
+            </div>
+            <div class="dropdown form-group">
+                <label>
+                    Start
+                    <datetimepicker hour-step="1"
+                                    minute-step="30"
+                                    ng-model="bgm.saveModel.start"
+                                    show-meridian="true"
+                                    date-options="bgm.startDateOptions.options"
+                                    date-disabled="bgm.startDateOptions.disabled(date, mode)"
+                                    datepicker-append-to-body="false"
+                                    readonly-date="false"
+                                    disabled-date="false"
+                                    hidden-time="false"
+                                    hidden-date="false"
+                                    name="startdatetimepicker"
+                                    show-spinners="true"
+                                    readonly-time="false"
+                                    date-ng-click="bgm.startDateOptions.open($event, opened)"
+                                    date-opened="bgm.startDateOpened"
+                                    show-button-bar="true"></datetimepicker>
+                </label>
+            </div>
+            <div class="dropdown form-group">
+                <label>
+                    End
+                    <datetimepicker hour-step="1"
+                                    minute-step="30"
+                                    ng-model="bgm.saveModel.end"
+                                    show-meridian="true"
+                                    date-options="bgm.endDateOptions"
+                                    date-disabled="bgm.endDisabled(date, mode)"
+                                    datepicker-append-to-body="false"
+                                    readonly-date="false"
+                                    disabled-date="false"
+                                    hidden-time="false"
+                                    hidden-date="false"
+                                    name="startdatetimepicker"
+                                    show-spinners="true"
+                                    readonly-time="false"
+                                    date-ng-click="bgm.endOpen($event, opened)"
+                                    date-opened="bgm.endDateOpened"
+                                    show-button-bar="true"></datetimepicker>
+                </label>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button i18n="{{::'site.Submit'}}"
+            class="btn btn-primary"
+            ng-disabled="bgm.isBusy || bgm.frmCourtDetails.$invalid || bgm.frmCourtDetails.$prestine"
+            type="button"
+            ng-click="bgm.submit()"></button>
+    <button i18n="{{::'site.Cancel'}}"
+            class="btn btn-warning"
+            type="button"
+            ng-click="bgm.cancel()"></button>
+</div>

@@ -57,6 +57,7 @@
                     FeaturedCourts: 'Featured Courts',
                     FilterGamesByTitle: 'Filter games by title',
                     FoundCountPhotos: 'Found {count} photos',
+                    GameDetails: 'Game Details',
                     Id: 'ID',
                     LocationPickFromTheMap: 'Location: (Please select from the map)',
                     NoAdditionalInfo: '<small class="text-muted">No additional info provided</small>',

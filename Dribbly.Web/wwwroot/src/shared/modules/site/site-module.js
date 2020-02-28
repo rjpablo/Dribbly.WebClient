@@ -7,7 +7,8 @@
         'ngAnimate',
         'toaster',
         'ngTouch',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ui.bootstrap.datetimepicker'
     ]);
 
     module.constant('constants', {

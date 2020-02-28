@@ -6,16 +6,16 @@
             function (drbblyhttpService) {
                 var api = 'api/Games/';
 
-                function getAllGames() {
-                    return drbblyhttpService.get(api + 'getAllGames');
+                function getAll() {
+                    return drbblyhttpService.get(api + 'getAll');
                 }
 
                 function getGame(id) {
                     return drbblyhttpService.get(api + 'getGame/' + id);
                 }
 
-                function createGame(GameDetails) {
-                    return drbblyhttpService.post(api + 'register', GameDetails);
+                function bookGame(GameDetails) {
+                    return drbblyhttpService.post(api + 'bookGame', GameDetails);
                 }
 
                 function updateGame(GameDetails) {
@@ -23,9 +23,9 @@
                 }
 
                 var _service = {
-                    getAllGames: getAllGames,
+                    getAll: getAll,
                     getGame: getGame,
-                    createGame: createGame,
+                    bookGame: bookGame,
                     updateGame: updateGame
                 };
 

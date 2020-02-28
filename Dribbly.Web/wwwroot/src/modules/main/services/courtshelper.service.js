@@ -19,9 +19,18 @@
                 });
             }
 
+            function openBookGameModal(game, options) {
+                return modalService.show({
+                    view: '<drbbly-bookgamemodal></drbbly-bookgamemodal>',
+                    model: game,
+                    options: options
+                });
+            }
+
             var _service = {
-                registerCourt: registerCourt,
-                editCourt: editCourt
+                editCourt: editCourt,
+                openBookGameModal: openBookGameModal,
+                registerCourt: registerCourt
             };
 
             return _service;

@@ -61,6 +61,7 @@
         };
 
         dcd.changePrimaryPicture = function (file) {
+            if (!file) { return; }
             drbblyFileService.upload(file, 'api/courts/updateCourtPhoto/' + dcd.court.id)
                 .then(function (result) {
                     //loadCourt();

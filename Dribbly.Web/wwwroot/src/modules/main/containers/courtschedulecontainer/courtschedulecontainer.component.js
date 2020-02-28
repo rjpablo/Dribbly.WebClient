@@ -18,8 +18,21 @@
         drbblyOverlayService, $timeout, $state) {
         var csc = this;
 
-        csc.$onInit = function () {
+        csc.schedulerConfig = {
+            startDate: '2020-02-24',
+            viewType: "Week"
+        };
 
+        csc.events = [
+            {
+                start: new DayPilot.Date("2020-02-24T10:00:00"),
+                end: new DayPilot.Date("2020-02-24T14:00:00"),
+                id: DayPilot.guid(),
+                text: "First Event"
+            }
+        ];
+
+        csc.$onInit = function () {
         };
     }
 })();
