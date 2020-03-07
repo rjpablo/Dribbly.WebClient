@@ -19,7 +19,7 @@
         var _okToClose;
 
         bgm.$onInit = function () {
-            bgm.saveModel = angular.copy(bgm.model || {});
+            bgm.saveModel = angular.copy(bgm.model.game || {});
             setStartDateOptions();
             setEndDateOptions();
 
@@ -92,6 +92,8 @@
         };
 
         bgm.submit = function () {
+            bgm.saveModel.start = bgm.saveModel.start.toISOString();
+            bgm.saveModel.end = bgm.saveModel.end.toISOString();
             drbblyGamesService.bookGame(bgm.saveModel)
                 .then(function (result) {
                     close(result);

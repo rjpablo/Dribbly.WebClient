@@ -41,6 +41,21 @@ var nodeLibs = {
         ],
         destination: 'angular-bootstrap-colorpicker'
     },
+    angularjs_bootstrap_datetimepicker_css: {
+        source: 'angularjs-bootstrap-datetimepicker/src/css/datetimepicker.css',
+        destination: 'angularjs-bootstrap-datetimepicker/css'
+    },
+    angularjs_bootstrap_datetimepicker_js: {
+        source: [
+            'angularjs-bootstrap-datetimepicker/src/js/datetimepicker.js',
+            'angularjs-bootstrap-datetimepicker/src/js/datetimepicker.templates.js'
+        ],
+        destination: 'angularjs-bootstrap-datetimepicker/js'
+    },
+    angularjs_bootstrap_datetimepicker_templates: {
+        source: 'angularjs-bootstrap-datetimepicker/src/templates/datetimepicker.html',
+        destination: 'angularjs-bootstrap-datetimepicker/html'
+    },
     //we are using a customized version of this
     //angular_sanitize: {
     //    source: 'angular-sanitize/angular-sanitize.js',
@@ -94,9 +109,38 @@ var nodeLibs = {
         ],
         destination: 'fonts'
     },
+    fullcalendar_core: {
+        source: [
+            '@fullcalendar/core/main.js',
+            '@fullcalendar/core/main.css'
+        ],
+        destination: '@fullcalendar/core'
+    },
+    fullcalendar_daygrid: {
+        source: [
+            '@fullcalendar/daygrid/main.js',
+            '@fullcalendar/daygrid/main.css'
+        ],
+        destination: '@fullcalendar/daygrid'
+    },
+    fullcalendar_interaction: {
+        source: '@fullcalendar/interaction/main.js',
+        destination: '@fullcalendar/interaction'
+    },
+    fullcalendar_timegrid: {
+        source: [
+            '@fullcalendar/timegrid/main.js',
+            '@fullcalendar/timegrid/main.css'
+        ],
+        destination: '@fullcalendar/timegrid'
+    },
     local_storage: {
         source: 'angular-local-storage/dist/angular-local-storage.js',
         destination: 'angular-local-storage'
+    },
+    moment_js: {
+        source: 'moment/moment.js',
+        destination: 'moment'
     },
     ng_file_upload: {
         source: 'ng-file-upload/ng-file-upload.js',

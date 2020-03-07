@@ -1,0 +1,9 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-timegridevent {
+
+    &.fc-event {
+        background-color: $teal;
+        border-color: darken($teal, 15%);
+    }
+}

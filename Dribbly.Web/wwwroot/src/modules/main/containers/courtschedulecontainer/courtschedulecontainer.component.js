@@ -12,27 +12,32 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyCourtsService', '$element', 'drbblyToolbarService', 'drbblyCourtshelperService',
+    controllerFunc.$inject = ['drbblyCourtsService', '$stateParams', 'drbblyToolbarService', 'drbblyCourtshelperService',
         'drbblyOverlayService', '$timeout', '$state'];
-    function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService,
+    function controllerFunc(drbblyCourtsService, $stateParams, drbblyToolbarService, drbblyCourtshelperService,
         drbblyOverlayService, $timeout, $state) {
+        console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
         var csc = this;
 
-        csc.schedulerConfig = {
-            startDate: '2020-02-24',
-            viewType: "Week"
-        };
-
-        csc.events = [
-            {
-                start: new DayPilot.Date("2020-02-24T10:00:00"),
-                end: new DayPilot.Date("2020-02-24T14:00:00"),
-                id: DayPilot.guid(),
-                text: "First Event"
-            }
-        ];
-
         csc.$onInit = function () {
+            csc.courtId = $stateParams.id;
+            drbblyCourtsService.getCourtGames(csc.courtId)
+                .then(function (events) {
+                    csc.games = angular.copy(massageEvents(events));
+                    csc.calendarOptions = getCalendarOptions();
+                });
         };
+
+        function massageEvents(events) {
+            return events.map(function (event) {
+                event.start += 'Z';
+                event.end += 'Z';
+                return event;
+            });
+        }
+
+        function getCalendarOptions() {
+            return {};
+        }
     }
 })();

@@ -12,17 +12,22 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyCourtsService', '$stateParams', '$timeout', 'drbblyCourtshelperService'];
-    function controllerFunc(drbblyCourtsService, $stateParams, $timeout, drbblyCourtshelperService) {
+    controllerFunc.$inject = ['drbblyCourtsService', '$stateParams', '$timeout', 'drbblyCourtshelperService',
+        'authService', 'drbblyOverlayService'];
+    function controllerFunc(drbblyCourtsService, $stateParams, $timeout, drbblyCourtshelperService,
+        authService, drbblyOverlayService) {
         var cgc = this;
 
         cgc.$onInit = function () {
+            cgc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             cgc.courtId = $stateParams.id;
             drbblyCourtsService.getCourtGames(cgc.courtId)
                 .then(function (events) {
-                    cgc.games = events;
-                    cgc.schedulerOptions = getSchedulerOptions(massageEvents(angular.copy(events)));
-                });
+                    cgc.games = massageEvents(events);
+                    cgc.schedulerOptions = getSchedulerOptions(angular.copy(cgc.games));
+                    cgc.courtsListOverlay.setToReady();
+                })
+                .catch(cgc.courtsListOverlay.setToError);
         };
 
         cgc.courtFilter = function (item) {
@@ -32,6 +37,10 @@
         function massageEvents(events) {
             return events.map(function (event) {
                 event.text = event.title;
+                event.dateAdded += 'Z';
+                event.start += 'Z';
+                event.end += 'Z';
+                //event.editable = authService.authentication && authService.authentication.userId === event.addedBy;
                 return event;
             });
         }

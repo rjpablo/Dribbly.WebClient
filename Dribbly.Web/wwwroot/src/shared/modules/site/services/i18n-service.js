@@ -70,6 +70,7 @@
                     Schedule: 'Schedule',
                     SearchTheMap: 'Search the map',
                     Title: 'Title',
+                    Today: 'Today',
                     UploadAPhoto: 'Upload a photo',
                     ViewFullDetails: 'View Full Details',
                     ViewOnMap: 'View On Map'

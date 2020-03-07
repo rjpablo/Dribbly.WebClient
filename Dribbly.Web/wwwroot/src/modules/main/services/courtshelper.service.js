@@ -22,7 +22,9 @@
             function openBookGameModal(game, options) {
                 return modalService.show({
                     view: '<drbbly-bookgamemodal></drbbly-bookgamemodal>',
-                    model: game,
+                    model: {
+                        game: game
+                    },
                     options: options
                 });
             }

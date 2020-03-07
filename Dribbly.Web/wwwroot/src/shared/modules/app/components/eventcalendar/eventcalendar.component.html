@@ -1,0 +1,77 @@
+﻿<div class="calendar-toolbar d-inline-block w-100">
+    <div class="d-inline-block pb-3 non-mobile">
+        <div class="d-flex align-items-center">
+            <div class="d-inline-block navigation">
+                <div class="btn-group btn-group-sm">
+                    <button ng-click="cal.previous()"
+                            type="button" class="btn px-2">
+                        <i class="fa fa-chevron-left"></i>
+                    </button>
+                    <button ng-click="cal.next()"
+                            type="button" class="btn px-2">
+                        <i class="fa fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <h5 class="mx-3 title m-0 d-inline-block">{{cal.title}}</h5>
+            <button ng-click="cal.today()"
+                    type="button"
+                    ng-disabled="cal.isTodayRendered"
+                    class="btn btn-primary btn-sm">
+                {{::'app.Today' | i18n}}
+            </button>
+        </div>
+    </div>
+    <div class=" d-inline-block view-toggle float-sm-right pb-3">
+        View:
+        <div class="btn-group btn-group-sm btn-group-toggle">
+            <button ng-click="cal.changeView('dayGridMonth')"
+                    ng-class="{'active': cal.currentView == 'dayGridMonth'}"
+                    type="button" class="btn btn-secondary px-2">
+                Month
+            </button>
+            <button ng-click="cal.changeView('timeGridWeek')"
+                    ng-class="{'active': cal.currentView == 'timeGridWeek'}"
+                    type="button" class="btn btn-secondary px-2">
+                Week
+            </button>
+        </div>
+    </div>
+    <button ng-click="cal.today()"
+            type="button"
+            ng-disabled="cal.isTodayRendered"
+            class="mobile-only btn btn-primary btn-sm float-right">
+        {{::'app.Today' | i18n}}
+    </button>
+</div>
+
+<div class="pb-3" id='calendar'></div>
+
+<div class="mobile-only">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex align-items-center">
+                <h5 class="mr-3 title m-0 d-inline-block">{{cal.title}}</h5>
+                <div class="d-inline-block navigation ml-auto">
+                    <div class="btn-group btn-group-sm">
+                        <button ng-click="cal.previous()"
+                                type="button" class="btn px-3">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button ng-click="cal.next()"
+                                type="button" class="btn px-3">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--For AngularJS FullCalendar-->
+<!--<div ng-if="cal.calendarOptions"
+     id="cal"
+     ui-calendar="cal.calendarOptions"
+     calendar="cal.calendar"
+     ng-model="cal.eventsForAngular"></div>-->
