@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('authModule')
-        .factory('authService', ['$http', '$q', 'localStorageService', 'settingsService',
-            function ($http, $q, localStorageService, settingsService) {
+        .factory('authService', ['$http', '$q', 'localStorageService', 'settingsService', '$state', '$location',
+            function ($http, $q, localStorageService, settingsService, $state, $location) {
 
                 var authServiceFactory = {};
                 var _useRefreshTokens = true;
@@ -190,6 +190,47 @@
 
                 };
 
+                var _checkAuthentication = function () {
+                    var deferred = $q.defer();
+
+                    if (!(_authentication && _authentication.isAuthenticated)) {
+                        _refreshToken()
+                            .then(function () {
+                                deferred.resolve();
+                            })
+                            .catch(function () {
+                                deferred.reject();
+                                _redirectoToLogin();
+                            });
+                    }
+                    else {
+                        deferred.resolve();
+                    }
+
+                    return deferred.promise;
+                };
+
+                function _checkAuthenticationThen(cb) {
+                    var deferred = $q.defer();
+                    _checkAuthentication()
+                        .then(function () {
+                            cb()
+                                .then(function (res) {
+                                    deferred.resolve(res);
+                                })
+                                .catch(function (error) {
+                                    deferred.reject(error);
+                                });
+                        })
+                        .catch(deferred.reject);
+                    return deferred.promise;
+                }
+
+                function _redirectoToLogin() {
+                    var resumeUrl = $location.url();
+                    $state.go('auth.login', { resumeUrl: resumeUrl });
+                }
+
                 //TEST FUNCTIONALITY ONLY
                 var _test = function () {
                     $http.post(settingsService.serviceBase + 'api/account/test')
@@ -197,6 +238,8 @@
                         .catch(function () { alert('Test failed!'); });
                 };
 
+                authServiceFactory.checkAuthenticationThen = _checkAuthenticationThen;
+                authServiceFactory.checkAuthentication = _checkAuthentication;
                 authServiceFactory.signUp = signUp;
                 authServiceFactory.login = _login;
                 authServiceFactory.logOut = _logOut;

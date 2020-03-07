@@ -49,7 +49,7 @@
             drbblyCourtshelperService.registerCourt()
                 .then(function (court) {
                     if (court) {
-                        $state.go('main.court', { id: court.id });
+                        $state.go('main.court.details', { id: court.id });
                     }
                 })
                 .catch(function () {
