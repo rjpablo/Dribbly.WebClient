@@ -19,6 +19,7 @@
     function controllerFn(drbblyCourtshelperService, $rootScope, $compile, $scope, $timeout) {
         var cal = this;
         var _currentStartDate;
+        var _isHandlingOnSelect; // whether or not 'Select' event is already being handled. Prevents handling of dateClick event
 
         cal.$onInit = function () {
             cal.overrideEvent = true;
@@ -123,13 +124,15 @@
         }
 
         function onDateClick(args) {
-            drbblyCourtshelperService.openBookGameModal({ start: args.date }, { isEdit: true })
-                .then(function (result) {
-                    //redirect to game details
-                })
-                .catch(function (error) {
+            if (!_isHandlingOnSelect) {
+                drbblyCourtshelperService.openBookGameModal({ start: args.date }, { isEdit: true })
+                    .then(function (result) {
+                        //redirect to game details
+                    })
+                    .catch(function (error) {
 
-                });
+                    });
+            }
         }
 
         // Calendar event handlers - Start
@@ -159,12 +162,14 @@
                 end: args.end
             };
 
+            _isHandlingOnSelect = true;
+
             drbblyCourtshelperService.openBookGameModal(game)
                 .then(function (result) {
-                    console.log(result);
+                    _isHandlingOnSelect = false;
                 })
                 .catch(function (error) {
-
+                    _isHandlingOnSelect = false;
                 });
         }
 
