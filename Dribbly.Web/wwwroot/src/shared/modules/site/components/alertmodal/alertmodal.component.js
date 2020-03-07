@@ -15,7 +15,6 @@
     controllerFn.$inject = ['$scope', 'drbblyEventsService'];
     function controllerFn($scope, drbblyEventsService) {
         var dam = this;
-        var _okToClose;
 
         dam.$onInit = function () {
             if (dam.model.options) {
@@ -52,16 +51,16 @@
 
             dam.context.setOnInterrupt(dam.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
-                if (!_okToClose) {
+                if (!dam.context.okToClose) {
                     event.preventDefault();
-                    _okToClose = true;
+                    dam.context.okToClose = true;
                     dam.context.dismiss(reason);
                 }
             }, $scope);
         };
 
         dam.onInterrupt = function () {
-            _okToClose = true;
+            dam.context.okToClose = true;
             dam.context.dismiss();
         };
 
@@ -69,7 +68,7 @@
             return {
                 textKey: textKey,
                 action: () => {
-                    _okToClose = true;
+                    dam.context.okToClose = true;
                     dam.context.submit(returnValue);
                 },
                 class: buttonClass

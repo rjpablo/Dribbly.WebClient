@@ -42,14 +42,20 @@
 
                     var unSub = $transitions.onBefore({}, function (transition) {
                         if (mod.context.onInterrupt) {
-                            // We have to update document.title because it doesn't get updated
-                            // when the transition is cancelled (but the browser shows the 'to'
-                            // state's title). And the browser's title doesn't get updated
-                            // until document.title gets assign a different value resulting to
-                            // and incorrect title on the browser
-                            $titleService.setTitle(transition.$to());
-                            transition.abort();
-                            $location.url($urlRouter.location);
+                            var customOptions = transition.options().custom;
+                            if (customOptions && customOptions.force) {
+                                mod.context.okToClose = true;
+                            }
+                            else {
+                                transition.abort();
+                                // We have to update document.title because it doesn't get updated
+                                // when the transition is cancelled (but the browser shows the 'to'
+                                // state's title). And the browser's title doesn't get updated
+                                // until document.title gets assign a different value resulting to
+                                // and incorrect title on the browser
+                                $titleService.setTitle(transition.$to());
+                                $location.url($urlRouter.location);
+                            }
                             $uibModalInstance.dismiss('navigating');
                         }
                         else {

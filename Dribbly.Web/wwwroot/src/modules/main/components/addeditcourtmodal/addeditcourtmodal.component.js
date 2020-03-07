@@ -16,7 +16,6 @@
     controllerFn.$inject = ['drbblyCourtsService', '$scope', 'modalService', 'drbblyEventsService'];
     function controllerFn(drbblyCourtsService, $scope, modalService, drbblyEventsService) {
         var aec = this;
-        var _okToClose;
 
         aec.$onInit = function () {
             aec.tempCourt = angular.copy(aec.model.court || {});
@@ -34,7 +33,7 @@
 
             aec.context.setOnInterrupt(aec.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
-                if (!_okToClose) {
+                if (!aec.context.okToClose) {
                     event.preventDefault();
                     aec.onInterrupt();
                 }
@@ -46,7 +45,7 @@
                 modalService.showUnsavedChangesWarning()
                     .then(function (response) {
                         if (response) {
-                            _okToClose = true;
+                            aec.context.okToClose = true;
                             aec.context.dismiss(reason);
                         }
                     })
@@ -55,7 +54,7 @@
                     });
             }
             else {
-                _okToClose = true;
+                aec.context.okToClose = true;
                 aec.context.dismiss(reason);
             }
         };
@@ -105,7 +104,7 @@
         }
 
         function close(court) {
-            _okToClose = true;
+            aec.context.okToClose = true;
             aec.context.submit(court);
         }
 

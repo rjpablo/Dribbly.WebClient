@@ -16,7 +16,6 @@
     controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyGamesService', 'drbblyCommonService'];
     function controllerFn($scope, modalService, drbblyEventsService, drbblyGamesService, drbblyCommonService) {
         var bgm = this;
-        var _okToClose;
 
         bgm.$onInit = function () {
             bgm.saveModel = angular.copy(bgm.model.game || {});
@@ -25,7 +24,7 @@
 
             bgm.context.setOnInterrupt(bgm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
-                if (!_okToClose) {
+                if (!bgm.context.okToClose) {
                     event.preventDefault();
                     bgm.onInterrupt();
                 }
@@ -61,7 +60,7 @@
                     showWeeks: false,
                     startingDay: 0
                 },
-                disbled: function (date, mode) {
+                disabled: function (date, mode) {
                     return mode === 'day' && date.getDay() < new Date().getDay();
                 },
                 open: function ($event, opened) {
@@ -77,7 +76,7 @@
                 modalService.showUnsavedChangesWarning()
                     .then(function (response) {
                         if (response) {
-                            _okToClose = true;
+                            bgm.context.okToClose = true;
                             bgm.context.dismiss(reason);
                         }
                     })
@@ -86,7 +85,7 @@
                     });
             }
             else {
-                _okToClose = true;
+                bgm.context.okToClose = true;
                 bgm.context.dismiss(reason);
             }
         };
@@ -105,7 +104,7 @@
         };
 
         function close(result) {
-            _okToClose = true;
+            bgm.context.okToClose = true;
             bgm.context.submit(result);
         }
 

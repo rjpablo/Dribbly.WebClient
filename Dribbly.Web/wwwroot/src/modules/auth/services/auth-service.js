@@ -84,7 +84,6 @@
                     var deferred = $q.defer();
 
                     var authData = localStorageService.get('authorizationData');
-                    _logOut();
 
                     if (authData && authData.useRefreshTokens) {
 

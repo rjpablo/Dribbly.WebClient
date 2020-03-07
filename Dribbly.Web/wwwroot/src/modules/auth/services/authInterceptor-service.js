@@ -60,7 +60,15 @@
 
                 function redirectoToLogin() {
                     var resumeUrl = $location.url();
-                    $state.go('auth.login', { resumeUrl: resumeUrl });
+                    $state.go('auth.login',
+                        {
+                            resumeUrl: resumeUrl
+                        },
+                        {
+                            custom: {
+                                force: true // Prevents currently open modals from stopping the transition}
+                            }
+                        });
                 }
 
                 authInterceptorServiceFactory.request = _request;
