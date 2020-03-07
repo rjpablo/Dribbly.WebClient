@@ -13,7 +13,23 @@
                     </button>
                 </div>
             </div>
-            <h5 class="mx-3 title m-0 d-inline-block">{{cal.title}}</h5>
+            <div class="mx-3 d-inline-block">
+                <h5 class="title m-0 d-inline-block">{{cal.title}}</h5>
+                <div class="d-inline-block position-relative">
+                    <input uib-datepicker-popup="{{format}}"
+                           ng-model="cal.goToDate"
+                           popup-placement="bottom" 
+                           is-open="cal.isGoToCalendarOpen"
+                           datepicker-options="cal.goToDatePickerOptions"
+                           close-text="Close"
+                           hidden="hidden" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="cal.isGoToCalendarOpen = true">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
             <button ng-click="cal.today()"
                     type="button"
                     ng-disabled="cal.isTodayRendered"
@@ -51,15 +67,31 @@
     <div class="row">
         <div class="col">
             <div class="d-flex align-items-center">
-                <h5 class="mr-3 title m-0 d-inline-block">{{cal.title}}</h5>
+                <div class="mr-3 d-inline-block">
+                    <h5 class="title m-0 d-inline-block">{{cal.title}}</h5>
+                    <div class="d-inline-block position-relative">
+                        <input uib-datepicker-popup="{{format}}"
+                               ng-model="cal.goToDate"
+                               popup-placement="top"
+                               is-open="cal.isGoToCalendarOpen"
+                               datepicker-options="cal.goToDatePickerOptions"
+                               close-text="Close"
+                               hidden="hidden" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="cal.isGoToCalendarOpen = true">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
                 <div class="d-inline-block navigation ml-auto">
                     <div class="btn-group btn-group-sm">
                         <button ng-click="cal.previous()"
-                                type="button" class="btn px-3">
+                                type="button" class="btn pl-3">
                             <i class="fa fa-chevron-left"></i>
                         </button>
                         <button ng-click="cal.next()"
-                                type="button" class="btn px-3">
+                                type="button" class="btn pr-3">
                             <i class="fa fa-chevron-right"></i>
                         </button>
                     </div>

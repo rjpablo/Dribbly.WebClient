@@ -18,6 +18,7 @@
     controllerFn.$inject = ['drbblyCourtshelperService', '$rootScope', '$compile', '$scope', '$timeout'];
     function controllerFn(drbblyCourtshelperService, $rootScope, $compile, $scope, $timeout) {
         var cal = this;
+        var _currentStartDate;
 
         cal.$onInit = function () {
             cal.overrideEvent = true;
@@ -36,6 +37,17 @@
             var options = Object.assign(getCalendarDefaultOptions(), cal.calendarOptionsOverride || {});
             cal.calendar = new FullCalendar.Calendar(calendarEl, options);
             cal.calendar.render();
+
+            cal.goToDatePickerOptions = {
+                startingDay: 0
+            };
+
+            $scope.$watch('cal.goToDate', function (newVal) {
+                if (newVal && cal.isGoToCalendarOpen) {
+                    cal.calendar.gotoDate(newVal);
+                }
+            });
+
         };
 
         function getCalendarDefaultOptions() {
@@ -69,6 +81,8 @@
                 },
                 datesRender: function (info) {
                     $timeout(function () {
+                        _currentStartDate = info.view.currentStart;
+                        cal.goToDate = _currentStartDate;
                         cal.title = info.view.title;
                         cal.isTodayRendered = getIsTodayRendered(info.view.currentStart, info.view.currentEnd);
                         $scope.$apply();
