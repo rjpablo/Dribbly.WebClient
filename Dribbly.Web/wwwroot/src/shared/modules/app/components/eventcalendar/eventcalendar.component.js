@@ -19,6 +19,7 @@
     function controllerFn(drbblyCourtshelperService, $rootScope, $compile, $scope, $timeout) {
         var cal = this;
         var _currentStartDate;
+        var _currentEndDate;
         var _isHandlingOnSelect; // whether or not 'Select' event is already being handled. Prevents handling of dateClick event
 
         cal.$onInit = function () {
@@ -83,19 +84,19 @@
                 datesRender: function (info) {
                     $timeout(function () {
                         _currentStartDate = info.view.currentStart;
+                        _currentEndDate = info.view.currentEnd;
                         cal.goToDate = _currentStartDate;
                         cal.title = info.view.title;
-                        cal.isTodayRendered = getIsTodayRendered(info.view.currentStart, info.view.currentEnd);
+                        cal.isTodayRendered = getIsDateRendered(new Date());
                         $scope.$apply();
                     });
                 }
             };
         }
 
-        function getIsTodayRendered(start, end) {
-            var today = new Date(new Date().toDateString());
-            //return today.isSameOrBefore(moment(start), 'day') && today.isSameOrAfter(moment(end), 'day');
-            return !(today < start || today > end);
+        function getIsDateRendered(dateObj) {
+            var date = new Date(dateObj.toDateString());
+            return !(date < _currentStartDate || date >= _currentEndDate);
         }
 
         // Calendar navigation buttons - Start
@@ -123,15 +124,10 @@
             return cal.events || [];
         }
 
-        function onDateClick(args) {
-            if (!_isHandlingOnSelect) {
-                drbblyCourtshelperService.openBookGameModal({ start: args.date }, { isEdit: true })
-                    .then(function (result) {
-                        //redirect to game details
-                    })
-                    .catch(function (error) {
-
-                    });
+        function addEvent(event) {
+            cal.calendar.addEvent(event);
+            if (!getIsDateRendered(new Date(event.start))) {
+                cal.calendar.gotoDate(event.start);
             }
         }
 
@@ -155,6 +151,18 @@
                 });
         }
 
+        function onDateClick(args) {
+            if (!_isHandlingOnSelect) {
+                drbblyCourtshelperService.openBookGameModal({ start: args.date }, { isEdit: true })
+                    .then(function (result) {
+                        addEvent(result);
+                    })
+                    .catch(function (error) {
+                        // do nothing for now
+                    });
+            }
+        }
+
         function onSelect(args) {
             var game = {
                 courtId: cal.courtId,
@@ -166,6 +174,7 @@
 
             drbblyCourtshelperService.openBookGameModal(game)
                 .then(function (result) {
+                    addEvent(result);
                     _isHandlingOnSelect = false;
                 })
                 .catch(function (error) {

@@ -1,6 +1,7 @@
 @import '../../../../custom/bootstrap/scss/_variables.scss';
 
 drbbly-timegridevent {
+    cursor: pointer;
 
     &.fc-event {
         background-color: $teal;
