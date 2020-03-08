@@ -9,23 +9,26 @@ drbbly-courtphotos {
     }
 
     @include media-breakpoint-down(xl) {
-        drbbly-image {
-            height: 100px;
-            width: 20%;
+        drbbly-image,
+        .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
+            height: 100px !important;
+            width: 20% !important;
         }
     }
 
     @include media-breakpoint-down(lg) {
-        drbbly-image {
-            height: 100px;
-            width: 25%;
+        drbbly-image,
+        .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
+            height: 100px !important;
+            width: 25% !important;
         }
     }
 
     @include media-breakpoint-down(sm) {
-        drbbly-image {
-            height: 100px;
-            width: 33.3333%;
+        drbbly-image,
+        .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
+            height: 100px !important;
+            width: 33.3333% !important;
         }
     }
 }

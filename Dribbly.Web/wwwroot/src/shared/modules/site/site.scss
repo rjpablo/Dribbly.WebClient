@@ -9,7 +9,7 @@ body {
     position: fixed;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 #drbbly-root-container {
@@ -143,4 +143,16 @@ body {
     .modal-dialog {
         margin: 0;
     }
+}
+
+
+/******** Ng-Image-Gallery ********/
+
+/* Removes space between thumbnails */
+.ng-image-gallery .ng-image-gallery-thumbnails .thumb {
+    margin: 0 !important;
+}
+
+.ng-image-gallery .ng-image-gallery-thumbnails .thumb > .loader {
+    width: unset !important;
 }

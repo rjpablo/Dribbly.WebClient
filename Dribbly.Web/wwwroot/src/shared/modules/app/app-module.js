@@ -8,7 +8,8 @@
         'siteModule',
         'authModule',
         'ngFileUpload',
-        'daypilot'
+        'daypilot',
+        'thatisuday.ng-image-gallery'
     ]);
 
     module.config(['$titleProvider', 'constants', function ($titleProvider, constants) {

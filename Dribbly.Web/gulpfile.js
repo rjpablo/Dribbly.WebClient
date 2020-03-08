@@ -134,6 +134,10 @@ var nodeLibs = {
         ],
         destination: '@fullcalendar/timegrid'
     },
+    hammerjs: {
+        source: 'hammerjs/hammer.js',
+        destination: 'hammerjs'
+    },
     local_storage: {
         source: 'angular-local-storage/dist/angular-local-storage.js',
         destination: 'angular-local-storage'

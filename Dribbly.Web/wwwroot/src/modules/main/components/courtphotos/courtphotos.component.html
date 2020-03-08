@@ -1,18 +1,40 @@
 ﻿<div class="mx-n3">
-    <div class="toolbar bg-light"
-         ng-if="dcp.photos">
-        {{'app.FoundCountPhotos' | i18n: {count: dcp.photos.length} }}
-        <a class="btn-link float-right"
-           ngf-select="dcp.addPhotos($files)"
-           ng-model="dcd.profilePicture"
-           ngf-pattern="'image/*'"
-           ngf-multiple="true"
-           ngf-accept="'image/*'"
-           ngf-max-size="20MB"
-           href="#">
-            <i class="fa fa-plus"></i>&nbsp;{{::'app.UploadAPhoto' | i18n}}
-        </a>
+    <div class="row">
+        <div class="col">
+            <div class="toolbar mb-3"
+                 ng-if="dcp.photos">
+                <span class="text-white">{{'app.FoundCountPhotos' | i18n: {count: dcp.photos.length} }}</span>
+                <a class="btn-link float-right"
+                   ngf-select="dcp.addPhotos($files)"
+                   ng-model="dcd.profilePicture"
+                   ngf-pattern="'image/*'"
+                   ngf-multiple="true"
+                   ngf-accept="'image/*'"
+                   ngf-max-size="20MB"
+                   href="#">
+                    <i class="fa fa-plus"></i>&nbsp;{{::'app.UploadAPhoto' | i18n}}
+                </a>
+            </div>
+            <!--<drbbly-image ng-repeat="photo in dcp.photos"
+                  image-url="{{photo.url}}"></drbbly-image>-->
+            <div class="carousel-container mb-3"
+                 ng-if="dcp.photos">
+                <ng-image-gallery images="dcp.photos"
+                                  methods="dcp.methods"
+                                  thumbnails="true"
+                                  thumb-size="100"
+                                  inline="false"
+                                  bubbles="true"
+                                  bubble-size="30"
+                                  img-bubbles="true"
+                                  bg-close="true"
+                                  piracy="true"
+                                  img-anim="fadeup"
+                                  conf="conf"
+                                  on-open="opened();"
+                                  on-close="closed();"
+                                  on-delete="delete(img, cb)"></ng-image-gallery>
+            </div>
+        </div>
     </div>
-    <drbbly-image ng-repeat="photo in dcp.photos"
-                  image-url="{{photo.url}}"></drbbly-image>
 </div>
