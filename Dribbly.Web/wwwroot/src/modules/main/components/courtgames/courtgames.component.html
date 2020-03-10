@@ -24,7 +24,7 @@
                             <tbody>
                                 <tr ng-repeat="game in cgc.games | filter : cgc.courtFilter">
                                     <td>{{game.id}}</td>
-                                    <td><a ng-click=""><strong>{{game.title}}</strong></a></td>
+                                    <td><a ui-sref="main.game({id: game.id})"><strong>{{game.title}}</strong></a></td>
                                     <td><drbbly-date date="game.start"></drbbly-date> - <drbbly-date date="game.end"></drbbly-date></td>
                                 </tr>
                             </tbody>

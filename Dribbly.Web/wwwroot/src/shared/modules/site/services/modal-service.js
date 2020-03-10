@@ -13,9 +13,9 @@
                 }
 
                 controllerFn.$inject = ['$uibModalInstance', '$transitions', '$location', '$urlRouter',
-                    '$timeout', '$titleService', '$window'];
+                    '$log', '$titleService', '$window'];
                 function controllerFn($uibModalInstance, $transitions, $location, $urlRouter,
-                    $timeout, $titleService, $window) {
+                    $log, $titleService, $window) {
                     var mod = this;
 
                     mod.$onInit = function () {
@@ -45,9 +45,11 @@
                             var customOptions = transition.options().custom;
                             if (customOptions && customOptions.force) {
                                 mod.context.okToClose = true;
+                                unSub();
                             }
                             else {
                                 transition.abort();
+                                $log.warn('transition aborted... modal is not cleared');
                                 // We have to update document.title because it doesn't get updated
                                 // when the transition is cancelled (but the browser shows the 'to'
                                 // state's title). And the browser's title doesn't get updated

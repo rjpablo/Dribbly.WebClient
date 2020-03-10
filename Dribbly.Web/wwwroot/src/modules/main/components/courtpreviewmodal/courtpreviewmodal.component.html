@@ -63,9 +63,13 @@
         </div>
     </div>
     <div class="controls">
-        <a ui-sref="main.court.details({id: cpm.model.court.id})" target="_blank" class="btn-block btn btn-primary">
-            {{::'app.ViewFullDetails' | i18n}}&nbsp;
-            <i class="fa fa-external-link"></i>
+        <a ui-sref="main.court.details({id: cpm.model.court.id})" class="m-0 p-0">
+            <span type="button"
+                  class="btn-block btn btn-primary"
+                  ng-click="cpm.viewCourtDetails($event, cpm.model.court)">
+                {{::'app.ViewFullDetails' | i18n}}<!--&nbsp;
+                <i class="fa fa-external-link"></i>-->
+            </span>
         </a>
         <button class="btn btn-secondary btn-block" ng-click="cpm.close()">Close</button>
     </div>

@@ -13,8 +13,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', 'modalService'];
-    function controllerFn($scope, modalService) {
+    controllerFn.$inject = ['$scope', '$state'];
+    function controllerFn($scope, $state) {
         var cpm = this;
 
         cpm.$onInit = function () {
@@ -28,6 +28,14 @@
 
         cpm.close = function () {
             cpm.onInterrupt();
+        };
+
+        cpm.viewCourtDetails = function (event, court) {
+            event.preventDefault();
+            $state.go('main.court.details',
+                { id: court.id },
+                { custom: { force: true } }
+            );
         };
 
         $scope.$on('modal.closing', function (event, reason, result) {
