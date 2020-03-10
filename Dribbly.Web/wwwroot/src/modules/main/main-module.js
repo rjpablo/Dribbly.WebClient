@@ -81,6 +81,22 @@
                 }
             })
 
+            .state('main.game', {
+                url: '/game/:id',
+                component: 'drbblyGameviewercontainer',
+                resolve: {
+                    $titleKey: () => { return 'app.GameDetails'; }
+                }
+            })
+
+            .state('main.game.details', {
+                url: '/details',
+                component: 'drbblygamedetails',
+                resolve: {
+                    $titleKey: () => { return 'app.GameDetails'; }
+                }
+            })
+
             .state('auth', {
                 abstract: true,
                 url: '',
