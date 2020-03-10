@@ -26,6 +26,10 @@
                     return drbblyhttpService.post(api + 'register', courtDetails);
                 }
 
+                function deletePhoto(courtId, photoId) {
+                    return drbblyhttpService.post(api + 'deletePhoto/' + courtId + '/' + photoId);
+                }
+
                 function updateCourt(courtDetails) {
                     return drbblyhttpService.post(api + 'updateCourt', courtDetails);
                 }
@@ -45,6 +49,7 @@
 
                 var _service = {
                     addCourtPhotos: addCourtPhotos,
+                    deletePhoto: deletePhoto,
                     getAllCourts: getAllCourts,
                     getCourt: getCourt,
                     getCourtGames: getCourtGames,

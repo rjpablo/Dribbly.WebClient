@@ -369,11 +369,19 @@
                                     scope._activeImageIndex = scope.images.indexOf(imgObj);
                                     scope.imgError = false;
                                 }, function () {
-                                    scope._activeImg = null;
+                                    /**** Customization - START****/
+                                    // Purpose: allow controls to show even when image fails to load
+                                    // Original Code:
+                                    // scope._activeImg = null;
+                                    //
+                                    // New Code:
+
+                                    scope._activeImg = imgObj;
+
+                                    /**** Customization - END****/
                                     scope._activeImageIndex = scope.images.indexOf(imgObj);
                                     scope.imgError = true;
-                                })
-                                    ;
+                                });
                             }
 
                             scope._safeApply = function (fn) {
@@ -390,9 +398,31 @@
                             scope._deleteImg = function (img) {
                                 var _deleteImgCallback = function () {
                                     var index = scope.images.indexOf(img);
-                                    console.log(index);
                                     scope.images.splice(index, 1);
-                                    scope._activeImageIndex = 0;
+
+                                    /**** CUSTOMIZATION - START ****/
+                                    // Original code:
+                                    // scope._activeImageIndex = 0;
+                                    //
+                                    // New Code:
+
+                                    if (scope.images.length) {
+                                        if (index < scope.images.length) {
+                                            scope._activeImageIndex = index;
+                                            scope._setActiveImg(
+                                                scope.images[scope._activeImageIndex]
+                                            );
+                                        }
+                                        else {
+                                            scope._activeImageIndex = 0;
+                                        }
+                                    }
+                                    else {
+                                        //close if no more images left
+                                        scope.methods.close();
+                                    }
+
+                                    /**** CUSTOMIZATION - END ****/
 
                                     /**/
                                 }
@@ -536,6 +566,7 @@
                                 var noCloseClasses = [
                                     'galleria-image',
                                     'destroy-icons-container',
+                                    'delete-img', // Customization - added to prevent closing when delete button is clicked
                                     'ext-url',
                                     'close',
                                     'next',

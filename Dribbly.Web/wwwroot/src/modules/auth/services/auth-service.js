@@ -230,6 +230,10 @@
                     $state.go('auth.login', { resumeUrl: resumeUrl });
                 }
 
+                function _isCurrentUserId(id) {
+                    return _authentication && id && _authentication.userId === id;
+                }
+
                 //TEST FUNCTIONALITY ONLY
                 var _test = function () {
                     $http.post(settingsService.serviceBase + 'api/account/test')
@@ -239,6 +243,7 @@
 
                 authServiceFactory.checkAuthenticationThen = _checkAuthenticationThen;
                 authServiceFactory.checkAuthentication = _checkAuthentication;
+                authServiceFactory.isCurrentUserId = _isCurrentUserId;
                 authServiceFactory.signUp = signUp;
                 authServiceFactory.login = _login;
                 authServiceFactory.logOut = _logOut;

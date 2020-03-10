@@ -53,6 +53,7 @@
                     BookNow: 'Book Now',
                     Browse: 'Browse',
                     CourtSearchPrompt: 'Enter a court name to search',
+                    DeletePhotoConfirmationMsg: 'Delete photo?',
                     Details: 'Details',
                     FeaturedCourts: 'Featured Courts',
                     FilterGamesByTitle: 'Filter games by title',
