@@ -84,6 +84,7 @@
                     var deferred = $q.defer();
 
                     var authData = localStorageService.get('authorizationData');
+                    localStorageService.remove('authorizationData'); 
 
                     if (authData && authData.useRefreshTokens) {
 
