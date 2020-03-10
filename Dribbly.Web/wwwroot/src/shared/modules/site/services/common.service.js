@@ -7,6 +7,7 @@
 
                 var _handleError = function (error, friendlyMsgKey, friendlyMsgRaw) {
                     var friendlyMsg;
+                    var serverErrorMsg;
                     if (friendlyMsgKey) {
                         friendlyMsg = i18nService.getString(friendlyMsgKey);
                     }
@@ -14,41 +15,39 @@
                         friendlyMsg = friendlyMsgRaw;
                     }
 
-                    switch (error.status) {
-                        case 400: //bad request
-                            drbblyToastService.error(friendlyMsg || error.data.error_description);
-                            $log.error(error.error_description);
-                            break;
-                        case 401: //unauthorized
-                            drbblyToastService.error(friendlyMsg || 'Access denied.');
-                            $log.error(error.data.Message);
-                            break;
-                        case 500: //internal server error
-                            if (error.data) {
-                                if (error.data.exceptionMessage) {
-                                    drbblyToastService.error(friendlyMsg || error.data.exceptionMessage);
+                    if (error.status) {
+                        switch (error.status) {
+                            case 400: //bad request
+                                serverErrorMsg = error.data.error_description;
+                                $log.error(error.error_description);
+                                break;
+                            case 401: //unauthorized
+                                serverErrorMsg = 'Access denied.';
+                                $log.error(error.data.Message);
+                                break;
+                            case 500: //internal server error
+                                if (error.data && error.data.exceptionMessage) {
+                                    serverErrorMsg = error.data.exceptionMessage;
+
                                 } else {
-                                    drbblyToastService.error('An internal error occured. Please try again.');
+                                    serverErrorMsg = 'An internal error occured. Please try again.';
                                 }
-
-                                $log.error(
-                                    'Exception Message: ' + error.data.innerException.exceptionMessage + '\n' +
-                                    'StackTrace: ' + error.data.innerException.stackTrace
-                                );
-
-                            } else {
-                                drbblyToastService.error(friendlyMsg || 'An internal error occured. Please try again.');
-                            }
-
-                            break;
-                        case -1: //Unable to connect to server
-                            drbblyToastService.error(friendlyMsg || 'An unexpected error occured.');
-                            $log.error('Could not send request.');
-                            break;
-                        default: //unknown error
-                            drbblyToastService.error(friendlyMsg || 'An unknown error occured.');
-                            $log.error('An unknown error occured.');
+                                break;
+                            case -1: //Unable to connect to server
+                                $log.error('Could not send request.');
+                                break;
+                            default: //unknown error
+                                $log.error('An unknown error occured.');
+                        }
                     }
+                    else {
+                        if (error.exceptionMessage) {
+                            serverErrorMsg = error.exceptionMessage;
+                            $log.error(serverErrorMsg);
+                        }
+                    }
+
+                    drbblyToastService.error(friendlyMsg || serverErrorMsg || 'An unknown error occured.');
                 };
 
                 function _prompt(prompt, title) {
