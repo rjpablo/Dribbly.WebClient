@@ -31,10 +31,10 @@
                 textKey: 'site.Home',
                 targetState: 'main.home',
                 icon: 'players'
-            }, {
-                textKey: 'site.Courts',
-                targetState: 'main.courts',
-                icon: 'court-inclined'
+            //}, {
+            //    textKey: 'site.Courts',
+            //    targetState: 'main.courts',
+            //    icon: 'court-inclined'
             }, {
                 textKey: 'site.Players',
                 targetState: 'main.players',

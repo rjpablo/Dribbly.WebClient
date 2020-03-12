@@ -7,7 +7,7 @@
     module.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', configFn]);
     function configFn($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
-        $urlRouterProvider.otherwise('courts');
+        $urlRouterProvider.otherwise('home');
 
         $stateProvider
             .state('main', {
@@ -22,8 +22,8 @@
                 //template: '<drbbly-main-container app="app"></drbbly-main-container>'
             })
 
-            .state('main.home', {
-                url: '/home',
+            .state('main.home_tmp', {
+                url: '/home_tmp',
                 template: '<drbbly-home-container></drbbly-home-container>',
                 resolve: {
                     $titleKey: function () {
@@ -32,11 +32,11 @@
                 }
             })
 
-            .state('main.courts', {
-                url: '/courts',
+            .state('main.home', {
+                url: '/home',
                 template: '<drbbly-courts-container></drbbly-courts-container>',
                 resolve: {
-                    $titleKey: () => { return 'site.Courts'; }
+                    $titleKey: () => { return 'site.Home'; }
                 }
             })
 

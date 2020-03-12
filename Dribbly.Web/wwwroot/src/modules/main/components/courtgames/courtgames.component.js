@@ -23,7 +23,7 @@
             cgc.courtId = $stateParams.id;
             drbblyCourtsService.getCourtGames(cgc.courtId)
                 .then(function (events) {
-                    cgc.games = massageEvents(events);
+                    cgc.games = massageEvents(events || []);
                     cgc.schedulerOptions = getSchedulerOptions(angular.copy(cgc.games));
                     cgc.courtsListOverlay.setToReady();
                 })

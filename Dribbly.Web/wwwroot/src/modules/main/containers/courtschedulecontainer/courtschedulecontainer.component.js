@@ -23,7 +23,7 @@
             csc.courtId = $stateParams.id;
             drbblyCourtsService.getCourtGames(csc.courtId)
                 .then(function (events) {
-                    csc.games = angular.copy(massageEvents(events));
+                    csc.games = massageEvents(events || []);
                     csc.calendarOptions = getCalendarOptions();
                 });
         };
