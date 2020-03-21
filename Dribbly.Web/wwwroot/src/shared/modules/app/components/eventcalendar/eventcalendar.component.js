@@ -21,13 +21,15 @@
         var _currentStartDate;
         var _currentEndDate;
         var _isHandlingOnSelect; // whether or not 'Select' event is already being handled. Prevents handling of dateClick event
+        var _focusedEventId;
 
         cal.$onInit = function () {
             cal.overrideEvent = true;
             cal.currentView = 'timeGridWeek';
             // For AngularJS FullCalendar
             cal.eveeventsForAngularnts = [getEvents()];
-            cal.calendarOptions = Object.assign(getCalendarDefaultOptions(), cal.calendarOptionsOverride || {});
+            _focusedEventId = cal.calendarOptionsOverride.focusedEventId;
+            cal.calendarOptions = getCalendarDefaultOptions(cal.calendarOptionsOverride || {});
             cal.calendarOptions.events = null;
             cal.calendarOptions.themeSystem = 'bootstrap';
             cal.calendarOptions.defaultView = 'agendaWeek';
@@ -36,7 +38,7 @@
 
             // For JQuery FullCalendar
             var calendarEl = document.getElementById('calendar');
-            var options = Object.assign(getCalendarDefaultOptions(), cal.calendarOptionsOverride || {});
+            var options = getCalendarDefaultOptions(cal.calendarOptionsOverride);
             cal.calendar = new FullCalendar.Calendar(calendarEl, options);
             cal.calendar.render();
 
@@ -52,7 +54,7 @@
 
         };
 
-        function getCalendarDefaultOptions() {
+        function getCalendarDefaultOptions(overrides) {
             return {
                 events: getEvents(),
                 plugins: ['dayGrid', 'timeGrid', 'interaction'],
@@ -61,7 +63,7 @@
                 //    right: 'dayGridMonth,timeGridWeek'
                 //},
                 defaultView: 'timeGridWeek',
-                defaultDate: new Date(),
+                defaultDate: overrides.defaultDate || new Date(),
                 allDaySlot: false, //function called when a user selects a slot or range of slots
                 navLinks: false, // can click day/week names to navigate views
                 eventLimit: true, // allow "more" link when too many events
@@ -75,6 +77,10 @@
                 eventRender: function (eventObj, $el) {
                     var scope = $rootScope.$new();
                     scope.event = eventObj.event;
+                    if (_focusedEventId && scope.event.id === _focusedEventId.toString()) {
+                        scope.event.isFocused = true;
+                        _focusedEventId = null;
+                    }
                     scope.event.isMirror = eventObj.isMirror;
                     scope.event.isStart = eventObj.isStart;
                     scope.event.isEnd = eventObj.isEnd;
@@ -125,6 +131,7 @@
         }
 
         function addEvent(event) {
+            _focusedEventId = event.id;
             cal.calendar.addEvent(event);
             if (!getIsDateRendered(new Date(event.start))) {
                 cal.calendar.gotoDate(event.start);

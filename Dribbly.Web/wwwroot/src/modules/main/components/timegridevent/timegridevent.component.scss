@@ -7,4 +7,22 @@ drbbly-timegridevent {
         background-color: $teal;
         border-color: darken($teal, 15%);
     }
+
+    .fc-content {
+        height: 100%;
+
+        &.highlight {
+            animation: glow-down 3s ease-in 0.2s
+        }
+    }
+}
+
+@keyframes glow-down {
+    0% {
+        box-shadow: 0 0 10px 5px $yellow;
+    }
+
+    100% {
+        box-shadow: none;
+    }
 }

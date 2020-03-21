@@ -18,9 +18,14 @@
                     return drbblyhttpService.post(api + 'updateGame', GameDetails);
                 }
 
+                function bookGame(GameDetails) {
+                    return drbblyhttpService.post(api + 'bookGame', GameDetails);
+                }
+
                 var _service = {
                     getAll: getAll,
                     getGame: getGame,
+                    bookGame: bookGame,
                     updateGame: updateGame
                 };
 

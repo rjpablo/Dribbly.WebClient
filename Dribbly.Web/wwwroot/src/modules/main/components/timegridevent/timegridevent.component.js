@@ -11,12 +11,18 @@
             templateUrl: 'drbbly-default',
             controller: controllerFn
         });
-    controllerFn.$inject = ['$element'];
-    function controllerFn($element) {
+    controllerFn.$inject = ['$element', '$timeout'];
+    function controllerFn($element, $timeout) {
         var tge = this;
 
         tge.$onInit = function () {
             addClasses(tge.event);
+
+            if (tge.event.isFocused) {
+                $timeout(function () {
+                    $element[0].scrollIntoView({block: 'center'});
+                });
+            }
         };
 
         function addClasses(event) {

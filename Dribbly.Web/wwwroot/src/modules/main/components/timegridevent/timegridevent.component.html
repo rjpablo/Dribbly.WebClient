@@ -1,7 +1,7 @@
-﻿<div class="fc-content">
+﻿<div class="fc-content" ng-class="{ 'highlight': tge.event.isFocused }" tabindex="-1">
     <div class="fc-title font-weight-bold">{{tge.event.title}}</div>
     <div ng-class="{'text-danger' : tge.event.isMirror}">
-        <span class="text-monospace fc-time">{{tge.event.start | date : 'hh:mm a'}}</span> - 
+        <span class="text-monospace fc-time">{{tge.event.start | date : 'hh:mm a'}}</span> -
         <span class="text-monospace fc-time">{{tge.event.end | date : 'hh:mm a'}}</span>
     </div>
 </div>

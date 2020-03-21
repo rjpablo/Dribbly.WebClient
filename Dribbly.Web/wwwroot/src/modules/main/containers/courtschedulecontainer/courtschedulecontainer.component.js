@@ -37,7 +37,10 @@
         }
 
         function getCalendarOptions() {
-            return {};
+            return {
+                focusedEventId: $stateParams.focusedEventId,
+                defaultDate: $stateParams.defaultDate
+            };
         }
     }
 })();

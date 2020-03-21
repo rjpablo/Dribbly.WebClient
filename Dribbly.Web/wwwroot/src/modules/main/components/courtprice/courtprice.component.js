@@ -5,21 +5,21 @@
         .module('mainModule')
         .component('drbblyCourtprice', {
             bindings: {
-                courtId: '<'
+                court: '<'
             },
             controllerAs: 'cpc',
             templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyCourtshelperService'];
-    function controllerFunc(drbblyCourtshelperService) {
+    controllerFunc.$inject = ['drbblyCourtshelperService', '$state'];
+    function controllerFunc(drbblyCourtshelperService, $state) {
         var cpc = this;
 
         cpc.book = function () {
-            drbblyCourtshelperService.openBookGameModal(cpc.courtId)
+            drbblyCourtshelperService.openBookGameModal({ courtId: cpc.court.id })
                 .then(function (result) {
-                    //redirect to game details
+                    $state.go('main.court.schedule', { focusedEventId: result.id, defaultDate: result.start });
                 })
                 .catch(function (error) {
 

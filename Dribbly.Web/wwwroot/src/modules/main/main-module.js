@@ -74,6 +74,10 @@
             })
 
             .state('main.court.schedule', {
+                params: {
+                    focusedEventId: null,
+                    defaultDate: null
+                },
                 url: '/schedule',
                 component: 'drbblyCourtschedulecontainer',
                 resolve: {
