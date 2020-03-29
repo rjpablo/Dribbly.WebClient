@@ -6,6 +6,7 @@
             var _entries = {
                 site: {
                     Cancel: 'Cancel',
+                    Close: 'Close',
                     ConfirmPassword: 'Confirm Password',
                     Continue: 'Continue',
                     Courts: 'Courts',
@@ -15,6 +16,7 @@
                     Done: 'Done',
                     Email: 'Email',
                     Error_Auth_SessionExpired: 'Your session has expired. Please log in again to continue.',
+                    Error_Common_Minlength: 'Should be at least ({length}) characters long',
                     Error_Map_CityNameNotFound: 'Could not retrieve city name.' +
                         ' Please try a different location.',
                     Error_Map_CountryNameNotFound: 'Could not retrieve country name.' +
@@ -23,6 +25,7 @@
                     Error_Map_PhOnly: 'We\'re very sorry but we currently only support locations' +
                         ' within the Philippines. We\'re currently working to expand our' +
                         ' coverage. We\'ll let you know once were done. Thank you for understanding.',
+                    From: 'From',
                     Games: 'Games',
                     Home: 'Home',
                     LoggedInAs: 'logged in as <strong class="text-capitalize">{userName}</strong>',
@@ -37,12 +40,14 @@
                     OverlayBusyMsg: 'Hold on tight... A shot on the way!',
                     Password: 'Password',
                     Players: 'Players',
+                    Required: 'Required',
                     Schedule: 'Schedule',
                     Search: 'Search',
                     SiteName: constants.site.name,
                     SlashHour: '/hr',
                     Submit: 'Submit',
                     Teams: 'Teams',
+                    To: 'To',
                     UnsavedChangesWarningMessage: 'You may lose you unsaved Changes. Are you sure?',
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!',
                     Yes: 'Yes'
@@ -55,9 +60,12 @@
                     CourtSearchPrompt: 'Enter a court name to search',
                     DeletePhotoConfirmationMsg: 'Delete photo?',
                     Details: 'Details',
+                    Duration: 'Duration',
+                    End: 'End',
                     FeaturedCourts: 'Featured Courts',
                     FilterGamesByTitle: 'Filter games by title',
                     FoundCountPhotos: 'Found {count} photos',
+                    FormattedDuration: '{hours} hrs and {minutes} mins',
                     GameDetails: 'Game Details',
                     Id: 'ID',
                     LocationPickFromTheMap: 'Location: (Please select from the map)',
@@ -70,6 +78,7 @@
                     RatePerHour: 'Rate Per Hour',
                     Schedule: 'Schedule',
                     SearchTheMap: 'Search the map',
+                    Start: 'Start',
                     Title: 'Title',
                     Today: 'Today',
                     UploadAPhoto: 'Upload a photo',

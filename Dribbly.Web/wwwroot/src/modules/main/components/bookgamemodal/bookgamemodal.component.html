@@ -2,63 +2,110 @@
     <h3 class="modal-title" i18n="{{::'app.GameDetails'}}"></h3>
 </div>
 <div class="modal-body">
-    <form name="bgm.frmCourtDetails"
+    <form name="bgm.frmGameDetails"
+          novalidate
           ng-if="bgm.saveModel">
         <fieldset ng-disabled="bgm.isBusy">
+            <div class="form-group border-bottom pb-3">
+                <label for="txtName">{{::'app.Title' | i18n}}*:</label>                
+                <input type="text"
+                       name="txtName"
+                       ng-model="bgm.saveModel.title"
+                       class="form-control"
+                       ng-class="{'is-invalid': bgm.frmGameDetails.txtName.$touched && bgm.frmGameDetails.txtName.$invalid}"
+                       required
+                       minlength="5" />
+                <div ng-show="bgm.frmGameDetails.txtName.$error.required" class="invalid-feedback">
+                    {{::'site.Required' | i18n}}
+                </div>
+                <div ng-show="bgm.frmGameDetails.txtName.$error.minlength" class="invalid-feedback">
+                    {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                </div>
+            </div>
+            <div class="form-group border-bottom">
+                <div class="d-flex align-items-center mb-1">
+                    <label for="duration">{{::'app.Duration' | i18n}}:</label>
+                    <div class="btn-group btn-group-sm ml-auto">
+                        <button class="btn btn-sm btn-secondary"
+                                type="button"
+                                ng-click="bgm.adjustDuration(60)">
+                            +1hr
+                        </button>
+                        <button class="btn btn-sm btn-secondary"
+                                type="button"
+                                ng-disabled="!bgm.canAdjustDuration(-60)"
+                                ng-click="bgm.adjustDuration(-60)">
+                            -1hr
+                        </button>
+                        <button class="btn btn-sm btn-secondary"
+                                type="button"
+                                ng-click="bgm.adjustDuration(30)">
+                            +30min
+                        </button>
+                        <button class="btn btn-sm btn-secondary"
+                                type="button"
+                                ng-disabled="!bgm.canAdjustDuration(-30)"
+                                ng-click="bgm.adjustDuration(-30)">
+                            -30min
+                        </button>
+                    </div>
+                </div>
+                <strong drbbly-duration="{{bgm.saveModel.durationMinutes}}"
+                        class="d-block p-2"></strong>
+                <!--<drbbly-numberspinner value="bgm.saveModel.duration"></drbbly-numberspinner>-->
+            </div>
+            <div class="form-group border-bottom">
+                <label for="start"
+                       class="m-0">{{::'app.Start' | i18n}}*:</label>
+                <drbbly-datetimepicker ng-model="bgm.saveModel.start"
+                                       name="dtpStart"
+                                       sid="start"
+                                       value-changed="bgm.startChanged"
+                                       required
+                                       options="bgm.startDateOptions"></drbbly-datetimepicker>
+                <!-- This is a remedy for the error message to display properly.
+                    It requires a sibling with classes .is-invalid and .form-control for it to appear,
+                    but adding those classes to the datetime picker does not yield a very good result-->
+                <span class="form-control d-none"
+                      ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
+                <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">
+                    {{::'site.Required' | i18n}}
+                </div>
+            </div>
+            <div class="form-group d-none">
+                <label for="end">{{::'app.End' | i18n}}:</label>
+                <strong class="d-block p-2"
+                        ng-if="!bgm.endIsEditable">{{(bgm.saveModel.end | date:'dd/MMM/yyyy hh:mm a') || '--'}}</strong>
+                <drbbly-datetimepicker ng-model="bgm.saveModel.end"
+                                       ng-if="bgm.endIsEditable"
+                                       name="dtpEnd"
+                                       sid="end"
+                                       date-changed="bgm.endDateChanged"
+                                       required
+                                       options="bgm.endDateOptions"></drbbly-datetimepicker>
+                <!-- This is a remedy for the error message to display properly.
+                It requires a sibling with classes .is-invalid and .form-control for it to appear,
+                but adding those classes to the datetime picker does not yield a very good result-->
+                <span class="form-control d-none"
+                      ng-class="{'is-invalid': bgm.frmGameDetails.dtpEnd.$touched && bgm.frmGameDetails.dtpEnd.$invalid}"></span>
+                <div ng-show="bgm.frmGameDetails.dtpEnd.$error.required" class="invalid-feedback">
+                    {{::'site.Required' | i18n}}
+                </div>
+            </div>
             <div class="form-group">
-                <lable for="txtName">
-                    {{::'app.Title' | i18n}}
-                    <input type="text"
-                           name="txtName"
-                           ng-model="bgm.saveModel.title"
-                           class="form-control"
-                           required
-                           max="100" />
-                </lable>
-            </div>
-            <div class="dropdown form-group">
-                <label>
-                    Start
-                    <datetimepicker hour-step="1"
-                                    minute-step="30"
-                                    ng-model="bgm.saveModel.start"
-                                    show-meridian="true"
-                                    date-options="bgm.startDateOptions.options"
-                                    date-disabled="bgm.startDateOptions.disabled(date, mode)"
-                                    datepicker-append-to-body="false"
-                                    readonly-date="false"
-                                    disabled-date="false"
-                                    hidden-time="false"
-                                    hidden-date="false"
-                                    name="startdatetimepicker"
-                                    show-spinners="true"
-                                    readonly-time="false"
-                                    date-ng-click="bgm.startDateOptions.open($event, opened)"
-                                    date-opened="bgm.startDateOpened"
-                                    show-button-bar="true"></datetimepicker>
-                </label>
-            </div>
-            <div class="dropdown form-group">
-                <label>
-                    End
-                    <datetimepicker hour-step="1"
-                                    minute-step="30"
-                                    ng-model="bgm.saveModel.end"
-                                    show-meridian="true"
-                                    date-options="bgm.endDateOptions"
-                                    date-disabled="bgm.endDisabled(date, mode)"
-                                    datepicker-append-to-body="false"
-                                    readonly-date="false"
-                                    disabled-date="false"
-                                    hidden-time="false"
-                                    hidden-date="false"
-                                    name="startdatetimepicker"
-                                    show-spinners="true"
-                                    readonly-time="false"
-                                    date-ng-click="bgm.endOpen($event, opened)"
-                                    date-opened="bgm.endDateOpened"
-                                    show-button-bar="true"></datetimepicker>
-                </label>
+                <label for="end">{{::'app.Schedule' | i18n}}:</label>
+                <table class="ml-3"
+                       ng-show="bgm.saveModel.start">
+                    <tr>
+                        <td class="small">{{::'site.From' | i18n}}</td>
+                        <td><strong class="p-2">{{bgm.saveModel.start | date:'dd/MMM/yyyy hh:mm a'}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="small">{{::'site.To' | i18n}}</td>
+                        <td><strong class="p-2">{{bgm.saveModel.end | date:'dd/MMM/yyyy hh:mm a'}}</strong></td>
+                    </tr>
+                </table>
+                <span class="ml-3 d-block" ng-show="!bgm.saveModel.start">--</span>
             </div>
         </fieldset>
     </form>
@@ -66,8 +113,8 @@
 <div class="modal-footer">
     <button i18n="{{::'site.Submit'}}"
             class="btn btn-primary"
-            ng-disabled="bgm.isBusy || bgm.frmCourtDetails.$invalid || bgm.frmCourtDetails.$prestine"
-            type="button"
+            ng-disabled="bgm.isBusy || bgm.frmGameDetails.$pristine || bgm.frmGameDetails.$invalid"
+            type="submit"
             ng-click="bgm.submit()"></button>
     <button i18n="{{::'site.Cancel'}}"
             class="btn btn-warning"

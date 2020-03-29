@@ -13,12 +13,22 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyGamesService', 'drbblyCommonService'];
-    function controllerFn($scope, modalService, drbblyEventsService, drbblyGamesService, drbblyCommonService) {
+    controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyGamesService', 'drbblyCommonService',
+        'drbblyDatetimeService'];
+    function controllerFn($scope, modalService, drbblyEventsService, drbblyGamesService, drbblyCommonService,
+        drbblyDatetimeService) {
         var bgm = this;
 
         bgm.$onInit = function () {
             bgm.saveModel = angular.copy(bgm.model.game || {});
+            bgm.minDuration = 30;
+            bgm.saveModel.durationMinutes = getDuration();
+            if (!bgm.saveModel.start) {
+                bgm.saveModel.start = new Date();
+                bgm.saveModel.start.setHours(0, 0, 0, 0);
+            }
+            bgm.saveModel.end = getEndDate();
+
             setStartDateOptions();
             setEndDateOptions();
 
@@ -33,46 +43,69 @@
 
         bgm.dateOpened = false;
 
-        bgm.startTimeChanged = function (newDate, oldDate) {
-            console.log(bgm.startTime);
+        bgm.startChanged = function (newValue) {
+            bgm.saveModel.start = newValue;
+            bgm.saveModel.end = getEndDate();
         };
+
+        bgm.startTimeChanged = function (newDate, oldDate) {
+            console.log(bgm.saveModel.start);
+        };
+
+        bgm.getFormattedDuration = function () {
+            return duration.humanize();
+        };
+
+        bgm.adjustDuration = function (adjustment) {
+            bgm.frmGameDetails.$setDirty();
+            bgm.saveModel.durationMinutes += adjustment;
+            if (bgm.saveModel.start) {
+                bgm.saveModel.end = getEndDate();
+            }
+        };
+
+        bgm.canAdjustDuration = function (adjustment) {
+            var newDuration = bgm.saveModel.durationMinutes + adjustment;
+            return newDuration >= bgm.minDuration;
+        };
+
+        function getDuration() {
+            if (bgm.saveModel.start && bgm.saveModel.end) {
+                return drbblyDatetimeService.getDiff(bgm.saveModel.start, bgm.saveModel.end);
+            }
+            return 120; // default to 2 hrs
+        }
+
+        function getEndDate() {
+            if (bgm.saveModel.start) {
+                return drbblyDatetimeService.add(bgm.saveModel.start, bgm.saveModel.durationMinutes, 'minutes');
+            }
+            return null;
+        }
 
         function setStartDateOptions() {
             bgm.startDateOptions = {
-                options: {
-                    showWeeks: false,
-                    startingDay: 0
-                },
-                disbled: function (date, mode) {
-                    return mode === 'day' && date.getDay() < new Date().getDay();
-                },
-                open: function ($event, opened) {
-                    $event.preventDefault();
-                    $event.stopPropagation();
-                    bgm.startDateOpened = true;
+                datepicker: {
+                    dateDisabled: function (params) {
+                        return params.mode === 'day' && drbblyDatetimeService.compareDatesOnly(params.date, new Date()) === -1;
+                    }
                 }
             };
         }
 
         function setEndDateOptions() {
             bgm.endDateOptions = {
-                options: {
-                    showWeeks: false,
-                    startingDay: 0
-                },
-                disabled: function (date, mode) {
-                    return mode === 'day' && date.getDay() < new Date().getDay();
-                },
-                open: function ($event, opened) {
-                    $event.preventDefault();
-                    $event.stopPropagation();
-                    bgm.endDateOpened = true;
+                datepicker: {
+                    dateDisabled: function (params) {
+                        return params.mode === 'day' &&
+                            drbblyDatetimeService.compareDatesOnly(params.date, bgm.saveModel.start || new Date()) === -1;
+                    }
                 }
             };
         }
 
         bgm.onInterrupt = function (reason) {
-            if (bgm.frmCourtDetails.$dirty) {
+            if (bgm.frmGameDetails.$dirty) {
                 modalService.showUnsavedChangesWarning()
                     .then(function (response) {
                         if (response) {
@@ -91,16 +124,17 @@
         };
 
         bgm.submit = function () {
-            bgm.saveModel.start = bgm.saveModel.start.toISOString();
-            bgm.saveModel.end = bgm.saveModel.end.toISOString();
-            drbblyGamesService.bookGame(bgm.saveModel)
-                .then(function (result) {
-                    close(result);
-                })
-                .catch(function (error) {
-                    drbblyCommonService.handleError(error);
-                });
-
+            if (bgm.frmGameDetails.$valid) {
+                bgm.saveModel.start = bgm.saveModel.start.toISOString();
+                bgm.saveModel.end = bgm.saveModel.end.toISOString();
+                drbblyGamesService.bookGame(bgm.saveModel)
+                    .then(function (result) {
+                        close(result);
+                    })
+                    .catch(function (error) {
+                        drbblyCommonService.handleError(error);
+                    });
+            }
         };
 
         function close(result) {

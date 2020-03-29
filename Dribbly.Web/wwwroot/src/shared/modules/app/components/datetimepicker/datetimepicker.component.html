@@ -1,0 +1,40 @@
+﻿<div class="row d-flex align-items-center">
+    <!-- Date Picker -->
+    <div class="col-6">
+        <div class="input-group">
+            <input type="text"
+                   class="form-control"
+                   ng-class="{'is-invalid': dtp.ngModelCtrl.$touched && dtp.ngModelCtrl.$invalid}"
+                   ng-if="dtp.dateOptions"
+                   ng-change="dtp._dateChanged()"
+                   uib-datepicker-popup="{{dtp.popupOptions.format}}"
+                   ng-model="dtp._dateModel"
+                   is-open="dtp.popupOptions.isOpen"
+                   datepicker-options="dtp.dateOptions"
+                   ng-blur="dtp.setTouched()"
+                   required
+                   close-text="{{dtp.popupOptions.closeTextKey | i18n}}"
+                   alt-input-formats="dtp.popupOptions.altInputFormats" />
+            <span class="input-group-append">
+                <button type="button"
+                        class="btn btn-default btn-outline-secondary"
+                        ng-click="dtp.open()">
+                    <i class="fa fa-calendar"></i>
+                </button>
+            </span>
+            <!--<div ng-show="dtp.ngModelCtrl.$error.required" class="invalid-feedback">
+                {{::'site.Required' | i18n}}
+            </div>-->
+        </div>
+    </div>
+    <!-- Time Picker -->
+    <div class="col-6">
+        <div uib-timepicker
+             ng-model="dtp._timeModel"
+             ng-if="dtp.timeOptions"
+             ng-change="dtp._timeChanged()"
+             readonly-input="dtp.timeOptions.readonlyInput"
+             hour-step="dtp.timeOptions.hourStep"
+             minute-step="dtp.timeOptions.minuteStep"></div>
+    </div>
+</div>
