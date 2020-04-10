@@ -21,6 +21,7 @@
                     Error_Common_InvalidPassword: 'Password must be 6-14 characters long and must contain at least one lower case letter, at least one upper case letter, at least one digit and no spaces.',
                     Error_Common_Minlength: 'Should be at least ({length}) characters long',
                     Error_Common_MustMatchPassword: 'Must match the password',
+                    Error_Common_UnexpectedError: 'An unexpected error occurred. Please try again.',
                     Error_Map_CityNameNotFound: 'Could not retrieve city name.' +
                         ' Please try a different location.',
                     Error_Map_CountryNameNotFound: 'Could not retrieve country name.' +
@@ -53,6 +54,7 @@
                     Submit: 'Submit',
                     Teams: 'Teams',
                     To: 'To',
+                    Username: 'Username',
                     UnsavedChangesWarningMessage: 'You may lose you unsaved Changes. Are you sure?',
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!',
                     Yes: 'Yes'

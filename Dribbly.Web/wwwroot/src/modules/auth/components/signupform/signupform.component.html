@@ -1,12 +1,52 @@
 ﻿<form name="suf.frmSignUp">
-    <div class="form-group">
-        <input class="form-control" required ng-model="suf.model.userName" name="email" type="text" placeholder="{{'site.Email' | i18n}}" />
+    <div class="alert alert-danger pl-0"
+         ng-show="suf.errors.length">
+        <ul class="m-0">
+            <li ng-repeat="error in suf.errors">{{error}}</li>
+        </ul>
     </div>
     <div class="form-group">
-        <input class="form-control" required ng-model="suf.model.password" name="password" type="password" placeholder="{{'site.Password' | i18n}}" />
+        <input class="form-control" required ng-model="suf.model.email" drbbly-emailinput
+               name="txtEmail" type="email" placeholder="{{'site.Email' | i18n}}"
+               ng-class="{'is-invalid': suf.frmSignUp.txtEmail.$touched && suf.frmSignUp.txtEmail.$invalid}" />
+        <div ng-show="suf.frmSignUp.txtEmail.$error.required" class="invalid-feedback">
+            {{::'site.Required' | i18n}}
+        </div>
+        <div ng-show="suf.frmSignUp.txtEmail.$error.email" class="invalid-feedback">
+            {{::'site.Error_Common_InvalidEmail' | i18n }}
+        </div>
     </div>
     <div class="form-group">
-        <input class="form-control" required ng-model="suf.model.confirmPassword" name="confirmPassword" type="password" placeholder="{{'site.ConfirmPassword' | i18n}}" />
+        <input class="form-control" required ng-model="suf.model.userName" name="username" type="text" placeholder="{{'site.Username' | i18n}}" />
+    </div>
+    <div class="form-group">
+        <input class="form-control"
+               required
+               ng-model="suf.model.password"
+               ng-pattern="$root.constants.PASSWORD_VALIDATION_REGEX"
+               ng-class="{'is-invalid': suf.frmSignUp.password.$touched && suf.frmSignUp.password.$invalid}"
+               name="password"
+               type="password"
+               placeholder="{{'site.Password' | i18n}}" />
+        <div ng-show="suf.frmSignUp.password.$error.pattern" class="invalid-feedback">
+            {{::'site.Error_Common_InvalidPassword' | i18n }}
+        </div>
+        <div ng-show="suf.frmSignUp.password.$error.required" class="invalid-feedback">
+            {{::'site.Required' | i18n }}
+        </div>
+    </div>
+    <div class="form-group">
+        <input class="form-control"
+               ng-model="suf.model.confirmPassword"
+               must-match="suf.model.password"
+               drbbly-confirmpassword
+               ng-class="{'is-invalid': suf.frmSignUp.confirmPassword.$touched && suf.frmSignUp.confirmPassword.$invalid}"
+               name="confirmPassword"
+               type="password"
+               placeholder="{{'site.ConfirmPassword' | i18n}}" />
+        <div ng-show="suf.frmSignUp.confirmPassword.$error.match" class="invalid-feedback">
+            {{::'site.Error_Common_MustMatchPassword' | i18n }}
+        </div>
     </div>
     <div class="form-group">
         <button type="submit"

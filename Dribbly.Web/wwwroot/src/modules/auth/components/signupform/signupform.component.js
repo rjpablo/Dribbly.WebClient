@@ -10,11 +10,16 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', '$state'];
-    function controllerFunc(authService, $state) {
+    controllerFunc.$inject = ['authService', '$state', 'drbblyCommonService'];
+    function controllerFunc(authService, $state, drbblyCommonService) {
         var suf = this;
 
+        suf.$onInit = function () {
+            suf.errors = [];
+        };
+
         suf.signUp = function () {
+            suf.errors = [];
             suf.isBusy = true;
             authService.signUp(suf.model)
                 .then(function (response) {
@@ -24,11 +29,14 @@
                         });
                 })
                 .catch(function (error) {
-                    alert('Registration failed');
-                    console.log(error); //TODO: remove when error handling is implemented
-                    suf.model.password = '';
-                    suf.model.confirmPassword = '';
                     suf.isBusy = false;
+                    if (error.data && error.data.modelState) {
+                        // TODO: localize error messages
+                        suf.errors = error.data.modelState[""];
+                    }
+                    else {
+                        drbblyCommonService.handleError(error, 'site.Error_Common_UnexpectedError');
+                    }
                 });
         };
     }
