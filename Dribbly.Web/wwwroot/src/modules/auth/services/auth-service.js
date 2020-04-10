@@ -67,6 +67,14 @@
 
                 };
 
+                var _sendResetPasswordLink = function (model) {
+                    return $http.post(settingsService.serviceBase + 'api/account/sendPasswordResetLink', model);
+                };
+
+                function resetPassword(input) {
+                    return $http.post(settingsService.serviceBase + 'api/account/resetPassword', input);
+                }
+
                 var _fillAuthData = function () {
 
                     var authData = localStorageService.get('authorizationData');
@@ -254,7 +262,9 @@
                 authServiceFactory.test = _test;
                 authServiceFactory.loginExternal = _loginExternal;
                 authServiceFactory.registerExternal = _registerExternal;
+                authServiceFactory.sendResetPasswordLink = _sendResetPasswordLink;
                 authServiceFactory.obtainAccessToken = _obtainAccessToken;
+                authServiceFactory.resetPassword = resetPassword;
 
                 return authServiceFactory;
             }]);

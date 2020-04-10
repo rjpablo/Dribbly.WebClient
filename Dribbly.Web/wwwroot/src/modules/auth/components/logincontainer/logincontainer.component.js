@@ -69,6 +69,9 @@
             }
         }
 
+        dlc.showLogin = function () {
+            dlc.isResettingPassword = false;
+        };
 
         function parseQueryString(queryString) {
             var data = {},
@@ -100,6 +103,10 @@
 
             return data;
         }
+
+        dlc.showResetPassword = function () {
+            dlc.isResettingPassword = true;
+        };
 
     }
 })();

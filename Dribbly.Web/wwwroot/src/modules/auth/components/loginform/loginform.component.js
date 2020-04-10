@@ -4,7 +4,9 @@
     angular
         .module('authModule')
         .component('drbblyLoginform', {
-            bindings: {},
+            bindings: {
+                showResetPassword: '<'
+            },
             controllerAs: 'dlf',
             templateUrl: 'drbbly-default',
             controller: controllerFunc

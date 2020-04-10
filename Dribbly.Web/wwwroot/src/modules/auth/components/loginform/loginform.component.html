@@ -4,6 +4,9 @@
     </div>
     <div class="form-group">
         <input class="form-control" required ng-model="dlf.loginData.password" name="password" type="password" placeholder="{{'site.Password' | i18n}}" />
+        <a ng-click="dlf.showResetPassword()"
+           class="btn btn-link p-0"
+           tabindex="-1">{{'auth.ForgotPassword' | i18n}}</a></p>
     </div>
     <div class="form-group">
         <button type="submit"

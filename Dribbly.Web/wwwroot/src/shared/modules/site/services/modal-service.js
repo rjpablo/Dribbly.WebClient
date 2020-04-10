@@ -132,10 +132,15 @@
                     });
                 }
 
+                function showGenericErrorModal() {
+                    return alert('app.Error_Common_GenericErrorHeader', 'app.Error_Common_GenericErrorDetails');
+                }
+
                 var service = {
                     show: _show,
                     alert: alert,
                     confirm: confirm,
+                    showGenericErrorModal: showGenericErrorModal,
                     showUnsavedChangesWarning: showUnsaveChangesWarning
                 };
 

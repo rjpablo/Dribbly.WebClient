@@ -16,7 +16,11 @@
                     Done: 'Done',
                     Email: 'Email',
                     Error_Auth_SessionExpired: 'Your session has expired. Please log in again to continue.',
+                    Error_Common_InvalidEmail: 'Please enter a valid email address',
+                    Error_Common_InvalidLink: 'The link you used is either invalid or expired. Please try requesting for another link.',
+                    Error_Common_InvalidPassword: 'Password must be 6-14 characters long and must contain at least one lower case letter, at least one upper case letter, at least one digit and no spaces.',
                     Error_Common_Minlength: 'Should be at least ({length}) characters long',
+                    Error_Common_MustMatchPassword: 'Must match the password',
                     Error_Map_CityNameNotFound: 'Could not retrieve city name.' +
                         ' Please try a different location.',
                     Error_Map_CountryNameNotFound: 'Could not retrieve country name.' +
@@ -33,6 +37,7 @@
                     LogOutConfirmationMsg1: 'Action is not yet over...',
                     LogOutConfirmationMsg2: 'Are you sure you want to log out?',
                     Name: 'Name',
+                    NewPassword: 'New Password',
                     No: 'No',
                     Ok: 'Ok',
                     Or: 'Or',
@@ -62,6 +67,8 @@
                     Details: 'Details',
                     Duration: 'Duration',
                     End: 'End',
+                    Error_Common_GenericErrorHeader: 'Oh no! The shot missed :(',
+                    Error_Common_GenericErrorDetails: 'That one didn\'t go well. Go take another shot!',
                     FeaturedCourts: 'Featured Courts',
                     FilterGamesByTitle: 'Filter games by title',
                     FoundCountPhotos: 'Found {count} photos',
@@ -92,10 +99,20 @@
                 },
                 auth: {
                     AlreadyHaveAnAccount: 'Already have an account?',
+                    ChangeEmailAddress: 'Change email address',
                     DontHaveAnAccount: 'Don\'t have an account?',
+                    ForgotPassword: 'Forgot Password',
+                    GoBackToLogin: 'Go back to Login',
                     LogIn: 'Log In',
                     LogInWithFacebook: 'Log in with Facebook',
                     LogInWithGoogle: 'Log in with Google',
+                    PasswordResetSuccessfulHeader: 'Password reset successful!',
+                    PasswordResetSuccessfulDetails: 'You have successfully reset your password. You may now <a href="#/login">Log In</a>', //TODO: append # dynamically
+                    ResendLink: 'Resend link',
+                    ResendingLink: 'Resending link',
+                    ResetLinkSentHeader: 'Reset link sent!',
+                    ResetLinkSentDetails: 'A reset link has been sent to <strong>{email}</strong>. Please follow the instructions in the email to reset your password.',
+                    ResetPassword: 'Reset Password',
                     SignUp: 'Sign Up'
                 }
             };

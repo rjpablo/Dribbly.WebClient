@@ -118,6 +118,18 @@
                 }
             })
 
+            .state('auth.passwordReset', {
+                url: '/passwordreset?token&email',
+                params: {
+                    email: '',
+                    token: ''
+                },
+                template: '<drbbly-authcontainer app="app"></drbbly-authcontainer>',
+                resolve: {
+                    $titleKey: () => { return 'auth.ResetPassword'; }
+                }
+            })
+
             .state('auth.signUp', {
                 url: '/signup',
                 template: '<drbbly-signupcontainer app="app"></drbbly-signupcontainer>',
