@@ -12,18 +12,22 @@
     <Compile Remove="wwwroot\dest\**" />
     <Compile Remove="wwwroot\src\modules\home\**" />
     <Compile Remove="wwwroot\node_modules\**" />
+    <Compile Remove="wwwroot\src\shared\modules\app\components\numberspinner\**" />
     <Content Remove="obj\Debug\netcoreapp2.2\win-x86\PubTmp\Out\wwwroot\shared\modules\site\components\sitelogo\wwwroot\**" />
     <Content Remove="wwwroot\dest\**" />
     <Content Remove="wwwroot\src\modules\home\**" />
     <Content Remove="wwwroot\node_modules\**" />
+    <Content Remove="wwwroot\src\shared\modules\app\components\numberspinner\**" />
     <EmbeddedResource Remove="obj\Debug\netcoreapp2.2\win-x86\PubTmp\Out\wwwroot\shared\modules\site\components\sitelogo\wwwroot\**" />
     <EmbeddedResource Remove="wwwroot\dest\**" />
     <EmbeddedResource Remove="wwwroot\src\modules\home\**" />
     <EmbeddedResource Remove="wwwroot\node_modules\**" />
+    <EmbeddedResource Remove="wwwroot\src\shared\modules\app\components\numberspinner\**" />
     <None Remove="obj\Debug\netcoreapp2.2\win-x86\PubTmp\Out\wwwroot\shared\modules\site\components\sitelogo\wwwroot\**" />
     <None Remove="wwwroot\dest\**" />
     <None Remove="wwwroot\src\modules\home\**" />
     <None Remove="wwwroot\node_modules\**" />
+    <None Remove="wwwroot\src\shared\modules\app\components\numberspinner\**" />
   </ItemGroup>
 
 
