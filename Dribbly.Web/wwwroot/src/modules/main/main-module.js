@@ -104,7 +104,7 @@
             .state('auth', {
                 abstract: true,
                 url: '',
-                template: '<ui-view></ui-view>'
+                component: 'drbblyAuthcontainer'
             })
 
             .state('auth.login', {
@@ -112,7 +112,7 @@
                 params: {
                     resumeUrl: ''
                 },
-                template: '<drbbly-logincontainer app="app"></drbbly-logincontainer>',
+                component: 'drbblyLoginform',
                 resolve: {
                     $titleKey: () => { return 'auth.LogIn'; }
                 }
@@ -124,15 +124,23 @@
                     email: '',
                     token: ''
                 },
-                template: '<drbbly-authcontainer app="app"></drbbly-authcontainer>',
+                component: 'drbblyPasswordresetform',
                 resolve: {
                     $titleKey: () => { return 'auth.ResetPassword'; }
                 }
             })
 
+            .state('auth.forgotPassword', {
+                url: '/forgotpassword',
+                component: 'drbblyForgotpasswordform',
+                resolve: {
+                    $titleKey: () => { return 'auth.ForgotPassword'; }
+                }
+            })
+
             .state('auth.signUp', {
                 url: '/signup',
-                template: '<drbbly-signupcontainer app="app"></drbbly-signupcontainer>',
+                component: 'drbblySignupform',
                 resolve: {
                     $titleKey: () => { return 'auth.SignUp'; }
                 }
