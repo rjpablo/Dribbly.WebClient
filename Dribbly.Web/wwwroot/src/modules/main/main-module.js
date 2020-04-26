@@ -40,6 +40,20 @@
                 }
             })
 
+            .state('main.account', {
+                abstract: true,
+                url: '/account/:username',
+                component: 'drbblyAccountviewercontainer'
+            })
+
+            .state('main.account.details', {
+                url: '/details',
+                component: 'drbblyAccountdetails',
+                resolve: {
+                    $titleKey: () => { return 'site.AccountDetails'; }
+                }
+            })
+
             .state('main.court', {
                 abstract: true,
                 url: '/court/:id',

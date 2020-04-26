@@ -48,7 +48,7 @@
 
                 var externalAuthData = {
                     provider: fragment.provider,
-                    userName: fragment.external_user_name.split(" ")[0],
+                    username: fragment.external_user_name.split(" ")[0],
                     externalAccessToken: fragment.external_access_token
                 };
 

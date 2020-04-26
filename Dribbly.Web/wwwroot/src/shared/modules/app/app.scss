@@ -1,5 +1,22 @@
+@import '../../../custom/bootstrap/scss/_variables.scss';
+
 #app-overlay {
     position: fixed !important;
     height: 100%;
     width: 100%;
+}
+
+.properties-list-table {
+
+    & > tbody > tr {
+
+        & > td.label {
+            text-align: right;
+            font-size: 0.8rem;
+        }
+
+        & > td.value {
+            color: $gray-600;
+        }
+    }
 }

@@ -11,7 +11,7 @@
 
                 var _authentication = {
                     isAuthenticated: false,
-                    userName: ""
+                    username: ""
                 };
 
                 var signUp = function (registration) {
@@ -24,7 +24,7 @@
 
                 var _login = function (loginData) {
 
-                    var data = 'grant_type=password&username=' + loginData.userName + '&password=' + loginData.password +
+                    var data = 'grant_type=password&username=' + loginData.username + '&password=' + loginData.password +
                         '&client_id=' + settingsService.clientId;
 
                     var deferred = $q.defer();
@@ -34,7 +34,7 @@
 
                             localStorageService.set('authorizationData', {
                                 token: response.data.access_token,
-                                userName: loginData.userName,
+                                username: loginData.username,
                                 userId: response.data.userId,
                                 refreshToken: response.data.refresh_token,
                                 useRefreshTokens: _useRefreshTokens,
@@ -42,7 +42,7 @@
                             });
 
                             _authentication.isAuthenticated = true;
-                            _authentication.userName = loginData.userName;
+                            _authentication.username = loginData.username;
                             _authentication.useRefreshTokens = _useRefreshTokens;
                             _authentication.profilePicture = _temporaryProfilePicture;
                             _authentication.userId = response.data.userId;
@@ -63,7 +63,7 @@
                     localStorageService.remove('authorizationData');
 
                     _authentication.isAuthenticated = false;
-                    _authentication.userName = "";
+                    _authentication.username = "";
 
                 };
 
@@ -80,7 +80,7 @@
                     var authData = localStorageService.get('authorizationData');
                     if (authData) {
                         _authentication.isAuthenticated = true;
-                        _authentication.userName = authData.userName;
+                        _authentication.username = authData.username;
                         _authentication.useRefreshTokens = authData.useRefreshTokens;
                         _authentication.profilePicture = authData.profilePicture;
                         _authentication.userId = authData.userId;
@@ -102,7 +102,7 @@
                             .then(function (response) {
                                 localStorageService.set('authorizationData', {
                                     token: response.data.access_token,
-                                    userName: response.data.userName,
+                                    username: response.data.userName,
                                     userId: response.data.userId,
                                     refreshToken: response.data.refresh_token,
                                     useRefreshTokens: _useRefreshTokens,
@@ -110,7 +110,7 @@
                                 });
 
                                 _authentication.isAuthenticated = true;
-                                _authentication.userName = response.data.userName;
+                                _authentication.username = response.data.userName;
                                 _authentication.useRefreshTokens = _useRefreshTokens;
                                 _authentication.profilePicture = _temporaryProfilePicture;
                                 _authentication.userId = response.data.userId;
@@ -143,14 +143,14 @@
 
                             localStorageService.set('authorizationData', {
                                 token: response.data.access_token,
-                                userName: registerExternalData.userName,
+                                username: registerExternalData.username,
                                 userId: response.data.userId,
                                 refreshToken: response.data.refresh_token,
                                 useRefreshTokens: _useRefreshTokens
                             });
 
                             _authentication.isAuthenticated = true;
-                            _authentication.userName = loginData.userName;
+                            _authentication.username = loginData.username;
                             _authentication.useRefreshTokens = _useRefreshTokens;
                             _authentication.userId = response.data.userId;
 
@@ -176,14 +176,14 @@
 
                             localStorageService.set('authorizationData', {
                                 token: response.data.access_token,
-                                userName: response.data.userName,
+                                username: response.data.userName,
                                 userId: response.data.userId,
                                 refreshToken: response.data.refresh_token,
                                 useRefreshTokens: _useRefreshTokens
                             });
 
                             _authentication.isAuthenticated = true;
-                            _authentication.userName = response.data.userName;
+                            _authentication.username = response.data.userName;
                             _authentication.useRefreshTokens = _useRefreshTokens;
                             _authentication.userId = response.data.userId;
 

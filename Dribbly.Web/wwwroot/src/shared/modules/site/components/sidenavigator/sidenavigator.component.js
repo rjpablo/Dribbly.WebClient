@@ -11,8 +11,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['authService', '$state', '$window', '$element', 'modalService'];
-    function controllerFn(authService, $state, $window, $element, modalService) {
+    controllerFn.$inject = ['authService', '$state', '$window', '$element', 'modalService', '$transitions'];
+    function controllerFn(authService, $state, $window, $element, modalService, $transitions) {
         var dsn = this;
         var _widget;
 
@@ -31,10 +31,10 @@
                 textKey: 'site.Home',
                 targetState: 'main.home',
                 icon: 'players'
-            //}, {
-            //    textKey: 'site.Courts',
-            //    targetState: 'main.courts',
-            //    icon: 'court-inclined'
+                //}, {
+                //    textKey: 'site.Courts',
+                //    targetState: 'main.courts',
+                //    icon: 'court-inclined'
             }, {
                 textKey: 'site.Players',
                 targetState: 'main.players',
@@ -48,6 +48,10 @@
             _widget = {};
             _widget.toggle = toggle;
             dsn.widget = _widget;
+
+            $transitions.onSuccess({}, function () {
+                toggle(false);
+            });
 
         };
 
@@ -63,7 +67,7 @@
                 dsn.isCollapsed = !expand;
             }
             setClass();
-        };
+        }
 
         function setClass() {
             if (dsn.isCollapsed) {
