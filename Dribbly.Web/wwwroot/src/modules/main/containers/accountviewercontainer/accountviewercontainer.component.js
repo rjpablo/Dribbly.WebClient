@@ -31,6 +31,7 @@
                 .then(function (data) {
                     avc.account = data;
                     avc.accountsDetailsOverlay.setToReady();
+                    avc.app.mainDataLoaded();
                 })
                 .catch(function (error) {
                     avc.accountsDetailsOverlay.setToError();

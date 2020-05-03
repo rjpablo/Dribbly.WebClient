@@ -4,7 +4,8 @@
     angular.module('siteModule')
         .component('drbblyMobiletoolbar', {
             bindings: {
-                toolbar: '<'
+                toolbar: '<',
+                app: '<'
             },
             controllerAs: 'mtb',
             templateUrl: 'drbbly-default',
@@ -41,6 +42,7 @@
 
         function onSetToolbarItems(data) {
             setItems(data.items);
+            mtb.app.onSectionResize();
         }
 
         function setItems(items) {

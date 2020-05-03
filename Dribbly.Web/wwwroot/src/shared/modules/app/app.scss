@@ -1,9 +1,34 @@
 @import '../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../lib/bootstrap/_breakpoints.scss';
 
 #app-overlay {
     position: fixed !important;
     height: 100%;
     width: 100%;
+}
+
+#drbbly-body-overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#drbbly-root-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#page-body-container {
+    height: 100%;
+    
+    /* makes the background color light-gray on small devices */
+    /*@include media-breakpoint-down(xs) {
+        background-color: $gray-100;
+    }*/
 }
 
 .properties-list-table {

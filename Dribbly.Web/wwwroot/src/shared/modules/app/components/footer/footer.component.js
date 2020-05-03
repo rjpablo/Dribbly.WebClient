@@ -4,7 +4,6 @@
     angular.module('appModule')
         .component('drbblyFooter', {
             bindings: {
-                onInit: '<',
                 onContentChange: '<'
             },
             controllerAs: 'ftr',
@@ -12,21 +11,19 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['authService', 'drbblyFooterService', '$element', '$compile',
+    controllerFn.$inject = ['authService', 'drbblyFooterService', '$compile',
         '$timeout'];
-    function controllerFn(authService, drbblyFooterService, $element, $compile,
+    function controllerFn(authService, drbblyFooterService, $compile,
         $timeout) {
         var ftr = this;
         var _dynamicContentContainer;
         var _dynamicElementInd;
 
         ftr.$onInit = function () {
-            ftr.element = $element;
             _dynamicElementInd = 0;
             _dynamicContentContainer = angular.element('[id=dynamic-footer-contents]');
             drbblyFooterService.setFooter(ftr);
             ftr.dynamicContents = [];
-            ftr.onInit(ftr);
         };
 
         ftr.addDynamicContent = function (scope, template) {
@@ -36,7 +33,7 @@
             _dynamicContentContainer.append(content);
             $timeout(ftr.onContentChange, 100);
             return angular.element('[id=' + id + ']');
-        }
+        };
 
         ftr.isAuthenticated = function () {
             return authService.authentication.isAuthenticated;

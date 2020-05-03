@@ -2,22 +2,35 @@
     'use strict';
 
     angular.module('appModule')
-        .controller('appController', ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService', ctrlFn]);
+        .controller('appController', ctrlFn);
+
+    ctrlFn.$inject = ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService'];
     function ctrlFn($rootScope, drbblyOverlayService, drbblyToolbarService) {
         var app = this;
         app.overlay = drbblyOverlayService.buildOverlay();
 
         app.$onInit = function () {
-            app.sections = {};
             app.toolbar = drbblyToolbarService.buildToolbar();
         };
 
         function adjustSections() {
-            if (!app.sections.body) {
-                app.sections.body = angular.element('[id="page-body-container"]');
-            }
-            var footerHeight = app.sections.footer.offsetHeight;
-            app.sections.body.css('margin-bottom', footerHeight);
+            setSections();
+            var headerHeight = app.sections.header.outerHeight();
+            var footerHeight = app.sections.footer.outerHeight();
+            app.sections.body.css('padding-top', headerHeight);
+            app.sections.body.css('padding-bottom', footerHeight);
+        }
+
+        app.mainDataLoaded = function () {
+            adjustSections();
+        };
+
+        function setSections() {
+            app.sections = {
+                body: angular.element('[id="page-body-container"]'),
+                header: angular.element('[id="page-header-container"]'),
+                footer: angular.element('[id="page-footer-container"]')
+            };
         }
 
         $rootScope.$on('set-app-overlay', function (evt, options) {

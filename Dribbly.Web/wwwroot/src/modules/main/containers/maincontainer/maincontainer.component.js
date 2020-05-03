@@ -12,8 +12,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', '$rootScope', 'settingsService'];
-    function controllerFunc(authService, $rootScope, settingsService) {
+    controllerFunc.$inject = ['authService', '$rootScope', 'settingsService', '$window'];
+    function controllerFunc(authService, $rootScope, settingsService, $window) {
         var dmc = this;
 
         dmc.$onInit = function () {
@@ -24,6 +24,12 @@
             $rootScope.$on('toggle-sidenavigator', (expand) => {
                 dmc.sideNavigator.toggle(expand);
             });
+
+            angular.element($window).on('resize', dmc.app.onSectionResize);
+        };
+
+        dmc.$onDestroy = function () {
+            angular.element($window).off('resize', dmc.app.onSectionResize);
         };
 
         dmc.isAuthenticated = function () {

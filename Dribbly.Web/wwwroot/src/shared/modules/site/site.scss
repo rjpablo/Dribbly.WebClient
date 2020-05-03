@@ -5,29 +5,8 @@ body {
     background: url('../../../images/backgrounds/site_background.jpg') fixed center;
 }
 
-#drbbly-body-overlay {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-}
-
-#drbbly-root-container {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
 .top-bar {
     border-bottom: 2px solid $orange;
-}
-
-#drbbly-sitefooter {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
 }
 
 .bg-dark {
