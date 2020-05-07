@@ -34,6 +34,7 @@
                     dcc.court = data;
                     dcc.courtsDetailsOverlay.setToReady();
                     createPriceComponent();
+                    dcc.app.mainDataLoaded();
                 })
                 .catch(dcc.courtsDetailsOverlay.setToError);
         }

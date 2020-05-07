@@ -4,7 +4,8 @@
     angular.module('appModule')
         .component('drbblyFooter', {
             bindings: {
-                onContentChange: '<'
+                onContentChange: '<',
+                toolbar: '<'
             },
             controllerAs: 'ftr',
             templateUrl: 'drbbly-default',
@@ -28,6 +29,7 @@
 
         ftr.addDynamicContent = function (scope, template) {
             var content = $compile(template)(scope);
+            content.addClass('mobile-only');
             var id = 'toolbar-item-' + _dynamicElementInd++;
             content.attr('id', id);
             _dynamicContentContainer.append(content);

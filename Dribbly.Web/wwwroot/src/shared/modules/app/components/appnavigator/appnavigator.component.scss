@@ -1,10 +1,22 @@
 drbbly-appnavigator {
 
-    .nav > .nav-item > .nav-link {
-        padding: 0;
+    ul.nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
 
-        > span {
-            padding-right: 0.75rem;
+        & > .nav-item > .nav-link {
+            padding: 0;
+
+            > span {
+                padding-right: 0.75rem;
+            }
+        }
+
+        & > .nav-item:first-child > .nav-link {
+
+            > span {
+                padding-left: 0.75rem;
+            }
         }
     }
 }

@@ -4,7 +4,7 @@
     angular.module('siteModule')
         .component('drbblyMobiletoolbar', {
             bindings: {
-                toolbar: '<',
+                // toolbar: '<', // TODO: remove refenrences if app-navigator stays in the footer permanently
                 app: '<'
             },
             controllerAs: 'mtb',

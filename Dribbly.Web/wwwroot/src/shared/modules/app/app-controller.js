@@ -4,9 +4,10 @@
     angular.module('appModule')
         .controller('appController', ctrlFn);
 
-    ctrlFn.$inject = ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService'];
-    function ctrlFn($rootScope, drbblyOverlayService, drbblyToolbarService) {
+    ctrlFn.$inject = ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService', '$timeout'];
+    function ctrlFn($rootScope, drbblyOverlayService, drbblyToolbarService, $timeout) {
         var app = this;
+        var _adjustingSections;
         app.overlay = drbblyOverlayService.buildOverlay();
 
         app.$onInit = function () {
@@ -14,11 +15,17 @@
         };
 
         function adjustSections() {
-            setSections();
-            var headerHeight = app.sections.header.outerHeight();
-            var footerHeight = app.sections.footer.outerHeight();
-            app.sections.body.css('padding-top', headerHeight);
-            app.sections.body.css('padding-bottom', footerHeight);
+            if (!_adjustingSections) {
+                _adjustingSections = true;
+                $timeout(function () {
+                    setSections();
+                    var headerHeight = app.sections.header.outerHeight();
+                    var footerHeight = app.sections.footer.outerHeight();
+                    app.sections.body.css('padding-top', headerHeight);
+                    app.sections.body.css('padding-bottom', footerHeight);
+                    _adjustingSections = false;
+                }, 300);
+            }
         }
 
         app.mainDataLoaded = function () {
