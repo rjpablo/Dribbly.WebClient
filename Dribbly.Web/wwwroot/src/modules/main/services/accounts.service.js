@@ -26,6 +26,10 @@
                     return drbblyhttpService.get(api + 'getAccountGames/' + id);
                 }
 
+                function getAccountSettings(userId) {
+                    return drbblyhttpService.get(api + 'getAccountSettings/' + userId);
+                }
+
                 function register(accountDetails) {
                     return drbblyhttpService.post(api + 'register', accountDetails);
                 }
@@ -59,6 +63,7 @@
                     getAccountByUsername: getAccountByUsername,
                     getAccountGames: getAccountGames,
                     getAccountPhotos: getAccountPhotos,
+                    getAccountSettings: getAccountSettings,
                     register: register,
                     updateAccount: updateAccount
                 };

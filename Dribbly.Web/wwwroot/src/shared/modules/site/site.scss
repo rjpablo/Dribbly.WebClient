@@ -1,4 +1,5 @@
 @import '../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../lib/bootstrap/_breakpoints.scss';
 
 
 body {
@@ -14,18 +15,18 @@ body {
     color: $bgDarkFontColor;
 }
 
-    .bg-dark .separator {
-        border: 1px #5a5a5a inset;
-    }
+.bg-dark .separator {
+    border: 1px #5a5a5a inset;
+}
 
 .nav li > a {
     color: #777;
 }
 
-    .nav li > a:hover, .nav li > a:active, .nav li > a.active,
-    .drbbly-header {
-        color: $cyan;
-    }
+.nav li > a:hover, .nav li > a:active, .nav li > a.active,
+.drbbly-header {
+    color: $cyan;
+}
 
 /****************
     Icons
@@ -46,25 +47,25 @@ body {
     font-weight: normal;
 }
 
-    .drbbly-font.court-inclined::before {
-        content: '\e903';
-    }
+.drbbly-font.court-inclined::before {
+    content: '\e903';
+}
 
-    .drbbly-font.players::before {
-        content: '\e901';
-    }
+.drbbly-font.players::before {
+    content: '\e901';
+}
 
-    .drbbly-font.games::before {
-        content: '\e904';
-    }
+.drbbly-font.games::before {
+    content: '\e904';
+}
 
-    .drbbly-font.trashcan::before {
-        content: '\e905';
-    }
+.drbbly-font.trashcan::before {
+    content: '\e905';
+}
 
-    .drbbly-font.court-horizontal::before {
-        content: '\e900';
-    }
+.drbbly-font.court-horizontal::before {
+    content: '\e900';
+}
 
 /****************
     Widths
@@ -93,6 +94,20 @@ body {
     text-decoration: underline;
 }
 
+/*************
+   Widgets
+*************/
+
+/* Details List */
+.detail-list > .list-group > .list-group-item > .row > div:first-child {
+    text-transform: uppercase;
+
+    @include media-breakpoint-down(xs) {
+        font-size: 0.8em;
+        line-height: 0.8em;
+        margin-bottom: 0.2em;
+    }
+}
 /*******************
     Miscellaneous
 *******************/
@@ -102,16 +117,13 @@ body {
         display: none !important;
     }
 }
-
 /*************************
     Library Overrides
 *************************/
-
 /* NgMap */
 .pac-container {
     z-index: 1050 !important; /*Allows auto complete results to show over bootstrap modals. Modals have 1050 z-index*/
 }
-
 /***** Bootstrap *****/
 /* Modals */
 .modal-content {
@@ -123,10 +135,7 @@ body {
         margin: 0;
     }
 }
-
-
 /******** Ng-Image-Gallery ********/
-
 /* Removes space between thumbnails */
 .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
     margin: 0 !important;

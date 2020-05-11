@@ -1,0 +1,65 @@
+﻿<div class="container">
+    <div drbbly-overlay="das.overlay">
+        <div class="row">
+            <section class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6">
+                <h6 class="text-muted">{{::'app.Security' | i18n}}</h6>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="text-secondary col-12 col-sm-3">{{::'site.Email' | i18n}}</div>
+                            <div class="col-12 col-sm-9">
+                                <span>{{das.account.email}}</span>
+                                <button class="btn btn-link p-0" tabindex="-1">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="text-secondary col-12 col-sm-3">{{::'site.Password' | i18n}}</div>
+                            <div class="col-12 col-sm-9">
+                                <button class="btn btn-link p-0" tabindex="-1">{{::'app.Change' | i18n}}</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <div class="row">
+            <section class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6">
+                <h6 class="text-muted">{{::'app.Profile' | i18n}}</h6>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="text-secondary col-12 col-sm-3">{{::'app.KeepPrivate' | i18n}}</div>
+                            <div class="col-12 col-sm-9">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox"
+                                           id="swKeepPrivate"
+                                           ng-model="das.accountSettings.keepProfilePrivate"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="swKeepPrivate"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="text-secondary col-12 col-sm-3">{{::'app.ShowMyBirthDate' | i18n}}</div>
+                            <div class="col-12 col-sm-9">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox"
+                                           id="swShowBirthDate"
+                                           ng-model="das.accountSettings.showBirthDate"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="swShowBirthDate"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>

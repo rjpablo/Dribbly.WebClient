@@ -19,22 +19,17 @@
 
         avc.$onInit = function () {
             _username = $stateParams.username;
-            avc.accountsDetailsOverlay = drbblyOverlayService.buildOverlay();
             loadAccount();
-            avc.accountsDetailsOverlay.setToReady();
             buildSubPages();
         };
 
         function loadAccount() {
-            avc.accountsDetailsOverlay.setToBusy();
             drbblyAccountsService.getAccountByUsername(_username)
                 .then(function (data) {
                     avc.account = data;
-                    avc.accountsDetailsOverlay.setToReady();
                     avc.app.mainDataLoaded();
                 })
                 .catch(function (error) {
-                    avc.accountsDetailsOverlay.setToError();
                 });
         }
 
@@ -51,6 +46,14 @@
                 {
                     textKey: 'app.Details',
                     targetStateName: 'main.account.details',
+                    targetStateParams: { username: _username },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
+                },
+                {
+                    textKey: 'app.Settings',
+                    targetStateName: 'main.account.settings',
                     targetStateParams: { username: _username },
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);

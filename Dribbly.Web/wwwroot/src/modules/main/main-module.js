@@ -40,6 +40,8 @@
                 }
             })
 
+            // Account
+
             .state('main.account', {
                 abstract: true,
                 url: '/account/:username',
@@ -53,6 +55,16 @@
                     $titleKey: () => { return 'site.AccountDetails'; }
                 }
             })
+
+            .state('main.account.settings', {
+                url: '/settings',
+                component: 'drbblyAccountsettings',
+                resolve: {
+                    $titleKey: () => { return 'site.AccountSettings'; }
+                }
+            })
+
+            // Court
 
             .state('main.court', {
                 abstract: true,
