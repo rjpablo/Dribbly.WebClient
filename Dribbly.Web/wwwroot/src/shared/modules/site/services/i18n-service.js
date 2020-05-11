@@ -10,6 +10,7 @@
                     Cancel: 'Cancel',
                     Close: 'Close',
                     ConfirmPassword: 'Confirm Password',
+                    ConfirmNewPassword: 'Confirm New Password',
                     Continue: 'Continue',
                     Courts: 'Courts',
                     CourtDetails: 'Court Details',
@@ -126,12 +127,14 @@
                 auth: {
                     AlreadyHaveAnAccount: 'Already have an account?',
                     ChangeEmailAddress: 'Change email address',
+                    CurrentPassword: 'Current Password',
                     DontHaveAnAccount: 'Don\'t have an account?',
                     ForgotPassword: 'Forgot Password',
                     GoBackToLogin: 'Go back to Login',
                     LogIn: 'Log In',
                     LogInWithFacebook: 'Log in with Facebook',
                     LogInWithGoogle: 'Log in with Google',
+                    PasswordChangedSuccessfully: 'Your password has been changed successfully.',
                     PasswordResetSuccessfulHeader: 'Password reset successful!',
                     PasswordResetSuccessfulDetails: 'You have successfully reset your password. You may now <a href="#/login">Log In</a>', //TODO: append # dynamically
                     ResendLink: 'Resend link',

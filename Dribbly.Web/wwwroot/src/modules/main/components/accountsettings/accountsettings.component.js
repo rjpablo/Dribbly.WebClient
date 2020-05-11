@@ -13,10 +13,10 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['constants', 'drbblyFileService', '$stateParams',
-        'drbblyOverlayService', 'drbblyAccountsService', 'drbblyFooterService', '$timeout'];
-    function controllerFunc(constants, drbblyFileService, $stateParams,
-        drbblyOverlayService, drbblyAccountsService, drbblyFooterService, $timeout) {
+    controllerFunc.$inject = ['i18nService', 'authService', '$stateParams',
+        'drbblyOverlayService', 'drbblyAccountsService', 'drbblyToastService'];
+    function controllerFunc(i18nService, authService, $stateParams,
+        drbblyOverlayService, drbblyAccountsService, drbblyToastService) {
         var das = this;
 
         das.$onInit = function () {
@@ -33,5 +33,15 @@
             das.accountSettings = data;
             das.overlay.setToReady();
         }
+
+        das.changePassword = function () {
+            authService.showChangePasswordModal()
+                .then(function (result) {
+                    if (result) {
+                        drbblyToastService.success(i18nService.getString('auth.PasswordChangedSuccessfully'));
+                    }
+                })
+                .catch(function () { /*cancelled*/ });
+        };
     }
 })();

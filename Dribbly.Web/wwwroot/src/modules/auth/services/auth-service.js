@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('authModule')
-        .factory('authService', ['$http', '$q', 'localStorageService', 'settingsService', '$state', '$location',
-            function ($http, $q, localStorageService, settingsService, $state, $location) {
+        .factory('authService', ['$http', '$q', 'localStorageService', 'settingsService', '$state', '$location', 'modalService',
+            function ($http, $q, localStorageService, settingsService, $state, $location, modalService) {
 
                 var authServiceFactory = {};
                 var _useRefreshTokens = true;
@@ -88,11 +88,30 @@
 
                 };
 
+                function showChangePasswordModal() {
+                    return modalService.show({
+                        view: '<drbbly-changepasswordmodal></drbbly-changepasswordmodal>',
+                        model: {}
+                    });
+                }
+
+                function changePassword(model) {
+                    var deferred = $q.defer();
+                    $http.post(settingsService.serviceBase + 'api/account/changePassword', model)
+                        .then(function (result) {
+                            deferred.resolve(result.data);
+                        })
+                        .catch(function (error) {
+                            deferred.reject(error);
+                        });
+                    return deferred.promise;
+                }
+
                 var _refreshToken = function () {
                     var deferred = $q.defer();
 
                     var authData = localStorageService.get('authorizationData');
-                    localStorageService.remove('authorizationData'); 
+                    localStorageService.remove('authorizationData');
 
                     if (authData && authData.useRefreshTokens) {
 
@@ -250,6 +269,7 @@
                         .catch(function () { alert('Test failed!'); });
                 };
 
+                authServiceFactory.changePassword = changePassword;
                 authServiceFactory.checkAuthenticationThen = _checkAuthenticationThen;
                 authServiceFactory.checkAuthentication = _checkAuthentication;
                 authServiceFactory.isCurrentUserId = _isCurrentUserId;
@@ -263,6 +283,7 @@
                 authServiceFactory.loginExternal = _loginExternal;
                 authServiceFactory.registerExternal = _registerExternal;
                 authServiceFactory.sendResetPasswordLink = _sendResetPasswordLink;
+                authServiceFactory.showChangePasswordModal = showChangePasswordModal;
                 authServiceFactory.obtainAccessToken = _obtainAccessToken;
                 authServiceFactory.resetPassword = resetPassword;
 
