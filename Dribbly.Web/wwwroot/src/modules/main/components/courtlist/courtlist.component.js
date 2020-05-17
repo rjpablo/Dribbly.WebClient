@@ -6,7 +6,8 @@
         .component('drbblyCourtlist', {
             bindings: {
                 courts: '<',
-                titleKey: '@'
+                titleKey: '@',
+                wrapItems: '<'
             },
             controllerAs: 'dcl',
             templateUrl: 'drbbly-default',
@@ -19,6 +20,9 @@
 
         dcl.$onInit = function () {
             $element.addClass('drbbly-court-list');
+            if (!dcl.wrapItems) {
+                $element.addClass('no-wrap');
+            }
             console.log(dcl.courts.length);
         };
 

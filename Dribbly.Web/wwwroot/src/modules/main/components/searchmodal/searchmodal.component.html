@@ -1,0 +1,45 @@
+﻿<div class="modal-header p-1 p-sm-3 border-0">
+    <h3 class="modal-title" i18n="{{::'app.FindACourt'}}"></h3>
+    <button class="btn btn-transparent"
+            ng-click="src.cancel()">
+        <i class="fa fa-2x fa-times"></i>
+    </button>
+</div>
+<div class="modal-body p-1 p-sm-3">
+    <div class="search-form-container">
+        <form name="src.frmCourtDetails"
+              ng-if="src.saveModel">
+            <fieldset ng-disabled="src.isBusy">
+                <div class="row">
+                    <div class="form-group col-9 col-sm-8 col-md-6 col-lg-4 col-xl-3">
+                        <lable for="txtName">
+                            {{::'site.Name' | i18n}}
+                            <input type="text"
+                                   name="txtName"
+                                   ng-model="src.searchInput.name"
+                                   class="form-control"
+                                   required
+                                   max="100" />
+                        </lable>
+                    </div>
+                    <div class="form-group col-3 col-sm-2 col-lg-1">
+                        <lable class="d-block">&nbsp;</lable>
+                        <button type="submit"
+                                ng-disabled="!src.isValidSearchCriteria()"
+                                class="btn btn-primary"
+                                ng-click="src.go()">
+                            {{::'app.Go' | i18n}}
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="results"
+         ng-if="src.hasPerformedSearch">
+        <p>{{src.courtsFound.length + ' court(s) found.'}}</p>
+        <drbbly-Courtlist courts="src.courtsFound"
+                          ng-show="src.courtsFound.length"
+                          wrap-items="true"></drbbly-Courtlist>
+    </div>
+</div>

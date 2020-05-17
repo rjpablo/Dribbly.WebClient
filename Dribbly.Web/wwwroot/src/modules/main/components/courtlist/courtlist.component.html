@@ -1,7 +1,8 @@
-﻿<h5 class="drbbly-header d-block">{{dcl.titleKey | i18n}}</h5>
+﻿<h5 ng-if="dcl.titleKey"
+    class="drbbly-header d-block">{{dcl.titleKey | i18n}}</h5>
 <div class="mx-n3 list-container">
     <drbbly-courtlistitem ng-repeat="court in dcl.courts | orderBy: '-dateAdded'"
-                          class="mx-3"
+                          ng-class="dcl.wrapItems? 'col-6 col-sm-4 col-md-3 col-lg-2' : 'mx-3'"
                           court="court"
                           on-click="dcl.onItemClick"></drbbly-courtlistitem>
 </div>

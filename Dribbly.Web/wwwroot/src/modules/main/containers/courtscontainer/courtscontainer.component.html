@@ -1,12 +1,19 @@
 ﻿<div>
     <div class="container-fluid">
         <section class="search-section row">
-            <div class="col">
-                <input type="text"
-                       class="search-textbox form-control d-block mobile-only"
-                       placeholder="{{::'app.CourtSearchPrompt' | i18n}}"
-                       ng-model="dcc.searchKey"
-                       name="txtSearch" />
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 mx-auto">
+                <div class="row no-gutters p-3 search-box">
+                    <h4 class="text-dark col-12">{{::'app.FindACourt' | i18n}}</h4>
+                    <input type="text"
+                           ng-click="dcc.beginSearch()"
+                           readonly="readonly"
+                           class="search-textbox text-center form-control col-12"
+                           placeholder="{{::'app.CourtSearchPrompt' | i18n}}"
+                           ng-model="dcc.searchKey"
+                           name="txtSearch" />
+                    <div class="d-none col-12 text-center">{{::'site.Or' | i18n}}</div>
+                    <button class="d-none col-12 btn btn-primary"><i class="fa fa-map-marker"></i>&nbsp;{{::'app.UseMap' | i18n}}</button>
+                </div>
             </div>
         </section>
     </div>

@@ -1,11 +1,11 @@
 drbbly-courtlistitem {
     display: inline-block;
+    vertical-align: top;
 }
 
     drbbly-courtlistitem .photo-container {
         position: relative;
         height: 100px;
-        width: 150px;
     }
 
     drbbly-courtlistitem .primary-photo {
@@ -26,6 +26,6 @@ drbbly-courtlistitem {
     }
 
         drbbly-courtlistitem .details .name {
-            color: white;
+            color: #000;
             white-space: initial;
         }

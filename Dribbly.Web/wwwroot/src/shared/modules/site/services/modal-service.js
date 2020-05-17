@@ -5,21 +5,18 @@
         .service('modalService', ['$uibModal', '$rootScope', '$q', '$transitions',
             function ($uibModal, $rootScope, $q, transitions) {
 
-                var _deferred;
-
                 function _show(options) {
                     setDefaultOptions(options);
                     return $uibModal.open(options).result;
                 }
 
                 controllerFn.$inject = ['$uibModalInstance', '$transitions', '$location', '$urlRouter',
-                    '$log', '$titleService', '$window'];
+                    '$log', '$titleService'];
                 function controllerFn($uibModalInstance, $transitions, $location, $urlRouter,
-                    $log, $titleService, $window) {
+                    $log, $titleService) {
                     var mod = this;
 
                     mod.$onInit = function () {
-                        angular.element($window).on('beforeunload', onBeforeUnloadHandler);
                         mod.context.submit = submit;
                         mod.context.dismiss = dismiss;
                     };
@@ -31,13 +28,8 @@
 
                     function dismiss(reason) {
                         unSub();
-                        angular.element($window).off('beforeunload', onBeforeUnloadHandler);
                         $uibModalInstance.dismiss(reason);
                         $titleService.setTitle();
-                    }
-
-                    function onBeforeUnloadHandler() {
-                        return 'Leave?';
                     }
 
                     var unSub = $transitions.onBefore({}, function (transition) {
@@ -58,6 +50,8 @@
                                 $titleService.setTitle(transition.$to());
                                 $location.url($urlRouter.location);
                             }
+                            // Will cause mod.context.onInterrupt to run by publishing the 'modal.closing' event
+                            // which is handled by the modal component
                             $uibModalInstance.dismiss('navigating');
                         }
                         else {
@@ -75,7 +69,7 @@
                     modalOptions.bindToController = true;
                     modalOptions.keyboard = true;
                     //Fix for: modal and  backdrop not showing
-                    modalOptions.windowClass = 'show';
+                    modalOptions.windowClass = 'show' + (modalOptions.isFull? ' drbbly-full-modal' : '');
                     modalOptions.backdropClass = 'show';
 
                     modalOptions.handleDismiss = function (reason) {

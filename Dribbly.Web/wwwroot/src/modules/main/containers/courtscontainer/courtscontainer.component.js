@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyCourtsService', '$element', 'drbblyToolbarService', 'drbblyCourtshelperService',
-        'drbblyOverlayService', '$timeout', '$state'];
+        'drbblyOverlayService', '$timeout', '$state', 'modalService'];
     function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService,
-        drbblyOverlayService, $timeout, $state) {
+        drbblyOverlayService, $timeout, $state, modalService) {
         var dcc = this;
 
         dcc.$onInit = function () {
@@ -44,6 +44,16 @@
                 }, buildItem('fa fa-search', toggleSearch)
             ]);
         }
+
+        dcc.beginSearch = function () {
+            modalService.show({
+                view: '<drbbly-searchmodal></drbbly-searchmodal>',
+                model: { },
+                isFull: true
+            })
+                .then(function () { /*do nothing*/ })
+                .catch(function () { /*do nothing*/ });
+        };
 
         function addCourt() {
             drbblyCourtshelperService.registerCourt()

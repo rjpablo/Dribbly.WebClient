@@ -10,9 +10,16 @@ drbbly-courts-container {
         background-position-x: left;
         background-position-y: center;
 
-        .search-textbox {
-            color: $gray-800;
+        .search-box {
             background-color: rgba(225, 225, 225, 0.9);
+
+            .search-textbox {
+                color: $gray-800;
+            }
         }
+    }
+
+    drbbly-courtlistitem .details .name {
+        color: #fff;
     }
 }
