@@ -5,80 +5,34 @@
                ng-click="src.cancel()"></i>
             {{::'app.FindACourt' | i18n}}
         </h3>
-        <div class="search-form-container">
-            <div class="d-flex justify-content-between">
-                <div class="align-self-center d-flex align-items-center">
-                    <h5 class="m-0">{{::'app.Filters' | i18n}}</h5>
-                    <span type="submit"
-                          ng-show="src.searchInput"
-                          class="ml-2"
-                          ng-click="src.clearFilters()">
-                        <i class="fa fa-times fa-2x text-danger"></i>
-                    </span>
-                </div>
-                <button type="button"
-                        ng-click="src.isFiltersCollapsed = !src.isFiltersCollapsed"
-                        class="btn bg-transparent">
-                    <i class="fa"
-                       ng-class="src.isFiltersCollapsed? 'fa-angle-double-down' : 'fa-angle-double-up'"></i>
-                </button>
-            </div>
-            <div uib-collapse="src.isFiltersCollapsed"
-                 ng-class="{'show': !src.isFiltersCollapsed}">
-                <form name="src.frmCourtDetails">
-                    <fieldset ng-disabled="src.isBusy">
-                        <div class="row">
-                            <div class="form-group col-12 col-sm-6 col-md-6 col-lg-12">
-                                <lable for="txtName" class="label">
-                                    {{::'app.CourtNameContains' | i18n}}
-                                    <input type="text"
-                                           name="txtName"
-                                           ng-model="src.searchInput.name"
-                                           ng-change="src.filterCourts()"
-                                           class="form-control"
-                                           required
-                                           max="100" />
-                                </lable>
-                            </div>
-                            <div class="form-group col-12 col-sm-6 col-lg-12">
-                                <lable for="txtName">
-                                    {{::'app.RatePerHour' | i18n}}
-                                </lable>
-                                <div class="form-row">
-                                    <div class="col">
-                                        <input type="number"
-                                               ng-model="src.searchInput.rateMin"
-                                               ng-change="src.filterCourts()"
-                                               min="0"
-                                               placeholder="From"
-                                               class="form-control d-inline" />
-                                    </div>
-                                    <div class="col-1 text-center form-text">-</div>
-                                    <div class="col">
-                                        <input type="number"
-                                               ng-model="src.searchInput.rateMax"
-                                               ng-change="src.filterCourts()"
-                                               min="0"
-                                               placeholder="To"
-                                               class="form-control d-inline" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
     </div>
     <div class="col-12 col-lg-9 p-1 p-sm-3">
         <div class="results">
+            <!--Controls-->
             <div class="d-flex justify-content-between mb-2">
                 <strong class="align-self-center">{{ !src.isBusy? src.filteredCourts.length + ' court(s) found.' : ''}}</strong>
                 <div class="d-flex">
-                    <div class="dropdown"
+                    <button type="button"
+                            ng-click="src.isFiltersCollapsed = !src.isFiltersCollapsed"
+                            class="btn btn-light"
+                            ng-class="{'active': !src.isFiltersCollapsed}"
+                            data-toggle="button">
+                        <i class="fa fa-filter"></i>
+                    </button>
+                    <button type="button"
+                            ng-show="src.searchInput"
+                            ng-click="src.clearFilters()"
+                            class="btn btn-light ml-1 p-0 px-1"
+                            data-toggle="button">
+                        <span class="fa-stack">
+                            <i class="fa fa-filter fa-stack-1x"></i>
+                            <i class="fa fa-times text-danger fa-stack-1x"></i>
+                        </span>
+                    </button>
+                    <div class="dropdown ml-2"
                          ng-show="src.resultView === 'list'">
                         <button class="btn btn-light"
-                                type="button""
+                                type="button"
                                 data-toggle="dropdown"
                                 aria-haspopup="true"
                                 aria-expanded="false">
@@ -108,6 +62,52 @@
                         </button>
                     </div>
                 </div>
+            </div>
+            <!--Filters-->
+            <div uib-collapse="src.isFiltersCollapsed"
+                 ng-class="{'show': !src.isFiltersCollapsed}">
+                <form name="src.frmCourtDetails">
+                    <fieldset ng-disabled="src.isBusy">
+                        <div class="row">
+                            <div class="form-group col-12 col-sm-6 col-md-4">
+                                <lable for="txtName" class="label">
+                                    {{::'app.CourtNameContains' | i18n}}
+                                    <input type="text"
+                                           name="txtName"
+                                           ng-model="src.searchInput.name"
+                                           ng-change="src.filterCourts()"
+                                           class="form-control"
+                                           required
+                                           max="100" />
+                                </lable>
+                            </div>
+                            <div class="form-group col-12 col-sm-6 col-md-4">
+                                <lable for="txtName">
+                                    {{::'app.RatePerHour' | i18n}}
+                                </lable>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="number"
+                                               ng-model="src.searchInput.rateMin"
+                                               ng-change="src.filterCourts()"
+                                               min="0"
+                                               placeholder="From"
+                                               class="form-control d-inline" />
+                                    </div>
+                                    <div class="col-1 text-center form-text">-</div>
+                                    <div class="col">
+                                        <input type="number"
+                                               ng-model="src.searchInput.rateMax"
+                                               ng-change="src.filterCourts()"
+                                               min="0"
+                                               placeholder="To"
+                                               class="form-control d-inline" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
             <drbbly-Courtlist courts="src.filteredCourts"
                               ng-show="src.resultView === 'list'"
