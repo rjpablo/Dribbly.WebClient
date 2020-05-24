@@ -13,9 +13,11 @@
             return geocoder.geocode({ address: address }, callback);
         };
 
-        var _addMarker = function (latLng, map) {
+        var _addMarker = function (latLng, map, panToMarker) {
             var marker = new google.maps.Marker({ position: latLng, map: map });
-            map.panTo(latLng);
+            if (panToMarker) {
+                map.panTo(latLng);
+            }
             return marker;
         };
 
