@@ -74,15 +74,39 @@
         <div class="results">
             <div class="d-flex justify-content-between mb-2">
                 <strong class="align-self-center">{{ !src.isBusy? src.filteredCourts.length + ' court(s) found.' : ''}}</strong>
-                <div class="btn-group">
-                    <button class="btn btn-light"
-                            style="width: 42px;"
-                            ng-model="src.resultView" uib-btn-radio="'map'">
-                        <i class="fa fa-map-marker"></i>
-                    </button>
-                    <button class="btn btn-light" ng-model="src.resultView" uib-btn-radio="'list'">
-                        <i class="fa fa-list"></i>
-                    </button>
+                <div class="d-flex">
+                    <div class="dropdown"
+                         ng-show="src.resultView === 'list'">
+                        <button class="btn btn-light"
+                                type="button""
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <i class="fa fa-sort-alpha-asc"></i>
+                        </button>
+                        <form class="dropdown-menu">
+                            <h6 class="dropdown-header">{{::'app.SortBy' | i18n}}</h6>
+                            <button ng-repeat="item in src.sortOptions"
+                                    ng-click="src.sortCourts(item)"
+                                    ng-class="{'active': src.sortField === item.field}"
+                                    class="dropdown-item"
+                                    type="button">
+                                {{::item.textKey | i18n}}
+                                <i class="fa fa-arrow"
+                                   ng-class="item.reverse ? 'fa-long-arrow-down' : 'fa-long-arrow-up'"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="btn-group ml-2">
+                        <button class="btn btn-light"
+                                style="width: 42px;"
+                                ng-model="src.resultView" uib-btn-radio="'map'">
+                            <i class="fa fa-map-marker"></i>
+                        </button>
+                        <button class="btn btn-light" ng-model="src.resultView" uib-btn-radio="'list'">
+                            <i class="fa fa-list"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <drbbly-Courtlist courts="src.filteredCourts"

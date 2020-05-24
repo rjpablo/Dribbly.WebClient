@@ -14,9 +14,9 @@
         });
 
     controllerFn.$inject = ['$scope', '$timeout', 'drbblyEventsService', 'drbblyCourtsService', 'settingsService',
-        'mapService', 'constants', 'NgMap', 'modalService', '$filter'];
+        'mapService', 'constants', 'NgMap', 'modalService', '$filter', 'orderByFilter'];
     function controllerFn($scope, $timeout, drbblyEventsService, drbblyCourtsService, settingsService,
-        mapService, constants, NgMap, modalService, $filter) {
+        mapService, constants, NgMap, modalService, $filter, orderByFilter) {
         var src = this;
         var _okToClose;
         var _markers;
@@ -31,6 +31,11 @@
             src.isBusy = true;
             src.isFiltersCollapsed = false;
             src.resultView = 'map';
+            src.sortOptions = [
+                { field: 'dateAdded', textKey: 'app.DateAdded', reverse: true },
+                { field: 'ratePerHour', textKey: 'app.RatePerHour', reverse: false },
+                { field: 'name', textKey: 'site.Name', reverse: false }
+            ];
             _markers = [];
 
             drbblyCourtsService.getAllCourts()
@@ -38,6 +43,7 @@
                     src.isBusy = false;
                     src.allCourts = result;
                     src.filteredCourts = result;
+                    sortCourts(src.sortOptions[0]); // sort by dateAdded by default
 
                     $timeout(function () {
                         src.frmCourtDetails.txtName.$$element.focus();
@@ -80,6 +86,18 @@
             src.filterCourts();
         };
 
+        src.sortCourts = function (data) {
+            if (src.sortField === data.field) {
+                data.reverse = !data.reverse;
+            }
+            sortCourts(data);
+        };
+
+        function sortCourts(data) {
+            src.sortField = data.field;
+            src.filteredCourts = orderByFilter(src.filteredCourts, data.field, data.reverse);
+        }
+
         function goToCurrentPosition() {
             mapService.getCurrentPosition(function (position) {
                 var pos = {
@@ -95,18 +113,6 @@
         src.onInterrupt = function (reason) {
             _okToClose = true;
             src.context.dismiss(reason);
-        };
-
-        src.go = function () {
-            src.isBusy = true;
-            drbblyCourtsService.FindCourts(src.searchInput)
-                .then(function (result) {
-                    updateCourtsList(result);
-                    src.isBusy = false;
-                })
-                .catch(function () {
-                    src.isBusy = false;
-                });
         };
 
         function updateCourtsList(courts) {
