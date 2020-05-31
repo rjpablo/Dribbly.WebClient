@@ -1,0 +1,19 @@
+﻿<form>
+    <input class="form-control"
+           ng-model="msc.keyword"
+           type="text"
+           ng-change="msc.keywordChanged()"
+           placeholder="{{::'app.SearchTheMap' | i18n}}" />
+</form>
+<div class="pac-container w-100">
+    <div ng-repeat="place in msc.suggestions"
+         class="pac-item"
+         ng-click="msc.itemClicked(place)">
+        <span class="pac-icon pac-icon-marker"></span>
+        <span class="pac-item-query">
+            <span class="pac-matched"></span>
+            {{place.structured_formatting.main_text}}
+        </span>
+        <span>{{place.structured_formatting.secondary_text}}</span>
+    </div>
+</div>

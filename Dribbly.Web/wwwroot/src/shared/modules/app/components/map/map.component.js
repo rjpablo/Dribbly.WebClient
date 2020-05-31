@@ -14,8 +14,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['NgMap', 'mapService', '$timeout', 'modalService', 'settingsService', 'constants'];
-    function controllerFn(NgMap, mapService, $timeout, modalService, settingsService, constants) {
+    controllerFn.$inject = ['$compile', 'mapService', '$timeout', '$scope', 'settingsService', 'constants'];
+    function controllerFn($compile, mapService, $timeout, $scope, settingsService, constants) {
         var dbm = this;
 
         dbm.$onInit = function () {
@@ -37,8 +37,14 @@
                 dbm.map.addListener('click', function (e) {
                     dbm._mapClicked(e);
                 });
+                addSearchControl();
             });
         };
+
+        function addSearchControl() {
+            var component = $compile(dbm.searchControlTemplate)($scope);
+            dbm.map.controls[google.maps.ControlPosition.TOP_LEFT].push(component[0]);
+        }
 
         function getDefaultOptions() {
             return {
@@ -76,9 +82,8 @@
             dbm.selectionMarker = mapService.addMarker(geometry.latLng || geometry.location, dbm.map, true, true);
         }
 
-        dbm._placeChanged = function () {
-            if (dbm.map) {
-                var place = this.getPlace();
+        dbm._placeChanged = function (place) {
+            if (place && dbm.map) {
                 if (dbm._searchOptions.onPlaceChanged) {
                     dbm._searchOptions.onPlaceChanged(place);
                 }
