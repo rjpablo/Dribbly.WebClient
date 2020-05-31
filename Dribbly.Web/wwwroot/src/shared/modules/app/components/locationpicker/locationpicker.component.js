@@ -12,31 +12,26 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['NgMap', 'mapService', '$timeout', 'modalService', 'settingsService', 'constants'];
-    function controllerFn(NgMap, mapService, $timeout, modalService, settingsService, constants) {
+    controllerFn.$inject = ['mapService', 'modalService'];
+    function controllerFn(mapService, modalService) {
         var dlp = this;
 
         dlp.$onInit = function () {
-            dlp.mapApiKey = settingsService[constants.settings.googleMapApiKey];
-            dlp.types = ['geocode'];
-            dlp.center = '15,121';
-
-            dlp.selectedLocation = {
-                formatted_address: '',
-                latLng: {},
-                city: {
-                    contry: {}
-                }
+            dlp.mapOptions = {
+                id: 'location-picker-map'
             };
+            if (dlp.initialPosition && dlp.initialPosition.latlng) {
+                dlp.mapOptions.center = dlp.initialPosition.latlng;
+            }
+            dlp.searchOptions = {
+                onPlaceChanged: dlp.onPlaceChanged,
+                markSelectedPlace: false
+            };
+        };
 
-            NgMap.getMap({ id: 'locationPickerMap' }).then(function (map) {
-                dlp.map = map;
-                setInitialPosition();
-            });
-
-            $timeout(function () {
-                google.maps.event.trigger(dlp.map, 'resize');
-            }, 1000);
+        dlp.onMapReady = function (map) {
+            dlp.map = map;
+            setInitialPosition();
         };
 
         function setInitialPosition() {
@@ -63,11 +58,7 @@
             dlp.map.setCenter(latLng);
         }
 
-        dlp.focusCurrentSelection = function () {
-            dlp.map.setCenter(dlp.selectedLocation.geometry.location);
-        };
-
-        dlp.mapClicked = function (e) {
+        dlp.onMapClicked = function (e) {
             mapService.getAddress(e.latLng).then(function (location) {
                 if (location) {
                     if (validatePlace(location)) {
@@ -100,12 +91,11 @@
                 dlp.locationMarker = null;
             }
 
-            dlp.locationMarker = mapService.addMarker(e.latLng || e.location, dlp.map, true);
+            dlp.locationMarker = mapService.addMarker(e.latLng || e.location, dlp.map, true, true);
         }
 
-        dlp.placeChanged = function () {
+        dlp.onPlaceChanged = function (place) {
             if (dlp.map) {
-                var place = this.getPlace();
                 if (place.geometry) {
                     if (validatePlace(mapService.getAddressComponents(place))) {
                         resetMark(place.geometry);
@@ -140,19 +130,5 @@
                 return false;
             }
         }
-
-        dlp.ok = function () {
-            var result = {
-                latitude: dlp.selectedLocation.geometry.location.lat(),
-                longitude: dlp.selectedLocation.geometry.location.lng()
-            };
-            dlp.context.submit(result);
-        };
-
-        dlp.cancel = function (e) {
-            dlp.context.dismiss('cancel');
-        };
-
-
     }
 })();

@@ -3,11 +3,11 @@
         <input class="form-control"
                type="text"
                places-auto-complete
-               size=80
+               size="{{dbm._searchOptions.size}}"
                ng-model="dbm.address"
                component-restrictions="{country:'ph'}"
-               types="{{dbm.types}}"
-               on-place-changed="dbm.placeChanged()"
+               types="{{dbm._searchOptions.types}}"
+               on-place-changed="dbm._placeChanged()"
                placeholder="{{::'app.SearchTheMap' | i18n}}" />
     </div>
     <div id="{{dbm._options.id}}"
