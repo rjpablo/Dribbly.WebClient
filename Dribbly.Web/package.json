@@ -20,7 +20,6 @@
     "angular-local-storage": "0.7.1",
     "angular-moment": "1.3.0",
     "angular-touch": "1.7.8",
-    "angular-ui-bootstrap": "2.5.0",
     "angular-ui-calendar": "1.0.2",
     "angular-ui-router": "1.0.22",
     "angularjs-toaster": "3.0.0",
@@ -32,7 +31,8 @@
     "jquery": "3.4.1",
     "ng-file-upload": "12.2.13",
     "ngmap": "1.18.4",
-    "popper.js": "1.15.0"
+    "popper.js": "1.15.0",
+    "ui-bootstrap4": "3.0.6"
   },
   "devDependencies": {
     "del": "4.1.1",

@@ -65,10 +65,6 @@ var nodeLibs = {
         source: 'angular-touch/angular-touch.js',
         destination: 'angular-touch'
     },
-    angular_ui_bootstrap: {
-        source: 'angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
-        destination: 'angular-ui-bootstrap'
-    },
     // we are using a customized version of this
     //angular_wysiwyg: {
     //    source: 'angular-wysiwyg/dist/angular-wysiwyg.js',
@@ -153,6 +149,14 @@ var nodeLibs = {
     ng_map: {
         source: 'ngmap/build/scripts/ng-map.js',
         destination: 'ngmap'
+    },
+    ui_bootstrp4: {
+        source: [
+            'ui-bootstrap4/dist/ui-bootstrap.js',
+            'ui-bootstrap4/dist/ui-bootstrap-csp.css',
+            'ui-bootstrap4/dist/ui-bootstrap-tpls.js'
+        ],
+        destination: 'ui-bootstrap4'
     },
     ui_router: {
         source: 'angular-ui-router/release/angular-ui-router.js',
