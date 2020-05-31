@@ -1,0 +1,21 @@
+﻿<div class="map-container" ng-if="dbm.mapApiKey" map-lazy-load="{{'https://maps.google.com/maps/api/js?key=' + dbm.mapApiKey}}">
+    <div class="search-textbox-container">
+        <input class="form-control"
+               type="text"
+               places-auto-complete
+               size=80
+               ng-model="dbm.address"
+               component-restrictions="{country:'ph'}"
+               types="{{dbm.types}}"
+               on-place-changed="dbm.placeChanged()"
+               placeholder="{{::'app.SearchTheMap' | i18n}}" />
+    </div>
+    <ng-map ng-if="dbm._options"
+            id="{{dbm._options.id}}"
+            center="{{dbm._options.center}}"
+            zoom="{{dbm._options.zoom}}"
+            map-type-control="{{dbm._options.mapTypeControl}}"
+            map-type-control-options="{position: 'LEFT_BOTTOM'}"
+            street-view-control="{{dbm._options.steetViewControl}}"
+            on-click="dbm.mapClicked()"></ng-map>
+</div>

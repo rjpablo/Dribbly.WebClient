@@ -1,0 +1,13 @@
+drbbly-map {
+    .map-container {
+        & > .search-textbox-container {
+            position: absolute;
+            z-index: 1;
+            margin: 10px;
+            display: inline-block;
+            background-color: transparent;
+            width: 70%;
+            max-width: 350px;
+        }
+    }
+}

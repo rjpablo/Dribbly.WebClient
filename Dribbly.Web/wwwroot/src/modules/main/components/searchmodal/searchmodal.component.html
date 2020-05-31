@@ -116,12 +116,10 @@
                  ng-if="src.mapApiKey"
                  ng-show="src.resultView === 'map'"
                  map-lazy-load="{{'https://maps.google.com/maps/api/js?key=' + src.mapApiKey}}">
-                <ng-map id="court-search-map"
-                        style="height: 100%;"
-                        zoom="{{src.mapOptions.zoom}}"
-                        map-type-control="false"
-                        street-view-control="false"
-                        on-click="src.mapClicked()"></ng-map>
+                <drbbly-map style="height: 100%;"
+                            options="src.mapOptions"
+                            on-map-ready="src.onMapReady"
+                            on-map-clicked="src.mapClicked"></drbbly-map>
             </div>
         </div>
     </div>

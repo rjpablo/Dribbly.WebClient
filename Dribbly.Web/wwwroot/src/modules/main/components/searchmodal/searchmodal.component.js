@@ -13,10 +13,10 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', '$timeout', 'drbblyEventsService', 'drbblyCourtsService', 'settingsService',
-        'mapService', 'constants', 'NgMap', 'modalService', '$filter', 'orderByFilter'];
-    function controllerFn($scope, $timeout, drbblyEventsService, drbblyCourtsService, settingsService,
-        mapService, constants, NgMap, modalService, $filter, orderByFilter) {
+    controllerFn.$inject = ['$scope', 'drbblyCommonService', 'drbblyEventsService', 'drbblyCourtsService', 'settingsService',
+        'mapService', 'constants', 'modalService', '$filter', 'orderByFilter'];
+    function controllerFn($scope, drbblyCommonService, drbblyEventsService, drbblyCourtsService, settingsService,
+        mapService, constants, modalService, $filter, orderByFilter) {
         var src = this;
         var _okToClose;
         var _markers;
@@ -26,7 +26,10 @@
             src.mapApiKey = settingsService[constants.settings.googleMapApiKey];
             src.filteredCourts = [];
             src.mapOptions = {
-                zoom: 5
+                id: 'court-search-map',
+                zoom: 15,
+                disableDefaultUI: false,
+                streetViewControl: false
             };
             src.isBusy = true;
             src.isFiltersCollapsed = false;
@@ -38,35 +41,6 @@
             ];
             _markers = [];
 
-            drbblyCourtsService.getAllCourts()
-                .then(function (result) {
-                    src.isBusy = false;
-                    src.allCourts = result;
-                    src.filteredCourts = result;
-                    sortCourts(src.sortOptions[0]); // sort by dateAdded by default
-
-                    $timeout(function () {
-                        src.frmCourtDetails.txtName.$$element.focus();
-                        NgMap.getMap({ id: 'court-search-map' })
-                            .then(function (map) {
-                                src.map = map;
-                                _clusterer = new MarkerClusterer(src.map, [],
-                                    {
-                                        imagePath: '../src/custom/markerclusterer/m'
-                                    });
-
-                                updateCourtsList(result);
-                                goToCurrentPosition();
-                            })
-                            .catch(function (err) {
-                                console.log('error', err);
-                            });
-                    }, 500); //this delay is required to get the map instance
-                })
-                .catch(function (error) {
-
-                });
-
             src.context.setOnInterrupt(src.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event) {
                 if (!_okToClose) {
@@ -74,6 +48,28 @@
                     src.onInterrupt();
                 }
             }, $scope);
+        };
+
+        src.onMapReady = function (map) {
+            src.map = map;
+            drbblyCourtsService.getAllCourts()
+                .then(function (result) {
+                    src.isBusy = false;
+                    src.allCourts = result;
+                    src.filteredCourts = result;
+                    sortCourts(src.sortOptions[0]); // sort by dateAdded by default
+
+                    _clusterer = new MarkerClusterer(src.map, [],
+                        {
+                            imagePath: '../src/custom/markerclusterer/m'
+                        });
+
+                    updateCourtsList(result);
+                    goToCurrentPosition();
+                })
+                .catch(function (error) {
+                    drbblyCommonService.handleError(error);
+                });
         };
 
         src.filterCourts = function () {

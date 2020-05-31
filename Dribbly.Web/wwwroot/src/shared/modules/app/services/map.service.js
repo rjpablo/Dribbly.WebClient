@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('appModule')
-        .service('mapService', ['drbblyToastService', 'modalService', '$q', map]);
+        .service('mapService', ['drbblyToastService', 'modalService', '$q', 'NgMap', map]);
 
-    function map(drbblyToastService, modalService, $q) {
+    function map(drbblyToastService, modalService, $q, NgMap) {
 
         var _geocoder = new google.maps.Geocoder;
 
@@ -121,6 +121,10 @@
             return true;
         };
 
+        function getMap(options) {
+            return NgMap.getMap(options);
+        }
+
         this.getAddressCoordinates = _getAddressCoordinates;
         this.addMarker = _addMarker;
         this.getAddress = _getAddress;
@@ -130,6 +134,7 @@
         this.getAddressComponents = _getAddressComponents;
         this.getCityFromLocation = _getCityFromLocation;
         this.getPlaceComponents = _getAddressComponents;
+        this.getMap = getMap;
         this.validateCity = _validateCity;
         return this;
     }
