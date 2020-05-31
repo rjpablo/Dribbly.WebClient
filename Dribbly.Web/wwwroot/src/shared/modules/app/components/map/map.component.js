@@ -21,7 +21,6 @@
         dbm.$onInit = function () {
             dbm.mapApiKey = settingsService[constants.settings.googleMapApiKey];
             dbm.types = ['geocode'];
-            dbm.center = '15,121';
             dbm._options = Object.assign(getDefaultOptions(), dbm.options);
 
             dbm.selectedLocation = {
@@ -32,19 +31,22 @@
                 }
             };
 
-            NgMap.getMap({ id: dbm._options.id }).then(function (map) {
-                dbm.map = map;
-                dbm.onMapReady(map);
+            $timeout(function () {
+                dbm.map = new google.maps.Map(document.getElementById(dbm._options.id), dbm._options);
+                dbm.onMapReady(dbm.map);
             });
         };
 
         function getDefaultOptions() {
             return {
-                center: '15,121',
-                zoom: 15,
+                center: constants.coordinates.PHILIPPINES,
+                zoom: 5,
                 disableDefaultUI: false,
-                steetViewControl: true,
-                mapTypeControl: true
+                streetViewControl: true,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    position: google.maps.ControlPosition.LEFT_BOTTOM
+                }
             };
         }
 

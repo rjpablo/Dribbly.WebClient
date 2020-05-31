@@ -10,12 +10,6 @@
                on-place-changed="dbm.placeChanged()"
                placeholder="{{::'app.SearchTheMap' | i18n}}" />
     </div>
-    <ng-map ng-if="dbm._options"
-            id="{{dbm._options.id}}"
-            center="{{dbm._options.center}}"
-            zoom="{{dbm._options.zoom}}"
-            map-type-control="{{dbm._options.mapTypeControl}}"
-            map-type-control-options="{position: 'LEFT_BOTTOM'}"
-            street-view-control="{{dbm._options.steetViewControl}}"
-            on-click="dbm.mapClicked()"></ng-map>
+    <div id="{{dbm._options.id}}"
+         style="height: 500px;"></div>
 </div>

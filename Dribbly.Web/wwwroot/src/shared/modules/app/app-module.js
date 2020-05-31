@@ -27,6 +27,10 @@
         constants.images = {
             defaultProfilePhotoUrl: 'src/images/default_images/default_profile_photo.jpg'
         };
+        constants.coordinates = {
+            PHILIPPINES: { lat: 12.8797, lng: 121.7740 },
+            MANILA: { lat: 14.5995, lng: 120.9842 }
+        };
     }]);
 
     module.run(['authService', '$transitions', '$rootScope', 'drbblyToolbarService', 'constants', '$filter', runFn]);
