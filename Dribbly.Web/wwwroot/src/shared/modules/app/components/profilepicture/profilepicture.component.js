@@ -17,7 +17,6 @@
 
         dpp.$onInit = function () {
             $element.addClass('drbbly-profilepicture');
-            console.log(dpp.user.profilePicture);
         };
     }
 })();

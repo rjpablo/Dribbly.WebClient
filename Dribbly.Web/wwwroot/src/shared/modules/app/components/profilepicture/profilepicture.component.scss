@@ -1,4 +1,12 @@
-.drbbly-profilepicture img {
-    clip-path: circle(50%);
-    height: 32px;
+.drbbly-profilepicture {
+    & > a {
+        &:hover {
+            text-decoration: none;
+        }
+
+        img {
+            clip-path: circle(50%);
+            height: 32px;
+        }
+    }
 }
