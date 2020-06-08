@@ -76,6 +76,44 @@
     <link href="~/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.css" rel="stylesheet" />
 </head>
 <body ng-controller="appController as app">
+
+    <script type="text/javascript">
+        window.Dribbly = {};
+        window.Dribbly.clientSettings = @Html.Raw(Json.Serialize(Model.clientSettings));
+        window.Dribbly.logClientException = function (message, errorMsg, url, errorCode, stackTrace, lineNo, column) {
+
+            try {
+                if (!window.Dribbly.userPlatform) {
+                    var result = bowser.getParser(window.navigator.userAgent);
+                    window.Dribbly.userPlatform = {
+                        browser: result.parsedResult.browser.name + ' ' + result.parsedResult.browser.version,
+                        os: result.parsedResult.os.name + ' ' + result.parsedResult.os.versionName
+                    };
+                }
+            }
+            catch(err){
+                window.Dribbly.userPlatform = {};
+            }
+            finally {
+                return $.post(window.Dribbly.clientSettings.loggingServiceAddress, {
+                    message: message,
+                    errorMessage: errorMsg,
+                    url: url,
+                    errorCode: errorCode,
+                    lineNo: lineNo,
+                    column: column,
+                    stack: stackTrace,
+                    loggedBy: window.Dribbly.authentication ? window.Dribbly.authentication.userId : null,
+                    browser: window.Dribbly.userPlatform.browser,
+                    os: window.Dribbly.userPlatform.os
+                });
+            }
+
+        }
+    </script>
+
+    <script src="~/src/modules/main/scripts/js-error-handler.js"></script>
+
     <toaster-container toaster-options="{'time-out': 2000, 'position-class': 'toast-top-center'}"></toaster-container>
     @RenderBody()
 
@@ -84,6 +122,7 @@
     @*Third Party*@
     <environment include="Development">
         <script src="~/src/lib/jquery/jquery.js"></script>
+        <script src="~/src/lib/bowser/bundled.js"></script>
         <script src="~/src/lib/hammerjs/hammer.js"></script>
         <script src="~/src/lib/moment/moment.js"></script>
         <script src="~/src/lib/bootstrap/bootstrap.bundle.js"></script>
@@ -113,6 +152,7 @@
     </environment>
     <environment exclude="Development">
         <script src="~/src/lib/jquery/jquery.js"></script>
+        <script src="~/src/lib/bowser/bundled.js"></script>
         <script src="~/src/lib/hammerjs/hammer.js"></script>
         <script src="~/src/lib/moment/moment.js"></script>
         <script src="~/src/lib/bootstrap/bootstrap.bundle.js"></script>
@@ -250,5 +290,6 @@
     <script src="~/src/modules/main/containers/courtscontainer/courtscontainer.component.js"></script>
 
     <script src="~/src/modules/main/containers/maincontainer/maincontainer.component.js"></script>
+
 </body>
 </html>

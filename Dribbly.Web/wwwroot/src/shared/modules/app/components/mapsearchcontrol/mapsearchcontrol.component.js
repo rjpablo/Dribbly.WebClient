@@ -12,8 +12,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$timeout', '$scope'];
-    function controllerFn($timeout, $scope) {
+    controllerFn.$inject = ['$timeout', '$scope', '$log'];
+    function controllerFn($timeout, $scope, $log) {
         var msc = this;
         var _autocomplete;
         var _geocoder;
@@ -45,6 +45,9 @@
                         $timeout(function () {
                             $scope.$apply(); //needed for suggestions to show immediately
                         });
+                    }
+                    else {
+                        $log.error(new Error('Map search error. Search key: ' + msc.keyword + ', Status = ' + status));
                     }
                 });
             }

@@ -1,10 +1,13 @@
-﻿namespace Dribbly.Web.ViewModels
+﻿using Dribbly.Web.Models;
+
+namespace Dribbly.Web.ViewModels
 {
     public class MainViewModel : SiteViewModel
     {
-        public MainViewModel() : base("mainModule")
+
+        public MainViewModel(ClientSettings clientSettings) : base("mainModule", clientSettings)
         {
-            
+
         }
     }
 }

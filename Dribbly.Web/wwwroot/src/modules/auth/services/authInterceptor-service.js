@@ -21,7 +21,7 @@
 
                 var _responseError = function (rejection) {
                     var deferred = $q.defer();
-                    if (rejection.status === 401) {
+                    if (rejection.status === 401) { //Access denied
                         var authData = localStorageService.get('authorizationData');
                         var authService = $injector.get('authService');
 
@@ -31,16 +31,18 @@
                                     _retryHttpRequest(rejection.config, deferred);
                                 })
                                 .catch(function (error) {
-                                    drbblyCommonService.handleError(error, 'site.Error_Auth_SessionExpired');
+                                    drbblyCommonService.handleHttpError(error);
                                     deferred.reject(rejection);
                                     redirectoToLogin();
                                 });
                         }
                         else {
+                            drbblyCommonService.handleHttpError(rejection);
                             redirectoToLogin();
                         }
                     }
                     else {
+                        drbblyCommonService.handleHttpError(rejection);
                         deferred.reject(rejection);
                     }
                     return deferred.promise;

@@ -91,6 +91,10 @@ var nodeLibs = {
         source: 'bootstrap-social/bootstrap-social.css',
         destination: 'bootstrap-social'
     },
+    bowser: {
+        source: 'bowser/bundled.js',
+        destination: 'bowser'
+    },
     font_awesome: {
         source: 'font-awesome/css/font-awesome.css',
         destination: 'font-awesome'
