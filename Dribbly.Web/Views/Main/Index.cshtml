@@ -5,5 +5,15 @@
 }
 
 <div id="drbbly-body-overlay"></div>
-<div id="drbbly-root-container" app="app" ui-view></div>
+<div id="drbbly-root-container"
+     app="app"
+     ng-if="!app.overlay.isError"
+     ui-view></div>
+<div id="app-overlay"
+     ng-class="{'has-error': app.overlay.isError}">
+    <div class="d-flex flex-column p-3">
+        <img src="~/src/images/backgrounds/ball_stuck.png" />
+        <h3 class="text-light my-3 text-center">{{::'site.Error_Common_UnexpectedError' | i18n}}</h3>
+    </div>
+</div>
 

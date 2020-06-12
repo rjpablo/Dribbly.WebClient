@@ -14,8 +14,18 @@
                 abstract: true,
                 url: '',
                 resolve: {
-                    settings: ['settingsService', function (settingsService) {
-                        return settingsService.getInitialSettings();
+                    settings: ['settingsService', '$q', '$rootScope', function (settingsService, $q, $rootScope) {
+                        var deferred = $q.defer();
+
+                        settingsService.getInitialSettings()
+                            .then(deferred.resolve)
+                            .catch(function () {
+                                //window.location.href = '/ErrorPage';
+                                $rootScope.$broadcast('set-app-overlay', { status: 'error' });
+                                deferred.reject();
+                            });
+
+                        return deferred.promise;
                     }]
                 },
                 component: 'drbblyMainContainer'

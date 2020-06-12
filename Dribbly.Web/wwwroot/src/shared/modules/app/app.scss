@@ -5,6 +5,18 @@
     position: fixed !important;
     height: 100%;
     width: 100%;
+    background-color: black;
+    display: none;
+
+    &.has-error{
+        display: block;
+    }
+
+    img {
+        width: auto;
+        max-width: 100%;
+        margin: 0 auto;
+    }
 }
 
 #drbbly-body-overlay {
