@@ -5,7 +5,8 @@
         .module('mainModule')
         .component('drbblyCourtphotos', {
             bindings: {
-                onUpdate: '<'
+                onUpdate: '<',
+                court: '<'
             },
             controllerAs: 'dcp',
             templateUrl: 'drbbly-default',
@@ -20,6 +21,7 @@
 
         dcp.$onInit = function () {
             dcp.courtId = $stateParams.id;
+            dcp.isOwned = dcp.court.ownerId === authService.authentication.userId;
             drbblyCourtsService.getCourtPhotos(dcp.courtId)
                 .then(function (photos) {
                     dcp.photos = massagePhotos(photos);

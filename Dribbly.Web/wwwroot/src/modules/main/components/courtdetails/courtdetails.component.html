@@ -4,7 +4,7 @@
                       image-url="{{dcd.court.primaryPhotoUrl || './images/default_images/court_default_1.png'}}"></drbbly-image>
         <div class="controls float-right">
             <button class="btn btn-sm btn-outline-light"
-                    ng-if="dcd.isOwned"
+                    ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
                     ngf-select="dcd.changePrimaryPicture($file)"
                     ng-model="dcd.profilePicture"
                     ngf-pattern="'image/*'"
@@ -52,7 +52,7 @@
                 </dt>
                 <dd class="col-11">
                     <div ng-bind-html="dcd.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
-                    <button ng-if="dcd.isOwned"
+                    <button ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
                             ng-click="dcd.edit()"
                             class="btn btn-secondary float-right">
                         <span class="fa fa-pencil" aria-hidden="true"></span>
