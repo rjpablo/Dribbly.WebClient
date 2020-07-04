@@ -136,11 +136,22 @@
                     return alert('app.Error_Common_GenericErrorHeader', 'app.Error_Common_GenericErrorDetails');
                 }
 
+                function showOptionsList(data) {
+                    return _show({
+                        view: '<drbbly-optionsmodal></drbbly-optionsmodal>',
+                        model: {
+                            items: data.items
+                        },
+                        size: 'dialog-centered p-1'
+                    });
+                }
+
                 var service = {
                     show: _show,
                     alert: alert,
                     confirm: confirm,
                     showGenericErrorModal: showGenericErrorModal,
+                    showOptionsList: showOptionsList,
                     showUnsavedChangesWarning: showUnsaveChangesWarning
                 };
 
