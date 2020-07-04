@@ -18,16 +18,12 @@
         var cpm = this;
 
         cpm.$onInit = function () {
-            cpm.context.setOnInterrupt(cpm.onInterrupt);
-        };
-
-        cpm.onInterrupt = function (reason) {
-            cpm.context.okToClose = true;
-            cpm.context.dismiss(reason);
+            
         };
 
         cpm.close = function () {
-            cpm.onInterrupt();
+            cpm.context.okToClose = true;
+            cpm.context.dismiss('canceled');
         };
 
         cpm.viewCourtDetails = function (event, court) {
@@ -40,8 +36,10 @@
 
         $scope.$on('modal.closing', function (event, reason, result) {
             if (!cpm.context.okToClose) {
+                // prevent closing of  modal and use the context.dismiss function
+                // to do clean(e.g.unsubcribe from events) before closing the modal
                 event.preventDefault();
-                cpm.onInterrupt();
+                cpm.close();
             }
         });
 

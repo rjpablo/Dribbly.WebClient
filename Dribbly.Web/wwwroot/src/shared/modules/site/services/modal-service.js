@@ -35,6 +35,12 @@
                     var unSub = $transitions.onBefore({}, function (transition) {
                         if (mod.context.onInterrupt) {
                             var customOptions = transition.options().custom;
+                            // setting the custom option `force` to true when navigating allows modal to close, skipping the validations
+                            // e.g.
+                            // $state.go('main.court.details',
+                            //    { id: court.id },
+                            //    { custom: { force: true } }
+                            // );
                             if (customOptions && customOptions.force) {
                                 mod.context.okToClose = true;
                                 unSub();
@@ -46,7 +52,7 @@
                                 // when the transition is cancelled (but the browser shows the 'to'
                                 // state's title). And the browser's title doesn't get updated
                                 // until document.title gets assign a different value resulting to
-                                // and incorrect title on the browser
+                                // an incorrect title on the browser
                                 $titleService.setTitle(transition.$to());
                                 $location.url($urlRouter.location);
                             }
@@ -55,7 +61,7 @@
                             $uibModalInstance.dismiss('navigating');
                         }
                         else {
-                            throw new Error('context.onInterrupt is not defined');
+                            $uibModalInstance.dismiss('navigating');
                         }
                     });
                 }
@@ -86,7 +92,7 @@
                     scope.options = modalOptions.options || {};
                     scope.context = {
                         setOnInterrupt: function (handler) {
-                            modalOptions.scope.context.onInterrupt = handler;
+                            scope.context.onInterrupt = handler;
                         }
                     };
                     modalOptions.scope = scope;
