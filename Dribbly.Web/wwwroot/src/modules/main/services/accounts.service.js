@@ -18,8 +18,8 @@
                     return drbblyhttpService.get(api + 'getAccountByUsername/' + username);
                 }
 
-                function getAccountPhotos(id) {
-                    return drbblyhttpService.get(api + 'getAccountPhotos/' + id);
+                function getAccountPhotos(accountId) {
+                    return drbblyhttpService.get(api + 'getAccountPhotos/' + accountId);
                 }
 
                 function getAccountGames(id) {

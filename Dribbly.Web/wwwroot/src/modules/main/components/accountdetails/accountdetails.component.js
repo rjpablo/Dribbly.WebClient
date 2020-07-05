@@ -13,17 +13,17 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['constants', 'drbblyFileService', '$stateParams',
-        'drbblyOverlayService', 'drbblyAccountsService', 'drbblyFooterService', '$timeout'];
-    function controllerFunc(constants, drbblyFileService, $stateParams,
-        drbblyOverlayService, drbblyAccountsService, drbblyFooterService, $timeout) {
+    controllerFunc.$inject = ['constants', 'drbblyFileService', '$stateParams', 'authService', 'permissionsService',
+        'drbblyOverlayService', 'modalService', 'drbblyFooterService', '$timeout', 'drbblyAccountsService'];
+    function controllerFunc(constants, drbblyFileService, $stateParams, authService, permissionsService,
+        drbblyOverlayService, modalService, drbblyFooterService, $timeout, drbblyAccountsService) {
         var dad = this;
         var _priceComponent;
 
         dad.$onInit = function () {
             dad.username = $stateParams.username;
             dad.overlay = drbblyOverlayService.buildOverlay();
-            //dad.isOwned = dad.account.ownerId === authService.authentication.userId;
+            dad.isOwned = authService.isCurrentUserId(dad.account.identityUserId);
             dad.account.profilePhoto = dad.account.profilePhoto || getDefaultProfilePhoto();
             loadAccount();
         };
@@ -67,12 +67,46 @@
                 .catch(function () { /*do nothing*/ });
         };
 
-        dad.changePrimaryPicture = function (file) {
+        dad.onProfilePhotoClick = function () {
+            var options = {
+                items: [{
+                    textKey: 'app.ViewPrimaryPhoto',
+                    action: viewPrimaryPhoto
+                }]
+            };
+            if (dad.isOwned || permissionsService.hasPermission('Account.UpdatePhotoNotOwned')) {
+                options.items.push({
+                    textKey: 'app.ReplacePrimaryPhoto',
+                    action: function () {
+                        angular.element('#btn-replace-photo').triggerHandler('click');
+                    }
+                });
+            }
+            if (options.items.length) {
+                modalService.showOptionsList(options);
+            }
+        };
+
+        function viewPrimaryPhoto() {
+            drbblyAccountsService.getAccountPhotos(dad.account.id)
+                .then(function (photos) {
+                    dad.account.photos = photos;
+                    var primaryPhotoIndex = dad.account.photos.findIndex(value => value.id === dad.account.profilePhotoId);
+                    dad.methods.open(primaryPhotoIndex);
+                })
+                .catch(function (error) {
+
+                });
+        }
+
+        dad.onPrimaryPhotoSelect = function (file) {
             if (!file) { return; }
-            drbblyFileService.upload(file, 'api/accounts/updateAccountPhoto/' + dad.account.id)
-                .then(function (result) {
-                    //loadAccount();
-                    dad.onUpdate();
+            drbblyFileService.upload(file, 'api/account/uploadPrimaryPhoto/' + dad.account.id)
+                .then(function (newProfilePhoto) {
+                    if (newProfilePhoto) {
+                        dad.account.profilePhoto = newProfilePhoto;
+                        dad.onUpdate();
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);

@@ -18,7 +18,26 @@
                 <tr class="user-details-container row no-gutters">
                     <td class="align-top col-4">
                         <img ng-src="{{dad.account.profilePhoto.url}}"
-                             class="profile-photo d-block mx-auto" />
+                             class="profile-photo d-block mx-auto"
+                             ng-click="dad.onProfilePhotoClick()" />
+                        <button id="btn-replace-photo"
+                                class="d-none"
+                                ngf-select="dad.onPrimaryPhotoSelect($file)"
+                                ng-model="dad.profilePicture"
+                                ngf-pattern="'image/*'"
+                                ngf-accept="'image/*'"
+                                ngf-max-size="20MB"></button>
+                        <ng-image-gallery images="dad.account.photos"
+                                          methods="dad.methods"
+                                          thumbnails="false"
+                                          inline="false"
+                                          bubbles="true"
+                                          bubble-size="30"
+                                          img-bubbles="true"
+                                          bg-close="true"
+                                          piracy="true"
+                                          img-anim="fadeup"
+                                          on-delete="dad.onDeletePhoto(img, cb)"></ng-image-gallery>
                     </td>
                     <td class="pl-3 col-8">
                         <div>

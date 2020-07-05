@@ -110,6 +110,7 @@
                     Profile: 'Profile',
                     Public: 'Public',
                     RatePerHour: 'Rate Per Hour',
+                    ReplacePrimaryPhoto: 'Replace Primary Photo',
                     Security: 'Security',
                     Schedule: 'Schedule',
                     SearchTheMap: 'Search the map',
@@ -126,6 +127,7 @@
                     View: 'View',
                     ViewFullDetails: 'View Full Details',
                     ViewOnMap: 'View On Map',
+                    ViewPrimaryPhoto: 'View Primary Photo',
                     WinRate: 'Win Rate'
                 },
                 main: {
