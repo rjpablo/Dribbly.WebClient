@@ -14,9 +14,11 @@
         });
 
     controllerFunc.$inject = ['constants', 'drbblyFileService', '$stateParams', 'authService', 'permissionsService',
-        'drbblyOverlayService', 'modalService', 'drbblyFooterService', '$timeout', 'drbblyAccountsService'];
+        'drbblyOverlayService', 'modalService', 'drbblyFooterService', '$timeout', 'drbblyAccountsService',
+        'drbblyCommonService'];
     function controllerFunc(constants, drbblyFileService, $stateParams, authService, permissionsService,
-        drbblyOverlayService, modalService, drbblyFooterService, $timeout, drbblyAccountsService) {
+        drbblyOverlayService, modalService, drbblyFooterService, $timeout, drbblyAccountsService,
+        drbblyCommonService) {
         var dad = this;
         var _priceComponent;
 
@@ -90,13 +92,22 @@
         function viewPrimaryPhoto() {
             drbblyAccountsService.getAccountPhotos(dad.account.id)
                 .then(function (photos) {
-                    dad.account.photos = photos;
+                    dad.account.photos = massagePhotos(photos);
                     var primaryPhotoIndex = dad.account.photos.findIndex(value => value.id === dad.account.profilePhotoId);
                     dad.methods.open(primaryPhotoIndex);
                 })
                 .catch(function (error) {
-
+                    // TODO: display error in a toast
                 });
+        }
+
+        function massagePhotos(photos) {
+            var canDeleteNotOwned = permissionsService.hasPermission('Account.DeletePhotoNotOwned');
+            angular.forEach(photos, function (photo) {
+                photo.deletable = photo.id !== dad.account.profilePhotoId &&
+                    (dad.isOwned || canDeleteNotOwned);
+            });
+            return photos;
         }
 
         dad.onPrimaryPhotoSelect = function (file) {
@@ -110,6 +121,22 @@
                 })
                 .catch(function (error) {
                     console.log(error);
+                });
+        };
+
+        dad.onDeletePhoto = function (img, callback) {
+            modalService.confirm('app.DeletePhotoConfirmationMsg')
+                .then(function (result) {
+                    if (result) {
+                        drbblyAccountsService.deletePhoto(img.id, dad.account.id)
+                            .then(function () {
+                                callback();
+                            })
+                            .catch(function (error) {
+                                // TODO: display error in a toast
+                                console.log('Error deleting photo', error);
+                            });
+                    }
                 });
         };
     }

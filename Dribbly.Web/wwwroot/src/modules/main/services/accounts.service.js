@@ -34,8 +34,8 @@
                     return drbblyhttpService.post(api + 'register', accountDetails);
                 }
 
-                function deletePhoto(accountId, photoId) {
-                    return drbblyhttpService.post(api + 'deletePhoto/' + accountId + '/' + photoId);
+                function deletePhoto(photoId, accountId) {
+                    return drbblyhttpService.post(api + 'deletePhoto/' + photoId + '/' + accountId);
                 }
 
                 function updateAccount(accountDetails) {
