@@ -13,9 +13,9 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', 'drbblyCourtshelperService', 'modalService', '$stateParams',
+    controllerFunc.$inject = ['authService', 'modalService', '$stateParams', 'permissionsService',
         'drbblyCommonService', 'drbblyCourtsService'];
-    function controllerFunc(authService, drbblyCourtshelperService, modalService, $stateParams,
+    function controllerFunc(authService, modalService, $stateParams, permissionsService,
         drbblyCommonService, drbblyCourtsService) {
         var dcp = this;
 
@@ -25,9 +25,8 @@
             drbblyCourtsService.getCourtPhotos(dcp.courtId)
                 .then(function (photos) {
                     dcp.photos = massagePhotos(photos);
-                })
-                .catch(function (error) {
-                    drbblyCommonService.handleError(error);
+                }, function () {
+                    // TODO: show error in a toast
                 });
         };
 
@@ -47,12 +46,14 @@
         };
 
         function massagePhotos(photos) {
+            var canDeleteNotOwned = permissionsService.hasPermission('Court.DeletePhotoNotOwned');
             for (var i = 0; i < photos.length; i++) {
-                photos[i].deletable = authService.isCurrentUserId(photos[i].uploadedById);
+                photos[i].deletable = photos[i].id !== dcp.court.primaryPhoto.id &&
+                    (dcp.isOwned || canDeleteNotOwned);
             }
             return photos;
         }
-               
+
         dcp.addPhotos = function (files) {
             //drbblyFileService.upload(files, 'api/courts/addPhotos/' + dcp.court.i)
             drbblyCourtsService.addCourtPhotos(files, dcp.courtId)

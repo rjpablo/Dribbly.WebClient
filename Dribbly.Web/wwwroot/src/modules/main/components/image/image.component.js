@@ -5,7 +5,8 @@
         .module('mainModule')
         .component('drbblyImage', {
             bindings: {
-                imageUrl: '@'
+                imageUrl: '@',
+                onClick: '<'
             },
             controllerAs: 'dic',
             templateUrl: 'drbbly-default'

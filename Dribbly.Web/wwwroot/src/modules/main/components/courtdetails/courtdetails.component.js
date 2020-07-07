@@ -14,9 +14,9 @@
         });
 
     controllerFunc.$inject = ['authService', 'drbblyCourtshelperService', 'drbblyFileService', '$stateParams',
-        'drbblyOverlayService', 'drbblyCourtsService', 'drbblyFooterService'];
+        'drbblyOverlayService', 'drbblyCourtsService', 'drbblyFooterService', 'permissionsService', 'modalService'];
     function controllerFunc(authService, drbblyCourtshelperService, drbblyFileService, $stateParams,
-        drbblyOverlayService, drbblyCourtsService, drbblyFooterService) {
+        drbblyOverlayService, drbblyCourtsService, drbblyFooterService, permissionsService, modalService) {
         var dcd = this;
         var _priceComponent;
 
@@ -28,6 +28,28 @@
             //loadCourt();
         };
 
+        dcd.onPrimaryPhotoClick = function () {
+            drbblyCourtsService.getCourtPhotos(dcd.courtId)
+                .then(function (photos) {
+                    dcd.photos = massagePhotos(photos);
+                    var primaryPhotoIndex = dcd.photos.findIndex(photo => photo.id === dcd.court.primaryPhoto.id);
+                    dcd.methods.open(primaryPhotoIndex);
+                })
+                .catch(function (error) {
+                    // TODO: Display error in toast
+                });
+        };
+
+        function massagePhotos(photos) {
+            var canDeleteNotOwned = permissionsService.hasPermission('Court.DeletePhotoNotOwned');
+            for (var i = 0; i < photos.length; i++) {
+                photos[i].deletable = photos[i].id !== dcd.court.primaryPhoto.id &&
+                    (dcd.isOwned || canDeleteNotOwned);
+            }
+            return photos;
+        }
+
+        // CLEAN UP
         function loadCourt() {
             dcd.overlay.setToBusy();
             drbblyCourtsService.getCourt(dcd.courtId)
@@ -40,6 +62,7 @@
                 .catch(dcd.overlay.setToError);
         }
 
+        // CLEAN UP
         function createPriceComponent() {
 
             if (_priceComponent) {
@@ -51,6 +74,21 @@
                 template: '<drbbly-courtprice court="dcd.court"></dribbly-courtprice>'
             });
         }
+
+        dcd.deletePhoto = function (photo, done) {
+            modalService.confirm('app.DeletePhotoConfirmationMsg')
+                .then(function (result) {
+                    if (result) {
+                        drbblyCourtsService.deletePhoto(dcd.courtId, photo.id)
+                            .then(function () {
+                                done();
+                            })
+                            .catch(function (error) {
+                                // TODO: Display error in toast
+                            });
+                    }
+                });
+        };
 
         dcd.edit = function () {
             drbblyCourtshelperService.editCourt(dcd.court)
