@@ -95,13 +95,18 @@
                     }
                 },
                 {
+                    textKey: 'site.Games',
+                    targetStateName: 'main.court.games',
+                    targetStateParams: { id: _courtId }
+                },
+                {
                     textKey: 'app.Photos',
                     targetStateName: 'main.court.photos',
                     targetStateParams: { id: _courtId }
                 },
                 {
-                    textKey: 'site.Games',
-                    targetStateName: 'main.court.games',
+                    textKey: 'site.Videos',
+                    targetStateName: 'main.court.videos',
                     targetStateParams: { id: _courtId }
                 },
                 {

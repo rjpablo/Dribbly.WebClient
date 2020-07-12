@@ -97,7 +97,15 @@
                 url: '/photos',
                 component: 'drbblyCourtphotos',
                 resolve: {
-                    $titleKey: () => { return 'site.CourtDetails'; }
+                    $titleKey: () => { return 'app.CourtPhotos'; }
+                }
+            })
+
+            .state('main.court.videos', {
+                url: '/videos',
+                component: 'drbblyCourtvideos',
+                resolve: {
+                    $titleKey: () => { return 'app.CourtVideos'; }
                 }
             })
 

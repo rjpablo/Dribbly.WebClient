@@ -165,6 +165,12 @@ var nodeLibs = {
     ui_router: {
         source: 'angular-ui-router/release/angular-ui-router.js',
         destination: 'angular-ui-router'
+    },
+    videogular: {
+        source: [
+            'videogular/dist/videogular/videogular.js'
+        ],
+        destination: 'videogular'
     }
 };
 

@@ -5,7 +5,8 @@
         .component('drbblyDate', {
             bindings: {
                 date: '<',
-                format: '<'
+                format: '<',
+                asFromNow: '<'
             },
             controllerAs: 'dte',
             templateUrl: 'drbbly-default',
@@ -18,6 +19,9 @@
 
         dte.$onInit = function () {
             dte.format = dte.format || settingsService.defaultDateFormat;
+            if (dte.asFromNow) {
+                dte.dateText = moment(dte.date).fromNow();
+            }
         };
     }
 })();

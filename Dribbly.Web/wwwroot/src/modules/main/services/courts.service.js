@@ -18,6 +18,10 @@
                     return drbblyhttpService.get(api + 'getCourtPhotos/' + id);
                 }
 
+                function getCourtVideos(id) {
+                    return drbblyhttpService.get(api + 'getCourtVideos/' + id);
+                }
+
                 function getCourtGames(id) {
                     return drbblyhttpService.get(api + 'getCourtGames/' + id);
                 }
@@ -51,14 +55,20 @@
                     return deferred.promise;
                 }
 
+                function addCourtVideo(courtId, video, file) {
+                    return drbblyFileService.upload(file, 'api/courts/addCourtVideo/' + courtId, video);
+                }
+
                 var _service = {
                     addCourtPhotos: addCourtPhotos,
+                    addCourtVideo: addCourtVideo,
                     deletePhoto: deletePhoto,
                     FindCourts: FindCourts,
                     getAllCourts: getAllCourts,
                     getCourt: getCourt,
                     getCourtGames: getCourtGames,
                     getCourtPhotos: getCourtPhotos,
+                    getCourtVideos: getCourtVideos,
                     register: register,
                     updateCourt: updateCourt
                 };

@@ -1,0 +1,16 @@
+﻿<div class="video">
+    <div class="video-wrapper">
+        <video preload="metadata">
+            <!--<source src="{{vli.court.src}}" type="{{vli.court.type}}" />-->
+        </video>
+    </div>
+    <div class="drbbly-video-overlay">
+        <span class="duration">{{vli.duration}}</span>
+    </div>
+</div>
+<div class="details bg-white p-2">
+    <h4 class="title"><small>{{vli.video.title}}</small></h4>
+    <drbbly-date date="vli.video.dateAdded"
+                 as-from-now="true"
+                 class="text-muted"></drbbly-date>
+</div>
