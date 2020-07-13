@@ -170,7 +170,34 @@ var nodeLibs = {
         source: [
             'videogular/dist/videogular/videogular.js'
         ],
-        destination: 'videogular'
+        destination: 'videogular/videogular'
+    },
+    videogular_buffering: {
+        source: 'videogular-buffering/vg-buffering.js',
+        destination: 'videogular-buffering'
+    },
+    videogular_controls: {
+        source: 'videogular-controls/vg-controls.js',
+        destination: 'videogular-controls'
+    },
+    videogular_overlay_play: {
+        source: 'videogular-overlay-play/vg-overlay-play.js',
+        destination: 'videogular-overlay-play'
+    },
+    videogular_themes_default: {
+        source: [
+            'videogular/dist/themes/default/videogular.css'
+        ],
+        destination: 'videogular/themes/default'
+    },
+    videogular_themes_default_fonts: {
+        source: [
+            'videogular/dist/themes/default/fonts/videogular.eot',
+            'videogular/dist/themes/default/fonts/videogular.svg',
+            'videogular/dist/themes/default/fonts/videogular.ttf',
+            'videogular/dist/themes/default/fonts/videogular.woff'
+        ],
+        destination: 'videogular/themes/default/fonts'
     }
 };
 

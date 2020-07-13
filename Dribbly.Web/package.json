@@ -33,7 +33,11 @@
     "ng-file-upload": "12.2.13",
     "ngmap": "1.18.4",
     "popper.js": "1.15.0",
-    "ui-bootstrap4": "3.0.6"
+    "ui-bootstrap4": "3.0.6",
+    "videogular": "2.2.1",
+    "videogular-buffering": "1.4.4",
+    "videogular-controls": "1.4.4",
+    "videogular-overlay-play": "1.4.4"
   },
   "devDependencies": {
     "del": "4.1.1",

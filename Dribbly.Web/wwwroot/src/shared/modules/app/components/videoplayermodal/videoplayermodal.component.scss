@@ -1,0 +1,14 @@
+drbbly-videoplayermodal {
+    .close-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 3;
+        cursor: pointer;
+    }
+
+    .videogular-container {
+        width: 100vw;
+        height: 100vh;
+    }
+}

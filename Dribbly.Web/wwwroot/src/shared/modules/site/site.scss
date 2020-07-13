@@ -10,6 +10,10 @@ body {
     border-bottom: 2px solid $orange;
 }
 
+.bg-black {
+    background-color: $black;
+}
+
 .bg-dark {
     background-color: #282828 !important;
     color: $bgDarkFontColor;
@@ -155,4 +159,10 @@ body {
 
 .ng-image-gallery .ng-image-gallery-thumbnails .thumb > .loader {
     width: unset !important;
+}
+
+/******* Videogualr *********/
+/* Fixes incorrect current time indicator for wider screens */
+videogular vg-scrub-bar .container {
+    max-width: 100%;
 }

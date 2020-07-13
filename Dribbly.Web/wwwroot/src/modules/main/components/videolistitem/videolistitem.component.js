@@ -13,8 +13,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$element', '$scope'];
-    function controllerFunc($element, $scope) {
+    controllerFunc.$inject = ['$element', '$scope', 'modalService'];
+    function controllerFunc($element, $scope, modalService) {
         var vli = this;
         var _videoElement;
 
@@ -30,15 +30,14 @@
             };
         };
 
-        vli.clicked = function ($event) {
-            console.log('clicked');
-        };
-
-        vli.vlicked = function (e) {
-            if (vli.onClick) {
-                vli.onClick(vli.court);
-                e.preventDefault();
-            }
+        vli.clicked = function () {
+            modalService.show({
+                view: '<drbbly-videoplayermodal></drbbly-videoplayermodal>',
+                model: { video: vli.video },
+                isFull: true
+            })
+                .then(function () { /*do nothing*/ })
+                .catch(function () { /*do nothing*/ });
         };
     }
 })();

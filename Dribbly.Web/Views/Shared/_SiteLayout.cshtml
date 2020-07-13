@@ -18,6 +18,7 @@
     <link href="~/src/lib/angularjs-toaster/toaster.css" rel="stylesheet" />
     <link href="~/src/custom/angularjs-bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet" />
     <link href="~/src/lib/angular-bootstrap-colorpicker/colorpicker.css" rel="stylesheet" />
+    <link href="~/src/lib/videogular/themes/default/videogular.css" rel="stylesheet" />
 
     @* Custom *@
     <link href="~/src/custom/ng-image-gallery/ng-image-gallery.min.css" rel="stylesheet" />
@@ -55,6 +56,7 @@
     <link href="~/src/shared/modules/app/components/locationpicker/locationpicker.component.css" rel="stylesheet" />
     <link href="~/src/shared/modules/app/components/footer/footer.component.css" rel="stylesheet" />
     <link href="~/src/shared/modules/app/components/uploadvideomodal/uploadvideomodal.component.css" rel="stylesheet" />
+    <link href="~/src/shared/modules/app/components/videoplayermodal/videoplayermodal.component.css" rel="stylesheet" />
     <link href="~/src/shared/modules/app/app.css" rel="stylesheet" />
 
     @* Main *@
@@ -153,7 +155,10 @@
         <script src="~/src/custom/ng-image-gallery/ng-image-gallery.js"></script>
         <script src="~/src/lib-extensions/angular-wysiwyg-custom.js"></script>
         <script src="~/src/lib/ng-file-upload/ng-file-upload.js"></script>
-        <script src="~/src/lib/videogular/videogular.js"></script>
+        <script src="~/src/lib/videogular/videogular/videogular.js"></script>
+        <script src="~/src/lib/videogular-controls/vg-controls.js"></script>
+        <script src="~/src/lib/videogular-buffering/vg-buffering.js"></script>
+        <script src="~/src/lib/videogular-overlay-play/vg-overlay-play.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/src/lib/jquery/jquery.js"></script>
@@ -184,7 +189,10 @@
         <script src="~/src/custom/ng-image-gallery/ng-image-gallery.js"></script>
         <script src="~/src/lib-extensions/angular-wysiwyg-custom.js"></script>
         <script src="~/src/lib/ng-file-upload/ng-file-upload.js"></script>
-        <script src="~/src/lib/videogular/videogular.js"></script>
+        <script src="~/src/lib/videogular/videogular/videogular.js"></script>
+        <script src="~/src/lib/videogular-controls/vg-controls.js"></script>
+        <script src="~/src/lib/videogular-buffering/vg-buffering.js"></script>
+        <script src="~/src/lib/videogular-overlay-play/vg-overlay-play.js"></script>
     </environment>
 
     @*Custom Modules*@
@@ -252,6 +260,7 @@
     <script src="~/src/shared/modules/app/components/eventcalendar/eventcalendar.component.js"></script>
     <script src="~/src/shared/modules/app/components/footer/footer.component.js"></script>
     <script src="~/src/shared/modules/app/components/uploadvideomodal/uploadvideomodal.component.js"></script>
+    <script src="~/src/shared/modules/app/components/videoplayermodal/videoplayermodal.component.js"></script>
 
     @*main Module*@
     <script src="~/src/modules/main/main-module.js"></script>

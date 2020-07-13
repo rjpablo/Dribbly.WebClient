@@ -1,0 +1,33 @@
+﻿<div class="bg-black row no-gutters position-fixed h-100 w-100 overflow-auto align-content-start align-content-lg-stretch">
+    <div class="col-12">
+        <h3 class="close-button p-2">
+            <i class="fa fa-times mr-1"
+               ng-click="vpm.cancel()"></i>
+        </h3>
+        <div class="videogular-container">
+            <videogular vg-player-ready="vpm.onPlayerReady($API)"
+                        vg-auto-play="vpm.config.autoplay">
+                <vg-media vg-src="vpm.config.sources">
+                </vg-media>
+                <vg-controls vg-theme="vpm.config.theme"
+                             vg-responsive="true"
+                             vg-autohide="vpm.config.plugins.controls.autoHide"
+                             vg-autohide-time="vpm.config.plugins.controls.autoHideTime">
+                    <vg-play-pause-button></vg-play-pause-button>
+                    <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                    <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    </vg-scrub-bar>
+                    <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                    <vg-volume>
+                        <vg-mute-button></vg-mute-button>
+                        <vg-volume-bar></vg-volume-bar>
+                    </vg-volume>
+                    <vg-fullscreen-button></vg-fullscreen-button>
+                </vg-controls>
+                <vg-overlay-play></vg-overlay-play>
+                <vg-buffering></vg-buffering>
+            </videogular>
+        </div>
+    </div>
+</div>
