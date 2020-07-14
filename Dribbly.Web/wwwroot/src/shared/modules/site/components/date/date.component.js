@@ -13,14 +13,14 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['settingsService'];
-    function controllerFn(settingsService) {
+    controllerFn.$inject = ['settingsService', 'drbblyDatetimeService'];
+    function controllerFn(settingsService, drbblyDatetimeService) {
         var dte = this;
 
         dte.$onInit = function () {
             dte.format = dte.format || settingsService.defaultDateFormat;
             if (dte.asFromNow) {
-                dte.dateText = moment(dte.date).fromNow();
+                dte.dateText = moment(drbblyDatetimeService.toUtcString(dte.date)).fromNow();
             }
         };
     }

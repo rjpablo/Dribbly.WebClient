@@ -49,11 +49,16 @@
                 return moment(date2).diff(date1, unit || 'minutes');
             }
 
+            function toUtcString(dateString) {
+                return dateString.endsWith('Z') ? dateString : dateString + 'Z';
+            }
+
             return {
                 add: add,
                 compareDatesOnly: compareDatesOnly,
                 copyTime: copyTime,
                 getDiff: getDiff,
+                toUtcString: toUtcString,
                 removeTime: removeTime
             };
 
