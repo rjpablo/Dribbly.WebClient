@@ -4,7 +4,7 @@
             <span class="text-white"
                   ng-if="dcv.videos">{{'app.FoundCountVideos' | i18n: {count: dcv.videos.length} }}</span>
             <a class="btn-link float-right"
-               ng-if="::dcv.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
+               ng-if="::dcv.isOwned || ('Court.AddVideoNotOwned' | drbblyPermission)"
                ngf-select="dcv.addVideos($files)"
                ng-model="dcv.profilePicture"
                ngf-pattern="'video/*'"
