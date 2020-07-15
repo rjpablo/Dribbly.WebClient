@@ -68,6 +68,7 @@
                     Yes: 'Yes'
                 },
                 app: {
+                    AccountVideos: 'Account Videos',
                     AdditionalInfo: 'Additional Info',
                     Address: 'Address',
                     Age: 'Age',

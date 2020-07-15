@@ -74,6 +74,14 @@
                 }
             })
 
+            .state('main.account.videos', {
+                url: '/videos',
+                component: 'drbblyAccountvideos',
+                resolve: {
+                    $titleKey: () => { return 'app.AccountVideos'; }
+                }
+            })
+
             // Court
 
             .state('main.court', {

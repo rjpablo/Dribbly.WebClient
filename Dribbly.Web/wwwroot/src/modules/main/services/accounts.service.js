@@ -30,6 +30,10 @@
                     return drbblyhttpService.get(api + 'getAccountSettings/' + userId);
                 }
 
+                function getAccountVideos(accountId) {
+                    return drbblyhttpService.get(api + 'getAccountVideos/' + accountId);
+                }
+
                 function register(accountDetails) {
                     return drbblyhttpService.post(api + 'register', accountDetails);
                 }
@@ -55,8 +59,13 @@
                     return deferred.promise;
                 }
 
+                function addAccountVideo(accountId, video, file) {
+                    return drbblyFileService.upload(file, api + 'addAccountVideo/' + accountId, video);
+                }
+
                 var _service = {
                     addAccountPhotos: addAccountPhotos,
+                    addAccountVideo: addAccountVideo,
                     deletePhoto: deletePhoto,
                     getAllAccounts: getAllAccounts,
                     getAccount: getAccount,
@@ -64,6 +73,7 @@
                     getAccountGames: getAccountGames,
                     getAccountPhotos: getAccountPhotos,
                     getAccountSettings: getAccountSettings,
+                    getAccountVideos: getAccountVideos,
                     register: register,
                     updateAccount: updateAccount
                 };
