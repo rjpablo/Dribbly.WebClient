@@ -1,12 +1,31 @@
-﻿<div class="video"
-     ng-click="vli.clicked()">
+﻿<div class="video">
     <div class="video-wrapper">
-        <video preload="metadata">
-            <!--<source src="{{vli.court.src}}" type="{{vli.court.type}}" />-->
-        </video>
+        <video preload="metadata"></video>
     </div>
-    <div class="drbbly-video-overlay">
+    <div class="drbbly-video-overlay"
+         ng-click="vli.clicked()">
         <span class="duration">{{vli.duration}}</span>
+    </div>
+    <div class="controls">
+        <div class="dropdown"
+             ng-if="vli.options.menuItems.length">
+            <button type="button"
+                    class="btn"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                <i class="fa fa-ellipsis-h"></i>
+            </button>
+            <div class="dropdown-menu">
+                <button ng-repeat="item in vli.options.menuItems"
+                        class="dropdown-item"
+                        ng-click="item.action(vli.video, $event)"
+                        ng-show="item.isVisible(vli.video)"
+                        type="button">
+                    {{item.textKey | i18n}}
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 <div class="details bg-white p-2">

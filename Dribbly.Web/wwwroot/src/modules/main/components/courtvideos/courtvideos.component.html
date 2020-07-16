@@ -11,6 +11,7 @@
                ngf-multiple="false"
                ngf-accept="'video/*'"
                ngf-max-size="{{dcv.maxSize}}"
+               ng-disabled="dcv.isBusy"
                href="#">
                 <i class="fa fa-plus"></i>&nbsp;{{::'app.UploadAVideo' | i18n}}
             </a>
@@ -19,6 +20,7 @@
     <div class="row videos">
         <drbbly-videolistitem ng-repeat="video in dcv.videos"
                               class="col-12 col-sm-6 col-md-4 col-xl-3"
+                              options="dcv.videoListItemOptions"
                               video="video"></drbbly-videolistitem>
     </div>
 </div>

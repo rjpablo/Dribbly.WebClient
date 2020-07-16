@@ -6,6 +6,7 @@
         .component('drbblyVideolistitem', {
             bindings: {
                 video: '<',
+                options: '<',
                 onClick: '<?'
             },
             controllerAs: 'vli',
@@ -33,7 +34,10 @@
         vli.clicked = function () {
             modalService.show({
                 view: '<drbbly-videoplayermodal></drbbly-videoplayermodal>',
-                model: { video: vli.video },
+                model: {
+                    video: vli.video,
+                    options: vli.options
+                },
                 isFull: true
             })
                 .then(function () { /*do nothing*/ })

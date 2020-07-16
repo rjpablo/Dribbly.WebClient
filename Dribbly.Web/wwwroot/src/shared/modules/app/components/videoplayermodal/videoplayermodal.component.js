@@ -50,6 +50,15 @@
             };
         }
 
+        vpm.menuItemClick = function (menuItem, event) {
+            menuItem.action(vpm.model.video, event, function () {
+                if (menuItem.isDelete) {
+                    _api.stop();
+                    vpm.onInterrupt();
+                }
+            });
+        };
+
         vpm.onPlayerReady = function (api) {
             _api = api;
         };

@@ -18,11 +18,14 @@
     function controllerFunc(authService, modalService, $stateParams, permissionsService,
         drbblyCommonService, drbblyCourtsService, settingsService) {
         var dcv = this;
+        var _canDeleteNotOwned;
 
         dcv.$onInit = function () {
             dcv.courtId = $stateParams.id;
             dcv.isOwned = dcv.court.ownerId === authService.authentication.userId;
             dcv.maxSize = settingsService.maxVideoUploadMb + 'MB';
+            _canDeleteNotOwned = permissionsService.hasPermission('Court.DeleteVideoNotOwned');
+            setVideoListItemsOptions();
 
             drbblyCourtsService.getCourtVideos(dcv.courtId)
                 .then(function (videos) {
@@ -32,16 +35,38 @@
                 });
         };
 
-        dcv.deleteVideo = function (video, done) {
+        function setVideoListItemsOptions() {
+            dcv.videoListItemOptions = {
+                menuItems: [
+                    {
+                        textKey: 'site.Delete',
+                        action: deleteVideo,
+                        isDelete: true, // is this a delete action
+                        isVisible: function (video) {
+                            return dcv.isOwned || authService.isCurrentUserId(video.addedBy) || _canDeleteNotOwned;
+                        }
+                    }
+                ]
+            };
+        }
+
+        function deleteVideo(video, event, callback) {
+            event.preventDefault();
             modalService.confirm('app.DeleteVideoConfirmationMsg')
                 .then(function (result) {
                     if (result) {
-                        drbblyCourtsService.deleteVideo(dcv.courtId, video.id)
+                        dcv.isBusy = true;
+                        drbblyCourtsService.deleteCourtVideo(dcv.courtId, video.id)
                             .then(function () {
-                                done();
+                                dcv.videos.drbblyRemove(video);
+                                if (callback) {
+                                    callback();
+                                }
+                            }, function (error) {
+                                // TODO show error in toast
                             })
-                            .catch(function (error) {
-                                drbblyCommonService.handleError(error);
+                            .finally(function () {
+                                dcv.isBusy = false;
                             });
                     }
                 });

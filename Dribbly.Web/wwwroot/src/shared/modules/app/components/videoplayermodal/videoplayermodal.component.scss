@@ -1,10 +1,10 @@
 drbbly-videoplayermodal {
-    .close-button {
+    .top-controls {
         position: absolute;
         top: 0;
         right: 0;
         z-index: 3;
-        cursor: pointer;
+        width: 100%;
     }
 
     .videogular-container {
