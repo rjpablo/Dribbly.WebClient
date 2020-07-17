@@ -163,6 +163,7 @@
                     PasswordChangedSuccessfully: 'Your password has been changed successfully.',
                     PasswordResetSuccessfulHeader: 'Password reset successful!',
                     PasswordResetSuccessfulDetails: 'You have successfully reset your password. You may now <a href="#/login">Log In</a>', //TODO: append # dynamically
+                    PleaseLoginToProceed: 'Please login to proceed.',
                     ResendLink: 'Resend link',
                     ResendingLink: 'Resending link',
                     ResetLinkSentHeader: 'Reset link sent!',

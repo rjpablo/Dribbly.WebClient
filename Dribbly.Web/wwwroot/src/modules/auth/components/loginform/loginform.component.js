@@ -16,6 +16,10 @@
     function controllerFunc(authService, $state, $stateParams, $location) {
         var dlf = this;
 
+        dlf.$onInit = function () {
+            dlf.messageKey = $stateParams.messageKey;
+        };
+
         dlf.login = function () {
             var resumeUrl = $stateParams.resumeUrl;
             dlf.isBusy = true;

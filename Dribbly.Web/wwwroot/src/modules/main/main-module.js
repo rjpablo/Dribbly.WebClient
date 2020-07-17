@@ -162,7 +162,8 @@
             .state('auth.login', {
                 url: '/login',
                 params: {
-                    resumeUrl: ''
+                    resumeUrl: '',
+                    messageKey: ''
                 },
                 component: 'drbblyLoginform',
                 resolve: {

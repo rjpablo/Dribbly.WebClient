@@ -25,14 +25,12 @@
                         var authData = localStorageService.get('authorizationData');
                         var authService = $injector.get('authService');
 
-                        if (authData && authData.useRefreshTokens) {
+                        if (authData && authData.useRefreshTokens && !rejection.config.isRetried) {
                             authService.refreshToken()
                                 .then(function () {
                                     _retryHttpRequest(rejection.config, deferred);
-                                })
-                                .catch(function (error) {
+                                }, function (error) {
                                     drbblyCommonService.handleHttpError(error);
-                                    deferred.reject(rejection);
                                     redirectoToLogin();
                                 });
                         }
@@ -50,21 +48,22 @@
 
                 var _retryHttpRequest = function (config, deferred) {
                     var $http = $injector.get('$http');
+                    config.isRetried = true;
                     $http(config)
                         .then(function (response) {
                             deferred.resolve(response);
-                        })
-                        .catch(function (error) {
+                        }, function (error) {
                             deferred.reject(error);
-                            redirectoToLogin();
                         });
                 };
 
                 function redirectoToLogin() {
                     var resumeUrl = $location.url();
+                    // TODO: Display message on login page (e.g. You're session has expired. Please log in again to proceed)
                     $state.go('auth.login',
                         {
-                            resumeUrl: resumeUrl
+                            resumeUrl: resumeUrl,
+                            messageKey: 'auth.PleaseLoginToProceed'
                         },
                         {
                             custom: {

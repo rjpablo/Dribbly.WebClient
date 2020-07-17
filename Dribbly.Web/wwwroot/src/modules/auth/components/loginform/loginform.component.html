@@ -1,4 +1,6 @@
 ﻿<form name="dlf.frmLogin" class="drrbly-login-form">
+    <p ng-if="dlf.messageKey"
+       class="text-center">{{::dlf.messageKey | i18n}}</p>
     <div class="form-group">
         <input class="form-control" required ng-model="dlf.loginData.username" name="email" type="text" placeholder="{{'site.Email' | i18n}}" />
     </div>
@@ -6,7 +8,7 @@
         <input class="form-control" required ng-model="dlf.loginData.password" name="password" type="password" placeholder="{{'site.Password' | i18n}}" />
         <a ui-sref="auth.forgotPassword"
            class="btn btn-link p-0"
-           tabindex="-1">{{'auth.ForgotPassword' | i18n}}</a></p>
+           tabindex="-1">{{'auth.ForgotPassword' | i18n}}</a>
     </div>
     <div class="form-group">
         <button type="submit"
