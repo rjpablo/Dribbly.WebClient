@@ -12,19 +12,22 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', '$state', '$stateParams', '$location'];
-    function controllerFunc(authService, $state, $stateParams, $location) {
+    controllerFunc.$inject = ['authService', '$state', '$stateParams', '$location', 'i18nService'];
+    function controllerFunc(authService, $state, $stateParams, $location, i18nService) {
         var dlf = this;
 
         dlf.$onInit = function () {
             dlf.messageKey = $stateParams.messageKey;
+            dlf.isBusy = false;
         };
 
         dlf.login = function () {
-            var resumeUrl = $stateParams.resumeUrl;
+            dlf.isBusy = true;
+            dlf.errorMessage = '';
             dlf.isBusy = true;
             authService.login(dlf.loginData)
                 .then(function () {
+                    var resumeUrl = $stateParams.resumeUrl;
                     dlf.loginData.password = '';
 
                     if (resumeUrl) {
@@ -38,8 +41,10 @@
                     }
                 })
                 .catch(function (err) {
-                    dlf.loginData.password = '';
                     dlf.isBusy = false;
+                    dlf.errorMessage = err && err.error_description;
+                    dlf.errorMessage = dlf.errorMessage || i18nService.getString('site.Error_Common_UnexpectedError');
+                    dlf.loginData.password = '';
                 });
         };
     }
