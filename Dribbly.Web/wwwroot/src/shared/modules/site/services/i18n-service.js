@@ -1,6 +1,8 @@
 ﻿(function () {
     'use strict';
 
+    // If an entry can be used in other apps other than Dribbly (basketball), such as Store, it should go under site.
+
     angular.module('siteModule')
         .service('i18nService', ['$timeout', 'constants', function ($timeout, constants) {
             var _entries = {
@@ -12,6 +14,7 @@
                     Close: 'Close',
                     ConfirmPassword: 'Confirm Password',
                     ConfirmNewPassword: 'Confirm New Password',
+                    Contact: 'Contact',
                     Continue: 'Continue',
                     Courts: 'Courts',
                     CourtDetails: 'Court Details',
@@ -36,6 +39,7 @@
                     Error_Map_PhOnly: 'We\'re very sorry but we currently only support locations' +
                         ' within the Philippines. We\'re currently working to expand our' +
                         ' coverage. We\'ll let you know once were done. Thank you for understanding.',
+                    Follow: 'Follow',
                     From: 'From',
                     Games: 'Games',
                     Home: 'Home',
@@ -43,6 +47,8 @@
                     LogOut: 'Log Out',
                     LogOutConfirmationMsg1: 'Action is not yet over...',
                     LogOutConfirmationMsg2: 'Are you sure you want to log out?',
+                    MobileNo: 'Mobile No.',
+                    MobileNoPlaceholder: '10-digit no. (e.g. \'912 345 6789\')',
                     Name: 'Name',
                     NewPassword: 'New Password',
                     No: 'No',
@@ -64,6 +70,7 @@
                     Update: 'Update',
                     Username: 'Username',
                     UnsavedChangesWarningMessage: 'You may lose you unsaved Changes. Are you sure?',
+                    Verify: 'Verify',
                     Videos: 'Videos',
                     WelcomeToDribblyExclamation: 'Welcome to dribbly!',
                     Yes: 'Yes'
@@ -78,6 +85,7 @@
                     Browse: 'Browse',
                     Change: 'Change',
                     City: 'City',
+                    CourtDetailsMobileNoLabel: 'Mobile no. that users can contact to inquire about this court',
                     ClearFilters: 'Clear Filters',
                     CourtNameContains: 'Court Name Contains',
                     CourtPhotos: 'Court Photos',
@@ -102,6 +110,7 @@
                     FoundCountPhotos: 'Found {count} photos',
                     FoundCountVideos: 'Found {count} videos',
                     FormattedDuration: '{hours} hrs and {minutes} mins',
+                    FreeToPlay: 'Free To Play',
                     GameDetails: 'Game Details',
                     Go: 'Go',
                     Height: 'Height',
@@ -110,6 +119,7 @@
                     KeepPrivate: 'Keep Private',
                     LocationPickFromTheMap: 'Location: (Please select from the map)',
                     Male: 'Male',
+                    ManageThisCourt: 'Manage this court',
                     Message: 'Message',
                     Mvps: 'MVPs',
                     NoAdditionalInfo: '<small class="text-muted">No additional info provided</small>',

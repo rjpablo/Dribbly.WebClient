@@ -11,8 +11,7 @@
                 <small>{{::'site.SlashHour' | i18n}}</small>
             </span>
             <drbbly-rating class="d-block" value="cpm.model.court.rating"></drbbly-rating>
-            <span ng-if="cpm.model.court.isPublic" class="badge badge-success">{{::'app.Public' | i18n}}</span>
-            <span ng-if="!cpm.model.court.isPublic" class="badge badge-primary">{{::'app.Private' | i18n}}</span>
+            <span ng-if="cpm.model.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
         </div>
         <div class="more-details col-12 bg-light py-2">
             <table class="table">

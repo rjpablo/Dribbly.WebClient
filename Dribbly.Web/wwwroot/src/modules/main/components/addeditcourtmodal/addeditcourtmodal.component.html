@@ -25,14 +25,68 @@
                     <input name="txtLongitude" hidden ng-model="aec.tempCourt.longiude" />
                 </lable>
             </div>
-            <div class="form-group">
+            <div class="form-check mb-3">
+                <input type="checkbox"
+                       name="txtPublic"
+                       ng-model="aec.tempCourt.isFreeToPlay"
+                       class="form-check-input" />
+                <lable for="txtRatePerHour"
+                       ng-click="aec.tempCourt.isFreeToPlay = !aec.tempCourt.isFreeToPlay">
+                    {{::'app.FreeToPlay' | i18n}}
+                </lable>
+            </div>
+            <div class="form-group"
+                 ng-if="!aec.tempCourt.isFreeToPlay">
                 <lable for="txtRatePerHour">
                     {{::'app.RatePerHour' | i18n}}
                     <input type="number"
                            name="txtRatePerHour"
+                           ng-disabled="aec.isBusy"
                            ng-model="aec.tempCourt.ratePerHour"
+                           required
                            class="form-control" />
                 </lable>
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox"
+                       name="txtPublic"
+                       ng-model="aec.tempCourt.isManaged"
+                       class="form-check-input" />
+                <lable for="txtRatePerHour"
+                       ng-click="aec.tempCourt.isManaged = !aec.tempCourt.isManaged">
+                    {{::'app.ManageThisCourt' | i18n}}
+                </lable>
+            </div>
+            <div class="form-row"
+                 ng-if="aec.tempCourt.isManaged">
+                <div class="form-group col-12">
+                    <lable for="txtMobileNo">
+                        {{::'app.CourtDetailsMobileNoLabel' | i18n}}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">+63</div>
+                            </div>
+                            <input type="text"
+                                   name="txtMobileNo"
+                                   ng-disabled="aec.isBusy"
+                                   ng-model="aec.tempCourt.mobileNumber"
+                                   ng-pattern="$root.constants.MOBILENO_VALIDATION_REGEX"
+                                   placeholder="{{::'site.MobileNoPlaceholder' | i18n}}"
+                                   required
+                                   class="form-control" />
+                        </div>
+                    </lable>
+                </div>
+                <!-- To be implemented -->
+                <!--<div class="form-group col-auto">
+                    <label>
+                        &nbsp;<br />
+                        <button class="btn btn-secondary"
+                                type="button">
+                            {{::'site.Verify' | i18n}}
+                        </button>
+                    </label>
+                </div>-->
             </div>
             <div class="form-group">
                 <lable for="txtPhoto">

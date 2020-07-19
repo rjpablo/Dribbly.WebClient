@@ -21,6 +21,7 @@
             aec.tempCourt = angular.copy(aec.model.court || {});
 
             if (aec.options.isEdit) {
+                aec.tempCourt.isManaged = Boolean(aec.tempCourt.mobileNumber);
                 if (aec.tempCourt.latitude || aec.tempCourt.longitude) {
                     aec.initialPosition = {
                         latLng: {
@@ -29,6 +30,9 @@
                         }
                     };
                 }
+            }
+            else {
+                aec.tempCourt.isFreeToPlay = true;
             }
 
             aec.context.setOnInterrupt(aec.onInterrupt);
@@ -68,6 +72,9 @@
 
         aec.submit = function () {
             aec.isBusy = true;
+            if (!aec.tempCourt.isManaged) {
+                aec.tempCourt.mobileNumber = null;
+            }
             if (aec.options.isEdit) {
                 editCourt(aec.tempCourt);
             }
