@@ -140,7 +140,8 @@
                             userId: response.data.userId,
                             refreshToken: response.data.refresh_token,
                             useRefreshTokens: _useRefreshTokens,
-                            profilePicture: _temporaryProfilePicture
+                            profilePicture: _temporaryProfilePicture,
+                            permissions: authData.permissions
                         });
 
                         _authentication.isAuthenticated = true;
@@ -148,6 +149,7 @@
                         _authentication.useRefreshTokens = _useRefreshTokens;
                         _authentication.profilePicture = _temporaryProfilePicture;
                         _authentication.userId = response.data.userId;
+                        permissionsService.setPermissions(authData.permissions);
 
                         deferred.resolve(response);
                     }).catch(function (err, status) {
