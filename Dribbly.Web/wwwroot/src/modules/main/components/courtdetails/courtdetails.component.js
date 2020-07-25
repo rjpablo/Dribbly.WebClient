@@ -13,9 +13,9 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', 'drbblyCourtshelperService', 'drbblyFileService', '$stateParams',
+    controllerFunc.$inject = ['authService', 'drbblyCourtshelperService', 'drbblyFileService', '$stateParams', 'i18nService',
         'drbblyOverlayService', 'drbblyCourtsService', 'drbblyFooterService', 'permissionsService', 'modalService'];
-    function controllerFunc(authService, drbblyCourtshelperService, drbblyFileService, $stateParams,
+    function controllerFunc(authService, drbblyCourtshelperService, drbblyFileService, $stateParams, i18nService,
         drbblyOverlayService, drbblyCourtsService, drbblyFooterService, permissionsService, modalService) {
         var dcd = this;
         var _priceComponent;
@@ -74,6 +74,17 @@
                 template: '<drbbly-courtprice court="dcd.court"></dribbly-courtprice>'
             });
         }
+
+        dcd.showContact = function () {
+            if (dcd.court.contact) {
+                var template = i18nService.getString('app.PleaseContactTheFollowingNumberForInquiries',
+                    { number: dcd.court.contact.number });
+                modalService.alert({ bodyTemplate: template });
+            }
+            else {
+                modalService.alert('app.CourtNoContact');
+            }
+        };
 
         dcd.deletePhoto = function (photo, done) {
             modalService.confirm('app.DeletePhotoConfirmationMsg')
