@@ -28,12 +28,16 @@
         };
         // This should kept in sync with the password validation options in ApplicationUserManager.cs in the API
         constants.PASSWORD_VALIDATION_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,14}$/;
+        constants.MOBILENO_VALIDATION_REGEX = /^\d{3}[- ]?\d{3}[- ]?\d{4}$/;
         constants.images = {
             defaultProfilePhotoUrl: 'src/images/default_images/default_profile_photo.jpg'
         };
         constants.coordinates = {
             PHILIPPINES: { lat: 12.8797, lng: 121.7740 },
             MANILA: { lat: 14.5995, lng: 120.9842 }
+        };
+        constants.countryCodes = {
+            ph: '+63'
         };
     }]);
 

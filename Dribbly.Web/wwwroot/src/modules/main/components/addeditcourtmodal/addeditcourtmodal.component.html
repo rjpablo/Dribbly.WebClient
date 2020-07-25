@@ -3,6 +3,7 @@
 </div>
 <div class="modal-body">
     <form name="aec.frmCourtDetails"
+          novalidate
           ng-if="aec.tempCourt">
         <fieldset ng-disabled="aec.isBusy">
             <div class="form-group">
@@ -11,9 +12,14 @@
                     <input type="text"
                            name="txtName"
                            ng-model="aec.tempCourt.name"
+                           ng-class="{'is-invalid': (aec.frmCourtDetails.$submitted || aec.frmCourtDetails.txtName.$touched) &&
+                                     aec.frmCourtDetails.txtName.$invalid}"
                            class="form-control"
                            required
                            max="100" />
+                    <div ng-show="aec.frmCourtDetails.txtName.$error.required" class="invalid-feedback">
+                        {{::'site.Required' | i18n }}
+                    </div>
                 </lable>
             </div>
             <div class="form-group">
@@ -21,8 +27,13 @@
                     {{::'app.LocationPickFromTheMap' | i18n}}
                     <drbbly-locationpicker on-location-selected="aec.locationSelected"
                                            initial-position="aec.initialPosition"></drbbly-locationpicker>
-                    <input name="txtLatitude" hidden ng-model="aec.tempCourt.latitude" />
-                    <input name="txtLongitude" hidden ng-model="aec.tempCourt.longiude" />
+                    <input name="txtLatitude" required hidden ng-model="aec.tempCourt.latitude" />
+                    <input name="txtLongitude" required hidden ng-model="aec.tempCourt.longitude" />
+                    <div class="invalid-feedback"
+                         ng-class="{'d-block': aec.frmCourtDetails.$submitted &&
+                         (aec.frmCourtDetails.txtLatitude.$invalid || aec.frmCourtDetails.txtLongitude.$invalid)}">
+                        {{::'site.Required' | i18n}}
+                    </div>
                 </lable>
             </div>
             <div class="form-check mb-3">
@@ -47,9 +58,11 @@
                            class="form-control" />
                 </lable>
             </div>
-            <div class="form-check mb-3">
+            <div class="form-check"
+                 ng-class="{'mb-3': !aec.tempCourt.isManaged}">
                 <input type="checkbox"
                        name="txtPublic"
+                       ng-change="aec.isManagedChange()"
                        ng-model="aec.tempCourt.isManaged"
                        class="form-check-input" />
                 <lable for="txtRatePerHour"
@@ -59,34 +72,59 @@
             </div>
             <div class="form-row"
                  ng-if="aec.tempCourt.isManaged">
-                <div class="form-group col-12">
+                <div class="form-group col-sm-9">
                     <lable for="txtMobileNo">
                         {{::'app.CourtDetailsMobileNoLabel' | i18n}}
-                        <div class="input-group">
+                        <div ng-if="aec.contactIsVerified">
+                            <h4 class="d-inline-block mr-3">
+                                <small>
+                                    <span class="mr-1">{{aec.fullMobileNumber}}</span>
+                                    <span class="text-success"><i class="fa fa-check-circle"></i></span>
+                                </small>
+                            </h4>
+                            <button ng-show="aec.contactIsVerified"
+                                    class="btn btn-danger btn-sm"
+                                    ng-click="aec.removeContact()"
+                                    type="button">
+                                {{::'site.Remove' | i18n}}
+                            </button>
+                        </div>
+                        <div ng-if="!aec.contactIsVerified"
+                             class="input-group">
                             <div class="input-group-prepend">
-                                <div class="input-group-text">+63</div>
+                                <div class="input-group-text">{{$root.constants.countryCodes.ph}}</div>
                             </div>
                             <input type="text"
                                    name="txtMobileNo"
                                    ng-disabled="aec.isBusy"
-                                   ng-model="aec.tempCourt.mobileNumber"
+                                   ng-model="aec.tenDigitNumber"
+                                   ng-model-options="{ allowInvalid: true }"
+                                   ng-class="{'is-invalid': aec.shouldHighligthMobileNo()}"
+                                   class="mr-2 form-control"
                                    ng-pattern="$root.constants.MOBILENO_VALIDATION_REGEX"
+                                   drbbly-customvalidator
+                                   validators="aec.verifyPhone"
                                    placeholder="{{::'site.MobileNoPlaceholder' | i18n}}"
-                                   required
-                                   class="form-control" />
+                                   required />
+                            <button ng-show="aec.frmCourtDetails.txtMobileNo.$error.verifyPhone"
+                                    class="btn btn-secondary"
+                                    ng-click="aec.verify()"
+                                    ng-disabled="aec.isBusy || !aec.frmCourtDetails.txtMobileNo.$error.verifyPhone"
+                                    type="button">
+                                {{::'site.Verify' | i18n}}
+                            </button>
+                            <div class="invalid-feedback" ng-show="aec.frmCourtDetails.$submitted && aec.frmCourtDetails.txtMobileNo.$error.verifyPhone">
+                                {{::'site.Error_PhoneVerification_NumberNeedsVerification' | i18n}}
+                            </div>
+                            <div ng-show="aec.frmCourtDetails.txtMobileNo.$error.required" class="invalid-feedback">
+                                {{::'site.Required' | i18n }}
+                            </div>
+                            <div ng-show="aec.frmCourtDetails.txtMobileNo.$error.pattern" class="invalid-feedback">
+                                {{::'site.Error_Common_InvalidMobileNo_TenDigit' | i18n }}
+                            </div>
                         </div>
                     </lable>
                 </div>
-                <!-- To be implemented -->
-                <!--<div class="form-group col-auto">
-                    <label>
-                        &nbsp;<br />
-                        <button class="btn btn-secondary"
-                                type="button">
-                            {{::'site.Verify' | i18n}}
-                        </button>
-                    </label>
-                </div>-->
             </div>
             <div class="form-group">
                 <lable for="txtPhoto">
@@ -98,13 +136,20 @@
             </div>
         </fieldset>
     </form>
+    <div ng-class="{'d-block': aec.frmCourtDetails.$invalid && aec.frmCourtDetails.$submitted}"
+         class="invalid-feedback mb-0 mt-3">
+        {{::'site.Error_Common_PleaseFixErrors' | i18n}}
+    </div>
 </div>
 <div class="modal-footer">
-    <button i18n="{{::'site.Submit'}}"
-            class="btn btn-primary"
-            ng-disabled="aec.isBusy || aec.frmCourtDetails.$invalid || aec.frmCourtDetails.$prestine"
-            type="button"
-            ng-click="aec.submit()"></button>
+    <button class="btn btn-primary"
+            ng-disabled="aec.isBusy"
+            type="submit"
+            ng-click="aec.submit()"
+            ng-switch="aec.isBusy">
+        <span ng-switch-default>{{::'site.Submit'| i18n}}</span>
+        <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+    </button>
     <button i18n="{{::'site.Cancel'}}"
             class="btn btn-warning"
             type="button"
