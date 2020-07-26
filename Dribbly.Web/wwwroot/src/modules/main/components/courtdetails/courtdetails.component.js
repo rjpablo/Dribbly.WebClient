@@ -86,6 +86,25 @@
             }
         };
 
+        dcd.follow = function () {
+            dcd.isBusy = true;
+            drbblyCourtsService.followCourt(dcd.court.id, !dcd.court.isFollowed)
+                .then(function (result) {
+                    dcd.isBusy = false;
+                    if (result.isSuccessful) {
+                        dcd.court.isFollowed = !dcd.court.isFollowed;
+                        dcd.court.followerCount = result.newFollowerCount;
+                    }
+                    else {
+                        //TODO show error
+                        console.log('Failed to save court following');
+                    }
+                }, function (error) {
+                    dcd.isBusy = false;
+                    console.log('FollowCourt Failed', error);
+                });
+        };
+
         dcd.deletePhoto = function (photo, done) {
             modalService.confirm('app.DeletePhotoConfirmationMsg')
                 .then(function (result) {

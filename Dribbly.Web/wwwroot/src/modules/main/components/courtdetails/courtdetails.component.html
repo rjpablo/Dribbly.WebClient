@@ -34,12 +34,17 @@
                 <div>
                     <drbbly-rating class="d-block" value="dcd.court.isFreeToPlay"></drbbly-rating>
                     <span ng-if="dcd.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
-                    <span class="text-muted">2.1k likes</span>
+                    <span class="text-muted">{{'site.FollowerCountDisplay' | i18n:{count: dcd.court.followerCount} }}</span>
                 </div>
             </div>
             <div class="col-12 col-md-6 mb-3 text-center">
-                <button class="btn btn-primary" type="button">
-                    <span>+ {{::'site.Follow' | i18n}}</span>
+                <button class="btn btn-primary"
+                        type="button"
+                        ng-disabled="dcd.isBusy"
+                        ng-click="dcd.follow()"
+                        ng-switch="dcd.court.isFollowed">
+                    <span ng-switch-when="true">{{::'site.Unfollow' | i18n}}</span>
+                    <span ng-switch-default>+ {{::'site.Follow' | i18n}}</span>
                 </button>
                 <button ng-click="dcd.showContact()"
                         class="btn btn-secondary"
@@ -93,9 +98,9 @@
                     <dd class="col-11">
                         <div ng-bind-html="dcd.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
                         <button ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
-                        ng-click="dcd.edit()"
-                        class="btn btn-secondary float-right">
-                        <span class="fa fa-pencil" aria-hidden="true"></span>
+                                ng-click="dcd.edit()"
+                                class="btn btn-secondary float-right">
+                            <span class="fa fa-pencil" aria-hidden="true"></span>
                         </button>
                     </dd>
                 </dl>

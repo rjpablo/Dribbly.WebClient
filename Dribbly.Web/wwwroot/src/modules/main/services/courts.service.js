@@ -26,6 +26,10 @@
                     return drbblyhttpService.get(api + 'getCourtGames/' + id);
                 }
 
+                function followCourt(courtId, isFollowing) {
+                    return drbblyhttpService.post(api + 'followCourt/' + courtId + '/' + isFollowing);
+                }
+
                 function register(courtDetails) {
                     return drbblyhttpService.post(api + 'register', courtDetails);
                 }
@@ -69,6 +73,7 @@
                     deleteCourtVideo: deleteCourtVideo,
                     deletePhoto: deletePhoto,
                     FindCourts: FindCourts,
+                    followCourt: followCourt,
                     getAllCourts: getAllCourts,
                     getCourt: getCourt,
                     getCourtGames: getCourtGames,
