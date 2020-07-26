@@ -40,7 +40,7 @@
             drbblyToolbarService.setItems([
                 {
                     iconClass: 'fa fa-plus',
-                    action: addCourt
+                    action: dcc.addCourt
                 }, buildItem('fa fa-search', toggleSearch)
             ]);
         }
@@ -55,7 +55,7 @@
                 .catch(function () { /*do nothing*/ });
         };
 
-        function addCourt() {
+        dcc.addCourt = function() {
             drbblyCourtshelperService.registerCourt()
                 .then(function (court) {
                     if (court) {

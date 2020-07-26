@@ -3,7 +3,13 @@
         <section class="search-section row">
             <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 mx-auto">
                 <div class="row no-gutters p-3 search-box">
-                    <h4 class="text-dark col-12">{{::'app.FindACourt' | i18n}}</h4>
+                    <div class="col-12 d-flex justify-content-between">
+                        <h4 class="text-dark m-0">{{::'app.FindACourt' | i18n}}</h4>
+                        <button class="btn btn-link"
+                                ng-click="dcc.addCourt()">
+                            <span class="fa fa-plus"></span>&nbsp;{{::'app.AddACourt' | i18n}}
+                        </button>
+                    </div>
                     <input type="text"
                            ng-click="dcc.beginSearch()"
                            readonly="readonly"

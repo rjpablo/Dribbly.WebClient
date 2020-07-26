@@ -90,6 +90,7 @@
                 },
                 app: {
                     AccountVideos: 'Account Videos',
+                    AddACourt: 'Add a court',
                     AdditionalInfo: 'Additional Info',
                     Address: 'Address',
                     Age: 'Age',
