@@ -113,9 +113,10 @@
         dad.onPrimaryPhotoSelect = function (file) {
             if (!file) { return; }
             drbblyFileService.upload(file, 'api/account/uploadPrimaryPhoto/' + dad.account.id)
-                .then(function (newProfilePhoto) {
-                    if (newProfilePhoto) {
-                        dad.account.profilePhoto = newProfilePhoto;
+                .then(function (result) {
+                    if (result && result.data) {
+                        dad.account.profilePhoto = result.data;
+                        dad.account.profilePhotoId = result.data.id;
                         dad.onUpdate();
                     }
                 })

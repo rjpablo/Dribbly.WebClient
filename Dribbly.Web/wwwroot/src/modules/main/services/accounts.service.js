@@ -48,11 +48,10 @@
 
                 function addAccountPhotos(files, accountId) {
                     var deferred = $q.defer();
-                    drbblyFileService.upload(files, 'api/accounts/addAccountPhotos/' + accountId)
+                    drbblyFileService.upload(files, api + 'addAccountPhotos/' + accountId)
                         .then(function (result) {
                             deferred.resolve(result.data);
-                        })
-                        .catch(function (error) {
+                        }, function (error) {
                             deferred.reject(error);
                         });
 

@@ -52,6 +52,11 @@
                     }
                 },
                 {
+                    textKey: 'app.Photos',
+                    targetStateName: 'main.account.photos',
+                    targetStateParams: { username: _username }
+                },
+                {
                     textKey: 'site.Videos',
                     targetStateName: 'main.account.videos',
                     targetStateParams: { username: _username }

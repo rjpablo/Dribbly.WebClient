@@ -74,6 +74,14 @@
                 }
             })
 
+            .state('main.account.photos', {
+                url: '/photos',
+                component: 'drbblyAccountphotos',
+                resolve: {
+                    $titleKey: () => { return 'app.Photos'; }
+                }
+            })
+
             .state('main.account.videos', {
                 url: '/videos',
                 component: 'drbblyAccountvideos',
