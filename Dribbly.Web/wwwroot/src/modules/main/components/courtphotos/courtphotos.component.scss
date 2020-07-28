@@ -4,10 +4,6 @@
 
 drbbly-courtphotos {
 
-    .toolbar {
-        padding: 1rem 0.5rem 0;
-    }
-
     @include media-breakpoint-down(xl) {
         drbbly-image,
         .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
