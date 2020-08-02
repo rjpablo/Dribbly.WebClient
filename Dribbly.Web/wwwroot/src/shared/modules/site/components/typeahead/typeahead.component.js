@@ -17,15 +17,20 @@
         var dta = this;
 
         dta.$onInit = function () {
-            console.log(dta.ngModel);
-
             $element.on('click', function () {
                 angular.element($element).find('input.typeahead-text-input')[0].focus();
             });
         };
 
         dta._getItems = function (keyword) {
-            return dta.config.onGetSuggestions(keyword);
+            dta.isShowingStatus = true;
+            return dta.config.onGetSuggestions(keyword)
+                .then(function (suggestions) {
+                    if (suggestions && suggestions.length) {
+                        dta.isShowingStatus = false;
+                    }
+                    return suggestions;
+                });
         };
 
         dta._onSelect = function (item, model, label, event) {

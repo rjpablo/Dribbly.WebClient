@@ -34,6 +34,10 @@
                     return drbblyhttpService.get(api + 'getAccountVideos/' + accountId);
                 }
 
+                function getAccountDropDownSuggestions(input) {
+                    return drbblyhttpService.post(api + 'getAccountDropDownSuggestions', input);
+                }
+
                 function register(accountDetails) {
                     return drbblyhttpService.post(api + 'register', accountDetails);
                 }
@@ -69,6 +73,7 @@
                     getAllAccounts: getAllAccounts,
                     getAccount: getAccount,
                     getAccountByUsername: getAccountByUsername,
+                    getAccountDropDownSuggestions: getAccountDropDownSuggestions,
                     getAccountGames: getAccountGames,
                     getAccountPhotos: getAccountPhotos,
                     getAccountSettings: getAccountSettings,

@@ -149,9 +149,18 @@
             };
             game = Object.assign(game, args.extendedProps);
 
-            drbblyCourtshelperService.openBookGameModal(game)
+            drbblyCourtshelperService.openBookGameModal(game, { isEdit: true })
                 .then(function (result) {
-                    console.log(result);
+                    if (result) {
+                        var event = cal.calendar.getEventById(args.event.id);
+                        event.setStart(result.start);
+                        event.setEnd(result.end);
+                        event.setProp('title', result.title);
+                        _focusedEventId = result.id;
+                        if (!getIsDateRendered(new Date(result.start))) {
+                            cal.calendar.gotoDate(result.start);
+                        }
+                    }
                 })
                 .catch(function (error) {
 

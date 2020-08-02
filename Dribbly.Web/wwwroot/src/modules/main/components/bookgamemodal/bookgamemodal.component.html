@@ -7,7 +7,7 @@
           ng-if="bgm.saveModel">
         <fieldset ng-disabled="bgm.isBusy">
             <div class="form-group border-bottom pb-3">
-                <label for="txtName">{{::'app.Title' | i18n}}*:</label>                
+                <label for="txtName">{{::'app.Title' | i18n}}*:</label>
                 <input type="text"
                        name="txtName"
                        ng-model="bgm.saveModel.title"
@@ -64,8 +64,8 @@
                                        required
                                        options="bgm.startDateOptions"></drbbly-datetimepicker>
                 <!-- This is a remedy for the error message to display properly.
-                    It requires a sibling with classes .is-invalid and .form-control for it to appear,
-                    but adding those classes to the datetime picker does not yield a very good result-->
+        It requires a sibling with classes .is-invalid and .form-control for it to appear,
+        but adding those classes to the datetime picker does not yield a very good result-->
                 <span class="form-control d-none"
                       ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
                 <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">
@@ -84,15 +84,15 @@
                                        required
                                        options="bgm.endDateOptions"></drbbly-datetimepicker>
                 <!-- This is a remedy for the error message to display properly.
-                It requires a sibling with classes .is-invalid and .form-control for it to appear,
-                but adding those classes to the datetime picker does not yield a very good result-->
+        It requires a sibling with classes .is-invalid and .form-control for it to appear,
+        but adding those classes to the datetime picker does not yield a very good result-->
                 <span class="form-control d-none"
                       ng-class="{'is-invalid': bgm.frmGameDetails.dtpEnd.$touched && bgm.frmGameDetails.dtpEnd.$invalid}"></span>
                 <div ng-show="bgm.frmGameDetails.dtpEnd.$error.required" class="invalid-feedback">
                     {{::'site.Required' | i18n}}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group border-bottom pb-3">
                 <label for="end">{{::'app.Schedule' | i18n}}:</label>
                 <table class="ml-3"
                        ng-show="bgm.saveModel.start">
@@ -106,6 +106,13 @@
                     </tr>
                 </table>
                 <span class="ml-3 d-block" ng-show="!bgm.saveModel.start">--</span>
+            </div>
+            <div class="form-group">
+                <label for="txtName">{{::'app.BookedBy' | i18n}}:</label>
+                <drbbly-typeahead type="text"
+                                  selected-items="bgm.bookedBy"
+                                  config="bgm.bookedByConfig"
+                                  class="form-control" />
             </div>
         </fieldset>
     </form>

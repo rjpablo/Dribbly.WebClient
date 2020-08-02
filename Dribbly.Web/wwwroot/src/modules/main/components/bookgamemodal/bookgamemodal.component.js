@@ -14,23 +14,49 @@
         });
 
     controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyGamesService', 'drbblyCommonService',
-        'drbblyDatetimeService'];
+        'drbblyDatetimeService', 'drbblyAccountsService'];
     function controllerFn($scope, modalService, drbblyEventsService, drbblyGamesService, drbblyCommonService,
-        drbblyDatetimeService) {
+        drbblyDatetimeService, drbblyAccountsService) {
         var bgm = this;
 
         bgm.$onInit = function () {
-            bgm.saveModel = angular.copy(bgm.model.game || {});
             bgm.minDuration = 30;
-            bgm.saveModel.durationMinutes = getDuration();
-            if (!bgm.saveModel.start) {
-                bgm.saveModel.start = new Date();
-                bgm.saveModel.start.setHours(0, 0, 0, 0);
-            }
-            bgm.saveModel.end = getEndDate();
+            setTypeAheadConfig();
 
-            setStartDateOptions();
-            setEndDateOptions();
+            if (bgm.options.isEdit) {
+                bgm.isBusy = true;
+                drbblyGamesService.getGame(bgm.model.game.id)
+                    .then(function (game) {
+                        bgm.isBusy = false;
+
+                        game.start = new Date(drbblyDatetimeService.toUtcString(game.start));
+                        game.end = new Date(drbblyDatetimeService.toUtcString(game.end));
+                        game.dateAdded = new Date(drbblyDatetimeService.toUtcString(game.dateAdded));
+
+                        bgm.saveModel = angular.copy(game || {});
+                        bgm.saveModel.durationMinutes = getDuration();
+                        bgm.bookedBy = bgm.saveModel.bookedBy ? [bgm.saveModel.bookedBy] : [];
+
+                        setStartDateOptions();
+                        setEndDateOptions();
+
+                    })
+                    .catch(function (error) {
+                        bgm.isBusy = false;
+                    });
+            }
+            else {
+                bgm.saveModel = angular.copy(bgm.model.game || {});
+                bgm.saveModel.durationMinutes = getDuration();
+                if (!bgm.saveModel.start) {
+                    bgm.saveModel.start = new Date();
+                    bgm.saveModel.start.setHours(0, 0, 0, 0);
+                }
+                bgm.saveModel.end = getEndDate();
+
+                setStartDateOptions();
+                setEndDateOptions();
+            }
 
             bgm.context.setOnInterrupt(bgm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
@@ -40,6 +66,29 @@
                 }
             }, $scope);
         };
+
+        function setTypeAheadConfig() {
+            bgm.bookedByConfig = {
+                onGetSuggestions: getSuggestedUsers,
+                onSelect: bookedBySelected,
+                onUnselect: bookedByRemoved
+            };
+        }
+
+        function getSuggestedUsers(keyword) {
+            return drbblyAccountsService.getAccountDropDownSuggestions({
+                nameSegment: keyword,
+                excludeIds: []
+            });
+        }
+
+        function bookedBySelected(item, selectedItems, event) {
+            bgm.frmGameDetails.$setDirty();
+        }
+
+        function bookedByRemoved() {
+            bgm.frmGameDetails.$setDirty();
+        }
 
         bgm.dateOpened = false;
 
@@ -127,13 +176,26 @@
             if (bgm.frmGameDetails.$valid) {
                 bgm.saveModel.start = bgm.saveModel.start.toISOString();
                 bgm.saveModel.end = bgm.saveModel.end.toISOString();
-                drbblyGamesService.bookGame(bgm.saveModel)
-                    .then(function (result) {
-                        close(result);
-                    })
-                    .catch(function (error) {
-                        drbblyCommonService.handleError(error);
-                    });
+                bgm.saveModel.bookedById = bgm.bookedBy && bgm.bookedBy.length ? bgm.bookedBy[0].value : null;
+
+                if (bgm.options.isEdit) {
+                    drbblyGamesService.updateGame(bgm.saveModel)
+                        .then(function () {
+                            close(bgm.saveModel);
+                        })
+                        .catch(function (error) {
+                            drbblyCommonService.handleError(error);
+                        });
+                }
+                else {
+                    drbblyGamesService.bookGame(bgm.saveModel)
+                        .then(function (result) {
+                            close(result);
+                        })
+                        .catch(function (error) {
+                            drbblyCommonService.handleError(error);
+                        });
+                }
             }
         };
 
