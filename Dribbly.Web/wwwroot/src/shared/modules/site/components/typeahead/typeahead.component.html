@@ -1,0 +1,38 @@
+﻿<div class="seleted-items text-nowrap">
+    <div ng-repeat="item in dta.selectedItems"
+         class="bg-white rounded-left rounded-right selected-item">
+        <div class="d-flex align-items-center">
+            <img src="{{item.iconUrl}}"
+                 class="suggestion-icon mx-1" />
+            {{item.text}}
+            <button class="btn px-1 py-0"
+                    tabindex="-1"
+                    ng-click="dta.unselect(item)">
+                <i class="fa fa-times-circle"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<input type="text"
+       class="typeahead-text-input"
+       ng-class="{'w-100': !dta.selectedItems.length}"
+       ng-hide="!dta.config.isMultiple && dta.selectedItems.length > 0"
+       ng-model="dta.ngModel"
+       placeholder="{{::'app.StartTypingToLoadSuggestions' | i18n}}"
+       uib-typeahead="item.text for item in dta._getItems($viewValue)"
+       typeahead-editable="false"
+       typeahead-focus-first="true"
+       typeahead-wait-ms="300"
+       typeahead-on-select="dta._onSelect($item, $model, $label, $event)"
+       typeahead-loading="dta._loading"
+       typeahead-no-results="dta._noResults"
+       typeahead-template-url="{{'dribbly-typeahead-match.html'}}">
+<script type="text/ng-template" id="dribbly-typeahead-match.html">
+    <button tabindex="-1"
+            type="button"
+            class="dropdown-item">
+        <img src="{{match.model.iconUrl}}" 
+             class="suggestion-icon"/>
+        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+    </button>
+</script>
