@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('siteModule')
-        .filter('sex', ['i18nService',
+        .filter('gender', ['i18nService',
             function (i18nService) {
-                var sexFilter = function (input) {
+                return function (input) {
                     var key;
                     if (input === 0) {
                         key = 'app.Male';
@@ -18,8 +18,6 @@
 
                     return i18nService.getString(key);
                 };
-
-                return sexFilter;
             }
         ]);
 })();
