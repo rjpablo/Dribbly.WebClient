@@ -35,7 +35,7 @@
                     <div>
                         <drbbly-rating class="d-block" value="dcd.court.isFreeToPlay"></drbbly-rating>
                         <span ng-if="dcd.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
-                        <span class="text-muted">{{'site.FollowerCountDisplay' | i18n:{count: dcd.court.followerCount} }}</span>
+                        <span class="text-muted">{{'site.FollowerCountDisplay' | i18n:{count: (dcd.court.followerCount | drbblyNumber)} }}</span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 mb-3 text-center">

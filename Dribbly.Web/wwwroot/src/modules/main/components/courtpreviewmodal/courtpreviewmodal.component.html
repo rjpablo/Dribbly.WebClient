@@ -12,6 +12,7 @@
             </span>
             <drbbly-rating class="d-block" value="cpm.model.court.rating"></drbbly-rating>
             <span ng-if="cpm.model.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
+            <span class="text-muted">{{'site.FollowerCountDisplay' | i18n:{count: (cpm.model.court.followerCount | drbblyNumber)} }}</span>
         </div>
         <div class="more-details col-12 bg-light py-2">
             <table class="table">

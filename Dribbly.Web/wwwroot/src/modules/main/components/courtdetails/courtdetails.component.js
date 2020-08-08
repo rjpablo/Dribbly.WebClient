@@ -96,6 +96,7 @@
                         dcd.court.followerCount = result.newFollowerCount;
                     }
                     else {
+                        dcd.court.isFollowed = result.isAlreadyFollowing;
                         //TODO show error
                         console.log('Failed to save court following');
                     }
