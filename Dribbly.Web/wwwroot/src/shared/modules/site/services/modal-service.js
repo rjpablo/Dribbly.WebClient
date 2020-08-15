@@ -132,19 +132,34 @@
                     }
                 }
 
-                function confirm(msg1Key, msg2Key, titleKey, buttonsPreset) {
-                    return _show({
-                        view: '<drbbly-alertmodal></drbbly-alertmodal>',
-                        model: {
-                            msg1Key: msg1Key,
-                            msg2Key: msg2Key,
-                            titleKey: titleKey,
-                            options: {
-                                buttonsPreset: buttonsPreset || 'YesNo'
-                            }
-                        },
-                        backdrop: 'static'
-                    });
+                function confirm(msg1Key, msg2Key, titleKey, buttonsPreset, msg1Raw, msg2Raw, titleRaw) {
+                    if (angular.isObject(msg1Key)) {
+                        msg1Key.options = {
+                            buttonsPreset: buttonsPreset || 'YesNo'
+                        };
+                        return _show({
+                            view: '<drbbly-alertmodal></drbbly-alertmodal>',
+                            model: msg1Key,
+                            backdrop: 'static'
+                        });
+                    }
+                    else {
+                        return _show({
+                            view: '<drbbly-alertmodal></drbbly-alertmodal>',
+                            model: {
+                                msg1Key: msg1Key,
+                                msg2Key: msg2Key,
+                                titleKey: titleKey,
+                                msg1Raw: msg1Raw,
+                                msg2Raw: msg2Raw,
+                                titleRaw: titleRaw,
+                                options: {
+                                    buttonsPreset: buttonsPreset || 'YesNo'
+                                }
+                            },
+                            backdrop: 'static'
+                        });
+                    }
                 }
 
                 function showGenericErrorModal() {

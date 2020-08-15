@@ -39,6 +39,13 @@
         constants.countryCodes = {
             ph: '+63'
         };
+        constants.enums = {
+            accountStatus: {
+                Active: 0,
+                Inactive: 1,
+                Deleted: 2
+            }
+        };
     }]);
 
     module.run(['authService', '$transitions', '$rootScope', 'drbblyToolbarService', 'constants', '$filter', runFn]);

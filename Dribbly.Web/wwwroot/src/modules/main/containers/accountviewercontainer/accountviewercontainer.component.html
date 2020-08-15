@@ -7,6 +7,16 @@
         </div>
     </div>
 </div>
+
+<div class="container"
+     ng-if="avc.account && avc.account.status !== $root.constants.enums.accountStatus.Active">
+    <div class="card">
+        <div class="card-body text-center">
+            {{::'app.ContentNotCurrentlyAvailable' | i18n}}
+        </div>
+    </div>
+</div>
+
 <ui-view account="avc.account"
-         ng-if="avc.account"
+         ng-if="avc.account && avc.account.status === $root.constants.enums.accountStatus.Active"
          on-update="avc.onAccountUpdate"></ui-view>

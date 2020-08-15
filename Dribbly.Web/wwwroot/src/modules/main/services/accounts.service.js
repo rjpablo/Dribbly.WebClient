@@ -66,6 +66,10 @@
                     return drbblyFileService.upload(file, api + 'addAccountVideo/' + accountId, video);
                 }
 
+                function setStatus(accountId, status) {
+                    return drbblyhttpService.post(api + 'setStatus/' + accountId + '/' + status);
+                }
+
                 var _service = {
                     addAccountPhotos: addAccountPhotos,
                     addAccountVideo: addAccountVideo,
@@ -79,6 +83,7 @@
                     getAccountSettings: getAccountSettings,
                     getAccountVideos: getAccountVideos,
                     register: register,
+                    setStatus: setStatus,
                     updateAccount: updateAccount
                 };
 

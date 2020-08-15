@@ -13,10 +13,10 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['i18nService', 'authService', '$stateParams',
-        'drbblyOverlayService', 'drbblyAccountsService', 'drbblyToastService'];
-    function controllerFunc(i18nService, authService, $stateParams,
-        drbblyOverlayService, drbblyAccountsService, drbblyToastService) {
+    controllerFunc.$inject = ['i18nService', 'authService', '$stateParams', 'modalService', '$state',
+        'drbblyOverlayService', 'drbblyAccountsService', 'drbblyToastService', 'constants'];
+    function controllerFunc(i18nService, authService, $stateParams, modalService, $state,
+        drbblyOverlayService, drbblyAccountsService, drbblyToastService, constants) {
         var das = this;
 
         das.$onInit = function () {
@@ -42,6 +42,57 @@
                     }
                 })
                 .catch(function () { /*cancelled*/ });
+        };
+
+        das.deactivate = function () {
+            modalService.confirm({ msg2Key: 'site.DeactivateAccountPrompt' })
+                .then(function (result) {
+                    if (result) {
+                        das.isBusy = true;
+                        drbblyAccountsService.setStatus(das.account.id, constants.enums.accountStatus.Inactive)
+                            .then(function () {
+                                authService.logOut();
+                                $state.go('main.home', { reload: true })
+                                    .finally(function () {
+                                        $window.location.reload();
+                                    });
+                            })
+                            .finally(function () {
+                                das.isBusy = false;
+                            });
+                    }
+                });
+        };
+
+        das.reactivate = function () {
+            das.isBusy = true;
+            drbblyAccountsService.setStatus(das.account.id, constants.enums.accountStatus.Active)
+                .then(function () {
+                    das.onUpdate();
+                })
+                .finally(function () {
+                    das.isBusy = false;
+                });
+        };
+
+        das.deleteAccount = function () {
+            modalService.confirm({ msg2Key: 'site.DeleteAccountPrompt' })
+                .then(function (result) {
+                    if (result) {
+                        das.isBusy = true;
+                        drbblyAccountsService.setStatus(das.account.id, constants.enums.accountStatus.Deleted)
+                            .then(function () {
+                                authService.logOut();
+                                $state.go('main.home', { reload: true })
+                                    .finally(function () {
+                                        $window.location.reload();
+                                    });
+                            })
+                            .finally(function () {
+                                das.isBusy = false;
+                            });
+                    }
+                });
         };
     }
 })();

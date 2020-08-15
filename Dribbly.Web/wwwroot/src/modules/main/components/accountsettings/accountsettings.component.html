@@ -21,7 +21,9 @@
                             <div class="col-12 col-sm-9">
                                 <button ng-click="das.changePassword()"
                                         class="btn btn-link p-0"
-                                        tabindex="-1">{{::'app.Change' | i18n}}</button>
+                                        tabindex="-1">
+                                    {{::'app.Change' | i18n}}
+                                </button>
                             </div>
                         </div>
                     </li>
@@ -61,6 +63,32 @@
                         </div>
                     </li>
                 </ul>
+            </section>
+        </div>
+        <div class="row">
+            <section class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6">
+                <button type="button"
+                        class="btn btn-secondary d-none"
+                        ng-disabled="das.isBusy"
+                        ng-class="{'d-inline-block': das.account.status === $root.constants.enums.accountStatus.Active}"
+                        ng-click="das.deactivate()">
+                    {{::'site.DeactivateAccount' | i18n}}
+                </button>
+                <button type="button"
+                        class="btn btn-secondary d-none"
+                        ng-class="{'d-inline-block': das.account.status === $root.constants.enums.accountStatus.Inactive ||
+                                   das.account.status === $root.constants.enums.accountStatus.Deleted}"
+                        ng-disabled="das.isBusy"
+                        ng-click="das.reactivate()">
+                    {{::'site.ReactivateAccount' | i18n}}
+                </button>
+                <button type="button"
+                        class="btn btn-danger d-none"
+                        ng-class="{'d-inline-block': das.account.status !== $root.constants.enums.accountStatus.Deleted}"
+                        ng-disabled="das.isBusy"
+                        ng-click="das.deleteAccount()">
+                    {{::'site.DeleteAccount' | i18n}}
+                </button>
             </section>
         </div>
     </div>
