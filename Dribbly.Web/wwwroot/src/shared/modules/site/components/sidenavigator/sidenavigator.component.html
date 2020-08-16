@@ -3,7 +3,7 @@
     <div class="header px-3 py-2">
         <drbbly-profilepicture ng-show="dsn.user" class="float-left d-inline mr-2" user="dsn.user"></drbbly-profilepicture>
         <div class="d-inline-block">
-            <a class="d-block username" ui-sref="dsn.user.userId">
+            <a class="d-block username" ui-sref="main.account.details({username: dsn.user.username})">
                 <strong>{{dsn.user.username}}</strong>
             </a>
             <small ng-if="dsn.isAuthenticated()" ng-click="dsn.logOut()">{{'site.LogOut' | i18n}}</small>
