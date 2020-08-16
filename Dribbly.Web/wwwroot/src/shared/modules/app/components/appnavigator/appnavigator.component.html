@@ -1,6 +1,6 @@
 ﻿<nav class="bg-dark py-2">
     <ul class="nav">
-        <li class="nav-item" ng-repeat="item in dan.navItems">
+        <li class="nav-item" ng-repeat="item in dan.navItems | filter : { isRemoved: '!true' } ">
             <a class="nav-link" ng-class="{'active': item.isActive}" ng-href="{{dan.getHref(item)}}">
                 <span ng-click="dan.itemClicked(item, $event)">{{::item.textKey | i18n}}</span>
             </a>

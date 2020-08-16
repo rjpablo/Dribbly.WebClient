@@ -12,24 +12,27 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyAccountsService', 'drbblyOverlayService', '$stateParams', '$state', '$timeout'];
-    function controllerFunc(drbblyAccountsService, drbblyOverlayService, $stateParams, $state, $timeout) {
+    controllerFunc.$inject = ['drbblyAccountsService', 'authService', '$stateParams', '$state', 'permissionsService'];
+    function controllerFunc(drbblyAccountsService, authService, $stateParams, $state, permissionsService) {
         var avc = this;
         var _username;
 
         avc.$onInit = function () {
             _username = $stateParams.username;
             loadAccount();
-            buildSubPages();
         };
 
         function loadAccount() {
             drbblyAccountsService.getAccountByUsername(_username)
                 .then(function (data) {
                     avc.account = data;
+                    avc.isOwned = authService.isCurrentUserId(avc.account.identityUserId);
+                    avc.shouldDisplayAsPublic = avc.account.isPublic || avc.isOwned ||
+                        permissionsService.hasPermission('Account.UpdateNotOwned');
                     avc.app.mainDataLoaded();
-                })
-                .catch(function (error) {
+                    buildSubPages();
+                }, function (error) {
+
                 });
         }
 
@@ -67,7 +70,8 @@
                     targetStateParams: { username: _username },
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);
-                    }
+                    },
+                    isRemoved: !(avc.isOwned || permissionsService.hasPermission('Account.UpdateNotOwned'))
                 }
             ]);
         }

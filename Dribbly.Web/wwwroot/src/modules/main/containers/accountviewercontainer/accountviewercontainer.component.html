@@ -17,6 +17,16 @@
     </div>
 </div>
 
-<ui-view account="avc.account"
-         ng-if="avc.account && avc.account.status === $root.constants.enums.accountStatus.Active"
-         on-update="avc.onAccountUpdate"></ui-view>
+<div ng-if="avc.account && avc.account.status === $root.constants.enums.accountStatus.Active">
+    <ui-view account="avc.account"
+             on-update="avc.onAccountUpdate"
+             ng-if="avc.shouldDisplayAsPublic"></ui-view>
+    <div class="container"
+         ng-if="!avc.shouldDisplayAsPublic">
+        <div class="card">
+            <div class="card-body text-center">
+                {{::'app.ThisAccountIsPrivate' | i18n}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -169,6 +169,7 @@
                     SortBy: 'Sort by',
                     Start: 'Start',
                     StartTypingToLoadSuggestions: 'Start typing to load suggestions',
+                    ThisAccountIsPrivate: 'This account is private.',
                     Title: 'Title',
                     Today: 'Today',
                     Unspecified: 'Unspecified',

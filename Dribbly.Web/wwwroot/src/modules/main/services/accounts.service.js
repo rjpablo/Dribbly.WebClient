@@ -70,6 +70,10 @@
                     return drbblyhttpService.post(api + 'setStatus/' + accountId + '/' + status);
                 }
 
+                function setIsPublic(userId, isPublic) {
+                    return drbblyhttpService.post(api + 'setIsPublic/' + userId + '/' + isPublic);
+                }
+
                 var _service = {
                     addAccountPhotos: addAccountPhotos,
                     addAccountVideo: addAccountVideo,
@@ -83,6 +87,7 @@
                     getAccountSettings: getAccountSettings,
                     getAccountVideos: getAccountVideos,
                     register: register,
+                    setIsPublic: setIsPublic,
                     setStatus: setStatus,
                     updateAccount: updateAccount
                 };

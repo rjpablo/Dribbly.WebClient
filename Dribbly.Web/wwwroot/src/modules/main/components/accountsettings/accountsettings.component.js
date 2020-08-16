@@ -25,12 +25,14 @@
             das.overlay.setToBusy();
 
             drbblyAccountsService.getAccountSettings(das.account.identityUserId)
-                .then(loadData)
-                .catch(das.overlay.setToError);
+                .then(loadData, function (err) {
+                    das.overlay.setToError();
+                });
         };
 
         function loadData(data) {
             das.accountSettings = data;
+            das.isPrivate = !data.isPublic;
             das.overlay.setToReady();
         }
 
@@ -42,6 +44,18 @@
                     }
                 })
                 .catch(function () { /*cancelled*/ });
+        };
+
+        das.handleIsPublicChanged = function () {
+            das.isBusy = true;
+            drbblyAccountsService.setIsPublic(das.account.identityUserId, !das.isPrivate)
+                .then(function () {
+                    das.onUpdate();
+                }, function () {
+                    // flip back if it fails
+                    das.isPrivate = !das.isPrivate;
+                })
+                .finally(function () { das.isBusy = false; });
         };
 
         das.deactivate = function () {

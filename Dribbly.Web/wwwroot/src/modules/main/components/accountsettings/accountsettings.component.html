@@ -41,7 +41,8 @@
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox"
                                            id="swKeepPrivate"
-                                           ng-model="das.accountSettings.keepProfilePrivate"
+                                           ng-model="das.isPrivate"
+                                           ng-change="das.handleIsPublicChanged()"
                                            class="custom-control-input">
                                     <label class="custom-control-label" for="swKeepPrivate"></label>
                                 </div>
