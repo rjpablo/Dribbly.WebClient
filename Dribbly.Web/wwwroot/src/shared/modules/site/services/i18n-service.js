@@ -7,6 +7,7 @@
         .service('i18nService', ['$timeout', 'constants', function ($timeout, constants) {
             var _entries = {
                 site: {
+                    AboutUs: 'About Us',
                     AccountDetails: 'Account Details',
                     AccountSettings: 'Account Settings',
                     Cancel: 'Cancel',
@@ -51,9 +52,11 @@
                     Error_PhoneVerification_NumberNeedsVerification: 'Contact no. needs to be verified',
                     Follow: 'Follow',
                     FollowerCountDisplay: '{count} Follower(s)',
+                    FollowUs: 'Follow Us',
                     From: 'From',
                     Games: 'Games',
                     Home: 'Home',
+                    LetsChat: 'Let\'s Chat',
                     LoggedInAs: 'logged in as <strong class="text-capitalize">{userName}</strong>',
                     LogOut: 'Log Out',
                     LogOutConfirmationMsg1: 'Action is not yet over...',

@@ -1,3 +1,103 @@
 drbbly-footer {
     z-index: 1;
+
+    #fh5co-footer {
+        margin-top: 4em;
+        clear: both;
+    }
+
+    #fh5co-footer {
+        position: relative;
+    }
+
+    #fh5co-footer h3 {
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 15px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    #fh5co-footer .fh5co-footer-links {
+        padding: 0;
+        margin: 0;
+    }
+
+    #fh5co-footer .fh5co-footer-links li {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    #fh5co-footer .fh5co-footer-links li a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+    }
+
+    #fh5co-footer .fh5co-footer-links li a:hover {
+        text-decoration: underline;
+    }
+
+    #fh5co-footer .fh5co-widget {
+        margin-bottom: 30px;
+    }
+
+    @media screen and (max-width: 768px) {
+        #fh5co-footer .fh5co-widget {
+            text-align: left;
+        }
+    }
+
+    #fh5co-footer .fh5co-widget h3 {
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 15px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    hr {
+        border-top-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .social_footer_ul {
+        display: inline-block;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .social_footer_ul li {
+        padding: 10px 10px 10px 0;
+        float: left;
+
+        &.fb a {
+            background-color: #3b5998;
+        }
+
+        &.yt a {
+            background-color: #f00;
+        }
+
+        &.twitter a {
+            background-color: #4099FF;
+        }
+
+        &.ig a {
+            background-color: #e4405f;
+        }
+    }
+
+    .social_footer_ul li a {
+        color: #CCC;
+        border: 1px solid #CCC;
+        padding: 8px;
+        border-radius: 50%;
+    }
+
+    .social_footer_ul li i {
+        width: 20px;
+        height: 20px;
+        text-align: center;
+    }
 }

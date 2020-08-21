@@ -4,8 +4,8 @@
     angular.module('appModule')
         .controller('appController', ctrlFn);
 
-    ctrlFn.$inject = ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService', '$timeout'];
-    function ctrlFn($rootScope, drbblyOverlayService, drbblyToolbarService, $timeout) {
+    ctrlFn.$inject = ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService', '$timeout', 'constants'];
+    function ctrlFn($rootScope, drbblyOverlayService, drbblyToolbarService, $timeout, constants) {
         var app = this;
         var _adjustingSections;
         app.overlay = drbblyOverlayService.buildOverlay();
@@ -20,12 +20,21 @@
                 $timeout(function () {
                     setSections();
                     var headerHeight = app.sections.header.outerHeight();
-                    var footerHeight = app.sections.footer.outerHeight();
                     app.sections.body.css('padding-top', headerHeight);
-                    app.sections.body.css('padding-bottom', footerHeight);
+                    if (isScreenSmall()) {
+                        var footerHeight = app.sections.footer_mobile.outerHeight();
+                        app.sections.body.css('padding-bottom', footerHeight);
+                    }
+                    else {
+                        app.sections.body.css('padding-bottom', 0);
+                    }
                     _adjustingSections = false;
                 }, 300);
             }
+        }
+
+        function isScreenSmall() {
+            return window.innerWidth < constants.bootstrap.breakpoints.sm;
         }
 
         app.mainDataLoaded = function () {
@@ -36,7 +45,8 @@
             app.sections = {
                 body: angular.element('[id="page-body-container"]'),
                 header: angular.element('[id="page-header-container"]'),
-                footer: angular.element('[id="page-footer-container"]')
+                footer: angular.element('[id="page-footer-container"]'),
+                footer_mobile: angular.element('[id="page-footer-container"] drbbly-footer > div.mobile-only')
             };
         }
 

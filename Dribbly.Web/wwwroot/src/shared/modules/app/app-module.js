@@ -39,6 +39,15 @@
         constants.countryCodes = {
             ph: '+63'
         };
+        constants.bootstrap = {
+            // minimum viewport widths
+            breakpoints: {
+                sm: 576,
+                md: 768,
+                lg: 992,
+                xl: 1200
+            }
+        };
         constants.enums = {
             accountStatus: {
                 Active: 0,

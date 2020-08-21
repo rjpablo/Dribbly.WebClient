@@ -8,7 +8,7 @@
     background-color: black;
     display: none;
 
-    &.has-error{
+    &.has-error {
         display: block;
     }
 
@@ -36,11 +36,10 @@
 
 #page-body-container {
     min-height: 100%;
-    
-    /* makes the background color light-gray on small devices */
-    /*@include media-breakpoint-down(xs) {
-        background-color: $gray-100;
-    }*/
+
+    @include media-breakpoint-up(sm) {
+        min-height: 600px;
+    }
 }
 
 .properties-list-table {

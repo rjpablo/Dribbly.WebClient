@@ -1,5 +1,43 @@
-﻿<div id="dynamic-footer-contents"></div>
-<div ng-if="ftr.toolbar._navItems && ftr.toolbar._navItems.length" class="mobile-only app-navigator">
-    <drbbly-appnavigator nav-items="ftr.toolbar._navItems"></drbbly-appnavigator>
+﻿<div class="mobile-only fixed-bottom container px-0 px-sm-3">
+    <div class="row">
+        <div class="col">
+            <div id="dynamic-footer-contents"></div>
+            <div ng-if="ftr.toolbar._navItems && ftr.toolbar._navItems.length" class="app-navigator">
+                <drbbly-appnavigator nav-items="ftr.toolbar._navItems"></drbbly-appnavigator>
+            </div>
+        </div>
+    </div>
 </div>
-<!--<drbbly-loggedoutmenubar ng-if="!ftr.isAuthenticated()"></drbbly-loggedoutmenubar>-->
+<div class="container non-mobile">
+<footer id="fh5co-footer" class="p-3 bg-black" role="contentinfo">
+    <div class="row row-pb-md">
+        <div class="col-md-4 fh5co-widget">
+            <h3>{{::'site.AboutUs' | i18n}}</h3>
+            <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+        </div>
+        <div class="col-md-4">
+            <h3>{{::'site.LetsChat' | i18n}}</h3>
+            <p><i class="fa fa-location-arrow"></i> 9878/25 sec 9 rohini 35 </p>
+            <p><i class="fa fa-phone"></i>  +63-916XXXXXXX  </p>
+            <p><i class="fa fa fa-envelope"></i> theboss.dribbly@gmail.com  </p>
+        </div>
+        <div class="col-md-4">
+            <h3>{{::'site.FollowUs' | i18n}}</h3>
+            <ul class="social_footer_ul">
+                <li class="fb"><a href="http://facebook.com"><i class="fa fa-facebook-f"></i></a></li>
+                <li class="yt"><a href="http://youtube.com"><i class="fa fa-youtube-play"></i></a></li>
+                <li class="twitter"><a href="http://twitter.com"><i class="fa fa-twitter"></i></a></li>
+                <li class="ig"><a href="http://instagram.com"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <hr />
+    <div class="row copyright">
+        <div class="col-md-12 text-center">
+            <p>
+                <small class="d-block">Dribbly.com &copy; 2017 | All Rights Reserved.</small>
+            </p>
+        </div>
+    </div>
+</footer>
+</div>

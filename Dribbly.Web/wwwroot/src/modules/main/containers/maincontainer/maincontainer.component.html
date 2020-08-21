@@ -8,12 +8,7 @@
 <div id="page-body-container">
     <ui-view ng-if="dmc.app" app="dmc.app" class="d-block"></ui-view>
 </div>
-<div id="page-footer-container"
-     class="fixed-bottom container px-0 px-sm-3">
-    <div class="row">
-        <div class="col">
-            <drbbly-footer on-content-change="dmc.app.onSectionResize"
-                           toolbar="dmc.app.toolbar"></drbbly-footer>
-        </div>
-    </div>
+<div id="page-footer-container">
+    <drbbly-footer on-content-change="dmc.app.onSectionResize"
+                   toolbar="dmc.app.toolbar"></drbbly-footer>
 </div>
