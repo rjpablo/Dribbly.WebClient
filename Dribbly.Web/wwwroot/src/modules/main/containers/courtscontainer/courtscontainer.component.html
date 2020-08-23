@@ -24,10 +24,20 @@
         </section>
     </div>
     <div class="container">
-        <section drbbly-overlay="dcc.courtsListOverlay" class="pt-3">
-            <drbbly-courtlist ng-if="dcc.courts"
-                              courts="dcc.courts"
-                              title-key="{{'app.FeaturedCourts'}}"></drbbly-courtlist>
+        <section drbbly-overlay="dcc.courtsListOverlay" class="pt-3 featured-cours">
+            <h4 class="drbbly-header">{{::'app.FeaturedCourts' | i18n}}</h4>
+            <div class="slick-slider"
+                 ng-class="{'slick-dotted': dcc.carouselSettings.dots}">
+                <slick settings="dcc.carouselSettings"
+                       class="dark-transparent-bg">
+                    <div ng-repeat="court in dcc.courts "
+                         class="px-3">
+                        <drbbly-courtlistitem class="w-100"
+                                              court="court"
+                                              on-click="dcc.featuredCourtClick"></drbbly-courtlistitem>
+                    </div>
+                </slick>
+            </div>
         </section>
     </div>
 </div>

@@ -166,3 +166,18 @@ body {
 videogular vg-scrub-bar .container {
     max-width: 100%;
 }
+
+/***** Angular Slick Carousel *****/
+slick.dark-transparent-bg {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-top: 15px;
+    border-radius: 5px;
+}
+
+.slick-dots {
+
+    li button:before,
+    li.slick-active button:before {
+        color: #fff;
+    }
+}

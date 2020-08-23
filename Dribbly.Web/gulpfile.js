@@ -56,6 +56,10 @@ var nodeLibs = {
         source: 'angularjs-bootstrap-datetimepicker/src/templates/datetimepicker.html',
         destination: 'angularjs-bootstrap-datetimepicker/html'
     },
+    angular_slick_carousel: {
+        source: 'angular-slick-carousel/dist/angular-slick.js',
+        destination: 'angular-slick-carousel'
+    },
     //we are using a customized version of this
     //angular_sanitize: {
     //    source: 'angular-sanitize/angular-sanitize.js',
@@ -153,6 +157,24 @@ var nodeLibs = {
     ng_map: {
         source: 'ngmap/build/scripts/ng-map.js',
         destination: 'ngmap'
+    },
+    slick_carousel: {
+        source: [
+            'slick-carousel/slick/ajax-loader.gif',
+            'slick-carousel/slick/slick.min.js',
+            'slick-carousel/slick/slick.css',
+            'slick-carousel/slick/slick-theme.css'
+        ],
+        destination: 'slick-carousel'
+    },
+    slick_carousel_fonts: {
+        source: [
+            'slick-carousel/slick/fonts/slick.woff',
+            'slick-carousel/slick/fonts/slick.svg',
+            'slick-carousel/slick/fonts/slick.ttf',
+            'slick-carousel/slick/fonts/slick.eot'
+        ],
+        destination: 'slick-carousel/fonts'
     },
     ui_bootstrp4: {
         source: [
