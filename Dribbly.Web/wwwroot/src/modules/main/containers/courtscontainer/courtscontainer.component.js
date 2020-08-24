@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyCourtsService', '$element', 'drbblyToolbarService', 'drbblyCourtshelperService',
-        'drbblyOverlayService', '$timeout', '$state', 'modalService', 'constants', 'mapService'];
+        'drbblyOverlayService', '$timeout', '$state', 'modalService', 'constants'];
     function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService,
-        drbblyOverlayService, $timeout, $state, modalService, constants, mapService) {
+        drbblyOverlayService, $timeout, $state, modalService, constants) {
         var dcc = this;
 
         dcc.$onInit = function () {
@@ -23,7 +23,6 @@
             dcc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             setInitialCarouselSettings();
             loadCourts();
-            loadNearbyCourts();
             $timeout(setToolbarItems, 100); //using timetout to wait for toolbar to initialized
         };
 
@@ -70,21 +69,6 @@
                 ]
             };
         }
-
-        function loadNearbyCourts() {
-            mapService.getCurrentPosition(function (pos) {
-                var currentPos = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-                drbblyCourtsService.getAllCourts()
-                    .then(function (data) {
-                        dcc.nearbyCourts = data;
-                        drbblyCourtshelperService.populateDistance(dcc.nearbyCourts, currentPos);
-                        console.log('nearby courts', dcc.nearbyCourts);
-                    });
-            }, function (res) {
-                console.log('Unable to get current location', res);
-                //TODO: show error Unable to get current position
-            });
-        };
 
         function setToolbarItems() {
             var buildItem = drbblyToolbarService.buildItem;
