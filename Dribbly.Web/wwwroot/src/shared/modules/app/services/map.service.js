@@ -7,6 +7,7 @@
     function map(drbblyToastService, modalService, $q, NgMap) {
 
         var _geocoder = new google.maps.Geocoder;
+        var _earthRadius = 6378.137; // Earth radius in km
 
         var _getAddressCoordinates = function (address, callback) {
             var geocoder = new google.maps.Geocoder;
@@ -125,12 +126,45 @@
             return true;
         };
 
+        /**
+         * Computes the distance between to coordinates
+         * @param {google.maps.LatLng} latlng1 the first coordinate
+         * @param {google.maps.LatLng} latlng2 the second coordinate
+         * @returns {number} distance in kilometers
+         */
+        function computeDistanceBetween(latlng1, latlng2) {
+            // Had to make our own function because
+            // google.maps.geometry.spherical.computeDistanceBetween((latlng1, latlng2))
+            // returns an error for some reason
+
+            var lat1 = latlng1.lat();
+            var lat2 = latlng2.lat();
+            var lon1 = latlng1.lng();
+            var lon2 = latlng2.lng();
+            var dLat = degToRad(lat2 - lat1);
+            var dLon = degToRad(lon2 - lon1);
+            lat1 = degToRad(lat1);
+            lat2 = degToRad(lat2);
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) *
+                Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = _earthRadius * c;
+
+            return d;
+        }
+
+
+        function degToRad(n) {
+            return n * Math.PI / 180;
+        }
+
         function getMap(options) {
             return NgMap.getMap(options);
         }
 
         this.getAddressCoordinates = _getAddressCoordinates;
         this.addMarker = _addMarker;
+        this.computeDistanceBetween = computeDistanceBetween;
         this.getAddress = _getAddress;
         this.getCurrentPosition = _getCurrentPosition;
         this.getLatFromLocation = _getLatFromLocation;

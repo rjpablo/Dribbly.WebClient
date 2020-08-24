@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('mainModule')
-        .service('drbblyCourtshelperService', ['modalService', 'authService',
-            function (modalService, authService) {
+        .service('drbblyCourtshelperService', ['modalService', 'authService', 'mapService',
+            function (modalService, authService, mapService) {
 
                 function registerCourt() {
                     return authService.checkAuthenticationThen(function () {
@@ -36,9 +36,17 @@
                     });
                 }
 
+                function populateDistance(courts, refLatLng) {
+                    angular.forEach(courts, function (court) {
+                        court.distance = mapService
+                            .computeDistanceBetween(refLatLng, new google.maps.LatLng(court.latitude, court.longitude));
+                    });
+                }
+
                 var _service = {
                     editCourt: editCourt,
                     openBookGameModal: openBookGameModal,
+                    populateDistance: populateDistance,
                     registerCourt: registerCourt
                 };
 

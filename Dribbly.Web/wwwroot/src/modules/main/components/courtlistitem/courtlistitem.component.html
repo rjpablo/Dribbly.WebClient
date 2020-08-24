@@ -7,5 +7,7 @@
     <div class="details">
         <span class="name d-block line-height-1">{{cli.court.name}}</span>
         <drbbly-rating class="d-block" value="cli.court.rating"></drbbly-rating>
+        <span ng-if="cli.court.distance"
+              class="text-muted">{{cli.court.distance | drbblyDistance}}</span>
     </div>
 </div>
