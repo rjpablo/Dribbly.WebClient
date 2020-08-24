@@ -127,9 +127,10 @@
         };
 
         /**
-         * Computes the distance between to coordinates
-         * @param {google.maps.LatLng} latlng1 the first coordinate
-         * @param {google.maps.LatLng} latlng2 the second coordinate
+         * Computes the distance between to coordinates.
+         * Accepts object that has the properties `latitude` and `longitude`
+         * @param {any} latlng1 the first coordinate
+         * @param {any} latlng2 the second coordinate
          * @returns {number} distance in kilometers
          */
         function computeDistanceBetween(latlng1, latlng2) {
@@ -137,10 +138,10 @@
             // google.maps.geometry.spherical.computeDistanceBetween((latlng1, latlng2))
             // returns an error for some reason
 
-            var lat1 = latlng1.lat();
-            var lat2 = latlng2.lat();
-            var lon1 = latlng1.lng();
-            var lon2 = latlng2.lng();
+            var lat1 = latlng1.latitude;
+            var lat2 = latlng2.latitude;
+            var lon1 = latlng1.longitude;
+            var lon2 = latlng2.longitude;
             var dLat = degToRad(lat2 - lat1);
             var dLon = degToRad(lon2 - lon1);
             lat1 = degToRad(lat1);

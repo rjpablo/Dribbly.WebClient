@@ -5,6 +5,8 @@
         .module('appModule')
         .component('drbblyNearbycourts', {
             bindings: {
+                referenceCoordinates: '<', // coordinate object with properties `latitude` and `longitude` to calculate distance. 
+                excludedCourt: '<' // court to exclude from the list
             },
             controllerAs: 'dcc',
             templateUrl: 'drbbly-default',
@@ -19,8 +21,13 @@
 
         dcc.$onInit = function () {
             dcc.courtsListOverlay = drbblyOverlayService.buildOverlay();
+            if (dcc.referenceCoordinates) {
+                loadNearbyCourts(dcc.referenceCoordinates);
+            }
+            else {
+                loadCourtsNearCurrentLocation();
+            }
             setInitialCarouselSettings();
-            loadNearbyCourts();
         };
 
         function setInitialCarouselSettings() {
@@ -54,19 +61,29 @@
             };
         }
 
-        function loadNearbyCourts() {
+        function loadNearbyCourts(referencePoint) {
             dcc.courtsListOverlay.setToBusy();
+            drbblyCourtsService.getAllCourts()
+                .then(function (data) {
+                    dcc.nearbyCourts = filterCourts(data);
+                    drbblyCourtshelperService.populateDistance(dcc.nearbyCourts, referencePoint);
+                    $timeout(function () {
+                        dcc.carouselSettings.enabled = true;
+                        dcc.courtsListOverlay.setToReady();
+                    }, 300);
+                });
+        }
+
+        function filterCourts(courts) {
+            if (dcc.excludedCourt) {
+                courts.drbblyRemove(court => court.id === dcc.excludedCourt.id);
+            }
+            return courts;
+        }
+
+        function loadCourtsNearCurrentLocation() {
             mapService.getCurrentPosition(function (pos) {
-                var currentPos = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-                drbblyCourtsService.getAllCourts()
-                    .then(function (data) {
-                        dcc.nearbyCourts = data;
-                        drbblyCourtshelperService.populateDistance(dcc.nearbyCourts, currentPos);
-                        $timeout(function () {
-                            dcc.carouselSettings.enabled = true;
-                            dcc.courtsListOverlay.setToReady();
-                        }, 300);
-                    });
+                loadNearbyCourts(pos.coords);
             }, function (res) {
                 dcc.courtsListOverlay.setToError();
                 console.log('Unable to get current location', res);

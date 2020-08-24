@@ -10,5 +10,9 @@
         <ui-view court="dcc.court"
                  ng-if="dcc.court"
                  on-update="dcc.onCourtUpdate"></ui-view>
+
+        <drbbly-nearbycourts reference-coordinates="dcc.court"
+                             excluded-court="dcc.court"
+                             ng-if="dcc.court"></drbbly-nearbycourts>
     </div>
 </div>

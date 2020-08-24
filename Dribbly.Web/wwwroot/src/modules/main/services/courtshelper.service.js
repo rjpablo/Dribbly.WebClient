@@ -39,7 +39,7 @@
                 function populateDistance(courts, refLatLng) {
                     angular.forEach(courts, function (court) {
                         court.distance = mapService
-                            .computeDistanceBetween(refLatLng, new google.maps.LatLng(court.latitude, court.longitude));
+                            .computeDistanceBetween(refLatLng, court);
                     });
                 }
 
