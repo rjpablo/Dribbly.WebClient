@@ -157,6 +157,7 @@
                     NoGamesOnThisCourtYet: 'No games booked at this court yet.',
                     NoSuggestionsFound: 'No suggestions found',
                     Photos: 'Photos',
+                    PleaseAllowAccessToLocationToLoadNearbyCourts: 'Please allow access to location to load nearby courts.',
                     PleaseContactTheFollowingNumberForInquiries: 'Please contact the following number for inquiries:<br/><br/><h3 class="text-center">{number}</h3>',
                     PlusFollow: '+ Follow',
                     PrimaryPhoto: 'PrimaryPhoto',

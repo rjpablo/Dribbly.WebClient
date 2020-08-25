@@ -1,6 +1,7 @@
 ﻿<section drbbly-overlay="dcc.courtsListOverlay" class="pt-3 nearby-courts">
     <h4 class="drbbly-header">{{::'app.NearbyCourts' | i18n}}</h4>
     <div class="slick-slider"
+         ng-if="!dcc.locationAccessDenied"
          ng-class="{'slick-dotted': dcc.carouselSettings.dots}">
         <slick settings="dcc.carouselSettings"
                class="dark-transparent-bg">
@@ -11,5 +12,9 @@
                                       on-click="dcc.featuredCourtClick"></drbbly-courtlistitem>
             </div>
         </slick>
+    </div>
+    <div class="alert alert-warning" role="alert"
+         ng-if="dcc.locationAccessDenied">
+        <i class="fa fa-exclamation-circle"></i>&nbsp;{{::'app.PleaseAllowAccessToLocationToLoadNearbyCourts' | i18n}}
     </div>
 </section>

@@ -13,10 +13,10 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyCourtsService', '$element', 'drbblyToolbarService', 'drbblyCourtshelperService',
-        'drbblyOverlayService', '$timeout', '$state', 'modalService', 'constants', 'mapService'];
-    function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService,
-        drbblyOverlayService, $timeout, $state, modalService, constants, mapService) {
+    controllerFunc.$inject = ['drbblyCourtsService', 'drbblyCourtshelperService',
+        'drbblyOverlayService', '$timeout', 'modalService', 'constants', 'mapService'];
+    function controllerFunc(drbblyCourtsService, drbblyCourtshelperService,
+        drbblyOverlayService, $timeout, modalService, constants, mapService) {
         var dcc = this;
 
         dcc.$onInit = function () {
@@ -83,11 +83,12 @@
 
         function loadCourtsNearCurrentLocation() {
             mapService.getCurrentPosition(function (pos) {
+                dcc.locationAccessDenied = false;
                 loadNearbyCourts(pos.coords);
             }, function (res) {
-                dcc.courtsListOverlay.setToError();
+                // using $timeout to trigger another digest cycle and update the view
+                $timeout(() => dcc.locationAccessDenied = true);
                 console.log('Unable to get current location', res);
-                //TODO: show error Unable to get current position
             });
         }
 
