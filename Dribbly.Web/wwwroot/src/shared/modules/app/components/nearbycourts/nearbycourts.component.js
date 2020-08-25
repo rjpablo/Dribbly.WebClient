@@ -5,6 +5,8 @@
         .module('appModule')
         .component('drbblyNearbycourts', {
             bindings: {
+                title: '@',
+                initialItemCount: '<',
                 referenceCoordinates: '<', // coordinate object with properties `latitude` and `longitude` to calculate distance. 
                 excludedCourt: '<' // court to exclude from the list
             },
@@ -13,9 +15,9 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyCourtsService', 'drbblyCourtshelperService',
+    controllerFunc.$inject = ['drbblyCourtsService', 'drbblyCourtshelperService', '$filter',
         'drbblyOverlayService', '$timeout', 'modalService', 'constants', 'mapService'];
-    function controllerFunc(drbblyCourtsService, drbblyCourtshelperService,
+    function controllerFunc(drbblyCourtsService, drbblyCourtshelperService, $filter,
         drbblyOverlayService, $timeout, modalService, constants, mapService) {
         var dcc = this;
 
@@ -27,8 +29,16 @@
             else {
                 loadCourtsNearCurrentLocation();
             }
+            setCourtListSettings();
             setInitialCarouselSettings();
         };
+
+        function setCourtListSettings() {
+            dcc.courtListSettings = {
+                loadSize: 6,
+                initialItemCount: dcc.initialItemCount || 6
+            };
+        }
 
         function setInitialCarouselSettings() {
             dcc.carouselSettings = {
@@ -67,6 +77,7 @@
                 .then(function (data) {
                     dcc.nearbyCourts = filterCourts(data);
                     drbblyCourtshelperService.populateDistance(dcc.nearbyCourts, referencePoint);
+                    dcc.nearbyCourts = $filter('orderBy')(dcc.nearbyCourts, 'distance');
                     $timeout(function () {
                         dcc.carouselSettings.enabled = true;
                         dcc.courtsListOverlay.setToReady();

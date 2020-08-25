@@ -30,7 +30,7 @@
                  ng-class="{'slick-dotted': dcc.carouselSettings.dots}">
                 <slick settings="dcc.carouselSettings"
                        class="dark-transparent-bg">
-                    <div ng-repeat="court in dcc.courts "
+                    <div ng-repeat="court in dcc.courts"
                          class="px-3">
                         <drbbly-courtlistitem class="w-100"
                                               court="court"
@@ -39,6 +39,8 @@
                 </slick>
             </div>
         </section>
-        <drbbly-nearbycourts></drbbly-nearbycourts>
+    </div>
+    <div class="container">
+        <drbbly-nearbycourts initial-item-count="12"></drbbly-nearbycourts>
     </div>
 </div>

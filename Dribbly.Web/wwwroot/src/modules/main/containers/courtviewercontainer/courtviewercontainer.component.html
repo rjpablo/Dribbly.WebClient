@@ -12,6 +12,7 @@
                  on-update="dcc.onCourtUpdate"></ui-view>
 
         <drbbly-nearbycourts reference-coordinates="dcc.court"
+                             title="{{'app.CourtsNearCourtName' | i18n : {courtName: dcc.court.name} }}"
                              excluded-court="dcc.court"
                              ng-if="dcc.court"></drbbly-nearbycourts>
     </div>

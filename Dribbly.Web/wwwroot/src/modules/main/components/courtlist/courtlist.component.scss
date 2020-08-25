@@ -1,6 +1,5 @@
 .drbbly-court-list.no-wrap .list-container {
-    white-space: nowrap;
-    overflow-x: scroll;
+    overflow-x: auto;
 
     & > drbbly-courtlistitem {
         width: 150px;

@@ -32,6 +32,14 @@ body {
     color: $cyan;
 }
 
+.black-transparent-bg {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.white-transparent-bg {
+    background-color: rgba(225, 225, 225, 0.6);
+}
+
 /****************
     Icons
 ****************/
