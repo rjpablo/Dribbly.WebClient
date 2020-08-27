@@ -38,6 +38,9 @@
                     dbm._mapClicked(e);
                 });
                 addSearchControl();
+                dbm.map.addListener('bounds_changed', function () {
+                    dbm._searchOptions.bounds = dbm.map.getBounds();
+                });
             });
         };
 
@@ -61,7 +64,6 @@
 
         function getDefaultSearchOptions() {
             return {
-                types: ['geocode'],
                 size: 80,
                 markSelectedPlace: true
             };

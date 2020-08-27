@@ -4,8 +4,9 @@
     angular.module('appModule')
         .component('drbblyMapsearchcontrol', {
             bindings: {
-                options: '<',
-                onPlaceChanged: '<'
+                options: '=',
+                onPlaceChanged: '<',
+                onSearch: '<'
             },
             controllerAs: 'msc',
             templateUrl: 'drbbly-default',
@@ -34,7 +35,8 @@
             var request = {
                 input: msc.keyword,
                 types: msc.options.types,
-                componentRestrictions: msc.options.componentRestrictions
+                componentRestrictions: msc.options.componentRestrictions,
+                bounds: msc.options.bounds
             };
             clearSuggestions();
 
