@@ -18,7 +18,8 @@
 
         dlp.$onInit = function () {
             dlp.mapOptions = {
-                id: 'location-picker-map'
+                id: 'location-picker-map',
+                allowSearch: true
             };
             if (dlp.initialPosition && dlp.initialPosition.latlng) {
                 dlp.mapOptions.center = dlp.initialPosition.latlng;

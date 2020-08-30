@@ -24,6 +24,9 @@
             dcd.courtId = $stateParams.id;
             dcd.overlay = drbblyOverlayService.buildOverlay();
             dcd.isOwned = dcd.court.ownerId === authService.authentication.userId;
+            dcd.mapOptions = {
+                id: 'location-picker-map'
+            };
             dcd.overlay.setToReady();
             //loadCourt();
         };
@@ -38,6 +41,10 @@
                 .catch(function (error) {
                     // TODO: Display error in toast
                 });
+        };
+
+        dcd.onMapReady = function () {
+            this.addMarkers([dcd.court]);
         };
 
         function massagePhotos(photos) {

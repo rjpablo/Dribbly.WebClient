@@ -1,109 +1,131 @@
 ﻿<div drbbly-overlay="dcd.overlay">
-    <div ng-if="dcd.court" class="primary-photo-container">
-        <drbbly-image class="primary-photo"
-                      on-click="dcd.onPrimaryPhotoClick"
-                      image-url="{{dcd.court.primaryPhoto.url || './images/default_images/court_default_1.png'}}"></drbbly-image>
-        <div class="controls float-right">
-            <button class="btn btn-sm btn-outline-light"
-                    ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
-                    ngf-select="dcd.changePrimaryPicture($file)"
-                    ng-model="dcd.profilePicture"
-                    ngf-pattern="'image/*'"
-                    ngf-accept="'image/*'"
-                    ngf-max-size="20MB">
-                <span class="fa fa-pencil" aria-hidden="true"></span>
-            </button><br />
-        </div>
-        <ng-image-gallery images="dcd.photos"
-                          methods="dcd.methods"
-                          thumbnails="false"
-                          thumb-size="100"
-                          inline="false"
-                          bubbles="true"
-                          bubble-size="30"
-                          img-bubbles="true"
-                          bg-close="true"
-                          piracy="true"
-                          img-anim="fadeup"
-                          on-delete="dcd.deletePhoto(img, cb)"></ng-image-gallery>
-    </div>
-    <div ng-if="dcd.court" class="court-details">
-        <div class="p-3">
-            <div class="row">
-                <div class="col-12 col-md-6 mb-3 text-center text-md-left">
-                    <h4 class="name d-block">{{dcd.court.name}}</h4>
-                    <div>
-                        <drbbly-rating class="d-block" value="dcd.court.isFreeToPlay"></drbbly-rating>
-                        <span ng-if="dcd.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
-                        <span class="text-muted">{{'site.FollowerCountDisplay' | i18n:{count: (dcd.court.followerCount | drbblyNumber)} }}</span>
-                    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <div ng-if="dcd.court" class="primary-photo-container">
+                <drbbly-image class="primary-photo"
+                              on-click="dcd.onPrimaryPhotoClick"
+                              image-url="{{dcd.court.primaryPhoto.url || './images/default_images/court_default_1.png'}}"></drbbly-image>
+                <div class="controls float-right">
+                    <button class="btn btn-sm btn-outline-light"
+                            ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
+                            ngf-select="dcd.changePrimaryPicture($file)"
+                            ng-model="dcd.profilePicture"
+                            ngf-pattern="'image/*'"
+                            ngf-accept="'image/*'"
+                            ngf-max-size="20MB">
+                        <span class="fa fa-pencil" aria-hidden="true"></span>
+                    </button><br />
                 </div>
-                <div class="col-12 col-md-6 mb-3 text-center">
-                    <button class="btn btn-primary"
-                            type="button"
-                            ng-disabled="dcd.isBusy"
-                            ng-click="dcd.follow()"
-                            ng-switch="dcd.court.isFollowed">
-                        <span ng-switch-when="true">{{::'site.Unfollow' | i18n}}</span>
-                        <span ng-switch-default>+ {{::'site.Follow' | i18n}}</span>
-                    </button>
-                    <button ng-click="dcd.showContact()"
-                            class="btn btn-secondary"
-                            type="button">
-                        <i class="fa fa-phone"></i>&nbsp;{{::'site.Contact' | i18n}}
-                    </button>
-                    <div class="dropdown d-inline-block">
-                        <button type="button" class="btn btn-secondary dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="fa fa-ellipsis-h"></span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
+                <ng-image-gallery images="dcd.photos"
+                                  methods="dcd.methods"
+                                  thumbnails="false"
+                                  thumb-size="100"
+                                  inline="false"
+                                  bubbles="true"
+                                  bubble-size="30"
+                                  img-bubbles="true"
+                                  bg-close="true"
+                                  piracy="true"
+                                  img-anim="fadeup"
+                                  on-delete="dcd.deletePhoto(img, cb)"></ng-image-gallery>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="p-3 bg-black">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-5 mb-3 text-center text-md-left">
+                        <h4 class="name d-block text-white">{{dcd.court.name}}</h4>
+                        <div>
+                            <drbbly-rating class="d-block" value="dcd.court.isFreeToPlay"></drbbly-rating>
+                            <span class="text-muted">{{'site.FollowerCountDisplay' | i18n:{count: (dcd.court.followerCount | drbblyNumber)} }}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-7">
+                        <div class="row">
+                            <div class="col-12 col-lg-7 mb-3 text-center">
+                                <button class="btn btn-primary"
+                                        type="button"
+                                        ng-disabled="dcd.isBusy"
+                                        ng-click="dcd.follow()"
+                                        ng-switch="dcd.court.isFollowed">
+                                    <span ng-switch-when="true">{{::'site.Unfollow' | i18n}}</span>
+                                    <span ng-switch-default>+ {{::'site.Follow' | i18n}}</span>
+                                </button>
+                                <button ng-click="dcd.showContact()"
+                                        class="btn btn-secondary"
+                                        type="button">
+                                    <i class="fa fa-phone"></i>&nbsp;{{::'site.Contact' | i18n}}
+                                </button>
+                                <div class="dropdown d-inline-block">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="fa fa-ellipsis-h"></span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-5 mb-3 text-center">
+                                <h3 class="text-warning rate"
+                                    ng-if="!dcd.court.isFreeToPlay">
+                                    {{ (dcd.court.ratePerHour || 0) | currency:'P':0 }}
+                                    <small>{{::'site.SlashHour' | i18n}}</small>
+                                </h3>
+                                <h3>
+                                    <span ng-if="dcd.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
+                                </h3>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="bg-light p-3">
-            <dl class="row">
-                <dt class="col-1">
-                    <i class="fa fa-map-marker"></i>
-                </dt>
-                <dd class="col-11">
-                    <span class="mr-3">{{'San Juan City'}}</span>
-                    <small>
-                        <!-- adding tabindex to make this look and behave like a normal link
-                        (i.e. blue font, underline when hovered, etc.) -->
-                        <a tabindex="0" ng-click="dcd.viewMap()">{{::'app.ViewOnMap' | i18n}}</a>
-                    </small>
-                </dd>
-                <dt class="col-1">
-                    <i class="fa fa-user"></i>
-                </dt>
-                <dd class="col-11">
-                    <drbbly-userstub user="dcd.court.owner"></drbbly-userstub>
-                </dd>
-                <dt class="col-1">
-                    <i class="fa fa-calendar"></i>
-                </dt>
-                <dd class="col-11">
-                    <span>{{dcd.court.dateAdded | date}}</span>
-                </dd>
-                <dt class="col-1">
-                    <i class="fa fa-info-circle"></i>
-                </dt>
-                <dd class="col-11">
-                    <div ng-bind-html="dcd.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
-                    <button ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
-                            ng-click="dcd.edit()"
-                            class="btn btn-secondary float-right">
-                        <span class="fa fa-pencil" aria-hidden="true"></span>
-                    </button>
-                </dd>
-            </dl>
+    </div>
+    <div ng-if="dcd.court" class="court-details">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="bg-light p-3">
+                    <dl class="row">
+                        <dt class="col-1">
+                            <i class="fa fa-user"></i>
+                        </dt>
+                        <dd class="col-11">
+                            <small class="text-muted">{{::'app.AddedBy' | i18n}}</small>&nbsp;<drbbly-userstub user="dcd.court.owner"></drbbly-userstub>
+                            <button ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
+                                    ng-click="dcd.edit()"
+                                    class="btn btn-secondary float-right">
+                                <span class="fa fa-pencil" aria-hidden="true"></span>
+                            </button>
+                        </dd>
+                        <dt class="col-1">
+                            <i class="fa fa-calendar"></i>
+                        </dt>
+                        <dd class="col-11">
+                            <small class="text-muted">{{::'app.AddedOn' | i18n}}</small>&nbsp;<span>{{dcd.court.dateAdded | date}}</span>
+                        </dd>
+                        <dt class="col-1">
+                            <i class="fa fa-info-circle"></i>
+                        </dt>
+                        <dd class="col-11">
+                            <div ng-bind-html="dcd.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
+                        </dd>
+                        <dt class="col-1">
+                            <i class="fa fa-map-marker"></i>
+                        </dt>
+                        <dd class="col-11 col-md-8">
+                            <drbbly-map options="dcd.mapOptions"
+                                        on-map-ready="dcd.onMapReady"></drbbly-map>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="bg-secondary w-100 h-100"></div>
+            </div>
         </div>
     </div>
 </div>

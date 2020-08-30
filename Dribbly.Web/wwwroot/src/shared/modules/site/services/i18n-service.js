@@ -100,6 +100,8 @@
                 app: {
                     AccountVideos: 'Account Videos',
                     AddACourt: 'Add a court',
+                    AddedBy: 'Added by ',
+                    AddedOn: 'Added on ',
                     AdditionalInfo: 'Additional Info',
                     Address: 'Address',
                     Age: 'Age',

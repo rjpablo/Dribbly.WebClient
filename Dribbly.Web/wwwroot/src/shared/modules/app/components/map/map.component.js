@@ -17,6 +17,7 @@
     controllerFn.$inject = ['$compile', 'mapService', '$timeout', '$scope', 'settingsService', 'constants'];
     function controllerFn($compile, mapService, $timeout, $scope, settingsService, constants) {
         var dbm = this;
+        var _widget;
 
         dbm.$onInit = function () {
             dbm.mapApiKey = settingsService[constants.settings.googleMapApiKey];
@@ -31,18 +32,40 @@
                 }
             };
 
+            initializeWidget();
+
             $timeout(function () {
                 dbm.map = new google.maps.Map(document.getElementById(dbm._options.id), dbm._options);
-                dbm.onMapReady(dbm.map);
+                if (dbm.onMapReady) {
+                    dbm.onMapReady.apply(_widget, dbm.map);
+                }
                 dbm.map.addListener('click', function (e) {
                     dbm._mapClicked(e);
                 });
-                addSearchControl();
+                if (dbm._options.allowSearch) {
+                    addSearchControl();
+                }
                 dbm.map.addListener('bounds_changed', function () {
                     dbm._searchOptions.bounds = dbm.map.getBounds();
                 });
             });
         };
+
+        function initializeWidget() {
+            _widget = {
+                addMarkers: addMarkers
+            }
+        }
+
+        /**
+         * Adds markers to the map
+         * @param {array} markers array objects with the properties `latitude` and `longitude`
+         */
+        function addMarkers(markers) {
+            angular.forEach(markers, function (marker) {
+                mapService.addMarker({ lat: marker.latitude, lng: marker.longitude }, dbm.map, true, true);
+            });
+        }
 
         function addSearchControl() {
             var component = $compile(dbm.searchControlTemplate)($scope);
