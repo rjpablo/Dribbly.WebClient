@@ -8,7 +8,8 @@
         'toaster',
         'ngTouch',
         'ui.bootstrap',
-        'ui.bootstrap.datetimepicker'
+        'ui.bootstrap.datetimepicker',
+        'infinite-scroll'
     ]);
 
     module.constant('constants', {
@@ -16,6 +17,8 @@
             name: 'Dribbly'
         }
     });
+
+    module.value('THROTTLE_MILLISECONDS', 500);
 
     module.config(['$provide', function ($provide) {
         /* Information about AngularJS decorator can be found at: 

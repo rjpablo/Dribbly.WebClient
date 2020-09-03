@@ -10,8 +10,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['drbblyNotificationsService', '$filter', 'drbblyDatetimeService'];
-    function controllerFn(drbblyNotificationsService, $filter, drbblyDatetimeService) {
+    controllerFn.$inject = ['drbblyNotificationsService', '$filter', 'drbblyDatetimeService', '$timeout'];
+    function controllerFn(drbblyNotificationsService, $filter, drbblyDatetimeService, $timeout) {
         var dnw = this;
         var _newNotificationListenerRemover;
         var _oldestLoadedDate; // The dateAdded property of the oldest notification that has been loaded
@@ -46,7 +46,8 @@
 
         function clearData() {
             _oldestLoadedDate = null;
-            dnw.allNotifs = [];
+            dnw.allNotifs.length = 0;
+            dnw.enableInfiniteScrolling = false;
         }
 
         function removeNewNotificationListener() {
@@ -56,9 +57,13 @@
             }
         }
 
-        dnw.loadMore = function () {
+        dnw.loadMore = function (isFromInfiniteScroll) {
+
+            if (isFromInfiniteScroll && !dnw.enableInfiniteScrolling) return;
+
             dnw.isBusy = true;
-            return drbblyNotificationsService.getDetailedNotifications(_oldestLoadedDate, 5)
+            dnw.enableInfiniteScrolling = false;
+            return drbblyNotificationsService.getDetailedNotifications(_oldestLoadedDate, 6)
                 .then(function (data) {
                     dnw.isBusy = false;
                     if (data && data.length) {
@@ -66,8 +71,10 @@
                         _oldestLoadedDate = drbblyDatetimeService.toUtcDate(data[data.length - 1].dateAdded);
                         dnw.allNotifs = dnw.allNotifs.concat(data);
                     }
+                    dnw.enableInfiniteScrolling = true;
                 }, function () {
                     dnw.isBusy = false;
+                    dnw.enableInfiniteScrolling = true;
                     // TODO: Log error?
                 });
         };

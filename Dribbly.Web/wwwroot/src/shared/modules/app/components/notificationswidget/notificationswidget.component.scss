@@ -1,3 +1,5 @@
+@import '../../../../../custom/bootstrap/scss/_variables.scss';
+
 drbbly-notificationswidget {
 
     .notification-badge-container {
@@ -14,15 +16,23 @@ drbbly-notificationswidget {
     .notifications-dropdown-menu {
         max-width: 350px;
         width: 350px;
-        padding-bottom: 0;
         padding-top: 0;
 
-        .items {
+        .items-container {
             max-height: 400px;
             overflow-y: auto;
 
-            .unviewed:not(:hover) {
-                background-color: rgba(44,44,44,0.9);
+            .items {
+
+                .unviewed:not(:hover) {
+                    background-color: rgba(44,44,44,0.9);
+                }
+            }
+
+            .loading-indicator{
+                position:absolute;
+                bottom: 0;
+                width: 100%;
             }
         }
     }

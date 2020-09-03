@@ -158,6 +158,10 @@ var nodeLibs = {
         source: 'ng-file-upload/ng-file-upload.js',
         destination: 'ng-file-upload'
     },
+    ng_infinite_scroll: {
+        source: 'ng-infinite-scroll/build/ng-infinite-scroll.min.js',
+        destination: 'ng-infinite-scroll'
+    },
     ng_map: {
         source: 'ngmap/build/scripts/ng-map.js',
         destination: 'ngmap'

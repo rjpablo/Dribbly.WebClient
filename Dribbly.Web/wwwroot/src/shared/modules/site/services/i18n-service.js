@@ -149,6 +149,7 @@
                     InactiveAccount: '(Inactive Account)',
                     JoinedOnDate: 'Joined on {date}',
                     KeepPrivate: 'Keep Private',
+                    LoadingMoreItemsEllipsis: 'Loading more items...',
                     LoadingSuggestionsEllipsis: 'Loading suggestions...',
                     LoadMore: 'Load More',
                     LocationPickFromTheMap: 'Location: (Please select from the map)',

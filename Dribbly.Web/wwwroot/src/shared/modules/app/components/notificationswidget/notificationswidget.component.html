@@ -13,19 +13,27 @@
          uib-dropdown-menu
          role="menu">
         <h6 class="dropdown-header">Notifications</h6>
-        <div class="items border-top border-bottom"
-             in-view-container>
-            <drbbly-notificationitem ng-repeat="item in dnw.allNotifs track by item.id"
-                                     class="dropdown-item border-bottom d-inline-block"
-                                     in-view="dnw.inView(item, $inview)"
-                                     in-view-options="{offset: [-50, 0, 0, 0]}"
-                                     ng-class="{'border-bottom-0': $last, 'unviewed': !item.isViewed}"
-                                     item="item"></drbbly-notificationitem>
+        <div class="items-container">
+            <div class="items border-top border-bottom"
+                 in-view-container
+                 infinite-scroll-container="'.items-container'"
+                 infinite-scroll="dnw.loadMore(true)">
+                <drbbly-notificationitem ng-repeat="item in dnw.allNotifs track by item.id"
+                                         class="dropdown-item border-bottom d-inline-block"
+                                         in-view="dnw.inView(item, $inview)"
+                                         in-view-options="{offset: [-50, 0, 0, 0]}"
+                                         ng-class="{'border-bottom-0': $last, 'unviewed': !item.isViewed}"
+                                         item="item"></drbbly-notificationitem>
+            </div>
+            <div class="black-transparent-bg p-3 loading-indicator text-center"
+                 ng-show="dnw.isBusy">
+                <i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{::'app.LoadingMoreItemsEllipsis' | i18n}}
+            </div>
         </div>
-        <button class="btn btn-outline-secondary mx-auto border-0 w-100"
+        <!--<button class="btn btn-outline-secondary mx-auto border-0 w-100"
                 ng-click="dnw.loadMore()">
             <span ng-if="!dnw.isBusy">{{::'app.LoadMore' | i18n}}</span>
             <span ng-if="dnw.isBusy"><i class="fa fa-cog fa-spin"></i></span>
-        </button>
+        </button>-->
     </div>
 </div>
