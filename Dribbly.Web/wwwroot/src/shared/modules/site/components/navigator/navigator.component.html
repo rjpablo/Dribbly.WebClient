@@ -45,6 +45,10 @@
         <ul class="nav ml-3 float-right dropdown non-mobile">
             <li ng-if="nav.isAuthenticated()"
                 class="nav-item">
+                <drbbly-notificationswidget></drbbly-notificationswidget>
+            </li>
+            <li ng-if="nav.isAuthenticated()"
+                class="nav-item">
                 <div uib-dropdown>
                     <a ui-sref="main.account.details({username: $root.auth.username})"
                        class="btn btn-link">

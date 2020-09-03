@@ -41,6 +41,10 @@ var nodeLibs = {
         ],
         destination: 'angular-bootstrap-colorpicker'
     },
+    angular_inview: {
+        source: 'angular-inview/angular-inview.js',
+        destination: 'angular-inview'
+    },
     angularjs_bootstrap_datetimepicker_css: {
         source: 'angularjs-bootstrap-datetimepicker/src/css/datetimepicker.css',
         destination: 'angularjs-bootstrap-datetimepicker/css'

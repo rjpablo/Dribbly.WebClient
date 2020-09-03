@@ -158,6 +158,8 @@
                     Mvps: 'MVPs',
                     NearbyCourts: 'Nearby Courts',
                     NoAdditionalInfo: '<small class="text-muted">No additional info provided</small>',
+                    Notification_AGameWasBookedForYouAtCourtName: 'A game was booked for you at <strong>{courtName}</strong>',
+                    Notification_UserBookedAGameAtCourtName: '<strong>{userName}</strong> booked a game at <strong>{courtName}</strong>',
                     NoGamesOnThisCourtYet: 'No games booked at this court yet.',
                     NoSuggestionsFound: 'No suggestions found',
                     Photos: 'Photos',

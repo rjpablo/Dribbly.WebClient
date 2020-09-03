@@ -14,7 +14,8 @@
         'com.2fdevs.videogular.plugins.controls',
         'com.2fdevs.videogular.plugins.overlayplay',
         'com.2fdevs.videogular.plugins.buffering',
-        'slickCarousel'
+        'slickCarousel',
+        'angular-inview'
     ]);
 
     module.config(['$titleProvider', 'constants', function ($titleProvider, constants) {
@@ -54,6 +55,10 @@
                 Active: 0,
                 Inactive: 1,
                 Deleted: 2
+            },
+            notificationType: {
+                gameBookedForOwner: 0,
+                gameBookedForBooker: 1
             }
         };
     }]);

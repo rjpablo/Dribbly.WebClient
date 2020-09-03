@@ -12,8 +12,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', '$rootScope', 'settingsService', '$window'];
-    function controllerFunc(authService, $rootScope, settingsService, $window) {
+    controllerFunc.$inject = ['authService', '$rootScope', 'settingsService', '$window', 'drbblyNotificationsService'];
+    function controllerFunc(authService, $rootScope, settingsService, $window, drbblyNotificationsService) {
         var dmc = this;
 
         dmc.$onInit = function () {
@@ -26,9 +26,14 @@
             });
 
             angular.element($window).on('resize', dmc.app.onSectionResize);
+
+            if (dmc.isAuthenticated()) {
+                drbblyNotificationsService.start();
+            }
         };
 
         dmc.$onDestroy = function () {
+            drbblyNotificationsService.stop();
             angular.element($window).off('resize', dmc.app.onSectionResize);
         };
 

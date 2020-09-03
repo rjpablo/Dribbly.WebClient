@@ -34,6 +34,12 @@ body {
 
 .black-transparent-bg {
     background-color: rgba(0, 0, 0, 0.6);
+    color: $gray-400;
+}
+
+.black-transparent-95-bg {
+    background-color: rgba(225, 225, 225, 0.95);
+    color: $gray-400;
 }
 
 .white-transparent-bg {
@@ -159,6 +165,19 @@ body {
         margin: 0;
     }
 }
+
+/* Dropdowns */
+
+.dropdown-menu {
+    background-color: rgba(0,0,0,0.95);
+    border: 1px solid $gray-900;
+
+}
+
+.dropdown-item {
+    color: $gray-400;
+}
+
 /******** Ng-Image-Gallery ********/
 /* Removes space between thumbnails */
 .ng-image-gallery .ng-image-gallery-thumbnails .thumb {

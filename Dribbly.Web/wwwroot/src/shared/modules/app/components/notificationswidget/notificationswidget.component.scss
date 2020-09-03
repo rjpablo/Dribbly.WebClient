@@ -1,0 +1,29 @@
+drbbly-notificationswidget {
+
+    .notification-badge-container {
+        position: relative;
+        display: inline;
+
+        small {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+        }
+    }
+
+    .notifications-dropdown-menu {
+        max-width: 350px;
+        width: 350px;
+        padding-bottom: 0;
+        padding-top: 0;
+
+        .items {
+            max-height: 400px;
+            overflow-y: auto;
+
+            .unviewed:not(:hover) {
+                background-color: rgba(44,44,44,0.9);
+            }
+        }
+    }
+}

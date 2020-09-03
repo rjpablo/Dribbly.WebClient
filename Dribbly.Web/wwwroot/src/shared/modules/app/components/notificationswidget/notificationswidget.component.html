@@ -1,0 +1,31 @@
+﻿<div uib-dropdown
+     is-open="dnw.ddlNotificationsIsOpen"
+     on-toggle="dnw.onToggle(open)">
+    <a class="btn btn-link"
+       ng-click="dnw.ddlNotificationsIsOpen = !dnw.ddlNotificationsIsOpen">
+        <i class="fa fa-bell"></i>
+        <div class="notification-badge-container"
+             ng-if="dnw.unViewedCount > 0">
+            <small><span class="small badge badge-pill badge-warning">{{dnw.unViewedCount}}</span></small>
+        </div>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right notifications-dropdown-menu"
+         uib-dropdown-menu
+         role="menu">
+        <h6 class="dropdown-header">Notifications</h6>
+        <div class="items border-top border-bottom"
+             in-view-container>
+            <drbbly-notificationitem ng-repeat="item in dnw.allNotifs track by item.id"
+                                     class="dropdown-item border-bottom d-inline-block"
+                                     in-view="dnw.inView(item, $inview)"
+                                     in-view-options="{offset: [-50, 0, 0, 0]}"
+                                     ng-class="{'border-bottom-0': $last, 'unviewed': !item.isViewed}"
+                                     item="item"></drbbly-notificationitem>
+        </div>
+        <button class="btn btn-outline-secondary mx-auto border-0 w-100"
+                ng-click="dnw.loadMore()">
+            <span ng-if="!dnw.isBusy">{{::'app.LoadMore' | i18n}}</span>
+            <span ng-if="dnw.isBusy"><i class="fa fa-cog fa-spin"></i></span>
+        </button>
+    </div>
+</div>

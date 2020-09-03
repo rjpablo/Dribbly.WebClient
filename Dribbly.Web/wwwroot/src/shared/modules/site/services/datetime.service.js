@@ -53,13 +53,23 @@
                 return dateString.endsWith('Z') ? dateString : dateString + 'Z';
             }
 
+            function toUtcDate(dateString) {
+                return new Date(toUtcString(dateString));
+            }
+
+            function getUtcNow() {
+                return new Date(new Date.toUTCString);
+            }
+
             return {
                 add: add,
                 compareDatesOnly: compareDatesOnly,
                 copyTime: copyTime,
                 getDiff: getDiff,
+                getUtcNow: getUtcNow,
                 toUtcString: toUtcString,
-                removeTime: removeTime
+                removeTime: removeTime,
+                toUtcDate: toUtcDate
             };
 
         }]);
