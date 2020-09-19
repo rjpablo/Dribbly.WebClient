@@ -1,8 +1,9 @@
 ﻿<div uib-dropdown
      is-open="dnw.ddlNotificationsIsOpen"
-     on-toggle="dnw.onToggle(open)">
+     on-toggle="dnw.onToggle(open)"
+     auto-close="outsideClick">
     <a class="btn btn-link"
-       ng-click="dnw.ddlNotificationsIsOpen = !dnw.ddlNotificationsIsOpen">
+       ng-click="dnw.ddlNotificationsIsOpen = !dnw.ddlNotificationsIsOpen; $event.stopPropagation();">
         <i class="fa fa-bell"></i>
         <div class="notification-badge-container"
              ng-if="dnw.unViewedCount > 0">
@@ -19,7 +20,8 @@
                  infinite-scroll-container="'.items-container'"
                  infinite-scroll="dnw.loadMore(true)">
                 <drbbly-notificationitem ng-repeat="item in dnw.allNotifs track by item.id"
-                                         class="dropdown-item border-bottom d-inline-block"
+                                         ng-click="dnw.ddlNotificationsIsOpen = false"
+                                         class="dropdown-item border-bottom d-inline-block p-0"
                                          in-view="dnw.inView(item, $inview)"
                                          in-view-options="{offset: [-50, 0, 0, 0]}"
                                          ng-class="{'border-bottom-0': $last, 'unviewed': !item.isViewed}"

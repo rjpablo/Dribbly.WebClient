@@ -1,9 +1,20 @@
 @import '../../../custom/bootstrap/scss/_variables.scss';
 @import '../../../lib/bootstrap/_breakpoints.scss';
 
-
 body {
     background: url('../../../images/backgrounds/site_background.jpg') fixed center;
+}
+
+.link-unstyled {
+    &,
+    &:visited,
+    &:hover,
+    &:active,
+    &:focus,
+    &:active:hover {
+        color: inherit;
+        text-decoration: none;
+    }
 }
 
 .top-bar {

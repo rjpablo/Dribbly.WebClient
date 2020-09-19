@@ -1,12 +1,14 @@
-﻿<div class="text-wrap">
-    <div ng-if="dni.item.type === $root.constants.enums.notificationType.gameBookedForBooker"
-         ng-bind-html="('app.Notification_AGameWasBookedForYouAtCourtName' | i18n : {courtName: dni.item.courtName})">
+﻿<a ng-href="{{::dni.targetLink}}" class="link-unstyled">
+    <div class="text-wrap">
+        <div ng-if="dni.item.type === $root.constants.enums.notificationType.gameBookedForBooker"
+             ng-bind-html="('app.Notification_AGameWasBookedForYouAtCourtName' | i18n : {courtName: dni.item.courtName})">
+        </div>
+        <div ng-if="dni.item.type === $root.constants.enums.notificationType.gameBookedForOwner"
+             ng-bind-html="('app.Notification_UserBookedAGameAtCourtName' | i18n : {courtName: dni.item.courtName, userName: dni.item.bookedByName})">
+        </div>
     </div>
-    <div ng-if="dni.item.type === $root.constants.enums.notificationType.gameBookedForOwner"
-         ng-bind-html="('app.Notification_UserBookedAGameAtCourtName' | i18n : {courtName: dni.item.courtName, userName: dni.item.bookedByName})">
-    </div>
-</div>
-<small class="text-muted float-right">
-    <drbbly-date date="dni.item.dateAdded"
-                 as-from-now="true"></drbbly-date>
-</small>
+    <small class="text-muted float-right">
+        <drbbly-date date="dni.item.dateAdded"
+                     as-from-now="true"></drbbly-date>
+    </small>
+</a>
