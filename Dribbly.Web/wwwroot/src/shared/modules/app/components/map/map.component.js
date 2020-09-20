@@ -37,7 +37,7 @@
             $timeout(function () {
                 dbm.map = new google.maps.Map(document.getElementById(dbm._options.id), dbm._options);
                 if (dbm.onMapReady) {
-                    dbm.onMapReady.apply(_widget, dbm.map);
+                    dbm.onMapReady.apply(_widget, [dbm.map]);
                 }
                 dbm.map.addListener('click', function (e) {
                     dbm._mapClicked(e);
