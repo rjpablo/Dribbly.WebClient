@@ -71,6 +71,16 @@
 
         };
 
+        function showLoginModal() {
+            return modalService.show({
+                view: '<drbbly-loginmodal></drbbly-loginmodal>',
+                model: {
+                    messageKey: 'auth.PleaseLogInToProceed'
+                },
+                isFull: false
+            });
+        }
+
         var _logOut = function () {
 
             localStorageService.remove('authorizationData');
@@ -241,10 +251,9 @@
                 _refreshToken()
                     .then(function () {
                         deferred.resolve();
-                    })
-                    .catch(function () {
-                        deferred.reject();
-                        _redirectoToLogin();
+                    }, function () {
+                        showLoginModal()
+                            .then(deferred.resolve, deferred.reject);
                     });
             }
             else {
@@ -258,13 +267,17 @@
             var deferred = $q.defer();
             _checkAuthentication()
                 .then(function () {
-                    cb()
-                        .then(function (res) {
+                    var cbResult = cb();
+                    if (cbResult && cbResult.then) {
+                        cbResult.then(function (res) {
                             deferred.resolve(res);
-                        })
-                        .catch(function (error) {
+                        }, function (error) {
                             deferred.reject(error);
                         });
+                    }
+                    else {
+                        deferred.resolve();
+                    }
                 })
                 .catch(deferred.reject);
             return deferred.promise;
@@ -301,6 +314,7 @@
         authServiceFactory.registerExternal = _registerExternal;
         authServiceFactory.sendResetPasswordLink = _sendResetPasswordLink;
         authServiceFactory.showChangePasswordModal = showChangePasswordModal;
+        authServiceFactory.showLoginModal = showLoginModal;
         authServiceFactory.obtainAccessToken = _obtainAccessToken;
         authServiceFactory.resetPassword = resetPassword;
 

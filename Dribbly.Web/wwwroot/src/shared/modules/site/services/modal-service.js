@@ -61,6 +61,8 @@
                             $uibModalInstance.dismiss('navigating');
                         }
                         else {
+                            mod.context.okToClose = true;
+                            unSub();
                             $uibModalInstance.dismiss('navigating');
                         }
                     });

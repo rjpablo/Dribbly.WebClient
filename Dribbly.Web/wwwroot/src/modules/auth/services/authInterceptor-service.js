@@ -30,13 +30,29 @@
                                 .then(function () {
                                     _retryHttpRequest(rejection.config, deferred);
                                 }, function (error) {
-                                    drbblyCommonService.handleHttpError(error);
-                                    redirectoToLogin();
+                                    authService.showLoginModal()
+                                        .then(function (result) {
+                                            if (result.isLoginSuccessful) {
+                                                _retryHttpRequest(rejection.config, deferred);
+                                            }
+                                        }, function () {
+                                            deferred.reject(rejection);
+                                        });
+                                });
+                        }
+                        else if (!rejection.config.isRetried) {
+                            authService.showLoginModal()
+                                .then(function (result) {
+                                    if (result.isLoginSuccessful) {
+                                        _retryHttpRequest(rejection.config, deferred);
+                                    }
+                                }, function () {
+                                    deferred.reject(rejection);
                                 });
                         }
                         else {
                             drbblyCommonService.handleHttpError(rejection);
-                            redirectoToLogin();
+                            authService.showLoginModal();
                         }
                     }
                     else {
@@ -56,21 +72,6 @@
                             deferred.reject(error);
                         });
                 };
-
-                function redirectoToLogin() {
-                    var resumeUrl = $location.url();
-                    // TODO: Display message on login page (e.g. You're session has expired. Please log in again to proceed)
-                    $state.go('auth.login',
-                        {
-                            resumeUrl: resumeUrl,
-                            messageKey: 'auth.PleaseLoginToProceed'
-                        },
-                        {
-                            custom: {
-                                force: true // Prevents currently open modals from stopping the transition}
-                            }
-                        });
-                }
 
                 authInterceptorServiceFactory.request = _request;
                 authInterceptorServiceFactory.responseError = _responseError;

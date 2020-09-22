@@ -5,7 +5,9 @@
         .module('authModule')
         .component('drbblyLoginform', {
             bindings: {
-                showResetPassword: '<'
+                showResetPassword: '<',
+                onLoginSuccess: '<',
+                messageKey: '<'
             },
             controllerAs: 'dlf',
             templateUrl: 'drbbly-default',
@@ -17,7 +19,7 @@
         var dlf = this;
 
         dlf.$onInit = function () {
-            dlf.messageKey = $stateParams.messageKey;
+            dlf.messageKey = dlf.messageKey || $stateParams.messageKey;
             dlf.isBusy = false;
         };
 
@@ -27,17 +29,22 @@
             dlf.isBusy = true;
             authService.login(dlf.loginData)
                 .then(function () {
-                    var resumeUrl = $stateParams.resumeUrl;
-                    dlf.loginData.password = '';
-
-                    if (resumeUrl) {
-                        $location.url(resumeUrl);
+                    if (dlf.onLoginSuccess) {
+                        dlf.onLoginSuccess();
                     }
                     else {
-                        $state.go('main.home')
-                            .catch(function () {
-                                dlf.isBusy = false;
-                            });
+                        var resumeUrl = $stateParams.resumeUrl;
+                        dlf.loginData.password = '';
+
+                        if (resumeUrl) {
+                            $location.url(resumeUrl);
+                        }
+                        else {
+                            $state.go('main.home')
+                                .catch(function () {
+                                    dlf.isBusy = false;
+                                });
+                        }
                     }
                 })
                 .catch(function (err) {
