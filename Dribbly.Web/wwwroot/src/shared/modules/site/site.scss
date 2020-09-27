@@ -18,17 +18,19 @@ body {
 }
 
 // Scroll bars
+@include media-breakpoint-up(sm) {
 
-*::-webkit-scrollbar,
-*::-webkit-scrollbar-thumb {
-    width: 26px;
-    border-radius: 13px;
-    background-clip: padding-box;
-    border: 10px solid transparent;
-}
+    *::-webkit-scrollbar,
+    *::-webkit-scrollbar-thumb {
+        width: 26px;
+        border-radius: 13px;
+        background-clip: padding-box;
+        border: 10px solid transparent;
+    }
 
-*::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 0 10px;
+    *::-webkit-scrollbar-thumb {
+        box-shadow: inset 0 0 0 10px;
+    }
 }
 
 .top-bar {
@@ -70,11 +72,9 @@ body {
 .white-transparent-bg {
     background-color: rgba(225, 225, 225, 0.6);
 }
-
 /****************
     Icons
 ****************/
-
 /* Register our own font */
 @font-face {
     font-family: 'dribbly';
@@ -109,23 +109,19 @@ body {
 .drbbly-font.court-horizontal::before {
     content: '\e900';
 }
-
 /****************
     Widths
 ****************/
-
 @media (max-width: 575px) {
 
     .w-xs-100 {
         width: 100%;
     }
-
     /* for things that should not show on mobile design */
     .non-mobile {
         display: none !important;
     }
 }
-
 /****************
    Typography
 ****************/
@@ -136,11 +132,9 @@ body {
 .text-underlined {
     text-decoration: underline;
 }
-
 /*************
    Widgets
 *************/
-
 /* Details List */
 .detail-list > .list-group > .list-group-item > .row > div:first-child {
     text-transform: uppercase;
@@ -190,19 +184,15 @@ body {
         margin: 0;
     }
 }
-
 /* Dropdowns */
-
 .dropdown-menu {
     background-color: rgba(0,0,0,0.95);
     border: 1px solid $gray-900;
-
 }
 
 .dropdown-item {
     color: $gray-400;
 }
-
 /******** Ng-Image-Gallery ********/
 /* Removes space between thumbnails */
 .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
@@ -212,13 +202,11 @@ body {
 .ng-image-gallery .ng-image-gallery-thumbnails .thumb > .loader {
     width: unset !important;
 }
-
 /******* Videogualr *********/
 /* Fixes incorrect current time indicator for wider screens */
 videogular vg-scrub-bar .container {
     max-width: 100%;
 }
-
 /***** Angular Slick Carousel *****/
 slick.dark-transparent-bg {
     background-color: rgba(0, 0, 0, 0.6);
