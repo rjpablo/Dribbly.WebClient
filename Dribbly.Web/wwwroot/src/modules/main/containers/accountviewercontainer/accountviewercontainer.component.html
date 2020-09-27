@@ -1,31 +1,36 @@
-﻿<div class="app-header mb-3">
+﻿<div class="app-container">
     <div class="container">
-        <div class="row">
-            <div class="non-mobile col-12">
-                <drbbly-appnavigator nav-items="avc.app.toolbar._navItems"></drbbly-appnavigator>
+        <div class="row app-header mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="non-mobile col-12">
+                        <drbbly-appnavigator nav-items="avc.app.toolbar._navItems"></drbbly-appnavigator>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="container"
-     ng-if="avc.account && avc.account.status !== $root.constants.enums.accountStatus.Active">
-    <div class="card">
-        <div class="card-body text-center">
-            {{::'app.ContentNotCurrentlyAvailable' | i18n}}
+    <div class="app-body">
+        <div class="container"
+             ng-if="avc.account && avc.account.status !== $root.constants.enums.accountStatus.Active">
+            <div class="card">
+                <div class="card-body text-center">
+                    {{::'app.ContentNotCurrentlyAvailable' | i18n}}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<div ng-if="avc.account && avc.account.status === $root.constants.enums.accountStatus.Active">
-    <ui-view account="avc.account"
-             on-update="avc.onAccountUpdate"
-             ng-if="avc.shouldDisplayAsPublic"></ui-view>
-    <div class="container"
-         ng-if="!avc.shouldDisplayAsPublic">
-        <div class="card">
-            <div class="card-body text-center">
-                {{::'app.ThisAccountIsPrivate' | i18n}}
+        <div ng-if="avc.account && avc.account.status === $root.constants.enums.accountStatus.Active">
+            <ui-view account="avc.account"
+                     on-update="avc.onAccountUpdate"
+                     ng-if="avc.shouldDisplayAsPublic"></ui-view>
+            <div class="container"
+                 ng-if="!avc.shouldDisplayAsPublic">
+                <div class="card">
+                    <div class="card-body text-center">
+                        {{::'app.ThisAccountIsPrivate' | i18n}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

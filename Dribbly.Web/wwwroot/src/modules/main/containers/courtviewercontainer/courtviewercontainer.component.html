@@ -1,19 +1,23 @@
-﻿<div class="container px-0 px-sm-3">
+﻿<div class="container app-container px-0 px-sm-3">
     <div drbbly-overlay="dcc.courtsDetailsOverlay">
-        <div class="app-header mb-3">
-            <div class="row">
-                <div class="non-mobile col-12">
-                    <drbbly-appnavigator nav-items="dcc.app.toolbar._navItems"></drbbly-appnavigator>
+        <div class="row app-header">
+            <div class="container mb-3">
+                <div class="row">
+                    <div class="non-mobile col-12">
+                        <drbbly-appnavigator nav-items="dcc.app.toolbar._navItems"></drbbly-appnavigator>
+                    </div>
                 </div>
             </div>
         </div>
-        <ui-view court="dcc.court"
-                 ng-if="dcc.court"
-                 on-update="dcc.onCourtUpdate"></ui-view>
+        <div class="app-body">
+            <ui-view court="dcc.court"
+                     ng-if="dcc.court"
+                     on-update="dcc.onCourtUpdate"></ui-view>
 
-        <drbbly-nearbycourts reference-coordinates="dcc.court"
-                             title="{{'app.CourtsNearCourtName' | i18n : {courtName: dcc.court.name} }}"
-                             excluded-court="dcc.court"
-                             ng-if="dcc.court"></drbbly-nearbycourts>
+            <drbbly-nearbycourts reference-coordinates="dcc.court"
+                                 title="{{'app.CourtsNearCourtName' | i18n : {courtName: dcc.court.name} }}"
+                                 excluded-court="dcc.court"
+                                 ng-if="dcc.court"></drbbly-nearbycourts>
+        </div>
     </div>
 </div>
