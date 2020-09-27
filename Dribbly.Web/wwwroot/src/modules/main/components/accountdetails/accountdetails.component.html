@@ -1,6 +1,6 @@
 ﻿<div drbbly-overlay="dad.overlay">
     <div class="container px-0 px-sm-3">
-        <div class="top-section">
+        <div class="top-section mb-3">
             <table class="w-100">
                 <tr class="stats-container row no-gutters">
                     <td class="col-4"></td>
@@ -52,51 +52,44 @@
                 </tr>
             </table>
         </div>
-        <div class="bg-light px-sm-3 px-1 py-3">
-            <table class="properties-list-table table col-12 col-sm-5">
-                <tr>
-                    <td class="pr-1 pr-sm-3 text-right label">
-                        <span class="d-none d-sm-inline">{{::'app.City' | i18n}}</span>
-                        <span class="d-inline d-sm-none"><i class="fa fa-map-marker"></i></span>
-                    </td>
-                    <td class="w-100 value">San Juan</td>
-                    <td><a href="#">Edit</a></td>
-                </tr>
-                <tr>
-                    <td class="pr-1 pr-sm-3 text-right label">
-                        <span class="d-none d-sm-inline">{{::'app.Height' | i18n}}</span>
-                        <span class="d-inline d-sm-none"><i class="fa fa-arrows-v"></i></span>
-                    </td>
-                    <td class="w-100 value">{{dad.account.heightInches | height}}</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="pr-1 pr-sm-3 text-right label">
-                        <span class="d-none d-sm-inline">{{::'app.Gender' | i18n}}</span>
-                        <span class="d-inline d-sm-none">&#9893;</span>
-                    </td>
-                    <td class="w-100 value">{{dad.account.gender | gender}}</td>
-                    <td></td>
-                </tr>
-                <tr ng-if="dad.account.age">
-                    <td class="pr-1 pr-sm-3 text-right label">
-                        <span class="d-none d-sm-inline">{{::'app.Age' | i18n}}</span>
-                    </td>
-                    <td class="w-100 value">{{'app.AgeValue' | i18n : { age: dad.account.age } }}</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="pr-1 pr-sm-3 text-right label">
-                        <span class="d-none d-sm-inline text-nowrap">{{::'app.DateJoined' | i18n}}</span>
-                        <span class="d-inline d-sm-none"><i class="fa fa-calendar"></i></span>
-                    </td>
-                    <td class="w-100 value">
-                        <span class="d-none d-sm-inline">{{dad.account.dateAdded | date}}</span>
-                        <span class="d-inline d-sm-none">{{'app.JoinedOnDate' | i18n : {date: $root.$filter('date')(dad.account.dateAdded, 'mediumDate')} }}</span>
-                    </td>
-                    <td></td>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="bg-light p-3">
+                    <dl class="row">
+                        <dt class="col-2">
+                            <span class="d-none d-sm-inline">{{::'app.Height' | i18n}}</span>
+                            <span class="d-inline d-sm-none"><i class="fa fa-arrows-v"></i></span>
+                        </dt>
+                        <dd class="col-10">
+                            {{dad.account.heightInches | height}}
+                        </dd>
+                        <dt class="col-2">
+                            <span class="d-none d-sm-inline">{{::'app.Gender' | i18n}}</span>
+                            <span class="d-inline d-sm-none">&#9893;</span>
+                        </dt>
+                        <dd class="col-10">
+                            {{dad.account.gender | gender}}
+                        </dd>
+                        <dt class="col-2">
+                            <span class="d-none d-sm-inline">{{::'app.Age' | i18n}}</span>
+                        </dt>
+                        <dd class="col-10">
+                            {{'app.AgeValue' | i18n : { age: dad.account.age } }}
+                        </dd>
+                        <dt class="col-2">
+                            <span class="d-none d-sm-inline">{{::'app.DateJoined' | i18n}}</span>
+                            <span class="d-inline d-sm-none"><i class="fa fa-calendar"></i></span>
+                        </dt>
+                        <dd class="col-10">
+                            <span class="d-none d-sm-inline">{{dad.account.dateAdded | date}}</span>
+                            <span class="d-inline d-sm-none">{{'app.JoinedOnDate' | i18n : {date: $root.$filter('date')(dad.account.dateAdded, 'mediumDate')} }}</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="bg-secondary w-100 h-100"></div>
+            </div>
         </div>
     </div>
 </div>
