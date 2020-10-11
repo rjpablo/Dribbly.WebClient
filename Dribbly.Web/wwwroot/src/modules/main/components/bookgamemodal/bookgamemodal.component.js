@@ -35,7 +35,7 @@
 
                         bgm.saveModel = angular.copy(game || {});
                         bgm.saveModel.durationMinutes = getDuration();
-                        bgm.bookedBy = bgm.saveModel.bookedBy ? [bgm.saveModel.bookedBy] : [];
+                        bgm.bookedByChoice = bgm.saveModel.bookedByChoice ? [bgm.saveModel.bookedByChoice] : [];
 
                         setStartDateOptions();
                         setEndDateOptions();
@@ -176,7 +176,7 @@
             if (bgm.frmGameDetails.$valid) {
                 bgm.saveModel.start = bgm.saveModel.start.toISOString();
                 bgm.saveModel.end = bgm.saveModel.end.toISOString();
-                bgm.saveModel.bookedById = bgm.bookedBy && bgm.bookedBy.length ? bgm.bookedBy[0].value : null;
+                bgm.saveModel.bookedById = bgm.bookedByChoice && bgm.bookedByChoice.length ? bgm.bookedByChoice[0].value : null;
 
                 if (bgm.options.isEdit) {
                     drbblyGamesService.updateGame(bgm.saveModel)
