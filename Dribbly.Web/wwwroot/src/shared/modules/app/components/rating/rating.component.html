@@ -1,5 +1,10 @@
-﻿<i class="fa {{drc.value >= 0.2 ? 'fa-star' : (drc.value >= 0.1 ? 'fa-star-half-o' : 'fa-star-o')}}"></i>
-<i class="fa {{drc.value >= 0.4 ? 'fa-star' : (drc.value >= 0.3 ? 'fa-star-half-o' : 'fa-star-o')}}"></i>
-<i class="fa {{drc.value >= 0.6 ? 'fa-star' : (drc.value >= 0.5 ? 'fa-star-half-o' : 'fa-star-o')}}"></i>
-<i class="fa {{drc.value >= 0.8 ? 'fa-star' : (drc.value >= 0.7 ? 'fa-star-half-o' : 'fa-star-o')}}"></i>
-<i class="fa {{drc.value === 1 ? 'fa-star' : (drc.value >= 0.9 ? 'fa-star-half-o' : 'fa-star-o')}}"></i>
+﻿<i class="fa {{drc.value >= 0.2 ? 'fa-star' : (drc.value >= 0.1 ? 'fa-star-half-o' : 'fa-star-o')}}"
+   ng-click="drc.setValue(0.2)"></i>
+<i class="fa {{drc.value >= 0.4 ? 'fa-star' : (drc.value >= 0.3 ? 'fa-star-half-o' : 'fa-star-o')}}"
+   ng-click="drc.setValue(0.4)"></i>
+<i class="fa {{drc.value >= 0.6 ? 'fa-star' : (drc.value >= 0.5 ? 'fa-star-half-o' : 'fa-star-o')}}"
+   ng-click="drc.setValue(0.6)"></i>
+<i class="fa {{drc.value >= 0.8 ? 'fa-star' : (drc.value >= 0.7 ? 'fa-star-half-o' : 'fa-star-o')}}"
+   ng-click="drc.setValue(0.8)"></i>
+<i class="fa {{drc.value === 1 ? 'fa-star' : (drc.value >= 0.9 ? 'fa-star-half-o' : 'fa-star-o')}}"
+   ng-click="drc.setValue(1)"></i>

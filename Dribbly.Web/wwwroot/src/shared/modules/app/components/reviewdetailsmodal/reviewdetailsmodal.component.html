@@ -1,0 +1,49 @@
+﻿<div class="modal-body">
+    <form name="rdm.frmReviewDetails"
+          novalidate
+          ng-if="rdm.tempReview">
+        <fieldset ng-disabled="rdm.isBusy">
+            <div class="form-group">
+                <label for="txtRatePerHour" class="label"></label>
+                {{::'site.Rating' | i18n}}*:
+                <h3>
+                    <drbbly-rating value="rdm.tempReview.rating"
+                                   editable="true"
+                                   on-value-set="rdm.onRatingSet"></drbbly-rating>
+                </h3>
+                <input type="number"
+                       hidden="hidden"
+                       name="txtRating"
+                       ng-disabled="rdm.isBusy"
+                       ng-model="rdm.tempReview.rating"
+                       required
+                       class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="txtPhoto" class="label"></label>
+                {{::'app.Details' | i18n}}:
+                <drbbly-texteditor class="d-block mb-1"
+                                   value="rdm.tempReview.message"></drbbly-texteditor>
+                <input name="txtDetails" type="text" hidden ng-model="rdm.tempReview.message" />
+            </div>
+        </fieldset>
+    </form>
+    <div ng-class="{'d-block': rdm.frmReviewDetails.$invalid && rdm.frmReviewDetails.$submitted}"
+         class="invalid-feedback mb-0 mt-3">
+        {{::'site.Error_Common_PleaseFixErrors' | i18n}}
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            ng-disabled="rdm.isBusy"
+            type="submit"
+            ng-click="rdm.submit()"
+            ng-switch="rdm.isBusy">
+        <span ng-switch-default>{{::'site.Submit'| i18n}}</span>
+        <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+    </button>
+    <button i18n="{{::'site.Cancel'}}"
+            class="btn btn-warning"
+            type="button"
+            ng-click="rdm.cancel()"></button>
+</div>

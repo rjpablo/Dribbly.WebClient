@@ -113,6 +113,11 @@
                     textKey: 'site.Schedule',
                     targetStateName: 'main.court.schedule',
                     targetStateParams: { id: _courtId }
+                },
+                {
+                    textKey: 'site.Reviews',
+                    targetStateName: 'main.court.reviews',
+                    targetStateParams: { id: _courtId }
                 }
             ]);
         }

@@ -145,6 +145,14 @@
                 }
             })
 
+            .state('main.court.reviews', {
+                url: '/reviews',
+                component: 'drbblyCourtreviews',
+                resolve: {
+                    $titleKey: () => { return 'app.CourtReviews'; }
+                }
+            })
+
             .state('main.game', {
                 url: '/game/:id',
                 component: 'drbblyGameviewercontainer',
