@@ -1,0 +1,41 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-accounthome {
+    .top-section {
+
+        tr:first-child {
+            background-image: url(../../../../../src/images/backgrounds/dark_orange_with_ball_pattern.png);
+        }
+
+        .stats-container {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .user-details-container {
+            background-color: #4dabe2;
+            color: #fff;
+
+            & > td:nth-child(2) {
+                width: 100%; //make the 2nd column take up all the available vertical space
+            }
+
+            .profile-photo {
+                height: 80px;
+                width: 80px;
+                border-radius: 50%;
+                margin-top: -40px;
+                border: 5px solid #fff;
+            }
+
+            @include media-breakpoint-up(sm) {
+                .profile-photo {
+                    height: 120px;
+                    width: 120px;
+                    margin-top: -60px;
+                }
+            }
+        }
+    }
+}

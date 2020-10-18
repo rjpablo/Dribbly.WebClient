@@ -58,6 +58,14 @@
                 component: 'drbblyAccountviewercontainer'
             })
 
+            .state('main.account.home', {
+                url: '',
+                component: 'drbblyAccounthome',
+                resolve: {
+                    $titleKey: () => { return 'site.Home'; }
+                }
+            })
+
             .state('main.account.details', {
                 url: '/details',
                 component: 'drbblyAccountdetails',

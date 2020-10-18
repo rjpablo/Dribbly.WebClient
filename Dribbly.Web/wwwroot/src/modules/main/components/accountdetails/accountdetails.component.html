@@ -1,57 +1,5 @@
 ﻿<div drbbly-overlay="dad.overlay">
     <div class="container px-0 px-sm-3">
-        <div class="top-section mb-3">
-            <table class="w-100">
-                <tr class="stats-container row no-gutters">
-                    <td class="col-4"></td>
-                    <td class="p-3 d-flex justify-content-around col-8">
-                        <div class="d-inline-block text-center">
-                            <h2 class="m-0 d-block px-1 text-white">0/0</h2>
-                            <span class="text-muted">{{::'app.WinRate' | i18n}}</span>
-                        </div>
-                        <div class="d-inline-block text-center">
-                            <h2 class="m-0 d-block px-1 text-white">0</h2>
-                            <span class="text-muted">{{::'app.Mvps' | i18n}}</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="user-details-container row no-gutters">
-                    <td class="align-top col-4">
-                        <img ng-src="{{dad.account.profilePhoto.url}}"
-                             class="profile-photo d-block mx-auto"
-                             ng-click="dad.onProfilePhotoClick()" />
-                        <button id="btn-replace-photo"
-                                class="d-none"
-                                ngf-select="dad.onPrimaryPhotoSelect($file)"
-                                ng-model="dad.profilePicture"
-                                ngf-pattern="'image/*'"
-                                ngf-accept="'image/*'"
-                                ngf-max-size="20MB"></button>
-                        <ng-image-gallery images="dad.account.photos"
-                                          methods="dad.methods"
-                                          thumbnails="false"
-                                          inline="false"
-                                          bubbles="true"
-                                          bubble-size="30"
-                                          img-bubbles="true"
-                                          bg-close="true"
-                                          piracy="true"
-                                          img-anim="fadeup"
-                                          on-delete="dad.onDeletePhoto(img, cb)"></ng-image-gallery>
-                    </td>
-                    <td class="pl-3 col-8">
-                        <div>
-                            <h3 class="d-inline-block text-white"><small>{{dad.account.username}}</small></h3>
-                            <button class="btn btn-default text-light"><i class="fa fa-ellipsis-h"></i></button>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-primary mb-3">{{::'app.PlusFollow' | i18n}}</button>
-                            <button type="button" class="btn btn-secondary mb-3">{{::'app.Message' | i18n}}</button>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
         <div class="row">
             <div class="col-12 col-md-8">
                 <div class="bg-light p-3">

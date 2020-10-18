@@ -47,6 +47,14 @@
         function buildSubPages() {
             avc.app.toolbar.setNavItems([
                 {
+                    textKey: 'site.Home',
+                    targetStateName: 'main.account.home',
+                    targetStateParams: { username: _username },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
+                },
+                {
                     textKey: 'app.Details',
                     targetStateName: 'main.account.details',
                     targetStateParams: { username: _username },
