@@ -21,7 +21,7 @@
         cgc.$onInit = function () {
             cgc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             cgc.courtId = $stateParams.id;
-            drbblyCourtsService.getCourtGames(cgc.courtId)
+            drbblyCourtsService.getCourtBookings(cgc.courtId)
                 .then(function (events) {
                     cgc.games = massageEvents(events || []);
                     cgc.schedulerOptions = getSchedulerOptions(angular.copy(cgc.games));

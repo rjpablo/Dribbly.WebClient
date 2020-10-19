@@ -57,8 +57,8 @@
                 Deleted: 2
             },
             notificationType: {
-                gameBookedForOwner: 0,
-                gameBookedForBooker: 1
+                newBookingForOwner: 0,
+                newBookingForBooker: 1
             }
         };
     }]);

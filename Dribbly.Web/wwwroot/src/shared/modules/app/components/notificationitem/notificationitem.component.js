@@ -22,7 +22,7 @@
         };
 
         function setTargetLink() {
-            if (dni.item.type === _notificationTypes.gameBookedForBooker || dni.item.type === _notificationTypes.gameBookedForOwner) {
+            if (dni.item.type === _notificationTypes.newBookingForBooker || dni.item.type === _notificationTypes.newBookingForOwner) {
                 dni.targetLink = $state.href('main.game', { id: dni.item.gameId });
             }
         }

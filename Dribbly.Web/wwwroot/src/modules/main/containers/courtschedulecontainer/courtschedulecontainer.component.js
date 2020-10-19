@@ -21,7 +21,7 @@
 
         csc.$onInit = function () {
             csc.courtId = $stateParams.id;
-            drbblyCourtsService.getCourtGames(csc.courtId)
+            drbblyCourtsService.getCourtBookings(csc.courtId)
                 .then(function (events) {
                     csc.games = massageEvents(events || []);
                     csc.calendarOptions = getCalendarOptions();

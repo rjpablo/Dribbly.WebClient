@@ -30,8 +30,8 @@
                     return drbblyhttpService.get(api + 'getCourtVideos/' + id);
                 }
 
-                function getCourtGames(id) {
-                    return drbblyhttpService.get(api + 'getCourtGames/' + id);
+                function getCourtBookings(id) {
+                    return drbblyhttpService.get(api + 'getCourtBookings/' + id);
                 }
 
                 function followCourt(courtId, isFollowing) {
@@ -89,7 +89,7 @@
                     getAllCourts: getAllCourts,
                     getCodeReviewModal: getCodeReviewModal,
                     getCourt: getCourt,
-                    getCourtGames: getCourtGames,
+                    getCourtBookings: getCourtBookings,
                     getCourtPhotos: getCourtPhotos,
                     getReviews: getReviews,
                     getCourtVideos: getCourtVideos,
