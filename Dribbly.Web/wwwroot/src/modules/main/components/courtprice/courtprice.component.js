@@ -17,7 +17,7 @@
         var cpc = this;
 
         cpc.book = function () {
-            drbblyCourtshelperService.openBookGameModal({ courtId: cpc.court.id })
+            drbblyCourtshelperService.openBookingDetailsModal({ courtId: cpc.court.id })
                 .then(function (result) {
                     $state.go('main.court.schedule', { focusedEventId: result.id, defaultDate: result.start });
                 })

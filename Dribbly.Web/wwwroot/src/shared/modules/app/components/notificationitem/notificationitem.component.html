@@ -1,10 +1,10 @@
 ﻿<a ng-href="{{::dni.targetLink}}" class="link-unstyled">
     <div class="text-wrap">
         <div ng-if="dni.item.type === $root.constants.enums.notificationType.newBookingForBooker"
-             ng-bind-html="('app.Notification_AGameWasBookedForYouAtCourtName' | i18n : {courtName: dni.item.courtName})">
+             ng-bind-html="('app.Notification_ABookingHasBeenMadeForYouAtCourtName' | i18n : {courtName: dni.item.courtName})">
         </div>
         <div ng-if="dni.item.type === $root.constants.enums.notificationType.newBookingForOwner"
-             ng-bind-html="('app.Notification_UserBookedAGameAtCourtName' | i18n : {courtName: dni.item.courtName, userName: dni.item.bookedByName})">
+             ng-bind-html="('app.Notification_UserMadeABookingAtCourtName' | i18n : {courtName: dni.item.courtName, userName: dni.item.bookedByName})">
         </div>
     </div>
     <small class="text-muted float-right">

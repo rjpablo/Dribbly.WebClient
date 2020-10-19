@@ -141,15 +141,15 @@
         // Calendar event handlers - Start
 
         function onEventClick(args) {
-            var game = {
+            var booking = {
                 id: args.event.id,
                 start: args.event.start,
                 end: args.event.end,
                 title: args.event.title
             };
-            game = Object.assign(game, args.extendedProps);
+            booking = Object.assign(booking, args.extendedProps);
 
-            drbblyCourtshelperService.openBookGameModal(game, { isEdit: true })
+            drbblyCourtshelperService.openBookingDetailsModal(booking, { isEdit: true })
                 .then(function (result) {
                     if (result) {
                         var event = cal.calendar.getEventById(args.event.id);
@@ -169,7 +169,7 @@
 
         function onDateClick(args) {
             if (!_isHandlingOnSelect) {
-                drbblyCourtshelperService.openBookGameModal({ start: args.date }, { isEdit: true })
+                drbblyCourtshelperService.openBookingDetailsModal({ start: args.date }, { isEdit: true })
                     .then(function (result) {
                         addEvent(result);
                     })
@@ -180,7 +180,7 @@
         }
 
         function onSelect(args) {
-            var game = {
+            var booking = {
                 courtId: cal.courtId,
                 start: args.start,
                 end: args.end
@@ -188,7 +188,7 @@
 
             _isHandlingOnSelect = true;
 
-            drbblyCourtshelperService.openBookGameModal(game)
+            drbblyCourtshelperService.openBookingDetailsModal(booking)
                 .then(function (result) {
                     addEvent(result);
                     _isHandlingOnSelect = false;

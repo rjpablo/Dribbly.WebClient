@@ -141,6 +141,14 @@
                 }
             })
 
+            .state('main.court.bookings', {
+                url: '/bookings',
+                component: 'drbblyCourtbookings',
+                resolve: {
+                    $titleKey: () => { return 'site.CourtBookings'; }
+                }
+            })
+
             .state('main.court.schedule', {
                 params: {
                     focusedEventId: null,
@@ -158,6 +166,22 @@
                 component: 'drbblyCourtreviews',
                 resolve: {
                     $titleKey: () => { return 'app.CourtReviews'; }
+                }
+            })
+
+            .state('main.booking', {
+                url: '/booking/:id',
+                component: 'drbblyBookingviewercontainer',
+                resolve: {
+                    $titleKey: () => { return 'app.BookingDetails'; }
+                }
+            })
+
+            .state('main.booking.details', {
+                url: '/details',
+                component: 'drbblybookingdetails',
+                resolve: {
+                    $titleKey: () => { return 'app.BookingDetails'; }
                 }
             })
 

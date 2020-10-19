@@ -24,12 +24,12 @@
                     });
                 }
 
-                function openBookGameModal(game, options) {
+                function openBookingDetailsModal(booking, options) {
                     return authService.checkAuthenticationThen(function () {
                         return modalService.show({
-                            view: '<drbbly-bookgamemodal></drbbly-bookgamemodal>',
+                            view: '<drbbly-bookingdetailsmodal></drbbly-bookingdetailsmodal>',
                             model: {
-                                game: game
+                                booking: booking
                             },
                             options: options
                         });
@@ -45,7 +45,7 @@
 
                 var _service = {
                     editCourt: editCourt,
-                    openBookGameModal: openBookGameModal,
+                    openBookingDetailsModal: openBookingDetailsModal,
                     populateDistance: populateDistance,
                     registerCourt: registerCourt
                 };

@@ -23,7 +23,7 @@
 
         function setTargetLink() {
             if (dni.item.type === _notificationTypes.newBookingForBooker || dni.item.type === _notificationTypes.newBookingForOwner) {
-                dni.targetLink = $state.href('main.game', { id: dni.item.gameId });
+                dni.targetLink = $state.href('main.booking', { id: dni.item.bookingId });
             }
         }
     }

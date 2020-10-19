@@ -38,7 +38,7 @@
             return authService.checkAuthenticationThen(function () {
                 drbblyCourtsService.getCodeReviewModal(dcr.courtId)
                     .then(function (data) {
-                        if (data && data.event) {
+                        if (data && data.booking) {
                             data.add = dcr.add;
                             return modalService.show({
                                 view: '<drbbly-reviewdetailsmodal></drbbly-reviewdetailsmodal>',

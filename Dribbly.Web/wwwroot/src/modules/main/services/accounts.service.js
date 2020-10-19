@@ -26,6 +26,10 @@
                     return drbblyhttpService.get(api + 'getAccountGames/' + id);
                 }
 
+                function getAccountBookings(id) {
+                    return drbblyhttpService.get(api + 'getAccountBookings/' + id);
+                }
+
                 function getAccountSettings(userId) {
                     return drbblyhttpService.get(api + 'getAccountSettings/' + userId);
                 }
@@ -83,6 +87,7 @@
                     getAccountByUsername: getAccountByUsername,
                     getAccountDropDownSuggestions: getAccountDropDownSuggestions,
                     getAccountGames: getAccountGames,
+                    getAccountBookings: getAccountBookings,
                     getAccountPhotos: getAccountPhotos,
                     getAccountSettings: getAccountSettings,
                     getAccountVideos: getAccountVideos,

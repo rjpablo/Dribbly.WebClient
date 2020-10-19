@@ -90,7 +90,7 @@
         }
 
         function addReview(review) {
-            review.eventId = rdm.model.event.id;
+            review.bookingId = rdm.model.booking.id;
             rdm.model.add(review)
                 .then(function () {
                     close();
