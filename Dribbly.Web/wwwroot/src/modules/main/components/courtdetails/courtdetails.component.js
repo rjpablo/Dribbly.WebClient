@@ -14,9 +14,11 @@
         });
 
     controllerFunc.$inject = ['authService', 'drbblyCourtshelperService', 'drbblyFileService', '$stateParams', 'i18nService',
-        'drbblyOverlayService', 'drbblyCourtsService', 'drbblyFooterService', 'permissionsService', 'modalService'];
+        'drbblyOverlayService', 'drbblyCourtsService', 'drbblyFooterService', 'permissionsService', 'modalService',
+        'drbblyGameshelperService', '$state'];
     function controllerFunc(authService, drbblyCourtshelperService, drbblyFileService, $stateParams, i18nService,
-        drbblyOverlayService, drbblyCourtsService, drbblyFooterService, permissionsService, modalService) {
+        drbblyOverlayService, drbblyCourtsService, drbblyFooterService, permissionsService, modalService,
+        drbblyGameshelperService, $state) {
         var dcd = this;
         var _priceComponent;
 
@@ -81,6 +83,16 @@
                 template: '<drbbly-courtprice court="dcd.court"></dribbly-courtprice>'
             });
         }
+
+        dcd.addGame = function () {
+            drbblyGameshelperService.openAddEditGameModal({ courtId: dcd.courtId })
+                .then(function (game) {
+                    if (game) {
+                        $state.go('main.game.details', { id: game.id });
+                    }
+                })
+                .catch(function () { /* do nothing */})
+        };
 
         dcd.showContact = function () {
             if (dcd.court.contact) {

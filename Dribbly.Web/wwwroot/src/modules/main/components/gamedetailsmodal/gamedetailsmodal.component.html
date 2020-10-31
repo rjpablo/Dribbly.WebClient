@@ -1,0 +1,52 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" i18n="{{::'app.GameDetails'}}"></h3>
+</div>
+<div class="modal-body">
+    <form name="bgm.frmGameDetails"
+          novalidate
+          ng-if="bgm.saveModel">
+        <fieldset ng-disabled="bgm.isBusy">
+            <div class="form-group pb-3">
+                <label for="txtName">{{::'app.Title' | i18n}} <small class="text-lowercase">({{::'site.Optional' | i18n}})</small>:</label>
+                <input type="text"
+                       name="txtName"
+                       ng-model="bgm.saveModel.title"
+                       placeholder="{{::'app.Untitled' | i18n}}"
+                       class="form-control"
+                       ng-class="{'is-invalid': bgm.frmGameDetails.txtName.$touched && bgm.frmGameDetails.txtName.$invalid}"
+                       minlength="5" />
+                <div ng-show="bgm.frmGameDetails.txtName.$error.minlength" class="invalid-feedback">
+                    {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="start">{{::'app.Schedule' | i18n}}*:</label>
+                <drbbly-datetimepicker ng-model="bgm.saveModel.start"
+                                       name="dtpStart"
+                                       sid="start"
+                                       value-changed="bgm.startChanged"
+                                       required
+                                       options="bgm.startDateOptions"></drbbly-datetimepicker>
+                <!-- This is a remedy for the error message to display properly.
+        It requires a sibling with classes .is-invalid and .form-control for it to appear,
+        but adding those classes to the datetime picker does not yield a very good result-->
+                <span class="form-control d-none"
+                      ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
+                <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">
+                    {{::'site.Required' | i18n}}
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button i18n="{{::'site.Submit'}}"
+            class="btn btn-primary"
+            ng-disabled="bgm.isBusy || bbgm.frmGameDetails.$invalid"
+            type="submit"
+            ng-click="bgm.submit()"></button>
+    <button i18n="{{::'site.Cancel'}}"
+            class="btn btn-warning"
+            type="button"
+            ng-click="bgm.cancel()"></button>
+</div>

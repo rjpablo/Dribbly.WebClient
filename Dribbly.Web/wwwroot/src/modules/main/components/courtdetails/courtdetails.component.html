@@ -49,6 +49,12 @@
                                 <button class="btn btn-primary"
                                         type="button"
                                         ng-disabled="dcd.isBusy"
+                                        ng-click="dcd.addGame()">
+                                    <i class="fa fa-plus mr-1"></i>{{::'app.NewGame' | i18n}}
+                                </button>
+                                <button class="btn btn-primary"
+                                        type="button"
+                                        ng-disabled="dcd.isBusy"
                                         ng-click="dcd.follow()"
                                         ng-switch="dcd.court.isFollowed">
                                     <span ng-switch-when="true">{{::'site.Unfollow' | i18n}}</span>

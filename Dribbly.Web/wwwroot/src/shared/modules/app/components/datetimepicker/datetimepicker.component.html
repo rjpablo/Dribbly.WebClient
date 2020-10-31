@@ -1,6 +1,6 @@
 ﻿<div class="row d-flex align-items-center">
     <!-- Date Picker -->
-    <div class="col-6">
+    <div class="col-7">
         <div class="input-group">
             <input type="text"
                    class="form-control"
@@ -28,13 +28,18 @@
         </div>
     </div>
     <!-- Time Picker -->
-    <div class="col-6">
-        <div uib-timepicker
+    <div class="col-5">
+        <input type="time" step="60"
+               class="form-control"
+               ng-model="dtp._timeModel"
+               ng-if="dtp.timeOptions"
+               ng-change="dtp._timeChanged()" />
+        <!--<div uib-timepicker
              ng-model="dtp._timeModel"
              ng-if="dtp.timeOptions"
              ng-change="dtp._timeChanged()"
              readonly-input="dtp.timeOptions.readonlyInput"
              hour-step="dtp.timeOptions.hourStep"
-             minute-step="dtp.timeOptions.minuteStep"></div>
+             minute-step="dtp.timeOptions.minuteStep"></div>-->
     </div>
 </div>

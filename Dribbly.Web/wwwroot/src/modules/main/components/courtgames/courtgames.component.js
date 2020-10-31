@@ -21,7 +21,7 @@
         cgc.$onInit = function () {
             cgc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             cgc.courtId = $stateParams.id;
-            drbblyCourtsService.getCourtBookings(cgc.courtId)
+            drbblyCourtsService.getCourtGames(cgc.courtId)
                 .then(function (events) {
                     cgc.games = massageEvents(events || []);
                     cgc.schedulerOptions = getSchedulerOptions(angular.copy(cgc.games));
@@ -31,7 +31,7 @@
         };
 
         cgc.courtFilter = function (item) {
-            return item.title.toLowerCase().indexOf((cgc.titleFilter || '').toLowerCase()) > -1;
+            return (item.title || '').toLowerCase().indexOf((cgc.titleFilter || '').toLowerCase()) > -1;
         };
 
         function massageEvents(events) {

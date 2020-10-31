@@ -93,10 +93,10 @@
         };
 
         function getInitialTime() {
-            if (dtp._ngModel) {
-                return angular.copy(dtp._ngModel);
-            }
-            return new Date(angular.copy(dtp._dateModel).setHours(0, 0, 0, 0));
+            var time = dtp._ngModel ? angular.copy(dtp._ngModel) : new Date(angular.copy(dtp._dateModel));
+            time.setSeconds(0);
+            time.setMilliseconds(0);
+            return time;
         }
 
         function getDatePopupOptions() {

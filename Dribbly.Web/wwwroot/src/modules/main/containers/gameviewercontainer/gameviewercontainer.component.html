@@ -1,22 +1,48 @@
-﻿<div drbbly-overlay="dcc.gameDetailsOverlay">
-    <div class="container px-0">
+﻿<div drbbly-overlay="gcc.gameDetailsOverlay">
+    <div class="container px-0 min-height-300">
         <div class="row no-gutters mt-3 border">
-            <div class="bg-black text-center col-12 py-3">
-                <h3 class="drbbly-header">
-                    {{gcc.game.title}}
-                </h3>
+            <div class="bg-black col-md-6 col-12 p-3 text-center text-md-left">
                 <div class="text-white">
-                    <drbbly-date date="gcc.game.start"></drbbly-date> - <drbbly-date date="gcc.game.end"></drbbly-date>
+                    {{gcc.game.title || ('app.Untitled' | i18n)}}
                 </div>
-                <a ui-sref="main.court.details({id: gcc.game.court.id})" class="m-0 p-0 pb-1 d-block">
+                <h3 class="drbbly-header m-0">
+                    <drbbly-date date="gcc.game.start"></drbbly-date> <span ng-if="gcc.game.end">- <drbbly-date date="gcc.game.end" format="'h:mm a'"></drbbly-date></span>
+                </h3>
+                <a ui-sref="main.court.details({id: gcc.game.court.id})" class="m-0 p-0 pb-1">
                     <i class="fa fa-map-marker mr-1"></i>
                     <span ng-click="cpm.viewCourtDetails($event, gcc.game.court)">
                         {{gcc.game.court.name}}
                     </span>
                 </a>
-                <div ng-if="gcc.game.bookedBy">
-                    <small class="text-muted">{{::'app.BookedBy' | i18n}}</small>&nbsp;<drbbly-userstub user="gcc.game.bookedBy"></drbbly-userstub>
+                <div ng-if="gcc.game.addedBy">
+                    <small class="text-muted">{{::'app.AddedBy' | i18n}}</small>&nbsp;<drbbly-userstub user="gcc.game.addedBy"></drbbly-userstub>
                 </div>
+            </div>
+            <div class="bg-black text-center col-md-6 col-12 p-3 d-flex justify-content-center justify-content-md-end align-items-start">
+                <div ng-if="gcc.isOwned">
+                    <button type="button" class="btn btn-primary"
+                            ng-if="gcc.game.status === gcc.gameStatusEnum.WaitingToStart"
+                            ng-click="gcc.startGame()">
+                        {{::'app.StartGame' | i18n}}
+                    </button>
+                </div>
+                <div class="btn-group ml-1" uib-dropdown
+                     ng-if="gcc.isOwned">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="gcc.updateGame">
+                        {{::'app.UpdateDetails' | i18n}}
+                    </button>
+                    <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu" uib-dropdown-menu role="menu">
+                        <a ng-click="gcc.cancelGame" class="dropdown-item">{{::'app.CancelGame' | i18n}}</a>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary ml-1"
+                        ng-if="!gcc.isOwned">
+                    {{::'site.Follow' | i18n}}
+                </button>
             </div>
         </div>
     </div>
