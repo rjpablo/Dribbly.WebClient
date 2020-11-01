@@ -37,6 +37,7 @@
             });
 
             _service.defaultDateFormat = 'MMM d, y h:mm a';
+            _service.defaultTimeFormat = 'h:mm a';
         }
 
         _service.getInitialSettings = _getInitialSettings;

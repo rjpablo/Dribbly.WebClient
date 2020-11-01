@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyCourtsService', '$stateParams', '$timeout', 'drbblyCourtshelperService',
-        'authService', 'drbblyOverlayService'];
+        'drbblyDatetimeService', 'drbblyOverlayService'];
     function controllerFunc(drbblyCourtsService, $stateParams, $timeout, drbblyCourtshelperService,
-        authService, drbblyOverlayService) {
+        drbblyDatetimeService, drbblyOverlayService) {
         var cgc = this;
 
         cgc.$onInit = function () {
@@ -37,9 +37,9 @@
         function massageEvents(events) {
             return events.map(function (event) {
                 event.text = event.title;
-                event.dateAdded += 'Z';
-                event.start += 'Z';
-                event.end += 'Z';
+                event.dateAdded = drbblyDatetimeService.toUtcString(event.dateAdded);
+                event.start = drbblyDatetimeService.toUtcString(event.start);
+                event.end = drbblyDatetimeService.toUtcString(event.end);
                 //event.editable = authService.authentication && authService.authentication.userId === event.addedBy;
                 return event;
             });

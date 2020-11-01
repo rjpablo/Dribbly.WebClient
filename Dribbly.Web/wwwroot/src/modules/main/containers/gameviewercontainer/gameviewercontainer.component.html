@@ -5,9 +5,7 @@
                 <div class="text-white">
                     {{gcc.game.title || ('app.Untitled' | i18n)}}
                 </div>
-                <h3 class="drbbly-header m-0">
-                    <drbbly-date date="gcc.game.start"></drbbly-date> <span ng-if="gcc.game.end">- <drbbly-date date="gcc.game.end" format="'h:mm a'"></drbbly-date></span>
-                </h3>
+                <h3 class="drbbly-header m-0">{{gcc.game | drbblyschedule}}</h3>
                 <a ui-sref="main.court.details({id: gcc.game.court.id})" class="m-0 p-0 pb-1">
                     <i class="fa fa-map-marker mr-1"></i>
                     <span ng-click="cpm.viewCourtDetails($event, gcc.game.court)">

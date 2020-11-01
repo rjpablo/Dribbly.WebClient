@@ -50,7 +50,11 @@
             }
 
             function toUtcString(dateString) {
-                return dateString.endsWith('Z') ? dateString : dateString + 'Z';
+                if (dateString) {
+                    return dateString.endsWith('Z') ? dateString : dateString + 'Z';
+                }
+
+                return null;
             }
 
             function toUtcDate(dateString) {

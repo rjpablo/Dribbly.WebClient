@@ -69,6 +69,7 @@
                     Name: 'Name',
                     NewPassword: 'New Password',
                     No: 'No',
+                    NotSet: 'Not Set',
                     Ok: 'Ok',
                     Optional: 'Optional',
                     Or: 'Or',
