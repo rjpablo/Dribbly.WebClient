@@ -58,11 +58,14 @@
             }
 
             function toUtcDate(dateString) {
-                return new Date(toUtcString(dateString));
+                if (dateString) {
+                    return new Date(toUtcString(dateString));
+                }
+                return null;
             }
 
             function getUtcNow() {
-                return new Date(new Date.toUTCString);
+                return new Date(new Date().toUTCString());
             }
 
             function toLocalDateTime(utcDate) {
