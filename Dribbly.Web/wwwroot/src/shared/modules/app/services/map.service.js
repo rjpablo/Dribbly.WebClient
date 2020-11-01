@@ -6,7 +6,6 @@
 
     function map(drbblyToastService, modalService, $q, NgMap) {
 
-        var _geocoder = new google.maps.Geocoder;
         var _earthRadius = 6378.137; // Earth radius in km
 
         var _getAddressCoordinates = function (address, callback) {
@@ -27,6 +26,7 @@
         };
 
         var _getAddress = function (latLng) {
+            var _geocoder = new google.maps.Geocoder;
             var deferred = $q.defer();
             _geocoder.geocode({ 'location': latLng }, (results, status) => {
                 if (status === 'OK') {
