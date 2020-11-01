@@ -36,7 +36,7 @@
                 _service[setting.key] = setting.value !== '' ? setting.value : setting.defaultValue;
             });
 
-            _service.defaultDateFormat = 'MMM d, y h:mm:ss a';
+            _service.defaultDateFormat = 'MMM d, y h:mm a';
         }
 
         _service.getInitialSettings = _getInitialSettings;

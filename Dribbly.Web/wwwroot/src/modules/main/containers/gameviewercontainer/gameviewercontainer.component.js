@@ -13,9 +13,11 @@
         });
 
     controllerFunc.$inject = ['drbblyGamesService', 'drbblyToolbarService', 'constants', 'authService',
-        'drbblyOverlayService', '$stateParams', 'drbblyFooterService', '$scope', '$state'];
+        'drbblyOverlayService', '$stateParams', 'drbblyFooterService', '$scope', '$state',
+        'drbblyGameshelperService', 'drbblyDatetimeService'];
     function controllerFunc(drbblyGamesService, drbblyToolbarService, constants, authService,
-        drbblyOverlayService, $stateParams, drbblyFooterService, $scope, $state) {
+        drbblyOverlayService, $stateParams, drbblyFooterService, $scope, $state,
+        drbblyGameshelperService, drbblyDatetimeService) {
         var gcc = this;
         var _gameId;
         var _priceComponent;
@@ -32,7 +34,8 @@
             gcc.gameDetailsOverlay.setToBusy();
             drbblyGamesService.getGame(_gameId)
                 .then(function (data) {
-                    gcc.game = data;
+                    gcc.game = angular.copy(data);
+                    gcc.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gcc.isOwned = gcc.game.addedById === authService.authentication.userId;
                     gcc.gameDetailsOverlay.setToReady();
                     createPriceComponent();
@@ -62,8 +65,17 @@
         };
 
         gcc.updateGame = function () {
-            // TODO: Implement
-            alert('Not yet implemented');
+            var model = {
+                gameId: _gameId,
+                isEdit: true
+            };
+            drbblyGameshelperService.openAddEditGameModal(model)
+                .then(function (game) {
+                    if (game) {
+                        loadGame();
+                    }
+                })
+                .catch(function () { /* do nothing */ })
         };
 
         gcc.cancelGame = function () {

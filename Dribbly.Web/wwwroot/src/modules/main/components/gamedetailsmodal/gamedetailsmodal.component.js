@@ -14,33 +14,34 @@
         });
 
     controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyGamesService', 'drbblyCommonService',
-        'drbblyDatetimeService', 'constants'];
+        'drbblyDatetimeService', 'constants', 'drbblyOverlayService'];
     function controllerFn($scope, modalService, drbblyEventsService, drbblyGamesService, drbblyCommonService,
-        drbblyDatetimeService, constants) {
+        drbblyDatetimeService, constants, drbblyOverlayService) {
         var bgm = this;
 
         bgm.$onInit = function () {
-            bgm.minDuration = 30;
+            bgm.overlay = drbblyOverlayService.buildOverlay();
             bgm.gameStatus = constants.enums.gameStatus;
-            if (bgm.options.isEdit) {
+            if (bgm.model.isEdit) {
                 bgm.isBusy = true;
-                drbblyGamesService.getGame(bgm.model.game.id)
+                bgm.overlay.setToBusy();
+                drbblyGamesService.getGame(bgm.model.gameId)
                     .then(function (game) {
+                        bgm.overlay.setToReady();
                         bgm.isBusy = false;
-
-                        game.start = new Date(drbblyDatetimeService.toUtcString(game.start));
-                        game.dateAdded = new Date(drbblyDatetimeService.toUtcString(game.dateAdded));
-
+                        game.start = drbblyDatetimeService.toLocalDateTime(game.start);
                         bgm.saveModel = angular.copy(game || {});
                         setStartDateOptions();
-
                     })
                     .catch(function (error) {
                         bgm.isBusy = false;
+                        bgm.overlay.setToError();
                     });
             }
             else {
-                bgm.saveModel = angular.copy(bgm.model.game || {});
+                bgm.saveModel = {
+                    courtId: bgm.model.courtId
+                };
                 if (!bgm.saveModel.start) {
                     bgm.saveModel.start = new Date();
                 }
@@ -99,22 +100,24 @@
             if (bgm.frmGameDetails.$valid) {
                 var saveModel = angular.copy(bgm.saveModel);
                 saveModel.start = bgm.saveModel.start.toISOString();
-
-                if (bgm.options.isEdit) {
+                bgm.isBusy = true;
+                if (bgm.model.isEdit) {
                     drbblyGamesService.updateGame(saveModel)
                         .then(function () {
+                            bgm.isBusy = false;
                             close(saveModel);
-                        })
-                        .catch(function (error) {
+                        }, function (error) {
+                            bgm.isBusy = false;
                             drbblyCommonService.handleError(error);
                         });
                 }
                 else {
                     drbblyGamesService.addGame(saveModel)
                         .then(function (result) {
+                            bgm.isBusy = false;
                             close(result);
-                        })
-                        .catch(function (error) {
+                        }, function (error) {
+                            bgm.isBusy = false;
                             drbblyCommonService.handleError(error);
                         });
                 }

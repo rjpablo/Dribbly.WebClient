@@ -42,7 +42,7 @@
                 if (!destination) {
                     throw new Error('empty destination');
                 }
-                destination.setHours(source.getHours(), source.getMinutes());
+                destination.setHours(source.getHours(), source.getMinutes(), source.getSeconds(), source.getMilliseconds());
             }
 
             function getDiff(date1, date2, unit) {
@@ -61,12 +61,18 @@
                 return new Date(new Date.toUTCString);
             }
 
+            function toLocalDateTime(utcDate) {
+                var localDateString = angular.isString(utcDate) ? toUtcDate(utcDate) : utcDate.toLocaleString();
+                return new Date(localDateString);
+            }
+
             return {
                 add: add,
                 compareDatesOnly: compareDatesOnly,
                 copyTime: copyTime,
                 getDiff: getDiff,
                 getUtcNow: getUtcNow,
+                toLocalDateTime: toLocalDateTime,
                 toUtcString: toUtcString,
                 removeTime: removeTime,
                 toUtcDate: toUtcDate

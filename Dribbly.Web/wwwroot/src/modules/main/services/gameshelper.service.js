@@ -5,14 +5,11 @@
         .service('drbblyGameshelperService', ['modalService', 'authService',
             function (modalService, authService) {
 
-                function openAddEditGameModal(game, options) {
+                function openAddEditGameModal(model) {
                     return authService.checkAuthenticationThen(function () {
                         return modalService.show({
                             view: '<drbbly-gamedetailsmodal></drbbly-gamedetailsmodal>',
-                            model: {
-                                game: game
-                            },
-                            options: options
+                            model: model
                         });
                     });
                 }
