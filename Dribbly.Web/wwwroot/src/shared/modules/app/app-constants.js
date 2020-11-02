@@ -34,15 +34,22 @@
                 Inactive: 1,
                 Deleted: 2
             },
-            notificationType: {
-                newBookingForOwner: 0,
-                newBookingForBooker: 1
+            entityType: {
+                Account: 0,
+                Court: 1,
+                Game: 2,
+                Team: 3,
+                Post: 4
             },
             gameStatus: {
                 WaitingToStart: 0,
                 Started: 1,
                 Finished: 2,
                 Cancelled: 3
+            },
+            notificationType: {
+                newBookingForOwner: 0,
+                newBookingForBooker: 1
             }
         };
     }]);

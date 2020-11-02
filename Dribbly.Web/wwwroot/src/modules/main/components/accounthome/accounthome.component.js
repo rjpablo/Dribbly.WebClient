@@ -27,6 +27,10 @@
             dad.overlay = drbblyOverlayService.buildOverlay();
             dad.isOwned = authService.isCurrentUserId(dad.account.identityUserId);
             dad.account.profilePhoto = dad.account.profilePhoto || getDefaultProfilePhoto();
+            dad.postsOptions = {
+                postedOnType: constants.enums.entityType.Account,
+                postedOnId: dad.account.identityUserId
+            };
             loadAccount();
         };
 

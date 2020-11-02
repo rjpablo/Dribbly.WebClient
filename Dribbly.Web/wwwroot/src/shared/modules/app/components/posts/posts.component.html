@@ -1,0 +1,37 @@
+﻿<div class="row mb-3">
+    <div class="col-12 py-3">
+        <h5 class="drbbly-header d-inline-block line-height-2">{{::'site.Posts' | i18n}}</h5>
+        <button type="button"
+                class="btn btn-primary pull-right"
+                ng-click="drl.createPost()"
+                ng-if="drl.canPost">
+            <i class="fa fa-plus mb-1"></i>
+            {{::'app.NewPost' | i18n}}
+        </button>
+    </div>
+    <div class="col-12">
+        <div ng-repeat="post in drl.posts"
+             class="black-transparent-bg px-3 mb-3">
+            <div class="d-flex justify-content-between align-items-center py-3 border-bottom border-dark">
+                <drbbly-userstub user="post.addedBy"
+                                 class="text-white"></drbbly-userstub>
+                <div>
+                    <drbbly-date class="text-muted small" date="post.dateAdded"
+                                 format="'dd-MMM-yyyy'"></drbbly-date>
+                </div>
+            </div>
+            <div ng-bind-html="post.content" class="py-3"></div>
+        </div>
+        <button type="button"
+                class="btn btn-secondary w-100"
+                ng-disabled="drl.isLoading"
+                ng-click="drl.loadMore()"
+                ng-show="!drl.hasLoadedAll"
+                ng-switch="drl.isLoading">
+            <span ng-switch-default>{{::'app.LoadMore' | i18n}}</span>
+            <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-sin"></i></span>
+        </button>
+        <span class="d-block text-center text-muted"
+              ng-show="drl.hasLoadedAll">{{::'app.NoMoreItemsToLoad' | i18n}}</span>
+    </div>
+</div>

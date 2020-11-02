@@ -8,6 +8,6 @@
 <div ng-if="dus.user.status == $root.constants.enums.accountStatus.Active"
      class="d-inline-block">
     <drbbly-profilepicture user="dus.user"></drbbly-profilepicture>
-    <a ui-sref="main.account.details({username: dus.user.username})"
-       class="username">{{dus.user.username}}</a>
+    <a ui-sref="main.account.home({username: dus.user.name})"
+       class="username">{{dus.user.name}}</a>
 </div>
