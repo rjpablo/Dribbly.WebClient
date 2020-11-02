@@ -18,6 +18,22 @@
                 <div>
                     <drbbly-date class="text-muted small" date="post.dateAdded"
                                  format="'dd-MMM-yyyy'"></drbbly-date>
+                    <div class="d-inline-block"
+                         uib-dropdown
+                         is-open="post.isDropdownOpen"
+                         on-toggle="drl.onToggle(open)"
+                         auto-close="outsideClick">
+                        <button class="btn btn-link my-n3"
+                                ng-click="drl.toggleDropdown(post); $event.stopPropagation();"
+                                type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right"
+                             uib-dropdown-menu
+                             role="menu">
+                            <a class="dropdown-item" ng-click="drl.editPost(post)">{{::'site.Edit' | i18n}}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div ng-bind-html="post.content" class="py-3"></div>

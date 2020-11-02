@@ -23,7 +23,7 @@
                 //TODO Retrieve post details
             }
             else {
-                pdm.post = pdm.model.post;
+                pdm.post = angular.copy(pdm.model.post);
             }
 
             pdm.context.setOnInterrupt(pdm.onInterrupt);
@@ -58,7 +58,7 @@
             pdm.frmPostDetails.$setSubmitted();
             if (pdm.frmPostDetails.$valid) {
                 pdm.isBusy = true;
-                if (pdm.options.isEdit) {
+                if (pdm.model.isEdit) {
                     editPost(pdm.post);
                 }
                 else {

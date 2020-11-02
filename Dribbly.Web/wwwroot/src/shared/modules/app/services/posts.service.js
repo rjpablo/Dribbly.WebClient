@@ -14,9 +14,14 @@
                     return drbblyhttpService.post(api + 'addPost', postDetails);
                 }
 
+                function updatePost(postDetails) {
+                    return drbblyhttpService.post(api + 'updatePost', postDetails);
+                }
+
                 var _service = {
                     getPosts: getPosts,
                     addPost: addPost,
+                    updatePost: updatePost,
                 };
 
                 return _service;

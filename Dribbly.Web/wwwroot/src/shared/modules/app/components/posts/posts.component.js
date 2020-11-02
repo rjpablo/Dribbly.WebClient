@@ -49,6 +49,22 @@
                 });
         }
 
+        drl.editPost = function (post) {
+            return authService.checkAuthenticationThen(function () {
+                return modalService.show({
+                    view: '<drbbly-postdetailsmodal></drbbly-postdetailsmodal>',
+                    model: {
+                        isEdit: true,
+                        post: post
+                    }
+                }).then(function (result) {
+                    if (result) {
+                        post.content = result.content;
+                    }
+                });
+            });
+        };
+
         drl.toggleDropdown = function (post) {
             post.isDropdownOpen = !post.isDropdownOpen;
         };
