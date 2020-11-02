@@ -49,17 +49,17 @@
                 });
         }
 
-        drl.editPost = function (post) {
+        drl.editPost = function () {
             return authService.checkAuthenticationThen(function () {
                 return modalService.show({
                     view: '<drbbly-postdetailsmodal></drbbly-postdetailsmodal>',
                     model: {
                         isEdit: true,
-                        post: post
+                        post: drl.post
                     }
                 }).then(function (result) {
                     if (result) {
-                        post.content = result.content;
+                        drl.post.content = result.content;
                     }
                 });
             });
@@ -80,22 +80,23 @@
             getPosts();
         };
 
-        drl.deletePost = function (post) {
-            modalService.confirm("app.DeletePostConfirmationMsg")
+        drl.onPostDelete = function (post) {
+            return modalService.confirm("app.DeletePostConfirmationMsg")
                 .then(function (response) {
                     if (response) {
-                        post.isBusy = true;
-                        drbblyPostsService.deletePost(post.id)
+                        return drbblyPostsService.deletePost(post.id)
                             .then(function (result) {
                                 if (result) {
-                                    post.isBusy = true;
                                     drl.posts.drbblyRemove(post);
                                 }
+                                return result;
                             })
                             .catch(function (error) {
                                 post.isBusy = true;
                             })
                     }
+
+                    return false;
                 });
         };
 

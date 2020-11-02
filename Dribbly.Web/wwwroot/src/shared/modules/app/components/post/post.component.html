@@ -1,0 +1,29 @@
+﻿<div class="black-transparent-bg px-3 mb-3">
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <drbbly-userstub user="drl.post.addedBy"
+                         class="text-white"></drbbly-userstub>
+        <div>
+            <drbbly-date class="text-muted small" date="drl.post.dateAdded"
+                         format="'dd-MMM-yyyy'"></drbbly-date>
+            <div class="d-inline-block"
+                 uib-dropdown
+                 is-open="drl.isDropdownOpen"
+                 on-toggle="drl.onToggle(open)"
+                 auto-close="outsideClick"
+                 ng-disabled="drl.isBusy">
+                <button class="btn btn-link my-n3"
+                        ng-click="drl.isDropdownOpen = !drl.isDropdownOpen; $event.stopPropagation();"
+                        type="button">
+                    <i class="fa fa-ellipsis-h"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right"
+                     uib-dropdown-menu
+                     role="menu">
+                    <a class="dropdown-item" ng-click="drl.editPost()">{{::'site.Edit' | i18n}}</a>
+                    <a class="dropdown-item" ng-click="drl.deletePost()">{{::'site.Delete' | i18n}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-bind-html="drl.post.content" class="my-3"></div>
+</div>

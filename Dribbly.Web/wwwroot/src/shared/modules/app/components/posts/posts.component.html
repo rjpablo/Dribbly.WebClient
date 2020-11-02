@@ -10,36 +10,10 @@
         </button>
     </div>
     <div class="col-12">
-        <div ng-repeat="post in drl.posts"
-             class="black-transparent-bg px-3 mb-3">
-            <div class="d-flex justify-content-between align-items-center py-3 border-bottom border-dark">
-                <drbbly-userstub user="post.addedBy"
-                                 class="text-white"></drbbly-userstub>
-                <div>
-                    <drbbly-date class="text-muted small" date="post.dateAdded"
-                                 format="'dd-MMM-yyyy'"></drbbly-date>
-                    <div class="d-inline-block"
-                         uib-dropdown
-                         is-open="post.isDropdownOpen"
-                         on-toggle="drl.onToggle(open)"
-                         auto-close="outsideClick"
-                         ng-disabled="post.isBusy">
-                        <button class="btn btn-link my-n3"
-                                ng-click="drl.toggleDropdown(post); $event.stopPropagation();"
-                                type="button">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right"
-                             uib-dropdown-menu
-                             role="menu">
-                            <a class="dropdown-item" ng-click="drl.editPost(post)">{{::'site.Edit' | i18n}}</a>
-                            <a class="dropdown-item" ng-click="drl.deletePost(post)">{{::'site.Delete' | i18n}}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div ng-bind-html="post.content" class="py-3"></div>
-        </div>
+        <drbbly-post ng-repeat="post in drl.posts track by post.id"
+                     on-delete="drl.onPostDelete"
+                     post="post">
+        </drbbly-post>
         <button type="button"
                 class="btn btn-secondary w-100"
                 ng-disabled="drl.isLoading"
