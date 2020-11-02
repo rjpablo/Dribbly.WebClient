@@ -22,7 +22,8 @@
                          uib-dropdown
                          is-open="post.isDropdownOpen"
                          on-toggle="drl.onToggle(open)"
-                         auto-close="outsideClick">
+                         auto-close="outsideClick"
+                         ng-disabled="post.isBusy">
                         <button class="btn btn-link my-n3"
                                 ng-click="drl.toggleDropdown(post); $event.stopPropagation();"
                                 type="button">
@@ -32,6 +33,7 @@
                              uib-dropdown-menu
                              role="menu">
                             <a class="dropdown-item" ng-click="drl.editPost(post)">{{::'site.Edit' | i18n}}</a>
+                            <a class="dropdown-item" ng-click="drl.deletePost(post)">{{::'site.Delete' | i18n}}</a>
                         </div>
                     </div>
                 </div>

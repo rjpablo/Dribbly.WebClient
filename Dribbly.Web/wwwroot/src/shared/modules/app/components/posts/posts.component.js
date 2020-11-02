@@ -12,8 +12,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', 'modalService', 'drbblyPostsService', 'constants'];
-    function controllerFunc(authService, modalService, drbblyPostsService, constants) {
+    controllerFunc.$inject = ['authService', 'modalService', 'drbblyPostsService', 'constants', 'drbblyCommonService'];
+    function controllerFunc(authService, modalService, drbblyPostsService, constants, drbblyCommonService) {
         var drl = this;
         var _loadSize = 5;
         var _ceilingPostId;
@@ -78,6 +78,25 @@
 
         drl.loadMore = function () {
             getPosts();
+        };
+
+        drl.deletePost = function (post) {
+            modalService.confirm("app.DeletePostConfirmationMsg")
+                .then(function (response) {
+                    if (response) {
+                        post.isBusy = true;
+                        drbblyPostsService.deletePost(post.id)
+                            .then(function (result) {
+                                if (result) {
+                                    post.isBusy = true;
+                                    drl.posts.drbblyRemove(post);
+                                }
+                            })
+                            .catch(function (error) {
+                                post.isBusy = true;
+                            })
+                    }
+                });
         };
 
         function setDisplayedReviews() {

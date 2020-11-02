@@ -18,9 +18,14 @@
                     return drbblyhttpService.post(api + 'updatePost', postDetails);
                 }
 
+                function deletePost(id) {
+                    return drbblyhttpService.post(api + 'deletePost/' + id);
+                }
+
                 var _service = {
-                    getPosts: getPosts,
                     addPost: addPost,
+                    deletePost: deletePost,
+                    getPosts: getPosts,
                     updatePost: updatePost,
                 };
 
