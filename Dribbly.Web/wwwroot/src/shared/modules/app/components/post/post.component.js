@@ -14,8 +14,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', 'modalService', 'drbblyPostsService', 'constants', 'drbblyCommonService'];
-    function controllerFunc(authService, modalService, drbblyPostsService, constants, drbblyCommonService) {
+    controllerFunc.$inject = ['authService', 'modalService', 'permissionsService', 'constants', 'drbblyCommonService'];
+    function controllerFunc(authService, modalService, permissionsService, constants, drbblyCommonService) {
         var drl = this;
 
         drl.$onInit = function () {
@@ -39,6 +39,19 @@
                     }
                 });
             });
+        };
+
+        drl.shouldShowMenu = function () {
+            return drl.canEdit() || drl.canDelete();
+        };
+
+        drl.canEdit = function () {
+            return drl.post.addedById === authService.authentication.userId;
+        };
+
+        drl.canDelete = function () {
+            return drl.post.addedById === authService.authentication.userId ||
+                permissionsService.hasPermission('Post.DeleteNotOwned');
         };
 
         drl.deletePost = function () {

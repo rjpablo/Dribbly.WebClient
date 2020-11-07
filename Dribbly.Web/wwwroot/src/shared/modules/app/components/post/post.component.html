@@ -10,7 +10,8 @@
                  is-open="drl.isDropdownOpen"
                  on-toggle="drl.onToggle(open)"
                  auto-close="outsideClick"
-                 ng-disabled="drl.isBusy">
+                 ng-disabled="drl.isBusy"
+                 ng-class="{'invisible': !drl.shouldShowMenu()}">
                 <button class="btn btn-link my-n3"
                         ng-click="drl.isDropdownOpen = !drl.isDropdownOpen; $event.stopPropagation();"
                         type="button">
@@ -19,8 +20,12 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      uib-dropdown-menu
                      role="menu">
-                    <a class="dropdown-item" ng-click="drl.editPost()">{{::'site.Edit' | i18n}}</a>
-                    <a class="dropdown-item" ng-click="drl.deletePost()">{{::'site.Delete' | i18n}}</a>
+                    <a class="dropdown-item"
+                       ng-if="drl.canEdit()"
+                       ng-click="drl.editPost()">{{::'site.Edit' | i18n}}</a>
+                    <a class="dropdown-item"
+                       ng-if="drl.canDelete()"
+                       ng-click="drl.deletePost()">{{::'site.Delete' | i18n}}</a>
                 </div>
             </div>
         </div>
