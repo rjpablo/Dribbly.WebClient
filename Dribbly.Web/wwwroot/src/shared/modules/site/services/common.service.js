@@ -3,7 +3,8 @@
 
     angular.module('siteModule')
         .service('drbblyCommonService', ['drbblyToastService', '$log', '$location', 'i18nService',
-            function (drbblyToastService, $log, $location, i18nService) {
+            'modalService',
+            function (drbblyToastService, $log, $location, i18nService, modalService) {
 
                 var _handleError = function (error, friendlyMsgKey, friendlyMsgRaw) {
                     // Do nothing if an HTTP error is passed because
@@ -20,7 +21,7 @@
 
                         errorLog = buildErrorLog(error.message, error.message, null, null, error.stack);
                         $log.error(errorLog);
-                    }                    
+                    }
                 };
 
                 var _handleHttpError = function (error) {
@@ -55,6 +56,9 @@
                                     errorLog.stack = error.data.stackTrace;
                                 }
                         }
+
+                        showFriendlyError(error.data);
+
                     }
                     else {
                         errorLog = buildErrorLog('Tried to log non-HTTP error as HTTP', error.message, null, null, error.stack);
@@ -65,6 +69,15 @@
 
                 function isHttpError(error) {
                     return error.config && error.status;
+                }
+
+                function showFriendlyError(error) {
+                    if (error && (error.friendlyMessage || error.friendlyMessageKey)) {
+                        modalService.alert({
+                            msg2Key: error.friendlyMessageKey,
+                            msg2Raw: error.friendlyMessage
+                        });
+                    }
                 }
 
                 function buildErrorLog(msg, errorMsg, url, errorCode, stackTrace) {

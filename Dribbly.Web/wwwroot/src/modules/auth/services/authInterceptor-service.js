@@ -1,9 +1,8 @@
 ﻿(function () {
     'use strict';
     angular.module('authModule')
-        .factory('authInterceptorService', ['$q', '$injector', 'drbblyCommonService', 'localStorageService',
-            '$location', '$state',
-            function ($q, $injector, drbblyCommonService, localStorageService, $location, $state) {
+        .factory('authInterceptorService', ['$q', '$injector', 'localStorageService',
+            function ($q, $injector, localStorageService) {
 
                 var authInterceptorServiceFactory = {};
 
@@ -51,16 +50,21 @@
                                 });
                         }
                         else {
-                            drbblyCommonService.handleHttpError(rejection);
+                            handleRejection(rejection);
                             authService.showLoginModal();
                         }
                     }
                     else {
-                        drbblyCommonService.handleHttpError(rejection);
+                        handleRejection(rejection);
                         deferred.reject(rejection);
                     }
                     return deferred.promise;
                 };
+
+                function handleRejection(rejection) {
+                    var drbblyCommonService = $injector.get('drbblyCommonService');
+                    drbblyCommonService.handleHttpError(rejection);
+                }
 
                 var _retryHttpRequest = function (config, deferred) {
                     var $http = $injector.get('$http');
