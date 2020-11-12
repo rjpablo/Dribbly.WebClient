@@ -87,10 +87,7 @@
                 .then(function (response) {
                     if (response) {
                         authService.logOut();
-                        $state.go('main.home', { reload: true })
-                            .finally(function () {
-                                $window.location.reload();
-                            });
+                        $state.go('auth.login', { reload: true });
                     }
                 });
         };
