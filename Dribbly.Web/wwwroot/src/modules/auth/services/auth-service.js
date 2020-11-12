@@ -52,7 +52,7 @@
                             _authentication.username = loginData.username;
                             _authentication.useRefreshTokens = _useRefreshTokens;
                             _authentication.profilePicture = _temporaryProfilePicture;
-                            _authentication.userId = response.data.userId;
+                            _authentication.userId = parseInt(response.data.userId);
 
                             deferred.resolve(response);
 
@@ -158,7 +158,7 @@
                         _authentication.username = response.data.userName;
                         _authentication.useRefreshTokens = _useRefreshTokens;
                         _authentication.profilePicture = _temporaryProfilePicture;
-                        _authentication.userId = response.data.userId;
+                        _authentication.userId = parseInt(response.data.userId);
                         permissionsService.setPermissions(authData.permissions);
 
                         deferred.resolve(response);
@@ -198,7 +198,7 @@
                     _authentication.isAuthenticated = true;
                     _authentication.username = loginData.username;
                     _authentication.useRefreshTokens = _useRefreshTokens;
-                    _authentication.userId = response.data.userId;
+                    _authentication.userId = parseInt(response.data.userId);
 
                     deferred.resolve(response);
 
@@ -231,7 +231,7 @@
                     _authentication.isAuthenticated = true;
                     _authentication.username = response.data.userName;
                     _authentication.useRefreshTokens = _useRefreshTokens;
-                    _authentication.userId = response.data.userId;
+                    _authentication.userId = parseInt(response.data.userId);
 
                     deferred.resolve(response);
 
