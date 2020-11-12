@@ -26,7 +26,7 @@
 
     module.run(['authService', '$transitions', '$rootScope', 'drbblyToolbarService', 'constants', '$filter', runFn]);
     function runFn(authService, $transitions, $rootScope, drbblyToolbarService, constants, $filter) {
-        authService.refreshToken();
+        authService.fillAuthData();
         window.Dribbly.authentication = authService.authentication;
         $rootScope.$root.auth = authService.authentication;
         $rootScope.$root.constants = constants;

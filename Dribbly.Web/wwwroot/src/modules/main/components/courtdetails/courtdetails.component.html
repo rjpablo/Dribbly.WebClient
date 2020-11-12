@@ -54,6 +54,7 @@
                                 </button>
                                 <button class="btn btn-primary"
                                         type="button"
+                                        ng-if="!dcd.isOwned"
                                         ng-disabled="dcd.isBusy"
                                         ng-click="dcd.follow()"
                                         ng-switch="dcd.court.isFollowed">
@@ -62,6 +63,7 @@
                                 </button>
                                 <button ng-click="dcd.showContact()"
                                         class="btn btn-secondary"
+                                        ng-if="!dcd.isOwned"
                                         type="button">
                                     <i class="fa fa-phone"></i>&nbsp;{{::'site.Contact' | i18n}}
                                 </button>

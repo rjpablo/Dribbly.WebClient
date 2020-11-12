@@ -41,7 +41,7 @@
                             localStorageService.set('authorizationData', {
                                 token: response.data.access_token,
                                 username: loginData.username,
-                                userId: response.data.userId,
+                                userId: parseInt(response.data.userId),
                                 refreshToken: response.data.refresh_token,
                                 useRefreshTokens: _useRefreshTokens,
                                 profilePicture: _temporaryProfilePicture,
@@ -87,6 +87,7 @@
 
             _authentication.isAuthenticated = false;
             _authentication.username = "";
+            _authentication.userId = null;
             permissionsService.setPermissions([]);
 
         };
@@ -107,7 +108,7 @@
                 _authentication.username = authData.username;
                 _authentication.useRefreshTokens = authData.useRefreshTokens;
                 _authentication.profilePicture = authData.profilePicture;
-                _authentication.userId = authData.userId;
+                _authentication.userId = parseInt(authData.userId);
                 permissionsService.setPermissions(authData.permissions);
             }
 
@@ -147,7 +148,7 @@
                         localStorageService.set('authorizationData', {
                             token: response.data.access_token,
                             username: response.data.userName,
-                            userId: response.data.userId,
+                            userId: parseInt(response.data.userId),
                             refreshToken: response.data.refresh_token,
                             useRefreshTokens: _useRefreshTokens,
                             profilePicture: _temporaryProfilePicture,
@@ -190,7 +191,7 @@
                     localStorageService.set('authorizationData', {
                         token: response.data.access_token,
                         username: registerExternalData.username,
-                        userId: response.data.userId,
+                        userId: parseInt(response.data.userId),
                         refreshToken: response.data.refresh_token,
                         useRefreshTokens: _useRefreshTokens
                     });
@@ -223,7 +224,7 @@
                     localStorageService.set('authorizationData', {
                         token: response.data.access_token,
                         username: response.data.userName,
-                        userId: response.data.userId,
+                        userId: parseInt(response.data.userId),
                         refreshToken: response.data.refresh_token,
                         useRefreshTokens: _useRefreshTokens
                     });
@@ -289,7 +290,7 @@
         }
 
         function _isCurrentUserId(id) {
-            return _authentication && id && _authentication.userId === id;
+            return _authentication.userId && _authentication.userId === id;
         }
 
         //TEST FUNCTIONALITY ONLY
