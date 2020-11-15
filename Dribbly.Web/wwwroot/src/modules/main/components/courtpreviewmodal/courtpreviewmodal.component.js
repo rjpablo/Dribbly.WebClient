@@ -28,7 +28,7 @@
 
         cpm.viewCourtDetails = function (event, court) {
             event.preventDefault();
-            $state.go('main.court.details',
+            $state.go('main.court.home',
                 { id: court.id },
                 { custom: { force: true } }
             );

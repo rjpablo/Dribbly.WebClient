@@ -109,6 +109,14 @@
                 }
             })
 
+            .state('main.court.home', {
+                url: '/home',
+                component: 'drbblyCourthome',
+                resolve: {
+                    $titleKey: () => { return 'site.CourtHome'; }
+                }
+            })
+
             .state('main.court.details', {
                 url: '/details',
                 component: 'drbblyCourtdetails',

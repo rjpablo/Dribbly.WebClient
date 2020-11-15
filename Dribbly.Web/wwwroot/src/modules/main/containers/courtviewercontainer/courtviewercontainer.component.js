@@ -87,6 +87,14 @@
         function buildSubPages() {
             dcc.app.toolbar.setNavItems([
                 {
+                    textKey: 'site.Home',
+                    targetStateName: 'main.court.home',
+                    targetStateParams: { id: _courtId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
+                },
+                {
                     textKey: 'app.Details',
                     targetStateName: 'main.court.details',
                     targetStateParams: { id: _courtId },

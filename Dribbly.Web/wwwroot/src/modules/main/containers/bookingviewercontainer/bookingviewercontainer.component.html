@@ -8,7 +8,7 @@
                 <div class="text-white">
                     <drbbly-date date="gcc.booking.start"></drbbly-date> - <drbbly-date date="gcc.booking.end"></drbbly-date>
                 </div>
-                <a ui-sref="main.court.details({id: gcc.booking.court.id})" class="m-0 p-0 pb-1 d-block">
+                <a ui-sref="main.court.home({id: gcc.booking.court.id})" class="m-0 p-0 pb-1 d-block">
                     <i class="fa fa-map-marker mr-1"></i>
                     <span ng-click="cpm.viewCourtDetails($event, gcc.booking.court)">
                         {{gcc.booking.court.name}}

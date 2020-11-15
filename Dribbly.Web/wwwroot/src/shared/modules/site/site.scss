@@ -5,6 +5,15 @@ body {
     background: url('../../../images/backgrounds/site_background.jpg') fixed center;
 }
 
+a[ng-click] {
+    color: $gray-500 !important;
+    cursor: pointer;
+
+    &:hover {
+        color: $gray-100 !important;
+    }
+}
+
 .link-unstyled {
     &,
     &:visited,
@@ -127,7 +136,7 @@ body {
 /****************
     Heights
 ****************/
-.min-height-300{
+.min-height-300 {
     min-height: 300px;
 }
 /****************
@@ -209,6 +218,23 @@ body {
 .dropdown-item {
     color: $gray-400;
 }
+
+/* Cards */
+.card.drbbly-card {
+    border-radius: 0;
+
+    @extend .black-transparent-bg;
+
+    .card-header {
+        border: none;
+    }
+
+    .card-body {
+        padding: $spacer;
+        padding-top: 0;
+    }
+}
+
 /******** Ng-Image-Gallery ********/
 /* Removes space between thumbnails */
 .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
