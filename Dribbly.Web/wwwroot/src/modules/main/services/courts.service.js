@@ -6,6 +6,10 @@
             function (drbblyhttpService, drbblyFileService, $q) {
                 var api = 'api/courts/';
 
+                function deleteCourt(courtId) {
+                    return drbblyhttpService.post(api + 'deleteCourt/' + courtId);
+                }
+
                 function getAllCourts() {
                     return drbblyhttpService.get(api + 'getAllCourts');
                 }
@@ -86,6 +90,7 @@
                 var _service = {
                     addCourtPhotos: addCourtPhotos,
                     addCourtVideo: addCourtVideo,
+                    deleteCourt: deleteCourt,
                     deleteCourtVideo: deleteCourtVideo,
                     deletePhoto: deletePhoto,
                     FindCourts: FindCourts,

@@ -49,6 +49,18 @@
             this.addMarkers([dcd.court]);
         };
 
+        dcd.deleteCourt = function () {
+            modalService.confirm({ msg1Key: 'app.DeleteCourtPrompt' })
+                .then(function (result) {
+                    if (result) {
+                        drbblyCourtsService.deleteCourt(dcd.court.id)
+                            .then(function () {
+                                $state.go('main.home', { reload: true });
+                            });
+                    }
+                });
+        };
+
         function massagePhotos(photos) {
             var canDeleteNotOwned = permissionsService.hasPermission('Court.DeletePhotoNotOwned');
             for (var i = 0; i < photos.length; i++) {

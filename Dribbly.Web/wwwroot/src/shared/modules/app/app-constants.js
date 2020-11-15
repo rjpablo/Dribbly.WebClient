@@ -41,6 +41,11 @@
                 Team: 3,
                 Post: 4
             },
+            entityStatus: {
+                Active: 0,
+                Inactive: 1,
+                Deleted: 2
+            },
             gameStatus: {
                 WaitingToStart: 0,
                 Started: 1,
