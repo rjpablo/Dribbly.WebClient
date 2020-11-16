@@ -187,6 +187,12 @@ a[ng-click] {
     z-index: 1050 !important; /*Allows auto complete results to show over bootstrap modals. Modals have 1050 z-index*/
 }
 /***** Bootstrap *****/
+
+/* Buttons */
+.btn{
+    border-radius: 0;
+}
+
 /* Modals */
 .modal-content {
     border-radius: 0;
@@ -227,6 +233,8 @@ a[ng-click] {
 
     .card-header {
         border: none;
+        padding-right: $spacer;
+        padding-left: $spacer;
     }
 
     .card-body {

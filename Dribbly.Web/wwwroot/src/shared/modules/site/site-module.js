@@ -9,7 +9,9 @@
         'ngTouch',
         'ui.bootstrap',
         'ui.bootstrap.datetimepicker',
-        'infinite-scroll'
+        'infinite-scroll',
+        'aa.formExtensions',
+        'aa.notify'
     ]);
 
     module.constant('constants', {

@@ -53,6 +53,11 @@
             this.addMarkers([dcd.court]);
         };
 
+        dcd.editDescription = function () {
+            dcd.isEditingDescription = true;
+            dcd.tempDescription = dcd.court.additionalInfo;
+        };
+
         dcd.deleteCourt = function () {
             modalService.confirm({ msg1Key: 'app.DeleteCourtPrompt' })
                 .then(function (result) {
@@ -64,6 +69,21 @@
                     }
                 });
         };
+
+        dcd.updateDescription = function () {
+            dcd.isBusy = true;
+            drbblyCourtsService.updateCourtProperties({ id: dcd.court.id, properties: { "AdditionalInfo": dcd.tempDescription} })
+                .then(function () {
+                    dcd.court.additionalInfo = dcd.tempDescription;
+                })
+                .catch(function () {
+                    //TODO: handle error
+                })
+                .finally(function () {
+                    dcd.isBusy = false;
+                    dcd.isEditingDescription = false;
+                });
+        }
 
         function massagePhotos(photos) {
             var canDeleteNotOwned = permissionsService.hasPermission('Court.DeletePhotoNotOwned');
@@ -99,10 +119,6 @@
                 template: '<drbbly-courtprice court="dcd.court"></dribbly-courtprice>'
             });
         }
-
-        dcd.editDescription = function () {
-            alert('Not yet implemented');
-        };
 
         dcd.addGame = function () {
             drbblyGameshelperService.openAddEditGameModal({ courtId: dcd.courtId })

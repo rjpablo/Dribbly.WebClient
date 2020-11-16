@@ -34,6 +34,10 @@ var nodeLibs = {
         source: 'angular-animate/angular-animate.js',
         destination: 'angular-animate'
     },
+    angular_agility: {
+        source: 'angular-agility/dist/angular-agility.min.js',
+        destination: 'angular-agility'
+    },
     angular_bootstrap_colorpicker: {
         source: [
             'angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',

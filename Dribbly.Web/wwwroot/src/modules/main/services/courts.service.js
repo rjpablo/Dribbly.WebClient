@@ -70,6 +70,10 @@
                     return drbblyhttpService.post(api + 'updateCourt', courtDetails);
                 }
 
+                function updateCourtProperties(input) {
+                    return drbblyhttpService.post(api + 'updateCourtProperties', input);
+                }
+
                 function addCourtPhotos(files, courtId) {
                     var deferred = $q.defer();
                     drbblyFileService.upload(files, 'api/courts/addCourtPhotos/' + courtId)
@@ -105,7 +109,8 @@
                     getCourtVideos: getCourtVideos,
                     register: register,
                     submitReview: submitReview,
-                    updateCourt: updateCourt
+                    updateCourt: updateCourt,
+                    updateCourtProperties: updateCourtProperties
                 };
 
                 return _service;
