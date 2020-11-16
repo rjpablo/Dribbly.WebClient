@@ -76,6 +76,7 @@
             return {
                 center: constants.coordinates.PHILIPPINES,
                 zoom: 5,
+                height: '500px',
                 disableDefaultUI: false,
                 streetViewControl: true,
                 mapTypeControl: true,

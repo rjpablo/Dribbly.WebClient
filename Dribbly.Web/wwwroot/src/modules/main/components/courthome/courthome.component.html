@@ -98,47 +98,72 @@
     <div ng-if="dcd.court">
         <div class="row">
             <div class="col-12 col-md-4 mb-3">
-                <ng-form name="dcd.frmEditDescription">
-                    <div class="card drbbly-card w-100 mb-3">
-                        <div class="card-header">
-                            <h5 class="drbbly-header d-inline-block m-0">{{'app.Description' | i18n}}</h5>
-                        </div>
-                        <div class="card-body"
-                             ng-class="{'p-0': dcd.isEditingDescription}">
-                            <div ng-show="!dcd.isEditingDescription">
-                                <div ng-show="dcd.court.additionalInfo"
-                                     ng-bind-html="dcd.court.additionalInfo"></div>
-                                <span ng-show="!dcd.court.additionalInfo"
-                                   class="text-muted">({{'app.NoDescriptionProvided' | i18n}})</span>
+                <div class="row">
+                    <div class="col-12">
+                        <ng-form name="dcd.frmEditDescription">
+                            <div class="card drbbly-card w-100 mb-3">
+                                <div class="card-header">
+                                    <h5 class="drbbly-header d-inline-block m-0">
+                                        {{'app.Description' | i18n}}&nbsp;
+                                        <small><i class="fa fa-info-circle"></i></small>
+                                    </h5>
+                                    <a ui-sref="main.court.details({id: dcd.court.id})"
+                                       class="pull-right">
+                                        {{::'app.FullDetails' | i18n}}
+                                    </a>
+                                </div>
+                                <div class="card-body"
+                                     ng-class="{'p-0': dcd.isEditingDescription}">
+                                    <div ng-show="!dcd.isEditingDescription">
+                                        <div ng-show="dcd.court.additionalInfo"
+                                             ng-bind-html="dcd.court.additionalInfo"></div>
+                                        <span ng-show="!dcd.court.additionalInfo"
+                                              class="text-muted">({{'app.NoDescriptionProvided' | i18n}})</span>
+                                    </div>
+                                    <div ng-if="dcd.isEditingDescription">
+                                        <drbbly-texteditor class="d-block mb-1"
+                                                           ng-disabled="dcd.isBusy"
+                                                           value="dcd.tempDescription"></drbbly-texteditor>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex p-0"
+                                     ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)">
+                                    <button type="button" ng-click="dcd.editDescription()"
+                                            ng-show="!dcd.isEditingDescription"
+                                            class="btn btn-secondary flex-grow-1">
+                                        <small>{{::'site.Edit' | i18n}}</small>
+                                    </button>
+                                    <button type="button" class="btn btn-primary flex-grow-1"
+                                            ng-show="dcd.isEditingDescription"
+                                            ng-disabled="dcd.frmEditDescription.$pristine || dcd.isBusy"
+                                            ng-click="dcd.updateDescription()">
+                                        {{::'site.Submit' | i18n}}
+                                    </button>
+                                    <button type="button" class="btn btn-secondary flex-grow-1"
+                                            ng-show="dcd.isEditingDescription"
+                                            ng-disabled="dcd.isBusy"
+                                            ng-click="dcd.isEditingDescription = false;">
+                                        {{::'site.Cancel' | i18n}}
+                                    </button>
+                                </div>
                             </div>
-                            <div ng-if="dcd.isEditingDescription">
-                                <drbbly-texteditor class="d-block mb-1"
-                                                   ng-disabled="dcd.isBusy"
-                                                   value="dcd.tempDescription"></drbbly-texteditor>
+                        </ng-form>
+                    </div>
+                    <div class="col-12">
+                        <div class="card drbbly-card w-100 mb-3">
+                            <div class="card-header">
+                                <h5 class="drbbly-header d-inline-block m-0">
+                                    {{::'site.Location' | i18n}}&nbsp;
+                                    <small><i class="fa fa-map-marker"></i></small>
+                                </h5>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex p-0"
-                             ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)">
-                            <button type="button" ng-click="dcd.editDescription()"
-                                    ng-show="!dcd.isEditingDescription"
-                                    class="btn btn-secondary flex-grow-1">
-                                <small>{{::'site.Edit' | i18n}}</small>
-                            </button>
-                            <button type="button" class="btn btn-primary flex-grow-1"
-                                    ng-show="dcd.isEditingDescription"
-                                    ng-disabled="dcd.frmEditDescription.$pristine || dcd.isBusy"
-                                    ng-click="dcd.updateDescription()">
-                                {{::'site.Submit' | i18n}}
-                            </button>
-                            <button type="button" class="btn btn-secondary flex-grow-1"
-                                    ng-show="dcd.isEditingDescription"
-                                    ng-disabled="dcd.isBusy"
-                                    ng-click="dcd.isEditingDescription = false;">
-                                {{::'site.Cancel' | i18n}}
-                            </button>
+                            <div class="card-body p-0">
+                                <drbbly-map options="dcd.mapOptions"
+                                            on-map-ready="dcd.onMapReady"></drbbly-map>
+                            </div>
                         </div>
                     </div>
-                </ng-form>
+                </div>
             </div>
             <div class="col-12 col-md-8 mb-3">
                 <drbbly-posts options="dcd.postsOptions"></drbbly-posts>

@@ -27,7 +27,8 @@
             dcd.overlay = drbblyOverlayService.buildOverlay();
             dcd.isOwned = dcd.court.ownerId === authService.authentication.userId;
             dcd.mapOptions = {
-                id: 'location-picker-map'
+                id: 'location-picker-map',
+                height: '300px'
             };
             dcd.postsOptions = {
                 postedOnType: constants.enums.entityType.Court,
