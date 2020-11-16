@@ -12,10 +12,10 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyGamesService', 'drbblyToolbarService', 'constants', 'authService',
+    controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
         'drbblyOverlayService', '$stateParams', 'drbblyFooterService', '$scope', '$state',
         'drbblyGameshelperService', 'drbblyDatetimeService'];
-    function controllerFunc(drbblyGamesService, drbblyToolbarService, constants, authService,
+    function controllerFunc(drbblyGamesService, modalService, constants, authService,
         drbblyOverlayService, $stateParams, drbblyFooterService, $scope, $state,
         drbblyGameshelperService, drbblyDatetimeService) {
         var gcc = this;
@@ -45,6 +45,15 @@
 
         gcc.onGameUpdate = function () {
             loadGame();
+        };
+
+        gcc.previewCourtDetails = function (event, court) {
+            event.preventDefault();
+            event.stopPropagation();
+            modalService.show({
+                view: '<drbbly-courtpreviewmodal></drbbly-courtpreviewmodal>',
+                model: { court: court }
+            });
         };
 
         function createPriceComponent() {

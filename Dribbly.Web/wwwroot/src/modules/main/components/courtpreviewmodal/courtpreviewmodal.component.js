@@ -13,12 +13,19 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', '$state'];
-    function controllerFn($scope, $state) {
+    controllerFn.$inject = ['$scope', '$state', 'drbblyCourtsService', 'drbblyOverlayService'];
+    function controllerFn($scope, $state, drbblyCourtsService, drbblyOverlayService) {
         var cpm = this;
 
         cpm.$onInit = function () {
-            
+            cpm.overlay = drbblyOverlayService.buildOverlay();
+            cpm.overlay.setToBusy();
+            drbblyCourtsService.getCourt(cpm.model.court.id)
+                .then(function (court) {
+                    cpm.court = court;
+                    cpm.overlay.setToReady();
+                })
+                .catch(cpm.overlay.setToError);
         };
 
         cpm.close = function () {

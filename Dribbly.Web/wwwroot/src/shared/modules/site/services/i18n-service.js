@@ -75,7 +75,7 @@
                     Optional: 'Optional',
                     Or: 'Or',
                     OverlayErrorMsg: 'Oh no! The shot missed :(',
-                    OverlayBusyMsg: 'Hold on tight... A shot on the way!',
+                    OverlayBusyMsg: 'Hold on tight... A shot is on the way!',
                     Password: 'Password',
                     Players: 'Players',
                     Posts: 'Posts',
