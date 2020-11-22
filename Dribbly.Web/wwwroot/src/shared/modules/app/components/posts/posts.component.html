@@ -1,13 +1,15 @@
 ﻿<div class="row mb-3">
-    <div class="col-12 py-3">
-        <h5 class="drbbly-header d-inline-block line-height-2">{{::'site.Posts' | i18n}}</h5>
-        <button type="button"
-                class="btn btn-primary pull-right"
-                ng-click="drl.createPost()"
-                ng-if="drl.canPost">
-            <i class="fa fa-plus mb-1"></i>
-            {{::'app.NewPost' | i18n}}
-        </button>
+    <div class="col-12 mb-3">
+        <div class="black-transparent-bg p-3">
+            <h5 class="drbbly-header d-inline-block line-height-2 m-0">{{::'site.Posts' | i18n}}</h5>
+            <button type="button"
+                    class="btn btn-primary pull-right"
+                    ng-click="drl.createPost()"
+                    ng-if="drl.canPost">
+                <i class="fa fa-plus mb-1"></i>
+                {{::'app.NewPost' | i18n}}
+            </button>
+        </div>
     </div>
     <div class="col-12">
         <drbbly-post ng-repeat="post in drl.posts track by post.id"
