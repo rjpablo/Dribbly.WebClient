@@ -14,9 +14,9 @@
         });
 
     controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyBookingsService', 'drbblyCommonService',
-        'drbblyDatetimeService', 'drbblyAccountsService'];
+        'drbblyDatetimeService', 'drbblyAccountsService', 'constants'];
     function controllerFn($scope, modalService, drbblyEventsService, drbblyBookingsService, drbblyCommonService,
-        drbblyDatetimeService, drbblyAccountsService) {
+        drbblyDatetimeService, drbblyAccountsService, constants) {
         var bgm = this;
 
         bgm.$onInit = function () {
@@ -69,7 +69,7 @@
 
         function setTypeAheadConfig() {
             bgm.bookedByConfig = {
-                onGetSuggestions: getSuggestedUsers,
+                entityTypes: [constants.enums.entityType.Account],
                 onSelect: bookedBySelected,
                 onUnselect: bookedByRemoved
             };

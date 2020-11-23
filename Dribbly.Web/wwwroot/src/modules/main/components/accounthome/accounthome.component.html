@@ -74,6 +74,13 @@
                                 <strong class="text-muted">{{::'app.Gender' | i18n}}:</strong>
                                 <span>{{dad.account.gender | gender}}</span>
                             </li>
+                            <li class="d-block">
+                                <strong class="text-muted">{{::'app.HomeCourt' | i18n}}:</strong>
+                                <drbbly-entitystub entity="dad.account.homeCourt"
+                                                   ng-if="dad.account.homeCourt"></drbbly-entitystub>
+                                <span ng-show="!dad.account.homeCourt"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                            </li>
                             <li class="d-block"
                                 ng-if="dad.isOwned">
                                 <strong class="text-muted">{{::'app.Age' | i18n}}:</strong>

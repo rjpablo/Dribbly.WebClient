@@ -1,0 +1,19 @@
+drbbly-entitystub {
+    display: inline-block;
+
+    & > div > .name {
+        color: inherit;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    a img.entity-icon {
+        border-radius: 50%;
+        width: 1.25em !important;
+        height: 1.25em !important;
+        clip-path: circle(50%);
+        height: 32px;
+    }
+}

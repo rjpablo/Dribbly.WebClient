@@ -1,0 +1,16 @@
+﻿<span ng-if="dus.entity.status == $root.constants.enums.entityStatus.Inactive"
+      class="text-muted">
+    {{::'app.InactiveAccount' | i18n}}
+</span>
+<span ng-if="dus.entity.status == $root.constants.enums.entityStatus.Deleted">
+    {{::'app.DeletedAccount' | i18n}}
+</span>
+<div ng-if="dus.entity.status == $root.constants.enums.entityStatus.Active"
+     class="d-inline-block">
+    <a ng-click="dus.onClick()">
+        <img ng-src="{{dus.entity.iconUrl}}"
+             class="entity-icon"/>
+    </a>
+    <a ng-click="dus.onClick()"
+       class="name">{{dus.entity.name}}</a>
+</div>

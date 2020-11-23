@@ -22,6 +22,10 @@
                     return drbblyhttpService.get(api + 'getAccountByUsername/' + username);
                 }
 
+                function getAccountViewerData(username) {
+                    return drbblyhttpService.get(api + 'getAccountViewerData/' + username);
+                }
+
                 function getAccountPhotos(accountId) {
                     return drbblyhttpService.get(api + 'getAccountPhotos/' + accountId);
                 }
@@ -96,6 +100,7 @@
                     getAccountPhotos: getAccountPhotos,
                     getAccountSettings: getAccountSettings,
                     getAccountVideos: getAccountVideos,
+                    getAccountViewerData: getAccountViewerData,
                     register: register,
                     setIsPublic: setIsPublic,
                     setStatus: setStatus,

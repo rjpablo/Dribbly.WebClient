@@ -23,9 +23,9 @@
         };
 
         function loadAccount() {
-            drbblyAccountsService.getAccountByUsername(_username)
+            drbblyAccountsService.getAccountViewerData(_username)
                 .then(function (data) {
-                    avc.account = data;
+                    avc.account = data.account;
                     avc.isOwned = authService.isCurrentUserId(avc.account.identityUserId);
                     avc.shouldDisplayAsPublic = avc.account.isPublic || avc.isOwned ||
                         permissionsService.hasPermission('Account.UpdateNotOwned');
