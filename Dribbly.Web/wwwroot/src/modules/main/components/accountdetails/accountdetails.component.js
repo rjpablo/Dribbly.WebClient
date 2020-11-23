@@ -13,8 +13,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$stateParams', 'authService', 'drbblyOverlayService', '$timeout'];
-    function controllerFunc($stateParams, authService, drbblyOverlayService, $timeout) {
+    controllerFunc.$inject = ['$stateParams', 'authService', 'drbblyOverlayService', '$timeout', 'modalService'];
+    function controllerFunc($stateParams, authService, drbblyOverlayService, $timeout, modalService) {
         var dad = this;
 
         dad.$onInit = function () {
@@ -30,11 +30,17 @@
         }
 
         dad.edit = function () {
-            drbblyAccountshelperService.editAccount(dad.account)
-                .then(function () {
-                    dad.onUpdate();
+            authService.checkAuthenticationThen(function () {
+                modalService.show({
+                    view: '<drbbly-accountdetailsmodal></drbbly-accountdetailsmodal>',
+                    model: { accountId: dad.account.id }
                 })
-                .catch(function () { /*do nothing*/ });
+                    .then(function (result) {
+                        if (result) {
+                            dad.onUpdate();
+                        }
+                    });
+            });
         };
     }
 })();

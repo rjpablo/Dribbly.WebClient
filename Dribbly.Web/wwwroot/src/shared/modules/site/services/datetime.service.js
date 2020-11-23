@@ -57,11 +57,9 @@
                 return null;
             }
 
-            function toUtcDate(dateString) {
-                if (dateString) {
-                    return new Date(toUtcString(dateString));
-                }
-                return null;
+            function toUtcDate(date) {
+                var localDate = angular.isString(date) ? new Date(date) : date;
+                return new Date(localDate.toUTCString())
             }
 
             function getUtcNow() {
@@ -69,7 +67,8 @@
             }
 
             function toLocalDateTime(utcDate) {
-                var localDateString = angular.isString(utcDate) ? toUtcDate(utcDate) : utcDate.toLocaleString();
+                var localDateString = angular.isString(utcDate) ?
+                    toUtcDate(utcDate).toLocaleString() : utcDate.toLocaleString();
                 return new Date(localDateString);
             }
 

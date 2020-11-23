@@ -14,6 +14,10 @@
                     return drbblyhttpService.get(api + 'getAccount/' + id);
                 }
 
+                function getAccountDetailsModal(id) {
+                    return drbblyhttpService.get(api + 'getAccountDetailsModal/' + id);
+                }
+
                 function getAccountByUsername(username) {
                     return drbblyhttpService.get(api + 'getAccountByUsername/' + username);
                 }
@@ -85,6 +89,7 @@
                     getAllAccounts: getAllAccounts,
                     getAccount: getAccount,
                     getAccountByUsername: getAccountByUsername,
+                    getAccountDetailsModal: getAccountDetailsModal,
                     getAccountDropDownSuggestions: getAccountDropDownSuggestions,
                     getAccountGames: getAccountGames,
                     getAccountBookings: getAccountBookings,

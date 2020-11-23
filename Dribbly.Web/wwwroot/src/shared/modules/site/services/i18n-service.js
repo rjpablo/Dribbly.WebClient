@@ -5,7 +5,9 @@
 
     angular.module('siteModule')
         .service('i18nService', ['$timeout', 'constants', function ($timeout, constants) {
-            var _entries = {
+            var _entries = {} ;
+            var _modules = ['site', 'app', 'main', 'auth'];
+            var _entriesTmp = {
                 site: {
                     AboutUs: 'About Us',
                     AccountDetails: 'Account Details',
@@ -116,6 +118,7 @@
                     Address: 'Address',
                     Age: 'Age',
                     AgeValue: '{age} y/o',
+                    BirthDate: 'Birth Date',
                     BookedBy: 'Booked by',
                     BookingDetails: 'Booking Details',
                     BookNow: 'Book Now',
@@ -145,6 +148,7 @@
                     DeleteVideoConfirmationMsg: 'Delete video?',
                     Description: 'Description',
                     Details: 'Details',
+                    DoesntMatter: 'Doesn\'t Matter',
                     Duration: 'Duration',
                     EditPost: 'Edit Post',
                     End: 'End',
@@ -165,6 +169,7 @@
                     Error_NotAllowedToDeletePhoto: 'You do not have permission to delete this photo.',
                     Error_UploadCourtVideoNotAuthorized: 'You do not have permission to upload videos to this court',
                     FeaturedCourts: 'Featured Courts',
+                    Feet_Abbrev: 'ft.',
                     Female: 'Female',
                     File: 'File',
                     FilterBookingsByTitle: 'Filter bookings by title',
@@ -182,6 +187,7 @@
                     Height: 'Height',
                     Id: 'ID',
                     InactiveAccount: '(Inactive Account)',
+                    Inches_Abbrev: 'in.',
                     Join: 'Join',
                     JoinedOnDate: 'Joined on {date}',
                     KeepPrivate: 'Keep Private',
@@ -207,9 +213,15 @@
                     NoMoreItemsToLoad: 'No more items to load',
                     NoSuggestionsFound: 'No suggestions found',
                     Photos: 'Photos',
+                    'PlayerPositionEnum.PointGuard_1': 'Point Guard',
+                    'PlayerPositionEnum.ShootingGuard_2': 'Shooting Guard',
+                    'PlayerPositionEnum.SmallForward_3': 'Small Forward',
+                    'PlayerPositionEnum.PowerForward_4': 'Power Forward',
+                    'PlayerPositionEnum.Center_5': 'Center',
                     PleaseAllowAccessToLocationToLoadNearbyCourts: 'Please allow access to location to load nearby courts.',
                     PleaseContactTheFollowingNumberForInquiries: 'Please contact the following number for inquiries:<br/><br/><h3 class="text-center">{number}</h3>',
                     PlusFollow: '+ Follow',
+                    Position: 'Position',
                     PrimaryPhoto: 'PrimaryPhoto',
                     Private: 'Private',
                     ProcessingEllipsis: 'Processing...',
@@ -236,6 +248,7 @@
                     Today: 'Today',
                     Unspecified: 'Unspecified',
                     Untitled: 'Untitled',
+                    UpdateAccountDetails: 'Update Account Details',
                     UpdateDetails: 'Update Details',
                     UpdateGameDetails: 'Update Game Details',
                     UploadAPhoto: 'Upload a photo',
@@ -247,6 +260,7 @@
                     ViewFullDetails: 'View Full Details',
                     ViewOnMap: 'View On Map',
                     ViewPrimaryPhoto: 'View Primary Photo',
+                    VisibleOnlyToYou: 'Visible only to you',
                     WinRate: 'Win Rate'
                 },
                 main: {
@@ -276,6 +290,36 @@
                     SignUp: 'Sign Up'
                 }
             };
+
+            //massage entries
+            _modules.forEach(function (module) {
+                var moduleEntriesTmp = _entriesTmp[module];
+                var moduleEntries = {};
+                Object.keys(moduleEntriesTmp).forEach(function (key) {
+                    var pieces = key.split('.');
+                    var value = moduleEntriesTmp[key]
+                    if (pieces.length === 1 || pieces.length === 2) {
+                        if (pieces.length === 1) {
+                            moduleEntries[key] = value;
+                        }
+                        else { // if enum
+                            var enumName = pieces[0];
+                            var theEnum = moduleEntries[enumName] || {};
+                            constants.enums[enumName] = constants.enums[enumName] || {};
+                            var numericKey = key.match(/(?<=_)\d+$/)[0];
+                            var textKey = pieces[1].substr(0, pieces[1].length - (numericKey.length + 1));
+                            theEnum[numericKey] = value;
+                            theEnum[textKey] = value;
+                            moduleEntries[enumName] = theEnum;
+                            constants.enums[enumName][textKey] = Number(numericKey);
+                        }
+                    }
+                    else {
+                        throw new Error('Invalid i18n key: ' + key);
+                    }
+                });
+                _entries[module] = moduleEntries;
+            });
 
             var thrownErrors = [];
 
@@ -393,6 +437,34 @@
                 return msg;
             }
 
+            function convertEnumToChoices(enumeration, config) {
+                var choicesConfig = config || {};
+                var choices = [];
+                var enumObj = _getValue(enumeration);
+
+                angular.forEach(enumObj, function (value, key) {
+                    if (choicesConfig.useEnumAsValue) {
+                        if (!Dribbly.isNumber(key)) {
+                            choices.push({
+                                value: key,
+                                text: choicesConfig.useEnumAsText ? key : value
+                            });
+                        }
+                    }
+                    else {
+                        if (Dribbly.isNumber(key)) {
+                            choices.push({
+                                value: Number(key),
+                                text: choicesConfig.useEnumAsText ? key : value
+                            });
+                        }
+                    }
+                });
+
+                return choices;
+            }
+
+            this.convertEnumToChoices = convertEnumToChoices;
             this.getValue = _getValue;
             this.getString = getLocalizedString;
 

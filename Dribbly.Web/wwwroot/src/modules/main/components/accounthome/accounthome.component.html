@@ -60,25 +60,26 @@
                     </div>
                     <div class="col-12">
                         <ul class="list-group">
-                            <li class="d-block text-muted">
-                                <strong>{{::'app.Height' | i18n}}</strong>
+                            <li class="d-block">
+                                <strong class="text-muted">{{::'app.Position' | i18n}}:</strong>
+                                <span ng-if="dad.account.position">{{('app.PlayerPositionEnum.' + dad.account.position) | i18n}}</span>
+                                <span ng-show="!dad.account.position"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                            </li>
+                            <li class="d-block">
+                                <strong class="text-muted">{{::'app.Height' | i18n}}:</strong>
                                 <span>{{dad.account.heightInches | height}}</span>
                             </li>
-                            <li class="d-block text-muted">
-                                <strong>{{::'app.Gender' | i18n}}</strong>
+                            <li class="d-block">
+                                <strong class="text-muted">{{::'app.Gender' | i18n}}:</strong>
                                 <span>{{dad.account.gender | gender}}</span>
                             </li>
-                            <li class="d-block text-muted">
-                                <strong>{{::'app.Age' | i18n}}</strong>
-                                <span>{{'app.AgeValue' | i18n : { age: dad.account.age } }}</span>
-                            </li>
-                            <li class="d-block text-muted">
-                                <strong>Position:</strong>
-                                <span>Power Forward</span>
-                            </li>
-                            <li class="d-block text-muted">
-                                <strong>Current Team:</strong>
-                                <span>San Paolo Hawks</span>
+                            <li class="d-block"
+                                ng-if="dad.isOwned">
+                                <strong class="text-muted">{{::'app.Age' | i18n}}:</strong>
+                                <span ng-if="dad.account.age">{{'app.AgeValue' | i18n : { age: dad.account.age } }}</span>
+                                <span ng-show="!dad.account.age"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
                             </li>
                         </ul>
                     </div>

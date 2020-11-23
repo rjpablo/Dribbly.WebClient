@@ -1,0 +1,88 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" i18n="{{::'app.UpdateAccountDetails'}}"></h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="adm.overlay">
+        <form name="adm.frmAccountDetails"
+              novalidate>
+            <fieldset ng-disabled="adm.isBusy">
+                <div class="form-group">
+                    <label>{{::'app.Position' | i18n}}:</label><br />
+                    <select class="form-control"
+                            ng-model="adm.account.position">
+                        <option ng-repeat="option in adm.ddlPositionOptions"
+                                value="{{option.value}}"
+                                ng-selected="adm.account.position === option.value">{{option.text}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="txtName">{{::'app.Height' | i18n}}:</label>
+                    <div class="form-row align-items-center">
+                        <div class="col-auto">
+                            <input type="number"
+                                   name="txtFeet"
+                                   ng-model="adm.height.feet"
+                                   class="form-control"
+                                   max="9"
+                                   min="0" />
+                        </div>
+                        <div class="col-auto">{{::'app.Feet_Abbrev' | i18n}}</div>
+                        <div class="col-auto">
+                            <input type="number"
+                                   name="txtFeet"
+                                   ng-model="adm.height.inches"
+                                   class="form-control"
+                                   max="11"
+                                   min="0" />
+                        </div>
+                        <div class="col-auto">{{::'app.Inches_Abbrev' | i18n}}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{::'app.Gender' | i18n}}:</label><br />
+                    <div class="btn-group">
+                        <label class="btn btn-secondary" ng-model="adm.account.gender" uib-btn-radio="0">{{::'app.Male' | i18n}}</label>
+                        <label class="btn btn-secondary" ng-model="adm.account.gender" uib-btn-radio="1">{{::'app.Female' | i18n}}</label>
+                        <label class="btn btn-secondary" ng-model="adm.account.gender" uib-btn-radio="2">{{::'app.DoesntMatter' | i18n}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-auto">
+                            <label for="txtBirthDate">{{::'app.BirthDate' | i18n}}:</label><br />
+                            <input class="form-control"
+                                   type="date"
+                                   ng-model="adm.account.birthDate" />
+                        </div>
+                        <div class="col-auto">
+                            <label for="txtAge">{{::'app.Age' | i18n}}:</label><br />
+                            <input class="form-control"
+                                   type="number"
+                                   max="200"
+                                   min="0"
+                                   ng-model="adm.account.age" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div ng-class="{'d-block': adm.frmAccountDetails.$invalid && adm.frmAccountDetails.$submitted}"
+             class="invalid-feedback mb-0 mt-3">
+            {{::'site.Error_Common_PleaseFixErrors' | i18n}}
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            ng-disabled="adm.isBusy"
+            type="submit"
+            ng-click="adm.submit()"
+            ng-switch="adm.isBusy">
+        <span ng-switch-default>{{::'site.Submit'| i18n}}</span>
+        <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+    </button>
+    <button i18n="{{::'site.Cancel'}}"
+            class="btn btn-warning"
+            type="button"
+            ng-click="adm.cancel()"></button>
+</div>
