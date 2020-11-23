@@ -185,6 +185,7 @@
                     Gender: 'Gender',
                     Go: 'Go',
                     Height: 'Height',
+                    HomeCourt: 'Home Court',
                     Id: 'ID',
                     InactiveAccount: '(Inactive Account)',
                     Inches_Abbrev: 'in.',

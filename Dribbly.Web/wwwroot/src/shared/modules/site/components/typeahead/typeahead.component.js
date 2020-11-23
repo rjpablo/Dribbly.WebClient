@@ -12,8 +12,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['settingsService', '$element'];
-    function controllerFn(settingsService, $element) {
+    controllerFn.$inject = ['drbblySharedService', '$element'];
+    function controllerFn(drbblySharedService, $element) {
         var dta = this;
 
         dta.$onInit = function () {
@@ -24,7 +24,18 @@
 
         dta._getItems = function (keyword) {
             dta.isShowingStatus = true;
-            return dta.config.onGetSuggestions(keyword)
+            var resultPromise
+            if (dta.config.onGetSuggestions) { //host uses own function to get suggestions
+                resultPromise = dta.config.onGetSuggestions(keyword)
+            }
+            else {
+                var input = {
+                    keyword: keyword,
+                    entityTypes: dta.config.entityTypes
+                };
+                resultPromise = drbblySharedService.getTypeAheadSuggestions(input);
+            }
+            return resultPromise
                 .then(function (suggestions) {
                     if (suggestions && suggestions.length) {
                         dta.isShowingStatus = false;
@@ -38,8 +49,10 @@
                 dta.selectedItems = [];
             }
             dta.selectedItems.push(item);
-            dta.config.onSelect(item, dta.selectedItems, event);
-            dta.ngModel = '';
+            if (dta.config.onSelect) {
+                dta.config.onSelect(item, dta.selectedItems, event);
+            }
+            dta.ngModel = ''; //clear the textbox
         };
 
         dta.unselect = function (item) {

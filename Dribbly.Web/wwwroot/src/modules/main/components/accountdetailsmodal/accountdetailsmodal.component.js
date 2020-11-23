@@ -13,9 +13,9 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['drbblyAccountsService', '$scope', 'modalService', 'drbblyEventsService', 'i18nService', '$timeout',
+    controllerFn.$inject = ['drbblyAccountsService', '$scope', 'modalService', 'drbblyEventsService', 'constants', '$timeout',
         'drbblyOverlayService', 'drbblyDatetimeService', 'drbblyFormshelperService'];
-    function controllerFn(drbblyAccountsService, $scope, modalService, drbblyEventsService, i18nService, $timeout,
+    function controllerFn(drbblyAccountsService, $scope, modalService, drbblyEventsService, constants, $timeout,
         drbblyOverlayService, drbblyDatetimeService, drbblyFormshelperService) {
         var adm = this;
 
@@ -24,11 +24,17 @@
             adm.overlay = drbblyOverlayService.buildOverlay();
             adm.overlay.setToBusy();
             adm.ddlPositionOptions = drbblyFormshelperService.getDropDownListChoices({ enumKey: 'app.PlayerPositionEnum' });
+            setTypeAheadConfig();
 
             drbblyAccountsService.getAccountDetailsModal(adm.model.accountId)
                 .then(function (data) {
                     adm.overlay.setToReady();
                     adm.account = data.account;
+                    adm.selectedHomeCourts = [];
+                    if (data.homeCourtChoice) {
+                        adm.selectedHomeCourt = data.homeCourtChoice;
+                        adm.selectedHomeCourts.push(data.homeCourtChoice);
+                    }
                     adm.account.birthDate = data.account.birthDate ?
                         drbblyDatetimeService.toLocalDateTime(data.account.birthDate) : null;
                     adm.height = {};
@@ -65,12 +71,19 @@
             }
         };
 
+        function setTypeAheadConfig() {
+            adm.typeAheadConfig = {
+                entityTypes: [constants.enums.entityType.Court]
+            };
+        }
+
         adm.submit = function () {
             var saveModel = angular.copy(adm.account);
             if (saveModel.birthDate) {
                 saveModel.birthDate = drbblyDatetimeService.toUtcDate(saveModel.birthDate);
             }
             saveModel.heightInches = getHeightInches();
+            saveModel.homeCourtId = adm.selectedHomeCourts.length ? adm.selectedHomeCourts[0].value : null;
             adm.overlay.setToBusy();
             drbblyAccountsService.updateAccount(saveModel)
                 .then(function () {
