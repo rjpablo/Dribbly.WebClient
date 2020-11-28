@@ -177,6 +177,24 @@
                 }
             })
 
+            // TEAM
+
+            .state('main.team', {
+                abstract: true,
+                url: '/team/:id',
+                component: 'drbblyTeamviewercontainer'
+            })
+
+            .state('main.team.home', {
+                url: '',
+                component: 'drbblyTeamhome',
+                resolve: {
+                    $titleKey: () => { return 'site.Home'; }
+                }
+            })
+
+            // BOOKING
+
             .state('main.booking', {
                 url: '/booking/:id',
                 component: 'drbblyBookingviewercontainer',

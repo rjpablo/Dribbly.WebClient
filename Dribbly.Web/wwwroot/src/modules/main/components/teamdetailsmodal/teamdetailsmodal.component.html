@@ -1,0 +1,37 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" i18n="{{::bgm.model.isEdit? 'app.UpdateTeamDetails' : 'app.NewTeamDetails'}}"></h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="bgm.overlay">
+        <form name="bgm.frmTeamDetails"
+              novalidate
+              ng-if="bgm.saveModel">
+            <fieldset ng-disabled="bgm.isBusy">
+                <div class="form-group pb-3">
+                    <label for="txtName">{{::'app.TeamNamePrompt' | i18n}}</label>
+                    <input type="text"
+                           name="txtName"
+                           ng-model="bgm.saveModel.name"
+                           class="form-control"
+                           ng-class="{'is-invalid': bgm.frmTeamDetails.txtName.$touched && bgm.frmTeamDetails.txtName.$invalid}"
+                           minlength="5" />
+                    <div ng-show="bgm.frmTeamDetails.txtName.$error.minlength" class="invalid-feedback">
+                        {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="bgm.isBusy || bgm.frmTeamDetails.$invalid || (bgm.model.isEdit && bgm.frmTeamDetails.$pristine)"
+            type="submit"
+            ng-click="bgm.submit()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-warning"
+            type="button"
+            ng-click="bgm.cancel()"
+            ng-disabled="bgm.isBusy"></button>
+</div>

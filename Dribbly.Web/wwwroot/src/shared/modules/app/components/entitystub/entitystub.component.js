@@ -11,8 +11,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['modalService', 'constants'];
-    function controllerFn(modalService, constants) {
+    controllerFn.$inject = ['modalService', 'constants', '$state'];
+    function controllerFn(modalService, constants, $state) {
         var dus = this;
 
         dus.$onInit = function () {
@@ -25,6 +25,9 @@
                     view: '<drbbly-courtpreviewmodal></drbbly-courtpreviewmodal>',
                     model: { court: dus.entity }
                 });
+            }
+            else if (dus.entity.entityType === constants.enums.entityType.Account) {
+                $state.go('main.account.home', { username: dus.entity.name });
             }
         };
     }

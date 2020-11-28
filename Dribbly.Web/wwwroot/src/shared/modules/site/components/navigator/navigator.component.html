@@ -36,7 +36,17 @@
                 </a>
             </li>
         </ul>
-        <form class="form-inline d-none d-sm-inline my-2">
+        <div class="dropdown">
+            <button class="btn btn-primary"
+                    type="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-plus"></i>&nbsp;{{::'app.New' | i18n}}...
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" ng-click="nav.addCourt()">{{::'app.Game' | i18n}}</a>
+                <a class="dropdown-item" ng-click="nav.addTeam()">{{::'app.Team' | i18n}}</a>
+            </div>
+        </div>
+        <form class="form-inline d-none d-sm-inline my-2 ml-3">
             <input class="form-control mr-sm-2 d-none d-md-block"
                    type="search"
                    placeholder="{{'site.Search' | i18n}}">

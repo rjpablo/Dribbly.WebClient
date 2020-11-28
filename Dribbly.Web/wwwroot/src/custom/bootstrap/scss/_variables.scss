@@ -9,15 +9,15 @@
 
 // Custom Values
 $white: #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #F8F5F0 !default;
-$gray-300: #DFD7CA !default;
-$gray-400: #ced4da !default;
-$gray-500: #98978B !default;
-$gray-600: #8E8C84 !default;
-$gray-700: #495057 !default;
-$gray-800: #3E3F3A !default;
-$gray-900: #212529 !default;
+$gray-100: lighten(#000, 90%);
+$gray-200: lighten(#000, 80%);
+$gray-300: lighten(#000, 70%);
+$gray-400: lighten(#000, 60%);
+$gray-500: lighten(#000, 50%);
+$gray-600: lighten(#000, 40%);
+$gray-700: lighten(#000, 30%);
+$gray-800: lighten(#000, 20%);
+$gray-900: lighten(#000, 10%);
 $black: #000 !default;
 
 $grays: () !default;
