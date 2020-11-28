@@ -12,7 +12,7 @@
     </div>
     <div class="app-body">
         <div class="container"
-             ng-if="avc.team && avc.team.status !== $root.constants.enums.entityStatus.Active">
+             ng-if="avc.team && avc.team.entityStatus !== $root.constants.enums.entityStatus.Active">
             <div class="card">
                 <div class="card-body text-center">
                     {{::'app.ContentNotCurrentlyAvailable' | i18n}}
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div ng-if="avc.team && avc.team.status === $root.constants.enums.entityStatus.Active">
+        <div ng-if="avc.team && avc.team.entityStatus === $root.constants.enums.entityStatus.Active">
             <ui-view team="avc.team"
                      on-update="avc.onTeamUpdate"
                      ng-if="avc.shouldDisplayAsPublic"></ui-view>

@@ -19,7 +19,7 @@
             <div class="bg-black text-center col-md-6 col-12 p-3 d-flex justify-content-center justify-content-md-end align-items-start">
                 <div ng-if="gcc.isOwned">
                     <button type="button" class="btn btn-primary"
-                            ng-if="gcc.game.status === gcc.gameStatusEnum.WaitingToStart"
+                            ng-if="gcc.game.entityStatus === gcc.gameStatusEnum.WaitingToStart"
                             ng-click="gcc.startGame()">
                         {{::'app.StartGame' | i18n}}
                     </button>
