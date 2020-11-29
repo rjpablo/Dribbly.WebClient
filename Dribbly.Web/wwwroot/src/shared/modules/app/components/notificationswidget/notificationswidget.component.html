@@ -19,7 +19,7 @@
                  in-view-container
                  infinite-scroll-container="'.items-container'"
                  infinite-scroll="dnw.loadMore(true)">
-                <drbbly-notificationitem ng-repeat="item in dnw.allNotifs track by item.id"
+                <drbbly-notificationitem ng-repeat="item in dnw.allNotifs track by (item.id + '_' + item.type)"
                                          ng-click="dnw.ddlNotificationsIsOpen = false"
                                          class="dropdown-item border-bottom d-inline-block p-0"
                                          in-view="dnw.inView(item, $inview)"

@@ -53,8 +53,9 @@
                 Cancelled: 3
             },
             notificationType: {
-                newBookingForOwner: 0,
-                newBookingForBooker: 1
+                NewBookingForOwner: 0,
+                NewBookingForBooker: 1,
+                JoinTeamRequest: 2
             }
         };
     }]);

@@ -22,8 +22,11 @@
         };
 
         function setTargetLink() {
-            if (dni.item.type === _notificationTypes.newBookingForBooker || dni.item.type === _notificationTypes.newBookingForOwner) {
+            if (dni.item.type === _notificationTypes.NewBookingForBooker || dni.item.type === _notificationTypes.NewBookingForOwner) {
                 dni.targetLink = $state.href('main.booking', { id: dni.item.bookingId });
+            }
+            else if(dni.item.type === _notificationTypes.JoinTeamRequest){
+                //TO DO set proper link
             }
         }
     }

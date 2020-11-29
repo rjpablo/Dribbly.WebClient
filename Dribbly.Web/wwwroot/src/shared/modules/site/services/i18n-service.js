@@ -219,6 +219,7 @@
                     NoReservationToReviewCourt: 'Sorry. You either have not made a reservation on this court or you have submitted a review for your most recent reservation. You will be able to review this court after your next reservation.',
                     Notification_ABookingHasBeenMadeForYouAtCourtName: 'A booking has been made for you at <strong>{courtName}</strong>',
                     Notification_UserMadeABookingAtCourtName: '<strong>{userName}</strong> has made a booking for <strong>{courtName}</strong>',
+                    Notification_JoinTeamRequest: '<strong>{requestorName}</strong> is requesting to join <strong>{teamName}</strong>',
                     NoBookingsOnThisCourtYet: 'No bookings booked at this court yet.',
                     NoDescriptionProvided: 'No description provided',
                     NoGamesOnThisCourtYet: 'No games booked at this court yet.',
