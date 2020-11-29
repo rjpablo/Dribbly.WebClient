@@ -33,13 +33,28 @@
                                 <drbbly-rating value="0.8"></drbbly-rating><br />
                                 {{'site.FollowerCountDisplay' | i18n:{count: ((dad.team.followerCount || 0) | drbblyNumber)} }}
                             </div>-->
-                            <div>
-                                <button type="button"
-                                        class="btn btn-primary mb-3"
-                                        ng-click="dad.joinTeam()">{{::'app.Join' | i18n}}</button>
-                                <button type="button"
-                                        class="btn btn-primary mb-3"
-                                        ng-click="dad.followTeam()">{{::'app.PlusFollow' | i18n}}</button>
+                            <div ng-switch="dad.isBusy">
+                                <span ng-switch-when="true"
+                                      ng-class="btn btn-secondary"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+                                <div ng-switch-default>
+                                    <button type="button"
+                                            class="btn btn-primary mb-3"
+                                            ng-show="!dad.userTeamRelation.hasPendingJoinRequest"
+                                            ng-click="dad.joinTeam()">
+                                        {{::'app.Join' | i18n}}
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-primary mb-3"
+                                            ng-show="dad.userTeamRelation.hasPendingJoinRequest"
+                                            ng-click="dad.cancelJoinRequest()">
+                                        {{::'app.CancelRequestToJoin' | i18n}}
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-primary mb-3"
+                                            ng-click="dad.followTeam()">
+                                        {{::'app.PlusFollow' | i18n}}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

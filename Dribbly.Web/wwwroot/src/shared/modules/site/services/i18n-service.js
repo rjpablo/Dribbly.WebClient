@@ -124,6 +124,7 @@
                     BookNow: 'Book Now',
                     Browse: 'Browse',
                     CancelGame: 'Cancel Game',
+                    CancelRequestToJoin: 'Cancel Request To Join',
                     Change: 'Change',
                     City: 'City',
                     Court: 'Court',
@@ -166,6 +167,11 @@
                     Error_DeleteCourtVideoUnauthorized: 'You do not have permission to delete videos of this court.',
                     Error_DeletePhotoNotFound: 'The system could not find the photo you are trying to delete.',
                     Error_EditPostNotAllowed: 'You do not have permission to edit this post.',
+                    Error_JoinTeamAlreadyAMember: 'You are already currently a member of this team.',
+                    Error_JoinTeamCancelNoPending: 'You don\'t currently have a pending request to join this team.',
+                    Error_JoinTeamInactive: 'You cannot join this team because it is currently in an inactive status.',
+                    Error_JoinTeamDeleted: 'You cannot join this team because it has been deleted from the system.',
+                    Error_JoinTeamDuplicate: 'You already have a pending request to join this team.',
                     Error_NotAllowedToDeletePost: 'You do not have permission to delete this post.',
                     Error_NotAllowedToDeletePhoto: 'You do not have permission to delete this photo.',
                     Error_UploadCourtVideoNotAuthorized: 'You do not have permission to upload videos to this court',
@@ -192,6 +198,7 @@
                     InactiveAccount: '(Inactive Account)',
                     Inches_Abbrev: 'in.',
                     Join: 'Join',
+                    JoinTeamRequestModalTitle: 'Request to Join Team',
                     JoinedOnDate: 'Joined on {date}',
                     KeepPrivate: 'Keep Private',
                     LoadingMoreItemsEllipsis: 'Loading more items...',
@@ -223,6 +230,7 @@
                     'PlayerPositionEnum.SmallForward_3': 'Small Forward',
                     'PlayerPositionEnum.PowerForward_4': 'Power Forward',
                     'PlayerPositionEnum.Center_5': 'Center',
+                    'PlayerPositionEnum.Coach_6': 'Coach',
                     PleaseAllowAccessToLocationToLoadNearbyCourts: 'Please allow access to location to load nearby courts.',
                     PleaseContactTheFollowingNumberForInquiries: 'Please contact the following number for inquiries:<br/><br/><h3 class="text-center">{number}</h3>',
                     PlusFollow: '+ Follow',
@@ -234,6 +242,7 @@
                     Public: 'Public',
                     RatePerHour: 'Rate Per Hour',
                     ReplacePrimaryPhoto: 'Replace Primary Photo',
+                    RequestToJoinSent: 'Request to join sent',
                     ReviewCountDisplay: '{count} reviews',
                     Security: 'Security',
                     Schedule: 'Schedule',
@@ -245,7 +254,9 @@
                     Start: 'Start',
                     StartGame: 'Start Game',
                     StartTypingToLoadSuggestions: 'Start typing to load suggestions',
+                    SubmitRequest: 'Submit Request',
                     Team: 'Team',
+                    TeamId: 'Team ID',
                     TeamName: 'Team Name',
                     TeamNamePrompt: 'What is your team called?',
                     TheRequestedCourtIsNotAvailable: 'The requested court is not available.',
@@ -313,12 +324,13 @@
                         else { // if enum
                             var enumName = pieces[0];
                             var theEnum = moduleEntries[enumName] || {};
-                            constants.enums[enumName] = constants.enums[enumName] || {};
                             var numericKey = key.match(/(?<=_)\d+$/)[0];
                             var textKey = pieces[1].substr(0, pieces[1].length - (numericKey.length + 1));
                             theEnum[numericKey] = value;
                             theEnum[textKey] = value;
                             moduleEntries[enumName] = theEnum;
+                            enumName = enumName.toLowerFirst(); // constants use camel case for enum names
+                            constants.enums[enumName] = constants.enums[enumName] || {};
                             constants.enums[enumName][textKey] = Number(numericKey);
                         }
                     }

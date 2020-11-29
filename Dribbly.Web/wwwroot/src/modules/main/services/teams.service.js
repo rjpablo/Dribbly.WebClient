@@ -6,8 +6,14 @@
             function (drbblyhttpService, drbblyFileService, $q) {
                 var api = 'api/Teams/';
 
+                //GETs
+
                 function getAllTeams() {
                     return drbblyhttpService.get(api + 'getAllTeams');
+                }
+
+                function getUserTeamRelation(teamId) {
+                    return drbblyhttpService.get(api + 'getUserTeamRelation/' + teamId);
                 }
 
                 function getTeam(id) {
@@ -46,6 +52,8 @@
                     return drbblyhttpService.get(api + 'getTeamVideos/' + teamId);
                 }
 
+                //POSTs
+
                 function getTeamDropDownSuggestions(input) {
                     return drbblyhttpService.post(api + 'getTeamDropDownSuggestions', input);
                 }
@@ -56,6 +64,14 @@
 
                 function deletePhoto(photoId, teamId) {
                     return drbblyhttpService.post(api + 'deletePhoto/' + photoId + '/' + teamId);
+                }
+
+                function cancelJoinRequest(teamId) {
+                    return drbblyhttpService.post(api + 'cancelJoinRequest/' + teamId);
+                }
+
+                function joinTeam(request) {
+                    return drbblyhttpService.post(api + 'joinTeam', request);
                 }
 
                 function updateTeam(teamDetails) {
@@ -90,6 +106,7 @@
                     addTeam: addTeam,
                     addTeamPhotos: addTeamPhotos,
                     addTeamVideo: addTeamVideo,
+                    cancelJoinRequest: cancelJoinRequest,
                     deletePhoto: deletePhoto,
                     getAllTeams: getAllTeams,
                     getTeam: getTeam,
@@ -102,6 +119,8 @@
                     getTeamSettings: getTeamSettings,
                     getTeamVideos: getTeamVideos,
                     getTeamViewerData: getTeamViewerData,
+                    getUserTeamRelation: getUserTeamRelation,
+                    joinTeam: joinTeam,
                     setIsPublic: setIsPublic,
                     setStatus: setStatus,
                     updateTeam: updateTeam

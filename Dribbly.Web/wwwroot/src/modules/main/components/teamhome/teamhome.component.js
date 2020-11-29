@@ -14,13 +14,10 @@
         });
 
     controllerFunc.$inject = ['constants', 'drbblyFileService', '$stateParams', 'authService', 'permissionsService',
-        'drbblyOverlayService', 'modalService', 'drbblyFooterService', '$timeout', 'drbblyTeamsService',
-        'drbblyCommonService'];
+        'drbblyOverlayService', 'modalService', '$timeout', 'drbblyTeamsService'];
     function controllerFunc(constants, drbblyFileService, $stateParams, authService, permissionsService,
-        drbblyOverlayService, modalService, drbblyFooterService, $timeout, drbblyTeamsService,
-        drbblyCommonService) {
+        drbblyOverlayService, modalService, $timeout, drbblyTeamsService) {
         var dad = this;
-        var _priceComponent;
 
         dad.$onInit = function () {
             dad.teamId = $stateParams.id;
@@ -33,18 +30,34 @@
                 postedOnType: constants.enums.entityType.Team,
                 postedOnId: dad.team.id
             };
-            loadTeam();
+            dad.overlay.setToBusy()
+            dad.isBusy = true;
+            drbblyTeamsService.getUserTeamRelation(dad.teamId)
+                .then(function (data) {
+                    dad.userTeamRelation = data;
+                    dad.overlay.setToReady();
+                    dad.isBusy = false;
+                }, function (error) {
+                    dad.overlay.setToError();
+                    dad.isBusy = false;
+                });
+        };
+
+        dad.cancelJoinRequest = function () {
+            dad.isBusy = true;
+            drbblyTeamsService.cancelJoinRequest(dad.teamId)
+                .then(function () {
+                    dad.userTeamRelation.hasPendingJoinRequest = false;
+                    dad.isBusy = false;
+                }, function () {
+                    dad.isBusy = false;
+                });
         };
 
         function getDefaultLogo() {
             return {
                 url: '../../../../../' + constants.images.defaultProfilePhotoUrl
             };
-        }
-
-        function loadTeam() {
-            dad.overlay.setToBusy();
-            $timeout(dad.overlay.setToReady, 500);
         }
 
         dad.edit = function () {
@@ -97,7 +110,15 @@
         }
 
         dad.joinTeam = function () {
-            alert('Not yet implemented');
+            return authService.checkAuthenticationThen(function () {
+                return modalService.show({
+                    view: '<drbbly-jointeammodal></drbbly-jointeammodal>',
+                    model: { teamName: dad.team.name, teamId: dad.team.id }
+                })
+                    .then(function () {
+                        dad.userTeamRelation.hasPendingJoinRequest = true;
+                    });
+            });
         };
 
         dad.followTeam = function () {
