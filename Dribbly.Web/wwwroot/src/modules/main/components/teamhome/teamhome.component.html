@@ -33,16 +33,23 @@
                                 <drbbly-rating value="0.8"></drbbly-rating><br />
                                 {{'site.FollowerCountDisplay' | i18n:{count: ((dad.team.followerCount || 0) | drbblyNumber)} }}
                             </div>-->
-                            <div ng-switch="dad.isBusy">
-                                <span ng-switch-when="true"
-                                      ng-class="btn btn-secondary"><i class="fa fa-circle-o-notch fa-spin"></i></span>
-                                <div ng-switch-default>
-                                    <button type="button"
-                                            class="btn btn-primary mb-3"
-                                            ng-show="!dad.userTeamRelation.hasPendingJoinRequest"
-                                            ng-click="dad.joinTeam()">
-                                        {{::'app.Join' | i18n}}
-                                    </button>
+                            <div class="drbbly-no-animation">
+                                <div ng-hide="dad.isBusy">
+                                    <div ng-show="!dad.userTeamRelation.hasPendingJoinRequest"
+                                         class="d-inline-block">
+                                        <button type="button"
+                                                class="btn btn-danger mb-3"
+                                                ng-show="dad.userTeamRelation.isCurrentMember"
+                                                ng-click="dad.leaveTeam()">
+                                            {{::'app.LeaveTeam' | i18n}}
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-primary mb-3"
+                                                ng-show="!dad.userTeamRelation.isCurrentMember"
+                                                ng-click="dad.joinTeam()">
+                                            {{::'app.Join' | i18n}}
+                                        </button>
+                                    </div>
                                     <button type="button"
                                             class="btn btn-primary mb-3"
                                             ng-show="dad.userTeamRelation.hasPendingJoinRequest"
@@ -55,6 +62,8 @@
                                         {{::'app.PlusFollow' | i18n}}
                                     </button>
                                 </div>
+                                <span ng-hide="!dad.isBusy"
+                                      class="btn btn-secondary"><i class="fa fa-circle-o-notch fa-spin"></i></span>
                             </div>
                         </div>
                     </div>

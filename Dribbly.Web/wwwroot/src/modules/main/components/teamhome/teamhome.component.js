@@ -14,9 +14,9 @@
         });
 
     controllerFunc.$inject = ['constants', 'drbblyFileService', '$stateParams', 'authService', 'permissionsService',
-        'drbblyOverlayService', 'modalService', '$timeout', 'drbblyTeamsService'];
+        'drbblyOverlayService', 'modalService', 'i18nService', 'drbblyTeamsService'];
     function controllerFunc(constants, drbblyFileService, $stateParams, authService, permissionsService,
-        drbblyOverlayService, modalService, $timeout, drbblyTeamsService) {
+        drbblyOverlayService, modalService, i18nService, drbblyTeamsService) {
         var dad = this;
 
         dad.$onInit = function () {
@@ -34,11 +34,34 @@
             dad.isBusy = true;
             drbblyTeamsService.getUserTeamRelation(dad.teamId)
                 .then(function (data) {
+                    dad.isBusy = false;
                     dad.userTeamRelation = data;
                     dad.overlay.setToReady();
-                    dad.isBusy = false;
                 }, function (error) {
                     dad.overlay.setToError();
+                    dad.isBusy = false;
+                });
+        };
+
+        dad.leaveTeam = function () {
+            dad.isBusy = true;
+            return modalService.confirm({
+                msg1Raw: i18nService.getString('app.LeaveTeamConfirmationPrompt', { teamName: dad.team.name })
+            })
+                .then(function (result) {
+                    if (result) {
+                        return authService.checkAuthenticationThen(function () {
+                            return drbblyTeamsService.leaveTeam(dad.teamId)
+                                .then(function (result) {
+                                    dad.userTeamRelation = result;
+                                    dad.isBusy = false;
+                                }, function () {
+                                    dad.isBusy = false;
+                                });
+                        }, function () { dad.isBusy = false; });
+                    }
+                })
+                .finally(function () {
                     dad.isBusy = false;
                 });
         };
@@ -110,15 +133,20 @@
         }
 
         dad.joinTeam = function () {
+            dad.isBusy = true;
             return authService.checkAuthenticationThen(function () {
                 return modalService.show({
                     view: '<drbbly-jointeammodal></drbbly-jointeammodal>',
                     model: { teamName: dad.team.name, teamId: dad.team.id }
                 })
-                    .then(function () {
-                        dad.userTeamRelation.hasPendingJoinRequest = true;
+                    .then(function (result) {
+                        dad.userTeamRelation = result;
+                        dad.isBusy = false;
+                    })
+                    .catch(function () {
+                        dad.isBusy = false;
                     });
-            });
+            }, function () { dad.isBusy = false; });
         };
 
         dad.followTeam = function () {

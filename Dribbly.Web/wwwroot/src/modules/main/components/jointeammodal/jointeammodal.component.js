@@ -63,9 +63,9 @@
                 var saveModel = angular.copy(jtm.request);
                 jtm.isBusy = true;
                 drbblyTeamsService.joinTeam(saveModel)
-                    .then(function () {
+                    .then(function (result) {
                         jtm.isBusy = false;
-                        close();
+                        close(result);
                     }, function (error) {
                         jtm.isBusy = false;
                         drbblyCommonService.handleError(error);

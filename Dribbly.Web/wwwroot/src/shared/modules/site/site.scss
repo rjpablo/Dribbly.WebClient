@@ -182,6 +182,14 @@ a[ng-click] {
 /*************************
     Library Overrides
 *************************/
+/* AngularJS */
+//prevents flicker when hiding/showing elements using ng-show/ng-hide
+.drbbly-no-animation {
+    .ng-hide.ng-hide-animate {
+        display: none;
+    }
+}
+
 /* NgMap */
 .pac-container {
     z-index: 1050 !important; /*Allows auto complete results to show over bootstrap modals. Modals have 1050 z-index*/
@@ -189,7 +197,7 @@ a[ng-click] {
 /***** Bootstrap *****/
 
 /* Buttons */
-.btn{
+.btn {
     border-radius: 0;
 }
 

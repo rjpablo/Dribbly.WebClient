@@ -70,6 +70,10 @@
                     return drbblyhttpService.post(api + 'cancelJoinRequest/' + teamId);
                 }
 
+                function leaveTeam(teamId) {
+                    return drbblyhttpService.post(api + 'leaveTeam/' + teamId);
+                }
+
                 function joinTeam(request) {
                     return drbblyhttpService.post(api + 'joinTeam', request);
                 }
@@ -121,6 +125,7 @@
                     getTeamViewerData: getTeamViewerData,
                     getUserTeamRelation: getUserTeamRelation,
                     joinTeam: joinTeam,
+                    leaveTeam: leaveTeam,
                     setIsPublic: setIsPublic,
                     setStatus: setStatus,
                     updateTeam: updateTeam
