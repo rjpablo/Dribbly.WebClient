@@ -16,6 +16,10 @@
                     <small>{{member.name}}</small>
                 </h4>
             </div>
+            <div ng-if="!tml.displayedMembers.length"
+                 class="col-12">
+                <p class="text-center m-0 black-transparent-bg text-light p-3 border-0">{{::'app.NothingToShowAtTheMoment' | i18n}}</p>
+            </div>
         </div>
     </div>
     <div class="col-12">

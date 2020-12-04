@@ -1,7 +1,16 @@
-﻿<div drbbly-overlay="dad.overlay">
-    <div class="container px-0 px-sm-3">
+﻿<div class="container px-0 px-sm-3">
+    <h4 class="drbbly-header">Current Members</h4>
+    <div drbbly-overlay="dad.overlay">
         <drbbly-teammemberslist members="dad.currentMembers"
-                                settigns="dad.memberListSettings">
+                                settings="dad.memberListSettings">
         </drbbly-teammemberslist>
+    </div>
+    <div ng-if="dad.isManager">
+        <h4 class="drbbly-header">Member Requests</h4>
+        <div drbbly-overlay="dad.joinRequestsOverlay">
+            <drbbly-teammemberslist members="dad.requestingMembers"
+                                    settings="dad.memberListSettings">
+            </drbbly-teammemberslist>
+        </div>
     </div>
 </div>

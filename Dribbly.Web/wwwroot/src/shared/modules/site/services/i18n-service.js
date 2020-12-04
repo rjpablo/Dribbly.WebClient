@@ -224,6 +224,7 @@
                     Notification_ABookingHasBeenMadeForYouAtCourtName: 'A booking has been made for you at <strong>{courtName}</strong>',
                     Notification_UserMadeABookingAtCourtName: '<strong>{userName}</strong> has made a booking for <strong>{courtName}</strong>',
                     Notification_JoinTeamRequest: '<strong>{requestorName}</strong> is requesting to join <strong>{teamName}</strong>',
+                    NothingToShowAtTheMoment: 'Nothing to show at the moment',
                     NoBookingsOnThisCourtYet: 'No bookings booked at this court yet.',
                     NoDescriptionProvided: 'No description provided',
                     NoGamesOnThisCourtYet: 'No games booked at this court yet.',

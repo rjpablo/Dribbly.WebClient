@@ -13,18 +13,34 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['constants', 'drbblyFileService', '$stateParams', 'authService', 'permissionsService',
+    controllerFunc.$inject = ['constants', '$stateParams', 'authService', 'permissionsService',
         'drbblyOverlayService', 'modalService', 'i18nService', 'drbblyTeamsService'];
-    function controllerFunc(constants, drbblyFileService, $stateParams, authService, permissionsService,
+    function controllerFunc(constants, $stateParams, authService, permissionsService,
         drbblyOverlayService, modalService, i18nService, drbblyTeamsService) {
         var dad = this;
 
         dad.$onInit = function () {
             dad.teamId = $stateParams.id;
             dad.overlay = drbblyOverlayService.buildOverlay();
+            dad.joinRequestsOverlay = drbblyOverlayService.buildOverlay();
             dad.isOwned = authService.isCurrentUserId(dad.team.addedById);
-            dad.overlay.setToBusy()
             dad.isBusy = true;
+            dad.isManager = authService.isCurrentUserId(dad.team.managedById);
+            loadCurrentMembers();
+
+            if (dad.isManager) { // only the manager should be able to see pending requests
+                loadPendingRequests();
+            }
+
+            dad.memberListSettings = {
+                wrapItems: true,
+                loadSize: 6,
+                initialItemCount: 0
+            }
+        };
+
+        function loadCurrentMembers() {
+            dad.overlay.setToBusy()
             drbblyTeamsService.getCurrentMembers(dad.teamId)
                 .then(function (data) {
                     dad.isBusy = false;
@@ -34,12 +50,19 @@
                     dad.overlay.setToError();
                     dad.isBusy = false;
                 });
+        }
 
-            dad.memberListSettings = {
-                wrapItems: true,
-                loadSize: 6,
-                initialItemCount: 0
-            }
-        };
+        function loadPendingRequests() {
+            dad.joinRequestsOverlay.setToBusy();
+            drbblyTeamsService.getJoinRequests(dad.teamId)
+                .then(function (data) {
+                    dad.isBusy = false;
+                    dad.requestingMembers = data;
+                    dad.joinRequestsOverlay.setToReady();
+                }, function (error) {
+                    dad.joinRequestsOverlay.setToError();
+                    dad.isBusy = false;
+                });
+        }
     }
 })();
