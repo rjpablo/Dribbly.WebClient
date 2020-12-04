@@ -12,27 +12,29 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'permissionsService'];
-    function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, permissionsService) {
+    controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService'];
+    function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService) {
         var avc = this;
         var _teamId;
 
         avc.$onInit = function () {
+            avc.overlay = drbblyOverlayService.buildOverlay();
             _teamId = $stateParams.id;
             loadTeam();
         };
 
         function loadTeam() {
+            avc.overlay.setToBusy();
             drbblyTeamsService.getTeamViewerData(_teamId)
                 .then(function (data) {
+                    avc.overlay.setToReady();
                     avc.team = data.team;
                     avc.isOwned = authService.isCurrentUserId(avc.team.addedById);
                     avc.app.mainDataLoaded();
                     avc.shouldDisplayAsPublic = true; //TODO should be conditional
                     buildSubPages();
-                }, function (error) {
-
-                });
+                })
+                .catch(avc.overlay.setToError);
         }
 
         avc.onTeamUpdate = function () {
@@ -48,7 +50,15 @@
                 {
                     textKey: 'site.Home',
                     targetStateName: 'main.team.home',
-                    targetStateParams: { username: _teamId },
+                    targetStateParams: { id: _teamId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
+                },
+                {
+                    textKey: 'app.Members',
+                    targetStateName: 'main.team.members',
+                    targetStateParams: { id: _teamId },
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);
                     }

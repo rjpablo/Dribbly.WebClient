@@ -1,0 +1,29 @@
+﻿<div class="black-transparent-bg py-3 list-container row mx-0">
+    <div class="col-12">
+        <div class="row">
+            <div ng-repeat="member in tml.displayedMembers track by member.id"
+                 ng-class="tml._settings.wrapItems? 'col-4 col-md-3 col-lg-2' : 'mx-3'"
+                 class="team-member-list-item"
+                 on-click="tml.onItemClick">
+                <div class="photo-container">
+                    <drbbly-positionbadge position="member.position"
+                                          class="position-absolute ml-1 mt-1"></drbbly-positionbadge>
+                    <img ng-src="{{member.iconUrl}}"
+                         class="w-100"/>
+                </div>
+                <h4 ui-sref="main.account.home({username: member.name})"
+                    class="text-center text-white">
+                    <small>{{member.name}}</small>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="button"
+                class="btn btn-secondary w-100"
+                ng-click="tml.loadMore()"
+                ng-show="tml.currentSize < (tml.members || []).length">
+            {{::'app.LoadMore' | i18n}}
+        </button>
+    </div>
+</div>

@@ -5,7 +5,7 @@
 
     angular.module('siteModule')
         .service('i18nService', ['$timeout', 'constants', function ($timeout, constants) {
-            var _entries = {} ;
+            var _entries = {};
             var _modules = ['site', 'app', 'main', 'auth'];
             var _entriesTmp = {
                 site: {
@@ -210,6 +210,7 @@
                     LocationPickFromTheMap: 'Location: (Please select from the map)',
                     Male: 'Male',
                     ManageThisCourt: 'Manage this court',
+                    Members: 'Members',
                     Message: 'Message',
                     Mvps: 'MVPs',
                     New: 'New',
@@ -235,6 +236,12 @@
                     'PlayerPositionEnum.PowerForward_4': 'Power Forward',
                     'PlayerPositionEnum.Center_5': 'Center',
                     'PlayerPositionEnum.Coach_6': 'Coach',
+                    'PlayerPositionAbbrevEnum.PointGuard_1': 'PG',
+                    'PlayerPositionAbbrevEnum.ShootingGuard_2': 'SG',
+                    'PlayerPositionAbbrevEnum.SmallForward_3': 'SF',
+                    'PlayerPositionAbbrevEnum.PowerForward_4': 'PF',
+                    'PlayerPositionAbbrevEnum.Center_5': 'C',
+                    'PlayerPositionAbbrevEnum.Coach_6': 'CO',
                     PleaseAllowAccessToLocationToLoadNearbyCourts: 'Please allow access to location to load nearby courts.',
                     PleaseContactTheFollowingNumberForInquiries: 'Please contact the following number for inquiries:<br/><br/><h3 class="text-center">{number}</h3>',
                     PlusFollow: '+ Follow',

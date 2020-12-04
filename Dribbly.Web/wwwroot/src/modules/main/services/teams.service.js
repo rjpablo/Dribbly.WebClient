@@ -16,6 +16,10 @@
                     return drbblyhttpService.get(api + 'getUserTeamRelation/' + teamId);
                 }
 
+                function getCurrentMembers(teamId) {
+                    return drbblyhttpService.get(api + 'getCurrentMembers/' + teamId);
+                }
+
                 function getTeam(id) {
                     return drbblyhttpService.get(api + 'getTeam/' + id);
                 }
@@ -113,6 +117,7 @@
                     cancelJoinRequest: cancelJoinRequest,
                     deletePhoto: deletePhoto,
                     getAllTeams: getAllTeams,
+                    getCurrentMembers: getCurrentMembers,
                     getTeam: getTeam,
                     getTeamByUsername: getTeamByUsername,
                     getTeamDetailsModal: getTeamDetailsModal,

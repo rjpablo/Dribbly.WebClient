@@ -146,7 +146,10 @@
                     .catch(function () {
                         dad.isBusy = false;
                     });
-            }, function () { dad.isBusy = false; });
+            }, function () { dad.isBusy = false; })
+                .catch(function () {
+                    dad.isBusy = false;
+                });;
         };
 
         dad.followTeam = function () {

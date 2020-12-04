@@ -193,6 +193,14 @@
                 }
             })
 
+            .state('main.team.members', {
+                url: '/members/',
+                component: 'drbblyTeammembers',
+                resolve: {
+                    $titleKey: () => { return 'app.Members'; }
+                }
+            })
+
             // BOOKING
 
             .state('main.booking', {
