@@ -9,6 +9,9 @@
         <div ng-if="dni.item.type === $root.constants.enums.notificationType.JoinTeamRequest"
              ng-bind-html="('app.Notification_JoinTeamRequest' | i18n : {requestorName: dni.item.requestorName, teamName: dni.item.teamName})">
         </div>
+        <div ng-if="dni.item.type === $root.constants.enums.notificationType.JoinTeamRequestApproved"
+             ng-bind-html="('app.Notification_JoinTeamRequestApproved' | i18n : {teamName: dni.item.teamName})">
+        </div>
     </div>
     <small class="text-muted float-right">
         <drbbly-date date="dni.item.dateAdded"

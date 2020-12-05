@@ -33,7 +33,7 @@
                 dnw.loadMore()
                     .then(function () {
                         var afterDate = dnw.allNotifs.length > 0 ?
-                            drbblyDatetimeService.toUtcDate(dnw.allNotifs[0].dateAdded) :
+                            new Date(drbblyDatetimeService.toUtcString(dnw.allNotifs[0].dateAdded)) :
                             drbblyDatetimeService.getUtcNow();
                         _newNotificationListenerRemover = drbblyNotificationsService.monitorNewNotifications(afterDate, onNewNotifications);
                     });

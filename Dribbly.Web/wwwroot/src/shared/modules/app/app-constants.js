@@ -55,7 +55,8 @@
             notificationType: {
                 NewBookingForOwner: 0,
                 NewBookingForBooker: 1,
-                JoinTeamRequest: 2
+                JoinTeamRequest: 2,
+                JoinTeamRequestApproved: 3
             }
         };
     }]);
