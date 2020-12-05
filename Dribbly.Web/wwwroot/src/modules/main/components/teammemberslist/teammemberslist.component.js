@@ -6,16 +6,18 @@
         .component('drbblyTeammemberslist', {
             bindings: {
                 members: '<',
-                titleKey: '@',
-                settings: '<'
+                titleKey: '<',
+                title: '<',
+                settings: '<',
+                onRequestProcessed: '<'
             },
             controllerAs: 'tml',
             templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['modalService', '$element'];
-    function controllerFunc(modalService, $element) {
+    controllerFunc.$inject = ['modalService', '$element', 'drbblyTeamsService'];
+    function controllerFunc(modalService, $element, drbblyTeamsService) {
         var tml = this;
 
         tml.$onInit = function () {
@@ -42,6 +44,25 @@
             };
 
             tml._settings = Object.assign({}, defaultSettings, settings);
+        }
+
+        tml.processRequest = function (request, shouldApprove) {
+            request.isBusy = true;
+            drbblyTeamsService.processJoinRequest({ request: request, shouldApprove: shouldApprove })
+                .then(function () {
+                    removeItem(request);
+                    if (tml.onRequestProcessed) {
+                        tml.onRequestProcessed(shouldApprove);
+                    }
+                })
+                .catch(function () {
+                    request.isBusy = false;
+                });
+        };
+
+        function removeItem(member) {
+            tml.members.drbblyRemove({ id: member.id });
+            tml.displayedMembers.drbblyRemove({ id: member.id });
         }
 
         tml.onItemClick = function (member) {

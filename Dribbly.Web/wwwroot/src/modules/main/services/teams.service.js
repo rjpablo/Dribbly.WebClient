@@ -86,6 +86,10 @@
                     return drbblyhttpService.post(api + 'joinTeam', request);
                 }
 
+                function processJoinRequest(input) {
+                    return drbblyhttpService.post(api + 'processJoinRequest', input);
+                }
+
                 function updateTeam(teamDetails) {
                     return drbblyhttpService.post(api + 'updateTeam', teamDetails);
                 }
@@ -136,6 +140,7 @@
                     getUserTeamRelation: getUserTeamRelation,
                     joinTeam: joinTeam,
                     leaveTeam: leaveTeam,
+                    processJoinRequest: processJoinRequest,
                     setIsPublic: setIsPublic,
                     setStatus: setStatus,
                     updateTeam: updateTeam

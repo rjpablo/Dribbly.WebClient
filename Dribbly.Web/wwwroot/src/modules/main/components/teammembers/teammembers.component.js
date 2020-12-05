@@ -39,6 +39,12 @@
             }
         };
 
+        dad.onRequestProcessed = function (isApproved) {
+            if (isApproved) {
+                loadCurrentMembers();
+            }
+        };
+
         function loadCurrentMembers() {
             dad.overlay.setToBusy()
             drbblyTeamsService.getCurrentMembers(dad.teamId)
