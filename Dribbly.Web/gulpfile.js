@@ -107,6 +107,13 @@ var nodeLibs = {
         source: 'bowser/bundled.js',
         destination: 'bowser'
     },
+    cropperjs: {
+        source: [
+            'cropperjs/dist/cropper.min.js',
+            'cropperjs/dist/cropper.min.css'
+        ],
+        destination: 'cropperjs'
+    },
     font_awesome: {
         source: 'font-awesome/css/font-awesome.css',
         destination: 'font-awesome'

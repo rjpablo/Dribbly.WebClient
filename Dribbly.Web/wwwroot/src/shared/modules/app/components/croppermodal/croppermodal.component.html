@@ -1,0 +1,22 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" i18n="{{::bgm.model.isEdit? 'app.UpdateGameDetails' : 'app.NewGameDetails'}}"></h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="bgm.overlay">
+        <drbbly-cropper image-url="bgm.model.imageUrl"
+                        options="bgm.model.cropperOptions"
+                        methods="bgm.cropperMethods"></drbbly-cropper>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="bgm.isBusy || bgm.frmGameDetails.$invalid || (bgm.model.isEdit && bgm.frmGameDetails.$pristine)"
+            type="submit"
+            ng-click="bgm.submit()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-warning"
+            type="button"
+            ng-click="bgm.cancel()"
+            ng-disabled="bgm.isBusy"></button>
+</div>

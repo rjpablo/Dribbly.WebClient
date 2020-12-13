@@ -29,6 +29,7 @@
     "bootstrap": "4.3.0",
     "bootstrap-social": "5.1.1",
     "bowser": "2.9.0",
+    "cropperjs": "1.5.9",
     "font-awesome": "4.7.0",
     "fullcalendar": "3.10.1",
     "hammerjs": "2.0.8",

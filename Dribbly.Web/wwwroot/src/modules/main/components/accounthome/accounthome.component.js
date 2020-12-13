@@ -104,16 +104,35 @@
 
         dad.onPrimaryPhotoSelect = function (file) {
             if (!file) { return; }
-            drbblyFileService.upload(file, 'api/account/uploadPrimaryPhoto/' + dad.account.id)
-                .then(function (result) {
-                    if (result && result.data) {
-                        dad.account.profilePhoto = result.data;
-                        dad.account.profilePhotoId = result.data.id;
-                        dad.onUpdate();
+
+            var url = URL.createObjectURL(file);
+
+            return modalService.show({
+                view: '<drbbly-croppermodal></drbbly-croppermodal>',
+                model: {
+                    imageUrl: url,
+                    cropperOptions: {
+                        aspectRatio: 2/3
                     }
+                }
+            })
+                .then(function (imageData) {
+                    var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
+                    imageData.name = fileNameNoExt + '.png';
+                    drbblyFileService.upload(imageData, 'api/account/uploadPrimaryPhoto/' + dad.account.id)
+                        .then(function (result) {
+                            if (result && result.data) {
+                                dad.account.profilePhoto = result.data;
+                                dad.account.profilePhotoId = result.data.id;
+                                dad.onUpdate();
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
                 })
-                .catch(function (error) {
-                    console.log(error);
+                .finally(function () {
+                    URL.revokeObjectURL(url)
                 });
         };
 
