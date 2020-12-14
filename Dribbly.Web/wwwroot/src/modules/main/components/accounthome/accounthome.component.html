@@ -1,10 +1,46 @@
 ﻿<div drbbly-overlay="dad.overlay">
     <div class="container px-0 px-sm-3">
-        <div class="top-section mb-3">
-            <table class="w-100">
-                <tr class="stats-container row no-gutters">
-                    <td class="col-4"></td>
-                    <td class="p-3 d-flex justify-content-around col-8">
+        <div class="gradent-gray-black-v-bg mb-3 p-2 top-section">
+            <div class="row">
+                <div class="col-12 col-md-7 col-lg-6 col-xl-5">
+                    <div class="d-flex flex-nowrap">
+                        <div class="mr-3">
+                            <img ng-src="{{dad.account.profilePhoto.url}}"
+                                 class="profile-photo"
+                                 ng-click="dad.onProfilePhotoClick()" />
+                        </div>
+                        <!-- Profile details -->
+                        <div class="text-white">
+                            <h3 class="d-inline-block text-white m-0">{{dad.account.username}}</h3>
+                            <div class="mb-2">
+                                <ul class="list-group">
+                                    <li class="d-block">
+                                        <strong class="text-muted">{{::'app.Position' | i18n}}:</strong>
+                                        <span ng-if="dad.account.position">{{('app.PlayerPositionEnum.' + dad.account.position) | i18n}}</span>
+                                        <span ng-show="!dad.account.position"
+                                              class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                                    </li>
+                                    <li class="d-block">
+                                        <strong class="text-muted">{{::'app.Height' | i18n}}:</strong>
+                                        <span>{{dad.account.heightInches | height}}</span>
+                                    </li>
+                                    <li class="d-block">
+                                        <strong class="text-muted">{{::'app.Gender' | i18n}}:</strong>
+                                        <span>{{dad.account.gender | gender}}</span>
+                                    </li>
+                                </ul>
+                                <drbbly-rating value="dad.account.rating"></drbbly-rating>
+                            </div>
+
+                            <div>
+                                <button type="button" class="btn btn-primary mb-3">{{::'app.PlusFollow' | i18n}}</button>
+                                <button type="button" class="btn btn-secondary mb-3">{{::'app.Message' | i18n}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 col-lg-6 col-xl-7">
+                    <div class="d-flex justify-content-around">
                         <div class="d-inline-block text-center">
                             <h2 class="m-0 d-block px-1 text-white">0/0</h2>
                             <span class="text-muted">{{::'app.WinRate' | i18n}}</span>
@@ -13,44 +49,9 @@
                             <h2 class="m-0 d-block px-1 text-white">0</h2>
                             <span class="text-muted">{{::'app.Mvps' | i18n}}</span>
                         </div>
-                    </td>
-                </tr>
-                <tr class="user-details-container row no-gutters">
-                    <td class="align-top col-4">
-                        <img ng-src="{{dad.account.profilePhoto.url}}"
-                             class="profile-photo d-block mx-auto"
-                             ng-click="dad.onProfilePhotoClick()" />
-                        <button id="btn-replace-photo"
-                                class="d-none"
-                                ngf-select="dad.onPrimaryPhotoSelect($file)"
-                                ng-model="dad.profilePicture"
-                                ngf-pattern="'image/*'"
-                                ngf-accept="'image/*'"
-                                ngf-max-size="20MB"></button>
-                        <ng-image-gallery images="dad.account.photos"
-                                          methods="dad.methods"
-                                          thumbnails="false"
-                                          inline="false"
-                                          bubbles="true"
-                                          bubble-size="30"
-                                          img-bubbles="true"
-                                          bg-close="true"
-                                          piracy="true"
-                                          img-anim="fadeup"
-                                          on-delete="dad.onDeletePhoto(img, cb)"></ng-image-gallery>
-                    </td>
-                    <td class="pl-3 col-8">
-                        <div>
-                            <h3 class="d-inline-block text-white"><small>{{dad.account.username}}</small></h3>
-                            <button class="btn btn-default text-light"><i class="fa fa-ellipsis-h"></i></button>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-primary mb-3">{{::'app.PlusFollow' | i18n}}</button>
-                            <button type="button" class="btn btn-secondary mb-3">{{::'app.Message' | i18n}}</button>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-12 col-md-8">

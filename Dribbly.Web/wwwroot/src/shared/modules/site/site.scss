@@ -68,6 +68,11 @@ a[ng-click] {
     color: $cyan;
 }
 
+.gradent-gray-black-v-bg {
+    border: 1px solid $gray-700;
+    background: linear-gradient(180deg, $gray-700 0%, $black 62%);
+}
+
 .black-transparent-bg {
     background-color: rgba(0, 0, 0, 0.6);
     color: $gray-400;
