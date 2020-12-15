@@ -20,6 +20,17 @@
                         {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
                     </div>
                 </div>
+                <div class="form-group pb-3">
+                    <label for="txtCourtId">{{::'app.Court' | i18n}}*:</label>
+                    <drbbly-typeahead selected-items="bgm.selectedCourts"
+                                      config="bgm.typeAheadConfig"
+                                      class="form-control" />
+                    <input name="txtCourtId"
+                           required
+                           type="text"
+                           hidden
+                           ng-model="bgm.saveModel.courtId" />
+                </div>
                 <div class="form-group">
                     <label for="start">{{::'app.Schedule' | i18n}}*:</label>
                     <drbbly-datetimepicker ng-model="bgm.saveModel.start"
@@ -29,8 +40,8 @@
                                            required
                                            options="bgm.startDateOptions"></drbbly-datetimepicker>
                     <!-- This is a remedy for the error message to display properly.
-                    It requires a sibling with classes .is-invalid and .form-control for it to appear,
-                    but adding those classes to the datetime picker does not yield a very good result-->
+        It requires a sibling with classes .is-invalid and .form-control for it to appear,
+        but adding those classes to the datetime picker does not yield a very good result-->
                     <span class="form-control d-none"
                           ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
                     <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">

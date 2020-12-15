@@ -14,6 +14,10 @@
                     return drbblyhttpService.get(api + 'getGame/' + id);
                 }
 
+                function getAddGameModal(courtId) {
+                    return drbblyhttpService.get(api + 'getAddGameModal/' + courtId);
+                }
+
                 function updateGame(GameDetails) {
                     return drbblyhttpService.post(api + 'updateGame', GameDetails);
                 }
@@ -23,6 +27,7 @@
                 }
 
                 var _service = {
+                    getAddGameModal: getAddGameModal,
                     getAll: getAll,
                     getGame: getGame,
                     addGame: addGame,

@@ -10,9 +10,9 @@
         });
 
     controllerFn.$inject = ['authService', '$state', 'drbblyTeamshelperService', 'settingsService', 'modalService',
-        'drbblyCourtshelperService'];
+        'drbblyCourtshelperService', 'drbblyGameshelperService'];
     function controllerFn(authService, $state, drbblyTeamshelperService, settingsService, modalService,
-        drbblyCourtshelperService) {
+        drbblyCourtshelperService, drbblyGameshelperService) {
         var nav = this;
 
         nav.$onInit = function () {
@@ -50,6 +50,16 @@
                         $state.go('main.court.details', { id: court.id });
                     }
                 });
+        };
+
+        nav.addGame = function () {
+            drbblyGameshelperService.openAddEditGameModal({})
+                .then(function (game) {
+                    if (game) {
+                        $state.go('main.game.details', { id: game.id });
+                    }
+                })
+                .catch(function () { /* do nothing */ })
         };
 
         nav.isAuthenticated = function () {

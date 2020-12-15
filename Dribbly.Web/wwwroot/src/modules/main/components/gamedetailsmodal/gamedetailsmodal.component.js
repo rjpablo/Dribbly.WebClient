@@ -22,6 +22,9 @@
         bgm.$onInit = function () {
             bgm.overlay = drbblyOverlayService.buildOverlay();
             bgm.gameStatus = constants.enums.gameStatus;
+            bgm.selectedCourts = [];
+            setTypeAheadConfig();
+
             if (bgm.model.isEdit) {
                 bgm.isBusy = true;
                 bgm.overlay.setToBusy();
@@ -46,6 +49,15 @@
                     bgm.saveModel.start = new Date();
                 }
                 setStartDateOptions();
+                if (bgm.saveModel.courtId) {
+                    bgm.overlay.setToBusy();
+                    drbblyGamesService.getAddGameModal(bgm.saveModel.courtId)
+                        .then(function (data) {
+                            bgm.selectedCourts.push(data.courtChoice);
+                            bgm.overlay.setToReady();
+                        })
+                        .catch(bgm.overlay.setToError);
+                }
             }
 
             bgm.context.setOnInterrupt(bgm.onInterrupt);
@@ -56,6 +68,22 @@
                 }
             }, $scope);
         };
+
+        function setTypeAheadConfig() {
+            bgm.typeAheadConfig = {
+                entityTypes: [constants.enums.entityType.Court],
+                onSelect: courtSelected,
+                onUnselect: courtUnselected
+            };
+        }
+
+        function courtSelected(item) {
+            bgm.saveModel.courtId = item.value;
+        }
+
+        function courtUnselected() {
+            bgm.saveModel.courtId = null;
+        }
 
         bgm.dateOpened = false;
 
