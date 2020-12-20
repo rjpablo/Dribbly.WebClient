@@ -13,6 +13,9 @@ Documentation.docx
 #Compiles css files
 Dribbly.Web/wwwroot/src/**/*.css
 
+#JSDoc output
+Dribbly.Web/jsdoc/out/
+
 #NPM cache
 Appsnodejsnpm-cache
 

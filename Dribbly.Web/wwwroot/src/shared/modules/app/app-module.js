@@ -1,6 +1,7 @@
 ﻿(function () {
     'use strict';
 
+    /** @module appModule */
     var module = angular.module('appModule', [
         'wysiwyg.module',
         'ngMap',
