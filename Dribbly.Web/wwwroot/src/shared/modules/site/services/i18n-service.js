@@ -296,6 +296,7 @@
                     ViewOnMap: 'View On Map',
                     ViewPrimaryPhoto: 'View Primary Photo',
                     VisibleOnlyToYou: 'Visible only to you',
+                    Vs: 'VS',
                     WinRate: 'Win Rate'
                 },
                 main: {

@@ -33,7 +33,8 @@
          * @default
          */
         constants.images = {
-            defaultProfilePhotoUrl: 'src/images/default_images/default_profile_photo.jpg'
+            defaultProfilePhotoUrl: 'src/images/default_images/default_profile_photo.jpg',
+            defaultTeamLogoUrl: 'src/images/default_images/default_team_logo_1.png'
         };
         
         /**

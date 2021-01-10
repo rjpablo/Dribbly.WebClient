@@ -21,7 +21,7 @@
            class="typeahead-text-input dropdown-toggle"
            ng-class="{'w-100': !dta.selectedItems.length}"
            ng-hide="!dta.config.isMultiple && dta.selectedItems.length > 0"
-           ng-model="dta.ngModel"
+           ng-model="dta.keyword"
            ng-change="dta.isShowingStatus = false"
            placeholder="{{::'app.StartTypingToLoadSuggestions' | i18n}}"
            uib-typeahead="item.text for item in dta._getItems($viewValue)"

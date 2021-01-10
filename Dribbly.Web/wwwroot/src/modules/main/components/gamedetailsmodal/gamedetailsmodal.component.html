@@ -7,7 +7,7 @@
               novalidate
               ng-if="bgm.saveModel">
             <fieldset ng-disabled="bgm.isBusy">
-                <div class="form-group pb-3">
+                <div class="form-group">
                     <label for="txtName">{{::'app.Title' | i18n}} <small class="text-lowercase">({{::'site.Optional' | i18n}})</small>:</label>
                     <input type="text"
                            name="txtName"
@@ -20,16 +20,14 @@
                         {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
                     </div>
                 </div>
-                <div class="form-group pb-3">
-                    <label for="txtCourtId">{{::'app.Court' | i18n}}*:</label>
+                <div class="form-group">
+                    <label for="typCourt">{{::'app.Court' | i18n}}*:</label>
                     <drbbly-typeahead selected-items="bgm.selectedCourts"
                                       config="bgm.typeAheadConfig"
+                                      required
+                                      name="typCourt"
+                                      ng-model="bgm.saveModel.courtId"
                                       class="form-control" />
-                    <input name="txtCourtId"
-                           required
-                           type="text"
-                           hidden
-                           ng-model="bgm.saveModel.courtId" />
                 </div>
                 <div class="form-group">
                     <label for="start">{{::'app.Schedule' | i18n}}*:</label>
@@ -40,12 +38,34 @@
                                            required
                                            options="bgm.startDateOptions"></drbbly-datetimepicker>
                     <!-- This is a remedy for the error message to display properly.
-        It requires a sibling with classes .is-invalid and .form-control for it to appear,
-        but adding those classes to the datetime picker does not yield a very good result-->
+                    It requires a sibling with classes .is-invalid and .form-control for it to appear,
+                    but adding those classes to the datetime picker does not yield a very good result-->
                     <span class="form-control d-none"
                           ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
                     <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">
                         {{::'site.Required' | i18n}}
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="start">Teams*:</label>
+                        <drbbly-typeahead selected-items="bgm.team1Selection"
+                                          config="bgm.team1TypeAheadConfig"
+                                          required
+                                          name="typTeam1"
+                                          ng-model="bgm.saveModel.team1Id"
+                                          class="form-control mb-0">
+                        </drbbly-typeahead>
+                    </div>
+                    <div class="form-group text-center">VS</div>
+                    <div class="form-group">
+                        <drbbly-typeahead selected-items="bgm.team2Selection"
+                                          config="bgm.team2TypeAheadConfig"
+                                          required
+                                          name="typTeam2"
+                                          ng-model="bgm.saveModel.team2Id"
+                                          class="form-control">
+                        </drbbly-typeahead>
                     </div>
                 </div>
             </fieldset>

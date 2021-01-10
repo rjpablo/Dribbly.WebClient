@@ -83,7 +83,6 @@
                 saveModel.birthDate = drbblyDatetimeService.toUtcDate(saveModel.birthDate);
             }
             saveModel.heightInches = getHeightInches();
-            saveModel.homeCourtId = adm.selectedHomeCourts.length ? adm.selectedHomeCourts[0].value : null;
             adm.overlay.setToBusy();
             drbblyAccountsService.updateAccount(saveModel)
                 .then(function () {

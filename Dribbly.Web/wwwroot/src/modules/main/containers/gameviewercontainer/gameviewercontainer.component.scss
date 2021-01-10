@@ -1,0 +1,16 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-gameviewercontainer{
+    .teams{
+        background-color: $orange;
+
+        .vs{
+            font-size: 2em;
+        }
+
+        .logo{
+            height: 70px;
+            width: 70px;
+        }
+    }
+}

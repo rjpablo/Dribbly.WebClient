@@ -20,7 +20,6 @@
         drbblyGameshelperService, drbblyDatetimeService) {
         var gcc = this;
         var _gameId;
-        var _priceComponent;
 
         gcc.$onInit = function () {
             _gameId = $stateParams.id;
@@ -37,10 +36,23 @@
                     gcc.game = angular.copy(data);
                     gcc.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gcc.isOwned = gcc.game.addedById === authService.authentication.userId;
+                    checkTeamLogos();
                     gcc.gameDetailsOverlay.setToReady();
-                    createPriceComponent();
                 })
                 .catch(gcc.gameDetailsOverlay.setToError);
+        }
+
+        function checkTeamLogos() {
+            if (gcc.game.team1 && !gcc.game.team1.logo) {
+                gcc.game.team1.logo = {
+                    url: constants.images.defaultTeamLogoUrl
+                };
+            }
+            if (gcc.game.team2 && !gcc.game.team2.logo) {
+                gcc.game.team2.logo = {
+                    url: constants.images.defaultTeamLogoUrl
+                };
+            }
         }
 
         gcc.onGameUpdate = function () {
@@ -55,18 +67,6 @@
                 model: { court: court }
             });
         };
-
-        function createPriceComponent() {
-
-            if (_priceComponent) {
-                _priceComponent.remove();
-            }
-
-            _priceComponent = drbblyFooterService.addFooterItem({
-                scope: $scope,
-                template: '<drbbly-gameprice game="gcc.game"></dribbly-gameprice>'
-            });
-        }
 
         gcc.startGame = function () {
             // TODO: Implement
@@ -93,7 +93,6 @@
         };
 
         gcc.$onDestroy = function () {
-            _priceComponent.remove();
             gcc.app.toolbar.clearNavItems();
         };
 

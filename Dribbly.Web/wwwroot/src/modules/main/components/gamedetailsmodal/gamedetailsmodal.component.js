@@ -23,7 +23,6 @@
             bgm.overlay = drbblyOverlayService.buildOverlay();
             bgm.gameStatus = constants.enums.gameStatus;
             bgm.selectedCourts = [];
-            setTypeAheadConfig();
 
             if (bgm.model.isEdit) {
                 bgm.isBusy = true;
@@ -35,6 +34,7 @@
                         game.start = drbblyDatetimeService.toLocalDateTime(game.start);
                         bgm.saveModel = angular.copy(game || {});
                         setStartDateOptions();
+                        setTypeAheadConfig();
                     })
                     .catch(function (error) {
                         bgm.isBusy = false;
@@ -49,6 +49,7 @@
                     bgm.saveModel.start = new Date();
                 }
                 setStartDateOptions();
+                setTypeAheadConfig();
                 if (bgm.saveModel.courtId) {
                     bgm.overlay.setToBusy();
                     drbblyGamesService.getAddGameModal(bgm.saveModel.courtId)
@@ -71,18 +72,18 @@
 
         function setTypeAheadConfig() {
             bgm.typeAheadConfig = {
-                entityTypes: [constants.enums.entityType.Court],
-                onSelect: courtSelected,
-                onUnselect: courtUnselected
+                entityTypes: [constants.enums.entityType.Court]
             };
-        }
 
-        function courtSelected(item) {
-            bgm.saveModel.courtId = item.value;
-        }
+            bgm.team1TypeAheadConfig = {
+                entityTypes: [constants.enums.entityType.Team],
+                excludeValues: [bgm.saveModel.team2Id]
+            };
 
-        function courtUnselected() {
-            bgm.saveModel.courtId = null;
+            bgm.team2TypeAheadConfig = {
+                entityTypes: [constants.enums.entityType.Team],
+                excludeValues: [bgm.saveModel.team1Id]
+            };
         }
 
         bgm.dateOpened = false;
