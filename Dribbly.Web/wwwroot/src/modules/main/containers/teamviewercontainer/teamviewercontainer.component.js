@@ -12,8 +12,10 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService'];
-    function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService) {
+    controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
+        'constants'];
+    function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService,
+        constants) {
         var avc = this;
         var _teamId;
 
@@ -29,12 +31,22 @@
                 .then(function (data) {
                     avc.overlay.setToReady();
                     avc.team = data.team;
+                    avc.team.logo = avc.team.logo || getDefaultLogo();
+                    avc.team.photos = avc.team.photos || [];
+                    avc.team.photos.push(avc.team.logo);
                     avc.isOwned = authService.isCurrentUserId(avc.team.addedById);
                     avc.app.mainDataLoaded();
                     avc.shouldDisplayAsPublic = true; //TODO should be conditional
                     buildSubPages();
                 })
                 .catch(avc.overlay.setToError);
+        }
+
+        function getDefaultLogo() {
+            return {
+                url: '../../../../../' + constants.images.defaultTeamLogoUrl,
+                isDefault: true
+            };
         }
 
         avc.onTeamUpdate = function () {

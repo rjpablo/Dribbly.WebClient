@@ -10,7 +10,7 @@
                                  ng-click="dad.onLogoClick()" />
                             <button id="btn-replace-photo"
                                     class="d-none"
-                                    ngf-select="dad.onPrimaryPhotoSelect($file)"
+                                    ngf-select="dad.onLogoSelect($file)"
                                     ng-model="dad.profilePicture"
                                     ngf-pattern="'image/*'"
                                     ngf-accept="'image/*'"
@@ -95,8 +95,8 @@
                              ng-click="dad.onLogoClick()" />
                         <button id="btn-replace-photo"
                                 class="d-none"
-                                ngf-select="dad.onPrimaryPhotoSelect($file)"
-                                ng-model="dad.profilePicture"
+                                ngf-select="dad.onLogoSelect($file)"
+                                ng-model="dad.logo"
                                 ngf-pattern="'image/*'"
                                 ngf-accept="'image/*'"
                                 ngf-max-size="20MB"></button>
