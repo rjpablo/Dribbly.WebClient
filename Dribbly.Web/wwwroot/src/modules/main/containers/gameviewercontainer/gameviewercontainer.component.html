@@ -48,14 +48,18 @@
                 <div class="d-flex p-3">
                     <img class="logo mr-2" ng-src="{{gcc.game.team1.logo.url}}" />
                     <h5 class="text-white m-0 d-inline-block"
-                        ui-sref="main.team.home({id: gcc.game.team1.id})">{{gcc.game.team1.name}}</h5>
+                        ui-sref="main.team.home({id: gcc.game.team1.id})">
+                        {{gcc.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gcc.game.team1.name}}
+                    </h5>
                 </div>
             </div>
             <div class="col-12 col-sm-2 text-center text-light align-self-center vs">{{'app.Vs' | i18n}}</div>
             <div class="col-12 col-sm-5 text-white text-right">
                 <div class="d-flex p-3">
                     <h5 class="text-white m-0 d-inline-block flex-grow-1"
-                        ui-sref="main.team.home({id: gcc.game.team2.id})">{{gcc.game.team2.name}}</h5>
+                        ui-sref="main.team.home({id: gcc.game.team2.id})">
+                        {{gcc.game.team2.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gcc.game.team2.name}}
+                    </h5>
                     <img class="logo ml-2" ng-src="{{gcc.game.team2.logo.url}}" />
                 </div>
             </div>

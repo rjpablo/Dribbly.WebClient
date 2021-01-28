@@ -234,6 +234,7 @@
                     NoGamesOnThisCourtYet: 'No games booked at this court yet.',
                     NoMoreItemsToLoad: 'No more items to load',
                     NoSuggestionsFound: 'No suggestions found',
+                    OpenTeam: 'Open Team',
                     Photos: 'Photos',
                     'PlayerPositionEnum.PointGuard_1': 'Point Guard',
                     'PlayerPositionEnum.ShootingGuard_2': 'Shooting Guard',

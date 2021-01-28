@@ -51,21 +51,35 @@
                         <label for="start">Teams*:</label>
                         <drbbly-typeahead selected-items="bgm.team1Selection"
                                           config="bgm.team1TypeAheadConfig"
-                                          required
+                                          ng-required="!bgm.saveModel.isTeam1Open"
+                                          ng-show="!bgm.saveModel.isTeam1Open"
                                           name="typTeam1"
                                           ng-model="bgm.saveModel.team1Id"
                                           class="form-control mb-0">
                         </drbbly-typeahead>
+                        <div class="form-check">
+                            <label>
+                                <input type="checkbox"
+                                       ng-model="bgm.saveModel.isTeam1Open" /> {{'app.OpenTeam' | i18n}}
+                            </label>
+                        </div>
                     </div>
                     <div class="form-group text-center">VS</div>
                     <div class="form-group">
                         <drbbly-typeahead selected-items="bgm.team2Selection"
                                           config="bgm.team2TypeAheadConfig"
-                                          required
+                                          ng-required="!bgm.saveModel.isTeam2Open"
+                                          ng-show="!bgm.saveModel.isTeam2Open"
                                           name="typTeam2"
                                           ng-model="bgm.saveModel.team2Id"
                                           class="form-control">
                         </drbbly-typeahead>
+                        <div class="form-check">
+                            <label>
+                                <input type="checkbox"
+                                       ng-model="bgm.saveModel.isTeam2Open" /> {{'app.OpenTeam' | i18n}}
+                            </label>
+                        </div>
                     </div>
                 </div>
             </fieldset>

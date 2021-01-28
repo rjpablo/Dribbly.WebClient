@@ -45,6 +45,8 @@
                 bgm.saveModel = {
                     courtId: bgm.model.courtId
                 };
+                bgm.saveModel.isTeam1Open = true;
+                bgm.saveModel.isTeam2Open = true;
                 if (!bgm.saveModel.start) {
                     bgm.saveModel.start = new Date();
                 }
