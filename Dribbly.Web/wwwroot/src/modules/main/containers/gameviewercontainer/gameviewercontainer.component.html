@@ -5,7 +5,10 @@
                 <div class="text-white">
                     {{gcc.game.title || ('app.Untitled' | i18n)}}
                 </div>
-                <h3 class="drbbly-header m-0">{{gcc.game | drbblyschedule}}</h3>
+                <h3 class="drbbly-header m-0"
+                    ng-if="gcc.game">
+                    {{gcc.game | drbblyschedule}}
+                </h3>
                 <a ui-sref="main.court.home({id: gcc.game.court.id})" class="m-0 p-0 pb-1">
                     <i class="fa fa-map-marker mr-1"></i>
                     <span ng-click="gcc.previewCourtDetails($event, gcc.game.court)">
@@ -18,19 +21,40 @@
             </div>
             <div class="bg-black text-center col-md-6 col-12 p-3 d-flex justify-content-center justify-content-md-end align-items-start">
                 <div ng-if="gcc.isOwned">
-                    <button type="button" class="btn btn-primary"
-                            ng-if="gcc.game.entityStatus === gcc.gameStatusEnum.WaitingToStart"
-                            ng-click="gcc.startGame()">
+                    <!-- Start Game -->
+                    <!--<button type="button" class="btn btn-primary"
+                            ng-if="gcc.game.status === gcc.gameStatusEnum.WaitingToStart"
+                            ng-click="gcc.updateStatus(gcc.gameStatusEnum.Started)">
                         {{::'app.StartGame' | i18n}}
-                    </button>
+                    </button>-->
+                    <div class="btn-group mb-2" uib-dropdown is-open="status.isopen">
+                        <button type="button" class="btn btn-primary"
+                                uib-dropdown-toggle
+                                ng-if="gcc.game.status === gcc.gameStatusEnum.WaitingToStart">
+                            {{::'app.GameStatusEnum.WaitingToStart' | i18n}} <span class="caret"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary"
+                                uib-dropdown-toggle
+                                ng-if="gcc.game.status === gcc.gameStatusEnum.Started">
+                            {{::'app.GameStatusEnum.Started' | i18n}} <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <a class="dropdown-item"
+                               ng-if="gcc.game.status === gcc.gameStatusEnum.WaitingToStart"
+                               ng-click="gcc.updateStatus(gcc.gameStatusEnum.Started)">{{::'app.StartGame' | i18n}}</a>
+                            <a class="dropdown-item"
+                               ng-if="gcc.game.status === gcc.gameStatusEnum.Started"
+                               ng-click="gcc.updateStatus(gcc.gameStatusEnum.Finished)">{{::'app.EndGame' | i18n}}</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="btn-group ml-1" uib-dropdown
                      ng-if="gcc.isOwned">
-                    <button type="button" class="btn btn-primary"
+                    <button type="button" class="btn btn-secondary"
                             ng-click="gcc.updateGame()">
                         {{::'app.UpdateDetails' | i18n}}
                     </button>
-                    <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+                    <button type="button" class="btn btn-secondary" uib-dropdown-toggle>
                         <span class="caret"></span>
                     </button>
                     <div class="dropdown-menu" uib-dropdown-menu role="menu">

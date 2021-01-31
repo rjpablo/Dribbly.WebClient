@@ -68,9 +68,19 @@
             });
         };
 
-        gcc.startGame = function () {
-            // TODO: Implement
-            alert('Not yet implemented');
+        gcc.updateStatus = function (toStatus) {
+            if (toStatus === gcc.gameStatusEnum.Started) {
+                drbblyGamesService.updateStatus(_gameId, toStatus)
+                    .then(function () {
+                        loadGame();
+                    })
+                    .catch(function () {
+                        // do nothing
+                    });
+            }
+            else {
+                alert('Not yet implemented');
+            }
         };
 
         gcc.updateGame = function () {
