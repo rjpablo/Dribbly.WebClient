@@ -22,6 +22,10 @@
                     return drbblyhttpService.post(api + 'updateGame', GameDetails);
                 }
 
+                function updateGameResult(result) {
+                    return drbblyhttpService.post(api + 'updateGameResult', result);
+                }
+
                 function updateStatus(gameId, toStatus) {
                     return drbblyhttpService.post(api + 'updateStatus/' + gameId + '/' + toStatus);
                 }
@@ -36,6 +40,7 @@
                     getGame: getGame,
                     addGame: addGame,
                     updateGame: updateGame,
+                    updateGameResult: updateGameResult,
                     updateStatus: updateStatus
                 };
 

@@ -59,6 +59,21 @@
             loadGame();
         };
 
+        gcc.setResult = function () {
+            modalService.show({
+                view: '<drbbly-gameresultmodal></drbbly-gameresultmodal>',
+                model: { gameId: _gameId }
+            })
+                .then(function (result) {
+                    if (result && result.savedChanges) {
+                        loadGame();
+                    }
+                })
+                .catch(function () {
+                    // do nothing
+                });
+        };
+
         gcc.previewCourtDetails = function (event, court) {
             event.preventDefault();
             event.stopPropagation();
@@ -69,7 +84,7 @@
         };
 
         gcc.updateStatus = function (toStatus) {
-            if (toStatus === gcc.gameStatusEnum.Started) {
+            if (toStatus === gcc.gameStatusEnum.Started || toStatus === gcc.gameStatusEnum.Finished) {
                 drbblyGamesService.updateStatus(_gameId, toStatus)
                     .then(function () {
                         loadGame();
@@ -94,7 +109,7 @@
                         loadGame();
                     }
                 })
-                .catch(function () { /* do nothing */ })
+                .catch(function () { /* do nothing */ });
         };
 
         gcc.cancelGame = function () {
