@@ -113,8 +113,18 @@
         };
 
         gcc.cancelGame = function () {
-            // TODO: Implement
-            alert('Not yet implemented');
+            modalService.confirm({ msg1Key: 'app.CancelGamePrompt' })
+                .then(function (result) {
+                    if (result) {
+                        drbblyGamesService.updateStatus(_gameId, gcc.gameStatusEnum.Cancelled)
+                            .then(function () {
+                                loadGame();
+                            })
+                            .catch(function () {
+                                // do nothing
+                            });
+                    }
+                });
         };
 
         gcc.$onDestroy = function () {
