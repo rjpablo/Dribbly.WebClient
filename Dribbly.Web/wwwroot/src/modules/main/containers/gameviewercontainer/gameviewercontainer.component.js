@@ -98,6 +98,21 @@
             }
         };
 
+        gcc.reopenGame = function () {
+            var model = {
+                gameId: _gameId,
+                isEdit: true,
+                toStatus: gcc.gameStatusEnum.WaitingToStart
+            };
+            drbblyGameshelperService.openAddEditGameModal(model)
+                .then(function (game) {
+                    if (game) {
+                        loadGame();
+                    }
+                })
+                .catch(function () { /* do nothing */ });
+        };
+
         gcc.updateGame = function () {
             var model = {
                 gameId: _gameId,

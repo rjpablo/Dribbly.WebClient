@@ -33,6 +33,7 @@
                         bgm.isBusy = false;
                         game.start = drbblyDatetimeService.toLocalDateTime(game.start);
                         bgm.saveModel = angular.copy(game || {});
+                        bgm.saveModel.toStatus = bgm.model.toStatus;
                         setStartDateOptions();
                         setTypeAheadConfig();
                     })
@@ -45,6 +46,7 @@
                 bgm.saveModel = {
                     courtId: bgm.model.courtId
                 };
+                bgm.saveModel.toStatus = bgm.model.toStatus;
                 bgm.saveModel.isTeam1Open = true;
                 bgm.saveModel.isTeam2Open = true;
                 if (!bgm.saveModel.start) {
