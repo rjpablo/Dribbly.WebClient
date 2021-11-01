@@ -49,21 +49,6 @@ var nodeLibs = {
         source: 'angular-inview/angular-inview.js',
         destination: 'angular-inview'
     },
-    angularjs_bootstrap_datetimepicker_css: {
-        source: 'angularjs-bootstrap-datetimepicker/src/css/datetimepicker.css',
-        destination: 'angularjs-bootstrap-datetimepicker/css'
-    },
-    angularjs_bootstrap_datetimepicker_js: {
-        source: [
-            'angularjs-bootstrap-datetimepicker/src/js/datetimepicker.js',
-            'angularjs-bootstrap-datetimepicker/src/js/datetimepicker.templates.js'
-        ],
-        destination: 'angularjs-bootstrap-datetimepicker/js'
-    },
-    angularjs_bootstrap_datetimepicker_templates: {
-        source: 'angularjs-bootstrap-datetimepicker/src/templates/datetimepicker.html',
-        destination: 'angularjs-bootstrap-datetimepicker/html'
-    },
     angular_slick_carousel: {
         source: 'angular-slick-carousel/dist/angular-slick.js',
         destination: 'angular-slick-carousel'
