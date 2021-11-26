@@ -6,9 +6,9 @@
     serviceFn.$inject = ['$location', '$q', '$http', '$rootScope', 'drbblyCommonService'];
     function serviceFn($location, $q, $http, $rootScope, drbblyCommonService) {
         var _service = this;
-        var _siteRoot = 'http://localhost:30585/';
+        var _siteRoot = 'https://localhost:44395/';
         var _hostName = $location.host();
-        var _servicePreset = 2; // 1 => VS, 2 => online test server, 3 => local IIS
+        var _servicePreset = 1; // 1 => VS, 2 => online test server, 3 => local IIS
         var _serviceBase = _servicePreset === 1 ? 'https://localhost:44394/' :
             _servicePreset === 2 ? 'http://www.dribbly001.somee.com/' :
                 'http://' + _hostName + ':1080/';

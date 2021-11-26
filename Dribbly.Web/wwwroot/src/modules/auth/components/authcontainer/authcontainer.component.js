@@ -56,7 +56,7 @@
                     .then(function (res) {
                         $state.go('main.home');
                     })
-                    .cath(function (err) {
+                    .catch(function (err) {
                         alert('Login Failed');
                     });
 

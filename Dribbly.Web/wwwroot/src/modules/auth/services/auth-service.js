@@ -197,7 +197,7 @@
                     });
 
                     _authentication.isAuthenticated = true;
-                    _authentication.username = loginData.username;
+                    _authentication.username = registerExternalData.username;
                     _authentication.useRefreshTokens = _useRefreshTokens;
                     _authentication.userId = parseInt(response.data.userId);
 
