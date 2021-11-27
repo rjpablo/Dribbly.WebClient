@@ -8,6 +8,18 @@
                             <img ng-src="{{dad.account.profilePhoto.url}}"
                                  class="profile-photo"
                                  ng-click="dad.onProfilePhotoClick()" />
+                            <div class="controls float-right d-none">
+                                <button id="btn-replace-photo"
+                                        class="btn btn-sm btn-outline-light"
+                                        ng-if="dad.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
+                                        ngf-select="dad.onPrimaryPhotoSelect($file)"
+                                        ng-model="dad.account.profilePhoto"
+                                        ngf-pattern="'image/*'"
+                                        ngf-accept="'image/*'"
+                                        ngf-max-size="20MB">
+                                    <span class="fa fa-pencil" aria-hidden="true"></span>
+                                </button><br />
+                            </div>
                         </div>
                         <!-- Profile details -->
                         <div class="text-white">
