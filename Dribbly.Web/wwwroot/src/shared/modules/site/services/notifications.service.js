@@ -12,9 +12,10 @@
                 var _unviewedCount;
                 var _newNotificationsStart;
 
+                // updates the number in the tool bar that indicates the number of unread notifications
                 function getUnviewed() {
                     if (!_isRunning) {
-                        return $.resolve();
+                        return $q.resolve();
                     }
 
                     return drbblyhttpService.get(api + 'getUnviewedCount')
@@ -80,6 +81,7 @@
                     return drbblyhttpService.post(api + 'getNoficationDetails/' + getCount, beforeDate);
                 }
 
+                //updates the notification items in the notifications widget while it is open
                 function monitorNewNotifications(afterDate, callback) {
                     var isRunning = true;
                     var notifications;
