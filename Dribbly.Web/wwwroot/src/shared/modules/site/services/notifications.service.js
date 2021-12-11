@@ -2,8 +2,10 @@
     'use strict';
 
     angular.module('siteModule')
-        .service('drbblyNotificationsService', ['$timeout', 'drbblyhttpService', '$q', '$filter', 'drbblyDatetimeService',
-            function ($timeout, drbblyhttpService, $q, $filter, drbblyDatetimeService) {
+        .service('drbblyNotificationsService', ['$timeout', 'drbblyhttpService', '$q', '$filter',
+            'drbblyDatetimeService', 'authService',
+            function ($timeout, drbblyhttpService, $q, $filter,
+                drbblyDatetimeService, authService) {
                 var api = 'api/notifications/';
                 var _unviewedNotifications = [];
                 var _newNotificationsListeners = [];
@@ -14,6 +16,11 @@
 
                 // updates the number in the tool bar that indicates the number of unread notifications
                 function getUnviewed() {
+
+                    if (!authService.authentication.isAuthenticated) {
+                        _isRunning = false;
+                    }
+
                     if (!_isRunning) {
                         return $q.resolve();
                     }
@@ -98,6 +105,9 @@
                                         callback(notifications);
                                     }
                                     $timeout(monitor, 10000);
+                                })
+                                .catch(function (error) {
+                                    throw error;
                                 });
                         }
                     }
