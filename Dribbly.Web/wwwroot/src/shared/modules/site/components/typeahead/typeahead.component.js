@@ -11,7 +11,7 @@
                  * @type {Dribbly.Model.Shared.ChoiceItemModel[]}
                  * @memberof drbblyTypeahead
                  */
-                selectedItems: '<',
+                selectedItems: '=',
                 name: '<',
                 ngModel: '=',
                 config: '<'

@@ -143,8 +143,10 @@
             notificationType: {
                 NewBookingForOwner: 0,
                 NewBookingForBooker: 1,
-                JoinTeamRequest: 2,
-                JoinTeamRequestApproved: 3
+                GameUpdatedForBooker: 2,
+                GameUpdatedForOwner: 3,
+                JoinTeamRequest: 20,
+                JoinTeamRequestApproved: 21
             }
         };
 

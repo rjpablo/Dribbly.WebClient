@@ -112,7 +112,12 @@
                 <drbbly-typeahead type="text"
                                   selected-items="bgm.bookedByChoice"
                                   config="bgm.bookedByConfig"
+                                  ng-model="bgm.saveModel.bookedById"
                                   class="form-control" />
+                <input type="number"
+                       ng-model="bgm.saveModel.bookedById"
+                       hidden
+                       required />
             </div>
         </fieldset>
     </form>
