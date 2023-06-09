@@ -6,6 +6,10 @@
         <div ng-if="dni.item.type === $root.constants.enums.notificationType.NewBookingForOwner"
              ng-bind-html="('app.Notification_UserMadeABookingAtCourtName' | i18n : {courtName: dni.item.courtName, userName: dni.item.bookedByName})">
         </div>
+        <div ng-if="dni.item.type === $root.constants.enums.notificationType.GameUpdatedForBooker ||
+             dni.item.type === $root.constants.enums.notificationType.GameUpdatedForOwner"
+             ng-bind-html="('app.Notification_UserUpdatedGame' | i18n : {courtName: dni.item.game.title, userName: dni.item.updateddByName})">
+        </div>
         <div ng-if="dni.item.type === $root.constants.enums.notificationType.JoinTeamRequest"
              ng-bind-html="('app.Notification_JoinTeamRequest' | i18n : {requestorName: dni.item.requestorName, teamName: dni.item.teamName})">
         </div>
