@@ -1,0 +1,120 @@
+﻿<div drbbly-overlay="gdg.gameDetailsOverlay">
+    <div class="container px-0 min-height-300">
+        <div class="row teams no-gutters mt-5">
+            <div class="col-3 text-white text-center">
+                <div class="p-3">
+                    <img class="logo" ng-src="{{gdg.game.team1.logo.url}}" />
+                    <h5 class="text-white m-0"
+                        ui-sref="main.team.home({id: gdg.game.team1.id})">
+                        {{gdg.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team1.name}}
+                    </h5>
+                </div>
+                <div class="py-2">
+                    <h1 class="text-center text-white"
+                        ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team1.id}">
+                        {{gdg.game.team1Score || 0}}
+                    </h1>
+                </div>
+            </div>
+            <div class="col-6 p-3 text-center">
+                <div class="text-white">
+                    {{gdg.game.title || ('app.Untitled' | i18n)}}
+                </div>
+                <h3 class="m-0 text-white"
+                    ng-if="gdg.game">
+                    {{gdg.game | drbblyschedule}}
+                </h3>
+                <a ui-sref="main.court.home({id: gdg.game.court.id})" class="m-0 p-0 pb-1 text-white">
+                    <i class="fa fa-map-marker mr-1"></i>
+                    <span ng-click="gdg.previewCourtDetails($event, gdg.game.court)">
+                        {{gdg.game.court.name}}
+                    </span>
+                </a>
+            </div>
+            <div class="col-3 text-white text-center">
+                <div class="p-3">
+                    <img class="logo" ng-src="{{gdg.game.team2.logo.url}}" />
+                    <h5 class="text-white m-0"
+                        ui-sref="main.team.home({id: gdg.game.team2.id})">
+                        {{gdg.game.team2.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team2.name}}
+                    </h5>
+                </div>
+                <div class="py-2">
+                    <h1 class="text-center text-white"
+                        ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team2.id}">
+                        {{gdg.game.team2Score || 0}}
+                    </h1>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="bg-black text-center col-12 p-3 d-flex justify-content-center align-items-start">
+                        <div ng-if="gdg.isOwned">
+                            <!-- Start Game -->
+                            <!--<button type="button" class="btn btn-primary"
+                                    ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
+                                    ng-click="gdg.updateStatus(gdg.gameStatusEnum.Started)">
+                                {{::'app.StartGame' | i18n}}
+                            </button>-->
+                            <div class="btn-group mb-2" uib-dropdown is-open="status.isopen">
+                                <button type="button" class="btn btn-primary"
+                                        uib-dropdown-toggle
+                                        ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart">
+                                    {{::'app.GameStatusEnum.WaitingToStart' | i18n}} <span class="caret"></span>
+                                </button>
+                                <button type="button" class="btn btn-primary"
+                                        uib-dropdown-toggle
+                                        ng-if="gdg.game.status === gdg.gameStatusEnum.Started">
+                                    {{::'app.GameStatusEnum.Started' | i18n}} <span class="caret"></span>
+                                </button>
+                                <button type="button" class="btn btn-primary"
+                                        uib-dropdown-toggle
+                                        ng-if="gdg.game.status === gdg.gameStatusEnum.Finished">
+                                    {{::'app.GameStatusEnum.Finished' | i18n}} <span class="caret"></span>
+                                </button>
+                                <button type="button" class="btn btn-primary"
+                                        uib-dropdown-toggle
+                                        ng-if="gdg.game.status === gdg.gameStatusEnum.Cancelled">
+                                    {{::'app.GameStatusEnum.Cancelled' | i18n}} <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                    <a class="dropdown-item"
+                                       ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
+                                       ng-click="gdg.updateStatus(gdg.gameStatusEnum.Started)">{{::'app.StartGame' | i18n}}</a>
+                                    <a class="dropdown-item"
+                                       ng-if="gdg.game.status === gdg.gameStatusEnum.Started"
+                                       ng-click="gdg.updateStatus(gdg.gameStatusEnum.Finished)">{{::'app.EndGame' | i18n}}</a>
+                                    <a class="dropdown-item"
+                                       ng-if="gdg.game.status === gdg.gameStatusEnum.Started || gdg.game.status === gdg.gameStatusEnum.Finished"
+                                       ng-click="gdg.setResult()">{{::'app.SetResult' | i18n}}</a>
+                                    <a class="dropdown-item"
+                                       ng-if="gdg.game.status === gdg.gameStatusEnum.Cancelled"
+                                       ng-click="gdg.reopenGame()">{{::'app.ReOpen' | i18n}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group ml-1" uib-dropdown
+                             ng-if="gdg.isOwned && gdg.game.status !== gdg.gameStatusEnum.Cancelled">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="gdg.updateGame()">
+                                {{::'app.UpdateDetails' | i18n}}
+                            </button>
+                            <button type="button" class="btn btn-secondary" uib-dropdown-toggle
+                                    ng-if="gdg.game.status !== gdg.gameStatusEnum.Cancelled && gdg.game.status !== gdg.gameStatusEnum.Finished">
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu" uib-dropdown-menu role="menu"
+                                 ng-if="gdg.game.status !== gdg.gameStatusEnum.Cancelled">
+                                <a ng-click="gdg.cancelGame()" class="dropdown-item">{{::'app.CancelGame' | i18n}}</a>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary ml-1"
+                                ng-if="!gdg.isOwned">
+                            {{::'site.Follow' | i18n}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

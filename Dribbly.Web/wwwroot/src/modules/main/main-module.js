@@ -221,6 +221,7 @@
 
             .state('main.game', {
                 url: '/game/:id',
+                abstract: true,
                 component: 'drbblyGameviewercontainer',
                 resolve: {
                     $titleKey: () => { return 'app.GameDetails'; }
@@ -228,7 +229,15 @@
             })
 
             .state('main.game.details', {
-                url: '/details',
+                url: '',
+                component: 'drbblygamedetails',
+                resolve: {
+                    $titleKey: () => { return 'app.GameDetails'; }
+                }
+            })
+
+            .state('main.game.track', {
+                url: '/track',
                 component: 'drbblygamedetails',
                 resolve: {
                     $titleKey: () => { return 'app.GameDetails'; }
