@@ -4,7 +4,7 @@ const merge = require("merge-stream");
 const del = require("del");
 const rename = require("gulp-rename");
 const watch = require("gulp-watch");
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 
 var paths = {
     baseSrc: 'wwwroot/src/',
@@ -151,7 +151,7 @@ var nodeLibs = {
         destination: 'moment'
     },
     ng_file_upload: {
-        source: 'ng-file-upload/ng-file-upload.js',
+        source: 'ng-file-upload/dist/ng-file-upload.js',
         destination: 'ng-file-upload'
     },
     ng_infinite_scroll: {
