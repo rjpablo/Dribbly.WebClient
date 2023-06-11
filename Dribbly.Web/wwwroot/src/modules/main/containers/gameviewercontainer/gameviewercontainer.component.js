@@ -35,7 +35,7 @@
                 .then(function (data) {
                     gcc.game = angular.copy(data);
                     gcc.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
-                    gcc.isOwned = gcc.game.addedById === authService.authentication.userId;
+                    gcc.isOwned = gcc.game.addedBy.identityUserId === authService.authentication.userId;
                     checkTeamLogos();
                     gcc.gameDetailsOverlay.setToReady();
                 })
