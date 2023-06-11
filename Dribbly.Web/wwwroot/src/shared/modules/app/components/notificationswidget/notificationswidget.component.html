@@ -17,7 +17,8 @@
         <div class="items-container">
             <div class="items border-top border-bottom"
                  in-view-container
-                 infinite-scroll-container="'.items-container'"
+                 infinite-scroll-distance="1"
+                 infinite-scroll-parent
                  infinite-scroll="dnw.loadMore(true)">
                 <drbbly-notificationitem ng-repeat="item in dnw.allNotifs track by (item.id + '_' + item.type)"
                                          ng-click="dnw.ddlNotificationsIsOpen = false"
