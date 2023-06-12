@@ -30,6 +30,10 @@
                     return drbblyhttpService.post(api + 'updateGameResult', result);
                 }
 
+                function recordShot(shot) {
+                    return drbblyhttpService.post(api + 'recordShot', shot);
+                }
+
                 function updateStatus(gameId, toStatus) {
                     return drbblyhttpService.post(api + 'updateStatus/' + gameId + '/' + toStatus);
                 }
@@ -39,11 +43,12 @@
                 }
 
                 var _service = {
+                    addGame: addGame,
                     getAddGameModal: getAddGameModal,
                     getAll: getAll,
                     getGame: getGame,
                     getGameTeam: getGameTeam,
-                    addGame: addGame,
+                    recordShot: recordShot,
                     updateGame: updateGame,
                     updateGameResult: updateGameResult,
                     updateStatus: updateStatus

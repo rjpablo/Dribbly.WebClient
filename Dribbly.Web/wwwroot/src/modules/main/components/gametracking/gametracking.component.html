@@ -36,26 +36,29 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-4 player-list">
+            <div class="col-3 player-list">
                 <table class="table table-sm table-light">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th class="w-100">Player</th>
                             <th>Pts</th>
-                            <th class="d-none d-md-table-cell">F</th>
-                            <th class="d-none d-md-table-cell">Reb</th>
-                            <th class="d-none d-md-table-cell">Ast</th>
+                            <th class="d-none d-lg-table-cell">F</th>
+                            <th class="d-none d-lg-table-cell">Reb</th>
+                            <th class="d-none d-lg-table-cell">Ast</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in gdg.team1.players">
+                        <tr ng-repeat="player in gdg.team1.players"
+                            class="player"
+                            ng-click="gdg.togglePlayerSelection(player)"
+                            ng-class="{'selected': player.isSelected}">
                             <td>{{player.jerseyNo}}</td>
                             <td>{{player.name}}</td>
                             <td>{{player.points}}</td>
-                            <td class="d-none d-md-table-cell">{{player.fouls}}</td>
-                            <td class="d-none d-md-table-cell">{{player.rebounds}}</td>
-                            <td class="d-none d-md-table-cell">{{player.assists}}</td>
+                            <td class="d-none d-lg-table-cell">{{player.fouls}}</td>
+                            <td class="d-none d-lg-table-cell">{{player.rebounds}}</td>
+                            <td class="d-none d-lg-table-cell">{{player.assists}}</td>
                         </tr>
                         <tr ng-if="gdg.team1.players.length === 0">
                             <td class="text-center" colspan="6">
@@ -65,28 +68,96 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-4">
+            <div class="col-6 player-options">
+                <div class="selected-player bg-secondary text-white mb-3">
+                    <div ng-show="gdg.selectedPlayer">
+                        <table class="font-weight-bold">
+                            <tr>
+                                <td>
+                                    <span class="jersey-no d-inline-block px-3 text-white">{{gdg.selectedPlayer.jerseyNo}}</span>
+                                </td>
+                                <td class="w-100">
+                                    <span class="d-inline-block px-3">{{gdg.selectedPlayer.name}}</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-secondary ml-auto"
+                                            ng-click="gdg.unselectPlayer(gdg.selectedPlayer)">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="text-center p-2" ng-show="!gdg.selectedPlayer">
+                        Select a player to update
+                    </div>
+                </div>
+                <div class="options">
+                    <div class="d-flex flex-column">
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.recordShot(1, false)"
+                                ng-disabled="!gdg.selectedPlayer">
+                            +1
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.recordShot(2, false)"
+                                ng-disabled="!gdg.selectedPlayer">
+                            +2
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.recordShot(3, false)"
+                                ng-disabled="!gdg.selectedPlayer">
+                            +3
+                        </button>
+                    </div>
+                    <div class="flex-grow-1 flex-shrink-1 d-flex flex-column">
+                        <button type="button"
+                                class="btn btn-block btn-danger"
+                                ng-click="gdg.recordShot(1, true)"
+                                ng-disabled="!gdg.selectedPlayer">
+                            miss 1
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-danger"
+                                ng-click="gdg.recordShot(2, true)"
+                                ng-disabled="!gdg.selectedPlayer">
+                            miss 2
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-danger"
+                                ng-click="gdg.recordShot(3, true)"
+                                ng-disabled="!gdg.selectedPlayer">
+                            miss 3
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="col-4 player-list">
+            <div class="col-3 player-list">
                 <table class="table table-sm table-light">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th class="w-100">Player</th>
                             <th>Pts</th>
-                            <th class="d-none d-md-table-cell">F</th>
-                            <th class="d-none d-md-table-cell">Reb</th>
-                            <th class="d-none d-md-table-cell">Ast</th>
+                            <th class="d-none d-lg-table-cell">F</th>
+                            <th class="d-none d-lg-table-cell">Reb</th>
+                            <th class="d-none d-lg-table-cell">Ast</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in gdg.team1.players">
+                        <tr ng-repeat="player in gdg.team2.players"
+                            class="player"
+                            ng-click="gdg.togglePlayerSelection(player)"
+                            ng-class="{'selected': player.isSelected}">
                             <td>{{player.jerseyNo}}</td>
                             <td>{{player.name}}</td>
                             <td>{{player.points}}</td>
-                            <td class="d-none d-md-table-cell">{{player.fouls}}</td>
-                            <td class="d-none d-md-table-cell">{{player.rebounds}}</td>
-                            <td class="d-none d-md-table-cell">{{player.assists}}</td>
+                            <td class="d-none d-lg-table-cell">{{player.fouls}}</td>
+                            <td class="d-none d-lg-table-cell">{{player.rebounds}}</td>
+                            <td class="d-none d-lg-table-cell">{{player.assists}}</td>
                         </tr>
                         <tr ng-if="gdg.team2.players.length === 0">
                             <td class="text-center" colspan="6">

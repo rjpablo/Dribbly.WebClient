@@ -14,10 +14,17 @@ drbbly-gametracking {
     }
 
     .player-list {
-        table {
-            thead {
 
-            }
+        tr.player.selected {
+            background: #ff9d45;
+            color: #000;
+            font-weight: 600;
         }
+    }
+
+    .player-options .options {
+        display: grid !important;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
     }
 }

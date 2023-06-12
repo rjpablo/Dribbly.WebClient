@@ -29,6 +29,49 @@
             loadGame();
         };
 
+        gdg.togglePlayerSelection = function (player) {
+            if (player.isSelected) {
+                gdg.unselectPlayer(player);
+            }
+            else {
+                if (gdg.selectedPlayer) {
+                    gdg.selectedPlayer.isSelected = false;
+                }
+                gdg.selectPlayer(player);
+            }
+        }
+
+        gdg.selectPlayer = function (player) {
+            player.isSelected = true;
+            gdg.selectedPlayer = player;
+        }
+
+        gdg.unselectPlayer = function (player) {
+            player.isSelected = false;
+            gdg.selectedPlayer = null;
+        }
+
+        gdg.recordShot = function (points, isMiss) {
+            var shot = {
+                points: points,
+                isMiss: isMiss,
+                takenById: gdg.selectedPlayer.id,
+                teamId: gdg.selectedPlayer.teamId,
+                gameId: gdg.game.id
+            };
+
+            drbblyGamesService.recordShot(shot)
+                .then(function (data) {
+                    gdg.game.team1Score = data.team1Score;
+                    gdg.game.team2Score = data.team2Score;
+                    if (!isMiss) {
+                        gdg.selectedPlayer.points += points;
+                    }
+                    gdg.unselectPlayer(gdg.selectedPlayer);
+                })
+                .catch(gdg.gameDetailsOverlay.setToError);
+        }
+
         function loadGame() {
             gdg.gameDetailsOverlay.setToBusy();
             drbblyGamesService.getGame(_gameId)
