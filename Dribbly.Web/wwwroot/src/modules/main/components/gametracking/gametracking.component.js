@@ -34,12 +34,31 @@
             drbblyGamesService.getGame(_gameId)
                 .then(function (data) {
                     gdg.game = angular.copy(data);
+                    loadTeams(gdg.game);
                     gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
                     checkTeamLogos();
                     gdg.gameDetailsOverlay.setToReady();
                 })
                 .catch(gdg.gameDetailsOverlay.setToError);
+        }
+
+        function loadTeams(game) {
+            if (game.team1) {
+                drbblyGamesService.getGameTeam(game.id, game.team1.id)
+                    .then(function (data) {
+                        gdg.team1 = data;
+                    })
+                    .catch(gdg.gameDetailsOverlay.setToError);
+            }
+
+            if (game.team2) {
+                drbblyGamesService.getGameTeam(game.id, game.team2.id)
+                    .then(function (data) {
+                        gdg.team2 = data;
+                    })
+                    .catch(gdg.gameDetailsOverlay.setToError);
+            }
         }
 
         function checkTeamLogos() {

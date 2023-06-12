@@ -35,5 +35,67 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-4 player-list">
+                <table class="table table-sm table-light">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="w-100">Player</th>
+                            <th>Pts</th>
+                            <th class="d-none d-md-table-cell">F</th>
+                            <th class="d-none d-md-table-cell">Reb</th>
+                            <th class="d-none d-md-table-cell">Ast</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="player in gdg.team1.players">
+                            <td>{{player.jerseyNo}}</td>
+                            <td>{{player.name}}</td>
+                            <td>{{player.points}}</td>
+                            <td class="d-none d-md-table-cell">{{player.fouls}}</td>
+                            <td class="d-none d-md-table-cell">{{player.rebounds}}</td>
+                            <td class="d-none d-md-table-cell">{{player.assists}}</td>
+                        </tr>
+                        <tr ng-if="gdg.team1.players.length === 0">
+                            <td class="text-center" colspan="6">
+                                No players found.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-4 player-list">
+                <table class="table table-sm table-light">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="w-100">Player</th>
+                            <th>Pts</th>
+                            <th class="d-none d-md-table-cell">F</th>
+                            <th class="d-none d-md-table-cell">Reb</th>
+                            <th class="d-none d-md-table-cell">Ast</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="player in gdg.team1.players">
+                            <td>{{player.jerseyNo}}</td>
+                            <td>{{player.name}}</td>
+                            <td>{{player.points}}</td>
+                            <td class="d-none d-md-table-cell">{{player.fouls}}</td>
+                            <td class="d-none d-md-table-cell">{{player.rebounds}}</td>
+                            <td class="d-none d-md-table-cell">{{player.assists}}</td>
+                        </tr>
+                        <tr ng-if="gdg.team2.players.length === 0">
+                            <td class="text-center" colspan="6">
+                                No players found.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
