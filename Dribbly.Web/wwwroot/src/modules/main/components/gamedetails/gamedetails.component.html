@@ -57,11 +57,11 @@
                                 {{::'app.StartGame' | i18n}}
                             </button>-->
                             <div class="btn-group mb-2" uib-dropdown is-open="status.isopen">
-                                <button type="button" class="btn btn-primary"
-                                        uib-dropdown-toggle
-                                        ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart">
-                                    {{::'app.GameStatusEnum.WaitingToStart' | i18n}} <span class="caret"></span>
-                                </button>
+                                <a class="btn btn-primary"
+                                   ui-sref="main.game.track()"
+                                   ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart">
+                                    Start Tracking
+                                </a>
                                 <button type="button" class="btn btn-primary"
                                         uib-dropdown-toggle
                                         ng-if="gdg.game.status === gdg.gameStatusEnum.Started">

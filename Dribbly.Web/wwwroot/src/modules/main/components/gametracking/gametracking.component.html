@@ -1,0 +1,39 @@
+﻿<div drbbly-overlay="gdg.gameDetailsOverlay">
+    <div class="container px-0 min-height-300">
+        <div class="row teams mt-5 mb-3">
+            <div class="col-3 text-white text-center">
+                <div class="p-3">
+                    <img class="logo" ng-src="{{gdg.game.team1.logo.url}}" />
+                    <h5 class="text-white m-0 d-inline-block"
+                        ui-sref="main.team.home({id: gdg.game.team1.id})">
+                        {{gdg.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team1.name}}
+                    </h5>
+                </div>
+                <div class="py-2">
+                    <h1 class="text-center text-white"
+                        ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team1.id}">
+                        {{gdg.game.team1Score || 0}}
+                    </h1>
+                </div>
+            </div>
+            <div class="col-6 p-3 text-center text-white">
+                <span class="">Clock goes here</span>
+            </div>
+            <div class="col-3 text-white text-center">
+                <div class="p-3">
+                    <img class="logo" ng-src="{{gdg.game.team2.logo.url}}" />
+                    <h5 class="text-white m-0 d-inline-block"
+                        ui-sref="main.team.home({id: gdg.game.team2.id})">
+                        {{gdg.game.team2.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team2.name}}
+                    </h5>
+                </div>
+                <div class="py-2">
+                    <h1 class="text-center text-white"
+                        ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team2.id}">
+                        {{gdg.game.team2Score || 0}}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

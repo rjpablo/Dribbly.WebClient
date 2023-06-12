@@ -230,7 +230,7 @@
 
             .state('main.game.details', {
                 url: '',
-                component: 'drbblygamedetails',
+                component: 'drbblyGamedetails',
                 resolve: {
                     $titleKey: () => { return 'app.GameDetails'; }
                 }
@@ -238,7 +238,7 @@
 
             .state('main.game.track', {
                 url: '/track',
-                component: 'drbblygamedetails',
+                component: 'drbblyGametracking',
                 resolve: {
                     $titleKey: () => { return 'app.GameDetails'; }
                 }
@@ -288,6 +288,29 @@
                 resolve: {
                     $titleKey: () => { return 'auth.SignUp'; }
                 }
+            })
+
+            // TRACKING
+
+            .state('tracking', {
+                url: 'tracking/:gameId',
+                resolve: {
+                    settings: ['settingsService', '$q', '$rootScope', function (settingsService, $q, $rootScope) {
+                        var deferred = $q.defer();
+
+                        settingsService.getInitialSettings()
+                            .then(deferred.resolve)
+                            .catch(function () {
+                                //window.location.href = '/ErrorPage';
+                                $rootScope.$broadcast('set-app-overlay', { status: 'error' });
+                                deferred.reject();
+                            });
+
+                        return deferred.promise;
+                    }],
+                    $titleKey: () => { return 'app.GameTracking'; }
+                },
+                component: 'drbblyTrackingcontainer'
             });
 
         $locationProvider.hashPrefix('');

@@ -1,0 +1,23 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-gametracking {
+    .teams {
+
+        .vs {
+            font-size: 1.5em;
+        }
+
+        .logo {
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+    .player-list {
+        table {
+            thead {
+
+            }
+        }
+    }
+}

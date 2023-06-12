@@ -3,7 +3,7 @@
 
     angular
         .module('mainModule')
-        .component('drbblyGamedetails', {
+        .component('drbblyGametracking', {
             bindings: {
 
             },
@@ -20,6 +20,7 @@
         drbblyGameshelperService, drbblyDatetimeService) {
         var gdg = this;
         var _gameId;
+        var _team2;
 
         gdg.$onInit = function () {
             _gameId = $stateParams.id;
