@@ -1,10 +1,23 @@
 @import '../../../../custom/bootstrap/scss/_variables.scss';
 
 drbbly-gametracking {
-    .teams {
+    display: block;
+    min-width: 550px;
+
+    .score-board {
+        border: 3px solid #ccc;
+        border-radius: 10px;
 
         .vs {
             font-size: 1.5em;
+        }
+
+        .score {
+            font-size: 5em;
+        }
+
+        .final {
+            font-size: 2em;
         }
 
         .logo {

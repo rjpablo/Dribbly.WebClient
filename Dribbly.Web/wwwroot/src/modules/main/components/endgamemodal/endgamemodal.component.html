@@ -1,0 +1,20 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">End Game</h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="bgm.overlay">
+        <div><strong>{{bgm.winningTeam.name}}</strong> will be declared the winner.</div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Confirm"
+            ng-disabled="bgm.isBusy || bgm.frmGameDetails.$invalid || bgm.frmGameDetails.$pristine"
+            type="submit"
+            ng-click="bgm.handleSubmitClick()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-secondary"
+            type="button"
+            ng-click="bgm.cancel()"
+            ng-disabled="bgm.isBusy"></button>
+</div>

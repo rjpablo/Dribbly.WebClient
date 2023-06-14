@@ -72,6 +72,29 @@
                 .catch(gdg.gameDetailsOverlay.setToError);
         }
 
+        gdg.endGame = function () {
+            if (gdg.game.team1Score === gdg.game.team2Score) {
+                modalService.alert({ msg1Key: 'app.Error_EndGame_Tied', titleKey: 'app.EndGame' })
+                    .then(function () {
+                        bgm.cancel();
+                    });
+                return;
+            }
+
+            modalService.show({
+                view: '<drbbly-endgamemodal></drbbly-endgametmodal>',
+                model: { gameId: _gameId }
+            })
+                .then(function (result) {
+                    if (result && result.savedChanges) {
+                        loadGame();
+                    }
+                })
+                .catch(function () {
+                    // do nothing
+                });
+        }
+
         function loadGame() {
             gdg.gameDetailsOverlay.setToBusy();
             drbblyGamesService.getGame(_gameId)
@@ -146,7 +169,8 @@
         };
 
         gdg.updateStatus = function (toStatus) {
-            if (toStatus === gdg.gameStatusEnum.Started || toStatus === gdg.gameStatusEnum.Finished) {
+            if (toStatus === gdg.gameStatusEnum.Started || toStatus === gdg.gameStatusEnum.Finished
+                || toStatus === gdg.gameStatusEnum.WaitingToStart) {
                 drbblyGamesService.updateStatus(_gameId, toStatus)
                     .then(function () {
                         loadGame();

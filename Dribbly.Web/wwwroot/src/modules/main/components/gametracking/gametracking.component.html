@@ -1,48 +1,85 @@
 ﻿<div drbbly-overlay="gdg.gameDetailsOverlay">
     <div class="container px-0 min-height-300">
-        <div class="row teams mt-5 mb-3">
-            <div class="col-3 text-white text-center">
-                <div class="p-3">
-                    <img class="logo" ng-src="{{gdg.game.team1.logo.url}}" />
-                    <h5 class="text-white m-0 d-inline-block"
-                        ui-sref="main.team.home({id: gdg.game.team1.id})">
-                        {{gdg.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team1.name}}
-                    </h5>
-                </div>
-                <div class="py-2">
-                    <h1 class="text-center text-white"
-                        ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team1.id}">
-                        {{gdg.game.team1Score || 0}}
-                    </h1>
-                </div>
-            </div>
-            <div class="col-6 p-3 text-center text-white">
-                <div class="p-3">Clock goes here</div>
-                <div class="game-options">
-                    <button type="button" class="btn btn-primary"
-                            ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
-                            ng-click="gdg.updateStatus(gdg.gameStatusEnum.Started)">
-                        Start Game
-                    </button>
-                </div>
-            </div>
-            <div class="col-3 text-white text-center">
-                <div class="p-3">
-                    <img class="logo" ng-src="{{gdg.game.team2.logo.url}}" />
-                    <h5 class="text-white m-0 d-inline-block"
-                        ui-sref="main.team.home({id: gdg.game.team2.id})">
-                        {{gdg.game.team2.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team2.name}}
-                    </h5>
-                </div>
-                <div class="py-2">
-                    <h1 class="text-center text-white"
-                        ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team2.id}">
-                        {{gdg.game.team2Score || 0}}
-                    </h1>
+        <div class="row my-3">
+            <div class="col-12">
+                <div class="text-center">
+                    <a ui-sref="main.game.details(gdg.game.id)"
+                       class="d-inline-block text-white">
+                        <h5 class="text-white">{{gdg.game.title}}</h5>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="score-board">
+                    <div class="row">
+                        <div class="col-3 text-white text-center">
+                            <div class="p-3">
+                                <img class="logo" ng-src="{{gdg.game.team1.logo.url}}" />
+                                <a ui-sref="main.team.home({id: gdg.game.team1.id})"
+                                   target="_blank">
+                                    <h5 class="text-white m-0 d-inline-block">
+                                        {{gdg.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team1.name}}
+                                    </h5>
+                                </a>
+                            </div>
+                            <div class="py-2">
+                                <h1 class="text-center text-white score"
+                                    ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team1.id}">
+                                    {{gdg.game.team1Score || 0}}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="col-6 p-3 text-center text-white">
+                            <div class="mb-3">
+                                <div class="p-3"
+                                     ng-if="gdg.game.status !== gdg.gameStatusEnum.Finished">Clock goes here</div>
+                                <div ng-if="gdg.game.status === gdg.gameStatusEnum.Finished">
+                                    <div class="my-3 final">FINAL</div>
+                                </div>
+                            </div>
+                            <div class="game-options">
+                                <button type="button" class="btn btn-secondary"
+                                        ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
+                                        ng-click="gdg.updateStatus(gdg.gameStatusEnum.Started)">
+                                    Start Game
+                                </button>
+                                <button type="button" class="btn btn-secondary"
+                                        ng-if="gdg.game.status === gdg.gameStatusEnum.Started"
+                                        ng-click="gdg.endGame()">
+                                    End Game
+                                </button>
+                                <button type="button" class="btn btn-secondary"
+                                        ng-if="gdg.game.status !== gdg.gameStatusEnum.WaitingToStart"
+                                        ng-click="gdg.updateStatus(gdg.gameStatusEnum.WaitingToStart)">
+                                    Reset Game
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-3 text-white text-center">
+                            <div class="p-3">
+                                <img class="logo" ng-src="{{gdg.game.team2.logo.url}}" />
+                                <a ui-sref="main.team.home({id: gdg.game.team2.id})"
+                                   target="_blank">
+                                    <h5 class="text-white m-0 d-inline-block">
+                                        {{gdg.game.team2.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team2.name}}
+                                    </h5>
+                                </a>
+                            </div>
+                            <div class="py-2">
+                                <h1 class="text-center text-white score"
+                                    ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team2.id}">
+                                    {{gdg.game.team2Score || 0}}
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"
+             ng-if="gdg.game.status !== gdg.gameStatusEnum.Finished">
             <div class="col-3 player-list">
                 <table class="table table-sm table-light">
                     <thead>

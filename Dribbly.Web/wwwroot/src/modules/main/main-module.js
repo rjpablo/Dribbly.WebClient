@@ -180,6 +180,9 @@
             // TEAM
 
             .state('main.team', {
+                params: {
+                    id: ''
+                },
                 abstract: true,
                 url: '/team/:id',
                 component: 'drbblyTeamviewercontainer'
@@ -220,6 +223,9 @@
             })
 
             .state('main.game', {
+                params: {
+                    id: ''
+                },
                 url: '/game/:id',
                 abstract: true,
                 component: 'drbblyGameviewercontainer',
