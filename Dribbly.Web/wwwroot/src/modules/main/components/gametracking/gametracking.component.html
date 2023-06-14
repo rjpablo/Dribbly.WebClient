@@ -17,7 +17,14 @@
                 </div>
             </div>
             <div class="col-6 p-3 text-center text-white">
-                <span class="">Clock goes here</span>
+                <div class="p-3">Clock goes here</div>
+                <div class="game-options">
+                    <button type="button" class="btn btn-primary"
+                            ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
+                            ng-click="gdg.updateStatus(gdg.gameStatusEnum.Started)">
+                        Start Game
+                    </button>
+                </div>
             </div>
             <div class="col-3 text-white text-center">
                 <div class="p-3">
