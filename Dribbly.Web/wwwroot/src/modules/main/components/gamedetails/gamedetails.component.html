@@ -1,22 +1,7 @@
 ﻿<div drbbly-overlay="gdg.gameDetailsOverlay">
     <div class="container px-0 min-height-300">
-        <div class="row teams no-gutters mt-5">
-            <div class="col-3 text-white text-center">
-                <div class="p-3">
-                    <img class="logo" ng-src="{{gdg.game.team1.logo.url}}" />
-                    <h5 class="text-white m-0"
-                        ui-sref="main.team.home({id: gdg.game.team1.id})">
-                        {{gdg.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team1.name}}
-                    </h5>
-                </div>
-                <div class="py-2">
-                    <h1 class="text-center text-white"
-                        ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team1.id}">
-                        {{gdg.game.team1Score || 0}}
-                    </h1>
-                </div>
-            </div>
-            <div class="col-6 p-3 text-center">
+        <div class="row my-3">
+            <div class="col-12 d-sm-none text-center">
                 <div class="text-white">
                     {{gdg.game.title || ('app.Untitled' | i18n)}}
                 </div>
@@ -31,16 +16,52 @@
                     </span>
                 </a>
             </div>
-            <div class="col-3 text-white text-center">
+        </div>
+        <div class="row teams no-gutters">
+            <div class="col-4 col-sm-3 text-white text-center">
+                <div class="p-3">
+                    <img class="logo" ng-src="{{gdg.game.team1.logo.url}}" />
+                    <h5 class="text-white m-0"
+                        ui-sref="main.team({id: gdg.game.team1.id})">
+                        {{gdg.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team1.name}}
+                    </h5>
+                </div>
+                <div class="py-2">
+                    <h1 class="text-center text-white score"
+                        ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team1.id}">
+                        {{gdg.game.team1Score || 0}}
+                    </h1>
+                </div>
+            </div>
+            <div class="col-4 col-sm-6 p-3 text-center">
+                <div class="d-none d-sm-block">
+                    <div class="text-white">
+                        {{gdg.game.title || ('app.Untitled' | i18n)}}
+                    </div>
+                    <h3 class="m-0 text-white"
+                        ng-if="gdg.game">
+                        {{gdg.game | drbblyschedule}}
+                    </h3>
+                    <a ui-sref="main.court.home({id: gdg.game.court.id})" class="m-0 p-0 pb-1 text-white">
+                        <i class="fa fa-map-marker mr-1"></i>
+                        <span ng-click="gdg.previewCourtDetails($event, gdg.game.court)">
+                            {{gdg.game.court.name}}
+                        </span>
+                    </a>
+                </div>
+                <h1 ng-if="gdg.game.status === gdg.gameStatusEnum.Finished"
+                    class="text-white">FINAL</h1>
+            </div>
+            <div class="col-4 col-sm-3 text-white text-center">
                 <div class="p-3">
                     <img class="logo" ng-src="{{gdg.game.team2.logo.url}}" />
                     <h5 class="text-white m-0"
-                        ui-sref="main.team.home({id: gdg.game.team2.id})">
+                        ui-sref="main.team({id: gdg.game.team2.id})">
                         {{gdg.game.team2.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team2.name}}
                     </h5>
                 </div>
                 <div class="py-2">
-                    <h1 class="text-center text-white"
+                    <h1 class="text-center text-white score"
                         ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team2.id}">
                         {{gdg.game.team2Score || 0}}
                     </h1>

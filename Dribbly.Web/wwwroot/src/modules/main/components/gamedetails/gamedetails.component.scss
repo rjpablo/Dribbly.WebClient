@@ -1,13 +1,18 @@
 @import '../../../../custom/bootstrap/scss/_variables.scss';
 
-drbbly-gamedetails{
-    .teams{
+drbbly-gamedetails {
 
-        .vs{
+    .teams {
+
+        .vs {
             font-size: 1.5em;
         }
 
-        .logo{
+        .score {
+            font-size: 5em;
+        }
+
+        .logo {
             height: 70px;
             width: 70px;
         }
