@@ -217,6 +217,8 @@
                     JoinTeamRequestModalTitle: 'Request to Join Team',
                     JoinedOnDate: 'Joined on {date}',
                     KeepPrivate: 'Keep Private',
+                    League: 'League',
+                    LeagueNamePrompt: 'League Name',
                     LeaveTeam: 'Leave Team',
                     LeaveTeamConfirmationPrompt: 'Are you sure you want to leave {teamName}?',
                     LoadingMoreItemsEllipsis: 'Loading more items...',

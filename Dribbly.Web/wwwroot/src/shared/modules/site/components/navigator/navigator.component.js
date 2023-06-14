@@ -43,6 +43,19 @@
                 });
         };
 
+        nav.addLeague = function () {
+            authService.checkAuthenticationThen(function () {
+                return modalService.show({
+                    view: '<drbbly-addleaguemodal></drbbly-addleaguemodal>',
+                    model: {}
+                });
+            })
+                .then(function (league) {
+                    console.log(league);
+                })
+                .catch(function () { /* do nothing */ });
+        };
+
         nav.addCourt = function () {
             drbblyCourtshelperService.registerCourt()
                 .then(function (court) {
