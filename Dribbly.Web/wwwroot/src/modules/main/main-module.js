@@ -222,6 +222,7 @@
                 }
             })
 
+            // GAME
             .state('main.game', {
                 params: {
                     id: ''
@@ -250,6 +251,20 @@
                 }
             })
 
+            // LEAGUE
+            .state('main.league', {
+                params: {
+                    id: ''
+                },
+                abstract: true,
+                url: '/league/:id',
+                component: 'drbblyLeagueviewercontainer',
+                resolve: {
+                    $titleKey: () => { return 'app.LeagueDetails'; }
+                }
+            })
+
+            // AUTH
             .state('auth', {
                 abstract: true,
                 url: '',

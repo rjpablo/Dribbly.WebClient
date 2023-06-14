@@ -10,8 +10,13 @@
                     return drbblyhttpService.post(api + 'addLeague', LeagueDetails);
                 }
 
+                function getLeagueviewer(leagueId) {
+                    return drbblyhttpService.get(api + `getLeagueviewer/${leagueId}`);
+                }
+
                 var _service = {
-                    addLeague: addLeague
+                    addLeague: addLeague,
+                    getLeagueviewer: getLeagueviewer
                 };
 
                 return _service;
