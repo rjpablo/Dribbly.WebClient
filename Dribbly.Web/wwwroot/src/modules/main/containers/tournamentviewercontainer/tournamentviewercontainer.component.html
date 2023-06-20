@@ -1,0 +1,34 @@
+﻿<div class="app-container">
+    <div drbbly-overlay="lvc.overlay">
+        <div class="container">
+            <div class="row app-header mb-3">
+                <div class="container">
+                    <div class="bg-dark p-3">
+                        <h5 class="text-white">{{lvc.tournament.name}}</h5>
+                    </div>
+                    <div class="row">
+                        <div class="non-mobile col-12">
+                            <drbbly-appnavigator nav-items="lvc.app.toolbar._navItems"></drbbly-appnavigator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-body">
+            <div class="container"
+                 ng-if="lvc.tournament && lvc.tournament.entityStatus !== $root.constants.enums.entityStatus.Active">
+                <div class="card">
+                    <div class="card-body text-center">
+                        {{::'app.ContentNotCurrentlyAvailable' | i18n}}
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="lvc.tournament"
+                 class="container">
+                <ui-view tournament="lvc.tournament"
+                         on-update="lvc.onTournamentUpdate"></ui-view>
+            </div>
+        </div>
+    </div>
+</div>

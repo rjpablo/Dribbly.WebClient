@@ -56,6 +56,19 @@
                 .catch(function () { /* do nothing */ });
         };
 
+        nav.addTournament = function () {
+            authService.checkAuthenticationThen(function () {
+                return modalService.show({
+                    view: '<drbbly-addtournamentmodal></drbbly-addtournamentmodal>',
+                    model: {}
+                });
+            })
+                .then(function (tournament) {
+                    $state.go('main.tournament', { id: tournament.id });
+                })
+                .catch(function () { /* do nothing */ });
+        };
+
         nav.addCourt = function () {
             drbblyCourtshelperService.registerCourt()
                 .then(function (court) {

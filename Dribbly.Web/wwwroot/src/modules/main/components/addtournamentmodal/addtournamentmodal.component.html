@@ -1,0 +1,37 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Create Tournament</h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="atm.overlay">
+        <form name="atm.frmTournamentDetails"
+              novalidate
+              ng-if="atm.saveModel">
+            <fieldset ng-disabled="atm.isBusy">
+                <div class="form-group pb-3">
+                    <label for="txtName">{{::'app.TournamentNamePrompt' | i18n}}</label>
+                    <input type="text"
+                           name="txtName"
+                           ng-model="atm.saveModel.name"
+                           class="form-control"
+                           ng-class="{'is-invalid': atm.frmTournamentDetails.txtName.$touched && atm.frmTournamentDetails.txtName.$invalid}"
+                           minlength="5" />
+                    <div ng-show="atm.frmTournamentDetails.txtName.$error.minlength" class="invalid-feedback">
+                        {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="atm.isBusy || atm.frmTournamentDetails.$invalid || (atm.model.isEdit && atm.frmTournamentDetails.$pristine)"
+            type="submit"
+            ng-click="atm.submit()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-warning"
+            type="button"
+            ng-click="atm.cancel()"
+            ng-disabled="atm.isBusy"></button>
+</div>

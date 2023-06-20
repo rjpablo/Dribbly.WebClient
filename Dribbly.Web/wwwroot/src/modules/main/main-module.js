@@ -251,6 +251,19 @@
                 }
             })
 
+            // TOURNAMENTS
+            .state('main.tournament', {
+                params: {
+                    id: ''
+                },
+                abstract: false,
+                url: '/tournament/:id',
+                component: 'drbblyTournamentviewercontainer',
+                resolve: {
+                    $titleKey: () => { return 'app.TournamentDetails'; }
+                }
+            })
+
             // LEAGUE
             .state('main.league', {
                 params: {
