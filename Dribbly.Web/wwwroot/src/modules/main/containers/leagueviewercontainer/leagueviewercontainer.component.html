@@ -24,7 +24,8 @@
                 </div>
             </div>
 
-            <div ng-if="lvc.league && lvc.league.entityStatus === $root.constants.enums.entityStatus.Active">
+            <div ng-if="lvc.league"
+                 class="container">
                 <ui-view league="lvc.league"
                          on-update="lvc.onLeagueUpdate"></ui-view>
             </div>

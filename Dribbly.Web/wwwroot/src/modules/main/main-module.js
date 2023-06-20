@@ -264,6 +264,14 @@
                 }
             })
 
+            .state('main.league.seasons', {
+                url: '/seasons',
+                component: 'drbblyLeagueseasons',
+                resolve: {
+                    $titleKey: () => { return 'app.Seasons'; }
+                }
+            })
+
             // AUTH
             .state('auth', {
                 abstract: true,

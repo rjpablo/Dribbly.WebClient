@@ -48,6 +48,16 @@
         };
 
         function buildSubPages() {
+            lvc.app.toolbar.setNavItems([
+                {
+                    textKey: 'app.Seasons',
+                    targetStateName: 'main.league.seasons',
+                    targetStateParams: { id: _leagueId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
+                }
+            ]);
         }
     }
 })();
