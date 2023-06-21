@@ -1,0 +1,52 @@
+﻿<div class="" ng-click="cli.clicked($event)">
+    <div class="text-center text-secondary small">{{cli.game.title || '(untitled)'}}</div>
+    <div class="d-flex">
+        <div class="team1 text-center">
+            <img class="team-logo"
+                 ng-src="{{cli.game.team1.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
+            <a ui-sref="main.team.home({id: cli.game.team1Id})"
+               class="d-block small text-dark">{{cli.game.team1.isOpen? '(open team)' : cli.game.team1.name}}</a>
+        </div>
+        <div class="flex-grow-1 text-center">
+            <div ng-if="cli.game.status === $root.constants.enums.gameStatusEnum.Started
+                 || cli.game.status === $root.constants.enums.gameStatusEnum.Finished">
+                <div class="d-flex">
+                    <div class="flex-grow-1 text-center font-weight-bold score"
+                         ng-class="{'text-secondary': cli.game.winningTeamId === cli.game.team1Id}">{{cli.game.team1Score}}</div>
+                    <div class="text-secondary my-3">
+                        {{cli.game.status === $root.constants.enums.gameStatusEnum.Finished? 'FINAL': 'STARTED'}}
+                    </div>
+                    <div class="flex-grow-1 text-center font-weight-bold score"
+                         ng-class="{'text-secondary': cli.game.winningTeamId === cli.game.team2Id}">{{cli.game.team2Score}}</div>
+                </div>
+                <div>
+                    <div class="small text-secondary"
+                         ng-if="cli.game">
+                        {{cli.game.start | date: 'dd-MMM-yyyy'}}
+                    </div>
+                    <div class="small text-secondary"
+                         ng-if="cli.game">
+                        {{cli.game.start | date: 'hh:MM a'}}
+                    </div>
+                </div>
+
+            </div>
+            <div ng-if="cli.game.status === $root.constants.enums.gameStatusEnum.WaitingToStart">
+                <div class="font-weight-semibold"
+                     ng-if="cli.game">
+                    {{cli.game.start | date: 'dd-MMM-yyyy'}}
+                </div>
+                <div class="font-weight-semibold"
+                     ng-if="cli.game">
+                    {{cli.game.start | date: 'hh:MM a'}}
+                </div>
+            </div>
+        </div>
+        <div class="team2 text-center">
+            <img class="team-logo"
+                 ng-src="{{cli.game.team2.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
+            <a ui-sref="main.team.home({id: cli.game.team2Id})"
+               class="d-block small text-dark">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.name}}</a>
+        </div>
+    </div>
+</div>

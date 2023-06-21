@@ -4,7 +4,7 @@
     angular.module('appModule')
         .filter('drbblyschedule', ['i18nService', 'settingsService', 'drbblydateFilter',
             function (i18nService, settingsService, drbblydateFilter) {
-                var filter = function (input) {
+                var filter = function (input, format) {
 					var start = input.start;
                     var end = input.end;
                     var result;
@@ -13,9 +13,9 @@
                         result = i18nService.getString('site.NotSet');
                     }
                     else {
-                        result = drbblydateFilter(start);
+                        result = drbblydateFilter(start, format || settingsService.defaultTimeFormat);
                         if (end) {
-                            result += ' - ' + drbblydateFilter(end, settingsService.defaultTimeFormat);
+                            result += ' - ' + drbblydateFilter(end, format || settingsService.defaultTimeFormat);
                         }
                     }
                     return result;

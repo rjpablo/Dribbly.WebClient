@@ -1,0 +1,34 @@
+﻿(function () {
+    'use strict';
+
+    angular
+        .module('mainModule')
+        .component('drbblyTournamentgames', {
+            bindings: {
+                app: '<',
+                tournament: '<'
+            },
+            controllerAs: 'dtg',
+            templateUrl: 'drbbly-default',
+            controller: controllerFunc
+        });
+
+    controllerFunc.$inject = ['drbblyGameshelperService', '$stateParams', '$timeout', 'drbblyCourtshelperService',
+        'authService', 'drbblyOverlayService'];
+    function controllerFunc(drbblyGameshelperService, $stateParams, $timeout, drbblyCourtshelperService,
+        authService, drbblyOverlayService) {
+        var dtg = this;
+
+        dtg.$onInit = function () {
+
+        };
+
+        dtg.addGame = function () {
+            drbblyGameshelperService.openAddEditGameModal({ tournamentId: dtg.tournament.id })
+                .then(function (game) {
+                    dtg.tournament.games.push(game);
+                })
+                .catch(function () { /* do nothing */ })
+        };
+    }
+})();

@@ -256,11 +256,21 @@
                 params: {
                     id: ''
                 },
-                abstract: false,
+                abstract: true,
                 url: '/tournament/:id',
                 component: 'drbblyTournamentviewercontainer',
                 resolve: {
                     $titleKey: () => { return 'app.TournamentDetails'; }
+                }
+            })
+            .state('main.tournament.games', {
+                params: {
+                    id: ''
+                },
+                url: '/games',
+                component: 'drbblyTournamentgames',
+                resolve: {
+                    $titleKey: () => { return 'app.Games'; }
                 }
             })
 

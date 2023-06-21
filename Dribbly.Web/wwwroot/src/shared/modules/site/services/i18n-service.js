@@ -201,6 +201,7 @@
                     FreeToPlay: 'Free To Play',
                     FullDetails: 'Full Details',
                     Game: 'Game',
+                    Games: 'Games',
                     'GameStatusEnum.WaitingToStart_0': 'Waiting To Start',
                     'GameStatusEnum.Started_1': 'Started',
                     'GameStatusEnum.Finished_2': 'Finished',

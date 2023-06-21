@@ -1,0 +1,10 @@
+drbbly-gamelist {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -5px 0 -5px;
+    align-items: stretch;
+
+    drbbly-gamelistitem {
+        margin: 0 5px;
+    }
+}

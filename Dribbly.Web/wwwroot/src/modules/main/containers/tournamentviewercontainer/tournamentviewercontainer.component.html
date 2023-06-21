@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row app-header mb-3">
                 <div class="container">
-                    <div class="bg-dark p-3">
+                    <div class="bg-dark p-1">
                         <h5 class="text-white">{{lvc.tournament.name}}</h5>
                     </div>
                     <div class="row">
@@ -15,15 +15,6 @@
             </div>
         </div>
         <div class="app-body">
-            <div class="container"
-                 ng-if="lvc.tournament && lvc.tournament.entityStatus !== $root.constants.enums.entityStatus.Active">
-                <div class="card">
-                    <div class="card-body text-center">
-                        {{::'app.ContentNotCurrentlyAvailable' | i18n}}
-                    </div>
-                </div>
-            </div>
-
             <div ng-if="lvc.tournament"
                  class="container">
                 <ui-view tournament="lvc.tournament"

@@ -49,14 +49,14 @@
 
         function buildSubPages() {
             lvc.app.toolbar.setNavItems([
-                //{
-                //    textKey: 'app.Seasons',
-                //    targetStateName: 'main.tournament.seasons',
-                //    targetStateParams: { id: _tournamentId },
-                //    action: function () {
-                //        $state.go(this.targetStateName, this.targetStateParams);
-                //    }
-                //}
+                {
+                    textKey: 'app.Games',
+                    targetStateName: 'main.tournament.games',
+                    targetStateParams: { id: _tournamentId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
+                }
             ]);
         }
     }

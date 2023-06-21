@@ -44,11 +44,12 @@
             }
             else {
                 bgm.saveModel = {
-                    courtId: bgm.model.courtId
+                    courtId: bgm.model.courtId,
+                    tournamentId: bgm.model.tournamentId
                 };
                 bgm.saveModel.toStatus = bgm.model.toStatus;
-                bgm.saveModel.isTeam1Open = true;
-                bgm.saveModel.isTeam2Open = true;
+                bgm.saveModel.isTeam1Open = false;
+                bgm.saveModel.isTeam2Open = false;
                 if (!bgm.saveModel.start) {
                     bgm.saveModel.start = new Date();
                 }
