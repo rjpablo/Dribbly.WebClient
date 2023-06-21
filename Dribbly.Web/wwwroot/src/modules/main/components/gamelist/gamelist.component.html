@@ -1,3 +1,5 @@
 ﻿<drbbly-gamelistitem ng-repeat="game in (dgl.games | orderBy: 'start') track by game.id"
                      class="mb-3"
+                     can-delete="dgl.canDelete"
+                     on-deleted="dgl.onItemDeleted"
                      game="game"></drbbly-gamelistitem>

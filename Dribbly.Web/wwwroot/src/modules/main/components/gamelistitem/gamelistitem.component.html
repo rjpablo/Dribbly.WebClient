@@ -49,4 +49,12 @@
                class="d-block small text-dark">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.name}}</a>
         </div>
     </div>
+    <div class="controls"
+         ng-if="cli._canDelete(cli.game)">
+        <button class="btn btn-sm text-danger"
+                ng-if="cli._canDelete()"
+                ng-click="cli.remove(cli.game, $event)">
+            <i class="fa fa-trash"></i>
+        </button>
+    </div>
 </div>

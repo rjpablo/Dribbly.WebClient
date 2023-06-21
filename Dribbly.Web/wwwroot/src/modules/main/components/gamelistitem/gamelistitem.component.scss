@@ -2,6 +2,7 @@ drbbly-gamelistitem {
     display: inline-block;
     width: 300px;
     cursor: pointer;
+    position: relative;
 
     .team1, .team2 {
         width: 25%;
@@ -14,5 +15,21 @@ drbbly-gamelistitem {
 
     .score {
         font-size: 2em;
+    }
+
+    .controls {
+        display: none;
+        background: rgba(0,0,0,0.6);
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        text-align: center;
+    }
+
+    &:hover {
+        .controls {
+            display: block;
+        }
     }
 }

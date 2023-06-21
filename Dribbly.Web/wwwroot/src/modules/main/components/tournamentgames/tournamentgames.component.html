@@ -18,7 +18,8 @@
             <div ng-if="dtg.tournament.games && dtg.tournament.games.length">
                 <div class="row">
                     <div class="col-12">
-                        <drbbly-gamelist games="dtg.tournament.games"></drbbly-gamelist>
+                        <drbbly-gamelist games="dtg.tournament.games"
+                                         can-delete-item="dtg.canDeleteItem"></drbbly-gamelist>
                     </div>
                 </div>
             </div>

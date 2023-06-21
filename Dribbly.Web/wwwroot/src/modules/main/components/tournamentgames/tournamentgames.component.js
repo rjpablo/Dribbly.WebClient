@@ -30,5 +30,9 @@
                 })
                 .catch(function () { /* do nothing */ })
         };
+
+        dtg.canDeleteItem = function (game) {
+            return dtg.tournament.addedById === authService.authentication.userId;
+        }
     }
 })();

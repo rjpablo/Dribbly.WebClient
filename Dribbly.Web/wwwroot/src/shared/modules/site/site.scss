@@ -163,7 +163,7 @@ a[ng-click] {
     text-decoration: underline;
 }
 
-.font-weight-semibold{
+.font-weight-semibold {
     font-weight: 600;
 }
 /*************
@@ -240,6 +240,12 @@ a[ng-click] {
 
 .dropdown-item {
     color: $gray-400;
+}
+
+.dropdown-toggle {
+    &.no-caret::after {
+        display: none;
+    }
 }
 
 /* Cards */

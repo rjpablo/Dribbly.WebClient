@@ -7,7 +7,8 @@
             bindings: {
                 games: '<',
                 titleKey: '@',
-                settings: '<'
+                settings: '<',
+                canDeleteItem: '<'
             },
             controllerAs: 'dgl',
             templateUrl: 'drbbly-default',
@@ -21,6 +22,14 @@
         dgl.$onInit = function () {
             $element.addClass('py-3');
             setSettings(dgl.settings || {});
+        };
+
+        dgl.onItemDeleted = function (game) {
+            dgl.games.drbblyRemove(g => g.id === game.id);
+        };
+
+        dgl.canDelete = function (game) {
+            return dgl.canDeleteItem && dgl.canDeleteItem(game);
         };
 
         function setSettings(settings) {
