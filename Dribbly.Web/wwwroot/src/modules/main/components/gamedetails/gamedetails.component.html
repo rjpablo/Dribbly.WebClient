@@ -50,7 +50,13 @@
                     </a>
                 </div>
                 <h1 ng-if="gdg.game.status === gdg.gameStatusEnum.Finished"
-                    class="text-white">FINAL</h1>
+                    class="text-white">
+                    FINAL
+                </h1>
+                <h1 ng-if="gdg.game.status === gdg.gameStatusEnum.Started"
+                    class="text-white">
+                    STARTED
+                </h1>
             </div>
             <div class="col-4 col-sm-3 text-white text-center">
                 <div class="p-3">
@@ -70,7 +76,7 @@
             <div class="col">
                 <div class="row">
                     <div class="bg-black text-center col-12 p-3 d-flex justify-content-center align-items-start">
-                        <div ng-if="gdg.isOwned">
+                        <div ng-if="gdg.canManage">
                             <!-- Start Game -->
                             <!--<button type="button" class="btn btn-primary"
                                     ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
@@ -83,10 +89,15 @@
                                    ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart">
                                     Start Tracking
                                 </a>
+                                <a class="btn btn-primary"
+                                   ui-sref="main.game.track()"
+                                   ng-if="gdg.game.status === gdg.gameStatusEnum.Started">
+                                    Resume Tracking
+                                </a>
                                 <button type="button" class="btn btn-primary"
                                         uib-dropdown-toggle
                                         ng-if="gdg.game.status === gdg.gameStatusEnum.Started">
-                                    {{::'app.GameStatusEnum.Started' | i18n}} <span class="caret"></span>
+                                    <span class="caret"></span>
                                 </button>
                                 <button type="button" class="btn btn-primary"
                                         uib-dropdown-toggle
@@ -115,7 +126,7 @@
                             </div>
                         </div>
                         <div class="btn-group ml-1" uib-dropdown
-                             ng-if="gdg.isOwned && gdg.game.status !== gdg.gameStatusEnum.Cancelled">
+                             ng-if="gdg.canManage && gdg.game.status === gdg.gameStatusEnum.WaitingToStart">
                             <button type="button" class="btn btn-secondary"
                                     ng-click="gdg.updateGame()">
                                 {{::'app.UpdateDetails' | i18n}}

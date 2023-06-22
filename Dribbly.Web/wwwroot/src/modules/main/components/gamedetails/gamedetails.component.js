@@ -35,6 +35,7 @@
                     gdg.game = angular.copy(data);
                     gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
+                    gdg.canManage = gdg.game.addedBy.identityUserId === authService.authentication.userId;
                     checkTeamLogos();
                     gdg.gameDetailsOverlay.setToReady();
                 })
