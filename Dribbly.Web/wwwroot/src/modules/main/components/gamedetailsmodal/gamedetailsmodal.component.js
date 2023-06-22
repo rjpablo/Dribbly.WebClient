@@ -34,6 +34,13 @@
                         game.start = drbblyDatetimeService.toLocalDateTime(game.start);
                         bgm.saveModel = angular.copy(game || {});
                         bgm.saveModel.toStatus = bgm.model.toStatus;
+                        bgm.selectedCourts = [{ text: game.court.name, value: game.court.id }];
+                        if (game.team1) {
+                            bgm.team1Selection = [{ text: game.team1.name, value: game.team1Id }];
+                        }
+                        if (game.team2) {
+                            bgm.team2Selection = [{ text: game.team2.name, value: game.team2Id }];
+                        }
                         setStartDateOptions();
                         setTypeAheadConfig();
                     })
@@ -137,9 +144,9 @@
                 bgm.isBusy = true;
                 if (bgm.model.isEdit) {
                     drbblyGamesService.updateGame(saveModel)
-                        .then(function () {
+                        .then(function (game) {
                             bgm.isBusy = false;
-                            close(saveModel);
+                            close(game);
                         }, function (error) {
                             bgm.isBusy = false;
                             drbblyCommonService.handleError(error);

@@ -7,15 +7,19 @@
             bindings: {
                 game: '<',
                 onDeleted: '<',
-                canDelete:'<'
+                onUpdated: '<',
+                canEdit: '<',
+                canDelete: '<'
             },
             controllerAs: 'cli',
             templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$element', '$state', 'modalService', 'drbblyGamesService', 'constants'];
-    function controllerFunc($element, $state, modalService, drbblyGamesService, constants) {
+    controllerFunc.$inject = ['$element', '$state', 'modalService', 'drbblyGamesService', 'constants',
+        'drbblyGameshelperService', '$window'];
+    function controllerFunc($element, $state, modalService, drbblyGamesService, constants,
+        drbblyGameshelperService, $window) {
         var cli = this;
 
         cli.$onInit = function () {
@@ -36,6 +40,11 @@
                 && (cli.canDelete && cli.canDelete(cli.game));
         };
 
+        cli._canEdit = function () {
+            return cli.game.status === constants.enums.gameStatusEnum.WaitingToStart
+                && (cli.canEdit && cli.canEdit(cli.game));
+        };
+
         cli.remove = function (game, event) {
             event.stopPropagation();
             modalService.confirm({ msg1Key: 'app.DeleteTournamentGameComfirmationMsg', titleKey: 'app.DeleteGame' })
@@ -53,7 +62,28 @@
                     }
                 });
 
-        }
+        };
+
+        cli.edit = function (game, event) {
+            event.stopPropagation();
+            var model = {
+                gameId: game.id,
+                isEdit: true
+            };
+            drbblyGameshelperService.openAddEditGameModal(model)
+                .then(function (game) {
+                    if (game && cli.onUpdated) {
+                        cli.onUpdated(game);
+                    }
+                })
+                .catch(function () { /* do nothing */ });
+        };
+
+        cli._openInNewTab = function (game, event) {
+            event.stopPropagation();
+            var url = $state.href('main.game.details', { id: game.id });
+            $window.open(url, '_blank');
+        };
 
     }
 })();

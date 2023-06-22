@@ -8,7 +8,8 @@
                 games: '<',
                 titleKey: '@',
                 settings: '<',
-                canDeleteItem: '<'
+                canDeleteItem: '<',
+                canEditItem: '<'
             },
             controllerAs: 'dgl',
             templateUrl: 'drbbly-default',
@@ -30,6 +31,16 @@
 
         dgl.canDelete = function (game) {
             return dgl.canDeleteItem && dgl.canDeleteItem(game);
+        };
+
+        dgl.canEditItem = function (game) {
+            return dgl.canEditItem && dgl.canEditItem(game);
+        };
+
+        dgl.onItemUpdated = function (game) {
+            var orig = dgl.games.drbblySingle(g => g.id === game.id);
+            Object.assign(orig, game);
+
         };
 
         function setSettings(settings) {

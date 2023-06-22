@@ -34,5 +34,9 @@
         dtg.canDeleteItem = function (game) {
             return dtg.tournament.addedById === authService.authentication.userId;
         }
+
+        dtg.canEditItem = function (game) {
+            return dtg.tournament.addedById === authService.authentication.userId;
+        }
     }
 })();

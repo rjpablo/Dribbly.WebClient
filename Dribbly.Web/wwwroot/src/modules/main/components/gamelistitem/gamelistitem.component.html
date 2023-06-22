@@ -50,7 +50,16 @@
         </div>
     </div>
     <div class="controls"
-         ng-if="cli._canDelete(cli.game)">
+         ng-click="(function(event){ event.stopPropagation; })($event)">
+        <button class="btn btn-sm text-light"
+           ng-click="cli._openInNewTab(cli.game, $event)">
+            <i class="fa fa-external-link"></i>
+        </button>
+        <button class="btn btn-sm text-light"
+                ng-if="cli._canEdit()"
+                ng-click="cli.edit(cli.game, $event)">
+            <i class="fa fa-pencil"></i>
+        </button>
         <button class="btn btn-sm text-danger"
                 ng-if="cli._canDelete()"
                 ng-click="cli.remove(cli.game, $event)">

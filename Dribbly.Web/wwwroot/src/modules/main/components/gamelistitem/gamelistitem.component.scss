@@ -25,6 +25,10 @@ drbbly-gamelistitem {
         right: 0;
         left: 0;
         text-align: center;
+
+        .btn:hover {
+            background: #7f7f7f;
+        }
     }
 
     &:hover {
