@@ -21,7 +21,8 @@
 
         ecm.$onInit = function () {
             ecm.overlay = drbblyOverlayService.buildOverlay();
-            ecm.saveModel = drbblyTimerhelperService.breakupDuration(ecm.model.duration);
+            ecm.saveModel = drbblyTimerhelperService.breakupDuration(ecm.model.duration,
+                ecm.model.isShotClock);
 
             ecm.context.setOnInterrupt(ecm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {

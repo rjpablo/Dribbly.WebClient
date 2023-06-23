@@ -52,7 +52,8 @@
             return modalService.show({
                 view: '<drbbly-editclockmodal></drbbly-editclockmodal>',
                 model: {
-                    duration: dtc.timer.remainingTime
+                    duration: dtc.timer.remainingTime,
+                    isShotClock: dtc.isShotClock
                 }
             })
                 .then(function (result) {

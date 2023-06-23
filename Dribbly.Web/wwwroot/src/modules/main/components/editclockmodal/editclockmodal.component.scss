@@ -1,6 +1,8 @@
 drbbly-editclockmodal {
-    fieldset {
+    fieldset > div {
         display: flex;
+        width: 100%;
+        justify-content: center;
 
         .form-group {
             display: inline-block;
@@ -23,6 +25,12 @@ drbbly-editclockmodal {
 
         .separator {
             font-size: 2rem;
+        }
+    }
+
+    .shot-clock{
+        .form-group{
+            max-width: 100px
         }
     }
 }
