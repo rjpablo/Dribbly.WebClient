@@ -90,12 +90,18 @@
                 this.duration = duration;
                 displayTime(this.duration);
             }
-            setRemainingTime(duration) {
+            setRemainingTime(duration, start) {
+                if (this.running) {
+                    this.stop();
+                }
                 this.duration = duration;
                 if (this.onUpdateCallback) {
                     this.onUpdateCallback(this.duration);
                 }
                 displayTime(this.duration);
+                if (start) {
+                    this.start();
+                }
             }
             start() {
                 if (!this.running) {
