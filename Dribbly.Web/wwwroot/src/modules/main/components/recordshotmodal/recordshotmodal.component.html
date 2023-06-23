@@ -1,0 +1,85 @@
+﻿<div class="modal-header">
+    <div class="player-details d-flex">
+        <div class="profile">
+            <drbbly-image ng-if="rsm.saveModel.takenBy.profilePhoto"
+                          image-url="{{rsm.saveModel.takenBy.profilePhoto.url}}"></drbbly-image>
+        </div>
+        <div class="flex-grow-1 stats border border-secondary">
+            <div class="bg-light font-weight-bold  text-center">{{rsm.saveModel.takenBy.name}}</div>
+            <table class="table table-sm table-light w-100 mb-0">
+                <thead>
+                    <tr>
+                        <th>Pts</th>
+                        <th>F</th>
+                        <th>Reb</th>
+                        <th>Ast</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{rsm.saveModel.takenBy.points}}</td>
+                        <td>{{rsm.saveModel.takenBy.fouls}}</td>
+                        <td>{{rsm.saveModel.takenBy.rebounds}}</td>
+                        <td>{{rsm.saveModel.takenBy.assists}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="rsm.overlay">
+        <div class="px-3">
+            <form name="rsm.frmShot"
+                  class="flex-grow-1">
+                <h5>Shot Details</h5>
+                <div class="form-row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="m-0">Points:</label>
+                            <input type="number"
+                                   class="points"
+                                   ng-model="rsm.saveModel.points" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-8">
+                        <div class="form-group">
+                            <div class="form-check-inline">
+                                <label class="m-0">
+                                    <input type="radio"
+                                           value="false"
+                                           ng-model="rsm.saveModel.isMiss"
+                                           class="form-check-input"
+                                           name="madeOrMiss">
+                                    Made
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="m-0">
+                                    <input type="radio"
+                                           value="true"
+                                           ng-model="rsm.saveModel.isMiss"
+                                           class="form-check-input"
+                                           name="madeOrMiss">
+                                    Missed
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="rsm.isBusy || rsm.frmEditClock.$invalid || rsm.frmEditClock.$pristine"
+            type="submit"
+            ng-click="rsm.handleSubmitClick()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-warning"
+            type="button"
+            ng-click="rsm.cancel()"
+            ng-disabled="rsm.isBusy"></button>
+</div>

@@ -1,0 +1,15 @@
+drbbly-recordshotmodal {
+    .modal-header {
+        .player-details {
+            width: 100%;
+
+            drbbly-image {
+                min-width: 80px;
+            }
+        }
+    }
+
+    input.points {
+        max-width: 80px;
+    }
+}

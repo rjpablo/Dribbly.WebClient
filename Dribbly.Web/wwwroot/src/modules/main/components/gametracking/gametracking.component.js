@@ -116,24 +116,37 @@
         }
 
         gdg.recordShot = function (points, isMiss) {
-            var shot = {
-                points: points,
-                isMiss: isMiss,
-                takenById: gdg.selectedPlayer.id,
-                teamId: gdg.selectedPlayer.teamId,
-                gameId: gdg.game.id
-            };
 
-            drbblyGamesService.recordShot(shot)
-                .then(function (data) {
-                    gdg.game.team1Score = data.team1Score;
-                    gdg.game.team2Score = data.team2Score;
-                    if (!isMiss) {
-                        gdg.selectedPlayer.points += points;
+            modalService
+                .show({
+                    view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
+                    model: {
+                        game: gdg.game,
+                        takenBy: gdg.selectedPlayer,
+                        points: points,
+                        isMiss: isMiss.toString()
                     }
-                    gdg.unselectPlayer(gdg.selectedPlayer);
                 })
-                .catch(gdg.gameDetailsOverlay.setToError);
+                .then(async function (result) {
+                    if (result.shot) {
+                        var shotResult = await drbblyGamesService.recordShot(result.shot)
+                            .then(data => data)
+                            .catch(gdg.gameDetailsOverlay.setToError);
+                        if (shotResult) {
+                            gdg.game.team1Score = shotResult.team1Score;
+                            gdg.game.team2Score = shotResult.team2Score;
+                            if (result.shot.isMiss !== 'true') {
+                                gdg.selectedPlayer.points += result.shot.points;
+                            }
+                            gdg.unselectPlayer(gdg.selectedPlayer);
+                        }
+                    }
+                })
+                .catch(function () {
+                    // do nothing
+                });
+
+
         }
 
         gdg.endGame = function () {
