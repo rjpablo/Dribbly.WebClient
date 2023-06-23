@@ -57,6 +57,8 @@
                 bgm.saveModel.toStatus = bgm.model.toStatus;
                 bgm.saveModel.isTeam1Open = false;
                 bgm.saveModel.isTeam2Open = false;
+                bgm.saveModel.defaultShotClockDuration = 24;
+                bgm.saveModel.offensiveRebondShotClock = 14;
                 if (!bgm.saveModel.start) {
                     bgm.saveModel.start = new Date();
                 }
