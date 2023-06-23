@@ -22,6 +22,14 @@
                     return drbblyhttpService.get(api + 'getAddGameModal/' + courtId);
                 }
 
+                function advancePeriod(gameId, period, remainingTime) {
+                    return drbblyhttpService.post(api + `advancePeriod/${gameId}/${period}/${remainingTime}`);
+                }
+
+                function updateRemainingTime(input) {
+                    return drbblyhttpService.post(api + `updateRemainingTime`, input);
+                }
+
                 function endGame(gameId, winningTeamId) {
                     return drbblyhttpService.post(api + `endGame/${gameId}/${winningTeamId}`);
                 }
@@ -48,6 +56,7 @@
 
                 var _service = {
                     addGame: addGame,
+                    advancePeriod: advancePeriod,
                     endGame: endGame,
                     getAddGameModal: getAddGameModal,
                     getAll: getAll,
@@ -56,6 +65,7 @@
                     recordShot: recordShot,
                     updateGame: updateGame,
                     updateGameResult: updateGameResult,
+                    updateRemainingTime: updateRemainingTime,
                     updateStatus: updateStatus
                 };
 

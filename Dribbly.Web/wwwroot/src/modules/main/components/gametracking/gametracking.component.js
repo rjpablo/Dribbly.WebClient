@@ -13,21 +13,59 @@
         });
 
     controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
-        'drbblyOverlayService', '$stateParams', '$scope', '$state',
+        'drbblyOverlayService', '$stateParams', '$scope', '$state', '$interval',
         'drbblyGameshelperService', 'drbblyDatetimeService'];
     function controllerFunc(drbblyGamesService, modalService, constants, authService,
-        drbblyOverlayService, $stateParams, $scope, $state,
+        drbblyOverlayService, $stateParams, $scope, $state, $interval,
         drbblyGameshelperService, drbblyDatetimeService) {
         var gdg = this;
         var _gameId;
-        var _team2;
+        var _periodDuration
 
         gdg.$onInit = function () {
             _gameId = $stateParams.id;
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
+            _periodDuration = 12 * 60 * 1000; // 12mins
             loadGame();
         };
+
+        gdg.onTimerReady = function (timer) {
+            gdg.timer = timer;
+            gdg.timer.onUpdate(displayTime);
+            gdg.timer.onStop(function () {
+                updateTime(gdg.timer.remainingTime, false);
+            });
+            gdg.timer.onStart(function () {
+                updateTime(gdg.timer.remainingTime, true);
+            });
+        }
+
+        function displayTime(duration) {
+            var min = Math.floor(duration / 60000).toString();
+            var sec = Math.floor((duration % 60000) / 1000).toString();
+            var ms = Math.floor((duration % 1000) / 100).toString();
+            gdg.time = '';
+            if (min > 0) {
+                gdg.time += `${min.padStart(2, '0')}:`;
+            }
+            gdg.time += `${sec.padStart(2, '0')}`;
+            if (min === '0') {
+                gdg.time += `.${ms}`;
+            }
+        }
+
+        function displayPeriod(period) {
+            if (period < 5) {
+                gdg._period = 'Q' + period;
+            } else {
+                gdg._period = 'OT' + (period - 4);
+            }
+        }
+
+        gdg.toggleClock = function () {
+            gdg.timer.toggle();
+        }
 
         gdg.togglePlayerSelection = function (player) {
             if (player.isSelected) {
@@ -100,6 +138,19 @@
             drbblyGamesService.getGame(_gameId)
                 .then(function (data) {
                     gdg.game = angular.copy(data);
+
+                    if (gdg.game.isTimed) {
+                        
+                        if (gdg.game.isLive) {
+                            gdg.timer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingTime);
+                        } else {
+                            gdg.timer.setRemainingTime(gdg.game.remainingTime);
+                        }
+
+                        //displayTime(gdg.game.remainingTime);
+                        displayPeriod(gdg.game.currentPeriod);
+                    }
+
                     loadTeams(gdg.game);
                     gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
@@ -184,6 +235,45 @@
             }
         };
 
+        function updateTime(duration, isLive) {
+            var timeStamp = drbblyDatetimeService.getUtcNow();
+            var input = {
+                gameId: _gameId,
+                timeRemaining: duration,
+                updatedAt: timeStamp,
+                isLive: isLive
+            };
+            drbblyGamesService.updateRemainingTime(input)
+                .then(function () {
+                    // do nothing
+                })
+                .catch(function () {
+                    // TODO: handle error
+                });
+        }
+
+        gdg.goToNextPeriod = function () {
+            var period = gdg.game.currentPeriod + 1;
+            var newTime = period > 4 ?
+                5 * 60 * 1000 : //5mins
+                _periodDuration;
+            gdg.isBusy = true;
+            drbblyGamesService.advancePeriod(_gameId, period, newTime)
+                .then(function () {
+                    gdg.game.currentPeriod = period;
+                    _periodDuration = newTime;
+                    gdg.timer.reset(newTime);
+                    displayPeriod(gdg.game.currentPeriod);
+                    displayTime(gdg.timer.remainingTime);
+                })
+                .catch(function () {
+                    // do nothing
+                })
+                .finally(function () {
+                    gdg.isBusy = false;
+                });
+        };
+
         gdg.reopenGame = function () {
             var model = {
                 gameId: _gameId,
@@ -227,5 +317,74 @@
                     }
                 });
         };
+
+        class BadTimer {
+            duration = 0;
+            running = false;
+            constructor(duration) {
+                this.origDuration = duration;
+                this.duration = duration;
+            }
+            start() {
+                this.run(new Date(), this.duration)
+                if (this.onStartCallback) {
+                    this.onStartCallback();
+                }
+            }
+            run(start, startDuration) {
+                this.running = true;
+                var _this = this;
+                this.timerInterval = $interval(function () {
+                    if (_this.isRunning) {
+                        var now = new Date();
+                        _this.duration = startDuration - (now - start);
+                        if (_this.duration <= 0) {
+                            _this.duration = 0;
+                            _this.stop();
+                        }
+                        _this.onUpdateCallback(_this.duration);
+                    }
+                }, 100);
+            }
+            onUpdate(cb) {
+                this.onUpdateCallback = cb;
+            }
+            onStop(cb) {
+                this.onStopCallback = cb;
+            }
+            onStart(cb) {
+                this.onStartCallback = cb;
+            }
+            reset(duration) {
+                if (duration !== null && duration !== undefined) {
+                    this.origDuration = duration;
+                }
+                this.duration = this.origDuration;
+            }
+            stop() {
+                this.running = false;
+                $interval.cancel(this.timerInterval);
+                if (this.onStopCallback) {
+                    this.onStopCallback();
+                }
+            }
+            isRunning() {
+                return this.running;
+            }
+            isOver() {
+                return this.duration === 0;
+            }
+            toggle() {
+                if (this.running) {
+                    this.stop();
+                } else {
+                    this.start();
+                }
+            }
+            get remainingTime() {
+                return this.duration;
+            }
+        }
     }
+
 })();

@@ -1,0 +1,14 @@
+﻿<span class="d-block text-center small"
+      ng-if="dtc.label">{{dtc.label}}</span>
+<div class="time d-inline-block p-2"
+     ng-class="{'is-up': dtc.timer.isOver()}"
+     ng-click="dtc.toggleClock()">{{dtc.time}}</div>
+<div class="controls text-center"
+     ng-if="dtc.showControls">
+    <button class="btn btn-sm"
+            ng-if="!dtc.timer.isOver()"
+            ng-click="dtc.toggleClock()">
+        <i class="fa text-white"
+           ng-class="dtc.timer.isRunning()? 'fa-pause':'fa-play'"></i>
+    </button>
+</div>

@@ -13,7 +13,7 @@ drbbly-gametracking {
         }
 
         .score {
-            font-size: 5em;
+            font-size: 4em;
         }
 
         .final {
@@ -23,6 +23,21 @@ drbbly-gametracking {
         .logo {
             height: 30px;
             width: 30px;
+        }
+
+        .game-clock {
+            text-align:center;
+
+            drbbly-timer {
+                width: 150px;
+            }
+        }
+
+        .period {
+            .value {
+                font-size: 1.5em;
+                line-height: 1;
+            }
         }
     }
 

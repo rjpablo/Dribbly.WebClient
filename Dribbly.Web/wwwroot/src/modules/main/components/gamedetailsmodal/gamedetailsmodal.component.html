@@ -7,6 +7,48 @@
               novalidate
               ng-if="bgm.saveModel">
             <fieldset ng-disabled="bgm.isBusy">
+                <div>
+                    <div class="form-group">
+                        <label for="start">Teams*:</label>
+                        <drbbly-typeahead selected-items="bgm.team1Selection"
+                                          config="bgm.team1TypeAheadConfig"
+                                          ng-required="!bgm.saveModel.isTeam1Open"
+                                          ng-show="!bgm.saveModel.isTeam1Open"
+                                          name="typTeam1"
+                                          ng-model="bgm.saveModel.team1Id"
+                                          class="form-control mb-0">
+                        </drbbly-typeahead>
+                        <!--<div class="form-check">
+                            <label>
+                                <input type="checkbox"
+                                       ng-model="bgm.saveModel.isTeam1Open" /> {{'app.OpenTeam' | i18n}}
+                            </label>
+                        </div>-->
+                    </div>
+                    <div class="form-group text-center">VS</div>
+                    <div class="form-group">
+                        <drbbly-typeahead selected-items="bgm.team2Selection"
+                                          config="bgm.team2TypeAheadConfig"
+                                          ng-required="!bgm.saveModel.isTeam2Open"
+                                          ng-show="!bgm.saveModel.isTeam2Open"
+                                          name="typTeam2"
+                                          ng-model="bgm.saveModel.team2Id"
+                                          class="form-control">
+                        </drbbly-typeahead>
+                        <!--<div class="form-check">
+                            <label>
+                                <input type="checkbox"
+                                       ng-model="bgm.saveModel.isTeam2Open" /> {{'app.OpenTeam' | i18n}}
+                            </label>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="form-check pl-0">
+                    <label>
+                        <input type="checkbox"
+                               ng-model="bgm.saveModel.isTimed" /> Timed
+                    </label>
+                </div>
                 <div class="form-group">
                     <label for="txtName">{{::'app.Title' | i18n}} <small class="text-lowercase">({{::'site.Optional' | i18n}})</small>:</label>
                     <input type="text"
@@ -44,42 +86,6 @@
                           ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
                     <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">
                         {{::'site.Required' | i18n}}
-                    </div>
-                </div>
-                <div>
-                    <div class="form-group">
-                        <label for="start">Teams*:</label>
-                        <drbbly-typeahead selected-items="bgm.team1Selection"
-                                          config="bgm.team1TypeAheadConfig"
-                                          ng-required="!bgm.saveModel.isTeam1Open"
-                                          ng-show="!bgm.saveModel.isTeam1Open"
-                                          name="typTeam1"
-                                          ng-model="bgm.saveModel.team1Id"
-                                          class="form-control mb-0">
-                        </drbbly-typeahead>
-                        <div class="form-check">
-                            <label>
-                                <input type="checkbox"
-                                       ng-model="bgm.saveModel.isTeam1Open" /> {{'app.OpenTeam' | i18n}}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group text-center">VS</div>
-                    <div class="form-group">
-                        <drbbly-typeahead selected-items="bgm.team2Selection"
-                                          config="bgm.team2TypeAheadConfig"
-                                          ng-required="!bgm.saveModel.isTeam2Open"
-                                          ng-show="!bgm.saveModel.isTeam2Open"
-                                          name="typTeam2"
-                                          ng-model="bgm.saveModel.team2Id"
-                                          class="form-control">
-                        </drbbly-typeahead>
-                        <div class="form-check">
-                            <label>
-                                <input type="checkbox"
-                                       ng-model="bgm.saveModel.isTeam2Open" /> {{'app.OpenTeam' | i18n}}
-                            </label>
-                        </div>
                     </div>
                 </div>
             </fieldset>

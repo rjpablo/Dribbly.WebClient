@@ -33,8 +33,36 @@
                         </div>
                         <div class="col-6 p-3 text-center text-white">
                             <div class="mb-3">
-                                <div class="p-3"
-                                     ng-if="gdg.game.status !== gdg.gameStatusEnum.Finished">Clock goes here</div>
+                                <div ng-if="gdg.game.status !== gdg.gameStatusEnum.Finished">
+                                    <div class="game-clock">
+                                        <drbbly-timer on-ready="gdg.onTimerReady"
+                                                      class="game-clock"
+                                                      label="'TIME'"></drbbly-timer>
+                                        <div class="controls text-center"
+                                             ng-cloak>
+                                            <button class="btn btn-sm"
+                                                    ng-if="!gdg.timer.isOver()"
+                                                    ng-click="gdg.toggleClock()">
+                                                <i class="fa text-white"
+                                                   ng-class="gdg.timer.isRunning()? 'fa-pause':'fa-play'"></i>
+                                            </button>
+                                            <button class="btn btn-sm"
+                                                    uib-tooltip="Advance to next period"
+                                                    ng-disabled="gdg.isBusy"
+                                                    ng-click="gdg.goToNextPeriod()"
+                                                    ng-if="gdg.timer.isOver()">
+                                                <i class="fa fa-angle-double-right text-white"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="period"
+                                         ng-if="gdg.game.isTimed">
+                                        <span class="d-block text-center small">PERIOD</span>
+                                        <div class="border border-white d-inline-block text-center p-1 value">
+                                            {{gdg._period}}
+                                        </div>
+                                    </div>
+                                </div>
                                 <div ng-if="gdg.game.status === gdg.gameStatusEnum.Finished">
                                     <div class="my-3 final">FINAL</div>
                                 </div>
