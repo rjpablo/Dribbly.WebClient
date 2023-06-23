@@ -11,22 +11,29 @@
                 onStop: '<',
                 onEditted:'<',
                 autoStart: '<',
-                hideControls: '<',
-                label:'<',
-                startOverride: '<' // a DateTime that will be set as when the timer started running
+                showControls: '<',
+                label: '<',
+                // a DateTime that will be set as when the timer started running
+                startOverride: '<',
+                isShotClock: '<',
+                // whether or not to toggle the timer when it is clicked
+                toggleOnClick: '<'
             },
             controllerAs: 'dtc',
             templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$interval', 'drbblyTimerhelperService', 'modalService'];
-    function controllerFunc($interval, drbblyTimerhelperService, modalService) {
+    controllerFunc.$inject = ['$interval', 'drbblyTimerhelperService', 'modalService', '$element'];
+    function controllerFunc($interval, drbblyTimerhelperService, modalService, $element) {
         var dtc = this;
         var _gameId;
         var _periodDuration
 
         dtc.$onInit = function () {
+            if (dtc.isShotClock) {
+                $element.addClass('shot-clock');
+            }
             dtc.timer = new BadTimer();
             dtc.timer.onUpdate(dtc.onUpdate);
             dtc.timer.onStop(dtc.onStop);
@@ -62,19 +69,28 @@
         }
 
         function displayTime(duration) {
-            dtc.time = drbblyTimerhelperService.breakupDuration(duration).formattedTime;
+            dtc.time = drbblyTimerhelperService.breakupDuration(duration, dtc.isShotClock).formattedTime;
         }
 
-        dtc.toggleClock = function () {
-            dtc.timer.toggle();
+        dtc.clicked = function () {
+            if (dtc.toggleOnClick) {
+                dtc.timer.toggle();
+            }
         }
 
         class BadTimer {
             duration = 0;
             running = false;
             constructor() { }
-            setRemainingTime(duration) {
+            /**
+             * Use this to set the duration the timer will reset to
+             */
+            init(duration) {
                 this.origDuration = duration;
+                this.duration = duration;
+                displayTime(this.duration);
+            }
+            setRemainingTime(duration) {
                 this.duration = duration;
                 if (this.onUpdateCallback) {
                     this.onUpdateCallback(this.duration);
@@ -82,9 +98,11 @@
                 displayTime(this.duration);
             }
             start() {
-                this.run(new Date(), this.duration)
-                if (this.onStartCallback) {
-                    this.onStartCallback();
+                if (!this.running) {
+                    if (this.onStartCallback) {
+                        this.onStartCallback();
+                    }
+                    this.run(new Date(), this.duration)
                 }
             }
             run(start, startDuration) {
@@ -117,14 +135,24 @@
             onEditted(cb) {
                 this.onEdittedCallback = cb;
             }
+            onReset(cb) {
+                this.onResetCallback = cb;
+            }
             _onEdit(cb) {
                 this.onEditCallback = cb;
             }
-            reset(duration) {
-                if (duration !== null && duration !== undefined) {
-                    this.origDuration = duration;
+            /**
+             * Reset the timer to the original duration
+             */
+            reset() {
+                if (this.running) {
+                    this.stop();
                 }
                 this.duration = this.origDuration;
+                displayTime(this.duration);
+                if (this.onResetCallback) {
+                    this.onResetCallback();
+                }
             }
             stop() {
                 this.running = false;

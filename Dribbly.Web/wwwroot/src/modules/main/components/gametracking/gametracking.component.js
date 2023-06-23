@@ -34,13 +34,39 @@
             gdg.timer = timer;
             gdg.timer.onUpdate(displayTime);
             gdg.timer.onStop(function () {
-                updateTime(gdg.timer.remainingTime, false);
+                updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, false);
+                gdg.shotTimer.stop();
             });
             gdg.timer.onStart(function () {
-                updateTime(gdg.timer.remainingTime, true);
+                updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, true);
+                if (gdg.shotTimer.isOver()) {
+                    gdg.shotTimer.reset();
+                }
+                gdg.shotTimer.start();
             });
             gdg.timer.onEditted(function (time, commit) {
-                updateTime(time.totalMs, false)
+                updateTime(time.totalMs, gdg.shotTimer.remainingTime, false)
+                    .then(commit);
+            });
+        }
+
+        gdg.onShotTimerReady = function (timer) {
+            gdg.shotTimer = timer;
+            gdg.shotTimer.onStop(function () {
+                //game clock timer already takes care of this
+                //updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, false);
+            });
+            gdg.shotTimer.onStart(function () {
+                //game clock timer already takes care of this
+                //updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, true);
+            });
+            gdg.shotTimer.onReset(function () {
+                if (gdg.timer.isRunning()) {
+                    gdg.shotTimer.start();
+                }
+            });
+            gdg.shotTimer.onEditted(function (time, commit) {
+                updateTime(gdg.timer.remainingTime, time.totalMs, false)
                     .then(commit);
             });
         }
@@ -65,10 +91,6 @@
             } else {
                 gdg._period = 'OT' + (period - 4);
             }
-        }
-
-        gdg.toggleClock = function () {
-            gdg.timer.toggle();
         }
 
         gdg.togglePlayerSelection = function (player) {
@@ -144,11 +166,14 @@
                     gdg.game = angular.copy(data);
 
                     if (gdg.game.isTimed) {
-
+                        gdg.timer.init(_periodDuration);
+                        gdg.shotTimer.init(gdg.game.defaultShotClockDuration * 1000);
                         if (gdg.game.isLive) {
                             gdg.timer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingTime);
+                            gdg.shotTimer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingShotTime);
                         } else {
                             gdg.timer.setRemainingTime(gdg.game.remainingTime);
+                            gdg.shotTimer.setRemainingTime(gdg.game.remainingShotTime);
                         }
 
                         //displayTime(gdg.game.remainingTime);
@@ -239,13 +264,14 @@
             }
         };
 
-        function updateTime(duration, isLive) {
+        function updateTime(gameTimeRemaining, shotTimeRemaining, isLive) {
             var timeStamp = drbblyDatetimeService.getUtcNow();
             var input = {
                 gameId: _gameId,
-                timeRemaining: duration,
+                timeRemaining: gameTimeRemaining,
                 updatedAt: timeStamp,
-                isLive: isLive
+                isLive: isLive,
+                shotTimeRemaining: shotTimeRemaining
             };
             return drbblyGamesService.updateRemainingTime(input);
         }

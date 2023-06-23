@@ -2,13 +2,25 @@
       ng-if="dtc.label">{{dtc.label}}</span>
 <div class="time d-inline-block p-2"
      ng-class="{'is-up': dtc.timer.isOver()}"
-     ng-click="dtc.toggleClock()">{{dtc.time}}</div>
+     ng-click="dtc.clicked()">{{dtc.time}}</div>
 <div class="controls text-center"
      ng-if="dtc.showControls">
     <button class="btn btn-sm"
             ng-if="!dtc.timer.isOver()"
-            ng-click="dtc.toggleClock()">
+            ng-click="dtc.timer.toggle()">
         <i class="fa text-white"
            ng-class="dtc.timer.isRunning()? 'fa-pause':'fa-play'"></i>
+    </button>
+    <button class="btn btn-sm"
+            ng-disabled="dtc.timer.isRunning()"
+            ng-click="dtc.timer.reset()">
+        <i class="fa fa-undo text-white"
+           uib-tooltip="{{dtc.timer.isRunning()? 'Cannot reset the clock while it is running':'Reset the clock'}}"></i>
+    </button>
+    <button class="btn btn-sm"
+            ng-disabled="dtc.timer.isRunning()"
+            ng-click="dtc.timer.edit()">
+        <i class="fa fa-pencil text-white"
+           uib-tooltip="{{dtc.timer.isRunning()? 'Cannot edit the clock while it is running':'Edit the clock'}}"></i>
     </button>
 </div>

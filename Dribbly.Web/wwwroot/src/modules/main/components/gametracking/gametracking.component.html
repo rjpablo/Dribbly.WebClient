@@ -34,16 +34,18 @@
                         <div class="col-6 p-3 text-center text-white">
                             <div class="mb-3">
                                 <div ng-if="gdg.game.status !== gdg.gameStatusEnum.Finished">
-                                    <div class="game-clock"
+                                    <!-- Game Clock -->
+                                    <div class="game-clock mb-2"
                                          ng-show="gdg.game.isTimed">
                                         <drbbly-timer on-ready="gdg.onTimerReady"
+                                                      toggle-on-click="true"
                                                       class="game-clock"
                                                       label="'TIME'"></drbbly-timer>
                                         <div class="controls text-center"
                                              ng-cloak>
                                             <button class="btn btn-sm"
                                                     ng-if="!gdg.timer.isOver()"
-                                                    ng-click="gdg.toggleClock()">
+                                                    ng-click="gdg.timer.toggle()">
                                                 <i class="fa text-white"
                                                    ng-class="gdg.timer.isRunning()? 'fa-pause':'fa-play'"></i>
                                             </button>
@@ -62,11 +64,33 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="period"
+                                    <!-- Period -->
+                                    <div class="period mb-2"
                                          ng-if="gdg.game.isTimed">
                                         <span class="d-block text-center small">PERIOD</span>
                                         <div class="border border-white d-inline-block text-center p-1 value">
                                             {{gdg._period}}
+                                        </div>
+                                    </div>
+                                    <!-- Shot Clock -->
+                                    <div class="shot-clock"
+                                         ng-show="gdg.game.isTimed">
+                                        <drbbly-timer on-ready="gdg.onShotTimerReady"
+                                                      class="game-clock"
+                                                      is-shot-clock="true"
+                                                      label="'SHOT CLOCK'"></drbbly-timer>
+                                        <div class="controls text-center">
+                                            <button class="btn btn-sm text-white"
+                                                    ng-click="gdg.shotTimer.reset()">
+                                                <i class="fa fa-undo"
+                                                   uib-tooltip="Reset the clock"></i>&nbsp;{{gdg.game.defaultShotClockDuration}}
+                                            </button>
+                                            <button class="btn btn-sm"
+                                                    ng-disabled="gdg.shotTimer.isRunning()"
+                                                    ng-click="gdg.shotTimer.edit()">
+                                                <i class="fa fa-pencil text-white"
+                                                   uib-tooltip="{{gdg.shotTimer.isRunning()? 'Cannot edit the clock while it is running':'Edit the clock'}}"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

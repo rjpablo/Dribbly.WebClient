@@ -4,16 +4,18 @@
     angular.module('mainModule')
         .service('drbblyTimerhelperService', [function () {
 
-            function breakupDuration(duration) {
+            function breakupDuration(duration, forShotClock) {
                 var min = Math.floor(duration / 60000);
-                var sec = Math.floor((duration % 60000) / 1000);
+                var sec = forShotClock ?
+                    Math.ceil((duration % 60000) / 1000) : // use the ceiling for shot clock, because we don't show ms
+                    Math.floor((duration % 60000) / 1000);
                 var ms = (duration % 1000);
                 var formatted = '';
-                if (min > 0) {
+                if (min > 0 && !forShotClock) {
                     formatted += `${min.toString().padStart(2, '0')}:`;
                 }
                 formatted += `${sec.toString().padStart(2, '0')}`;
-                if (min === '0') {
+                if (min === '0' && !forShotClock) {
                     formatted += `.${ms.toString()}`;
                 }
 
