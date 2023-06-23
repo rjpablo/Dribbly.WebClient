@@ -34,7 +34,8 @@
                         <div class="col-6 p-3 text-center text-white">
                             <div class="mb-3">
                                 <div ng-if="gdg.game.status !== gdg.gameStatusEnum.Finished">
-                                    <div class="game-clock">
+                                    <div class="game-clock"
+                                         ng-show="gdg.game.isTimed">
                                         <drbbly-timer on-ready="gdg.onTimerReady"
                                                       class="game-clock"
                                                       label="'TIME'"></drbbly-timer>
@@ -45,6 +46,12 @@
                                                     ng-click="gdg.toggleClock()">
                                                 <i class="fa text-white"
                                                    ng-class="gdg.timer.isRunning()? 'fa-pause':'fa-play'"></i>
+                                            </button>
+                                            <button class="btn btn-sm"
+                                                    ng-disabled="gdg.timer.isRunning()"
+                                                    ng-click="gdg.timer.edit()">
+                                                <i class="fa fa-pencil text-white"
+                                                   uib-tooltip="{{gdg.timer.isRunning()? 'Cannot edit the clock while it is running':'Edit the clock'}}"></i>
                                             </button>
                                             <button class="btn btn-sm"
                                                     uib-tooltip="Advance to next period"

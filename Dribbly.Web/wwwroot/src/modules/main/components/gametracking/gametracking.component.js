@@ -39,6 +39,10 @@
             gdg.timer.onStart(function () {
                 updateTime(gdg.timer.remainingTime, true);
             });
+            gdg.timer.onEditted(function (time, commit) {
+                updateTime(time.totalMs, false)
+                    .then(commit);
+            });
         }
 
         function displayTime(duration) {
@@ -140,7 +144,7 @@
                     gdg.game = angular.copy(data);
 
                     if (gdg.game.isTimed) {
-                        
+
                         if (gdg.game.isLive) {
                             gdg.timer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingTime);
                         } else {
@@ -243,13 +247,7 @@
                 updatedAt: timeStamp,
                 isLive: isLive
             };
-            drbblyGamesService.updateRemainingTime(input)
-                .then(function () {
-                    // do nothing
-                })
-                .catch(function () {
-                    // TODO: handle error
-                });
+            return drbblyGamesService.updateRemainingTime(input);
         }
 
         gdg.goToNextPeriod = function () {

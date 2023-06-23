@@ -9,6 +9,7 @@
                 onReady: '<',
                 onUpdate: '<',
                 onStop: '<',
+                onEditted:'<',
                 autoStart: '<',
                 hideControls: '<',
                 label:'<',
@@ -19,8 +20,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$interval'];
-    function controllerFunc($interval) {
+    controllerFunc.$inject = ['$interval', 'drbblyTimerhelperService', 'modalService'];
+    function controllerFunc($interval, drbblyTimerhelperService, modalService) {
         var dtc = this;
         var _gameId;
         var _periodDuration
@@ -30,27 +31,38 @@
             dtc.timer.onUpdate(dtc.onUpdate);
             dtc.timer.onStop(dtc.onStop);
             dtc.timer.onStart(dtc.onStart);
+            dtc.timer.onEditted(dtc.onEditted);
+            dtc.timer._onEdit(edit);
             if (dtc.autoStart) {
                 dtc.timer.run(dtc.startOverride || new Date(), dtc.remainingTime);
                 displayTime(dtc.remainingTime);
-
             }
             dtc.onReady(dtc.timer)
 
         };
 
+        function edit() {
+            return modalService.show({
+                view: '<drbbly-editclockmodal></drbbly-editclockmodal>',
+                model: {
+                    duration: dtc.timer.remainingTime
+                }
+            })
+                .then(function (result) {
+                    function commit() {
+                        dtc.timer.setRemainingTime(result.totalMs);
+                    }
+                    if (dtc.timer.onEdittedCallback) {
+                        dtc.timer.onEdittedCallback(result, commit);
+                    }
+                    else {
+                        commit();
+                    }
+                })
+        }
+
         function displayTime(duration) {
-            var min = Math.floor(duration / 60000).toString();
-            var sec = Math.floor((duration % 60000) / 1000).toString();
-            var ms = Math.floor((duration % 1000) / 100).toString();
-            dtc.time = '';
-            if (min > 0) {
-                dtc.time += `${min.padStart(2, '0')}:`;
-            }
-            dtc.time += `${sec.padStart(2, '0')}`;
-            if (min === '0') {
-                dtc.time += `.${ms}`;
-            }
+            dtc.time = drbblyTimerhelperService.breakupDuration(duration).formattedTime;
         }
 
         dtc.toggleClock = function () {
@@ -102,6 +114,12 @@
             onStart(cb) {
                 this.onStartCallback = cb;
             }
+            onEditted(cb) {
+                this.onEdittedCallback = cb;
+            }
+            _onEdit(cb) {
+                this.onEditCallback = cb;
+            }
             reset(duration) {
                 if (duration !== null && duration !== undefined) {
                     this.origDuration = duration;
@@ -127,6 +145,9 @@
                 } else {
                     this.start();
                 }
+            }
+            edit() {
+                return this.onEditCallback();
             }
             get remainingTime() {
                 return this.duration;
