@@ -3,8 +3,8 @@
 
     angular.module('siteModule')
         .service('settingsService', serviceFn);
-    serviceFn.$inject = ['$location', '$q', '$http', '$rootScope', 'drbblyCommonService'];
-    function serviceFn($location, $q, $http, $rootScope, drbblyCommonService) {
+    serviceFn.$inject = ['$location', '$q', '$http', 'constants', 'drbblyCommonService'];
+    function serviceFn($location, $q, $http, constants, drbblyCommonService) {
         var _service = this;
         var _siteRoot = 'https://localhost:44395/';
         var _hostName = $location.host();
@@ -20,6 +20,7 @@
             var deferred = $q.defer();
             $http.get(_serviceBase + _settingsApiBaseUrl + 'getInitialSettings')
                 .then(function (result) {
+                    constants['Fouls'] = JSON.parse(result.data.drbblySingleOrDefault(s=>s.key === 'Fouls').value);
                     buildSettings(result.data);
                     deferred.resolve();
                 })
@@ -35,7 +36,6 @@
             data.forEach(function (setting) {
                 _service[setting.key] = setting.value !== '' ? setting.value : setting.defaultValue;
             });
-
             _service.defaultDateFormat = 'MMM d, y h:mm a';
             _service.defaultTimeFormat = 'h:mm a';
         }

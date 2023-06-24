@@ -22,6 +22,7 @@
         rsm.$onInit = function () {
             rsm.overlay = drbblyOverlayService.buildOverlay();
             rsm.saveModel = angular.copy(rsm.model, {});
+            setTeams();
             rsm.context.setOnInterrupt(rsm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
                 if (!rsm.context.okToClose) {
@@ -29,6 +30,16 @@
                     rsm.onInterrupt();
                 }
             }, $scope);
+        };
+
+        rsm.addFoul = function () {
+            rsm.withFoul = true;
+            rsm.foulPlayerOptions = rsm.opposingTeam.players;
+            rsm.foulTypeOptions = constants.Fouls;
+        };
+
+        rsm.removeFoul = function () {
+            rsm.withFoul = false;
         };
 
         rsm.onInterrupt = function (reason) {
@@ -50,6 +61,13 @@
             }
         };
 
+        function setTeams() {
+            rsm.shooterTeam = rsm.model.game.team1Id === rsm.model.takenBy.teamId ?
+                rsm.model.game.team1 : rsm.model.game.team2;
+            rsm.opposingTeam = rsm.model.game.team1Id === rsm.model.takenBy.teamId ?
+                rsm.model.game.team2 : rsm.model.game.team1;
+        }
+
         rsm.handleSubmitClick = function () {
             if (rsm.frmShot.$valid) {
                 var result = {
@@ -59,8 +77,22 @@
                         takenById: rsm.saveModel.takenBy.id,
                         teamId: rsm.saveModel.takenBy.teamId,
                         gameId: rsm.saveModel.game.id
-                    }
+                    },
+                    withFoul: rsm.withFoul
                 };
+
+                if (result.withFoul) {
+                    result.foul = {
+                        foulId: rsm.foul.foul.id,
+                        foul: rsm.foul.foul,
+                        performedById: rsm.foul.performedBy.id,
+                        performedBy: rsm.foul.performedBy,
+                        isTechnical: rsm.foul.foul.isTechnical,
+                        isFlagrant: rsm.foul.foul.isFlagrant,
+                        gameId: rsm.saveModel.game.id,
+                        teamId: rsm.foul.performedBy.teamId
+                    }
+                }
 
                 close(result);
             }

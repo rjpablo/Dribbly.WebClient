@@ -1,5 +1,6 @@
 ﻿<div class="modal-header">
     <div class="player-details d-flex">
+        <h3></h3>
         <div class="profile">
             <drbbly-image ng-if="rsm.saveModel.takenBy.profilePhoto"
                           image-url="{{rsm.saveModel.takenBy.profilePhoto.url}}"></drbbly-image>
@@ -29,7 +30,8 @@
 </div>
 <div class="modal-body">
     <div drbbly-overlay="rsm.overlay">
-        <div class="px-3">
+        <!-- Shot Details -->
+        <div class="shot-details border-bottom mb-3">
             <form name="rsm.frmShot"
                   class="flex-grow-1">
                 <h5>Shot Details</h5>
@@ -69,12 +71,60 @@
                 </div>
             </form>
         </div>
+        <!-- Fould Details -->
+        <div class="foul-details border-bottom mb-3">
+            <div ng-show="rsm.withFoul">
+                <form name="rsm.frmFoul">
+                    <h5>Fould Details</h5>
+                    <div class="form-group">
+                        <label>Committed By:</label><br />
+                        <select class="form-control"
+                                ng-model="rsm.foul.performedBy">
+                            <option ng-repeat="player in rsm.foulPlayerOptions"
+                                    ng-value="player">
+                                {{player.jerseyNo}} - {{player.name}}
+                            </option>
+                        </select>
+                        <input type="text"
+                               name="performedBy"
+                               required
+                               hidden
+                               ng-model="rsm.foul.performedBy.id" />
+                    </div>
+                    <div class="form-group">
+                        <label>Foul Type:</label><br />
+                        <select class="form-control"
+                                ng-model="rsm.foul.foul">
+                            <option ng-repeat="foul in rsm.foulTypeOptions"
+                                    ng-value="foul"
+                                    ng-class="{'bg-warning': foul.isTechnical,
+                                    'bg-danger': foul.isFlagrant}">
+                                {{foul.name}}
+                            </option>
+                        </select>
+                        <input type="text"
+                               name="foulType"
+                               required
+                               hidden
+                               ng-model="rsm.foul.foul.id" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="additional-options">
+            <button class="btn btn-secondary btn-block btn-lg"
+                    ng-show="!rsm.withFoul"
+                    ng-click="rsm.addFoul()">
+                With Foul
+            </button>
+        </div>
     </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary"
             i18n="site.Submit"
-            ng-disabled="rsm.isBusy || rsm.frmEditClock.$invalid || rsm.frmEditClock.$pristine"
+            ng-disabled="rsm.isBusy || rsm.frmShot.$invalid
+            || (rsm.withFoul && rsm.frmFoul.$invalid)"
             type="submit"
             ng-click="rsm.handleSubmitClick()"></button>
     <button i18n="site.Cancel"

@@ -129,7 +129,7 @@
                 })
                 .then(async function (result) {
                     if (result.shot) {
-                        var shotResult = await drbblyGamesService.recordShot(result.shot)
+                        var shotResult = await drbblyGamesService.recordShot(result)
                             .then(data => data)
                             .catch(gdg.gameDetailsOverlay.setToError);
                         if (shotResult) {
@@ -137,6 +137,9 @@
                             gdg.game.team2Score = shotResult.team2Score;
                             if (result.shot.isMiss !== 'true') {
                                 gdg.selectedPlayer.points += result.shot.points;
+                            }
+                            if (result.withFoul) {
+                                result.foul.performedBy.fouls++;
                             }
                             gdg.unselectPlayer(gdg.selectedPlayer);
                         }
@@ -207,6 +210,7 @@
                 drbblyGamesService.getGameTeam(game.id, game.team1.id)
                     .then(function (data) {
                         gdg.team1 = data;
+                        gdg.game.team1 = gdg.team1;
                     })
                     .catch(gdg.gameDetailsOverlay.setToError);
             }
@@ -215,6 +219,7 @@
                 drbblyGamesService.getGameTeam(game.id, game.team2.id)
                     .then(function (data) {
                         gdg.team2 = data;
+                        gdg.game.team2 = gdg.team2;
                     })
                     .catch(gdg.gameDetailsOverlay.setToError);
             }
