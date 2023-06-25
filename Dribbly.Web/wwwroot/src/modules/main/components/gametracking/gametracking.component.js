@@ -133,13 +133,13 @@
                             .then(data => data)
                             .catch(gdg.gameDetailsOverlay.setToError);
                         if (shotResult) {
-                            gdg.game.team1Score = shotResult.team1Score;
-                            gdg.game.team2Score = shotResult.team2Score;
+                            gdg.game.team1Score = shotResult.game.team1Score;
+                            gdg.game.team2Score = shotResult.game.team2Score;
                             if (result.shot.isMiss !== 'true') {
-                                gdg.selectedPlayer.points += result.shot.points;
+                                gdg.selectedPlayer.points = shotResult.totalPoints;
                             }
                             if (result.withFoul) {
-                                result.foul.performedBy.fouls++;
+                                result.foul.performedBy.fouls = shotResult.foulResult.totalPersonalFouls;
                             }
                             gdg.unselectPlayer(gdg.selectedPlayer);
                         }
