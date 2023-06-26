@@ -1,31 +1,11 @@
 ﻿<div class="modal-header">
     <div class="player-details d-flex">
-        <h3></h3>
         <div class="profile">
             <drbbly-image ng-if="rsm.saveModel.takenBy.profilePhoto"
                           image-url="{{rsm.saveModel.takenBy.profilePhoto.url}}"></drbbly-image>
         </div>
-        <div class="flex-grow-1 stats border border-secondary">
-            <div class="bg-light font-weight-bold  text-center">{{rsm.saveModel.takenBy.name}}</div>
-            <table class="table table-sm table-light w-100 mb-0">
-                <thead>
-                    <tr>
-                        <th>Pts</th>
-                        <th>F</th>
-                        <th>Reb</th>
-                        <th>Ast</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{rsm.saveModel.takenBy.points}}</td>
-                        <td>{{rsm.saveModel.takenBy.fouls}}</td>
-                        <td>{{rsm.saveModel.takenBy.rebounds}}</td>
-                        <td>{{rsm.saveModel.takenBy.assists}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <drbbly-playerstats player="rsm.saveModel.takenBy"
+                            class="flex-grow-1"></drbbly-playerstats>
     </div>
 </div>
 <div class="modal-body">
@@ -82,14 +62,14 @@
                                 ng-model="rsm.foul.performedBy">
                             <option ng-repeat="player in rsm.foulPlayerOptions"
                                     ng-value="player">
-                                {{player.jerseyNo}} - {{player.name}}
+                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
                             </option>
                         </select>
                         <input type="text"
                                name="performedBy"
                                required
                                hidden
-                               ng-model="rsm.foul.performedBy.id" />
+                               ng-model="rsm.foul.performedBy.teamMembership.account.id" />
                     </div>
                     <div class="form-group">
                         <label>Foul Type:</label><br />

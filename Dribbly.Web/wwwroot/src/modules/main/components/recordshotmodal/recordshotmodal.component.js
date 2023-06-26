@@ -33,9 +33,19 @@
         };
 
         rsm.addFoul = function () {
-            rsm.withFoul = true;
             rsm.foulPlayerOptions = rsm.opposingTeam.players;
             rsm.foulTypeOptions = constants.Fouls;
+            rsm.withFoul = true;
+
+            if (!rsm.foul) {
+                rsm.foul = {};
+                if (rsm.foulPlayerOptions.length === 1) {
+                    // Set as default if there's only one
+                    rsm.foul.performedBy = rsm.foulPlayerOptions[0];
+                }
+                //set Shooting fouls as the default
+                rsm.foul.foul = rsm.foulTypeOptions.drbblySingle(f => f.name === 'Shooting');
+            }
         };
 
         rsm.removeFoul = function () {
@@ -62,9 +72,9 @@
         };
 
         function setTeams() {
-            rsm.shooterTeam = rsm.model.game.team1Id === rsm.model.takenBy.teamId ?
+            rsm.shooterTeam = rsm.model.game.team1.teamId === rsm.model.takenBy.teamId ?
                 rsm.model.game.team1 : rsm.model.game.team2;
-            rsm.opposingTeam = rsm.model.game.team1Id === rsm.model.takenBy.teamId ?
+            rsm.opposingTeam = rsm.model.game.team1.teamId === rsm.model.takenBy.teamId ?
                 rsm.model.game.team2 : rsm.model.game.team1;
         }
 
@@ -74,7 +84,7 @@
                     shot: {
                         points: rsm.saveModel.points,
                         isMiss: rsm.saveModel.isMiss,
-                        takenById: rsm.saveModel.takenBy.id,
+                        takenById: rsm.saveModel.takenBy.memberAccountId,
                         teamId: rsm.saveModel.takenBy.teamId,
                         gameId: rsm.saveModel.game.id
                     },
@@ -85,12 +95,13 @@
                     result.foul = {
                         foulId: rsm.foul.foul.id,
                         foul: rsm.foul.foul,
-                        performedById: rsm.foul.performedBy.id,
-                        performedBy: rsm.foul.performedBy,
+                        performedById: rsm.foul.performedBy.teamMembership.account.id,
+                        performedBy: rsm.foul.performedBy.teamMembership.account,
                         isTechnical: rsm.foul.foul.isTechnical,
                         isFlagrant: rsm.foul.foul.isFlagrant,
                         gameId: rsm.saveModel.game.id,
-                        teamId: rsm.foul.performedBy.teamId
+                        teamId: rsm.foul.performedBy.teamMembership.teamId,
+                        performedByGamePlayer: rsm.foul.performedBy
                     }
                 }
 

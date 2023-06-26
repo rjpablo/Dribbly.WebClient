@@ -13,11 +13,11 @@
         });
 
     controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
-        'drbblyOverlayService', '$stateParams', '$scope', '$state', '$interval',
-        'drbblyGameshelperService', 'drbblyDatetimeService'];
+        'drbblyOverlayService', '$stateParams', '$interval', 'drbblyCommonService',
+        'drbblyGameshelperService', 'drbblyDatetimeService', 'drbblyGameeventsService'];
     function controllerFunc(drbblyGamesService, modalService, constants, authService,
-        drbblyOverlayService, $stateParams, $scope, $state, $interval,
-        drbblyGameshelperService, drbblyDatetimeService) {
+        drbblyOverlayService, $stateParams, $interval, drbblyCommonService,
+        drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService) {
         var gdg = this;
         var _gameId;
         var _periodDuration
@@ -115,41 +115,87 @@
             gdg.selectedPlayer = null;
         }
 
-        gdg.recordShot = function (points, isMiss) {
+        gdg.recordShot = async function (points, isMiss) {
 
-            modalService
+            var modalResult = await modalService
                 .show({
                     view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
                     model: {
                         game: gdg.game,
-                        takenBy: gdg.selectedPlayer,
+                        takenBy: gdg.selectedPlayer.teamMembership,
                         points: points,
                         isMiss: isMiss.toString()
                     }
-                })
-                .then(async function (result) {
-                    if (result.shot) {
-                        var shotResult = await drbblyGamesService.recordShot(result)
-                            .then(data => data)
-                            .catch(gdg.gameDetailsOverlay.setToError);
-                        if (shotResult) {
-                            gdg.game.team1Score = shotResult.game.team1Score;
-                            gdg.game.team2Score = shotResult.game.team2Score;
-                            if (result.shot.isMiss !== 'true') {
-                                gdg.selectedPlayer.points = shotResult.totalPoints;
-                            }
-                            if (result.withFoul) {
-                                result.foul.performedBy.fouls = shotResult.foulResult.totalPersonalFouls;
-                            }
-                            gdg.unselectPlayer(gdg.selectedPlayer);
+                }).catch(err => { /*modal cancelled, do nothing*/ });
+
+            if (modalResult) {
+                if (modalResult.shot) {
+                    var shotResult = await drbblyGamesService.recordShot(modalResult)
+                        .then(data => data)
+                        .catch(function (err) {
+                            drbblyCommonService.handleError(err, null, 'The shot was not recoded due to an error.')
+                        });
+                    if (shotResult) {
+                        gdg.game.team1Score = shotResult.team1Score;
+                        gdg.game.team2Score = shotResult.team2Score;
+                        if (modalResult.shot.isMiss !== 'true') {
+                            gdg.selectedPlayer.points = shotResult.totalPoints;
+                        }
+                        if (modalResult.withFoul) {
+                            modalResult.foul.performedBy.fouls = shotResult.foulResult.totalPersonalFouls;
+                        }
+                        gdg.unselectPlayer(gdg.selectedPlayer);
+
+                        if (modalResult.withFoul) {
+                            applyFoulResult(shotResult.foulResult, modalResult.foul.performedByGamePlayer);
                         }
                     }
-                })
-                .catch(function () {
-                    // do nothing
-                });
+                }
+            }
+        }
 
+        gdg.recordFoul = async function () {
+            var modalResult = await modalService
+                .show({
+                    view: '<drbbly-fouldetailsmodal></drbbly-fouldetailsmodal>',
+                    model: {
+                        game: gdg.game,
+                        performedBy: gdg.selectedPlayer,
+                    }
+                }).catch(err => { /*modal cancelled, do nothing*/ });
 
+            if (modalResult) {
+                var foulResult = await drbblyGameeventsService.upsertFoul(modalResult)
+                    .then(data => data)
+                    .catch(function (err) {
+                        drbblyCommonService.handleError(err, null, 'The foul was not recoded due to an error.');
+                    });
+                if (foulResult) {
+                    applyFoulResult(foulResult, gdg.selectedPlayer);
+                }
+            }
+        }
+
+        function applyFoulResult(foulResult, performedBy) {
+            if (foulResult) {
+                performedBy.fouls = foulResult.totalPersonalFouls;
+
+                if (foulResult.totalTechnicalFouls >= gdg.game.allowedTechnicalFouls) {
+                    performedBy.isEjected = true;
+                    modalService.alert({
+                        titleRaw: 'EJECTED',
+                        msg1Raw: `${performedBy.teamMembership.name} has committed 2 technical fouls.`
+                    });
+                }
+                else if (foulResult.totalPersonalFouls >= gdg.game.allowedPersonalFouls) {
+                    performedBy.hasFouledOut = true;
+                    modalService.alert({
+                        titleRaw: 'FOULED OUT',
+                        msg1Raw: `${performedBy.teamMembership.name} has committed 6 personal fouls.`
+                    });
+                }
+                gdg.unselectPlayer(performedBy);
+            }
         }
 
         gdg.endGame = function () {
@@ -175,6 +221,14 @@
                 });
         }
 
+        gdg.canRecordShot = function () {
+            return gdg.selectedPlayer && !(gdg.selectedPlayer.isEjected || gdg.selectedPlayer.hasFouledOut);
+        }
+
+        gdg.canRecordFoul = function () {
+            return gdg.selectedPlayer && !(gdg.selectedPlayer.isEjected || gdg.selectedPlayer.hasFouledOut);
+        }
+
         function loadGame() {
             gdg.gameDetailsOverlay.setToBusy();
             drbblyGamesService.getGame(_gameId)
@@ -196,33 +250,13 @@
                         displayPeriod(gdg.game.currentPeriod);
                     }
 
-                    loadTeams(gdg.game);
+                    //loadTeams(gdg.game);
                     gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
                     checkTeamLogos();
                     gdg.gameDetailsOverlay.setToReady();
                 })
                 .catch(gdg.gameDetailsOverlay.setToError);
-        }
-
-        function loadTeams(game) {
-            if (game.team1) {
-                drbblyGamesService.getGameTeam(game.id, game.team1.id)
-                    .then(function (data) {
-                        gdg.team1 = data;
-                        gdg.game.team1 = gdg.team1;
-                    })
-                    .catch(gdg.gameDetailsOverlay.setToError);
-            }
-
-            if (game.team2) {
-                drbblyGamesService.getGameTeam(game.id, game.team2.id)
-                    .then(function (data) {
-                        gdg.team2 = data;
-                        gdg.game.team2 = gdg.team2;
-                    })
-                    .catch(gdg.gameDetailsOverlay.setToError);
-            }
         }
 
         function checkTeamLogos() {
@@ -273,8 +307,8 @@
                     .then(function () {
                         loadGame();
                     })
-                    .catch(function () {
-                        // do nothing
+                    .catch(function (err) {
+                        drbblyCommonService.handleError(err);
                     });
             }
             else {
@@ -342,7 +376,7 @@
                         loadGame();
                     }
                 })
-                .catch(function () { /* do nothing */ });
+                .catch(function (err) { /* do nothing */ });
         };
 
         gdg.cancelGame = function () {

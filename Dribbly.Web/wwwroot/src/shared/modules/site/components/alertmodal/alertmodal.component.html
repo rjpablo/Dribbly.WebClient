@@ -1,5 +1,5 @@
-﻿<div ng-if="dam.model.titleKey" class="modal-header">
-    <h3 class="modal-title">{{dam.model.titleKey | i18n}}</h3>
+﻿<div ng-if="dam.model.titleKey || dam.model.titleRaw" class="modal-header">
+    <h3 class="modal-title">{{dam.model.titleRaw || (dam.model.titleKey | i18n)}}</h3>
 </div>
 <div class="text-center modal-body">
     <div ng-if="!dam.model.bodyTemplate">

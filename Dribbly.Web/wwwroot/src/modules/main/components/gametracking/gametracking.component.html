@@ -16,17 +16,17 @@
                     <div class="row">
                         <div class="col-3 text-white text-center">
                             <div class="p-3">
-                                <img class="logo" ng-src="{{gdg.game.team1.logo.url}}" />
-                                <a ui-sref="main.team.home({id: gdg.game.team1.id})"
+                                <img class="logo" ng-src="{{gdg.game.team1.team.logo.url}}" />
+                                <a ui-sref="main.team.home({id: gdg.game.team1.team.id})"
                                    target="_blank">
                                     <h5 class="text-white m-0 d-inline-block">
-                                        {{gdg.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team1.name}}
+                                        {{gdg.game.team1.team.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team1.team.name}}
                                     </h5>
                                 </a>
                             </div>
                             <div class="py-2">
                                 <h1 class="text-center text-white score"
-                                    ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team1.id}">
+                                    ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team1.team.id}">
                                     {{gdg.game.team1Score || 0}}
                                 </h1>
                             </div>
@@ -123,17 +123,17 @@
                         </div>
                         <div class="col-3 text-white text-center">
                             <div class="p-3">
-                                <img class="logo" ng-src="{{gdg.game.team2.logo.url}}" />
-                                <a ui-sref="main.team.home({id: gdg.game.team2.id})"
+                                <img class="logo" ng-src="{{gdg.game.team2.team.logo.url}}" />
+                                <a ui-sref="main.team.home({id: gdg.game.team2.team.id})"
                                    target="_blank">
                                     <h5 class="text-white m-0 d-inline-block">
-                                        {{gdg.game.team2.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team2.name}}
+                                        {{gdg.game.team2.team.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gdg.game.team2.team.name}}
                                     </h5>
                                 </a>
                             </div>
                             <div class="py-2">
                                 <h1 class="text-center text-white score"
-                                    ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team2.id}">
+                                    ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== gdg.game.team2.team.id}">
                                     {{gdg.game.team2Score || 0}}
                                 </h1>
                             </div>
@@ -157,18 +157,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in gdg.team1.players"
+                        <tr ng-repeat="gamePlayer in gdg.game.team1.players"
                             class="player"
-                            ng-click="gdg.togglePlayerSelection(player)"
-                            ng-class="{'selected': player.isSelected}">
-                            <td>{{player.jerseyNo}}</td>
-                            <td>{{player.name}}</td>
-                            <td>{{player.points}}</td>
-                            <td class="d-none d-lg-table-cell">{{player.fouls}}</td>
-                            <td class="d-none d-lg-table-cell">{{player.rebounds}}</td>
-                            <td class="d-none d-lg-table-cell">{{player.assists}}</td>
+                            ng-click="gdg.togglePlayerSelection(gamePlayer)"
+                            ng-class="{'selected': gamePlayer.isSelected}">
+                            <td>{{gamePlayer.teamMembership.jerseyNo}}</td>
+                            <td>{{gamePlayer.teamMembership.name}}</td>
+                            <td>{{gamePlayer.points}}</td>
+                            <td class="d-none d-lg-table-cell">{{gamePlayer.fouls}}</td>
+                            <td class="d-none d-lg-table-cell">{{gamePlayer.rebounds}}</td>
+                            <td class="d-none d-lg-table-cell">{{gamePlayer.assists}}</td>
                         </tr>
-                        <tr ng-if="gdg.team1.players.length === 0">
+                        <tr ng-if="gdg.game.team2.players.length === 0">
                             <td class="text-center" colspan="6">
                                 No players found.
                             </td>
@@ -182,10 +182,16 @@
                         <table class="font-weight-bold">
                             <tr>
                                 <td>
-                                    <span class="jersey-no d-inline-block px-3 text-white">{{gdg.selectedPlayer.jerseyNo}}</span>
+                                    <span class="jersey-no d-inline-block px-3 text-white">{{gdg.selectedPlayer.teamMembership.jerseyNo}}</span>
                                 </td>
                                 <td class="w-100">
-                                    <span class="d-inline-block px-3">{{gdg.selectedPlayer.name}}</span>
+                                    <span class="d-inline-block px-3">
+                                        {{gdg.selectedPlayer.teamMembership.name}}
+                                        <span ng-if="gdg.selectedPlayer.hasFouledOut || gdg.selectedPlayer.isEjected"
+                                              class="font-weight-light">
+                                            ({{gdg.selectedPlayer.isEjected? 'EJECTED':'FOULED OUT'}})
+                                        </span>
+                                    </span>
                                 </td>
                                 <td>
                                     <button class="btn btn-secondary ml-auto"
@@ -205,19 +211,19 @@
                         <button type="button"
                                 class="btn btn-block btn-secondary"
                                 ng-click="gdg.recordShot(1, false)"
-                                ng-disabled="!gdg.selectedPlayer">
+                                ng-disabled="!gdg.canRecordShot()">
                             +1
                         </button>
                         <button type="button"
                                 class="btn btn-block btn-secondary"
                                 ng-click="gdg.recordShot(2, false)"
-                                ng-disabled="!gdg.selectedPlayer">
+                                ng-disabled="!gdg.canRecordShot()">
                             +2
                         </button>
                         <button type="button"
                                 class="btn btn-block btn-secondary"
                                 ng-click="gdg.recordShot(3, false)"
-                                ng-disabled="!gdg.selectedPlayer">
+                                ng-disabled="!gdg.canRecordShot()">
                             +3
                         </button>
                     </div>
@@ -225,19 +231,19 @@
                         <button type="button"
                                 class="btn btn-block btn-danger"
                                 ng-click="gdg.recordShot(1, true)"
-                                ng-disabled="!gdg.selectedPlayer">
+                                ng-disabled="!gdg.canRecordShot()">
                             miss 1
                         </button>
                         <button type="button"
                                 class="btn btn-block btn-danger"
                                 ng-click="gdg.recordShot(2, true)"
-                                ng-disabled="!gdg.selectedPlayer">
+                                ng-disabled="!gdg.canRecordShot()">
                             miss 2
                         </button>
                         <button type="button"
                                 class="btn btn-block btn-danger"
                                 ng-click="gdg.recordShot(3, true)"
-                                ng-disabled="!gdg.selectedPlayer">
+                                ng-disabled="!gdg.canRecordShot()">
                             miss 3
                         </button>
                     </div>
@@ -245,7 +251,7 @@
                         <button type="button"
                                 class="btn btn-block btn-secondary"
                                 ng-click="gdg.recordFoul()"
-                                ng-disabled="!gdg.selectedPlayer">
+                                ng-disabled="!gdg.canRecordFoul()">
                             Foul
                         </button>
                     </div>
@@ -264,18 +270,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="player in gdg.team2.players"
+                        <tr ng-repeat="gamePlayer in gdg.game.team2.players"
                             class="player"
-                            ng-click="gdg.togglePlayerSelection(player)"
-                            ng-class="{'selected': player.isSelected}">
-                            <td>{{player.jerseyNo}}</td>
-                            <td>{{player.name}}</td>
-                            <td>{{player.points}}</td>
-                            <td class="d-none d-lg-table-cell">{{player.fouls}}</td>
-                            <td class="d-none d-lg-table-cell">{{player.rebounds}}</td>
-                            <td class="d-none d-lg-table-cell">{{player.assists}}</td>
+                            ng-click="gdg.togglePlayerSelection(gamePlayer)"
+                            ng-class="{'selected': gamePlayer.isSelected}">
+                            <td>{{gamePlayer.teamMembership.jerseyNo}}</td>
+                            <td>{{gamePlayer.teamMembership.name}}</td>
+                            <td>{{gamePlayer.points}}</td>
+                            <td class="d-none d-lg-table-cell">{{gamePlayer.fouls}}</td>
+                            <td class="d-none d-lg-table-cell">{{gamePlayer.rebounds}}</td>
+                            <td class="d-none d-lg-table-cell">{{gamePlayer.assists}}</td>
                         </tr>
-                        <tr ng-if="gdg.team2.players.length === 0">
+                        <tr ng-if="gdg.game.team2.players.length === 0">
                             <td class="text-center" colspan="6">
                                 No players found.
                             </td>

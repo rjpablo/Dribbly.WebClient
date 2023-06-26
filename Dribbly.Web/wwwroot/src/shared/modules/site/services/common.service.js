@@ -21,6 +21,10 @@
 
                         errorLog = buildErrorLog(error.message, error.message, null, null, error.stack);
                         $log.error(errorLog);
+
+                        modalService.alert({
+                            msg2Raw: friendlyMsg
+                        });
                     }
                 };
 
