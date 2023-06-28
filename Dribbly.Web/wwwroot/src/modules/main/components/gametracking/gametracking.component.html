@@ -187,9 +187,9 @@
                                 <td class="w-100">
                                     <span class="d-inline-block px-3">
                                         {{gdg.selectedPlayer.teamMembership.name}}
-                                        <span ng-if="gdg.selectedPlayer.hasFouledOut || gdg.selectedPlayer.isEjected"
+                                        <span ng-if="gdg.selectedPlayer.hasFouledOut || gdg.isEjected(gdg.selectedPlayer)"
                                               class="font-weight-light">
-                                            ({{gdg.selectedPlayer.isEjected? 'EJECTED':'FOULED OUT'}})
+                                            ({{gdg.selectedPlayer.hasFouledOut? 'FOULED OUT':'EJECTED'}})
                                         </span>
                                     </span>
                                 </td>

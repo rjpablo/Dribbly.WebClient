@@ -179,13 +179,22 @@
         function applyFoulResult(foulResult, performedBy) {
             if (foulResult) {
                 performedBy.fouls = foulResult.totalPersonalFouls;
+                performedBy.ejectionStatus = foulResult.ejectionStatus;
 
-                if (foulResult.totalTechnicalFouls >= gdg.game.allowedTechnicalFouls) {
-                    performedBy.isEjected = true;
+                if (foulResult.ejectionStatus !== constants.enums.ejectionStatusEnum.NotEjected) {
+                    var msg = '';
+                    if (foulResult.ejectionStatus == constants.enums.ejectionStatusEnum.Ejected2FlagrantFouls) {
+                        msg = `${performedBy.teamMembership.name} is ejected for committing 2 Flagrant Fouls.`
+                    } else if (foulResult.ejectionStatus == constants.enums.ejectionStatusEnum.EjectedFlagrantFoul2) {
+                        msg = `${performedBy.teamMembership.name} is ejected for committing Flagrant Foul 2.`
+                    } else {
+                        msg = `${performedBy.teamMembership.name} is now ejected.`;
+                    }
+
                     modalService.alert({
                         titleRaw: 'EJECTED',
-                        msg1Raw: `${performedBy.teamMembership.name} has committed 2 technical fouls.`
-                    });
+                        msg1Raw: msg
+                    })
                 }
                 else if (foulResult.totalPersonalFouls >= gdg.game.allowedPersonalFouls) {
                     performedBy.hasFouledOut = true;
@@ -222,11 +231,15 @@
         }
 
         gdg.canRecordShot = function () {
-            return gdg.selectedPlayer && !(gdg.selectedPlayer.isEjected || gdg.selectedPlayer.hasFouledOut);
+            return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut);
         }
 
         gdg.canRecordFoul = function () {
-            return gdg.selectedPlayer && !(gdg.selectedPlayer.isEjected || gdg.selectedPlayer.hasFouledOut);
+            return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut);
+        }
+
+        gdg.isEjected = function (player) {
+            return player && player.ejectionStatus !== constants.enums.ejectionStatusEnum.NotEjected;
         }
 
         function loadGame() {
