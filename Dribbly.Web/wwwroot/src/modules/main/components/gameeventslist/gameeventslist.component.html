@@ -1,0 +1,22 @@
+﻿<div>
+    <div ng-repeat="event in gel.events | orderBy : 'dateAdded' : true"
+         ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2}"
+         class="event-row">
+        <div class="event-wrapper">
+            <div class="flex-grow-1"
+                 ng-class="{'text-right':event.isTeam1}">
+                <span>{{event.performedBy.name}}</span>&nbsp;
+                <span>
+                    {{
+                    event.type === $root.constants.enums.gameEventTypeEnum.ShotMade? 'Shot Made(+' + event.additionalData.points + 'pts)' :
+                    event.type === $root.constants.enums.gameEventTypeEnum.ShotMissed? 'MISS':
+                    event.type === $root.constants.enums.gameEventTypeEnum.FoulCommitted? 'FOUL(' + event.additionalData.foulName + ')'
+                    : ''
+                    }}
+                </span>
+            </div>
+            <img class="player-image" ng-src="{{event.performedBy.profilePhoto.url}}" />
+            <span class="clock text-secondary text-center">{{'00:00'}}</span>
+        </div>
+    </div>
+</div>

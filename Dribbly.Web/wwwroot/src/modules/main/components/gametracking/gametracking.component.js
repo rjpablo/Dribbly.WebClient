@@ -122,7 +122,7 @@
                     view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
                     model: {
                         game: gdg.game,
-                        takenBy: gdg.selectedPlayer.teamMembership,
+                        performedBy: gdg.selectedPlayer.teamMembership,
                         points: points,
                         isMiss: isMiss.toString()
                     }

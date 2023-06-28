@@ -72,9 +72,9 @@
         };
 
         function setTeams() {
-            rsm.shooterTeam = rsm.model.game.team1.teamId === rsm.model.takenBy.teamId ?
+            rsm.shooterTeam = rsm.model.game.team1.teamId === rsm.model.performedBy.teamId ?
                 rsm.model.game.team1 : rsm.model.game.team2;
-            rsm.opposingTeam = rsm.model.game.team1.teamId === rsm.model.takenBy.teamId ?
+            rsm.opposingTeam = rsm.model.game.team1.teamId === rsm.model.performedBy.teamId ?
                 rsm.model.game.team2 : rsm.model.game.team1;
         }
 
@@ -84,8 +84,8 @@
                     shot: {
                         points: rsm.saveModel.points,
                         isMiss: rsm.saveModel.isMiss,
-                        takenById: rsm.saveModel.takenBy.memberAccountId,
-                        teamId: rsm.saveModel.takenBy.teamId,
+                        performedById: rsm.saveModel.performedBy.memberAccountId,
+                        teamId: rsm.saveModel.performedBy.teamId,
                         gameId: rsm.saveModel.game.id
                     },
                     withFoul: rsm.withFoul

@@ -1,0 +1,38 @@
+drbbly-gameeventslist {
+    display: block;
+    background-color: #fff;
+
+    .event-row {
+        display: flex;
+        padding: 0.25rem;
+
+        &.is-team2 {
+            justify-content: flex-end;
+
+            .event-wrapper {
+                flex-direction: row-reverse;
+            }
+        }
+
+        .event-wrapper {
+            display: flex;
+            align-items: center;
+            width: calc(50% + 36px);
+
+            .player-image {
+                width: 27px;
+                height: 27px;
+                object-fit: cover;
+                margin: 0 0.25rem;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+
+            .clock {
+                width: 72px;
+                font-size: 0.9rem;
+                flex-shrink: 0;
+            }
+        }
+    }
+}

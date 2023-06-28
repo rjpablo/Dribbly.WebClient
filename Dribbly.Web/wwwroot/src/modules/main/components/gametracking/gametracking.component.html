@@ -206,7 +206,7 @@
                         Select a player to update
                     </div>
                 </div>
-                <div class="options">
+                <div class="options mb-3">
                     <div class="d-flex flex-column">
                         <button type="button"
                                 class="btn btn-block btn-secondary"
@@ -256,6 +256,10 @@
                         </button>
                     </div>
                 </div>
+                <drbbly-gameeventslist game="gdg.game"
+                                       events ="gdg.game.gameEvents"
+                                       class="border"
+                                       ng-if="gdg.game"></drbbly-gameeventslist>
             </div>
             <div class="col-3 player-list">
                 <table class="table table-sm table-light">
