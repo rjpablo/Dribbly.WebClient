@@ -66,7 +66,9 @@
                     isTechnical: rsm.model.foul.isTechnical,
                     isFlagrant: rsm.model.foul.isFlagrant,
                     gameId: rsm.saveModel.game.id,
-                    teamId: rsm.model.performedBy.teamMembership.teamId
+                    teamId: rsm.model.performedBy.teamMembership.teamId,
+                    period: rsm.model.period,
+                    clockTime: rsm.model.clockTime
                 }
 
                 close(result);

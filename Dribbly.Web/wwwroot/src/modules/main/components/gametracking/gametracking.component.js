@@ -124,6 +124,8 @@
                         game: gdg.game,
                         performedBy: gdg.selectedPlayer.teamMembership,
                         points: points,
+                        period: gdg.game.currentPeriod,
+                        clockTime: gdg.timer.remainingTime,
                         isMiss: isMiss.toString()
                     }
                 }).catch(err => { /*modal cancelled, do nothing*/ });
@@ -161,6 +163,8 @@
                     model: {
                         game: gdg.game,
                         performedBy: gdg.selectedPlayer,
+                        period: gdg.game.currentPeriod,
+                        clockTime: gdg.timer.remainingTime,
                     }
                 }).catch(err => { /*modal cancelled, do nothing*/ });
 

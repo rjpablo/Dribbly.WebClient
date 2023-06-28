@@ -13,8 +13,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['modalService', '$element'];
-    function controllerFunc(modalService, $element) {
+    controllerFunc.$inject = ['drbblyTimerhelperService', '$element'];
+    function controllerFunc(drbblyTimerhelperService, $element) {
         var gel = this;
 
         gel.$onInit = function () {
@@ -22,6 +22,7 @@
                 e.additionalData = JSON.parse(e.additionalData);
                 e.isTeam1 = e.teamId === gel.game.team1.teamId;
                 e.isTeam2 = e.teamId === gel.game.team2.teamId;
+                e.timeDisplay = drbblyTimerhelperService.breakupDuration(e.clockTime).formattedTime
             });
         };
     }

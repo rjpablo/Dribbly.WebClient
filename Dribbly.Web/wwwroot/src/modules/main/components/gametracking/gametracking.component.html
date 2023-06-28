@@ -256,10 +256,6 @@
                         </button>
                     </div>
                 </div>
-                <drbbly-gameeventslist game="gdg.game"
-                                       events ="gdg.game.gameEvents"
-                                       class="border"
-                                       ng-if="gdg.game"></drbbly-gameeventslist>
             </div>
             <div class="col-3 player-list">
                 <table class="table table-sm table-light">
@@ -292,6 +288,15 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="bg-secondary w-100 text-center p-1 text-white">Play-by-Play</div>
+                <drbbly-gameeventslist game="gdg.game"
+                                       events="gdg.game.gameEvents"
+                                       class="border"
+                                       ng-if="gdg.game"></drbbly-gameeventslist>
             </div>
         </div>
     </div>

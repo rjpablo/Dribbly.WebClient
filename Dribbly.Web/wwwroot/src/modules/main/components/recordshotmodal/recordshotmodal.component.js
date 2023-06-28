@@ -86,7 +86,9 @@
                         isMiss: rsm.saveModel.isMiss,
                         performedById: rsm.saveModel.performedBy.memberAccountId,
                         teamId: rsm.saveModel.performedBy.teamId,
-                        gameId: rsm.saveModel.game.id
+                        gameId: rsm.saveModel.game.id,
+                        period: rsm.saveModel.period,
+                        clockTime: rsm.saveModel.clockTime,
                     },
                     withFoul: rsm.withFoul
                 };
@@ -101,7 +103,9 @@
                         isFlagrant: rsm.foul.foul.isFlagrant,
                         gameId: rsm.saveModel.game.id,
                         teamId: rsm.foul.performedBy.teamMembership.teamId,
-                        performedByGamePlayer: rsm.foul.performedBy
+                        performedByGamePlayer: rsm.foul.performedBy,
+                        period: rsm.saveModel.period,
+                        clockTime: rsm.saveModel.clockTime
                     }
                 }
 

@@ -2,6 +2,21 @@ drbbly-gameeventslist {
     display: block;
     background-color: #fff;
 
+    .teams {
+        display: flex;
+        justify-content: space-around;
+
+        &>div{
+            display:flex;
+            align-items:center;
+        }
+
+        .logo {
+            height: 30px;
+            width: 30px;
+        }
+    }
+
     .event-row {
         display: flex;
         padding: 0.25rem;

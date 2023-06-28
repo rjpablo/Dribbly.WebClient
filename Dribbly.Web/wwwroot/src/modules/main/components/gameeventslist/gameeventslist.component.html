@@ -1,9 +1,19 @@
-﻿<div>
+﻿<div class="p-3">
+    <div class="teams p-3">
+        <div class="text-center">
+            <img class="logo" ng-src="{{gel.game.team1.team.logo.url}}" />
+            <h5 class="d-inline m-0 px-1">{{gel.game.team1.team.name}}</h5>
+        </div>
+        <div class="text-center">
+            <img class="logo" ng-src="{{gel.game.team2.team.logo.url}}" />
+            <h5 class="d-inline m-0 px-1">{{gel.game.team2.team.name}}</h5>
+        </div>
+    </div>
     <div ng-repeat="event in gel.events | orderBy : 'dateAdded' : true"
          ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2}"
          class="event-row">
         <div class="event-wrapper">
-            <div class="flex-grow-1"
+            <div class="flex-grow-1 text-black"
                  ng-class="{'text-right':event.isTeam1}">
                 <span>{{event.performedBy.name}}</span>&nbsp;
                 <span>
@@ -16,7 +26,7 @@
                 </span>
             </div>
             <img class="player-image" ng-src="{{event.performedBy.profilePhoto.url}}" />
-            <span class="clock text-secondary text-center">{{'00:00'}}</span>
+            <span class="clock text-secondary text-center">{{event.timeDisplay}}</span>
         </div>
     </div>
 </div>

@@ -148,5 +148,12 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="bg-secondary w-100 text-center p-1 text-white">Play-by-Play</div>
+            <drbbly-gameeventslist game="gdg.game"
+                                   events="gdg.game.gameEvents"
+                                   class="border w-100"
+                                   ng-if="gdg.game"></drbbly-gameeventslist>
+        </div>
     </div>
 </div>
