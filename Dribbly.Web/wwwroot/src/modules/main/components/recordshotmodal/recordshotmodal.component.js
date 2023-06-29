@@ -63,6 +63,22 @@
             }
         };
 
+        rsm.addAssist = function () {
+            rsm.assistPlayerOptions = rsm.shooterTeam.players
+                .drbblyWhere(p => p.teamMembership.memberAccountId !== rsm.saveModel.performedBy.memberAccountId);
+            rsm.withAssist = true;
+
+            if (!rsm.assist) {
+                rsm.assist = {
+                    type: constants.enums.gameEventTypeEnum.Assist
+                };
+                if (rsm.assistPlayerOptions.length === 1) {
+                    // Set as default if there's only one
+                    rsm.assist.performedBy = rsm.assistPlayerOptions[0];
+                }
+            }
+        };
+
         rsm.removeFoul = function () {
             rsm.withFoul = false;
         };
@@ -106,7 +122,8 @@
                         clockTime: rsm.saveModel.clockTime,
                     },
                     withFoul: rsm.withFoul,
-                    withBlock: rsm.withBlock && rsm.saveModel.isMiss
+                    withBlock: rsm.withBlock && rsm.saveModel.isMiss,
+                    withAssist: rsm.withAssist && !rsm.saveModel.isMiss
                 };
 
                 if (result.withFoul) {
@@ -133,6 +150,19 @@
                         gameId: rsm.saveModel.game.id,
                         teamId: rsm.block.performedBy.teamMembership.teamId,
                         performedByGamePlayer: rsm.block.performedBy,
+                        period: rsm.saveModel.period,
+                        clockTime: rsm.saveModel.clockTime
+                    }
+                }
+
+                if (result.withAssist) {
+                    result.assist = {
+                        type: constants.enums.gameEventTypeEnum.Assist,
+                        performedById: rsm.assist.performedBy.teamMembership.account.id,
+                        performedBy: rsm.assist.performedBy.teamMembership.account,
+                        gameId: rsm.saveModel.game.id,
+                        teamId: rsm.assist.performedBy.teamMembership.teamId,
+                        performedByGamePlayer: rsm.assist.performedBy,
                         period: rsm.saveModel.period,
                         clockTime: rsm.saveModel.clockTime
                     }

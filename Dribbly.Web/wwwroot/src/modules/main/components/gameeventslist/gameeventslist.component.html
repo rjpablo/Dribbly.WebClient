@@ -22,6 +22,7 @@
                     event.type === $root.constants.enums.gameEventTypeEnum.ShotMissed? 'MISS':
                     event.type === $root.constants.enums.gameEventTypeEnum.FoulCommitted? 'FOUL(' + event.additionalData.foulName + ')':
                     event.type === $root.constants.enums.gameEventTypeEnum.ShotBlock? 'BLOCK':
+                    event.type === $root.constants.enums.gameEventTypeEnum.Assist? 'ASSIST':
                     event.type
                     }}
                 </span>

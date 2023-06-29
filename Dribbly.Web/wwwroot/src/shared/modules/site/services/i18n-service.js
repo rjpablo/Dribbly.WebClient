@@ -213,6 +213,7 @@
                     'GameEventTypeEnum.ShotMissed_2':'Shot Missed',
                     'GameEventTypeEnum.FoulCommitted_3':'Foul Committed',
                     'GameEventTypeEnum.ShotBlock_4':'Shot Block',
+                    'GameEventTypeEnum.Assist_5':'Assist',
                     Games: 'Games',
                     'GameStatusEnum.WaitingToStart_0': 'Waiting To Start',
                     'GameStatusEnum.Started_1': 'Started',

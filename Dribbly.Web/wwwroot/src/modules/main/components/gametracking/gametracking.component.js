@@ -147,6 +147,9 @@
                         }
                         else {
                             gdg.selectedPlayer.points = shotResult.totalPoints;
+                            if (modalResult.withAssist) {
+                                modalResult.assist.performedByGamePlayer.assists = shotResult.assistResult.totalAssists;
+                            }
                         }
 
                         if (modalResult.withFoul) {
@@ -179,6 +182,7 @@
                     });
                 if (foulResult) {
                     applyFoulResult(foulResult, gdg.selectedPlayer);
+                    gdg.unselectPlayer(performedBy);
                 }
             }
         }
@@ -210,7 +214,6 @@
                         msg1Raw: `${performedBy.teamMembership.name} has committed 6 personal fouls.`
                     });
                 }
-                gdg.unselectPlayer(performedBy);
             }
         }
 
