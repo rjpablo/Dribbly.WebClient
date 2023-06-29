@@ -126,7 +126,7 @@
                         points: points,
                         period: gdg.game.currentPeriod,
                         clockTime: gdg.timer.remainingTime,
-                        isMiss: isMiss.toString()
+                        isMiss: isMiss
                     }
                 }).catch(err => { /*modal cancelled, do nothing*/ });
 
@@ -140,17 +140,20 @@
                     if (shotResult) {
                         gdg.game.team1Score = shotResult.team1Score;
                         gdg.game.team2Score = shotResult.team2Score;
-                        if (modalResult.shot.isMiss !== 'true') {
+                        if (modalResult.shot.isMiss) {
+                            if (modalResult.withBlock) {
+                                modalResult.block.performedByGamePlayer.blocks = shotResult.blockResult.totalBlocks;
+                            }
+                        }
+                        else {
                             gdg.selectedPlayer.points = shotResult.totalPoints;
                         }
-                        if (modalResult.withFoul) {
-                            modalResult.foul.performedBy.fouls = shotResult.foulResult.totalPersonalFouls;
-                        }
-                        gdg.unselectPlayer(gdg.selectedPlayer);
 
                         if (modalResult.withFoul) {
                             applyFoulResult(shotResult.foulResult, modalResult.foul.performedByGamePlayer);
                         }
+                        gdg.unselectPlayer(gdg.selectedPlayer);
+
                     }
                 }
             }

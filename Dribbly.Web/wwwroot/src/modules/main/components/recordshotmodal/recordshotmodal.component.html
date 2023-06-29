@@ -29,7 +29,7 @@
                             <div class="form-check-inline">
                                 <label class="m-0">
                                     <input type="radio"
-                                           value="false"
+                                           ng-value="false"
                                            ng-model="rsm.saveModel.isMiss"
                                            class="form-check-input"
                                            name="madeOrMiss">
@@ -39,7 +39,7 @@
                             <div class="form-check-inline">
                                 <label class="m-0">
                                     <input type="radio"
-                                           value="true"
+                                           ng-value="true"
                                            ng-model="rsm.saveModel.isMiss"
                                            class="form-check-input"
                                            name="madeOrMiss">
@@ -52,50 +52,88 @@
             </form>
         </div>
         <!-- Fould Details -->
-        <div class="foul-details border-bottom mb-3">
-            <div ng-show="rsm.withFoul">
-                <form name="rsm.frmFoul">
-                    <h5>Fould Details</h5>
-                    <div class="form-group">
-                        <label>Committed By:</label><br />
-                        <select class="form-control"
-                                ng-model="rsm.foul.performedBy">
-                            <option ng-repeat="player in rsm.foulPlayerOptions"
-                                    ng-value="player">
-                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                            </option>
-                        </select>
-                        <input type="text"
-                               name="performedBy"
-                               required
-                               hidden
-                               ng-model="rsm.foul.performedBy.teamMembership.account.id" />
-                    </div>
-                    <div class="form-group">
-                        <label>Foul Type:</label><br />
-                        <select class="form-control"
-                                ng-model="rsm.foul.foul">
-                            <option ng-repeat="foul in rsm.foulTypeOptions"
-                                    ng-value="foul"
-                                    ng-class="{'bg-warning': foul.isTechnical,
+        <div class="foul-details border-bottom mb-3"
+             ng-show="rsm.withFoul">
+            <form name="rsm.frmFoul">
+                <div class="d-flex align-items-center">
+                    <h5>Fouled By:</h5>
+                    <button class="btn ml-auto"
+                            ng-click="rsm.withFoul = false">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label>Committed By:</label><br />
+                    <select class="form-control"
+                            ng-model="rsm.foul.performedBy">
+                        <option ng-repeat="player in rsm.foulPlayerOptions"
+                                ng-value="player">
+                            {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
+                        </option>
+                    </select>
+                    <input type="text"
+                           name="performedBy"
+                           required
+                           hidden
+                           ng-model="rsm.foul.performedBy.teamMembership.account.id" />
+                </div>
+                <div class="form-group">
+                    <label>Foul Type:</label><br />
+                    <select class="form-control"
+                            ng-model="rsm.foul.foul">
+                        <option ng-repeat="foul in rsm.foulTypeOptions"
+                                ng-value="foul"
+                                ng-class="{'bg-warning': foul.isTechnical,
                                     'bg-danger': foul.isFlagrant}">
-                                {{foul.name}}
-                            </option>
-                        </select>
-                        <input type="text"
-                               name="foulType"
-                               required
-                               hidden
-                               ng-model="rsm.foul.foul.id" />
-                    </div>
-                </form>
-            </div>
+                            {{foul.name}}
+                        </option>
+                    </select>
+                    <input type="text"
+                           name="foulType"
+                           required
+                           hidden
+                           ng-model="rsm.foul.foul.id" />
+                </div>
+            </form>
+        </div>
+        <!-- Block Details -->
+        <div class="foul-details border-bottom mb-3"
+             ng-show="rsm.withBlock">
+            <form name="rsm.frmBlock">
+                <div class="d-flex align-items-center">
+                    <h5>Blocked By:</h5>
+                    <button class="btn ml-auto"
+                            ng-click="rsm.withBlock = false">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label>Committed By:</label><br />
+                    <select class="form-control"
+                            ng-model="rsm.block.performedBy">
+                        <option ng-repeat="player in rsm.blockPlayerOptions"
+                                ng-value="player">
+                            {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
+                        </option>
+                    </select>
+                    <input type="text"
+                           name="performedBy"
+                           required
+                           hidden
+                           ng-model="rsm.block.performedBy.teamMembership.account.id" />
+                </div>
+            </form>
         </div>
         <div class="additional-options">
             <button class="btn btn-secondary btn-block btn-lg"
-                    ng-show="!rsm.withFoul"
+                    ng-show="!rsm.withFoul && !rsm.withBlock"
                     ng-click="rsm.addFoul()">
                 With Foul
+            </button>
+            <button class="btn btn-secondary btn-block btn-lg"
+                    ng-show="!rsm.withBlock && rsm.saveModel.isMiss && !rsm.withFoul"
+                    ng-click="rsm.addBlock()">
+                With Block
             </button>
         </div>
     </div>
@@ -104,7 +142,7 @@
     <button class="btn btn-primary"
             i18n="site.Submit"
             ng-disabled="rsm.isBusy || rsm.frmShot.$invalid
-            || (rsm.withFoul && rsm.frmFoul.$invalid)"
+            || (rsm.withFoul && rsm.frmFoul.$invalid) || (rsm.withBlock && rsm.frmBlock.$invalid)"
             type="submit"
             ng-click="rsm.handleSubmitClick()"></button>
     <button i18n="site.Cancel"

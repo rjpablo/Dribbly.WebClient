@@ -48,6 +48,21 @@
             }
         };
 
+        rsm.addBlock = function () {
+            rsm.blockPlayerOptions = rsm.opposingTeam.players;
+            rsm.withBlock = true;
+
+            if (!rsm.block) {
+                rsm.block = {
+                    type: constants.enums.gameEventTypeEnum.ShotBlock
+                };
+                if (rsm.blockPlayerOptions.length === 1) {
+                    // Set as default if there's only one
+                    rsm.block.performedBy = rsm.blockPlayerOptions[0];
+                }
+            }
+        };
+
         rsm.removeFoul = function () {
             rsm.withFoul = false;
         };
@@ -90,7 +105,8 @@
                         period: rsm.saveModel.period,
                         clockTime: rsm.saveModel.clockTime,
                     },
-                    withFoul: rsm.withFoul
+                    withFoul: rsm.withFoul,
+                    withBlock: rsm.withBlock && rsm.saveModel.isMiss
                 };
 
                 if (result.withFoul) {
@@ -104,6 +120,19 @@
                         gameId: rsm.saveModel.game.id,
                         teamId: rsm.foul.performedBy.teamMembership.teamId,
                         performedByGamePlayer: rsm.foul.performedBy,
+                        period: rsm.saveModel.period,
+                        clockTime: rsm.saveModel.clockTime
+                    }
+                }
+
+                if (result.withBlock) {
+                    result.block = {
+                        type: constants.enums.gameEventTypeEnum.ShotBlock,
+                        performedById: rsm.block.performedBy.teamMembership.account.id,
+                        performedBy: rsm.block.performedBy.teamMembership.account,
+                        gameId: rsm.saveModel.game.id,
+                        teamId: rsm.block.performedBy.teamMembership.teamId,
+                        performedByGamePlayer: rsm.block.performedBy,
                         period: rsm.saveModel.period,
                         clockTime: rsm.saveModel.clockTime
                     }
