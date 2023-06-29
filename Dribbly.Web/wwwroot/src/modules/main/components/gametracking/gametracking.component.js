@@ -144,6 +144,9 @@
                             if (modalResult.withBlock) {
                                 modalResult.block.performedByGamePlayer.blocks = shotResult.blockResult.totalBlocks;
                             }
+                            if (modalResult.withRebound) {
+                                modalResult.rebound.performedByGamePlayer.rebounds = shotResult.reboundResult.totalRebounds;
+                            }
                         }
                         else {
                             gdg.selectedPlayer.points = shotResult.totalPoints;

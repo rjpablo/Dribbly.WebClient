@@ -63,6 +63,21 @@
             }
         };
 
+        rsm.addRebound = function () {
+            rsm.reboundPlayerOptions = rsm.opposingTeam.players.concat(rsm.shooterTeam.players);
+            rsm.withRebound = true;
+
+            if (!rsm.rebound) {
+                rsm.rebound = {
+                    type: constants.enums.gameEventTypeEnum.Rebound
+                };
+                if (rsm.reboundPlayerOptions.length === 1) {
+                    // Set as default if there's only one
+                    rsm.rebound.performedBy = rsm.reboundPlayerOptions[0];
+                }
+            }
+        };
+
         rsm.addAssist = function () {
             rsm.assistPlayerOptions = rsm.shooterTeam.players
                 .drbblyWhere(p => p.teamMembership.memberAccountId !== rsm.saveModel.performedBy.memberAccountId);
@@ -123,7 +138,8 @@
                     },
                     withFoul: rsm.withFoul,
                     withBlock: rsm.withBlock && rsm.saveModel.isMiss,
-                    withAssist: rsm.withAssist && !rsm.saveModel.isMiss
+                    withAssist: rsm.withAssist && !rsm.saveModel.isMiss,
+                    withRebound: rsm.withRebound && rsm.saveModel.isMiss && !rsm.withFoul, 
                 };
 
                 if (result.withFoul) {
@@ -163,6 +179,21 @@
                         gameId: rsm.saveModel.game.id,
                         teamId: rsm.assist.performedBy.teamMembership.teamId,
                         performedByGamePlayer: rsm.assist.performedBy,
+                        period: rsm.saveModel.period,
+                        clockTime: rsm.saveModel.clockTime
+                    }
+                }
+
+                if (result.withRebound) {
+                    result.rebound = {
+                        type: rsm.rebound.performedBy.teamMembership.teamId === rsm.saveModel.performedBy.teamId ?
+                            constants.enums.gameEventTypeEnum.OffensiveRebound :
+                            constants.enums.gameEventTypeEnum.DefensiveRebound,
+                        performedById: rsm.rebound.performedBy.teamMembership.account.id,
+                        performedBy: rsm.rebound.performedBy.teamMembership.account,
+                        gameId: rsm.saveModel.game.id,
+                        teamId: rsm.rebound.performedBy.teamMembership.teamId,
+                        performedByGamePlayer: rsm.rebound.performedBy,
                         period: rsm.saveModel.period,
                         clockTime: rsm.saveModel.clockTime
                     }

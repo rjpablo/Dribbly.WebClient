@@ -23,6 +23,8 @@
                     event.type === $root.constants.enums.gameEventTypeEnum.FoulCommitted? 'FOUL(' + event.additionalData.foulName + ')':
                     event.type === $root.constants.enums.gameEventTypeEnum.ShotBlock? 'BLOCK':
                     event.type === $root.constants.enums.gameEventTypeEnum.Assist? 'ASSIST':
+                    event.type === $root.constants.enums.gameEventTypeEnum.OffensiveRebound? 'REBOUND (OFF)':
+                    event.type === $root.constants.enums.gameEventTypeEnum.DefensiveRebound? 'REBOUND (DEF)':
                     event.type
                     }}
                 </span>

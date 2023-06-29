@@ -150,9 +150,36 @@
                 </div>
             </form>
         </div>
+        <!-- Rebound Details -->
+        <div class="foul-details border-bottom mb-3"
+             ng-show="rsm.withRebound">
+            <form name="rsm.frmRebound">
+                <div class="d-flex align-items-center">
+                    <h5>Rebounded By:</h5>
+                    <button class="btn ml-auto"
+                            ng-click="rsm.withRebound = false">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <select class="form-control"
+                            ng-model="rsm.rebound.performedBy">
+                        <option ng-repeat="player in rsm.reboundPlayerOptions"
+                                ng-value="player">
+                            {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
+                        </option>
+                    </select>
+                    <input type="text"
+                           name="performedBy"
+                           required
+                           hidden
+                           ng-model="rsm.rebound.performedBy.teamMembership.account.id" />
+                </div>
+            </form>
+        </div>
         <div class="additional-options">
             <button class="btn btn-secondary btn-block btn-lg"
-                    ng-show="!rsm.withFoul && !rsm.withBlock"
+                    ng-show="!rsm.withFoul && !rsm.withBlock && !rsm.withRebound"
                     ng-click="rsm.addFoul()">
                 With Foul
             </button>
@@ -165,6 +192,11 @@
                     ng-show="!rsm.saveModel.isMiss && !rsm.withAssist && rsm.shooterTeam.players.length > 1"
                     ng-click="rsm.addAssist()">
                 With Assist
+            </button>
+            <button class="btn btn-secondary btn-block btn-lg"
+                    ng-show="rsm.saveModel.isMiss && !rsm.withRebound  && !rsm.withFoul"
+                    ng-click="rsm.addRebound()">
+                With Rebound
             </button>
         </div>
     </div>

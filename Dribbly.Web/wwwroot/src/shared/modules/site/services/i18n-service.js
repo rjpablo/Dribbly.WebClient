@@ -214,6 +214,8 @@
                     'GameEventTypeEnum.FoulCommitted_3':'Foul Committed',
                     'GameEventTypeEnum.ShotBlock_4':'Shot Block',
                     'GameEventTypeEnum.Assist_5':'Assist',
+                    'GameEventTypeEnum.OffensiveRebound_6':'Offensive Rebound',
+                    'GameEventTypeEnum.DefensiveRebound_7':'Defensive Rebound',
                     Games: 'Games',
                     'GameStatusEnum.WaitingToStart_0': 'Waiting To Start',
                     'GameStatusEnum.Started_1': 'Started',
