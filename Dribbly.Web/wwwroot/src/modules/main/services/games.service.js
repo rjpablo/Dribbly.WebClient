@@ -54,6 +54,10 @@
                     return drbblyhttpService.post(api + 'addGame', GameDetails);
                 }
 
+                function startGame(input) {
+                    return drbblyhttpService.post(api + 'startGame', input);
+                }
+
                 var _service = {
                     addGame: addGame,
                     advancePeriod: advancePeriod,
@@ -63,6 +67,7 @@
                     getGame: getGame,
                     getGameTeam: getGameTeam,
                     recordShot: recordShot,
+                    startGame: startGame,
                     updateGame: updateGame,
                     updateGameResult: updateGameResult,
                     updateRemainingTime: updateRemainingTime,

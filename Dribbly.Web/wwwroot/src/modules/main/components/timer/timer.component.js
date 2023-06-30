@@ -96,9 +96,6 @@
                     this.stop();
                 }
                 this.duration = duration;
-                if (this.onUpdateCallback) {
-                    this.onUpdateCallback(this.duration);
-                }
                 displayTime(this.duration);
                 if (start) {
                     this.start();
@@ -106,29 +103,33 @@
             }
             start() {
                 if (!this.running) {
-                    if (this.onStartCallback) {
-                        this.onStartCallback();
+                    if (!this.onStartCallback || this.onStartCallback(this.duration)) {
+                        this.run(new Date(), this.duration)
                     }
-                    this.run(new Date(), this.duration)
                 }
             }
             run(start, startDuration) {
-                this.running = true;
-                var _this = this;
-                this.timerInterval = $interval(function () {
-                    if (_this.isRunning) {
-                        var now = new Date();
-                        _this.duration = startDuration - (now - start);
-                        if (_this.duration <= 0) {
-                            _this.duration = 0;
-                            _this.stop();
+                var proceed = !this.onRunCallback || this.onRunCallback(this.duration);
+                if (proceed) {
+                    this.running = true;
+                    var _this = this;
+                    this.timerInterval = $interval(function () {
+                        if (_this.isRunning) {
+                            var now = new Date();
+                            _this.duration = startDuration - (now - start);
+                            if (_this.duration <= 0) {
+                                _this.duration = 0;
+                                _this.stop();
+                            }
+                            displayTime(_this.duration);
+                            if (_this.onUpdateCallback) {
+                                _this.onUpdateCallback(_this.duration);
+                            }
                         }
-                        displayTime(_this.duration);
-                        if (_this.onUpdateCallback) {
-                            _this.onUpdateCallback(_this.duration);
-                        }
-                    }
-                }, 100);
+                    }, 100);
+                } else {
+                    console.info('Timer run prevented');
+                }
             }
             onUpdate(cb) {
                 this.onUpdateCallback = cb;
@@ -147,6 +148,9 @@
             }
             _onEdit(cb) {
                 this.onEditCallback = cb;
+            }
+            onRun(cb) {
+                this.onRunCallback = cb;
             }
             /**
              * Reset the timer to the original duration

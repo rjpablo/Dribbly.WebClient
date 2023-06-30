@@ -38,11 +38,17 @@
                 gdg.shotTimer.stop();
             });
             gdg.timer.onStart(function () {
+                if (gdg.game.status === gdg.gameStatusEnum.WaitingToStart) {
+                    gdg.jumpBall();
+                    return false;
+                }
+
                 updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, true);
                 if (gdg.shotTimer.isOver()) {
                     gdg.shotTimer.reset();
                 }
                 gdg.shotTimer.start();
+                return true;
             });
             gdg.timer.onEditted(function (time, commit) {
                 updateTime(time.totalMs, gdg.shotTimer.remainingTime, false)
@@ -59,6 +65,7 @@
             gdg.shotTimer.onStart(function () {
                 //game clock timer already takes care of this
                 //updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, true);
+                return true;
             });
             gdg.shotTimer.onReset(function () {
                 if (gdg.timer.isRunning()) {
@@ -70,6 +77,11 @@
                     .then(commit);
             });
         }
+
+        gdg.setShotTime = function (time, start) {
+            updateTime(gdg.timer.remainingTime, time, start);
+            gdg.shotTimer.setRemainingTime(time, start);
+        };
 
         function displayTime(duration) {
             var min = Math.floor(duration / 60000).toString();
@@ -163,6 +175,36 @@
                     }
                 }
             }
+        }
+
+        gdg.jumpBall = function () {
+            modalService
+                .show({
+                    view: '<drbbly-jumpballmodal></drbbly-jumpballmodal>',
+                    model: {
+                        game: gdg.game,
+                        onClockStart: onJumpball
+                    },
+                    backdrop: 'static'
+                }).catch(err => { /*modal cancelled, do nothing*/ });
+        }
+
+        function onJumpball(data) {
+
+            var input = {
+                gameId: gdg.game.id,
+                startedAt: drbblyDatetimeService.getUtcNow(),
+                jumpball: {
+                    gameId: gdg.game.id,
+                    type: constants.enums.gameEventTypeEnum.Jumpball,
+                    clockTime: gdg.timer.remainingTime
+                }
+            };
+
+            var startResult = drbblyGamesService.startGame(input);
+
+            gdg.game.status = gdg.gameStatusEnum.Started;
+            gdg.timer.start();
         }
 
         gdg.recordFoul = async function () {

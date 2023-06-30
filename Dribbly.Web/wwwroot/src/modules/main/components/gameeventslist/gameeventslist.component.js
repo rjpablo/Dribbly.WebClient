@@ -22,6 +22,7 @@
                 e.additionalData = JSON.parse(e.additionalData);
                 e.isTeam1 = e.teamId === gel.game.team1.teamId;
                 e.isTeam2 = e.teamId === gel.game.team2.teamId;
+                e.isBothTeams = e.teamId === null;
                 e.timeDisplay = drbblyTimerhelperService.breakupDuration(e.clockTime).formattedTime
             });
         };

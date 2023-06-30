@@ -10,10 +10,11 @@
         </div>
     </div>
     <div ng-repeat="event in gel.events | orderBy : 'dateAdded' : true"
-         ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2}"
+         ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2, 'is-both': event.isBothTeams}"
          class="event-row">
         <div class="event-wrapper">
             <div class="flex-grow-1 text-black"
+                 ng-if="!event.isBothTeams"
                  ng-class="{'text-right':event.isTeam1}">
                 <span>{{event.performedBy.name}}</span>&nbsp;
                 <span>
@@ -29,8 +30,20 @@
                     }}
                 </span>
             </div>
-            <img class="player-image" ng-src="{{event.performedBy.profilePhoto.url}}" />
+            <img class="player-image" ng-src="{{event.performedBy.profilePhoto.url}}"
+                 ng-if="!event.isBothTeams" />
             <span class="clock text-secondary text-center">{{event.timeDisplay}}</span>
+            <div class="common-data"
+                 ng-if="event.isBothTeams">
+                <span class="font-weight-semibold"
+                      ng-if="event.type === $root.constants.enums.gameEventTypeEnum.Jumpball">
+                    JUMP BALL
+                </span>
+            </div>
         </div>
+    </div>
+    <div class="p-3 text-center"
+         ng-if="gel.events.length === 0">
+        No data yet.
     </div>
 </div>

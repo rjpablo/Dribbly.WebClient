@@ -216,6 +216,7 @@
                     'GameEventTypeEnum.Assist_5':'Assist',
                     'GameEventTypeEnum.OffensiveRebound_6':'Offensive Rebound',
                     'GameEventTypeEnum.DefensiveRebound_7':'Defensive Rebound',
+                    'GameEventTypeEnum.Jumpball_8':'Jumpball',
                     Games: 'Games',
                     'GameStatusEnum.WaitingToStart_0': 'Waiting To Start',
                     'GameStatusEnum.Started_1': 'Started',

@@ -6,9 +6,9 @@ drbbly-gameeventslist {
         display: flex;
         justify-content: space-around;
 
-        &>div{
-            display:flex;
-            align-items:center;
+        & > div {
+            display: flex;
+            align-items: center;
         }
 
         .logo {
@@ -18,21 +18,10 @@ drbbly-gameeventslist {
     }
 
     .event-row {
-        display: flex;
         padding: 0.25rem;
 
-        &.is-team2 {
-            justify-content: flex-end;
-
-            .event-wrapper {
-                flex-direction: row-reverse;
-            }
-        }
-
         .event-wrapper {
-            display: flex;
             align-items: center;
-            width: calc(50% + 36px);
 
             .player-image {
                 width: 27px;
@@ -48,6 +37,28 @@ drbbly-gameeventslist {
                 font-size: 0.9rem;
                 flex-shrink: 0;
             }
+        }
+
+        &.is-team1,
+        &.is-team2 {
+            display: flex;
+
+            .event-wrapper {
+                display: flex;
+                width: calc(50% + 36px);
+            }
+        }
+
+        &.is-team2 {
+            justify-content: flex-end;
+
+            .event-wrapper {
+                flex-direction: row-reverse;
+            }
+        }
+
+        &.is-both{
+            text-align: center;
         }
     }
 }

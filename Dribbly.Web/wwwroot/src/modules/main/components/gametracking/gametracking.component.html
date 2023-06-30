@@ -1,5 +1,6 @@
 ﻿<div drbbly-overlay="gdg.gameDetailsOverlay">
     <div class="container px-0 min-height-300">
+        <!-- Game Title -->
         <div class="row my-3">
             <div class="col-12">
                 <div class="text-center">
@@ -10,6 +11,7 @@
                 </div>
             </div>
         </div>
+        <!-- Score Board -->
         <div class="row mb-3">
             <div class="col-12">
                 <div class="score-board">
@@ -81,12 +83,12 @@
                                                       label="'SHOT CLOCK'"></drbbly-timer>
                                         <div class="controls text-center">
                                             <button class="btn btn-sm text-white"
-                                                    ng-click="gdg.shotTimer.reset()">
+                                                    ng-click="gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000, gdg.timer.isRunning())">
                                                 <i class="fa fa-undo"
                                                    uib-tooltip="Reset the clock"></i>&nbsp;{{gdg.game.defaultShotClockDuration}}
                                             </button>
                                             <button class="btn btn-sm text-white"
-                                                    ng-click="gdg.shotTimer.setRemainingTime(gdg.game.offensiveRebondShotClock * 1000, gdg.timer.isRunning())">
+                                                    ng-click="gdg.setShotTime(gdg.game.offensiveRebondShotClock * 1000, gdg.timer.isRunning())">
                                                 <i class="fa fa-undo"
                                                    uib-tooltip="Reset the clock"></i>&nbsp;{{gdg.game.offensiveRebondShotClock}}
                                             </button>
@@ -106,8 +108,8 @@
                             <div class="game-options">
                                 <button type="button" class="btn btn-secondary"
                                         ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
-                                        ng-click="gdg.updateStatus(gdg.gameStatusEnum.Started)">
-                                    Start Game
+                                        ng-click="gdg.jumpBall()">
+                                    Jump Ball
                                 </button>
                                 <button type="button" class="btn btn-secondary"
                                         ng-if="gdg.game.status === gdg.gameStatusEnum.Started"
@@ -142,6 +144,7 @@
                 </div>
             </div>
         </div>
+        <!-- Player List and Controls -->
         <div class="row"
              ng-if="gdg.game.status !== gdg.gameStatusEnum.Finished">
             <div class="col-3 player-list">
@@ -294,6 +297,7 @@
                 </table>
             </div>
         </div>
+        <!-- Play-By-Play -->
         <div class="row">
             <div class="col-12">
                 <div class="bg-secondary w-100 text-center p-1 text-white">Play-by-Play</div>

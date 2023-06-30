@@ -1,0 +1,79 @@
+﻿<div class="modal-header">
+    <h3>JUMP BALL</h3>
+</div>
+<div class="modal-body">
+    <div class="border-bottom mb-3">
+        <form name="jbm.frmJumpball"
+              ng-if="!jbm.clockHasStarted">
+            <div class="form-row">
+                <div class="col-5">
+                    <div class="team-details">
+                        <img class="logo" ng-src="{{jbm.team1.team.logo.url}}" />
+                        <span class="d-inline-block">
+                            {{jbm.team1.team.name}}
+                        </span>
+                    </div>
+                    <div class="players">
+                        <div class="form-group">
+                            <select class="form-control"
+                                    ng-model="jbm.team1Player">
+                                <option ng-repeat="player in jbm.team1PlayerOptions"
+                                        ng-value="player">
+                                    {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
+                                </option>
+                            </select>
+                            <input type="text"
+                                   name="performedBy"
+                                   required
+                                   hidden
+                                   ng-model="jbm.team1Player.teamMembership.account.id" />
+                        </div>
+                    </div>
+                </div>
+                <div class="vs col-2">
+                    VS
+                </div>
+                <div class="col-5">
+                    <div class="team-details">
+                        <img class="logo" ng-src="{{jbm.team2.team.logo.url}}" />
+                        <span class="d-inline-block">
+                            {{jbm.team2.team.name}}
+                        </span>
+                    </div>
+                    <div class="players">
+                        <div class="form-group">
+                            <select class="form-control"
+                                    ng-model="jbm.team2Player">
+                                <option ng-repeat="player in jbm.team2PlayerOptions"
+                                        ng-value="player">
+                                    {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
+                                </option>
+                            </select>
+                            <input type="text"
+                                   name="performedBy"
+                                   required
+                                   hidden
+                                   ng-model="jbm.team2Player.teamMembership.account.id" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <div ng-if="jbm.clockHasStarted">
+            <h5 class="text-center">The game has started.</h5>
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-primary btn-block btn-lg mb-1"
+                ng-disabled="jbm.frmJumpball.$invalid"
+                ng-if="!jbm.clockHasStarted"
+                ng-click="jbm.startClock()">
+            Start Clock
+        </button>
+        <button class="btn btn-secondary btn-block btn-lg mb-1"
+                ng-click="jbm.close()">
+            {{jbm.clockHasStarted? 'Close':'Cancel'}}
+        </button>
+    </div>
+</div>
