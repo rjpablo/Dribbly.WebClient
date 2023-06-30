@@ -83,6 +83,16 @@
             gdg.shotTimer.setRemainingTime(time, start);
         };
 
+        gdg.setNextPossession = function (nextPossession) {
+            var currentValue = gdg.game.nextPossession;
+            gdg.game.nextPossession = nextPossession;
+            drbblyGamesService.setNextPossession(_gameId, nextPossession)
+                .catch(function (err) {
+                    gdg.game.nextPossession = currentValue;
+                    drbblyCommonService.handleError(err, null, 'The foul was not recoded due to an error.');
+                });
+        }
+
         function displayTime(duration) {
             var min = Math.floor(duration / 60000).toString();
             var sec = Math.floor((duration % 60000) / 1000).toString();

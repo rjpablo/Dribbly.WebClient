@@ -39,10 +39,22 @@
                                     <!-- Game Clock -->
                                     <div class="game-clock mb-2"
                                          ng-show="gdg.game.isTimed">
-                                        <drbbly-timer on-ready="gdg.onTimerReady"
-                                                      toggle-on-click="true"
-                                                      class="game-clock"
-                                                      label="'TIME'"></drbbly-timer>
+                                        <span>TIME</span>
+                                        <div class="w-100 d-flex justify-content-center align-items-center">
+                                            <button class="btn"
+                                                    ng-class="{'text-white': gdg.game.nextPossession === 1}"
+                                                    ng-click="gdg.setNextPossession(1)">
+                                                <i class="fa fa-caret-left fa-5x"></i>
+                                            </button>
+                                            <drbbly-timer on-ready="gdg.onTimerReady"
+                                                          toggle-on-click="true"
+                                                          class="game-clock"></drbbly-timer>
+                                            <button class="btn"
+                                                    ng-class="{'text-white': gdg.game.nextPossession === 2}"
+                                                    ng-click="gdg.setNextPossession(2)">
+                                                <i class="fa fa-caret-right fa-5x"></i>
+                                            </button>
+                                        </div>
                                         <div class="controls text-center"
                                              ng-cloak>
                                             <button class="btn btn-sm"

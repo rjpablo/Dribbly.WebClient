@@ -26,6 +26,10 @@
                     return drbblyhttpService.post(api + `advancePeriod/${gameId}/${period}/${remainingTime}`);
                 }
 
+                function setNextPossession(gameId, nextPossession) {
+                    return drbblyhttpService.post(api + `setNextPossession/${gameId}/${nextPossession}`);
+                }
+
                 function updateRemainingTime(input) {
                     return drbblyhttpService.post(api + `updateRemainingTime`, input);
                 }
@@ -68,6 +72,7 @@
                     getGameTeam: getGameTeam,
                     recordShot: recordShot,
                     startGame: startGame,
+                    setNextPossession: setNextPossession,
                     updateGame: updateGame,
                     updateGameResult: updateGameResult,
                     updateRemainingTime: updateRemainingTime,
