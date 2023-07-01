@@ -1,0 +1,15 @@
+drbbly-lcddisplay {
+    display: inline-block;
+
+    .label {
+        display: block;
+        width: 100%;
+    }
+
+    .display {
+        width: 100%;
+        border: 1px solid #fff;
+        padding: 0.2em;
+        line-height: 1em;
+    }
+}

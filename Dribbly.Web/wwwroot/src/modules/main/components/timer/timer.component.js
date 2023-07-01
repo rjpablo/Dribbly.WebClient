@@ -17,7 +17,8 @@
                 startOverride: '<',
                 isShotClock: '<',
                 // whether or not to toggle the timer when it is clicked
-                toggleOnClick: '<'
+                toggleOnClick: '<',
+                fontSize: '<'
             },
             controllerAs: 'dtc',
             templateUrl: 'drbbly-default',

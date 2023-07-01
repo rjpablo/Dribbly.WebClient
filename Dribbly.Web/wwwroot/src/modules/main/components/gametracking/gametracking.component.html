@@ -48,6 +48,7 @@
                                             </button>
                                             <drbbly-timer on-ready="gdg.onTimerReady"
                                                           toggle-on-click="true"
+                                                          font-size="'3em'"
                                                           class="game-clock"></drbbly-timer>
                                             <button class="btn"
                                                     ng-class="{'text-white': gdg.game.nextPossession === 2}"
@@ -82,9 +83,10 @@
                                     <div class="period mb-2"
                                          ng-if="gdg.game.isTimed">
                                         <span class="d-block text-center small">PERIOD</span>
-                                        <div class="border border-white d-inline-block text-center p-1 value">
-                                            {{gdg._period}}
-                                        </div>
+                                        <drbbly-lcddisplay class="period"
+                                                           text="gdg._period"
+                                                           is-danger="dtc.timer.isOver()"
+                                                           on-click="dtc.clicked"></drbbly-lcddisplay>
                                     </div>
                                     <!-- Shot Clock -->
                                     <div class="shot-clock"
@@ -92,6 +94,7 @@
                                         <drbbly-timer on-ready="gdg.onShotTimerReady"
                                                       class="game-clock"
                                                       is-shot-clock="true"
+                                                      font-size="'3em'"
                                                       label="'SHOT CLOCK'"></drbbly-timer>
                                         <div class="controls text-center">
                                             <button class="btn btn-sm text-white"

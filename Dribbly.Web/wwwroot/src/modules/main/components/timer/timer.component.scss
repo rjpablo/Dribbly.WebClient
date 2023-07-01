@@ -1,14 +1,13 @@
 drbbly-timer {
     display: inline-block;
 
-    .time {
+    drbbly-lcddisplay {
         width: 100%;
-        font-size: 3em;
-        border: 1px solid;
-        line-height: 1;
 
         &.is-up {
-            border-color: red;
+            .display {
+                border-color: red;
+            }
         }
     }
 }
