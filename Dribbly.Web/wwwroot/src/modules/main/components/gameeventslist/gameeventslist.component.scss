@@ -23,7 +23,8 @@ drbbly-gameeventslist {
         .event-wrapper {
             align-items: center;
 
-            .player-image {
+            .player-logo,
+            .team-logo {
                 width: 27px;
                 height: 27px;
                 object-fit: cover;
@@ -57,7 +58,7 @@ drbbly-gameeventslist {
             }
         }
 
-        &.is-both{
+        &.is-both {
             text-align: center;
         }
     }

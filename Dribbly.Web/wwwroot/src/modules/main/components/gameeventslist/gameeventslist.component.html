@@ -9,14 +9,14 @@
             <h5 class="d-inline m-0 px-1">{{gel.game.team2.team.name}}</h5>
         </div>
     </div>
-    <div ng-repeat="event in gel.events | orderBy : 'dateAdded' : true"
+    <div ng-repeat="event in gel.events | orderBy : ['-period', '-clockTime'] : true"
          ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2, 'is-both': event.isBothTeams}"
          class="event-row">
         <div class="event-wrapper">
             <div class="flex-grow-1 text-black"
                  ng-if="!event.isBothTeams"
                  ng-class="{'text-right':event.isTeam1}">
-                <span>{{event.performedBy.name}}</span>&nbsp;
+                <span ng-if="event.performedById">{{event.performedBy.name}}</span>&nbsp;
                 <span>
                     {{
                     event.type === $root.constants.enums.gameEventTypeEnum.ShotMade? 'Shot Made(+' + event.additionalData.points + 'pts)' :
@@ -26,18 +26,25 @@
                     event.type === $root.constants.enums.gameEventTypeEnum.Assist? 'ASSIST':
                     event.type === $root.constants.enums.gameEventTypeEnum.OffensiveRebound? 'REBOUND (OFF)':
                     event.type === $root.constants.enums.gameEventTypeEnum.DefensiveRebound? 'REBOUND (DEF)':
+                    event.type === $root.constants.enums.gameEventTypeEnum.Timeout? 'TIMEOUT':
                     event.type
                     }}
                 </span>
             </div>
-            <img class="player-image" ng-src="{{event.performedBy.profilePhoto.url}}"
+            <img class="player-logo" ng-src="{{event.performedBy.profilePhoto.url}}"
+                 ng-if="event.performedById" />
+            <img class="team-logo" ng-src="{{event.isTeam1? gel.game.team1.team.logo.url : gel.game.team2.team.logo.url}}"
                  ng-if="!event.isBothTeams" />
             <span class="clock text-secondary text-center">{{event.timeDisplay}}</span>
             <div class="common-data"
                  ng-if="event.isBothTeams">
-                <span class="font-weight-semibold"
+                <span class=""
                       ng-if="event.type === $root.constants.enums.gameEventTypeEnum.Jumpball">
                     JUMP BALL
+                </span>
+                <span class=""
+                      ng-if="event.type === $root.constants.enums.gameEventTypeEnum.Timeout">
+                    OFFICIAL TIMEOUT
                 </span>
             </div>
         </div>
