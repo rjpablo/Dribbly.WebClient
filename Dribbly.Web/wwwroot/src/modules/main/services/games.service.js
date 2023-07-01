@@ -50,6 +50,10 @@
                     return drbblyhttpService.post(api + 'recordShot', shot);
                 }
 
+                function recordTimeout(input) {
+                    return drbblyhttpService.post(api + 'recordTimeout', input);
+                }
+
                 function updateStatus(gameId, toStatus) {
                     return drbblyhttpService.post(api + 'updateStatus/' + gameId + '/' + toStatus);
                 }
@@ -71,6 +75,7 @@
                     getGame: getGame,
                     getGameTeam: getGameTeam,
                     recordShot: recordShot,
+                    recordTimeout: recordTimeout,
                     startGame: startGame,
                     setNextPossession: setNextPossession,
                     updateGame: updateGame,

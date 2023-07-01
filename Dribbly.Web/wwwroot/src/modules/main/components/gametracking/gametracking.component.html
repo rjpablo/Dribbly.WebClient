@@ -159,6 +159,7 @@
         <!-- Player List and Controls -->
         <div class="row"
              ng-if="gdg.game.status !== gdg.gameStatusEnum.Finished">
+            <!-- Team1 Players -->
             <div class="col-3 player-list">
                 <table class="table table-sm table-light">
                     <thead>
@@ -193,7 +194,9 @@
                     </tbody>
                 </table>
             </div>
+            <!-- Player Controls -->
             <div class="col-6 player-options">
+                <!-- Selected Player Details -->
                 <div class="selected-player bg-secondary text-white mb-3">
                     <div ng-show="gdg.selectedPlayer">
                         <table class="font-weight-bold">
@@ -223,6 +226,7 @@
                         Select a player to update
                     </div>
                 </div>
+                <!-- Player Options -->
                 <div class="options mb-3">
                     <div class="d-flex flex-column">
                         <button type="button"
@@ -271,9 +275,15 @@
                                 ng-disabled="!gdg.canRecordFoul()">
                             Foul
                         </button>
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.timeout()">
+                            Timeout
+                        </button>
                     </div>
                 </div>
             </div>
+            <!-- Team2 Players -->
             <div class="col-3 player-list">
                 <table class="table table-sm table-light">
                     <thead>

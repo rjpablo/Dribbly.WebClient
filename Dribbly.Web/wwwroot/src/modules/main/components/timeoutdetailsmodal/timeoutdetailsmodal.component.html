@@ -1,0 +1,93 @@
+﻿<div class="modal-header">
+    <h3>TIMEOUT</h3>
+</div>
+<div class="modal-body">
+    <form name="tdm.frmTimeout">
+        <div class="form-row">
+            <div class="col-4">
+                <label>Charge To:</label>
+            </div>
+            <div class="col-auto">
+                <div class="form-group">
+                    <div class="form-check">
+                        <label class="m-0">
+                            <input type="radio"
+                                   ng-value="tdm.model.game.team1.teamId"
+                                   ng-model="tdm.chargeTo"
+                                   required
+                                   class="form-check-input"
+                                   name="chargeTo">
+                            {{tdm.model.game.team1.name}}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="m-0">
+                            <input type="radio"
+                                   ng-value="tdm.model.game.team2.teamId"
+                                   ng-model="tdm.chargeTo"
+                                   required
+                                   class="form-check-input"
+                                   name="chargeTo">
+                            {{tdm.model.game.team2.name}}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="m-0">
+                            <input type="radio"
+                                   ng-value="3"
+                                   ng-model="tdm.chargeTo"
+                                   required
+                                   class="form-check-input"
+                                   name="chargeTo">
+                            Official
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row"
+             ng-if="tdm.chargeTo === 1 || tdm.chargeTo === 2">
+            <div class="col-4">
+                <label>Type:</label>
+            </div>
+            <div class="col-auto">
+                <div class="form-group">
+                    <div class="form-check">
+                        <label class="m-0">
+                            <input type="radio"
+                                   ng-value="1"
+                                   ng-model="tdm.type"
+                                   required
+                                   class="form-check-input"
+                                   name="type">
+                            Full
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="m-0">
+                            <input type="radio"
+                                   ng-value="2"
+                                   ng-model="tdm.type"
+                                   required
+                                   class="form-check-input"
+                                   name="type">
+                            Short
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="tdm.isBusy || tdm.frmTimeout.$invalid"
+            type="submit"
+            ng-click="tdm.submit()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-warning"
+            type="button"
+            ng-click="tdm.cancel()"
+            ng-disabled="tdm.isBusy"></button>
+</div>

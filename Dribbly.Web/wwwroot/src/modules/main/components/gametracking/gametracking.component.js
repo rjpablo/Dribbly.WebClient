@@ -242,6 +242,36 @@
             }
         }
 
+        gdg.timeout = async function () {
+            gdg.timer.stop();
+            var modalResult = await modalService
+                .show({
+                    view: '<drbbly-timeoutdetailsmodal></drbbly-timeoutdetailsmodal>',
+                    model: {
+                        game: gdg.game,
+                        clockTime: gdg.timer.remainingTime,
+                        period: gdg.game.currentPeriod
+                    },
+                    backdrop: 'static',
+                    size: 'sm'
+                }).catch(err => { /*modal cancelled, do nothing*/ });
+
+            if (modalResult) {
+                var timeoutResult = await drbblyGamesService.recordTimeout(modalResult)
+                    .catch(function (err) {
+                        drbblyCommonService.handleError(err, null, 'The timeout was not recoded due to an error.');
+                    });
+
+                if (timeoutResult && !(timeoutResult.type === constants.enums.timeoutTypeEnum.Official)) {
+                    var team = timeoutResult.teamId === gdg.game.team1.teamId ?
+                        gdg.game.team1 : gdg.game.team2;
+                    team.timeoutsLeft = timeoutResult.timeoutsLeft;
+                    team.fullTimeoutsUsed = timeoutResult.fullTimeoutsUsed;
+                    team.shortTimeoutsused = timeoutResult.shortTimeoutsUsed;
+                }
+            }
+        }
+
         function applyFoulResult(foulResult, performedBy) {
             if (foulResult) {
                 performedBy.fouls = foulResult.totalPersonalFouls;
