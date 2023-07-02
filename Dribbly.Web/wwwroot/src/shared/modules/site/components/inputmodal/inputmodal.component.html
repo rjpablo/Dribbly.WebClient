@@ -1,0 +1,33 @@
+﻿<div ng-if="inp.model.titleKey || inp.model.titleRaw" class="modal-header">
+    <h3 class="modal-title">{{inp.model.titleRaw || (inp.model.titleKey | i18n)}}</h3>
+</div>
+<div class="modal-body">
+    <div ng-if="!inp.model.bodyTemplate">
+        <h5 ng-if="inp.model.msg1Key">{{inp.model.msg1Key | i18n}}</h5>
+        <h5 ng-if="inp.model.msg1Raw">{{inp.model.msg1Raw}}</h5>
+        <p ng-if="inp.model.msg2Key">{{inp.model.msg2Key | i18n}}</p>
+        <p ng-if="inp.model.msg2Raw">{{inp.model.msg2Raw}}</p>
+    </div>
+    <form name="inp.frmInput">
+        <div class="form-group">
+            <label>{{inp.model.prompt}}</label>
+            <input type="{{inp.model.type}}"
+                   name="input"
+                   min="inp.model.min"
+                   max="inp.model.max"
+                   class="form-control d-block"
+                   ng-required="inp.model.required"
+                   ng-model="inp.model.value" />
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button"
+            i18n="site.Submit"
+            class="btn btn-primary"
+            ng-click="inp.submit()"></button>
+    <button type="button"
+            i18n="site.Cancel"
+            class="btn btn-secondary"
+            ng-click="inp.cancel()"></button>
+</div>

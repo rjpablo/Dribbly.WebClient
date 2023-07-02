@@ -66,6 +66,10 @@
                     return drbblyhttpService.post(api + 'startGame', input);
                 }
 
+                function setTimeoutsLeft(gameTeamId, timeoutsLeft) {
+                    return drbblyhttpService.post(api + 'setTimeoutsLeft/' + gameTeamId + '/' + timeoutsLeft);
+                }
+
                 var _service = {
                     addGame: addGame,
                     advancePeriod: advancePeriod,
@@ -78,6 +82,7 @@
                     recordTimeout: recordTimeout,
                     startGame: startGame,
                     setNextPossession: setNextPossession,
+                    setTimeoutsLeft: setTimeoutsLeft,
                     updateGame: updateGame,
                     updateGameResult: updateGameResult,
                     updateRemainingTime: updateRemainingTime,

@@ -272,6 +272,40 @@
             }
         }
 
+        gdg.setTeam1Tol = function () {
+            gdg.setTol(gdg.game.team1);
+        };
+
+        gdg.setTeam2Tol = function () {
+            gdg.setTol(gdg.game.team2);
+        };
+
+        gdg.setTol = async function (gameTeam) {
+            var value = await modalService
+                .input({
+                    model: {
+                        value: gameTeam.timeoutsLeft,
+                        prompt: 'Timeouts Left:',
+                        type: 'number',
+                        min: 0,
+                        max: 9,
+                        titleRaw: 'Set remaining timeouts for ' + gameTeam.name
+                    }
+                })
+                .catch(function (err) { /* input cancelled */ });
+
+            if (value !== null && value !== undefined) {
+                await drbblyGamesService.setTimeoutsLeft(gameTeam.id, value)
+                    .then(function () {
+                        gameTeam.timeoutsLeft = value;
+                    })
+                    .catch(function (err) {
+                        drbblyCommonService.handleError(err, null, 'Failed to save T.O.L. due to an error.');
+                    });
+                
+            }
+        }
+
         function applyFoulResult(foulResult, performedBy) {
             if (foulResult) {
                 performedBy.fouls = foulResult.totalPersonalFouls;

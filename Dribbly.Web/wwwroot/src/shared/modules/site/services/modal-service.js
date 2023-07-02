@@ -134,6 +134,12 @@
                     }
                 }
 
+                function input(data) {
+                    data.view = '<drbbly-inputmodal></drbbly-inputmodal>';
+                    data.backdrop = 'static';
+                    return _show(data);
+                }
+
                 function confirm(msg1Key, msg2Key, titleKey, buttonsPreset, msg1Raw, msg2Raw, titleRaw) {
                     if (angular.isObject(msg1Key)) {
                         msg1Key.options = {
@@ -181,6 +187,7 @@
                 var service = {
                     show: _show,
                     alert: alert,
+                    input: input,
                     confirm: confirm,
                     showGenericErrorModal: showGenericErrorModal,
                     showOptionsList: showOptionsList,
