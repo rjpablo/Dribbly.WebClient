@@ -344,6 +344,27 @@
 
         // #endregion TOL Setting
 
+        // #region Bonus Setting
+
+        gdg.toggleTeam1BonusStatus = function () {
+            gdg.setBonusStatus(gdg.game.team1);
+        };
+
+        gdg.toggleTeam2BonusStatus = function () {
+            gdg.setBonusStatus(gdg.game.team2);
+        };
+
+        gdg.setBonusStatus = async function (gameTeam) {
+            gameTeam.isInBonus = !gameTeam.isInBonus;
+
+            drbblyGamesService.setBonusStatus(gameTeam.id, gameTeam.isInBonus)
+                .catch(function (err) {
+                    drbblyCommonService.handleError(err, null, 'Failed to save bonus status due to an error.');
+                });
+        }
+
+        // #endregion TOL Setting
+
         /**
          * @param {UpsertFoulResultModel} foulResult
          * @param {GamePlayerModel} performedBy 

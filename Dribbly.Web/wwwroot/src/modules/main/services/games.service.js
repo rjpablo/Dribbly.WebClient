@@ -74,6 +74,10 @@
                     return drbblyhttpService.post(api + 'setTeamFoulCount/' + gameTeamId + '/' + foulCount);
                 }
 
+                function setBonusStatus(gameTeamId, isInBonus) {
+                    return drbblyhttpService.post(api + 'setBonusStatus/' + gameTeamId + '/' + isInBonus);
+                }
+
                 var _service = {
                     addGame: addGame,
                     advancePeriod: advancePeriod,
@@ -91,7 +95,8 @@
                     updateGame: updateGame,
                     updateGameResult: updateGameResult,
                     updateRemainingTime: updateRemainingTime,
-                    updateStatus: updateStatus
+                    updateStatus: updateStatus,
+                    setBonusStatus: setBonusStatus
                 };
 
                 return _service;
