@@ -81,11 +81,24 @@
                                     </div>
                                     <div class="d-flex justify-content-around">
                                         <div class="text-center d-flex flex-column align-items-center px-3">
-                                            <span uib-tooltip="Timeouts Left">T.O.L.</span>
-                                            <drbbly-lcddisplay text="gdg.game.team1.timeoutsLeft"
-                                                               class="tol"
-                                                               on-click="gdg.setTeam1Tol"
-                                                               font-size="'2em'"></drbbly-lcddisplay>
+                                            <div class="mb-2">
+                                                <!-- TOL - Team1 -->
+                                                <span uib-tooltip="Timeouts Left"
+                                                      class="d-block">T.O.L.</span>
+                                                <drbbly-lcddisplay text="gdg.game.team1.timeoutsLeft"
+                                                                   class="tol"
+                                                                   on-click="gdg.setTeam1Tol"
+                                                                   font-size="'2em'"></drbbly-lcddisplay>
+                                            </div>
+                                            <div class="mb-2">
+                                                <!-- Team Foul - Team1 -->
+                                                <span uib-tooltip="Team Fouls"
+                                                      class="d-block">Fouls</span>
+                                                <drbbly-lcddisplay text="gdg.game.team1.teamFoulCount"
+                                                                   class="team-foul"
+                                                                   on-click="gdg.setTeam1FoulCount"
+                                                                   font-size="'2em'"></drbbly-lcddisplay>
+                                            </div>
                                         </div>
                                         <!-- Period + Shot Clock -->
                                         <div class="">
@@ -127,11 +140,24 @@
                                             </div>
                                         </div>
                                         <div class="text-center d-flex flex-column align-items-center px-3">
-                                            <span uib-tooltip="Timeouts Left">T.O.L.</span>
-                                            <drbbly-lcddisplay text="gdg.game.team2.timeoutsLeft"
-                                                               class="tol"
-                                                               on-click="gdg.setTeam2Tol"
-                                                               font-size="'2em'"></drbbly-lcddisplay>
+                                            <!-- TOL - Team1 -->
+                                            <div class="mb-2">
+                                                <span uib-tooltip="Timeouts Left"
+                                                      class="d-block">T.O.L.</span>
+                                                <drbbly-lcddisplay text="gdg.game.team2.timeoutsLeft"
+                                                                   class="tol"
+                                                                   on-click="gdg.setTeam2Tol"
+                                                                   font-size="'2em'"></drbbly-lcddisplay>
+                                            </div>
+                                            <div class="mb-2">
+                                                <!-- Team Foul - Team2 -->
+                                                <span uib-tooltip="Team Fouls"
+                                                      class="d-block">Fouls</span>
+                                                <drbbly-lcddisplay text="gdg.game.team2.teamFoulCount"
+                                                                   class="team-foul"
+                                                                   on-click="gdg.setTeam2FoulCount"
+                                                                   font-size="'2em'"></drbbly-lcddisplay>
+                                            </div>
                                         </div>
                                     </div>
 

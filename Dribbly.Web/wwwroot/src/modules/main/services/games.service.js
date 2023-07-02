@@ -70,6 +70,10 @@
                     return drbblyhttpService.post(api + 'setTimeoutsLeft/' + gameTeamId + '/' + timeoutsLeft);
                 }
 
+                function setTeamFoulCount(gameTeamId, foulCount) {
+                    return drbblyhttpService.post(api + 'setTeamFoulCount/' + gameTeamId + '/' + foulCount);
+                }
+
                 var _service = {
                     addGame: addGame,
                     advancePeriod: advancePeriod,
@@ -83,6 +87,7 @@
                     startGame: startGame,
                     setNextPossession: setNextPossession,
                     setTimeoutsLeft: setTimeoutsLeft,
+                    setTeamFoulCount: setTeamFoulCount,
                     updateGame: updateGame,
                     updateGameResult: updateGameResult,
                     updateRemainingTime: updateRemainingTime,

@@ -237,7 +237,7 @@
                     });
                 if (foulResult) {
                     applyFoulResult(foulResult, gdg.selectedPlayer);
-                    gdg.unselectPlayer(performedBy);
+                    gdg.unselectPlayer(gdg.selectedPlayer);
                 }
             }
         }
@@ -271,6 +271,42 @@
                 }
             }
         }
+
+        // #region Team Foul Setting
+        gdg.setTeam1FoulCount = function () {
+            gdg.setTeamFoulCount(gdg.game.team1);
+        };
+
+        gdg.setTeam2FoulCount = function () {
+            gdg.setTeamFoulCount(gdg.game.team2);
+        };
+
+        gdg.setTeamFoulCount = async function (gameTeam) {
+            var value = await modalService
+                .input({
+                    model: {
+                        value: gameTeam.teamFoulCount,
+                        prompt: 'Team Foul Count:',
+                        type: 'number',
+                        titleRaw: 'Set team fouls for ' + gameTeam.name
+                    }
+                })
+                .catch(function (err) { /* input cancelled */ });
+
+            if (value !== null && value !== undefined) {
+                await drbblyGamesService.setTeamFoulCount(gameTeam.id, value)
+                    .then(function () {
+                        gameTeam.teamFoulCount = value;
+                    })
+                    .catch(function (err) {
+                        drbblyCommonService.handleError(err, null, 'Failed to update team foul count due to an error.');
+                    });
+
+            }
+        }
+        // #endregion Team Foul Setting
+
+        // #region TOL Setting
 
         gdg.setTeam1Tol = function () {
             gdg.setTol(gdg.game.team1);
@@ -306,10 +342,18 @@
             }
         }
 
+        // #endregion TOL Setting
+
+        /**
+         * @param {UpsertFoulResultModel} foulResult
+         * @param {GamePlayerModel} performedBy 
+         * */
         function applyFoulResult(foulResult, performedBy) {
             if (foulResult) {
                 performedBy.fouls = foulResult.totalPersonalFouls;
                 performedBy.ejectionStatus = foulResult.ejectionStatus;
+                var team = gdg.teams.drbblySingle(t => t.teamId === performedBy.teamMembership.teamId)
+                team.teamFoulCount = foulResult.teamFoulCount;
 
                 if (foulResult.ejectionStatus !== constants.enums.ejectionStatusEnum.NotEjected) {
                     var msg = '';
@@ -392,7 +436,7 @@
                         displayPeriod(gdg.game.currentPeriod);
                     }
 
-                    //loadTeams(gdg.game);
+                    gdg.teams = [gdg.game.team1, gdg.game.team2];
                     gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
                     checkTeamLogos();
