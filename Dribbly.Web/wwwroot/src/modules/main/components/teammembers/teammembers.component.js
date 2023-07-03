@@ -23,9 +23,9 @@
             dad.teamId = $stateParams.id;
             dad.overlay = drbblyOverlayService.buildOverlay();
             dad.joinRequestsOverlay = drbblyOverlayService.buildOverlay();
-            dad.isOwned = authService.isCurrentUserId(dad.team.addedById);
+            dad.isOwned = authService.isCurrentAccountId(dad.team.addedById);
             dad.isBusy = true;
-            dad.isManager = authService.isCurrentUserId(dad.team.managedById);
+            dad.isManager = authService.isCurrentAccountId(dad.team.managedById);
             loadCurrentMembers();
 
             if (dad.isManager) { // only the manager should be able to see pending requests

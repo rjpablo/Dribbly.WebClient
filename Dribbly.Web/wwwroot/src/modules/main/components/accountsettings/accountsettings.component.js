@@ -97,10 +97,7 @@
                         drbblyAccountsService.setStatus(das.account.id, constants.enums.accountStatus.Deleted)
                             .then(function () {
                                 authService.logOut();
-                                $state.go('main.home', { reload: true })
-                                    .finally(function () {
-                                        $window.location.reload();
-                                    });
+                                $state.go('main.home', { reload: true });
                             })
                             .finally(function () {
                                 das.isBusy = false;

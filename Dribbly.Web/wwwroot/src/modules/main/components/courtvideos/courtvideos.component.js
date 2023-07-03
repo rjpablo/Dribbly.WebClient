@@ -22,7 +22,7 @@
 
         dcv.$onInit = function () {
             dcv.courtId = $stateParams.id;
-            dcv.isOwned = dcv.court.ownerId === authService.authentication.userId;
+            dcv.isOwned = authService.isCurrentAccountId(dcv.court.ownerId);
             dcv.maxSize = settingsService.maxVideoUploadMb + 'MB';
             _canDeleteNotOwned = permissionsService.hasPermission('Court.DeleteVideoNotOwned');
             setVideoListItemsOptions();
@@ -43,7 +43,7 @@
                         action: deleteVideo,
                         isDelete: true, // is this a delete action
                         isVisible: function (video) {
-                            return dcv.isOwned || authService.isCurrentUserId(video.addedBy) || _canDeleteNotOwned;
+                            return dcv.isOwned || authService.isCurrentAccountId(video.addedBy) || _canDeleteNotOwned;
                         }
                     }
                 ]

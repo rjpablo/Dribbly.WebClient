@@ -34,7 +34,7 @@
                     avc.team.logo = avc.team.logo || getDefaultLogo();
                     avc.team.photos = avc.team.photos || [];
                     avc.team.photos.push(avc.team.logo);
-                    avc.isOwned = authService.isCurrentUserId(avc.team.addedById);
+                    avc.isOwned = authService.isCurrentAccountId(avc.team.addedById);
                     avc.app.mainDataLoaded();
                     avc.shouldDisplayAsPublic = true; //TODO should be conditional
                     buildSubPages();

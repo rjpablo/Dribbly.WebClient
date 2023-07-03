@@ -42,6 +42,7 @@
                                 token: response.data.access_token,
                                 username: loginData.username,
                                 userId: parseInt(response.data.userId),
+                                accountId: parseInt(response.data.accountId),
                                 refreshToken: response.data.refresh_token,
                                 useRefreshTokens: _useRefreshTokens,
                                 profilePicture: _temporaryProfilePicture,
@@ -53,6 +54,7 @@
                             _authentication.useRefreshTokens = _useRefreshTokens;
                             _authentication.profilePicture = _temporaryProfilePicture;
                             _authentication.userId = parseInt(response.data.userId);
+                            _authentication.accountId = parseInt(response.data.accountId);
 
                             deferred.resolve(response);
 
@@ -88,6 +90,7 @@
             _authentication.isAuthenticated = false;
             _authentication.username = "";
             _authentication.userId = null;
+            _authentication.accountId = null;
             permissionsService.setPermissions([]);
 
         };
@@ -109,6 +112,7 @@
                 _authentication.useRefreshTokens = authData.useRefreshTokens;
                 _authentication.profilePicture = authData.profilePicture;
                 _authentication.userId = parseInt(authData.userId);
+                _authentication.accountId = parseInt(authData.accountId);
                 permissionsService.setPermissions(authData.permissions);
             }
 
@@ -149,6 +153,7 @@
                             token: response.data.access_token,
                             username: response.data.userName,
                             userId: parseInt(response.data.userId),
+                            accountId: parseInt(response.data.accountId),
                             refreshToken: response.data.refresh_token,
                             useRefreshTokens: _useRefreshTokens,
                             profilePicture: _temporaryProfilePicture,
@@ -160,6 +165,7 @@
                         _authentication.useRefreshTokens = _useRefreshTokens;
                         _authentication.profilePicture = _temporaryProfilePicture;
                         _authentication.userId = parseInt(response.data.userId);
+                        _authentication.accountId = parseInt(response.data.accountId);
                         permissionsService.setPermissions(authData.permissions);
 
                         deferred.resolve(response);
@@ -192,6 +198,7 @@
                         token: response.data.access_token,
                         username: registerExternalData.username,
                         userId: parseInt(response.data.userId),
+                        accountId: parseInt(response.data.accountId),
                         refreshToken: response.data.refresh_token,
                         useRefreshTokens: _useRefreshTokens
                     });
@@ -200,6 +207,7 @@
                     _authentication.username = registerExternalData.username;
                     _authentication.useRefreshTokens = _useRefreshTokens;
                     _authentication.userId = parseInt(response.data.userId);
+                    _authentication.accountId = parseInt(response.data.accountId);
 
                     deferred.resolve(response);
 
@@ -225,6 +233,7 @@
                         token: response.data.access_token,
                         username: response.data.userName,
                         userId: parseInt(response.data.userId),
+                        accountId: parseInt(response.data.accountId),
                         refreshToken: response.data.refresh_token,
                         useRefreshTokens: _useRefreshTokens
                     });
@@ -233,6 +242,7 @@
                     _authentication.username = response.data.userName;
                     _authentication.useRefreshTokens = _useRefreshTokens;
                     _authentication.userId = parseInt(response.data.userId);
+                    _authentication.accountId = parseInt(response.data.accountId);
 
                     deferred.resolve(response);
 
@@ -293,6 +303,10 @@
             return _authentication.userId && _authentication.userId === id;
         }
 
+        function _isCurrentAccountId(id) {
+            return _authentication.accountId && _authentication.accountId === id;
+        }
+
         //TEST FUNCTIONALITY ONLY
         var _test = function () {
             $http.post(settingsService.serviceBase + 'api/account/test')
@@ -304,6 +318,7 @@
         authServiceFactory.checkAuthenticationThen = _checkAuthenticationThen;
         authServiceFactory.checkAuthentication = _checkAuthentication;
         authServiceFactory.isCurrentUserId = _isCurrentUserId;
+        authServiceFactory.isCurrentAccountId = _isCurrentAccountId;
         authServiceFactory.signUp = signUp;
         authServiceFactory.login = _login;
         authServiceFactory.logOut = _logOut;

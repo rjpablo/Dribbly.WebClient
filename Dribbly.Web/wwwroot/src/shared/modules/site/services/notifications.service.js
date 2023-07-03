@@ -118,9 +118,7 @@
                 }
 
                 function start() {
-                    if (!_isRunning
-                        && false // temporarily stop updates
-                    ) {
+                    if (!_isRunning) {
                         _unviewedNotifications = [];
                         _isRunning = true;
                         monitorNotifications();

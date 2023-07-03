@@ -22,7 +22,7 @@
         dad.$onInit = function () {
             dad.teamId = $stateParams.id;
             dad.overlay = drbblyOverlayService.buildOverlay();
-            dad.isOwned = authService.isCurrentUserId(dad.team.addedById);
+            dad.isOwned = authService.isCurrentAccountId(dad.team.addedById);
             dad.postsOptions = {
                 postedOnType: constants.enums.entityType.Team,
                 postedOnId: dad.team.id

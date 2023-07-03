@@ -25,7 +25,7 @@
         dcd.$onInit = function () {
             dcd.courtId = $stateParams.id;
             dcd.overlay = drbblyOverlayService.buildOverlay();
-            dcd.isOwned = dcd.court.ownerId === authService.authentication.userId;
+            dcd.isOwned = authService.isCurrentAccountId(dcd.court.ownerId);
             dcd.mapOptions = {
                 id: 'location-picker-map'
             };
