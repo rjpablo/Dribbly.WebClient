@@ -46,6 +46,10 @@
                 .catch(function () { /*cancelled*/ });
         };
 
+        das.changeEmail = function () {
+            alert('Not yet implemented (HOOP-47)');
+        };
+
         das.handleIsPublicChanged = function () {
             das.isBusy = true;
             drbblyAccountsService.setIsPublic(das.account.identityUserId, !das.isPrivate)
