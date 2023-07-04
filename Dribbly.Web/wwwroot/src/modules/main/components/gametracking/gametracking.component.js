@@ -426,12 +426,18 @@
         }
 
         gdg.canRecordShot = function () {
-            return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut);
+            return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut)
+                && gdg.game.status === gdg.gameStatusEnum.Started;
         }
 
         gdg.canRecordFoul = function () {
-            return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut);
+            return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut)
+                && gdg.game.status === gdg.gameStatusEnum.Started;
         }
+
+        gdg.canCallTimeout = function () {
+            return gdg.game.status === gdg.gameStatusEnum.Started;
+        };
 
         gdg.isEjected = function (player) {
             return player && player.ejectionStatus !== constants.enums.ejectionStatusEnum.NotEjected;

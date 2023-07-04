@@ -348,6 +348,7 @@
                         </button>
                         <button type="button"
                                 class="btn btn-block btn-secondary"
+                                ng-disabled="!gdg.canCallTimeout()"
                                 ng-click="gdg.timeout()">
                             Timeout
                         </button>
