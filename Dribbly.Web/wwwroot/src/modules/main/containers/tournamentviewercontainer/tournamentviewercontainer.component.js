@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyTournamentsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
-        'constants'];
+        'constants', 'drbblyDatetimeService'];
     function controllerFunc(drbblyTournamentsService, authService, $stateParams, $state, drbblyOverlayService,
-        constants) {
+        constants, drbblyDatetimeService) {
         var lvc = this;
         var _tournamentId;
 
@@ -30,6 +30,7 @@
             drbblyTournamentsService.getTournamentviewer(_tournamentId)
                 .then(function (tournament) {
                     lvc.overlay.setToReady();
+                    massageTournament(tournament);
                     lvc.tournament = tournament;
                     lvc.isOwned = authService.isCurrentUserId(lvc.tournament.addedById);
                     lvc.app.mainDataLoaded();
@@ -37,6 +38,10 @@
                     buildSubPages();
                 })
                 .catch(lvc.overlay.setToError);
+        }
+
+        function massageTournament(tournament) {
+            tournament.games.forEach(g => g.start = new Date(drbblyDatetimeService.toUtcString(g.start)));
         }
 
         lvc.onTournamentUpdate = function () {

@@ -22,7 +22,8 @@
         bgm.$onInit = function () {
             bgm.overlay = drbblyOverlayService.buildOverlay();
             bgm.gameStatus = constants.enums.gameStatus;
-            bgm.selectedCourts = [];
+            bgm.selectedCourts = bgm.model.court ?
+                [{ text: bgm.model.court.name, value: bgm.model.court.id }] : [];
 
             if (bgm.model.isEdit) {
                 bgm.isBusy = true;
@@ -31,7 +32,7 @@
                     .then(function (game) {
                         bgm.overlay.setToReady();
                         bgm.isBusy = false;
-                        game.start = drbblyDatetimeService.toLocalDateTime(game.start);
+                        game.start = new Date(drbblyDatetimeService.toUtcString(game.start));
                         bgm.saveModel = angular.copy(game || {});
                         bgm.saveModel.toStatus = bgm.model.toStatus;
                         bgm.selectedCourts = [{ text: game.court.name, value: game.court.id }];
@@ -52,7 +53,10 @@
             else {
                 bgm.saveModel = {
                     courtId: bgm.model.courtId,
-                    tournamentId: bgm.model.tournamentId
+                    tournamentId: bgm.model.tournamentId,
+                    numberOfRegulationPeriods: 4,
+                    regulationPeriodDuration: 12,
+                    overtimePeriodDuration: 5
                 };
                 bgm.saveModel.toStatus = bgm.model.toStatus;
                 bgm.saveModel.isTeam1Open = false;
@@ -142,7 +146,7 @@
         bgm.submit = function () {
             if (bgm.frmGameDetails.$valid) {
                 var saveModel = angular.copy(bgm.saveModel);
-                saveModel.start = bgm.saveModel.start.toISOString();
+                saveModel.start = drbblyDatetimeService.toUtcDate(bgm.saveModel.start);
                 bgm.isBusy = true;
                 if (bgm.model.isEdit) {
                     drbblyGamesService.updateGame(saveModel)

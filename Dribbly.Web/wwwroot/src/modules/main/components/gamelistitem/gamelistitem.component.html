@@ -26,7 +26,7 @@
                     </div>
                     <div class="small text-secondary"
                          ng-if="cli.game">
-                        {{cli.game.start | date: 'hh:MM a'}}
+                        {{cli.game.start | date: 'hh:mm a'}}
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                 </div>
                 <div class="font-weight-semibold"
                      ng-if="cli.game">
-                    {{cli.game.start | date: 'hh:MM a'}}
+                    {{cli.game.start | date: 'hh:mm a'}}
                 </div>
             </div>
         </div>
@@ -49,8 +49,7 @@
                class="d-block small text-dark">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.name}}</a>
         </div>
     </div>
-    <div class="controls"
-         ng-click="(function(event){ event.stopPropagation; })($event)">
+    <div class="controls">
         <button class="btn btn-sm text-light"
            ng-click="cli._openInNewTab(cli.game, $event)">
             <i class="fa fa-external-link"></i>

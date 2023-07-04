@@ -7,85 +7,200 @@
               novalidate
               ng-if="bgm.saveModel">
             <fieldset ng-disabled="bgm.isBusy">
-                <div>
-                    <div class="form-group">
+                <div class="form-row">
+                    <div class="col-3">
+                        <label for="txtName">{{::'app.Title' | i18n}} <small class="text-lowercase">({{::'site.Optional' | i18n}})</small>:</label>
+                    </div>
+                    <div class="col-9">
+                        <div class="form-group">
+                            <input type="text"
+                                   name="txtName"
+                                   ng-model="bgm.saveModel.title"
+                                   placeholder="{{::'app.Untitled' | i18n}}"
+                                   class="form-control"
+                                   ng-class="{'is-invalid': bgm.frmGameDetails.txtName.$touched && bgm.frmGameDetails.txtName.$invalid}"
+                                   minlength="5" />
+                            <div ng-show="bgm.frmGameDetails.txtName.$error.minlength" class="invalid-feedback">
+                                {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-3">
                         <label for="start">Teams*:</label>
-                        <drbbly-typeahead selected-items="bgm.team1Selection"
-                                          config="bgm.team1TypeAheadConfig"
-                                          ng-required="!bgm.saveModel.isTeam1Open"
-                                          ng-show="!bgm.saveModel.isTeam1Open"
-                                          name="typTeam1"
-                                          ng-model="bgm.saveModel.team1Id"
-                                          class="form-control mb-0">
-                        </drbbly-typeahead>
-                        <!--<div class="form-check">
-                            <label>
+                    </div>
+                    <div class="col-9">
+                        <div class="form-group">
+                            <drbbly-typeahead selected-items="bgm.team1Selection"
+                                              config="bgm.team1TypeAheadConfig"
+                                              ng-required="!bgm.saveModel.isTeam1Open"
+                                              ng-show="!bgm.saveModel.isTeam1Open"
+                                              name="typTeam1"
+                                              ng-model="bgm.saveModel.team1Id"
+                                              class="form-control mb-0">
+                            </drbbly-typeahead>
+                            <div class="text-center">vs</div>
+                            <drbbly-typeahead selected-items="bgm.team2Selection"
+                                              config="bgm.team2TypeAheadConfig"
+                                              ng-required="!bgm.saveModel.isTeam2Open"
+                                              ng-show="!bgm.saveModel.isTeam2Open"
+                                              name="typTeam2"
+                                              ng-model="bgm.saveModel.team2Id"
+                                              class="form-control">
+                            </drbbly-typeahead>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-3">
+                        <label for="typCourt">{{::'app.Court' | i18n}}*:</label>
+                    </div>
+                    <div class="col-9">
+                        <div class="form-group">
+                            <drbbly-typeahead selected-items="bgm.selectedCourts"
+                                              config="bgm.typeAheadConfig"
+                                              required
+                                              name="typCourt"
+                                              ng-model="bgm.saveModel.courtId"
+                                              class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-3">
+                        <label for="start">{{::'app.Schedule' | i18n}}*:</label>
+                    </div>
+                    <div class="col-9">
+                        <div class="form-group">
+                            <drbbly-datetimepicker ng-model="bgm.saveModel.start"
+                                                   name="dtpStart"
+                                                   sid="start"
+                                                   value-changed="bgm.startChanged"
+                                                   required
+                                                   options="bgm.startDateOptions"></drbbly-datetimepicker>
+                            <!-- This is a remedy for the error message to display properly.
+                It requires a sibling with classes .is-invalid and .form-control for it to appear,
+                but adding those classes to the datetime picker does not yield a very good result-->
+                            <span class="form-control d-none"
+                                  ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
+                            <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">
+                                {{::'site.Required' | i18n}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-3">Timed</div>
+                    <div class="col-9">
+                        <div class="form-group">
+                            <div class="form-check pl-0">
                                 <input type="checkbox"
-                                       ng-model="bgm.saveModel.isTeam1Open" /> {{'app.OpenTeam' | i18n}}
-                            </label>
-                        </div>-->
-                    </div>
-                    <div class="form-group text-center">VS</div>
-                    <div class="form-group">
-                        <drbbly-typeahead selected-items="bgm.team2Selection"
-                                          config="bgm.team2TypeAheadConfig"
-                                          ng-required="!bgm.saveModel.isTeam2Open"
-                                          ng-show="!bgm.saveModel.isTeam2Open"
-                                          name="typTeam2"
-                                          ng-model="bgm.saveModel.team2Id"
-                                          class="form-control">
-                        </drbbly-typeahead>
-                        <!--<div class="form-check">
-                            <label>
-                                <input type="checkbox"
-                                       ng-model="bgm.saveModel.isTeam2Open" /> {{'app.OpenTeam' | i18n}}
-                            </label>
-                        </div>-->
+                                       ng-model="bgm.saveModel.isTimed" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-check pl-0">
-                    <label>
-                        <input type="checkbox"
-                               ng-model="bgm.saveModel.isTimed" /> Timed
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label for="txtName">{{::'app.Title' | i18n}} <small class="text-lowercase">({{::'site.Optional' | i18n}})</small>:</label>
-                    <input type="text"
-                           name="txtName"
-                           ng-model="bgm.saveModel.title"
-                           placeholder="{{::'app.Untitled' | i18n}}"
-                           class="form-control"
-                           ng-class="{'is-invalid': bgm.frmGameDetails.txtName.$touched && bgm.frmGameDetails.txtName.$invalid}"
-                           minlength="5" />
-                    <div ng-show="bgm.frmGameDetails.txtName.$error.minlength" class="invalid-feedback">
-                        {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                <ul class="nav nav-tabs" id="myTab" role="tablist"
+                    ng-show="bgm.saveModel.isTimed">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active"
+                                data-toggle="tab"
+                                data-target="#periods"
+                                type="button"
+                                role="tab"
+                                aria-controls="periods"
+                                aria-selected="true">
+                            Periods
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link"
+                                data-toggle="tab"
+                                data-target="#timeouts"
+                                type="button"
+                                role="tab"
+                                aria-controls="timeouts">
+                            Timeouts
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link"
+                                data-toggle="tab"
+                                data-target="#fouls"
+                                type="button"
+                                role="tab"
+                                aria-controls="fouls">
+                            Fouls
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent"
+                     ng-show="bgm.saveModel.isTimed">
+                    <div class="tab-pane show active" id="periods" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtRegulationPeriodCount">No. of Regulation Periods:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtRegulationPeriodCount"
+                                                   ng-required="bgm.saveModel.isTimed"
+                                                   min="0"
+                                                   ng-model="bgm.saveModel.numberOfRegulationPeriods"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtRegulationDuration">Regulation Period Duration(in minutes):</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtRegulationDuration"
+                                                   ng-required="bgm.saveModel.isTimed"
+                                                   min="0"
+                                                   ng-model="bgm.saveModel.regulationPeriodDuration"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtOvertimeDuration">Overtime Period Duration(in minutes):</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtOvertimeDuration"
+                                                   ng-required="bgm.saveModel.isTimed"
+                                                   min="0"
+                                                   ng-model="bgm.saveModel.overtimePeriodDuration"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="typCourt">{{::'app.Court' | i18n}}*:</label>
-                    <drbbly-typeahead selected-items="bgm.selectedCourts"
-                                      config="bgm.typeAheadConfig"
-                                      required
-                                      name="typCourt"
-                                      ng-model="bgm.saveModel.courtId"
-                                      class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="start">{{::'app.Schedule' | i18n}}*:</label>
-                    <drbbly-datetimepicker ng-model="bgm.saveModel.start"
-                                           name="dtpStart"
-                                           sid="start"
-                                           value-changed="bgm.startChanged"
-                                           required
-                                           options="bgm.startDateOptions"></drbbly-datetimepicker>
-                    <!-- This is a remedy for the error message to display properly.
-                    It requires a sibling with classes .is-invalid and .form-control for it to appear,
-                    but adding those classes to the datetime picker does not yield a very good result-->
-                    <span class="form-control d-none"
-                          ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
-                    <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">
-                        {{::'site.Required' | i18n}}
+                    <div class="tab-pane" id="timeouts" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card">
+                            <div class="card-body">
+                                Timeout Settings
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="fouls" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="card">
+                            <div class="card-body">
+                                Foul Settings
+                            </div>
+                        </div>
                     </div>
                 </div>
             </fieldset>

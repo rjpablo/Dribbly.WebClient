@@ -24,7 +24,10 @@
         };
 
         dtg.addGame = function () {
-            drbblyGameshelperService.openAddEditGameModal({ tournamentId: dtg.tournament.id })
+            drbblyGameshelperService.openAddEditGameModal({
+                tournamentId: dtg.tournament.id,
+                court: dtg.tournament.defaultCourt
+            })
                 .then(function (game) {
                     dtg.tournament.games.push(game);
                 })

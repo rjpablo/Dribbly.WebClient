@@ -33,7 +33,7 @@
             drbblyGamesService.getGame(_gameId)
                 .then(function (data) {
                     gdg.game = angular.copy(data);
-                    gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
+                    gdg.game.start = new Date(drbblyDatetimeService.toUtcString(data.start));
                     gdg.isOwned = authService.isCurrentAccountId(gdg.game.addedById);
                     gdg.canManage = authService.isCurrentAccountId(gdg.game.addedById);
                     checkTeamLogos();
