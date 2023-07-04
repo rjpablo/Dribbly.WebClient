@@ -5,7 +5,7 @@
         .module('mainModule')
         .component('drbblyGamedetails', {
             bindings: {
-
+                app: '<'
             },
             controllerAs: 'gdg',
             templateUrl: 'drbbly-default',
@@ -38,6 +38,7 @@
                     gdg.canManage = authService.isCurrentAccountId(gdg.game.addedById);
                     checkTeamLogos();
                     gdg.gameDetailsOverlay.setToReady();
+                    gdg.app.mainDataLoaded();
                 })
                 .catch(gdg.gameDetailsOverlay.setToError);
         }

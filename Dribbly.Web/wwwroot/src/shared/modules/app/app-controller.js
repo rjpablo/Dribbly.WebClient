@@ -21,6 +21,7 @@
                     setSections();
                     var headerHeight = app.sections.header.outerHeight();
                     app.sections.body.css('padding-top', headerHeight);
+                    app.sections.appNavigationContainer.css('top', headerHeight + 'px');
                     if (isScreenSmall()) {
                         var footerHeight = app.sections.footer_mobile.outerHeight();
                         app.sections.body.css('padding-bottom', footerHeight);
@@ -44,6 +45,7 @@
         function setSections() {
             app.sections = {
                 body: angular.element('[id="page-body-container"]'),
+                appNavigationContainer: angular.element('[id="app-navigation-container"]'),
                 header: angular.element('[id="page-header-container"]'),
                 footer: angular.element('[id="page-footer-container"]'),
                 footer_mobile: angular.element('[id="page-footer-container"] drbbly-footer > div.mobile-only')

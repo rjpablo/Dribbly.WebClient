@@ -45,14 +45,14 @@
 .app-container {
 
     .app-header > div {
-        position: fixed;
+        /*position: fixed;*/
         z-index: 2;
         width: 100%;
     }
 
     .app-body {
         @include media-breakpoint-up(sm) {
-            padding-top: 40px;
+            /*padding-top: 40px;*/
         }
     }
 }

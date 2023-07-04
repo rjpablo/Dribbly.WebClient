@@ -5,7 +5,7 @@
         .module('mainModule')
         .component('drbblyGametracking', {
             bindings: {
-
+                app: '<'
             },
             controllerAs: 'gdg',
             templateUrl: 'drbbly-default',
@@ -27,7 +27,6 @@
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
             _periodDuration = 12 * 60 * 1000; // 12mins
-            loadGame();
         };
 
         gdg.onTimerReady = function (timer) {
@@ -54,6 +53,8 @@
                 updateTime(time.totalMs, gdg.shotTimer.remainingTime, false)
                     .then(commit);
             });
+
+            loadGame();
         }
 
         gdg.onShotTimerReady = function (timer) {
@@ -338,7 +339,7 @@
                     .catch(function (err) {
                         drbblyCommonService.handleError(err, null, 'Failed to save T.O.L. due to an error.');
                     });
-                
+
             }
         }
 
@@ -462,6 +463,7 @@
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
                     checkTeamLogos();
                     gdg.gameDetailsOverlay.setToReady();
+                    gdg.app.mainDataLoaded();
                 })
                 .catch(gdg.gameDetailsOverlay.setToError);
         }

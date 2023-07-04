@@ -64,7 +64,7 @@
                 });
             })
                 .then(function (tournament) {
-                    $state.go('main.tournament', { id: tournament.id });
+                    $state.go('main.tournament.games', { id: tournament.id });
                 })
                 .catch(function () { /* do nothing */ });
         };
