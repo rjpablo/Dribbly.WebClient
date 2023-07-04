@@ -11,6 +11,7 @@
                     <label for="txtName">{{::'app.TournamentNamePrompt' | i18n}}</label>
                     <input type="text"
                            name="txtName"
+                           maxlength="100"
                            ng-model="atm.saveModel.name"
                            class="form-control"
                            ng-class="{'is-invalid': atm.frmTournamentDetails.txtName.$touched && atm.frmTournamentDetails.txtName.$invalid}"
@@ -18,6 +19,17 @@
                     <div ng-show="atm.frmTournamentDetails.txtName.$error.minlength" class="invalid-feedback">
                         {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="typCourt">Default Court (optional)</label>
+                    <i class="fa fa-info-circle"
+                       uib-tooltip="This will be used as the default court when adding games to the tournament"></i>
+                    <drbbly-typeahead selected-items="atm.selectedCourts"
+                                      config="atm.typeAheadConfig"
+                                      required
+                                      name="typCourt"
+                                      ng-model="atm.saveModel.defaultCourtId"
+                                      class="form-control" />
                 </div>
             </fieldset>
         </form>

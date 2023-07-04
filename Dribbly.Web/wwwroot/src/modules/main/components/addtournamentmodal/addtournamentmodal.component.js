@@ -51,6 +51,10 @@
             }
         };
 
+        atm.typeAheadConfig = {
+            entityTypes: [constants.enums.entityType.Court]
+        };
+
         atm.submit = function () {
             if (atm.frmTournamentDetails.$valid) {
                 var saveModel = angular.copy(atm.saveModel);
