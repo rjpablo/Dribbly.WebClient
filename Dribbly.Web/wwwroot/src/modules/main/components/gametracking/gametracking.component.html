@@ -1,5 +1,307 @@
-﻿<div drbbly-overlay="gdg.gameDetailsOverlay">
-    <div class="container px-0 min-height-300">
+﻿<div class="wrapper ml-auto mr-auto"
+     ng-class="{'vertical': gdg.isVertical}">
+    <!-- Player List and Options -->
+    <div class="player-options d-flex flex-column">
+        <!-- Options -->
+        <div class="options flex-grow-1">
+            <div class="d-flex flex-column">
+                <button type="button"
+                        class="btn btn-block btn-secondary"
+                        ng-click="gdg.recordShot(1, false)"
+                        ng-disabled="!gdg.canRecordShot()">
+                    +1
+                </button>
+                <button type="button"
+                        class="btn btn-block btn-secondary"
+                        ng-click="gdg.recordShot(2, false)"
+                        ng-disabled="!gdg.canRecordShot()">
+                    +2
+                </button>
+                <button type="button"
+                        class="btn btn-block btn-secondary"
+                        ng-click="gdg.recordShot(3, false)"
+                        ng-disabled="!gdg.canRecordShot()">
+                    +3
+                </button>
+            </div>
+            <div class="flex-grow-1 flex-shrink-1 d-flex flex-column">
+                <button type="button"
+                        class="btn btn-block btn-danger"
+                        ng-click="gdg.recordShot(1, true)"
+                        ng-disabled="!gdg.canRecordShot()">
+                    miss 1
+                </button>
+                <button type="button"
+                        class="btn btn-block btn-danger"
+                        ng-click="gdg.recordShot(2, true)"
+                        ng-disabled="!gdg.canRecordShot()">
+                    miss 2
+                </button>
+                <button type="button"
+                        class="btn btn-block btn-danger"
+                        ng-click="gdg.recordShot(3, true)"
+                        ng-disabled="!gdg.canRecordShot()">
+                    miss 3
+                </button>
+            </div>
+            <div class="flex-grow-1 flex-shrink-1 d-flex flex-column">
+                <button type="button"
+                        class="btn btn-block btn-secondary"
+                        ng-click="gdg.recordFoul()"
+                        ng-disabled="!gdg.canRecordFoul()">
+                    Foul
+                </button>
+                <button type="button"
+                        class="btn btn-block btn-secondary"
+                        ng-disabled="!gdg.canCallTimeout()"
+                        ng-click="gdg.timeout()">
+                    Timeout
+                </button>
+            </div>
+        </div>
+        <!-- Selected Player -->
+        <div class="selected-player-wrapper"
+             ng-show="gdg.selectedPlayer">
+            <img class="profile-photo"
+                 ng-src="{{gdg.selectedPlayer.teamMembership.account.profilePhoto.url || 'src/images/default_images/default_profile_photo.jpg'}}" />
+            <span class="d-inline-block px-1 name">
+                {{'#' + gdg.selectedPlayer.teamMembership.jerseyNo + ' ' + gdg.selectedPlayer.teamMembership.name}}
+                <span ng-if="gdg.selectedPlayer.hasFouledOut || gdg.isEjected(gdg.selectedPlayer)"
+                      class="font-weight-light">
+                    ({{gdg.selectedPlayer.hasFouledOut? 'FOULED OUT':'EJECTED'}})
+                </span>
+            </span>
+            <div class="stats">
+                <div class="stat">
+                    <span class="value">{{gdg.selectedPlayer.points || 0}}</span>
+                    <span class="label">PTS</span>
+                </div>
+                <div class="stat">
+                    <span class="value">{{gdg.selectedPlayer.fouls || 0}}</span>
+                    <span class="label">F</span>
+                </div>
+                <div class="stat">
+                    <span class="value">{{gdg.selectedPlayer.assists || 0}}</span>
+                    <span class="label">AST</span>
+                </div>
+                <div class="stat">
+                    <span class="value">{{gdg.selectedPlayer.rebounds || 0}}</span>
+                    <span class="label">REB</span>
+                </div>
+            </div>
+        </div>
+        <!-- Team Players -->
+        <div class="team-players"
+             ng-repeat="team in [gdg.game.team1, gdg.game.team2] track by team.id">
+            <div class="team-wrapper team1">
+                <div class="logo-name-wrapper">
+                    <img class="logo" ng-src="{{team.team.logo.url}}" />
+                    <!--<small>{{team.team.name}}</small>-->
+                </div>
+                <strong class="text-center bg-white score text-dark"
+                        ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== team.team.id}">
+                    {{team.score || 0}}
+                </strong>
+                <div class="players d-flex align-items-stretch border border-dark bg-dark">
+                    <div ng-repeat="gamePlayer in team.players"
+                         class="player bg-secondary"
+                         ng-click="gdg.togglePlayerSelection(gamePlayer)"
+                         ng-class="{'selected': gamePlayer.isSelected}">
+                        <span class="jersey-no">{{gamePlayer.teamMembership.jerseyNo}}</span>
+                        <span class="name">{{gamePlayer.teamMembership.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Score Board -->
+    <div class="score-board d-flex flex-column bg-dark">
+        <!-- Game Details -->
+        <div class="flex-grow-1 d-flex justify-content-around">
+            <!-- Team1 Stats -->
+            <div class="team-stats text-center d-flex flex-column align-items-center">
+                <img class="logo" ng-src="{{gdg.game.team1.team.logo.url}}" />
+                <span class="score">{{gdg.game.team1.score}}</span>
+                <!-- Possession Team1 -->
+                <div class="mb-2">
+                    <button class="btn py-0"
+                            ng-class="{'text-white': gdg.game.nextPossession === 1}"
+                            ng-click="gdg.setNextPossession(1)">
+                        <i class="fa fa-caret-left fa-2x"></i>
+                    </button>
+                </div>
+                <!-- TOL - Team1 -->
+                <div class="mb-2">
+                    <small uib-tooltip="Timeouts Left"
+                           class="d-block">T.O.L.</small>
+                    <drbbly-lcddisplay text="gdg.game.team1.timeoutsLeft"
+                                       class="tol"
+                                       on-click="gdg.setTeam1Tol"
+                                       font-size="'1em'"></drbbly-lcddisplay>
+                </div>
+                <!-- Team Foul - Team1 -->
+                <div class="mb-2">
+                    <small uib-tooltip="Team Fouls"
+                           class="d-block">Fouls</small>
+                    <drbbly-lcddisplay text="gdg.game.team1.teamFoulCount"
+                                       class="team-foul"
+                                       on-click="gdg.setTeam1FoulCount"
+                                       font-size="'1em'"></drbbly-lcddisplay>
+                </div>
+                <!-- Bonus Team1 -->
+                <div class="mb-2">
+                    <button class="btn"
+                            ng-click="gdg.setBonusStatus(gdg.game.team1)">
+                        <strong class="text-white bonus-indicator"
+                                uib-tooltip="Penalty Indicator"
+                                ng-class="{'text-secondary': !gdg.game.team1.isInBonus}">
+                            P
+                        </strong>
+                    </button>
+                </div>
+            </div>
+            <!-- Clocks -->
+            <div class="clocks">
+                <div class="game-clock text-center"
+                     ng-show="gdg.game.isTimed">
+                    <small>TIME </small>
+                    <div class="w-100 d-flex justify-content-center align-items-center">
+                        <drbbly-timer on-ready="gdg.onTimerReady"
+                                      toggle-on-click="true"
+                                      font-size="'1.5em'"
+                                      class="game-clock"></drbbly-timer>
+                    </div>
+                    <div class="clock controls text-center"
+                         ng-cloak>
+                        <button class="btn btn-sm"
+                                ng-if="!gdg.timer.isOver()"
+                                ng-click="gdg.timer.toggle()">
+                            <i class="fa text-white"
+                               ng-class="gdg.timer.isRunning()? 'fa-pause':'fa-play'"></i>
+                        </button>
+                        <button class="btn btn-sm"
+                                ng-disabled="gdg.timer.isRunning()"
+                                ng-click="gdg.timer.edit()">
+                            <i class="fa fa-pencil text-white"
+                               uib-tooltip="{{gdg.timer.isRunning()? 'Cannot edit the clock while it is running':'Edit the clock'}}"></i>
+                        </button>
+                        <button class="btn btn-sm"
+                                uib-tooltip="Advance to next period"
+                                ng-disabled="gdg.isBusy"
+                                ng-click="gdg.goToNextPeriod()"
+                                ng-if="gdg.timer.isOver()">
+                            <i class="fa fa-angle-double-right text-white"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <!-- Shot Clock -->
+                    <div class="shot-clock"
+                         ng-show="gdg.game.isTimed">
+                        <drbbly-timer on-ready="gdg.onShotTimerReady"
+                                      class="game-clock"
+                                      is-shot-clock="true"
+                                      font-size="'1.5em'"
+                                      label="'SHOT CLOCK'"></drbbly-timer>
+                        <div class="controls text-center">
+                            <button class="btn btn-sm text-white"
+                                    ng-click="gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000, gdg.timer.isRunning())">
+                                <i class="fa fa-undo"
+                                   uib-tooltip="Reset the clock"></i>&nbsp;
+                                <span class="reset-to-value bg-dark">{{gdg.game.defaultShotClockDuration}}</span>
+                            </button>
+                            <button class="btn btn-sm text-white"
+                                    ng-click="gdg.setShotTime(gdg.game.offensiveRebondShotClock * 1000, gdg.timer.isRunning())">
+                                <i class="fa fa-undo"
+                                   uib-tooltip="Reset the clock"></i>&nbsp;
+                                <span class="reset-to-value bg-dark">{{gdg.game.offensiveRebondShotClock}}</span>
+                            </button>
+                            <button class="btn btn-sm"
+                                    ng-disabled="gdg.shotTimer.isRunning()"
+                                    ng-click="gdg.shotTimer.edit()">
+                                <i class="fa fa-pencil text-white"
+                                   uib-tooltip="{{gdg.shotTimer.isRunning()? 'Cannot edit the clock while it is running':'Edit the clock'}}"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Period -->
+                    <div class="period mb-2"
+                         ng-if="gdg.game.isTimed">
+                        <small class="d-block">PERIOD</small>
+                        <drbbly-lcddisplay class="period"
+                                           text="gdg._period"
+                                           is-danger="dtc.timer.isOver()"
+                                           on-click="dtc.clicked"
+                                           font-size="'1em'"></drbbly-lcddisplay>
+                    </div>
+                </div>
+            </div>
+            <!-- Team2 Stats -->
+            <div class="team-stats text-center d-flex flex-column align-items-center">
+                <img class="logo" ng-src="{{gdg.game.team2.team.logo.url}}" />
+                <span class="score">{{gdg.game.team2.score}}</span>
+                <!-- Possession Team2 -->
+                <div class="mb-2">
+                    <button class="btn py-0"
+                            ng-class="{'text-white': gdg.game.nextPossession === 2}"
+                            ng-click="gdg.setNextPossession(2)">
+                        <i class="fa fa-caret-right fa-2x"></i>
+                    </button>
+                </div>
+                <!-- TOL - Team2 -->
+                <div class="mb-2">
+                    <small uib-tooltip="Timeouts Left"
+                           class="d-block">T.O.L.</small>
+                    <drbbly-lcddisplay text="gdg.game.team2.timeoutsLeft"
+                                       class="tol"
+                                       on-click="gdg.setTeam2Tol"
+                                       font-size="'1em'"></drbbly-lcddisplay>
+                </div>
+                <!-- Team Foul - Team2 -->
+                <div class="mb-2">
+                    <small uib-tooltip="Team Fouls"
+                           class="d-block">Fouls</small>
+                    <drbbly-lcddisplay text="gdg.game.team2.teamFoulCount"
+                                       class="team-foul"
+                                       on-click="gdg.setTeam2FoulCount"
+                                       font-size="'1em'"></drbbly-lcddisplay>
+                </div>
+                <!-- Bonus Team2 -->
+                <div class="mb-2">
+                    <button class="btn"
+                            ng-click="gdg.setBonusStatus(gdg.game.team2)">
+                        <strong class="text-white bonus-indicator"
+                                uib-tooltip="Penalty Indicator"
+                                ng-class="{'text-secondary': !gdg.game.team2.isInBonus}">
+                            P
+                        </strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Game Options -->
+        <div class="game-options text-center">
+            <button type="button" class="btn btn-secondary"
+                    ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
+                    ng-click="gdg.jumpBall()">
+                Jump Ball
+            </button>
+            <button type="button" class="btn btn-secondary"
+                    ng-if="gdg.game.status === gdg.gameStatusEnum.Started"
+                    ng-click="gdg.endGame()">
+                End Game
+            </button>
+            <!--<button type="button" class="btn btn-secondary"
+                    ng-if="gdg.game.status !== gdg.gameStatusEnum.WaitingToStart"
+                    ng-click="gdg.updateStatus(gdg.gameStatusEnum.WaitingToStart)">
+                Reset Game
+            </button>-->
+        </div>
+    </div>
+</div>
+<div drbbly-overlay="gdg.gameDetailsOverlay">
+    <div class="container px-0 min-height-300"
+         ng-show="false">
         <!-- Game Title -->
         <div class="row my-3">
             <div class="col-12">
@@ -37,173 +339,13 @@
                             <div class="mb-3">
                                 <div ng-if="gdg.game.status !== gdg.gameStatusEnum.Finished">
                                     <!-- Game Clock -->
-                                    <div class="game-clock mb-2"
-                                         ng-show="gdg.game.isTimed">
-                                        <span>TIME</span>
-                                        <div class="w-100 d-flex justify-content-center align-items-center">
-                                            <button class="btn"
-                                                    ng-class="{'text-white': gdg.game.nextPossession === 1}"
-                                                    ng-click="gdg.setNextPossession(1)">
-                                                <i class="fa fa-caret-left fa-5x"></i>
-                                            </button>
-                                            <drbbly-timer on-ready="gdg.onTimerReady"
-                                                          toggle-on-click="true"
-                                                          font-size="'3em'"
-                                                          class="game-clock"></drbbly-timer>
-                                            <button class="btn"
-                                                    ng-class="{'text-white': gdg.game.nextPossession === 2}"
-                                                    ng-click="gdg.setNextPossession(2)">
-                                                <i class="fa fa-caret-right fa-5x"></i>
-                                            </button>
-                                        </div>
-                                        <div class="controls text-center"
-                                             ng-cloak>
-                                            <button class="btn btn-sm"
-                                                    ng-if="!gdg.timer.isOver()"
-                                                    ng-click="gdg.timer.toggle()">
-                                                <i class="fa text-white"
-                                                   ng-class="gdg.timer.isRunning()? 'fa-pause':'fa-play'"></i>
-                                            </button>
-                                            <button class="btn btn-sm"
-                                                    ng-disabled="gdg.timer.isRunning()"
-                                                    ng-click="gdg.timer.edit()">
-                                                <i class="fa fa-pencil text-white"
-                                                   uib-tooltip="{{gdg.timer.isRunning()? 'Cannot edit the clock while it is running':'Edit the clock'}}"></i>
-                                            </button>
-                                            <button class="btn btn-sm"
-                                                    uib-tooltip="Advance to next period"
-                                                    ng-disabled="gdg.isBusy"
-                                                    ng-click="gdg.goToNextPeriod()"
-                                                    ng-if="gdg.timer.isOver()">
-                                                <i class="fa fa-angle-double-right text-white"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-around">
-                                        <div class="text-center d-flex flex-column align-items-center px-3">
-                                            <!-- TOL - Team1 -->
-                                            <div class="mb-2">
-                                                <span uib-tooltip="Timeouts Left"
-                                                      class="d-block">T.O.L.</span>
-                                                <drbbly-lcddisplay text="gdg.game.team1.timeoutsLeft"
-                                                                   class="tol"
-                                                                   on-click="gdg.setTeam1Tol"
-                                                                   font-size="'2em'"></drbbly-lcddisplay>
-                                            </div>
-                                            <!-- Team Foul - Team1 -->
-                                            <div class="mb-2">
-                                                <span uib-tooltip="Team Fouls"
-                                                      class="d-block">Fouls</span>
-                                                <drbbly-lcddisplay text="gdg.game.team1.teamFoulCount"
-                                                                   class="team-foul"
-                                                                   on-click="gdg.setTeam1FoulCount"
-                                                                   font-size="'2em'"></drbbly-lcddisplay>
-                                            </div>
-                                            <!-- Bonus Team1 -->
-                                            <div class="mb-2">
-                                                <button class="btn"
-                                                        ng-click="gdg.setBonusStatus(gdg.game.team1)">
-                                                    <strong class="text-white bonus-indicator"
-                                                            uib-tooltip="Penalty Indicator"
-                                                            ng-class="{'text-secondary': !gdg.game.team1.isInBonus}">
-                                                        P
-                                                    </strong>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Period + Shot Clock -->
-                                        <div class="">
-                                            <!-- Period -->
-                                            <div class="period mb-2"
-                                                 ng-if="gdg.game.isTimed">
-                                                <span class="d-block text-center small">PERIOD</span>
-                                                <drbbly-lcddisplay class="period"
-                                                                   text="gdg._period"
-                                                                   is-danger="dtc.timer.isOver()"
-                                                                   on-click="dtc.clicked"></drbbly-lcddisplay>
-                                            </div>
-                                            <!-- Shot Clock -->
-                                            <div class="shot-clock"
-                                                 ng-show="gdg.game.isTimed">
-                                                <drbbly-timer on-ready="gdg.onShotTimerReady"
-                                                              class="game-clock"
-                                                              is-shot-clock="true"
-                                                              font-size="'3em'"
-                                                              label="'SHOT CLOCK'"></drbbly-timer>
-                                                <div class="controls text-center">
-                                                    <button class="btn btn-sm text-white"
-                                                            ng-click="gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000, gdg.timer.isRunning())">
-                                                        <i class="fa fa-undo"
-                                                           uib-tooltip="Reset the clock"></i>&nbsp;{{gdg.game.defaultShotClockDuration}}
-                                                    </button>
-                                                    <button class="btn btn-sm text-white"
-                                                            ng-click="gdg.setShotTime(gdg.game.offensiveRebondShotClock * 1000, gdg.timer.isRunning())">
-                                                        <i class="fa fa-undo"
-                                                           uib-tooltip="Reset the clock"></i>&nbsp;{{gdg.game.offensiveRebondShotClock}}
-                                                    </button>
-                                                    <button class="btn btn-sm"
-                                                            ng-disabled="gdg.shotTimer.isRunning()"
-                                                            ng-click="gdg.shotTimer.edit()">
-                                                        <i class="fa fa-pencil text-white"
-                                                           uib-tooltip="{{gdg.shotTimer.isRunning()? 'Cannot edit the clock while it is running':'Edit the clock'}}"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-center d-flex flex-column align-items-center px-3">
-                                            <!-- TOL - Team2 -->
-                                            <div class="mb-2">
-                                                <span uib-tooltip="Timeouts Left"
-                                                      class="d-block">T.O.L.</span>
-                                                <drbbly-lcddisplay text="gdg.game.team2.timeoutsLeft"
-                                                                   class="tol"
-                                                                   on-click="gdg.setTeam2Tol"
-                                                                   font-size="'2em'"></drbbly-lcddisplay>
-                                            </div>
-                                            <!-- Team Foul - Team2 -->
-                                            <div class="mb-2">
-                                                <span uib-tooltip="Team Fouls"
-                                                      class="d-block">Fouls</span>
-                                                <drbbly-lcddisplay text="gdg.game.team2.teamFoulCount"
-                                                                   class="team-foul"
-                                                                   on-click="gdg.setTeam2FoulCount"
-                                                                   font-size="'2em'"></drbbly-lcddisplay>
-                                            </div>
-                                            <!-- Bonus Team2 -->
-                                            <div class="mb-2">
-                                                <button class="btn"
-                                                        ng-click="gdg.setBonusStatus(gdg.game.team2)">
-                                                    <strong class="text-white bonus-indicator"
-                                                            uib-tooltip="Penalty Indicator"
-                                                            ng-class="{'text-secondary': !gdg.game.team2.isInBonus}">
-                                                        P
-                                                    </strong>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+
+
 
                                 </div>
                                 <div ng-if="gdg.game.status === gdg.gameStatusEnum.Finished">
                                     <div class="my-3 final">FINAL</div>
                                 </div>
-                            </div>
-                            <div class="game-options">
-                                <button type="button" class="btn btn-secondary"
-                                        ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
-                                        ng-click="gdg.jumpBall()">
-                                    Jump Ball
-                                </button>
-                                <button type="button" class="btn btn-secondary"
-                                        ng-if="gdg.game.status === gdg.gameStatusEnum.Started"
-                                        ng-click="gdg.endGame()">
-                                    End Game
-                                </button>
-                                <button type="button" class="btn btn-secondary"
-                                        ng-if="gdg.game.status !== gdg.gameStatusEnum.WaitingToStart"
-                                        ng-click="gdg.updateStatus(gdg.gameStatusEnum.WaitingToStart)">
-                                    Reset Game
-                                </button>
                             </div>
                         </div>
                         <div class="col-3 text-white text-center">

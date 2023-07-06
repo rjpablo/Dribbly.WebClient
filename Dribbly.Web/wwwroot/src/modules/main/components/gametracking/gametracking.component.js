@@ -13,21 +13,38 @@
         });
 
     controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
-        'drbblyOverlayService', '$stateParams', '$interval', 'drbblyCommonService',
+        'drbblyOverlayService', '$stateParams', '$interval', 'drbblyCommonService', '$window',
         'drbblyGameshelperService', 'drbblyDatetimeService', 'drbblyGameeventsService'];
     function controllerFunc(drbblyGamesService, modalService, constants, authService,
-        drbblyOverlayService, $stateParams, $interval, drbblyCommonService,
+        drbblyOverlayService, $stateParams, $interval, drbblyCommonService, $window,
         drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService) {
         var gdg = this;
         var _gameId;
         var _periodDuration
 
         gdg.$onInit = function () {
+            gdg.app.noHeader = true;
+            gdg.app.noFooter = true;
             _gameId = $stateParams.id;
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
             _periodDuration = 12 * 60 * 1000; // 12mins
+            setOrientation();
+
+            angular.element($window).on('resize', setOrientation);
         };
+
+        function setOrientation() {
+            var screenWidth = window.innerWidth;
+            var screenHeight = window.innerHeight;
+            gdg.isVertical = screenHeight > screenWidth;
+        }
+
+        gdg.$onDestroy = function () {
+            angular.element($window).off('resize', setOrientation);
+            gdg.app.noHeader = false;
+            gdg.app.noFooter = false;
+        }
 
         gdg.onTimerReady = function (timer) {
             gdg.timer = timer;
@@ -109,10 +126,10 @@
         }
 
         function displayPeriod(period) {
-            if (period < 5) {
-                gdg._period = 'Q' + period;
+            if (period <= gdg.game.numberOfRegulationPeriods) {
+                gdg._period = period;
             } else {
-                gdg._period = 'OT' + (period - 4);
+                gdg._period = 'OT' + (period - gdg.game.numberOfRegulationPeriods);
             }
         }
 
@@ -162,7 +179,9 @@
                         });
                     if (shotResult) {
                         gdg.game.team1Score = shotResult.team1Score;
+                        gdg.game.team1.score = shotResult.team1Score;
                         gdg.game.team2Score = shotResult.team2Score;
+                        gdg.game.team2.score = shotResult.team2Score;
                         if (modalResult.shot.isMiss) {
                             if (modalResult.withBlock) {
                                 modalResult.block.performedByGamePlayer.blocks = shotResult.blockResult.totalBlocks;
@@ -436,7 +455,7 @@
         }
 
         gdg.canCallTimeout = function () {
-            return gdg.game.status === gdg.gameStatusEnum.Started;
+            return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started;
         };
 
         gdg.isEjected = function (player) {

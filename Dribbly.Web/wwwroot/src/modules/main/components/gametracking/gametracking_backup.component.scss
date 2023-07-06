@@ -1,0 +1,89 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-gametracking {
+    display: block;
+    min-width: 550px;
+
+    .score-board {
+        border: 3px solid #ccc;
+        border-radius: 10px;
+
+        .vs {
+            font-size: 1.5em;
+        }
+
+        .score {
+            font-size: 4em;
+        }
+
+        .final {
+            font-size: 2em;
+        }
+
+        .logo {
+            height: 30px;
+            width: 30px;
+        }
+
+        .tol,
+        .team-foul {
+            width: 50px;
+        }
+
+        .game-clock {
+            text-align: center;
+
+            drbbly-timer {
+                width: 150px;
+            }
+        }
+
+        .shot-clock {
+            text-align: center;
+
+            drbbly-timer {
+                width: 80px;
+            }
+        }
+
+        .game-clock .controls > .btn,
+        .shot-clock .controls > .btn {
+            padding: 0 4px;
+
+            &:hover:not([disabled]) {
+                background-color: #4b4b4b;
+            }
+        }
+
+        .controls {
+            padding: 5px 0;
+        }
+
+        .period {
+
+            drbbly-lcddisplay {
+                font-size: 1.5em;
+            }
+        }
+
+        .bonus-indicator {
+            font-size: 2em;
+            line-height: 1em;
+        }
+    }
+
+    .player-list {
+
+        tr.player.selected {
+            background: #ff9d45;
+            color: #000;
+            font-weight: 600;
+        }
+    }
+
+    .player-options .options {
+        display: grid !important;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+    }
+}

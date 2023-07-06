@@ -50,10 +50,10 @@ a[ng-click] {
     background-color: $black;
 }
 
-.bg-dark {
+/*.bg-dark {
     background-color: #282828 !important;
     color: $bgDarkFontColor;
-}
+}*/
 
 .bg-dark .separator {
     border: 1px #5a5a5a inset;
@@ -233,14 +233,18 @@ a[ng-click] {
     }
 }
 /* Dropdowns */
-.dropdown-menu {
+/*.dropdown-menu {
     background-color: rgba(0,0,0,0.95);
     border: 1px solid $gray-900;
-}
 
-.dropdown-item {
+    &:hover {
+        background-color: rgba(0,0,0,0.95);
+    }
+}*/
+
+/*.dropdown-item {
     color: $gray-400;
-}
+}*/
 
 .dropdown-toggle {
     &.no-caret::after {

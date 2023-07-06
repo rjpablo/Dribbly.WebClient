@@ -1,89 +1,235 @@
 @import '../../../../custom/bootstrap/scss/_variables.scss';
 
+#page-body-container {
+    min-height: unset !important;
+}
+
 drbbly-gametracking {
-    display: block;
-    min-width: 550px;
+    color: #fff;
 
-    .score-board {
-        border: 3px solid #ccc;
-        border-radius: 10px;
+    .wrapper {
+        height: 100vh;
+        max-height: 380px;
+        width: calc(100vw - 6px);
+        position: relative;
+        padding: $spacer * 0.5;
+        display: flex;
+        font-size: 0.9em;
+        max-width: 800px;
+        display: flex;
+        min-height: 330px;
 
-        .vs {
-            font-size: 1.5em;
-        }
+        .player-options {
+            border: 5px solid #cd761b;
+            border-radius: 5px 0px 0px 5px;
+            border-right-width: 0px;
+            padding: 5px;
+            height: 100%;
+            display: inline-block;
+            flex-grow: 1;
 
-        .score {
-            font-size: 4em;
-        }
+            & > .options {
+                display: grid !important;
+                grid-auto-flow: column;
+                grid-auto-columns: 1fr;
 
-        .final {
-            font-size: 2em;
-        }
+                & > div {
+                    margin: 0.25rem;
 
-        .logo {
-            height: 30px;
-            width: 30px;
-        }
+                    button.btn {
+                        padding: 0.5em;
+                        line-height: 1;
+                        font-size: 1em;
+                    }
+                }
+            }
 
-        .tol,
-        .team-foul {
-            width: 50px;
-        }
+            .selected-player-wrapper {
+                border: 1px solid #ff9d45;
+                padding: 0.1em;
+                display: flex;
+                align-items: center;
+                margin-bottom: 0.2em;
 
-        .game-clock {
-            text-align: center;
+                .profile-photo {
+                    height: 2em;
+                    width: 2em;
+                    object-fit: cover;
+                }
 
-            drbbly-timer {
-                width: 150px;
+                .stats {
+                    margin-left: auto;
+                    display: flex;
+
+                    .stat {
+                        text-align: center;
+                        width: 2em;
+
+                        & > * {
+                            display: block;
+                        }
+
+                        .label {
+                            font-size: 0.5em;
+                        }
+                    }
+                }
+            }
+
+            .team-players {
+                font-size: 1.3em;
+
+                .team-wrapper {
+                    width: 100%;
+                    display: flex;
+                    align-items: stretch;
+
+                    &:first-child {
+                        margin-bottom: 2px;
+                    }
+
+                    .logo-name-wrapper {
+                        width: 2em;
+
+                        .logo {
+                            height: 2em;
+                            width: 2em;
+                            object-fit: cover;
+                        }
+
+                        .name {
+                            display: block;
+                            margin: 0;
+                        }
+                    }
+
+                    .score {
+                        width: 2em;
+                        color: $white;
+                    }
+
+                    .players {
+                        flex-grow: 1;
+
+                        .player {
+                            display: flex;
+                            flex-direction: column;
+                            width: 2em;
+                            text-align: center;
+                            margin: 0.02em;
+                            color: #ccc;
+
+                            .jersey-no {
+                                line-height: 1;
+                                flex-grow: 1;
+                            }
+
+                            .name {
+                                font-size: 0.5em;
+                            }
+
+                            &.selected {
+                                border: 3px solid #ba7635 !important;
+                                background-color: #555;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .player-list {
+
+                tr.player.selected {
+                    background: #ff9d45;
+                    color: #000;
+                    font-weight: 600;
+                }
             }
         }
 
-        .shot-clock {
-            text-align: center;
+        .score-board {
+            border: 5px solid #cd761b;
+            border-radius: 0px 5px 5px 0px;
+            padding: 5px;
+            /*width: calc(35% - 4px);*/
+            height: 100%;
+            display: inline-block;
+            min-height: 300px;
 
-            drbbly-timer {
-                width: 80px;
+            .team-stats {
+                .logo {
+                    height: 1em;
+                    width: 2em;
+                    object-fit: cover;
+                }
+
+                .score {
+                    font-size: 2em;
+                }
             }
-        }
 
-        .game-clock .controls > .btn,
-        .shot-clock .controls > .btn {
-            padding: 0 4px;
+            .clocks {
 
-            &:hover:not([disabled]) {
-                background-color: #4b4b4b;
+                .game-clock {
+                    text-align: center;
+
+                    drbbly-timer {
+                        width: 6em;
+                    }
+                }
+
+                .game-clock .controls > .btn,
+                .shot-clock .controls > .btn {
+                    padding: 0.25em;
+
+                    &:hover:not([disabled]) {
+                        background-color: #4b4b4b;
+                    }
+                }
+
+                .shot-clock {
+                    .controls {
+                        .btn {
+                            position: relative;
+
+                            .reset-to-value {
+                                font-size: 0.6em;
+                                line-height: 1;
+                                position: absolute;
+                                left: 0;
+                                bottom: 1px;
+                                background-color: #000;
+                                padding: 0.2em;
+                            }
+                        }
+                    }
+                }
             }
-        }
 
-        .controls {
-            padding: 5px 0;
-        }
-
-        .period {
-
-            drbbly-lcddisplay {
+            .bonus-indicator {
                 font-size: 1.5em;
+                line-height: 1em;
             }
         }
-
-        .bonus-indicator {
-            font-size: 2em;
-            line-height: 1em;
-        }
     }
 
-    .player-list {
 
-        tr.player.selected {
-            background: #ff9d45;
-            color: #000;
-            font-weight: 600;
+    .wrapper.vertical {
+        flex-direction: column-reverse;
+        justify-content: start;
+        max-height: unset;
+        max-width: 450px;
+
+        .score-board {
+            max-height: 300px;
+            border-bottom: none;
+            border-radius: 5px 5px 0px 0px;
         }
-    }
 
-    .player-options .options {
-        display: grid !important;
-        grid-auto-flow: column;
-        grid-auto-columns: 1fr;
+        .player-options {
+            max-height: 350px;
+            border-radius: 0px 0px 5px 5px;
+            border-right-width: 5px;
+        }
     }
 }
