@@ -132,7 +132,8 @@
             return authService.checkAuthenticationThen(function () {
                 return modalService.show({
                     view: '<drbbly-jointeammodal></drbbly-jointeammodal>',
-                    model: { teamName: dad.team.name, teamId: dad.team.id }
+                    model: { teamName: dad.team.name, teamId: dad.team.id },
+                    size: 'sm'
                 })
                     .then(function (result) {
                         dad.userTeamRelation = result;

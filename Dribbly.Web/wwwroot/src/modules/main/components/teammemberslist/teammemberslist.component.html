@@ -11,8 +11,12 @@
                  class="team-member-list-item"
                  on-click="tml.onItemClick">
                 <div class="photo-container">
-                    <drbbly-positionbadge position="member.position"
-                                          class="position-absolute ml-1 mt-1"></drbbly-positionbadge>
+                    <div class="position-absolute ml-1 mt-1">
+                        <strong class="jersey-no d-block">#{{member.jerseyNo}}</strong>
+                        <strong class="position d-block">{{'app.PlayerPositionAbbrevEnum.' + member.position | i18n}}</strong>
+                        <!--<drbbly-positionbadge position="member.position"
+                                              class=""></drbbly-positionbadge>-->
+                    </div>
                     <img ng-src="{{member.primaryPhotoUrl}}"
                          class="w-100" />
                 </div>
