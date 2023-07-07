@@ -27,25 +27,36 @@
                 </h4>
                 <!-- Options for requesting members -->
                 <div ng-if="member.hasPendingJoinRequest"
-                     class="d-flex">
+                     class="d-flex flex-wrap">
                     <button type="button"
                             class="btn btn-primary flex-grow-1"
                             ng-click="tml.processRequest(member, true)"
                             ng-disabled="member.isBusy">
-                        <i class="fa fa-check"></i>
+                        <i class="fa fa-check d-sm-none"></i>
+                        <span class="d-none d-sm-block">Approve</span>
                     </button>
-                    <button type="button"
-                            class="btn btn-secondary flex-grow-1"
-                            ng-click="tml.processRequest(member, false)"
-                            ng-disabled="member.isBusy">
-                        <i class="fa fa-times"></i>
-                    </button>
-                    <button type="button"
-                            class="btn btn-secondary flex-grow-1"
-                            ng-click="tml.editRequest(member)"
-                            ng-disabled="member.isBusy">
-                        <i class="fa fa-pencil"></i>
-                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">                            
+                        </button>
+                        <div class="dropdown-menu">
+                            <button type="button"
+                                    class="btn dropdown-item"
+                                    ng-click="tml.editRequest(member)"
+                                    ng-disabled="member.isBusy">
+                                <i class="fa fa-pencil"></i> Edit
+                            </button>
+                            <button type="button"
+                                    class="btn dropdown-item"
+                                    ng-click="tml.processRequest(member, false)"
+                                    ng-disabled="member.isBusy">
+                                <i class="fa fa-times"></i> Reject
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <!-- Options for current members -->
                 <div ng-if="member.isCurrentMember"

@@ -169,8 +169,8 @@ $sizes: map-merge(
 //
 // Settings for the `<body>` element.
 
-$body-bg:                   $white !default;
-$body-color:                $gray-800 !default;
+$body-bg:                   $black !default;
+$body-color:                $gray-100 !default;
 
 
 // Links
@@ -760,7 +760,7 @@ $dropdown-min-width:                10rem !default;
 $dropdown-padding-y:                .5rem !default;
 $dropdown-spacer:                   .125rem !default;
 $dropdown-font-size:                $font-size-base !default;
-$dropdown-color:                    $body-color !default;
+$dropdown-color:                    $white !default;
 $dropdown-bg:                       $black !default;
 $dropdown-border-color:             rgba($gray-300, .15) !default;
 $dropdown-border-radius:            $border-radius !default;
@@ -770,9 +770,9 @@ $dropdown-divider-bg:               $gray-200 !default;
 $dropdown-divider-margin-y:         $nav-divider-margin-y !default;
 $dropdown-box-shadow:               0 .5rem 1rem rgba($black, .175) !default;
 
-$dropdown-link-color:               $gray-900 !default;
-$dropdown-link-hover-color:         lighten($body-color, 5%) !default;
-$dropdown-link-hover-bg:            $gray-900 !default;
+$dropdown-link-color:               $white !default;
+$dropdown-link-hover-color:         lighten($body-bg, 5%) !default;
+$dropdown-link-hover-bg:            $white !default;
 
 $dropdown-link-active-color:        $component-active-color !default;
 $dropdown-link-active-bg:           $component-active-bg !default;
