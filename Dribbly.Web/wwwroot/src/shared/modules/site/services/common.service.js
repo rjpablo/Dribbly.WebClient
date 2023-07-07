@@ -6,26 +6,38 @@
             'modalService',
             function (drbblyToastService, $log, $location, i18nService, modalService) {
 
+                /**
+                 * Message Priority:
+                 * 1. friendlyMsgKey
+                 * 2. friendlyMsgRaw
+                 * 3. error.friendlyMessageKey
+                 * 4. error.friendlyMessage
+                 * */
                 var _handleError = function (error, friendlyMsgKey, friendlyMsgRaw) {
-                    // Do nothing if an HTTP error is passed because
-                    // HTTP errors are automattically logged by the authInterceptor service.
-                    if (!isHttpError(error)) {
-                        var friendlyMsg;
-                        var errorLog;
-                        if (friendlyMsgKey) {
-                            friendlyMsg = i18nService.getString(friendlyMsgKey);
-                        }
-                        else {
-                            friendlyMsg = friendlyMsgRaw;
-                        }
-
-                        errorLog = buildErrorLog(error.message, error.message, null, null, error.stack);
-                        $log.error(errorLog);
-
-                        modalService.alert({
-                            msg2Raw: friendlyMsg
-                        });
+                    var friendlyMsg = null;
+                    var errorLog;
+                    if (friendlyMsgKey) {
+                        friendlyMsg = i18nService.getString(friendlyMsgKey);
                     }
+                    else if (friendlyMsgRaw) {
+                        friendlyMsg = friendlyMsgRaw;
+                    }
+                    else if (error.friendlyMessageKey) {
+                        friendlyMsg = i18nService.getString(error.friendlyMessageKey);
+                    }
+                    else if (error.friendlyMessage) {
+                        friendlyMsg = error.friendlyMessage;
+                    }
+                    else {
+                        friendlyMsg = i18nService.getString('site.Error_Common_UnexpectedError');
+                    }
+
+                    modalService.alert({
+                        msg2Raw: friendlyMsg
+                    });
+
+                    errorLog = buildErrorLog(error.message, error.message, null, null, error.stack);
+                    $log.error(errorLog);
                 };
 
                 var _handleHttpError = function (error) {
@@ -61,7 +73,7 @@
                                 }
                         }
 
-                        showFriendlyError(error.data);
+                        /*showFriendlyError(error.data);*/
 
                     }
                     else {
