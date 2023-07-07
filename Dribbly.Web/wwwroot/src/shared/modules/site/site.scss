@@ -214,9 +214,6 @@ a[ng-click] {
 }
 
 /* Modals */
-.modal-content {
-    border-radius: 0;
-}
 
 .modal.drbbly-full-modal {
 
@@ -226,6 +223,7 @@ a[ng-click] {
 
         .modal-content {
             min-height: 100vh;
+            border-radius: 0;
         }
     }
 }
