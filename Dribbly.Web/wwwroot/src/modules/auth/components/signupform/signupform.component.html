@@ -6,8 +6,26 @@
         </ul>
     </div>
     <div class="form-group">
+        <input class="form-control" required ng-model="suf.model.firstName"
+               name="txtFirstName" type="text" placeholder="{{'site.FirstName' | i18n}}"
+               ng-class="{'is-invalid': suf.frmSignUp.txtFirstName.$touched && suf.frmSignUp.txtFirstName.$invalid}" />
+        <div ng-show="suf.frmSignUp.txtFirstName.$error.required" class="invalid-feedback">
+            {{::'site.Required' | i18n}}
+        </div>
+    </div>
+    <div class="form-group">
+        <input class="form-control" required ng-model="suf.model.lastName"
+               name="txtLastName" type="text" placeholder="{{'site.LastName' | i18n}}"
+               maxlength="30"
+               ng-class="{'is-invalid': suf.frmSignUp.txtLastName.$touched && suf.frmSignUp.txtLastName.$invalid}" />
+        <div ng-show="suf.frmSignUp.txtLastName.$error.required" class="invalid-feedback">
+            {{::'site.Required' | i18n}}
+        </div>
+    </div>
+    <div class="form-group">
         <input class="form-control" required ng-model="suf.model.email" drbbly-emailinput
                name="txtEmail" type="email" placeholder="{{'site.Email' | i18n}}"
+               maxlength="30"
                ng-class="{'is-invalid': suf.frmSignUp.txtEmail.$touched && suf.frmSignUp.txtEmail.$invalid}" />
         <div ng-show="suf.frmSignUp.txtEmail.$error.required" class="invalid-feedback">
             {{::'site.Required' | i18n}}
@@ -17,7 +35,11 @@
         </div>
     </div>
     <div class="form-group">
-        <input class="form-control" required ng-model="suf.model.userName" name="username" type="text" placeholder="{{'site.Username' | i18n}}" />
+        <input class="form-control" required ng-model="suf.model.userName"
+               name="username" type="text" placeholder="{{'site.Username' | i18n}}" />
+        <div ng-show="suf.frmSignUp.username.$error.required" class="invalid-feedback">
+            {{::'site.Required' | i18n}}
+        </div>
     </div>
     <div class="form-group">
         <input class="form-control"
@@ -57,6 +79,6 @@
         </button>
     </div>
     <p class="text-center">{{'auth.AlreadyHaveAnAccount' | i18n}}<a class="btn btn-link" ui-sref="auth.login">{{'auth.LogIn' | i18n}}</a></p>
-    <p class="text-center">{{ 'site.Or' | i18n }}</p>
+    <!--<p class="text-center">{{ 'site.Or' | i18n }}</p>-->
     <drbbly-socialauth></drbbly-socialauth>
 </form>
