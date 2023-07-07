@@ -14,9 +14,9 @@
         });
 
     controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyTeamsService', 'drbblyCommonService',
-        'drbblyFormshelperService', 'constants', 'drbblyOverlayService'];
+        'drbblyFormshelperService', 'constants', 'drbblyOverlayService', '$timeout'];
     function controllerFn($scope, modalService, drbblyEventsService, drbblyTeamsService, drbblyCommonService,
-        drbblyFormshelperService, constants, drbblyOverlayService) {
+        drbblyFormshelperService, constants, drbblyOverlayService, $timeout) {
         var jtm = this;
 
         jtm.$onInit = function () {
@@ -24,6 +24,14 @@
             jtm.teamStatus = constants.enums.teamStatus;
             jtm.request = { teamId: jtm.model.teamId };
             setDdlOptions();
+
+            if (jtm.model.isEditByManager) {
+                $timeout(function () { // wait for position dropdown to render
+                    jtm.request.jerseyNo = jtm.model.request.jerseyNo;
+                    jtm.request.position = jtm.model.request.position;
+                    jtm.request.memberAccountId = jtm.model.request.memberAccountId;
+                });
+            }
 
             jtm.context.setOnInterrupt(jtm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
@@ -72,6 +80,10 @@
                     });
             }
         };
+
+        jtm.approve = function () {
+            close({ request: jtm.request, shouldApprove: true });
+        }
 
         function close(result) {
             jtm.context.okToClose = true;

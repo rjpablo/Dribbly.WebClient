@@ -1,23 +1,24 @@
 ﻿<div class="black-transparent-bg py-3 list-container row mx-0">
     <div class="col-12">
         <h5 class="drbbly-header">
-            {{tml.titleKey? (tml.titleKey | i18n) : tml.title}}
+            {{tml.titleKey? (tml.titleKey | i18n) : tml.listTitle}}
         </h5>
     </div>
     <div class="col-12">
         <div class="row">
             <div ng-repeat="member in tml.displayedMembers track by member.id"
                  ng-class="tml._settings.wrapItems? 'col-4 col-md-3 col-lg-2' : 'mx-3'"
-                 class="team-member-list-item"
-                 on-click="tml.onItemClick">
-                <div class="photo-container">
+                 class="team-member-list-item mb-3"
+                 ng-click="tml.onItemClick(member)">
+                <div class="photo-container"
+                     ui-sref="main.account.home({username: member.name})">
                     <div class="position-absolute ml-1 mt-1">
                         <strong class="jersey-no d-block">#{{member.jerseyNo}}</strong>
                         <strong class="position d-block">{{'app.PlayerPositionAbbrevEnum.' + member.position | i18n}}</strong>
                         <!--<drbbly-positionbadge position="member.position"
                                               class=""></drbbly-positionbadge>-->
                     </div>
-                    <img ng-src="{{member.primaryPhotoUrl}}"
+                    <img ng-src="{{member.primaryPhotoUrl || 'src/images/default_images/default_profile_photo.jpg'}}"
                          class="w-100" />
                 </div>
                 <h4 ui-sref="main.account.home({username: member.name})"
@@ -30,15 +31,19 @@
                             class="btn btn-primary flex-grow-1"
                             ng-click="tml.processRequest(member, true)"
                             ng-disabled="member.isBusy">
-                        <i class="fa fa-check d-xl-none"></i>
-                        <span class="d-none d-xl-inline">Approve</span>
+                        <i class="fa fa-check"></i>
                     </button>
                     <button type="button"
                             class="btn btn-secondary flex-grow-1"
                             ng-click="tml.processRequest(member, false)"
                             ng-disabled="member.isBusy">
-                        <i class="fa fa-times d-xl-none"></i>
-                        <span class="d-none d-xl-inline">Reject</span>
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button type="button"
+                            class="btn btn-secondary flex-grow-1"
+                            ng-click="tml.editRequest(member)"
+                            ng-disabled="member.isBusy">
+                        <i class="fa fa-pencil"></i>
                     </button>
                 </div>
             </div>

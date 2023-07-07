@@ -7,11 +7,14 @@ body {
 
 a[ng-click] {
     color: $gray-500 !important;
-    cursor: pointer;
 
     &:hover {
         color: $gray-100 !important;
     }
+}
+
+*[ui-sref] {
+    cursor: pointer;
 }
 
 .link-unstyled {

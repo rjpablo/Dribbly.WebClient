@@ -1,7 +1,8 @@
 ﻿<div class="container px-0 px-sm-3">
     <div drbbly-overlay="dad.overlay">
         <drbbly-teammemberslist members="dad.currentMembers"
-                                title="'app.CurrentMembers' | i18n"
+                                team="dad.team"
+                                list-title="'app.CurrentMembers' | i18n"
                                 settings="dad.memberListSettings"
                                 on-request-processed="dad.onRequestProcessed"
                                 class="d-block mb-3">
@@ -10,7 +11,8 @@
     <div ng-if="dad.isManager">
         <div drbbly-overlay="dad.joinRequestsOverlay">
             <drbbly-teammemberslist members="dad.requestingMembers"
-                                    title="'app.MemberRequests' | i18n"
+                                    team="dad.team"
+                                    list-title="'app.MemberRequests' | i18n"
                                     settings="dad.memberListSettings"
                                     on-request-processed="dad.onRequestProcessed"
                                     class="d-block mb-3">

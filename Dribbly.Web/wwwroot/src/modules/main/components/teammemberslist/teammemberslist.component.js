@@ -7,17 +7,20 @@
             bindings: {
                 members: '<',
                 titleKey: '<',
-                title: '<',
+                listTitle: '<',
                 settings: '<',
-                onRequestProcessed: '<'
+                onRequestProcessed: '<',
+                team: '<'
             },
             controllerAs: 'tml',
             templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['modalService', '$element', 'drbblyTeamsService'];
-    function controllerFunc(modalService, $element, drbblyTeamsService) {
+    controllerFunc.$inject = ['modalService', '$element', 'drbblyTeamsService', 'authService',
+        'drbblyCommonService'];
+    function controllerFunc(modalService, $element, drbblyTeamsService, authService,
+        drbblyCommonService) {
         var tml = this;
 
         tml.$onInit = function () {
@@ -66,18 +69,56 @@
         }
 
         tml.onItemClick = function (member) {
-            modalService.show({
-                view: '<drbbly-memberpreviewmodal></drbbly-memberpreviewmodal>',
-                model: { member: member }
-            })
-                .then(function () { /*do nothing*/ })
-                .catch(function () { /*do nothing*/ });
+            //modalService.show({
+            //    view: '<drbbly-memberpreviewmodal></drbbly-memberpreviewmodal>',
+            //    model: { member: member }
+            //})
+            //    .then(function () { /*do nothing*/ })
+            //    .catch(function () { /*do nothing*/ });
         };
 
         tml.loadMore = function () {
             tml.currentSize = Math.min(tml.members.length, tml.currentSize + tml._settings.loadSize);
             setDisplayedMembers();
         };
+
+        tml.editRequest = function (member) {
+            tml.isBusy = true;
+            return authService.checkAuthenticationThen(function () {
+                return modalService.show({
+                    view: '<drbbly-jointeammodal></drbbly-jointeammodal>',
+                    model: {
+                        teamName: tml.team.name,
+                        teamId: tml.team.id,
+                        isEditByManager: true,
+                        request: {
+                            id: member.id,
+                            teamId: tml.team.id,
+                            jerseyNo: member.jerseyNo,
+                            position: member.position,
+                            id: member.id,
+                            requestedByName: member.name,
+                            memberAccountId: member.memberAccountId
+                        }
+                    },
+                    size: 'sm'
+                })
+                    .then(function (result) {
+                        if (result.shouldApprove) {
+                            member.jerseyNo = result.request.jerseyNo;
+                            member.position = result.request.position;
+                            tml.processRequest(member, true);
+                        }
+                    })
+                    .catch(function () {
+                        tml.isBusy = false;
+                    });
+            }, function () { tml.isBusy = false; })
+                .catch(function (e) {
+                    tml.isBusy = false;
+                    drbblyCommonService.handleError(e);
+                });;
+        }
 
         function setDisplayedMembers() {
             tml.displayedMembers = (tml.members || []).slice(0, tml.currentSize);

@@ -1,5 +1,5 @@
 ﻿<div class="modal-header">
-    <h3 class="modal-title" i18n="app.JoinTeamRequestModalTitle"></h3>
+    <h3 class="modal-title">{{jtm.model.isEditByManager? 'Edit Request' : ('app.JoinTeamRequestModalTitle' | i18n)}}</h3>
 </div>
 <div class="modal-body">
     <div drbbly-overlay="jtm.overlay">
@@ -7,7 +7,19 @@
               novalidate
               ng-if="jtm.request">
             <fieldset ng-disabled="jtm.isBusy">
-                <div class="form-group">
+                <div class="form-group"
+                     ng-if="jtm.model.isEditByManager">
+                    <div class="form-row">
+                        <div class="col-3">
+                            <label for="txtName">Player:</label><br />
+                        </div>
+                        <div class="col-9">
+                            <h4 class="mb-0">{{jtm.model.request.requestedByName}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-if="!jtm.model.isEditByManager">
                     <div class="form-row">
                         <div class="col-3">
                             <label for="txtName">{{::'app.Team' | i18n}}:</label><br />
@@ -43,7 +55,7 @@
                                     required>
                                 <option ng-repeat="option in jtm.ddlPositionOptions"
                                         value="{{option.value}}"
-                                        ng-selected="adm.account.position === option.value">
+                                        ng-selected="jtm.request.position === option.value">
                                     {{option.text}}
                                 </option>
                             </select>
@@ -56,12 +68,22 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary"
+            ng-if="!jtm.model.isEditByManager"
             ng-disabled="jtm.isBusy || jtm.frmJoinTeam.$invalid || (jtm.model.isEdit && jtm.frmJoinTeam.$pristine)"
             type="submit"
             ng-switch="jtm.isBusy"
             ng-click="jtm.submit()">
         <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
         <span ng-switch-default>{{::'app.SubmitRequest' | i18n}}</span>
+    </button>
+    <button class="btn btn-primary"
+            ng-if="jtm.model.isEditByManager"
+            ng-disabled="jtm.isBusy || jtm.frmJoinTeam.$invalid"
+            type="submit"
+            ng-switch="jtm.isBusy"
+            ng-click="jtm.approve()">
+        <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+        <span ng-switch-default>Approve</span>
     </button>
     <button i18n="site.Cancel"
             class="btn btn-warning"

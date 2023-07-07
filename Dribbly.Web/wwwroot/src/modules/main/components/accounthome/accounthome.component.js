@@ -112,7 +112,7 @@
                 model: {
                     imageUrl: url,
                     cropperOptions: {
-                        aspectRatio: 2/3
+                        aspectRatio: 1
                     }
                 }
             })
