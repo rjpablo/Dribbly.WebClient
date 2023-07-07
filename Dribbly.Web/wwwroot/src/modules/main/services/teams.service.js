@@ -90,6 +90,10 @@
                     return drbblyhttpService.post(api + 'processJoinRequest', input);
                 }
 
+                function removeMember(teamId, membershipId) {
+                    return drbblyhttpService.post(api + 'removeMember/' + teamId + '/' + membershipId);
+                }
+
                 function updateTeam(teamDetails) {
                     return drbblyhttpService.post(api + 'updateTeam', teamDetails);
                 }
@@ -141,6 +145,7 @@
                     joinTeam: joinTeam,
                     leaveTeam: leaveTeam,
                     processJoinRequest: processJoinRequest,
+                    removeMember: removeMember,
                     setIsPublic: setIsPublic,
                     setStatus: setStatus,
                     updateTeam: updateTeam

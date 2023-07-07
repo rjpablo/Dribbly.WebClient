@@ -45,6 +45,11 @@
             }
         };
 
+        dad.onMemberRemoved = function (member) {
+            // use reassignment to trigger $onChanges handler in teammembers component
+            dad.currentMembers = dad.currentMembers.drbblyWhere(m => m.id !== member.id);
+        };
+
         function loadCurrentMembers() {
             dad.overlay.setToBusy()
             drbblyTeamsService.getCurrentMembers(dad.teamId)

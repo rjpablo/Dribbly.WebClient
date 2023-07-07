@@ -16,7 +16,7 @@
                         <strong class="jersey-no d-block">#{{member.jerseyNo}}</strong>
                         <strong class="position d-block">{{'app.PlayerPositionAbbrevEnum.' + member.position | i18n}}</strong>
                         <!--<drbbly-positionbadge position="member.position"
-                                              class=""></drbbly-positionbadge>-->
+                                  class=""></drbbly-positionbadge>-->
                     </div>
                     <img ng-src="{{member.primaryPhotoUrl || 'src/images/default_images/default_profile_photo.jpg'}}"
                          class="w-100" />
@@ -25,6 +25,7 @@
                     class="text-center text-white">
                     <small>{{member.name}}</small>
                 </h4>
+                <!-- Options for requesting members -->
                 <div ng-if="member.hasPendingJoinRequest"
                      class="d-flex">
                     <button type="button"
@@ -44,6 +45,17 @@
                             ng-click="tml.editRequest(member)"
                             ng-disabled="member.isBusy">
                         <i class="fa fa-pencil"></i>
+                    </button>
+                </div>
+                <!-- Options for current members -->
+                <div ng-if="member.isCurrentMember"
+                     class="d-flex">
+                    <button type="button"
+                            class="btn btn-secondary flex-grow-1"
+                            ng-click="tml.removeMember(member)"
+                            uib-tooltip="Remove {{member.name}} "
+                            ng-disabled="member.isBusy">
+                        Remove
                     </button>
                 </div>
             </div>

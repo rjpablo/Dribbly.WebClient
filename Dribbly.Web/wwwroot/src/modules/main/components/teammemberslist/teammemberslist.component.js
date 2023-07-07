@@ -10,6 +10,7 @@
                 listTitle: '<',
                 settings: '<',
                 onRequestProcessed: '<',
+                onMemberRemoved: '<',
                 team: '<'
             },
             controllerAs: 'tml',
@@ -118,6 +119,36 @@
                     tml.isBusy = false;
                     drbblyCommonService.handleError(e);
                 });;
+        }
+
+        tml.removeMember = function (member) {
+            tml.isBusy = true;
+            return authService.checkAuthenticationThen(function () {
+                return modalService.confirm({
+                    msg1Raw: `Remove ${member.name}?`
+                })
+                    .then(function (confirmed) {
+                        if (confirmed) {
+                            drbblyTeamsService.removeMember(tml.team.id, member.id)
+                                .then(function () {
+                                    if (tml.onMemberRemoved) {
+                                        tml.onMemberRemoved(member);
+                                    }
+                                })
+                                .catch(function (e) {
+                                    tml.isBusy = false;
+                                    drbblyCommonService.handleError(e);
+                                });
+                        }
+                    })
+                    .catch(function () {
+                        tml.isBusy = false;
+                    });
+            }, function () { tml.isBusy = false; })
+                .catch(function (e) {
+                    tml.isBusy = false;
+                    drbblyCommonService.handleError(e);
+                });
         }
 
         function setDisplayedMembers() {
