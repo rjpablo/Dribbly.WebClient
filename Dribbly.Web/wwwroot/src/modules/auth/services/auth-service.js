@@ -79,6 +79,7 @@
                 model: {
                     messageKey: 'auth.PleaseLogInToProceed'
                 },
+                backdrop: 'static',
                 isFull: false
             });
         }

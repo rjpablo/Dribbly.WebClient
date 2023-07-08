@@ -28,8 +28,8 @@
         jbm.$onInit = function () {
             jbm.team1 = jbm.model.game.team1;
             jbm.team2 = jbm.model.game.team2;
-            jbm.team1PlayerOptions = jbm.model.game.team1.players;
-            jbm.team2PlayerOptions = jbm.model.game.team2.players;
+            jbm.team1PlayerOptions = jbm.model.game.team1.players.drbblyWhere(p => p.isInGame);
+            jbm.team2PlayerOptions = jbm.model.game.team2.players.drbblyWhere(p => p.isInGame);
             jbm.context.setOnInterrupt(jbm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
                 if (!jbm.context.okToClose) {

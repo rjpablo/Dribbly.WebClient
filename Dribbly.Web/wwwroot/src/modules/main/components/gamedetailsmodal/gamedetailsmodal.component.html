@@ -80,8 +80,8 @@
                                                    required
                                                    options="bgm.startDateOptions"></drbbly-datetimepicker>
                             <!-- This is a remedy for the error message to display properly.
-                It requires a sibling with classes .is-invalid and .form-control for it to appear,
-                but adding those classes to the datetime picker does not yield a very good result-->
+                            It requires a sibling with classes .is-invalid and .form-control for it to appear,
+                            but adding those classes to the datetime picker does not yield a very good result-->
                             <span class="form-control d-none"
                                   ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
                             <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">
@@ -104,35 +104,35 @@
                 <ul class="nav nav-tabs" id="myTab" role="tablist"
                     ng-show="bgm.saveModel.isTimed">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active"
-                                data-toggle="tab"
-                                data-target="#periods"
-                                type="button"
-                                role="tab"
-                                aria-controls="periods"
-                                aria-selected="true">
+                        <a class="nav-link active"
+                           href="#"
+                           data-toggle="tab"
+                           data-target="#periods"
+                           role="tab"
+                           aria-controls="periods"
+                           aria-selected="true">
                             Periods
-                        </button>
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link"
-                                data-toggle="tab"
-                                data-target="#timeouts"
-                                type="button"
-                                role="tab"
-                                aria-controls="timeouts">
+                        <a class="nav-link"
+                           href="#"
+                           data-toggle="tab"
+                           data-target="#timeouts"
+                           role="tab"
+                           aria-controls="timeouts">
                             Timeouts
-                        </button>
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link"
-                                data-toggle="tab"
-                                data-target="#fouls"
-                                type="button"
-                                role="tab"
-                                aria-controls="fouls">
+                        <a class="nav-link"
+                           href="#"
+                           data-toggle="tab"
+                           data-target="#fouls"
+                           role="tab"
+                           aria-controls="fouls">
                             Fouls
-                        </button>
+                        </a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent"

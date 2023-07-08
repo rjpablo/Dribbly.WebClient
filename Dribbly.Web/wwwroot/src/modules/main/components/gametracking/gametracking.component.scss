@@ -1,4 +1,5 @@
 @import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
 
 #page-body-container {
     min-height: unset !important;
@@ -20,7 +21,7 @@ drbbly-gametracking {
         min-height: 330px;
 
         .player-options {
-            border: 5px solid #cd761b;
+            border: 5px solid $primary;
             border-radius: 5px 0px 0px 5px;
             border-right-width: 0px;
             padding: 5px;
@@ -44,14 +45,15 @@ drbbly-gametracking {
                 }
             }
 
-            .selected-player-wrapper {
-                border: 1px solid #ff9d45;
+            .selected-entity-wrapper {
+                border: 1px solid $primary;
                 padding: 0.1em;
                 display: flex;
                 align-items: center;
                 margin-bottom: 0.2em;
 
-                .profile-photo {
+                .profile-photo,
+                .logo {
                     height: 2em;
                     width: 2em;
                     object-fit: cover;
@@ -101,6 +103,13 @@ drbbly-gametracking {
                             display: block;
                             margin: 0;
                         }
+
+                        &.selected {
+
+                            .logo {
+                                border: 3px solid $primary !important;
+                            }
+                        }
                     }
 
                     .score {
@@ -115,6 +124,7 @@ drbbly-gametracking {
                             display: flex;
                             flex-direction: column;
                             width: 2em;
+                            height: 2em;
                             text-align: center;
                             margin: 0.02em;
                             color: #ccc;
@@ -129,7 +139,7 @@ drbbly-gametracking {
                             }
 
                             &.selected {
-                                border: 3px solid #ba7635 !important;
+                                border: 3px solid $primary !important;
                                 background-color: #555;
                             }
                         }
@@ -140,7 +150,7 @@ drbbly-gametracking {
             .player-list {
 
                 tr.player.selected {
-                    background: #ff9d45;
+                    background: $primary;
                     color: #000;
                     font-weight: 600;
                 }
@@ -148,7 +158,7 @@ drbbly-gametracking {
         }
 
         .score-board {
-            border: 5px solid #cd761b;
+            border: 5px solid $primary;
             border-radius: 0px 5px 5px 0px;
             padding: 5px;
             /*width: calc(35% - 4px);*/

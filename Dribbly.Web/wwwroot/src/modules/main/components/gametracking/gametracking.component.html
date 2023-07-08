@@ -57,10 +57,16 @@
                         ng-click="gdg.timeout()">
                     Timeout
                 </button>
+                <button type="button"
+                        class="btn btn-block btn-secondary"
+                        ng-disabled="!gdg.canChangeLineup()"
+                        ng-click="gdg.setLineup(gdg.selectedTeam)">
+                    Lineup
+                </button>
             </div>
         </div>
         <!-- Selected Player -->
-        <div class="selected-player-wrapper"
+        <div class="selected-entity-wrapper"
              ng-show="gdg.selectedPlayer">
             <img class="profile-photo"
                  ng-src="{{gdg.selectedPlayer.teamMembership.account.profilePhoto.url || 'src/images/default_images/default_profile_photo.jpg'}}" />
@@ -90,12 +96,33 @@
                 </div>
             </div>
         </div>
+        <!-- Selected Team -->
+        <div class="selected-entity-wrapper"
+             ng-show="gdg.selectedTeam">
+            <img class="logo"
+                 ng-src="{{gdg.selectedTeam.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
+            <span class="d-inline-block px-1 name">
+                {{gdg.selectedTeam.name}}
+            </span>
+            <div class="stats">
+                <div class="stat">
+                    <span class="value">{{gdg.selectedTeam.teamFoulCount || 0}}</span>
+                    <span class="label">F</span>
+                </div>
+                <div class="stat">
+                    <span class="value">{{gdg.selectedTeam.timeoutsLeft || 0}}</span>
+                    <span class="label">TOL</span>
+                </div>
+            </div>
+        </div>
         <!-- Team Players -->
         <div class="team-players"
              ng-repeat="team in [gdg.game.team1, gdg.game.team2] track by team.id">
             <div class="team-wrapper team1">
-                <div class="logo-name-wrapper">
-                    <img class="logo" ng-src="{{team.team.logo.url}}" />
+                <div class="logo-name-wrapper"
+                     ng-click="gdg.toggleTeamSelection(team)"
+                     ng-class="{'selected': team.id === gdg.selectedTeam.id}">
+                    <img class="logo" ng-src="{{team.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
                     <!--<small>{{team.team.name}}</small>-->
                 </div>
                 <strong class="text-center bg-white score text-dark"
@@ -103,12 +130,16 @@
                     {{team.score || 0}}
                 </strong>
                 <div class="players d-flex align-items-stretch border border-dark bg-dark">
-                    <div ng-repeat="gamePlayer in team.players"
+                    <div ng-repeat="gamePlayer in team.players | filter : {isInGame: true}"
                          class="player bg-secondary"
                          ng-click="gdg.togglePlayerSelection(gamePlayer)"
                          ng-class="{'selected': gamePlayer.isSelected}">
                         <span class="jersey-no">{{gamePlayer.teamMembership.jerseyNo}}</span>
                         <span class="name">{{gamePlayer.teamMembership.name}}</span>
+                    </div>
+                    <div ng-if="(team.players | filter : {isInGame: true}).length === 0"
+                         class="w-100 text-center">
+                        <a ng-click="gdg.setLineup(team)"><small>Set Lineup</small></a>
                     </div>
                 </div>
             </div>
@@ -120,7 +151,7 @@
         <div class="flex-grow-1 d-flex justify-content-around">
             <!-- Team1 Stats -->
             <div class="team-stats text-center d-flex flex-column align-items-center">
-                <img class="logo" ng-src="{{gdg.game.team1.team.logo.url}}" />
+                <img class="logo" ng-src="{{gdg.game.team1.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
                 <span class="score">{{gdg.game.team1.score}}</span>
                 <!-- Possession Team1 -->
                 <div class="mb-2">
@@ -238,7 +269,7 @@
             </div>
             <!-- Team2 Stats -->
             <div class="team-stats text-center d-flex flex-column align-items-center">
-                <img class="logo" ng-src="{{gdg.game.team2.team.logo.url}}" />
+                <img class="logo" ng-src="{{gdg.game.team2.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
                 <span class="score">{{gdg.game.team2.score}}</span>
                 <!-- Possession Team2 -->
                 <div class="mb-2">
@@ -282,10 +313,13 @@
         <!-- Game Options -->
         <div class="game-options text-center">
             <button type="button" class="btn btn-secondary"
-                    ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart"
+                    ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && gdg.lineupsReady"
                     ng-click="gdg.jumpBall()">
                 Jump Ball
             </button>
+            <p ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && !gdg.lineupsReady">
+                Please set the lineups for both teams
+            </p>
             <button type="button" class="btn btn-secondary"
                     ng-if="gdg.game.status === gdg.gameStatusEnum.Started"
                     ng-click="gdg.endGame()">

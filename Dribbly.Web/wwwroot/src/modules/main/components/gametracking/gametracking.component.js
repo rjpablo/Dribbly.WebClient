@@ -111,6 +111,42 @@
                 });
         }
 
+        gdg.setLineup = async function (team) {
+            var modalResult = await modalService
+                .show({
+                    view: '<drbbly-setlineupmodal></drbbly-setlineupmodal>',
+                    model: {
+                        team: team
+                    }
+                }).catch(err => { /*modal cancelled, do nothing*/ });
+
+            if (modalResult) {
+                team.players.forEach(p => {
+                    p.isInGame = modalResult.selectedPlayers.drbblyAny(s => s.id === p.id);
+                });
+                team.players.sort((a, b) => {
+                    return a.isInGame && !b.isInGame ? -1 :
+                        !a.isInGame && b.isInGame ? 1 :
+                            0;
+                });
+
+                gdg.lineupsReady = gdg.game.team1.players.drbblyCount(p => p.isInGame) > 0
+                    && gdg.game.team2.players.drbblyCount(p => p.isInGame) > 0;
+
+                drbblyGamesService.updateLineup({
+                    gameId: _gameId,
+                    teamId: team.teamId,
+                    period: gdg.game.currentPeriod,
+                    clockTime: gdg.timer.remainingTime,
+                    gamePlayerIds: modalResult.selectedPlayers.map(p => p.id)
+                })
+                    .catch(function (err) {
+                        gdg.game.nextPossession = currentValue;
+                        drbblyCommonService.handleError(err);
+                    });
+            }
+        }
+
         function displayTime(duration) {
             var min = Math.floor(duration / 60000).toString();
             var sec = Math.floor((duration % 60000) / 1000).toString();
@@ -138,14 +174,17 @@
                 gdg.unselectPlayer(player);
             }
             else {
-                if (gdg.selectedPlayer) {
-                    gdg.selectedPlayer.isSelected = false;
-                }
                 gdg.selectPlayer(player);
             }
         }
 
         gdg.selectPlayer = function (player) {
+            if (gdg.selectedTeam) {
+                gdg.unselectTeam(gdg.selectedTeam);
+            }
+            if (gdg.selectedPlayer) {
+                gdg.selectedPlayer.isSelected = false;
+            }
             player.isSelected = true;
             gdg.selectedPlayer = player;
         }
@@ -153,6 +192,32 @@
         gdg.unselectPlayer = function (player) {
             player.isSelected = false;
             gdg.selectedPlayer = null;
+        }
+
+        gdg.toggleTeamSelection = function (team) {
+            if (team.isSelected) {
+                gdg.unselectTeam(team);
+            }
+            else {
+                gdg.selectTeam(team);
+            }
+        }
+
+        gdg.selectTeam = function (team) {
+            if (gdg.selectedTeam) {
+                gdg.selectedTeam.isSelected = false;
+            }
+            team.isSelected = true;
+            gdg.selectedTeam = team;
+
+            if (gdg.selectedPlayer) {
+                gdg.unselectPlayer(gdg.selectedPlayer);
+            }
+        }
+
+        gdg.unselectTeam = function (team) {
+            team.isSelected = false;
+            gdg.selectedTeam = null;
         }
 
         gdg.recordShot = async function (points, isMiss) {
@@ -458,6 +523,10 @@
             return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started;
         };
 
+        gdg.canChangeLineup = function () {
+            return gdg.selectedTeam && gdg.game && gdg.game.status !== gdg.gameStatusEnum.Finished;
+        };
+
         gdg.isEjected = function (player) {
             return player && player.ejectionStatus !== constants.enums.ejectionStatusEnum.NotEjected;
         }
@@ -486,24 +555,10 @@
                     gdg.teams = [gdg.game.team1, gdg.game.team2];
                     gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
-                    checkTeamLogos();
                     gdg.gameDetailsOverlay.setToReady();
                     gdg.app.mainDataLoaded();
                 })
                 .catch(gdg.gameDetailsOverlay.setToError);
-        }
-
-        function checkTeamLogos() {
-            if (gdg.game.team1 && !gdg.game.team1.logo) {
-                gdg.game.team1.logo = {
-                    url: constants.images.defaultTeamLogoUrl
-                };
-            }
-            if (gdg.game.team2 && !gdg.game.team2.logo) {
-                gdg.game.team2.logo = {
-                    url: constants.images.defaultTeamLogoUrl
-                };
-            }
         }
 
         gdg.onGameUpdate = function () {

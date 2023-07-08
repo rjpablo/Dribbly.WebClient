@@ -1,0 +1,45 @@
+﻿<div class="modal-header">
+    {{stu.model.team.name + ' Lineup'}}
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="stu.overlay">
+        <div class="d-flex">
+            <div class="selected">
+                <div class="label"
+                     ng-class="{'text-danger': (stu.players | filter : {selected: true}).length > 5}">
+                    In-Game ({{(stu.players | filter : {selected: true}).length}})
+                </div>
+                <div class="player-list">
+                    <button class="btn btn-secondary player" ng-repeat="player in stu.players | filter : {selected: true}"
+                            ng-click="stu.toggleSelected(player)">
+                        <span class="jersey-no">{{player.jerseyNo}}</span>
+                        <span class="name">{{player.name}}</span>
+                    </button>
+                </div>
+            </div>
+            <div class="choices">
+                <div class="label">
+                    Reserve ({{(stu.players | filter : {selected: false}).length}})
+                </div>
+                <div class="player-list">
+                    <button class="btn btn-secondary player" ng-repeat="player in stu.players | filter : {selected: false}"
+                            ng-click="stu.toggleSelected(player)">
+                        <span class="jersey-no">{{player.jerseyNo}}</span>
+                        <span class="name">{{player.name}}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="!stu.hasMadeChanges || (stu.players | filter : {selected: true}).length > 5"
+            type="submit"
+            ng-click="stu.handleSubmitClick()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-secondary"
+            type="button"
+            ng-click="stu.cancel()"></button>
+</div>

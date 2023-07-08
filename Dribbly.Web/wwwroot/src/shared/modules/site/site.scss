@@ -13,7 +13,8 @@ a[ng-click] {
     }
 }
 
-*[ui-sref] {
+*[ui-sref],
+*[ng-click]:not([disabled]){
     cursor: pointer;
 }
 
@@ -68,7 +69,13 @@ a[ng-click] {
 
 .nav li > a:hover, .nav li > a:active, .nav li > a.active,
 .drbbly-header {
-    color: $cyan;
+    color: $primary;
+}
+
+.nav-tabs {
+    .nav-link {
+        border: $nav-tabs-border-width solid $nav-tabs-border-color;
+    }
 }
 
 .gradent-gray-black-v-bg {
@@ -140,7 +147,6 @@ a[ng-click] {
         display: none !important;
     }
 }
-
 /****************
     Heights
 ****************/
@@ -201,18 +207,15 @@ a[ng-click] {
         display: none;
     }
 }
-
 /* NgMap */
 .pac-container {
     z-index: 1050 !important; /*Allows auto complete results to show over bootstrap modals. Modals have 1050 z-index*/
 }
 /***** Bootstrap *****/
-
 /* Buttons */
 .btn {
     border-radius: 0;
 }
-
 /* Modals */
 
 .modal.drbbly-full-modal {
@@ -242,7 +245,6 @@ a[ng-click] {
         background-color: rgba(0,0,0,0.95);
     }
 }*/
-
 /*.dropdown-item {
     color: $gray-400;
 }*/
@@ -252,7 +254,6 @@ a[ng-click] {
         display: none;
     }
 }
-
 /* Cards */
 .card.drbbly-card {
     border-radius: 0;
@@ -270,7 +271,6 @@ a[ng-click] {
         padding-top: 0;
     }
 }
-
 /******** Ng-Image-Gallery ********/
 /* Removes space between thumbnails */
 .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
