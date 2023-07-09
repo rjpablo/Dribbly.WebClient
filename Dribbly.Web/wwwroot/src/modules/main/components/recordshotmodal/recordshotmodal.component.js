@@ -46,7 +46,8 @@
         };
 
         rsm.addBlock = function () {
-            rsm.blockPlayerOptions = rsm.opposingTeam.players;
+            rsm.blockPlayerOptions = rsm.opposingTeam.players
+                .drbblyWhere(p => p.isInGame);
             rsm.withBlock = true;
 
             if (!rsm.block) {
@@ -61,7 +62,8 @@
         };
 
         rsm.addRebound = function () {
-            rsm.reboundPlayerOptions = rsm.opposingTeam.players.concat(rsm.shooterTeam.players);
+            rsm.reboundPlayerOptions = rsm.opposingTeam.players.concat(rsm.shooterTeam.players)
+                .drbblyWhere(p => p.isInGame);
             rsm.withRebound = true;
 
             if (!rsm.rebound) {
@@ -77,7 +79,8 @@
 
         rsm.addAssist = function () {
             rsm.assistPlayerOptions = rsm.shooterTeam.players
-                .drbblyWhere(p => p.teamMembership.memberAccountId !== rsm.saveModel.performedBy.memberAccountId);
+                .drbblyWhere(p => p.teamMembership.memberAccountId !== rsm.saveModel.performedBy.memberAccountId
+                    && p.isInGame);
             rsm.withAssist = true;
 
             if (!rsm.assist) {
@@ -114,6 +117,15 @@
             }
         };
 
+        rsm.onMadeMissChanged = function (isMiss) {
+            if (isMiss) {
+                rsm.withAssist = false;
+            } else {
+                rsm.withBlock = false;
+                rsm.withRebound = false;
+            }
+        };
+
         function setTeams() {
             rsm.shooterTeam = rsm.model.game.team1.teamId === rsm.model.performedBy.teamId ?
                 rsm.model.game.team1 : rsm.model.game.team2;
@@ -134,9 +146,9 @@
                         clockTime: rsm.saveModel.clockTime,
                     },
                     withFoul: rsm.withFoul,
-                    withBlock: rsm.withBlock && rsm.saveModel.isMiss,
-                    withAssist: rsm.withAssist && !rsm.saveModel.isMiss,
-                    withRebound: rsm.withRebound && rsm.saveModel.isMiss && !rsm.withFoul, 
+                    withBlock: rsm.withBlock,
+                    withAssist: rsm.withAssist,
+                    withRebound: rsm.withRebound && !rsm.withFoul,
                 };
 
                 if (result.withFoul) {

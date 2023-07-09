@@ -20,6 +20,7 @@
                                 <input type="radio"
                                        ng-value="false"
                                        ng-model="rsm.saveModel.isMiss"
+                                       ng-change="rsm.onMadeMissChanged(rsm.saveModel.isMiss)"
                                        class="form-check-input"
                                        name="madeOrMiss">
                                 Made
@@ -100,7 +101,7 @@
     </div>
     <!-- Block Details -->
     <div class="foul-details"
-         ng-show="rsm.withBlock && !rsm.saveModel.isMiss">
+         ng-show="rsm.withBlock">
         <form name="rsm.frmBlock">
             <div class="form-group">
                 <div class="form-row">
@@ -131,7 +132,7 @@
     </div>
     <!-- Assist Details -->
     <div class="foul-details"
-         ng-show="rsm.withAssist && rsm.saveModel.isMiss">
+         ng-show="rsm.withAssist">
         <form name="rsm.frmAssist">
             <div class="form-group">
                 <div class="form-row">
@@ -162,7 +163,7 @@
     </div>
     <!-- Rebound Details -->
     <div class="foul-details"
-         ng-show="rsm.withRebound && rsm.saveModel.isMiss && !rsm.withFoul">
+         ng-show="rsm.withRebound">
         <form name="rsm.frmRebound">
             <div class="form-group">
                 <div class="form-row">
