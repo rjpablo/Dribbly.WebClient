@@ -13,14 +13,11 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyGamesService', 'drbblyCommonService',
-        'drbblyTimerhelperService', 'constants', 'drbblyOverlayService', 'drbblyFormshelperService', 'i18nService', '$timeout'];
-    function controllerFn($scope, modalService, drbblyEventsService, drbblyGamesService, drbblyCommonService,
-        drbblyTimerhelperService, constants, drbblyOverlayService, drbblyFormshelperService, i18nService, $timeout) {
+    controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'constants'];
+    function controllerFn($scope, modalService, drbblyEventsService, constants) {
         var rsm = this;
 
         rsm.$onInit = function () {
-            rsm.overlay = drbblyOverlayService.buildOverlay();
             rsm.saveModel = angular.copy(rsm.model, {});
             setTeams();
             rsm.context.setOnInterrupt(rsm.onInterrupt);

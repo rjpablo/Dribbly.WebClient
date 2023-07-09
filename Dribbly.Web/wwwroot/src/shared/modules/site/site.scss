@@ -231,6 +231,28 @@ a[ng-click] {
     }
 }
 
+.modal.has-container {
+    position: absolute;
+
+    .modal-dialog {
+        margin: 0 auto;
+        height: calc(100% - 10px);
+        max-height: 100%;
+
+        .modal-content {
+            height: 100%;
+            max-height: calc(100% - 20px);
+            max-width: calc(100% - 25px);
+            overflow-y: auto;
+            margin: 10px;
+        }
+    }
+
+    & + .modal-backdrop {
+        position: absolute;
+    }
+}
+
 @media (max-width: 575px) {
     .modal-dialog {
         margin: 0;

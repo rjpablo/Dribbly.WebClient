@@ -14,10 +14,10 @@
 
     controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
         'drbblyOverlayService', '$stateParams', '$interval', 'drbblyCommonService', '$window',
-        'drbblyGameshelperService', 'drbblyDatetimeService', 'drbblyGameeventsService'];
+        'drbblyGameshelperService', 'drbblyDatetimeService', 'drbblyGameeventsService', '$document'];
     function controllerFunc(drbblyGamesService, modalService, constants, authService,
         drbblyOverlayService, $stateParams, $interval, drbblyCommonService, $window,
-        drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService) {
+        drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService, $document) {
         var gdg = this;
         var _gameId;
         var _periodDuration
@@ -222,18 +222,17 @@
 
         gdg.recordShot = async function (points, isMiss) {
 
-            var modalResult = await modalService
-                .show({
-                    view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
-                    model: {
-                        game: gdg.game,
-                        performedBy: gdg.selectedPlayer.teamMembership,
-                        points: points,
-                        period: gdg.game.currentPeriod,
-                        clockTime: gdg.timer.remainingTime,
-                        isMiss: isMiss
-                    }
-                }).catch(err => { /*modal cancelled, do nothing*/ });
+            var modalResult = await showPlayerOptionsModal({
+                view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
+                model: {
+                    game: gdg.game,
+                    performedBy: gdg.selectedPlayer.teamMembership,
+                    points: points,
+                    period: gdg.game.currentPeriod,
+                    clockTime: gdg.timer.remainingTime,
+                    isMiss: isMiss
+                }
+            }).catch(err => { /*modal cancelled, do nothing*/ });
 
             if (modalResult) {
                 if (modalResult.shot) {
@@ -270,6 +269,11 @@
                     }
                 }
             }
+        }
+
+        async function showPlayerOptionsModal(config) {
+            config.container = $document.find('.player-options').eq(0);
+            return await modalService.show(config);
         }
 
         gdg.jumpBall = function () {

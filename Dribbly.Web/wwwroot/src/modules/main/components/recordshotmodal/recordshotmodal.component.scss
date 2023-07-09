@@ -9,6 +9,12 @@ drbbly-recordshotmodal {
         }
     }
 
+    .form-row .col-8 {
+        select{
+            width: calc(100% - 28px);
+        }
+    }
+
     input.points {
         max-width: 80px;
     }

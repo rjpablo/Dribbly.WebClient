@@ -28,13 +28,15 @@ drbbly-gametracking {
             height: 100%;
             display: inline-block;
             flex-grow: 1;
+            min-width: 250px;
 
             & > .options {
+                position: relative;
                 display: grid !important;
                 grid-auto-flow: column;
                 grid-auto-columns: 1fr;
 
-                & > div {
+                & > div:not(.modal) {
                     margin: 0.25rem;
 
                     button.btn {
@@ -155,6 +157,18 @@ drbbly-gametracking {
                     font-weight: 600;
                 }
             }
+
+            .modal {
+                .modal-content > * {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+
+                    & > .modal-body {
+                        flex-grow: 1;
+                    }
+                }
+            }
         }
 
         .score-board {
@@ -165,6 +179,7 @@ drbbly-gametracking {
             height: 100%;
             display: inline-block;
             min-height: 300px;
+            min-width: 250px;
 
             .team-stats {
                 .logo {
@@ -221,6 +236,21 @@ drbbly-gametracking {
                 line-height: 1em;
             }
         }
+
+        *::-webkit-scrollbar,
+        *::-webkit-scrollbar-thumb {
+            border-radius: 0;
+            width: 1em;
+            background-clip: padding-box;
+            border: 0.35em solid $black;
+            color: $gray-800;
+            background-color: $black;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            box-shadow: inset 0 0 0 0.7em;
+            border-radius: 0.6em;
+        }
     }
 
 
@@ -241,5 +271,11 @@ drbbly-gametracking {
             border-radius: 0px 0px 5px 5px;
             border-right-width: 5px;
         }
+    }
+
+    .form-control {
+        display: inline-block;
+        padding: 0;
+        height: unset;
     }
 }
