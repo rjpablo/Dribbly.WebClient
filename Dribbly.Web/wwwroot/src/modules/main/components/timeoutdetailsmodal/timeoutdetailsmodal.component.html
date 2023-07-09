@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="form-row"
-             ng-if="tdm.chargeTo === 1 || tdm.chargeTo === 2">
+             ng-if="tdm.chargeTo !== 3 && tdm.chargeTo !== null">
             <div class="col-4">
                 <label>Type:</label>
             </div>
@@ -86,7 +86,7 @@
             type="submit"
             ng-click="tdm.submit()"></button>
     <button i18n="site.Cancel"
-            class="btn btn-warning"
+            class="btn btn-secondary"
             type="button"
             ng-click="tdm.cancel()"
             ng-disabled="tdm.isBusy"></button>

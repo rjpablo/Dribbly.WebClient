@@ -28,6 +28,8 @@
         tdm.$onInit = function () {
             tdm.team1 = tdm.model.game.team1;
             tdm.team2 = tdm.model.game.team2;
+            tdm.type = 1;
+            tdm.chargeTo = null;
             tdm.team1PlayerOptions = tdm.model.game.team1.players;
             tdm.team2PlayerOptions = tdm.model.game.team2.players;
             tdm.context.setOnInterrupt(tdm.onInterrupt);
