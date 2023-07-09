@@ -2,6 +2,7 @@
       ng-if="dtc.label">{{dtc.label}}</span>
 <drbbly-lcddisplay text="dtc.time"
                    is-danger="dtc.timer.isOver()"
+                   is-warning="dtc.isWarning()"
                    on-click="dtc.clicked"
                    font-size="dtc.fontSize"></drbbly-lcddisplay>
 <div class="controls text-center"

@@ -1,4 +1,4 @@
 ﻿<div class="display d-inline-block"
-     ng-class="{'border-danger': lcd.isDanger}"
+     ng-class="lcd.isDanger?'danger' : lcd.isWarning? 'warning' : ''"
      ng-click="lcd.clicked()"
      style="font-size: {{ lcd.fontSize || '1em' }}">{{lcd.text}}</div>

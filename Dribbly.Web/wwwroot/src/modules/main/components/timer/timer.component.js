@@ -18,7 +18,9 @@
                 isShotClock: '<',
                 // whether or not to toggle the timer when it is clicked
                 toggleOnClick: '<',
-                fontSize: '<'
+                fontSize: '<',
+                // activate warning state when time left is equal or less than this value
+                warningStateThresholdSeconds: '<'
             },
             controllerAs: 'dtc',
             templateUrl: 'drbbly-default',
@@ -79,6 +81,11 @@
                 dtc.timer.toggle();
             }
         }
+
+        dtc.isWarning = function () {
+            return dtc.warningStateThresholdSeconds &&
+                (dtc.timer.remainingTime <= dtc.warningStateThresholdSeconds * 1000)
+        };
 
         class BadTimer {
             duration = 0;

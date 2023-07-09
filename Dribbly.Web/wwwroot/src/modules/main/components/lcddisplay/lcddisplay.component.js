@@ -8,6 +8,7 @@
                 text: '<',
                 onClick: '<',
                 isDanger: '<',
+                isWarning: '<',
                 fontSize: '<'
             },
             controllerAs: 'lcd',

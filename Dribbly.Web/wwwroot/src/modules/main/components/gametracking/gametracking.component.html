@@ -198,6 +198,7 @@
                     <small>TIME </small>
                     <div class="w-100 d-flex justify-content-center align-items-center">
                         <drbbly-timer on-ready="gdg.onTimerReady"
+                                      warning-state-threshold-seconds="120"
                                       toggle-on-click="true"
                                       font-size="'1.5em'"
                                       class="game-clock"></drbbly-timer>
@@ -231,6 +232,7 @@
                          ng-show="gdg.game.isTimed">
                         <drbbly-timer on-ready="gdg.onShotTimerReady"
                                       class="game-clock"
+                                      warning-state-threshold-seconds="5"
                                       is-shot-clock="true"
                                       font-size="'1.5em'"
                                       label="'SHOT CLOCK'"></drbbly-timer>
