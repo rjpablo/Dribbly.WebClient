@@ -307,8 +307,7 @@
         }
 
         gdg.recordFoul = async function () {
-            var modalResult = await modalService
-                .show({
+            var modalResult = await showPlayerOptionsModal({
                     view: '<drbbly-fouldetailsmodal></drbbly-fouldetailsmodal>',
                     model: {
                         game: gdg.game,

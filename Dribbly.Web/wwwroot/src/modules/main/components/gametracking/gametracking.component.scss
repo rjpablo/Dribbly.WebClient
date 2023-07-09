@@ -163,9 +163,11 @@ drbbly-gametracking {
                     height: 100%;
                     display: flex;
                     flex-direction: column;
+                    overflow: hidden;
 
                     & > .modal-body {
                         flex-grow: 1;
+                        overflow-y: auto;
                     }
                 }
             }
