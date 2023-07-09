@@ -156,7 +156,7 @@
                 <!-- Possession Team1 -->
                 <div class="mb-2">
                     <button class="btn py-0"
-                            ng-class="{'text-white': gdg.game.nextPossession === 1}"
+                            ng-class="{'text-secondary': gdg.game.nextPossession === 2}"
                             ng-click="gdg.setNextPossession(1)">
                         <i class="fa fa-caret-left fa-2x"></i>
                     </button>
@@ -274,7 +274,7 @@
                 <!-- Possession Team2 -->
                 <div class="mb-2">
                     <button class="btn py-0"
-                            ng-class="{'text-white': gdg.game.nextPossession === 2}"
+                            ng-class="{'text-secondary': gdg.game.nextPossession !== 2}"
                             ng-click="gdg.setNextPossession(2)">
                         <i class="fa fa-caret-right fa-2x"></i>
                     </button>
