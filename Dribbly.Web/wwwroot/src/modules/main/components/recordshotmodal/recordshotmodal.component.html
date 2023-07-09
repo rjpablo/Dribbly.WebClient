@@ -80,8 +80,8 @@
                                 ng-model="rsm.foul.foul">
                             <option ng-repeat="foul in rsm.foulTypeOptions"
                                     ng-value="foul"
-                                    ng-class="{'bg-warning': foul.isTechnical,
-                                    'bg-danger': foul.isFlagrant}">
+                                    ng-class="{'text-warning': foul.isTechnical,
+                                    'text-danger': foul.isFlagrant}">
                                 {{foul.name}}
                             </option>
                         </select>
@@ -100,7 +100,7 @@
         </form>
     </div>
     <!-- Block Details -->
-    <div class="foul-details"
+    <div class="block-details"
          ng-show="rsm.withBlock">
         <form name="rsm.frmBlock">
             <div class="form-group">
@@ -131,7 +131,7 @@
         </form>
     </div>
     <!-- Assist Details -->
-    <div class="foul-details"
+    <div class="assist-details"
          ng-show="rsm.withAssist">
         <form name="rsm.frmAssist">
             <div class="form-group">
@@ -162,7 +162,7 @@
         </form>
     </div>
     <!-- Rebound Details -->
-    <div class="foul-details"
+    <div class="rebound-details"
          ng-show="rsm.withRebound">
         <form name="rsm.frmRebound">
             <div class="form-group">

@@ -1,7 +1,7 @@
 ﻿<div class="modal-body">
     <div drbbly-overlay="rsm.overlay">
         <!-- Fould Details -->
-        <div class="foul-details border-bottom mb-3">
+        <div class="foul-details mb-3">
             <form name="rsm.frmFoul">
                 <h5>Fould Details</h5>
                 <div class="form-group">
@@ -25,8 +25,8 @@
                             ng-model="rsm.model.foul">
                         <option ng-repeat="foul in rsm.foulTypeOptions"
                                 ng-value="foul"
-                                ng-class="{'bg-warning': foul.isTechnical,
-                                    'bg-danger': foul.isFlagrant}">
+                                ng-class="{'text-warning': foul.isTechnical,
+                                    'text-danger': foul.isFlagrant}">
                             {{foul.name}}
                         </option>
                     </select>
@@ -42,13 +42,15 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary"
-            i18n="site.Submit"
             ng-disabled="rsm.isBusy || rsm.frmFoul.$invalid"
             type="submit"
-            ng-click="rsm.handleSubmitClick()"></button>
-    <button i18n="site.Cancel"
-            class="btn btn-warning"
+            ng-click="rsm.handleSubmitClick()">
+        <i class="fa fa-check"></i>
+    </button>
+    <button class="btn btn-secondary"
             type="button"
             ng-click="rsm.cancel()"
-            ng-disabled="rsm.isBusy"></button>
+            ng-disabled="rsm.isBusy">
+        <i class="fa fa-times"></i>
+    </button>
 </div>
