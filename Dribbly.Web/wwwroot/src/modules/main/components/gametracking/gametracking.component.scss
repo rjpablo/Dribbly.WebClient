@@ -169,6 +169,14 @@ drbbly-gametracking {
                         flex-grow: 1;
                         overflow-y: auto;
                     }
+
+                    & > .modal-footer {
+                        justify-content: flex-start;
+
+                        & > *:not(last-child) {
+                            margin-right: 0.25em;
+                        }
+                    }
                 }
             }
         }

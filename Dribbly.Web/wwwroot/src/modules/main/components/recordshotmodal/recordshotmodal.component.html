@@ -216,21 +216,17 @@
     </div>
 </div>
 <div class="modal-footer m-1">
-    <div class="d-flex w-100">
-        <div class="ml-auto">
-            <button class="btn btn-primary"
-                    ng-disabled="rsm.isBusy || rsm.frmShot.$invalid
+    <button class="btn btn-primary"
+            ng-disabled="rsm.isBusy || rsm.frmShot.$invalid
             || (rsm.withFoul && rsm.frmFoul.$invalid) || (rsm.withBlock && rsm.frmBlock.$invalid)"
-                    type="submit"
-                    ng-click="rsm.handleSubmitClick()">
-                <i class="fa fa-check"></i>
-            </button>
-            <button class="btn btn-secondary"
-                    type="button"
-                    ng-click="rsm.cancel()"
-                    ng-disabled="rsm.isBusy">
-                <i class="fa fa-times"></i>
-            </button>
-        </div>
-    </div>
+            type="submit"
+            ng-click="rsm.handleSubmitClick()">
+        <i class="fa fa-check"></i>
+    </button>
+    <button class="btn btn-secondary"
+            type="button"
+            ng-click="rsm.cancel()"
+            ng-disabled="rsm.isBusy">
+        <i class="fa fa-times"></i>
+    </button>
 </div>
