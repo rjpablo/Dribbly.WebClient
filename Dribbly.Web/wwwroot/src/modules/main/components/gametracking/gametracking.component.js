@@ -578,6 +578,22 @@
             return gdg.selectedTeam && gdg.game && gdg.game.status !== gdg.gameStatusEnum.Finished;
         };
 
+        gdg.canEndGame = function () {
+            return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started // has started
+                && gdg.timer.isOver() // time has run out
+                && gdg.game.currentPeriod >= gdg.game.numberOfRegulationPeriods // last period or OT
+                && gdg.game.team1.score !== gdg.game.team2.score; // scores are not tied
+        }
+
+        gdg.canGoToNextPeriod = function () {
+            return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started // has started
+                && gdg.timer.isOver() // time has run out
+                && (gdg.game.currentPeriod < gdg.game.numberOfRegulationPeriods // not the last or OT period
+                    || (gdg.game.currentPeriod >= gdg.game.numberOfRegulationPeriods // last or OT period
+                        && gdg.game.team1.score === gdg.game.team2.score) // but scores are not tied
+                );
+        }
+
         gdg.isEjected = function (player) {
             return player && player.ejectionStatus !== constants.enums.ejectionStatusEnum.NotEjected;
         }
@@ -617,6 +633,40 @@
                     updateStatusText();
                 })
                 .catch(gdg.gameDetailsOverlay.setToError);
+        }
+
+        gdg.showGameOptions = function () {
+            modalService.showMenuModal({
+                model: {
+                    buttons: [
+                        {
+                            text: 'End Game',
+                            action: gdg.endGame,
+                            isHidden: () => gdg.game.status !== gdg.gameStatusEnum.Started,
+                            class: 'btn-secondary'
+                        },
+                        {
+                            text: 'Change Game Settings',
+                            action: gdg.showSettings,
+                            isHidden: () => gdg.game.status === gdg.gameStatusEnum.Finished,
+                            class: 'btn-secondary'
+                        },
+                        {
+                            text: 'Reset Game',
+                            action: () => gdg.updateStatus(gdg.gameStatusEnum.WaitingToStart),
+                            isHidden: () => gdg.game.status === gdg.gameStatusEnum.WaitingToStart,
+                            class: 'btn-secondary'
+                        }
+                    ],
+                    title: 'Game Options'
+                },
+                container: $document.find('.wrapper').eq(0),
+                size: 'sm'
+            })
+        }
+
+        gdg.showSettings = function () {
+            alert('Not yet implemented');
         }
 
         gdg.onGameUpdate = function () {

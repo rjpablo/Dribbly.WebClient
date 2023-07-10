@@ -146,6 +146,12 @@
                     return _show(data);
                 }
 
+                function showMenuModal(config) {
+                    config.view = '<drbbly-menumodal></drbbly-menumodal>';
+                    config.backdrop = 'static';
+                    return _show(config)
+                }
+
                 function confirm(msg1Key, msg2Key, titleKey, buttonsPreset, msg1Raw, msg2Raw, titleRaw) {
                     if (angular.isObject(msg1Key)) {
                         msg1Key.options = {
@@ -196,6 +202,7 @@
                     input: input,
                     confirm: confirm,
                     showGenericErrorModal: showGenericErrorModal,
+                    showMenuModal: showMenuModal,
                     showOptionsList: showOptionsList,
                     showUnsavedChangesWarning: showUnsaveChangesWarning
                 };
