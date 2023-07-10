@@ -380,17 +380,16 @@
 
         gdg.timeout = async function () {
             gdg.timer.stop();
-            var modalResult = await modalService
-                .show({
-                    view: '<drbbly-timeoutdetailsmodal></drbbly-timeoutdetailsmodal>',
-                    model: {
-                        game: gdg.game,
-                        clockTime: gdg.timer.remainingTime,
-                        period: gdg.game.currentPeriod
-                    },
-                    backdrop: 'static',
-                    size: 'sm'
-                }).catch(err => { /*modal cancelled, do nothing*/ });
+            var modalResult = await showPlayerOptionsModal({
+                view: '<drbbly-timeoutdetailsmodal></drbbly-timeoutdetailsmodal>',
+                model: {
+                    game: gdg.game,
+                    clockTime: gdg.timer.remainingTime,
+                    period: gdg.game.currentPeriod
+                },
+                backdrop: 'static',
+                size: 'sm'
+            }).catch(err => { /*modal cancelled, do nothing*/ });
 
             if (modalResult) {
                 var timeoutResult = await drbblyGamesService.recordTimeout(modalResult)
@@ -571,7 +570,7 @@
         }
 
         gdg.canCallTimeout = function () {
-            return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started;
+            return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started && !gdg.timer.isOver();
         };
 
         gdg.canChangeLineup = function () {
