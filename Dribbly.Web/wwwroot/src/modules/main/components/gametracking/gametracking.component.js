@@ -140,8 +140,7 @@
                             0;
                 });
 
-                gdg.lineupsReady = gdg.game.team1.players.drbblyCount(p => p.isInGame) > 0
-                    && gdg.game.team2.players.drbblyCount(p => p.isInGame) > 0;
+                setLineupsReady()
 
                 drbblyGamesService.updateLineup({
                     gameId: _gameId,
@@ -155,6 +154,11 @@
                         drbblyCommonService.handleError(err);
                     });
             }
+        }
+
+        function setLineupsReady() {
+            gdg.lineupsReady = gdg.game.team1.players.drbblyCount(p => p.isInGame) > 0
+                && gdg.game.team2.players.drbblyCount(p => p.isInGame) > 0;
         }
 
         function displayTime(duration) {
@@ -601,13 +605,13 @@
                             gdg.shotTimer.setRemainingTime(gdg.game.remainingShotTime);
                         }
 
-                        //displayTime(gdg.game.remainingTime);
                         displayPeriod(gdg.game.currentPeriod);
                     }
 
                     gdg.teams = [gdg.game.team1, gdg.game.team2];
                     gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
+                    setLineupsReady();
                     gdg.gameDetailsOverlay.setToReady();
                     gdg.app.mainDataLoaded();
                     updateStatusText();
