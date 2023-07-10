@@ -9,7 +9,8 @@
                 onClick: '<',
                 isDanger: '<',
                 isWarning: '<',
-                fontSize: '<'
+                fontSize: '<',
+                shouldBlink: '<'
             },
             controllerAs: 'lcd',
             templateUrl: 'drbbly-default',

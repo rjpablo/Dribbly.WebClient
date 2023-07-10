@@ -193,9 +193,10 @@
             </div>
             <!-- Clocks -->
             <div class="clocks">
+                <small class="status-text"
+                       ng-class="gdg.statusText.class">{{gdg.statusText.text}}</small>
                 <div class="game-clock text-center"
                      ng-show="gdg.game.isTimed">
-                    <small>TIME </small>
                     <div class="w-100 d-flex justify-content-center align-items-center">
                         <drbbly-timer on-ready="gdg.onTimerReady"
                                       warning-state-threshold-seconds="120"
@@ -216,13 +217,6 @@
                                 ng-click="gdg.timer.edit()">
                             <i class="fa fa-pencil text-white"
                                uib-tooltip="{{gdg.timer.isRunning()? 'Cannot edit the clock while it is running':'Edit the clock'}}"></i>
-                        </button>
-                        <button class="btn btn-sm"
-                                uib-tooltip="Advance to next period"
-                                ng-disabled="gdg.isBusy"
-                                ng-click="gdg.goToNextPeriod()"
-                                ng-if="gdg.timer.isOver()">
-                            <i class="fa fa-angle-double-right text-white"></i>
                         </button>
                     </div>
                 </div>
@@ -266,6 +260,13 @@
                                            is-danger="dtc.timer.isOver()"
                                            on-click="dtc.clicked"
                                            font-size="'1em'"></drbbly-lcddisplay>
+                        <button class="btn btn-sm btn-block"
+                                uib-tooltip="Advance to next period"
+                                ng-disabled="gdg.isBusy"
+                                ng-click="gdg.goToNextPeriod()"
+                                ng-if="gdg.timer.isOver()">
+                            <i class="fa fa-angle-double-right text-white"></i>
+                        </button>
                     </div>
                 </div>
             </div>

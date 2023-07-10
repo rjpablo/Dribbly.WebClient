@@ -87,6 +87,10 @@
                 (dtc.timer.remainingTime <= dtc.warningStateThresholdSeconds * 1000)
         };
 
+        dtc.isPaused = function () {
+            return !dtc.timer.isRunning() && !dtc.timer.isOver() && dtc.timer.hasStarted;
+        }
+
         class BadTimer {
             duration = 0;
             running = false;
@@ -112,7 +116,10 @@
             start() {
                 if (!this.running) {
                     if (!this.onStartCallback || this.onStartCallback(this.duration)) {
-                        this.run(new Date(), this.duration)
+                        this.run(new Date(), this.duration);
+                        if (this.onStartedCallback) {
+                            this.onStartedCallback();
+                        }
                     }
                 }
             }
@@ -153,6 +160,9 @@
             }
             onStart(cb) {
                 this.onStartCallback = cb;
+            }
+            onStarted(cb) {
+                this.onStartedCallback = cb;
             }
             onEditted(cb) {
                 this.onEdittedCallback = cb;
@@ -204,6 +214,9 @@
             }
             get remainingTime() {
                 return this.duration;
+            }
+            get hasStarted() {
+                return this.duration !== this.origDuration;
             }
         }
     }

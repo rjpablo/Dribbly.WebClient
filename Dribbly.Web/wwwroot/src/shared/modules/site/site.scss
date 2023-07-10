@@ -97,6 +97,33 @@ a[ng-click] {
 .white-transparent-bg {
     background-color: rgba(225, 225, 225, 0.6);
 }
+
+/****************
+    Animations
+****************/
+
+.blink {
+    animation: blinker 1s infinite;
+}
+
+@keyframes blinker {
+    from {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    51% {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
 /****************
     Icons
 ****************/

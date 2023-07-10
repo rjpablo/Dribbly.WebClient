@@ -205,6 +205,14 @@ drbbly-gametracking {
 
             .clocks {
 
+                .status-text {
+                    line-height: 1em;
+                    display: block;
+                    margin-bottom: 7px;
+                    height: 1.2em;
+                    text-align: center;
+                }
+
                 .game-clock {
                     text-align: center;
 

@@ -50,6 +50,7 @@
             gdg.timer.onStop(function () {
                 updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, false);
                 gdg.shotTimer.stop();
+                updateStatusText();
             });
             gdg.timer.onStart(function () {
                 if (gdg.game.status === gdg.gameStatusEnum.WaitingToStart) {
@@ -64,9 +65,16 @@
                 gdg.shotTimer.start();
                 return true;
             });
+            gdg.timer.onStarted(function () {
+                updateStatusText();
+            });
             gdg.timer.onEditted(function (time, commit) {
                 updateTime(time.totalMs, gdg.shotTimer.remainingTime, false)
                     .then(commit);
+            });
+
+            gdg.timer.onEnd(function () {
+                gdg.shotTimer.setRemainingTime(0);
             });
 
             loadGame();
@@ -98,6 +106,7 @@
         }
 
         gdg.setShotTime = function (time, start) {
+            time = time < gdg.timer.remainingTime ? time : gdg.timer.remainingTime;
             updateTime(gdg.timer.remainingTime, time, start);
             gdg.shotTimer.setRemainingTime(time, start);
         };
@@ -278,6 +287,31 @@
             }
         }
 
+        function updateStatusText() {
+            function setStatus(text, className) {
+                gdg.statusText = { text: text, class: className };
+            }
+
+            if (gdg.game.status === gdg.gameStatusEnum.WaitingToStart) {
+                setStatus('Not Started');
+            }
+            else if (gdg.game.status === gdg.gameStatusEnum.Finished) {
+                setStatus('FINAL');
+            }
+            else if (gdg.timer.isRunning()) {
+                setStatus('At-Play', 'text-success');
+            }
+            else if (gdg.timer.isOver()) {
+                setStatus('End of Period');
+            }
+            else if (gdg.shotTimer.isOver()) {
+                setStatus('Shot Clock Violation!!!', 'text-danger');
+            }
+            else {
+                setStatus('Paused', 'text-warning');
+            }
+        }
+
         async function showPlayerOptionsModal(config) {
             config.container = $document.find('.player-options').eq(0);
             return await modalService.show(config);
@@ -318,14 +352,14 @@
             gdg.timer.stop();
 
             var modalResult = await showPlayerOptionsModal({
-                    view: '<drbbly-fouldetailsmodal></drbbly-fouldetailsmodal>',
-                    model: {
-                        game: gdg.game,
-                        performedBy: gdg.selectedPlayer,
-                        period: gdg.game.currentPeriod,
-                        clockTime: gdg.timer.remainingTime,
-                    }
-                }).catch(err => { /*modal cancelled, do nothing*/ });
+                view: '<drbbly-fouldetailsmodal></drbbly-fouldetailsmodal>',
+                model: {
+                    game: gdg.game,
+                    performedBy: gdg.selectedPlayer,
+                    period: gdg.game.currentPeriod,
+                    clockTime: gdg.timer.remainingTime,
+                }
+            }).catch(err => { /*modal cancelled, do nothing*/ });
 
             if (modalResult) {
                 var foulResult = await drbblyGameeventsService.upsertFoul(modalResult)
@@ -544,6 +578,12 @@
             return player && player.ejectionStatus !== constants.enums.ejectionStatusEnum.NotEjected;
         }
 
+        function getCurrentPeriodDuration() {
+            return (gdg.game.currentPeriod > gdg.game.numberOfRegulationPeriods ?
+                gdg.game.overtimePeriodDuration :
+                gdg.game.regulationPeriodDuration) * 60 * 1000
+        }
+
         function loadGame() {
             gdg.gameDetailsOverlay.setToBusy();
             drbblyGamesService.getGame(_gameId)
@@ -551,7 +591,7 @@
                     gdg.game = angular.copy(data);
 
                     if (gdg.game.isTimed) {
-                        gdg.timer.init(gdg.game.regulationPeriodDuration * 60 * 1000);
+                        gdg.timer.init(getCurrentPeriodDuration());
                         gdg.shotTimer.init(gdg.game.defaultShotClockDuration * 1000);
                         if (gdg.game.isLive) {
                             gdg.timer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingTime);
@@ -570,6 +610,7 @@
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
                     gdg.gameDetailsOverlay.setToReady();
                     gdg.app.mainDataLoaded();
+                    updateStatusText();
                 })
                 .catch(gdg.gameDetailsOverlay.setToError);
         }
@@ -632,15 +673,13 @@
 
         gdg.goToNextPeriod = function () {
             var period = gdg.game.currentPeriod++;
-            var newTime = (period > gdg.game.numberOfRegulationPeriods ?
-                gdg.game.overtimePeriodDuration :
-                gdg.game.regulationPeriodDuration) * 60 * 1000;
+            var newTime = getCurrentPeriodDuration();
             gdg.isBusy = true;
             drbblyGamesService.advancePeriod(_gameId, period, newTime)
                 .then(function () {
                     gdg.game.currentPeriod = period;
-                    gdg.timer.setRemainingTime(newTime);
-                    gdg.shotTimer.setRemainingTime(gdg.game.defaultShotClockDuration * 1000);
+                    gdg.timer.init(newTime);
+                    gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000);
                     displayPeriod(gdg.game.currentPeriod);
                     displayTime(gdg.timer.remainingTime);
                 })
