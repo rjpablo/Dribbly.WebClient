@@ -55,8 +55,10 @@
                     courtId: bgm.model.courtId,
                     tournamentId: bgm.model.tournamentId,
                     numberOfRegulationPeriods: 4,
-                    regulationPeriodDuration: 12,
-                    overtimePeriodDuration: 5
+                    regulationPeriodDuration: 10,
+                    overtimePeriodDuration: 5,
+                    usesRunningClock: true,
+                    isTimed: true
                 };
                 bgm.saveModel.toStatus = bgm.model.toStatus;
                 bgm.saveModel.isTeam1Open = false;

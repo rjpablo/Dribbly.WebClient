@@ -276,6 +276,16 @@ a[ng-click] {
         display: none;
     }
 }
+
+/* Tooltips */
+.tooltip-inner {
+    border: 1px solid $primary;
+}
+
+.bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^=top] .arrow::before{
+    border-top-color: $primary;
+}
+
 /* Cards */
 .card.drbbly-card {
     border-radius: 0;

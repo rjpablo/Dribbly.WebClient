@@ -128,6 +128,9 @@
                             if (_this.duration <= 0) {
                                 _this.duration = 0;
                                 _this.stop();
+                                if (_this.onEndCallback) {
+                                    _this.onEndCallback();
+                                }
                             }
                             displayTime(_this.duration);
                             if (_this.onUpdateCallback) {
@@ -141,6 +144,9 @@
             }
             onUpdate(cb) {
                 this.onUpdateCallback = cb;
+            }
+            onEnd(cb) {
+                this.onEndCallback = cb;
             }
             onStop(cb) {
                 this.onStopCallback = cb;

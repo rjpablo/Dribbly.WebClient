@@ -20,7 +20,6 @@
         drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService, $document) {
         var gdg = this;
         var _gameId;
-        var _periodDuration
 
         gdg.$onInit = function () {
             gdg.app.noHeader = true;
@@ -28,7 +27,6 @@
             _gameId = $stateParams.id;
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
-            _periodDuration = 12 * 60 * 1000; // 12mins
             setOrientation();
 
             angular.element($window).on('resize', setOrientation);
@@ -93,6 +91,9 @@
             gdg.shotTimer.onEditted(function (time, commit) {
                 updateTime(gdg.timer.remainingTime, time.totalMs, false)
                     .then(commit);
+            });
+            gdg.shotTimer.onEnd(function () {
+                gdg.timer.stop();
             });
         }
 
@@ -222,6 +223,12 @@
 
         gdg.recordShot = async function (points, isMiss) {
 
+            if (!gdg.game.usesRunningClock) {
+                gdg.timer.stop();
+            }
+
+            gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000, gdg.timer.isRunning());
+
             var modalResult = await showPlayerOptionsModal({
                 view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
                 model: {
@@ -307,6 +314,9 @@
         }
 
         gdg.recordFoul = async function () {
+
+            gdg.timer.stop();
+
             var modalResult = await showPlayerOptionsModal({
                     view: '<drbbly-fouldetailsmodal></drbbly-fouldetailsmodal>',
                     model: {
@@ -541,7 +551,7 @@
                     gdg.game = angular.copy(data);
 
                     if (gdg.game.isTimed) {
-                        gdg.timer.init(_periodDuration);
+                        gdg.timer.init(gdg.game.regulationPeriodDuration * 60 * 1000);
                         gdg.shotTimer.init(gdg.game.defaultShotClockDuration * 1000);
                         if (gdg.game.isLive) {
                             gdg.timer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingTime);
@@ -621,16 +631,16 @@
         }
 
         gdg.goToNextPeriod = function () {
-            var period = gdg.game.currentPeriod + 1;
-            var newTime = period > 4 ?
-                5 * 60 * 1000 : //5mins
-                _periodDuration;
+            var period = gdg.game.currentPeriod++;
+            var newTime = (period > gdg.game.numberOfRegulationPeriods ?
+                gdg.game.overtimePeriodDuration :
+                gdg.game.regulationPeriodDuration) * 60 * 1000;
             gdg.isBusy = true;
             drbblyGamesService.advancePeriod(_gameId, period, newTime)
                 .then(function () {
                     gdg.game.currentPeriod = period;
-                    _periodDuration = newTime;
-                    gdg.timer.reset(newTime);
+                    gdg.timer.setRemainingTime(newTime);
+                    gdg.shotTimer.setRemainingTime(gdg.game.defaultShotClockDuration * 1000);
                     displayPeriod(gdg.game.currentPeriod);
                     displayTime(gdg.timer.remainingTime);
                 })
