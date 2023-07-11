@@ -1,0 +1,10 @@
+﻿<form class="form-inline"
+      name="gcc.frmSearch"
+      on-navigate-away-strategy="none"
+      ng-submit="gcc.search()">
+    <drbbly-typeahead selected-items="gcc.items"
+                      config="gcc.typeAheadConfig"
+                      name="keyword"
+                      ng-model="gcc.selectedItem"
+                      class="form-control" />
+</form>

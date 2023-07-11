@@ -271,9 +271,6 @@
 
             // TOURNAMENTS
             .state('main.tournament', {
-                params: {
-                    id: ''
-                },
                 abstract: true,
                 url: '/tournament/:id',
                 component: 'drbblyTournamentviewercontainer',
@@ -282,9 +279,6 @@
                 }
             })
             .state('main.tournament.games', {
-                params: {
-                    id: ''
-                },
                 url: '/games',
                 component: 'drbblyTournamentgames',
                 resolve: {

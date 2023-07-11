@@ -23,7 +23,7 @@
            ng-hide="!dta.config.isMultiple && dta.selectedItems.length > 0"
            ng-model="dta.keyword"
            ng-change="dta.isShowingStatus = false"
-           placeholder="{{::'app.StartTypingToLoadSuggestions' | i18n}}"
+           placeholder="{{::dta.config.placeholder || ('app.StartTypingToLoadSuggestions' | i18n)}}"
            uib-typeahead="item.text for item in dta._getItems($viewValue)"
            typeahead-editable="false"
            typeahead-focus-first="true"
@@ -33,13 +33,14 @@
            typeahead-no-results="dta._noResults"
            typeahead-template-url="{{'dribbly-typeahead-match.html'}}">
     <div class="dropdown-menu"
-         uib-dropdown-menu>
+         uib-dropdown-menu
+         ng-show="dta._loading || (dta._noResults || dta.keyword)">
         <span class="dropdown-item"
               ng-show="dta._loading">
             <i class="fa fa-refresh fa-spin"></i>&nbsp;{{::'app.LoadingSuggestionsEllipsis' | i18n}}
         </span>
         <span class="dropdown-item"
-              ng-show="dta._noResults">
+              ng-show="dta._noResults || dta.keyword">
             <i class="fa fa-times"></i>&nbsp;{{::'app.NoSuggestionsFound' | i18n}}
         </span>
     </div>

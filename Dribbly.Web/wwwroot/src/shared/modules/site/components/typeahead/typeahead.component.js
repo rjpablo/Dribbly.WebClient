@@ -42,7 +42,8 @@
             else {
                 var input = {
                     keyword: keyword,
-                    entityTypes: dta.config.entityTypes
+                    entityTypes: dta.config.entityTypes,
+                    maxCount: dta.config.maxCount
                 };
                 resultPromise = drbblySharedService.getTypeAheadSuggestions(input);
             }
@@ -50,6 +51,9 @@
                 .then(function (suggestions) {
                     if (suggestions && suggestions.length) {
                         dta.isShowingStatus = false;
+                    }
+                    if (dta.config.onSuggestionsUpdated) {
+                        dta.config.onSuggestionsUpdated(suggestions);
                     }
                     return suggestions;
                 });
