@@ -57,13 +57,24 @@ drbbly-gametracking {
                     grid-auto-flow: column;
                     grid-auto-columns: 1fr;
 
+                    button.btn {
+                        padding: 0.5em;
+                        line-height: 1;
+                        font-size: 1em;
+                        margin: 0 !important;
+                        white-space: nowrap;
+                    }
+
                     & > div:not(.modal) {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
                         margin: 0.25rem;
 
-                        button.btn {
-                            padding: 0.5em;
-                            line-height: 1;
-                            font-size: 1em;
+                        & > div {
+                            display: flex;
+                            align-items: center;
+                            gap: 1px;
                         }
                     }
                 }

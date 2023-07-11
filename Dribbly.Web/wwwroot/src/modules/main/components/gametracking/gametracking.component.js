@@ -234,13 +234,15 @@
             gdg.selectedTeam = null;
         }
 
-        gdg.recordShot = async function (points, isMiss) {
+        gdg.recordShot = async function (points, isMiss, withFoul) {
 
-            if (!gdg.game.usesRunningClock) {
+            if ((!isMiss && !gdg.game.usesRunningClock) || withFoul) {
                 gdg.timer.stop();
             }
 
-            gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000, gdg.timer.isRunning());
+            if (!isMiss) {
+                gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000, gdg.timer.isRunning());
+            }
 
             var modalResult = await showPlayerOptionsModal({
                 view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
@@ -250,7 +252,8 @@
                     points: points,
                     period: gdg.game.currentPeriod,
                     clockTime: gdg.timer.remainingTime,
-                    isMiss: isMiss
+                    isMiss: isMiss,
+                    withFoul: withFoul
                 }
             }).catch(err => { /*modal cancelled, do nothing*/ });
 

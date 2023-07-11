@@ -13,44 +13,92 @@
             <!-- Options -->
             <div class="options flex-grow-1">
                 <div class="d-flex flex-column">
-                    <button type="button"
-                            class="btn btn-block btn-secondary"
-                            ng-click="gdg.recordShot(1, false)"
-                            ng-disabled="!gdg.canRecordShot()">
-                        +1
-                    </button>
-                    <button type="button"
-                            class="btn btn-block btn-secondary"
-                            ng-click="gdg.recordShot(2, false)"
-                            ng-disabled="!gdg.canRecordShot()">
-                        +2
-                    </button>
-                    <button type="button"
-                            class="btn btn-block btn-secondary"
-                            ng-click="gdg.recordShot(3, false)"
-                            ng-disabled="!gdg.canRecordShot()">
-                        +3
-                    </button>
+                    <div class="d-flex">
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.recordShot(1, false)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            +1
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.recordShot(1, false, true)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            +Foul
+                        </button>
+                    </div>
+                    <div class="d-flex">
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.recordShot(2, false)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            +2
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.recordShot(2, false, true)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            +Foul
+                        </button>
+                    </div>
+                    <div class="d-flex">
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.recordShot(3, false)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            +3
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-secondary"
+                                ng-click="gdg.recordShot(3, false, true)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            +Foul
+                        </button>
+                    </div>
                 </div>
                 <div class="flex-grow-1 flex-shrink-1 d-flex flex-column">
-                    <button type="button"
-                            class="btn btn-block btn-danger"
-                            ng-click="gdg.recordShot(1, true)"
-                            ng-disabled="!gdg.canRecordShot()">
-                        miss 1
-                    </button>
-                    <button type="button"
-                            class="btn btn-block btn-danger"
-                            ng-click="gdg.recordShot(2, true)"
-                            ng-disabled="!gdg.canRecordShot()">
-                        miss 2
-                    </button>
-                    <button type="button"
-                            class="btn btn-block btn-danger"
-                            ng-click="gdg.recordShot(3, true)"
-                            ng-disabled="!gdg.canRecordShot()">
-                        miss 3
-                    </button>
+                    <div>
+                        <button type="button"
+                                class="btn btn-block btn-danger"
+                                ng-click="gdg.recordShot(1, true)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            miss 1
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-danger"
+                                ng-click="gdg.recordShot(1, true, true)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            +Foul
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button"
+                                class="btn btn-block btn-danger"
+                                ng-click="gdg.recordShot(2, true)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            miss 2
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-danger"
+                                ng-click="gdg.recordShot(2, true, true)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            +Foul
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button"
+                                class="btn btn-block btn-danger"
+                                ng-click="gdg.recordShot(3, true)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            miss 3
+                        </button>
+                        <button type="button"
+                                class="btn btn-block btn-danger"
+                                ng-click="gdg.recordShot(3, true, true)"
+                                ng-disabled="!gdg.canRecordShot()">
+                            +Foul
+                        </button>
+                    </div>
                 </div>
                 <div class="flex-grow-1 flex-shrink-1 d-flex flex-column">
                     <button type="button"
@@ -135,6 +183,7 @@
                     </div>
                     <strong class="text-center bg-white score text-dark"
                             ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== team.team.id}">
+
                         {{team.score || 0}}
                     </strong>
                     <div class="players d-flex align-items-stretch border border-dark bg-dark">
@@ -315,7 +364,7 @@
                 </div>
             </div>
             <!-- Game Options -->
-            <div class="p-3 flex-grow-1 d-flex align-items-center game-options text-center">
+            <div class="p-1 flex-grow-1 d-flex align-items-center game-options text-center">
                 <button type="button" class="btn btn-primary btn-block"
                         ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && gdg.lineupsReady"
                         ng-click="gdg.jumpBall()">
@@ -344,6 +393,4 @@
             </div>
         </div>
     </div>
-
-
 </div>

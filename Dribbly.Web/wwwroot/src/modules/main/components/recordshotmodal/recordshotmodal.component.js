@@ -20,6 +20,11 @@
         rsm.$onInit = function () {
             rsm.saveModel = angular.copy(rsm.model, {});
             setTeams();
+
+            if (rsm.saveModel.withFoul) {
+                rsm.addFoul();
+            }
+
             rsm.context.setOnInterrupt(rsm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
                 if (!rsm.context.okToClose) {
@@ -32,7 +37,7 @@
         rsm.addFoul = function () {
             rsm.foulPlayerOptions = rsm.opposingTeam.players;
             rsm.foulTypeOptions = constants.Fouls;
-            rsm.withFoul = true;
+            rsm.saveModel.withFoul = true;
 
             if (!rsm.foul) {
                 rsm.foul = {};
@@ -48,7 +53,7 @@
         rsm.addBlock = function () {
             rsm.blockPlayerOptions = rsm.opposingTeam.players
                 .drbblyWhere(p => p.isInGame);
-            rsm.withBlock = true;
+            rsm.saveModel.withBlock = true;
 
             if (!rsm.block) {
                 rsm.block = {
@@ -64,7 +69,7 @@
         rsm.addRebound = function () {
             rsm.reboundPlayerOptions = rsm.opposingTeam.players.concat(rsm.shooterTeam.players)
                 .drbblyWhere(p => p.isInGame);
-            rsm.withRebound = true;
+            rsm.saveModel.withRebound = true;
 
             if (!rsm.rebound) {
                 rsm.rebound = {
@@ -81,7 +86,7 @@
             rsm.assistPlayerOptions = rsm.shooterTeam.players
                 .drbblyWhere(p => p.teamMembership.memberAccountId !== rsm.saveModel.performedBy.memberAccountId
                     && p.isInGame);
-            rsm.withAssist = true;
+            rsm.saveModel.withAssist = true;
 
             if (!rsm.assist) {
                 rsm.assist = {
@@ -95,7 +100,7 @@
         };
 
         rsm.removeFoul = function () {
-            rsm.withFoul = false;
+            rsm.saveModel.withFoul = false;
         };
 
         rsm.onInterrupt = function (reason) {
@@ -119,10 +124,10 @@
 
         rsm.onMadeMissChanged = function (isMiss) {
             if (isMiss) {
-                rsm.withAssist = false;
+                rsm.saveModel.withAssist = false;
             } else {
-                rsm.withBlock = false;
-                rsm.withRebound = false;
+                rsm.saveModel.withBlock = false;
+                rsm.saveModel.withRebound = false;
             }
         };
 
@@ -145,10 +150,10 @@
                         period: rsm.saveModel.period,
                         clockTime: rsm.saveModel.clockTime,
                     },
-                    withFoul: rsm.withFoul,
-                    withBlock: rsm.withBlock,
-                    withAssist: rsm.withAssist,
-                    withRebound: rsm.withRebound && !rsm.withFoul,
+                    withFoul: rsm.saveModel.withFoul,
+                    withBlock: rsm.saveModel.withBlock,
+                    withAssist: rsm.saveModel.withAssist,
+                    withRebound: rsm.saveModel.withRebound && !rsm.saveModel.withFoul,
                 };
 
                 if (result.withFoul) {
