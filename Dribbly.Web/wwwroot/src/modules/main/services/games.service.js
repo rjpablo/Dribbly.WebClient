@@ -14,6 +14,10 @@
                     return drbblyhttpService.get(api + 'getGame/' + id);
                 }
 
+                function currentUserIsGameManager(gameId) {
+                    return drbblyhttpService.get(api + 'currentUserIsGameManager/' + gameId);
+                }
+
                 function getGameTeam(gameId, teamId) {
                     return drbblyhttpService.get(api + `getGameTeam/${gameId}/${teamId}`);
                 }
@@ -85,6 +89,7 @@
                 var _service = {
                     addGame: addGame,
                     advancePeriod: advancePeriod,
+                    currentUserIsGameManager: currentUserIsGameManager,
                     endGame: endGame,
                     getAddGameModal: getAddGameModal,
                     getAll: getAll,

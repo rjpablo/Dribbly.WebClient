@@ -247,7 +247,25 @@
                 url: '/track',
                 component: 'drbblyGametracking',
                 resolve: {
-                    $titleKey: () => { return 'app.GameDetails'; }
+                    $titleKey: () => { return 'app.GameDetails'; },
+                    authorization: ['authService', '$state', 'drbblyToastService', 'drbblyGamesService', '$stateParams',
+                        function (authService, $state, drbblyToastService, drbblyGamesService, $stateParams) {
+                            function reject() {
+                                $state.go('main.home')
+                                drbblyToastService.error('Sorry, you don\'t have access to the requested page.')
+                            }
+
+                            return authService.checkAuthenticationThen(function () {
+                                return drbblyGamesService.currentUserIsGameManager($stateParams.id)
+                                    .then(isManager => {
+                                        if (!isManager) {
+                                            reject();
+                                        }
+                                    })
+                                    .catch(reject);
+                            })
+                                .catch(reject);
+                        }]
                 }
             })
 
