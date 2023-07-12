@@ -9,7 +9,8 @@
                 hideResults: '<',
                 // callback function to call, passing the results as parameter, when results come back from the server
                 onResultsUpdated: '<',
-                onReady: '<'
+                onReady: '<',
+                maxCount: '<'
             },
             controllerAs: 'gcc',
             templateUrl: 'drbbly-default',
@@ -36,7 +37,7 @@
         function setTypeAheadConfig() {
             gcc.typeAheadConfig = {
                 entityTypes: [], // All
-                maxCount: 10,
+                maxCount: gcc.maxCount,
                 hideResults: gcc.hideResults,
                 onSelect: onItemSelected,
                 placeholder: 'Search',
@@ -82,6 +83,9 @@
                     break;
                 case constants.enums.entityTypeEnum.Account:
                     $state.go('main.account.home', { username: JSON.parse(item.additionalData).username });
+                    break;
+                case constants.enums.entityTypeEnum.Game:
+                    $state.go('main.game.details', { id: item.value });
                     break;
             }
             gcc.items = [];

@@ -49,7 +49,8 @@
                 <a class="dropdown-item" ng-click="nav.addTournament()">{{::'app.Tournament' | i18n}}</a>
             </div>
         </div>
-        <drbbly-globalsearch class="d-none d-sm-inline my-2 ml-3">
+        <drbbly-globalsearch class="d-none d-sm-inline my-2 ml-3"
+                             max-count="10">
         </drbbly-globalsearch>
         <ul class="nav ml-3 float-right dropdown non-mobile">
             <li ng-if="nav.isAuthenticated()"

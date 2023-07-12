@@ -13,8 +13,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', 'drbblyEventsService', '$element'];
-    function controllerFn($scope, drbblyEventsService, $element) {
+    controllerFn.$inject = ['constants', 'drbblyEventsService', '$element'];
+    function controllerFn(constants, drbblyEventsService, $element) {
         var gsm = this;
 
         gsm.$onInit = function () {
@@ -25,6 +25,7 @@
             gsm.context.setOnInterrupt(gsm.onInterrupt);
 
             gsm.resultGroups = [
+                createGroup(null, 'All'),
                 createGroup(constants.enums.entityTypeEnum.Team, 'Teams'),
                 createGroup(constants.enums.entityTypeEnum.Account, 'Accounts'),
                 createGroup(constants.enums.entityTypeEnum.Court, 'Courts'),
@@ -33,7 +34,7 @@
             ];
         };
 
-        function createGroup(type, groupText) {
+        function createGroup(type, title) {
             return { type: type, title: title, items:[] };
         }
 
@@ -47,7 +48,10 @@
         };
 
         gsm.onResultsUpdated = function (results) {
+            gsm.hasSearched = true;
             gsm.results = results;
+            classifyResults(results);
+            gsm.selectedGroup = gsm.resultGroups[0]; // All
         };
 
         gsm.onItemSelected = function (item) {
@@ -58,6 +62,12 @@
         function close(result) {
             gsm.context.okToClose = true;
             gsm.context.submit(result);
+        }
+
+        function classifyResults(results) {
+            gsm.resultGroups.forEach(group => {
+                group.items = results.drbblyWhere(item => group.type === null || item.type === group.type);
+            });
         }
 
         gsm.cancel = function () {

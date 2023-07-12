@@ -1,20 +1,56 @@
 @import '../../../../../custom/bootstrap/scss/_variables.scss';
 
 drbbly-globalsearchmodal {
-    .result-item {
-        display: flex;
-        width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    position: relative;
 
-        .result-icon {
-            border-radius: 50%;
-            width: 3em;
-            height: 3em;
-            margin-right: 1em;
+    .modal-body {
+        height: 100%;
+        overflow-y: auto;
+
+        .groups {
+            overflow-x: auto;
+            white-space: nowrap;
+            background-color: $body-bg;
+            border-bottom: 1px solid $gray-800;
+
+            & > .group {
+                padding: 0 0.25em;
+
+                &.selected {
+                    background-color: $primary;
+                    color: $white !important;
+                    border-radius: 0.25em;
+                }
+            }
         }
 
-        .result-text {
-            flex-grow: 1;
-            text-align: left;
+        .results-container {
+            display: flex;
+            flex-direction: column;
+
+            .items {
+                flex-grow: 1;
+                overflow-y: auto;
+
+                .result-item {
+                    display: flex;
+                    width: 100%;
+
+                    .result-icon {
+                        border-radius: 50%;
+                        width: 3em;
+                        height: 3em;
+                        margin-right: 1em;
+                    }
+
+                    .result-text {
+                        flex-grow: 1;
+                        text-align: left;
+                    }
+                }
+            }
         }
     }
 }
