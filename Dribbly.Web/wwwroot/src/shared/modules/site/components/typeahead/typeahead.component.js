@@ -22,8 +22,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['drbblySharedService', '$element'];
-    function controllerFn(drbblySharedService, $element) {
+    controllerFn.$inject = ['drbblySharedService', '$element', '$timeout'];
+    function controllerFn(drbblySharedService, $element, $timeout) {
         var dta = this;
 
         dta.$onInit = function () {

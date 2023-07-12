@@ -16,7 +16,8 @@
 </div>
 <div uib-dropdown
      auto-close="disabled"
-     is-open="dta.isShowingStatus">
+     is-open="dta.isShowingStatus"
+     ng-class="{'results-hidden': dta.config.hideResults}">
     <input type="text"
            class="typeahead-text-input dropdown-toggle"
            ng-class="{'w-100': !dta.selectedItems.length}"

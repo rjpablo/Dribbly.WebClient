@@ -72,12 +72,7 @@
 
         function setToolbarItems() {
             var buildItem = drbblyToolbarService.buildItem;
-            drbblyToolbarService.setItems([
-                {
-                    iconClass: 'fa fa-plus',
-                    action: dcc.addCourt
-                }, buildItem('fa fa-search', toggleSearch)
-            ]);
+            drbblyToolbarService.setItems([]);
         }
 
         dcc.featuredCourtClick = function (court) {

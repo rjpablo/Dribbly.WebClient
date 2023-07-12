@@ -1,0 +1,22 @@
+﻿<div class="modal-body">
+    <div class="d-flex border-bottom mx-n3 mt-n2 pr-3">
+        <button class="btn mb-2"
+                ng-click="gsm.cancel()">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+        <drbbly-globalsearch class="flex-grow-1 mb-2"
+                             on-ready="gsm.onSearchComponentReady"
+                             hide-results="true"
+                             on-results-updated="gsm.onResultsUpdated">
+        </drbbly-globalsearch>
+    </div>
+    <div class="results-container">
+        <button ng-repeat="item in gsm.results"
+                class="btn result-item"
+                ng-click="gsm.onItemSelected(item)">
+            <img ng-src="{{item.iconUrl}}"
+                 class="result-icon" />
+            <span class="result-text">{{item.text}}</span>
+        </button>
+    </div>
+</div>

@@ -40,14 +40,6 @@
             return authService.authentication.isAuthenticated;
         };
 
-        mtb.openSearchModal = function () {
-            modalService.show({
-                view: '<drbbly-globalsearchmodal></drbbly-globalsearchmodal>',
-                model: {},
-                isFull: true
-            });
-        };
-
         function onSetToolbarItems(data) {
             setItems(data.items);
             mtb.app.onSectionResize();

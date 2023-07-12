@@ -118,7 +118,9 @@
                 }
 
                 function start() {
-                    if (!_isRunning) {
+                    if (!_isRunning
+                        && false // TODO: remove upon deployment
+                    ) {
                         _unviewedNotifications = [];
                         _isRunning = true;
                         monitorNotifications();
