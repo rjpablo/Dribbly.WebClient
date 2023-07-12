@@ -1,7 +1,9 @@
 @import '../../../../custom/bootstrap/scss/_variables.scss';
 @import '../../../../lib/bootstrap/_breakpoints.scss';
+@import '../../../../../../node_modules/bootstrap/scss/functions';
 
 $top-bar-height: 2em;
+$nav-link-active-bg: rgba($black,0.15);
 
 #page-body-container {
     min-height: unset !important;
@@ -41,172 +43,203 @@ drbbly-gametracking {
             position: relative;
             display: flex;
 
-            .player-options {
+            .tabbed-content {
                 border: 5px solid $primary;
                 border-radius: 5px 0px 0px 5px;
                 border-right-width: 0px;
-                padding: 5px;
                 height: 100%;
-                display: inline-block;
+                display: flex;
+                flex-direction: column;
                 flex-grow: 1;
                 min-width: 250px;
+                min-width: 250px;
+                position: relative;
 
-                & > .options {
-                    position: relative;
-                    display: grid !important;
-                    grid-auto-flow: column;
-                    grid-auto-columns: 1fr;
-
-                    button.btn {
-                        padding: 0.5em;
+                .nav-tabs {
+                    .nav-link {
+                        padding: 0.25em;
                         line-height: 1;
-                        font-size: 1em;
-                        margin: 0 !important;
-                        white-space: nowrap;
+                        color: #fff !important;
+                        background-color: $primary;
+                        border-color: $nav-link-active-bg $nav-link-active-bg $gray-700 !important;
+
+                        &.active {
+                            background-color: $nav-link-active-bg;
+                        }
                     }
+                }
 
-                    & > div:not(.modal) {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 5px;
-                        margin: 0.25rem;
+                .tab-content {
+                    height: calc(100% - 1.5em);
+                    overflow-y: auto;
 
-                        & > div {
+                    & > .tab-pane {
+                        height: 100%;
+                    }
+                    // player-options
+                    .player-options {
+                        padding: 5px;
+                        height: 100%;
+                        width: 100%;
+
+                        & > .options {
+                            position: relative;
+                            display: grid !important;
+                            grid-auto-flow: column;
+                            grid-auto-columns: 1fr;
+
+                            button.btn {
+                                padding: 0.5em;
+                                line-height: 1;
+                                font-size: 1em;
+                                margin: 0 !important;
+                                white-space: nowrap;
+                            }
+
+                            & > div:not(.modal) {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 5px;
+                                margin: 0.25rem;
+
+                                & > div {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 1px;
+                                }
+                            }
+                        }
+
+                        .selected-entity-wrapper {
+                            border: 1px solid $primary;
+                            padding: 0.1em;
                             display: flex;
                             align-items: center;
-                            gap: 1px;
-                        }
-                    }
-                }
+                            margin-bottom: 0.2em;
 
-                .selected-entity-wrapper {
-                    border: 1px solid $primary;
-                    padding: 0.1em;
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 0.2em;
-
-                    .profile-photo,
-                    .logo {
-                        height: 2em;
-                        width: 2em;
-                        object-fit: cover;
-                    }
-
-                    .stats {
-                        margin-left: auto;
-                        display: flex;
-
-                        .stat {
-                            text-align: center;
-                            width: 2em;
-
-                            & > * {
-                                display: block;
-                            }
-
-                            .label {
-                                font-size: 0.5em;
-                            }
-                        }
-                    }
-                }
-
-                .team-players {
-                    font-size: 1.3em;
-
-                    .team-wrapper {
-                        width: 100%;
-                        display: flex;
-                        align-items: stretch;
-
-                        &:first-child {
-                            margin-bottom: 2px;
-                        }
-
-                        .logo-name-wrapper {
-                            width: 2em;
-
+                            .profile-photo,
                             .logo {
                                 height: 2em;
                                 width: 2em;
                                 object-fit: cover;
                             }
 
-                            .name {
-                                display: block;
-                                margin: 0;
-                            }
+                            .stats {
+                                margin-left: auto;
+                                display: flex;
 
-                            &.selected {
+                                .stat {
+                                    text-align: center;
+                                    width: 2em;
 
-                                .logo {
-                                    border: 3px solid $primary !important;
+                                    & > * {
+                                        display: block;
+                                    }
+
+                                    .label {
+                                        font-size: 0.5em;
+                                    }
                                 }
                             }
                         }
 
-                        .score {
-                            width: 2em;
-                            color: $white;
+                        .team-players {
+                            font-size: 1.3em;
+
+                            .team-wrapper {
+                                width: 100%;
+                                display: flex;
+                                align-items: stretch;
+
+                                &:first-child {
+                                    margin-bottom: 2px;
+                                }
+
+                                .logo-name-wrapper {
+                                    width: 2em;
+
+                                    .logo {
+                                        height: 2em;
+                                        width: 2em;
+                                        object-fit: cover;
+                                    }
+
+                                    .name {
+                                        display: block;
+                                        margin: 0;
+                                    }
+
+                                    &.selected {
+
+                                        .logo {
+                                            border: 3px solid $primary !important;
+                                        }
+                                    }
+                                }
+
+                                .score {
+                                    width: 2em;
+                                    color: $white;
+                                }
+
+                                .players {
+                                    flex-grow: 1;
+
+                                    .player {
+                                        display: flex;
+                                        flex-direction: column;
+                                        width: 2em;
+                                        height: 2em;
+                                        text-align: center;
+                                        margin: 0.02em;
+                                        color: #ccc;
+
+                                        .jersey-no {
+                                            line-height: 1;
+                                            flex-grow: 1;
+                                        }
+
+                                        .name {
+                                            font-size: 0.5em;
+                                        }
+
+                                        &.selected {
+                                            border: 3px solid $primary !important;
+                                            background-color: #555;
+                                        }
+                                    }
+                                }
+                            }
                         }
 
-                        .players {
-                            flex-grow: 1;
+                        .player-list {
 
-                            .player {
+                            tr.player.selected {
+                                background: $primary;
+                                color: #000;
+                                font-weight: 600;
+                            }
+                        }
+
+                        .modal {
+                            .modal-content > * {
+                                height: 100%;
                                 display: flex;
                                 flex-direction: column;
-                                width: 2em;
-                                height: 2em;
-                                text-align: center;
-                                margin: 0.02em;
-                                color: #ccc;
+                                overflow: hidden;
 
-                                .jersey-no {
-                                    line-height: 1;
+                                & > .modal-body {
                                     flex-grow: 1;
+                                    overflow-y: auto;
                                 }
 
-                                .name {
-                                    font-size: 0.5em;
+                                & > .modal-footer {
+                                    justify-content: flex-start;
+
+                                    & > *:not(last-child) {
+                                        margin-right: 0.25em;
+                                    }
                                 }
-
-                                &.selected {
-                                    border: 3px solid $primary !important;
-                                    background-color: #555;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                .player-list {
-
-                    tr.player.selected {
-                        background: $primary;
-                        color: #000;
-                        font-weight: 600;
-                    }
-                }
-
-                .modal {
-                    .modal-content > * {
-                        height: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        overflow: hidden;
-
-                        & > .modal-body {
-                            flex-grow: 1;
-                            overflow-y: auto;
-                        }
-
-                        & > .modal-footer {
-                            justify-content: flex-start;
-
-                            & > *:not(last-child) {
-                                margin-right: 0.25em;
                             }
                         }
                     }
@@ -325,8 +358,8 @@ drbbly-gametracking {
                     border-radius: 5px 5px 0px 0px;
                 }
 
-                .player-options {
-                    min-height: 300px;
+                .tabbed-content {
+                    height: 300px;
                     max-height: 350px;
                     border-radius: 0px 0px 5px 5px;
                     border-right-width: 5px;
