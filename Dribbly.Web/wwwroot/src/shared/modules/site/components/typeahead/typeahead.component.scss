@@ -1,22 +1,8 @@
 drbbly-typeahead {
-    display: inline-block !important;
+    display: inline-block;
+    align-items: center;
     height: auto !important;
-
-    & > * {
-        float: left;
-    }
-
-    input.typeahead-text-input {
-        border: none !important;
-        min-width: 150px;
-        outline: none !important;
-    }
-
-    .uib-typeahead-match .suggestion-icon {
-        border-radius: 50%;
-        width: 1.25em !important;
-        height: 1.25em !important;
-    }
+    position: relative;
 
     .selected-item {
         display: inline-block;
@@ -29,9 +15,34 @@ drbbly-typeahead {
         }
     }
 
-    .dropdown.results-hidden {
-        & > .dropdown-menu {
-            display: none !important;
+    [uib-dropdown] {
+        display: flex;
+        flex-grow: 1;
+        width: 100%;
+
+        input.typeahead-text-input {
+            border: none !important;
+            min-width: 150px;
+            outline: none !important;
+            flex-grow: 1;
+        }
+
+        .loading-indicator {
+            margin-left: auto;
+        }
+
+        .dropdown-menu {
+            .uib-typeahead-match .suggestion-icon {
+                border-radius: 50%;
+                width: 2em !important;
+                height: 2em !important;
+            }
+        }
+
+        &.results-hidden {
+            & > .dropdown-menu {
+                display: none !important;
+            }
         }
     }
 }

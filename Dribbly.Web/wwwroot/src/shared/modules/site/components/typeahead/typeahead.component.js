@@ -59,6 +59,13 @@
                 });
         };
 
+        dta.keywordChanged = function (keyword) {
+            dta.isShowingStatus = false;
+            if (!keyword && dta.config.onCleared) {
+                dta.config.onCleared();
+            }
+        };
+
         dta._onSelect = function (item, model, label, event) {
             if (!dta.selectedItems) {
                 dta.selectedItems = [];

@@ -13,8 +13,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['constants', 'drbblyEventsService', '$element'];
-    function controllerFn(constants, drbblyEventsService, $element) {
+    controllerFn.$inject = ['constants', 'drbblyEventsService', '$element', '$scope'];
+    function controllerFn(constants, drbblyEventsService, $element, $scope) {
         var gsm = this;
 
         gsm.$onInit = function () {
@@ -32,6 +32,8 @@
                 createGroup(constants.enums.entityTypeEnum.Tournament, 'Tournaments'),
                 createGroup(constants.enums.entityTypeEnum.Game, 'Games'),
             ];
+
+            gsm.context.setOnInterrupt(gsm.onInterrupt);
         };
 
         function createGroup(type, title) {
@@ -42,6 +44,12 @@
             gsm.context.okToClose = true;
             gsm.context.dismiss(reason);
         };
+
+        gsm.onCleared = function () {
+            gsm.hasSearched = false;
+            gsm.results = [];
+            classifyResults([]);
+        }
 
         gsm.onSearchComponentReady = function (widget) {
             gsm.searchWidget = widget;

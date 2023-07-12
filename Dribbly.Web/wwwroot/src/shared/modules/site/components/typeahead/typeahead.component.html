@@ -23,21 +23,25 @@
            ng-class="{'w-100': !dta.selectedItems.length}"
            ng-hide="!dta.config.isMultiple && dta.selectedItems.length > 0"
            ng-model="dta.keyword"
-           ng-change="dta.isShowingStatus = false"
+           ng-change="dta.keywordChanged(dta.keyword)"
            placeholder="{{::dta.config.placeholder || ('app.StartTypingToLoadSuggestions' | i18n)}}"
            uib-typeahead="item.text for item in dta._getItems($viewValue)"
            typeahead-editable="false"
            typeahead-focus-first="true"
-           typeahead-wait-ms="500"
+           typeahead-wait-ms="300"
            typeahead-on-select="dta._onSelect($item, $model, $label, $event)"
-           typeahead-loading="dta._loading"
+           typeahead-loading="dta.isLoading"
            typeahead-no-results="dta._noResults"
            typeahead-template-url="{{'dribbly-typeahead-match.html'}}">
+    <span class="loading-indicator"
+          ng-show="dta.isLoading && dta.config.hideResults">
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+    </span>
     <div class="dropdown-menu"
          uib-dropdown-menu
-         ng-show="dta._loading || (dta._noResults || dta.keyword)">
+         ng-show="dta.isLoading || (dta._noResults || dta.keyword)">
         <span class="dropdown-item"
-              ng-show="dta._loading">
+              ng-show="dta.isLoading">
             <i class="fa fa-refresh fa-spin"></i>&nbsp;{{::'app.LoadingSuggestionsEllipsis' | i18n}}
         </span>
         <span class="dropdown-item"

@@ -9,6 +9,7 @@
                 hideResults: '<',
                 // callback function to call, passing the results as parameter, when results come back from the server
                 onResultsUpdated: '<',
+                onCleared: '<',
                 onReady: '<',
                 maxCount: '<'
             },
@@ -31,7 +32,7 @@
         };
 
         gcc.search = function () {
-            alert('search');
+            
         }
 
         function setTypeAheadConfig() {
@@ -41,7 +42,8 @@
                 hideResults: gcc.hideResults,
                 onSelect: onItemSelected,
                 placeholder: 'Search',
-                onSuggestionsUpdated: onResultsUpdated
+                onSuggestionsUpdated: onResultsUpdated,
+                onCleared: gcc.onCleared
             };
         }
 
