@@ -4,17 +4,16 @@
     angular.module('mainModule')
         .service('drbblyGameeventsService', ['drbblyhttpService',
             function (drbblyhttpService) {
-                var api = 'api/Gameevents/';
+                var api = 'api/Gameevents/';                
 
-                function upsertFoul(input) {
-                    return drbblyhttpService.post(api + 'upsertFoul', input);
-                }
-
-                var _service = {
-                    upsertFoul: upsertFoul
+                return {
+                    update: function (input) {
+                        return drbblyhttpService.post(api + 'update', input);
+                    },
+                    upsertFoul: function (input) {
+                        return drbblyhttpService.post(api + 'upsertFoul', input);
+                    },
                 };
-
-                return _service;
             }]);
 0
 })();

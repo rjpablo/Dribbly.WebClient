@@ -9,8 +9,9 @@
             <h5 class="d-inline m-0 px-1">{{gel.game.team2.team.name}}</h5>
         </div>
     </div>
-    <div ng-repeat="event in gel.events | orderBy : ['-period', '-clockTime'] : true"
+    <div ng-repeat="event in gel.events | orderBy : ['-period', '-clockTime'] : true track by event.id"
          ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2, 'is-both': event.isBothTeams}"
+         ng-click="gel._onItemClicked(event)"
          class="event-row">
         <div class="event-wrapper">
             <div class="flex-grow-1 text-black"

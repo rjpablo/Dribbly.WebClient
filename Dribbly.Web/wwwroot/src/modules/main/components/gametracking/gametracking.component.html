@@ -236,6 +236,8 @@
                     <!-- Play-by-Play -->
                     <drbbly-gameeventslist game="gdg.game"
                                            events="gdg.game.gameEvents"
+                                           on-ready="gdg.onPlayByPlayReady"
+                                           on-item-clicked="gdg.showGameEventDetails"
                                            ng-if="gdg.game"></drbbly-gameeventslist>
                 </div>
             </div>

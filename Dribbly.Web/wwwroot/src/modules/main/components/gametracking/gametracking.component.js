@@ -320,7 +320,7 @@
         }
 
         async function showPlayerOptionsModal(config) {
-            config.container = $document.find('.player-options').eq(0);
+            config.container = $document.find('.tabbed-content').eq(0);
             return await modalService.show(config);
         }
 
@@ -409,6 +409,39 @@
                 }
             }
         }
+
+        // #region Play-by-Play
+
+        gdg.onPlayByPlayReady = function (widget) {
+            gdg.playByPlayWidget = widget;
+        };
+
+        gdg.showGameEventDetails = async function (event) {
+            if (event.type === constants.enums.gameEventTypeEnum.ShotMade
+                || event.type === constants.enums.gameEventTypeEnum.ShotMissed) {
+                var result = await showPlayerOptionsModal({
+                    view: '<drbbly-gameeventdetailsmodal></drbbly-gameeventdetailsmodal>',
+                    model: {
+                        game: gdg.game,
+                        event: event
+                    }
+                }).catch(err => { /*modal cancelled, do nothing*/ });
+
+                if (result) {
+                    if (event.type === constants.enums.gameEventTypeEnum.ShotMade
+                        || event.type === constants.enums.gameEventTypeEnum.ShotMissed) {
+                        gdg.game.team1Score = result.game.team1Score;
+                        gdg.game.team2Score = result.game.team2Score;
+                        result.teams.forEach(t => {
+                            var team = gdg.teams.drbblySingle(tm => tm.teamId === t.teamId);
+                            team.score = t.score;
+                        });
+                        gdg.playByPlayWidget.updateItem(result.event);
+                    }
+                }
+            }
+        }
+        // #endregion Play-by-Play
 
         // #region Team Foul Setting
         gdg.setTeam1FoulCount = function () {
