@@ -269,6 +269,13 @@
                         gdg.game.team1.score = shotResult.team1Score;
                         gdg.game.team2Score = shotResult.team2Score;
                         gdg.game.team2.score = shotResult.team2Score;
+
+                        gdg.selectedPlayer.points = shotResult.takenBy.points;
+                        gdg.selectedPlayer.fga = shotResult.takenBy.fga;
+                        gdg.selectedPlayer.fgm = shotResult.takenBy.fgm;
+                        gdg.selectedPlayer.threePA = shotResult.takenBy.threePA;
+                        gdg.selectedPlayer.threePM = shotResult.takenBy.threePM;
+
                         if (modalResult.shot.isMiss) {
                             if (modalResult.withBlock) {
                                 modalResult.block.performedByGamePlayer.blocks = shotResult.blockResult.totalBlocks;
@@ -277,17 +284,14 @@
                                 modalResult.rebound.performedByGamePlayer.rebounds = shotResult.reboundResult.totalRebounds;
                             }
                         }
-                        else {
-                            gdg.selectedPlayer.points = shotResult.totalPoints;
-                            if (modalResult.withAssist) {
-                                modalResult.assist.performedByGamePlayer.assists = shotResult.assistResult.totalAssists;
-                            }
+                        else if (modalResult.withAssist) {
+                            modalResult.assist.performedByGamePlayer.assists = shotResult.assistResult.totalAssists;
                         }
+
 
                         if (modalResult.withFoul) {
                             applyFoulResult(shotResult.foulResult, modalResult.foul.performedByGamePlayer);
                         }
-                        gdg.unselectPlayer(gdg.selectedPlayer);
 
                     }
                 }
@@ -376,7 +380,6 @@
                     });
                 if (foulResult) {
                     applyFoulResult(foulResult, gdg.selectedPlayer);
-                    gdg.unselectPlayer(gdg.selectedPlayer);
                 }
             }
         }
@@ -450,6 +453,10 @@
                             player.rebounds = p.rebounds;
                             player.assists = p.assists;
                             player.blocks = p.blocks;
+                            player.fga = p.fga;
+                            player.fgm = p.fgm;
+                            player.threePA = p.threePA;
+                            player.threePM = p.threePM;
                         });
 
                         if (result.isDelete) {
