@@ -100,6 +100,14 @@
 
             // Court
 
+            .state('main.courts', {
+                url: '/courts',
+                template: '<drbbly-courts-container></drbbly-courts-container>',
+                resolve: {
+                    $titleKey: () => { return 'site.Courts'; }
+                }
+            })
+
             .state('main.court', {
                 abstract: true,
                 url: '/court/:id',
