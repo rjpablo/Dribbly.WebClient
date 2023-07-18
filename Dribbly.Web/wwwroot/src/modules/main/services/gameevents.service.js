@@ -7,6 +7,9 @@
                 var api = 'api/Gameevents/';                
 
                 return {
+                    delete: function (eventId) {
+                        return drbblyhttpService.post(api + 'delete/' + eventId);
+                    },
                     update: function (input) {
                         return drbblyhttpService.post(api + 'update', input);
                     },

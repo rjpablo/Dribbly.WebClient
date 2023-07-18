@@ -419,24 +419,47 @@
         gdg.showGameEventDetails = async function (event) {
             if (event.type === constants.enums.gameEventTypeEnum.ShotMade
                 || event.type === constants.enums.gameEventTypeEnum.ShotMissed) {
+                //get associated plays
+                var associatedPlays = gdg.game.gameEvents
+                    .drbblyWhere(e => (event.shotId !== null && (e.id === event.shotId || e.shotId === event.shotId)) ||
+                        (e.shotId === event.id));
+
                 var result = await showPlayerOptionsModal({
                     view: '<drbbly-gameeventdetailsmodal></drbbly-gameeventdetailsmodal>',
                     model: {
                         game: gdg.game,
-                        event: event
+                        event: event,
+                        associatedPlays: associatedPlays
                     }
                 }).catch(err => { /*modal cancelled, do nothing*/ });
 
                 if (result) {
                     if (event.type === constants.enums.gameEventTypeEnum.ShotMade
                         || event.type === constants.enums.gameEventTypeEnum.ShotMissed) {
+
                         gdg.game.team1Score = result.game.team1Score;
                         gdg.game.team2Score = result.game.team2Score;
                         result.teams.forEach(t => {
                             var team = gdg.teams.drbblySingle(tm => tm.teamId === t.teamId);
                             team.score = t.score;
                         });
-                        gdg.playByPlayWidget.updateItem(result.event);
+                        result.players.forEach(p => {
+                            var player = gdg.players.drbblySingle(pl => pl.id === p.id);
+                            player.points = p.points;
+                            player.fouls = p.fouls;
+                            player.rebounds = p.rebounds;
+                            player.assists = p.assists;
+                            player.blocks = p.blocks;
+                        });
+
+                        if (result.isDelete) {
+                            gdg.game.gameEvents.drbblyRemove(event);
+                            associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
+                        }
+                        else {
+                            gdg.playByPlayWidget.updateItem(result.event);
+                            associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
+                        }
                     }
                 }
             }
@@ -660,6 +683,7 @@
                     }
 
                     gdg.teams = [gdg.game.team1, gdg.game.team2];
+                    gdg.players = [...gdg.game.team1.players, ...gdg.game.team2.players];
                     gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
                     gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
                     setLineupsReady();
