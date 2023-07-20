@@ -10,6 +10,10 @@
                     return drbblyhttpService.get(api + 'getAllAccounts');
                 }
 
+                function getTopPlayers() {
+                    return drbblyhttpService.get(api + 'getTopPlayers');
+                }
+
                 function getAccount(id) {
                     return drbblyhttpService.get(api + 'getAccount/' + id);
                 }
@@ -101,6 +105,7 @@
                     getAccountSettings: getAccountSettings,
                     getAccountVideos: getAccountVideos,
                     getAccountViewerData: getAccountViewerData,
+                    getTopPlayers: getTopPlayers,
                     register: register,
                     setIsPublic: setIsPublic,
                     setStatus: setStatus,

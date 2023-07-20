@@ -32,21 +32,13 @@
                 //template: '<drbbly-main-container app="app"></drbbly-main-container>'
             })
 
-            .state('main.home_tmp', {
-                url: '/home_tmp',
+            .state('main.home', {
+                url: '/home',
                 template: '<drbbly-home-container></drbbly-home-container>',
                 resolve: {
                     $titleKey: function () {
                         return 'site.Home';
                     }
-                }
-            })
-
-            .state('main.home', {
-                url: '/home',
-                template: '<drbbly-courts-container></drbbly-courts-container>',
-                resolve: {
-                    $titleKey: () => { return 'site.Home'; }
                 }
             })
 

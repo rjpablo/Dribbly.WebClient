@@ -1,6 +1,15 @@
-﻿<div class="container mt-5">
-    <div class="card">
-        <h2 class="card-header">{{'site.Home' | i18n}}</h2>
-        <a class="btn btn-link" ng-click="dhc.openModal()">Show welcome message</a>
-    </div>
+﻿<div class="container">
+    <section drbbly-overlay="dhc.topPlayersOverlay" class="pt-3 top-players">
+        <h4 class="drbbly-header">Top Players</h4>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.carouselSettings.dots}">
+            <slick settings="dhc.carouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="player in dhc.topPlayers"
+                     class="px-3">
+                    <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
 </div>
