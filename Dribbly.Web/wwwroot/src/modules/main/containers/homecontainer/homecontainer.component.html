@@ -25,4 +25,19 @@
             </slick>
         </div>
     </section>
+    <section drbbly-overlay="dhc.courtsListOverlay" class="pt-3 featured-courts">
+        <h4 class="drbbly-header">{{::'app.FeaturedCourts' | i18n}}</h4>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.courtsCarouselSettings.dots}">
+            <slick settings="dhc.courtsCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="court in dhc.courts"
+                     class="px-3">
+                    <drbbly-courtlistitem class="w-100"
+                                          court="court"
+                                          on-click="dhc.featuredCourtClick"></drbbly-courtlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
 </div>

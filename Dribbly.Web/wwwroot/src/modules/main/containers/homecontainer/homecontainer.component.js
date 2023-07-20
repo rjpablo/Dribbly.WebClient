@@ -13,20 +13,23 @@
         });
 
     controllerFunc.$inject = ['constants', 'drbblyToolbarService', 'drbblyCommonService', 'drbblyAccountsService',
-        'drbblyOverlayService', '$timeout', 'drbblyTournamentsService', 'drbblyCarouselhelperService'];
+        'drbblyOverlayService', '$timeout', 'drbblyTournamentsService', 'drbblyCarouselhelperService', 'drbblyCourtsService'];
     function controllerFunc(constants, drbblyToolbarService, drbblyCommonService, drbblyAccountsService,
-        drbblyOverlayService, $timeout, drbblyTournamentsService, drbblyCarouselhelperService) {
+        drbblyOverlayService, $timeout, drbblyTournamentsService, drbblyCarouselhelperService, drbblyCourtsService) {
         var dhc = this;
 
         dhc.$onInit = function () {
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
             dhc.tournamentsOverlay = drbblyOverlayService.buildOverlay();
+            dhc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();
             dhc.tournamentsCarouselSettings = drbblyCarouselhelperService.buildSettings();
+            dhc.courtsCarouselSettings = drbblyCarouselhelperService.buildSettings();
             drbblyToolbarService.setItems([]);
 
             loadTopPlayers();
             loadTournaments();
+            loadCourts();
             dhc.app.mainDataLoaded();
         };
 
@@ -58,6 +61,19 @@
                 .catch(e => {
                     dhc.tournamentsOverlay.setToError();
                 });
+        }
+
+        function loadCourts() {
+            dhc.courtsListOverlay.setToBusy();
+            drbblyCourtsService.getAllCourts()
+                .then(function (data) {
+                    dhc.courts = data;
+                    $timeout(function () {
+                        dhc.courtsCarouselSettings.enabled = true;
+                        dhc.courtsListOverlay.setToReady();
+                    }, 300);
+                })
+                .catch(dhc.courtsListOverlay.setToError);
         }
     }
 })();
