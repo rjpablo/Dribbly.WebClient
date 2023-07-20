@@ -39,7 +39,11 @@
         </div>
     </section>
     <section drbbly-overlay="dhc.courtsListOverlay" class="pt-3 featured-courts">
-        <h4 class="drbbly-header">{{::'app.FeaturedCourts' | i18n}}</h4>
+        <h4 class="drbbly-header">
+            {{::'app.FeaturedCourts' | i18n}}
+            <a ui-sref="main.courts"
+               class="float-right"><small>See all</small></a>
+        </h4>
         <div class="slick-slider"
              ng-class="{'slick-dotted': dhc.courtsCarouselSettings.dots}">
             <slick settings="dhc.courtsCarouselSettings"
