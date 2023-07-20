@@ -12,24 +12,27 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['constants', 'drbblyToolbarService', 'drbblyCommonService', 'drbblyAccountsService',
+    controllerFunc.$inject = ['drbblyTeamsService', 'drbblyToolbarService', 'drbblyCommonService', 'drbblyAccountsService',
         'drbblyOverlayService', '$timeout', 'drbblyTournamentsService', 'drbblyCarouselhelperService', 'drbblyCourtsService'];
-    function controllerFunc(constants, drbblyToolbarService, drbblyCommonService, drbblyAccountsService,
+    function controllerFunc(drbblyTeamsService, drbblyToolbarService, drbblyCommonService, drbblyAccountsService,
         drbblyOverlayService, $timeout, drbblyTournamentsService, drbblyCarouselhelperService, drbblyCourtsService) {
         var dhc = this;
 
         dhc.$onInit = function () {
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
-            dhc.tournamentsOverlay = drbblyOverlayService.buildOverlay();
-            dhc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();
+            dhc.tournamentsOverlay = drbblyOverlayService.buildOverlay();
             dhc.tournamentsCarouselSettings = drbblyCarouselhelperService.buildSettings();
+            dhc.teamsOverlay = drbblyOverlayService.buildOverlay();
+            dhc.teamsCarouselSettings = drbblyCarouselhelperService.buildSettings();
+            dhc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             dhc.courtsCarouselSettings = drbblyCarouselhelperService.buildSettings();
             drbblyToolbarService.setItems([]);
 
             loadTopPlayers();
             loadTournaments();
             loadCourts();
+            loadTeams();
             dhc.app.mainDataLoaded();
         };
 
@@ -60,6 +63,21 @@
                 })
                 .catch(e => {
                     dhc.tournamentsOverlay.setToError();
+                });
+        }
+
+        function loadTeams() {
+            dhc.teamsOverlay.setToBusy();
+            drbblyTeamsService.getTopTeams({ page: 1, pageSize: 10 })
+                .then(data => {
+                    dhc.teams = data;
+                    $timeout(function () {
+                        dhc.teamsCarouselSettings.enabled = true;
+                        dhc.teamsOverlay.setToReady();
+                    }, 300);
+                })
+                .catch(e => {
+                    dhc.teamsOverlay.setToError();
                 });
         }
 

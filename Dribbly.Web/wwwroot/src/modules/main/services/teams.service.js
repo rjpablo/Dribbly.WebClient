@@ -66,6 +66,10 @@
                     return drbblyhttpService.post(api + 'getTeamDropDownSuggestions', input);
                 }
 
+                function getTopTeams(input) {
+                    return drbblyhttpService.post(api + 'getTopTeams', input);
+                }
+
                 function addTeam(teamDetails) {
                     return drbblyhttpService.post(api + 'addTeam', teamDetails);
                 }
@@ -141,6 +145,7 @@
                     getTeamSettings: getTeamSettings,
                     getTeamVideos: getTeamVideos,
                     getTeamViewerData: getTeamViewerData,
+                    getTopTeams: getTopTeams,
                     getUserTeamRelation: getUserTeamRelation,
                     joinTeam: joinTeam,
                     leaveTeam: leaveTeam,

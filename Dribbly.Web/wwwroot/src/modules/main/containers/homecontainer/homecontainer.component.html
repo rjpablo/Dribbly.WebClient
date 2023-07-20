@@ -25,6 +25,19 @@
             </slick>
         </div>
     </section>
+    <section drbbly-overlay="dhc.teamsOverlay" class="pt-3 top-teams">
+        <h4 class="drbbly-header">Top Teams</h4>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.teamsCarouselSettings.dots}">
+            <slick settings="dhc.teamsCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="team in dhc.teams"
+                     class="px-3">
+                    <drbbly-teamlistitem team="team"></drbbly-teamlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
     <section drbbly-overlay="dhc.courtsListOverlay" class="pt-3 featured-courts">
         <h4 class="drbbly-header">{{::'app.FeaturedCourts' | i18n}}</h4>
         <div class="slick-slider"
