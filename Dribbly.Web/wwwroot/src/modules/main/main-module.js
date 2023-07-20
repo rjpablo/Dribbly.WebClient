@@ -34,7 +34,7 @@
 
             .state('main.home', {
                 url: '/home',
-                template: '<drbbly-home-container></drbbly-home-container>',
+                component: 'drbblyHomeContainer',
                 resolve: {
                     $titleKey: function () {
                         return 'site.Home';

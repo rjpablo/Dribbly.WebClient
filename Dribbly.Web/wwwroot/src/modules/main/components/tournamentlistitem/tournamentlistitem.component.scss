@@ -1,0 +1,13 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-tournamentlistitem {
+    display: inline-block;
+    position:relative;
+    width: 150px;
+
+    .photo-container {
+        position: relative;
+        width: 100%;
+        
+    }
+}

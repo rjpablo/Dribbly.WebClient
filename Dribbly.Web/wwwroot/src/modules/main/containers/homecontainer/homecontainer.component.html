@@ -12,4 +12,17 @@
             </slick>
         </div>
     </section>
+    <section drbbly-overlay="dhc.tournamentsOverlay" class="pt-3 tournaments">
+        <h4 class="drbbly-header">New Tournaments</h4>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.tournamentsCarouselSettings.dots}">
+            <slick settings="dhc.tournamentsCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="tournament in dhc.tournaments"
+                     class="px-3">
+                    <drbbly-tournamentlistitem tournament="tournament"></drbbly-tournamentlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
 </div>

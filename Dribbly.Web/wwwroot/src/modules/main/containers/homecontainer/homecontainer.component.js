@@ -13,17 +13,21 @@
         });
 
     controllerFunc.$inject = ['constants', 'drbblyToolbarService', 'drbblyCommonService', 'drbblyAccountsService',
-        'drbblyOverlayService', '$timeout'];
+        'drbblyOverlayService', '$timeout', 'drbblyTournamentsService', 'drbblyCarouselhelperService'];
     function controllerFunc(constants, drbblyToolbarService, drbblyCommonService, drbblyAccountsService,
-        drbblyOverlayService, $timeout) {
+        drbblyOverlayService, $timeout, drbblyTournamentsService, drbblyCarouselhelperService) {
         var dhc = this;
 
         dhc.$onInit = function () {
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
+            dhc.tournamentsOverlay = drbblyOverlayService.buildOverlay();
+            dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();
+            dhc.tournamentsCarouselSettings = drbblyCarouselhelperService.buildSettings();
             drbblyToolbarService.setItems([]);
-            setInitialCarouselSettings();
 
             loadTopPlayers();
+            loadTournaments();
+            dhc.app.mainDataLoaded();
         };
 
         function loadTopPlayers() {
@@ -41,35 +45,19 @@
                 });
         }
 
-        function setInitialCarouselSettings() {
-            dhc.carouselSettings = {
-                enabled: false,
-                autoplay: true,
-                autoplaySpeed: 3000,
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                draggable: true,
-                mobileFirst: true,
-                arrows: false,
-                dots: true,
-                method: {},
-                responsive: [
-                    {
-                        breakpoint: constants.bootstrap.breakpoints.md,
-                        settings: {
-                            slidesToShow: 4,
-                            arrows: true
-                        }
-                    },
-                    {
-                        breakpoint: constants.bootstrap.breakpoints.lg,
-                        settings: {
-                            slidesToShow: 5,
-                            arrows: true
-                        }
-                    }
-                ]
-            };
+        function loadTournaments() {
+            dhc.tournamentsOverlay.setToBusy();
+            drbblyTournamentsService.getNew({ page: 1, pageSize: 10 })
+                .then(data => {
+                    dhc.tournaments = data;
+                    $timeout(function () {
+                        dhc.tournamentsCarouselSettings.enabled = true;
+                        dhc.tournamentsOverlay.setToReady();
+                    }, 300);
+                })
+                .catch(e => {
+                    dhc.tournamentsOverlay.setToError();
+                });
         }
     }
 })();
