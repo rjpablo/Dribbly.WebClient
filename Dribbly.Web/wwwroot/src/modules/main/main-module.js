@@ -10,6 +10,7 @@
         $urlRouterProvider.otherwise('home');
 
         $stateProvider
+            // #region MAIN
             .state('main', {
                 abstract: true,
                 url: '',
@@ -41,9 +42,9 @@
                     }
                 }
             })
+            // #endregion MAIN
 
-            // Account
-
+            // #region ACCOUNT
             .state('main.account', {
                 abstract: true,
                 url: '/account/:username',
@@ -89,9 +90,9 @@
                     $titleKey: () => { return 'app.AccountVideos'; }
                 }
             })
+            // #endregion ACCOUNT
 
-            // Court
-
+            // #region Court
             .state('main.courts', {
                 url: '/courts',
                 template: '<drbbly-courts-container></drbbly-courts-container>',
@@ -177,7 +178,9 @@
                 }
             })
 
-            // TEAM
+            // #endregion Court
+
+            // #region TEAM
 
             .state('main.team', {
                 params: {
@@ -203,8 +206,9 @@
                     $titleKey: () => { return 'app.Members'; }
                 }
             })
+            // #endregion TEAM
 
-            // BOOKING
+            // #region BOOKING
 
             .state('main.booking', {
                 url: '/booking/:id',
@@ -221,8 +225,9 @@
                     $titleKey: () => { return 'app.BookingDetails'; }
                 }
             })
+            // #endregion BOOKING
 
-            // GAME
+            // #region GAME
             .state('main.game', {
                 params: {
                     id: ''
@@ -268,8 +273,9 @@
                         }]
                 }
             })
+            // #endregion GAME
 
-            // TOURNAMENTS
+            // #region TOURNAMENTS
             .state('main.tournament', {
                 abstract: true,
                 url: '/tournament/:id',
@@ -285,8 +291,9 @@
                     $titleKey: () => { return 'app.Games'; }
                 }
             })
+            // #endregion TOURNAMENTS
 
-            // LEAGUE
+            // #region LEAGUE
             .state('main.league', {
                 params: {
                     id: ''
@@ -306,8 +313,9 @@
                     $titleKey: () => { return 'app.Seasons'; }
                 }
             })
+            // #endregion LEAGUE
 
-            // AUTH
+            // #region AUTH
             .state('auth', {
                 abstract: true,
                 url: '',
@@ -353,8 +361,9 @@
                     $titleKey: () => { return 'auth.SignUp'; }
                 }
             })
+            // #endregion AUTH
 
-            // TRACKING
+            // #region TRACKING
 
             .state('tracking', {
                 url: 'tracking/:gameId',
@@ -376,6 +385,7 @@
                 },
                 component: 'drbblyTrackingcontainer'
             });
+        // #endregion TRACKING
 
         $locationProvider.hashPrefix('');
 
