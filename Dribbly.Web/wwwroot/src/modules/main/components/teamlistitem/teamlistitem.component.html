@@ -1,6 +1,6 @@
 ﻿<div class="photo-container"
      ui-sref="main.team.home({id: tli.team.teamId})">
-    <img ng-src="{{tli.team.logo? tli.team.logo.url : 'src/images/default_images/default_team_logo_1.jpg'}}"
+    <img ng-src="{{tli.team.logo? tli.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
          class="w-100" />
     <div class="stats">
         <table>

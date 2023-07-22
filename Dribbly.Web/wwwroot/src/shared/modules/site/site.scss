@@ -67,9 +67,13 @@ a[ng-click] {
     color: #777;
 }
 
-.nav li > a:hover, .nav li > a:active, .nav li > a.active,
-.drbbly-header {
+.nav li > a:hover, .nav li > a:active, .nav li > a.active {
     color: $primary;
+}
+
+.drbbly-header {
+    color: $white;
+    text-transform: uppercase;
 }
 
 .nav-tabs {
@@ -96,6 +100,19 @@ a[ng-click] {
 
 .white-transparent-bg {
     background-color: rgba(225, 225, 225, 0.6);
+}
+
+/***************
+    SECTIONS
+***************/
+
+section {
+    .section-header {
+        border-bottom: 1px solid $gray-700;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
 }
 
 /****************

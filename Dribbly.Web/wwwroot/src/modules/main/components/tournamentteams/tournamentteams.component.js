@@ -13,22 +13,36 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyTeamshelperService', '$stateParams', '$timeout', 'drbblyCourtshelperService',
+    controllerFunc.$inject = ['drbblyTournamentsService', 'modalService', '$timeout', 'drbblyCommonService',
         'authService', 'drbblyOverlayService'];
-    function controllerFunc(drbblyTeamshelperService, $stateParams, $timeout, drbblyCourtshelperService,
+    function controllerFunc(drbblyTournamentsService, modalService, $timeout, drbblyCommonService,
         authService, drbblyOverlayService) {
         var dtg = this;
 
         dtg.$onInit = function () {
-
+            dtg.isManager = dtg.tournament.addedById === authService.authentication.accountId;
         };
 
-        dtg.canDeleteItem = function (team) {
-            return dtg.tournament.addedById === authService.authentication.userId;
+        dtg.rejectRequest = function (request) {
+            modalService.confirm({ msg1Raw: 'Reject request?' })
+                .then(confirmed => {
+                    if (confirmed) {
+                        dtg.processRequest(request, false);
+                    }
+                })
         }
 
-        dtg.canEditItem = function (team) {
-            return dtg.tournament.addedById === authService.authentication.userId;
+        dtg.processRequest = function (request, shouldApprove) {
+            request.isBusy = true;
+            drbblyTournamentsService.processJoinRequest(request.id, shouldApprove)
+                .then(result => {
+                    dtg.tournament.joinRequests.drbblyRemove(r => r.id == request.id);
+                    if (shouldApprove) {
+                        dtg.tournament.teams.push(result);
+                    }
+                })
+                .catch(e => drbblyCommonService.handleError(e))
+                .finally(() => request.isBusy = false);
         }
     }
 })();

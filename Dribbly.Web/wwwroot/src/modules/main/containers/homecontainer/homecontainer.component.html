@@ -1,6 +1,8 @@
 ﻿<div class="container">
     <section drbbly-overlay="dhc.topPlayersOverlay" class="pt-3 top-players">
-        <h4 class="drbbly-header">Top Players</h4>
+        <div class="section-header">
+            <h5 class="drbbly-header">Top Players</h5>
+        </div>
         <div class="slick-slider"
              ng-class="{'slick-dotted': dhc.carouselSettings.dots}">
             <slick settings="dhc.carouselSettings"
@@ -13,7 +15,9 @@
         </div>
     </section>
     <section drbbly-overlay="dhc.tournamentsOverlay" class="pt-3 tournaments">
-        <h4 class="drbbly-header">New Tournaments</h4>
+        <div class="section-header">
+            <h5 class="drbbly-header">New Tournaments</h5>
+        </div>
         <div class="slick-slider"
              ng-class="{'slick-dotted': dhc.tournamentsCarouselSettings.dots}">
             <slick settings="dhc.tournamentsCarouselSettings"
@@ -26,7 +30,9 @@
         </div>
     </section>
     <section drbbly-overlay="dhc.teamsOverlay" class="pt-3 top-teams">
-        <h4 class="drbbly-header">Top Teams</h4>
+        <div class="section-header">
+            <h5 class="drbbly-header">Top Teams</h5>
+        </div>
         <div class="slick-slider"
              ng-class="{'slick-dotted': dhc.teamsCarouselSettings.dots}">
             <slick settings="dhc.teamsCarouselSettings"
@@ -39,11 +45,13 @@
         </div>
     </section>
     <section drbbly-overlay="dhc.courtsListOverlay" class="pt-3 featured-courts">
-        <h4 class="drbbly-header">
-            {{::'app.FeaturedCourts' | i18n}}
+        <div class="section-header d-flex">
+            <h5 class="drbbly-header">
+                {{::'app.FeaturedCourts' | i18n}}
+            </h5>
             <a ui-sref="main.courts"
-               class="float-right"><small>See all</small></a>
-        </h4>
+               class="ml-auto">See all</a>
+        </div>
         <div class="slick-slider"
              ng-class="{'slick-dotted': dhc.courtsCarouselSettings.dots}">
             <slick settings="dhc.courtsCarouselSettings"

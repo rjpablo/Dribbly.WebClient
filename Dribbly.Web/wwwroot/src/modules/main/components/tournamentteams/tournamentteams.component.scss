@@ -1,10 +1,11 @@
 @import '../../../../custom/bootstrap/scss/_variables.scss';
 
 drbbly-tournamentteams {
-    .join-requests{
-        .team-logo{
-            height: 75px;
-            width: 75px;
+    .join-requests,
+    .current-teams {
+        .team-logo {
+            height: 50px;
+            width: 50px;
             object-fit: cover;
         }
     }

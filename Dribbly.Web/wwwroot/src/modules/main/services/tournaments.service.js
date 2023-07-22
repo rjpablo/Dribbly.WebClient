@@ -22,11 +22,16 @@
                     return drbblyhttpService.post(api + `joinTournament/${tournamentId}/${teamId}`);
                 }
 
+                function processJoinRequest(requestId, shouldApprove) {
+                    return drbblyhttpService.post(api + `processJoinRequest/${requestId}/${shouldApprove}`);
+                }
+
                 var _service = {
                     addTournament: addTournament,
                     getNew: getNew,
                     getTournamentviewer: getTournamentviewer,
-                    joinTournament: joinTournament
+                    joinTournament: joinTournament,
+                    processJoinRequest: processJoinRequest
                 };
 
                 return _service;
