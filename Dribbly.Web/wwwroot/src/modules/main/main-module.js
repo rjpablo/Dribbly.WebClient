@@ -291,6 +291,13 @@
                     $titleKey: () => { return 'app.Games'; }
                 }
             })
+            .state('main.tournament.teams', {
+                url: '/teams',
+                component: 'drbblyTournamentteams',
+                resolve: {
+                    $titleKey: () => { return 'app.Teams'; }
+                }
+            })
             // #endregion TOURNAMENTS
 
             // #region LEAGUE

@@ -325,6 +325,7 @@
                     StartTypingToLoadSuggestions: 'Start typing to load suggestions',
                     SubmitRequest: 'Submit Request',
                     Team: 'Team',
+                    Teams: 'Teams',
                     'TeamsEnum.Team1_0': 'Team 1',
                     'TeamsEnum.Team2_1': 'Team 2',
                     Team1Score: 'Team 1 Score',

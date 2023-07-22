@@ -82,6 +82,14 @@
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);
                     }
+                },
+                {
+                    textKey: 'app.Teams',
+                    targetStateName: 'main.tournament.teams',
+                    targetStateParams: { id: _tournamentId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
                 }
             ]);
         }

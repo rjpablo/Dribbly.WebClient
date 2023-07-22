@@ -1,0 +1,58 @@
+﻿<div class="row mt-sm-3 mb-5">
+    <div class="col">
+        <section>
+            <h5 class="drbbly-header">Teams</h5>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <span class="">
+                            <span class="font-weight-semibold">{{dtg.tournament.teams.length}}</span>
+                            &nbsp;teams found
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="dtg.tournament.teams && dtg.tournament.teams.length">
+                <div class="row">
+                    <div class="col-12">
+                        <drbbly-teamlistitem ng-repeat="team in dtg.tournament.teams"
+                                             team="team"
+                                             can-delete-item="dtg.canDeleteItem"
+                                             can-edit-item="dtg.canEditItem"></drbbly-teamlistitem>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="row mb-5">
+    <div class="col-12 col-md-8 col-lg-6">
+        <section class="join-requests">
+            <h5 class="drbbly-header">Requests</h5>
+            <div ng-if="dtg.tournament.joinRequests && dtg.tournament.joinRequests.length">
+                <div class="row">
+                    <div class="col-12">
+                        <div ng-repeat="request in dtg.tournament.joinRequests"
+                             class="join-tournament-request d-flex py-1">
+                            <div>
+                                <img ng-src="{{request.team.logo? request.team.logo.url : 'src/images/default_images/default_team_logo_1.png'}}"
+                                     class="team-logo" />
+                            </div>
+                            <div class="flex-grow-1 px-2">
+                                <a ui-sref="main.team.home({id: request.teamId})">{{request.team.name}}</a>
+                                <div>
+                                    <button class="btn btn-sm btn-primary">
+                                        Approve
+                                    </button>
+                                    <button class="btn btn-sm btn-secondary">
+                                        Reject
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
