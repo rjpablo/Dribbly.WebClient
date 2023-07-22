@@ -14,7 +14,7 @@ a[ng-click] {
 }
 
 *[ui-sref],
-*[ng-click]:not([disabled]){
+*[ng-click]:not([disabled]) {
     cursor: pointer;
 }
 
@@ -243,6 +243,7 @@ a[ng-click] {
 .btn {
     border-radius: 0;
 }
+
 /* Modals */
 
 .modal.drbbly-full-modal {
@@ -279,11 +280,6 @@ a[ng-click] {
     }
 }
 
-@media (max-width: 575px) {
-    .modal-dialog {
-        margin: 0;
-    }
-}
 /* Dropdowns */
 /*.dropdown-menu {
     background-color: rgba(0,0,0,0.95);
@@ -308,7 +304,7 @@ a[ng-click] {
     border: 1px solid $primary;
 }
 
-.bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^=top] .arrow::before{
+.bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^=top] .arrow::before {
     border-top-color: $primary;
 }
 

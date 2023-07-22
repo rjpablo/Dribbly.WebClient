@@ -199,6 +199,7 @@
                 var service = {
                     show: _show,
                     alert: alert,
+                    error: alert, // TODO: add separate configuration for error
                     input: input,
                     confirm: confirm,
                     showGenericErrorModal: showGenericErrorModal,

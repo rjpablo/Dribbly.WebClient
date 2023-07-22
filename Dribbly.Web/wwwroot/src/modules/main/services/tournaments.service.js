@@ -18,13 +18,18 @@
                     return drbblyhttpService.get(api + `getTournamentviewer/${leagueId}`);
                 }
 
+                function joinTournament(tournamentId, teamId) {
+                    return drbblyhttpService.post(api + `joinTournament/${tournamentId}/${teamId}`);
+                }
+
                 var _service = {
                     addTournament: addTournament,
                     getNew: getNew,
-                    getTournamentviewer: getTournamentviewer
+                    getTournamentviewer: getTournamentviewer,
+                    joinTournament: joinTournament
                 };
 
                 return _service;
             }]);
-0
+    0
 })();

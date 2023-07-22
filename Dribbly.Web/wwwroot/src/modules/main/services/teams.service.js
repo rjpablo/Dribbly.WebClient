@@ -36,6 +36,10 @@
                     return drbblyhttpService.get(api + 'getTeamByUsername/' + username);
                 }
 
+                function getManagedTeamsAsChoices() {
+                    return drbblyhttpService.get(api + 'getManagedTeamsAsChoices');
+                }
+
                 function getTeamViewerData(username) {
                     return drbblyhttpService.get(api + 'getTeamViewerData/' + username);
                 }
@@ -135,6 +139,7 @@
                     getAllTeams: getAllTeams,
                     getCurrentMembers: getCurrentMembers,
                     getJoinRequests: getJoinRequests,
+                    getManagedTeamsAsChoices: getManagedTeamsAsChoices,
                     getTeam: getTeam,
                     getTeamByUsername: getTeamByUsername,
                     getTeamDetailsModal: getTeamDetailsModal,

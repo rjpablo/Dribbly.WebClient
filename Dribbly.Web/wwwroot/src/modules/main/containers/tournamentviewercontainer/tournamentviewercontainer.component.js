@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyTournamentsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
-        'constants', 'drbblyDatetimeService'];
+        'constants', 'drbblyDatetimeService', 'drbblyTeamsService', 'drbblyCommonService', 'modalService'];
     function controllerFunc(drbblyTournamentsService, authService, $stateParams, $state, drbblyOverlayService,
-        constants, drbblyDatetimeService) {
+        constants, drbblyDatetimeService, drbblyTeamsService, drbblyCommonService, modalService) {
         var lvc = this;
         var _tournamentId;
 
@@ -38,6 +38,27 @@
                     buildSubPages();
                 })
                 .catch(lvc.overlay.setToError);
+        }
+
+        lvc.onJoinClicked = async function () {
+            lvc.isBusy = true;
+            var managedTeams = await drbblyTeamsService.getManagedTeamsAsChoices()
+                .catch(e => drbblyCommonService.handleError(e))
+                .finally(() => lvc.isBusy = false);
+            if (managedTeams && managedTeams.length > 0) {
+                modalService.show({
+                    view: '<drbbly-jointournamentmodal></drbbly-jointournamentmodal>',
+                    model: {
+                        teamChoices: managedTeams,
+                        tournament: lvc.tournament
+                    }
+                })
+            }
+            else if (managedTeams && managedTeams.length === 0) {
+                modalService.error({
+                    msg1Raw: 'You do not manage any team that is eligible to sign up for this tournament. You must manage at least one eligible team to sign up.'
+                })
+            }
         }
 
         function massageTournament(tournament) {

@@ -1,0 +1,35 @@
+﻿<div class="modal-header">
+    <h3>Join Tournament</h3>
+</div>
+<div class="modal-body">
+    <form name="jtm.frmJoinTournament">
+        <div class="">
+            <div class="form-group">
+                <label>Select a team to sign up</label>
+                <select class="form-control"
+                        required
+                        ng-model="jtm.teamId">
+                    <option ng-repeat="choice in jtm.model.teamChoices"
+                            ng-value="choice.value">
+                        {{choice.text}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            ng-disabled="jtm.isBusy || jtm.frmJoinTournament.$invalid"
+            type="submit"
+            ng-switch="jtm.isBusy"
+            ng-click="jtm.submit()">
+        <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+        <span ng-switch-default>{{::'app.SubmitRequest' | i18n}}</span>
+    </button>
+    <button i18n="site.Cancel"
+            class="btn btn-warning"
+            type="button"
+            ng-click="jtm.cancel()"
+            ng-disabled="jtm.isBusy"></button>
+</div>

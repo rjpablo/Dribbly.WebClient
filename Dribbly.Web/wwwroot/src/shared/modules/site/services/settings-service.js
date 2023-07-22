@@ -8,7 +8,7 @@
         var _service = this;
         var _siteRoot = 'https://localhost:44395/';
         var _hostName = $location.host();
-        var _servicePreset = 2; // 1 => VS, 2 => online dev server, 2 => online test server, 3 => local IIS
+        var _servicePreset = 1; // 1 => VS, 2 => online dev server, 2 => online test server, 3 => local IIS
         var _serviceBase = _servicePreset === 1 ? 'https://localhost:44394/' : // Local DEV
             _servicePreset === 2 ? 'http://ttwdev1-001-site2.ctempurl.com/' : // Online DEV
                 _servicePreset === 3 ? 'http://ttwdev1-001-site5.ctempurl.com/' : // Online TEST
