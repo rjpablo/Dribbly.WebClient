@@ -270,10 +270,26 @@
                     NoAdditionalInfo: '<small class="text-muted">No additional info provided</small>',
                     NoReservationToReviewCourt: 'Sorry. You either have not made a reservation on this court or you have submitted a review for your most recent reservation. You will be able to review this court after your next reservation.',
                     Notification_ABookingHasBeenMadeForYouAtCourtName: 'A game has been booked for you at <strong>{courtName}</strong>',
-                    Notification_UserMadeABookingAtCourtName: '<strong>{userName}</strong> has booked a game for <strong>{courtName}</strong>',
-                    Notification_UserUpdatedGame: '<strong>{userName}</strong> updated the game <strong>{gameTitle}</strong>',
                     Notification_JoinTeamRequest: '<strong>{requestorName}</strong> is requesting to join <strong>{teamName}</strong>',
                     Notification_JoinTeamRequestApproved: 'Your request to join <strong>{teamName}</strong> has been approved.',
+                    Notification_JoinTournamentRequestApproved: 'You request for <strong>{teamName}</strong> to join <strong>{tournamentName}</strong> has been approved.',
+                    Notification_JoinTournamentRequestRejected: 'You request for <strong>{teamName}</strong> to join <strong>{tournamentName}</strong> was rejected.',
+                    Notification_NewJoinTournamentRequest: '<strong>{teamName}</strong> is requesting to join <strong>{tournamentName}</strong>.',
+                    Notification_TournamentTeamRemoved: '<strong>{teamName}</strong> was removed from the tournament <strong>{tournamentName}</strong>.',
+                    Notification_UserMadeABookingAtCourtName: '<strong>{userName}</strong> has booked a game for <strong>{courtName}</strong>',
+                    Notification_UserUpdatedGame: '<strong>{userName}</strong> updated the game <strong>{gameTitle}</strong>',
+                    'NotificationTypeEnum.NewGameForOwner_0': 'NewGameForOwner',
+                    'NotificationTypeEnum.NewGameForBooker_1': 'NewGameForBooker',
+                    'NotificationTypeEnum.GameUpdatedForBooker_2': 'GameUpdatedForBooker',
+                    'NotificationTypeEnum.GameUpdatedForOwner_3': 'GameUpdatedForOwner',
+                    'NotificationTypeEnum.JoinTeamRequest_20': 'JoinTeamRequest',
+                    'NotificationTypeEnum.JoinTeamRequestApproved_21': 'JoinTeamRequestApproved',
+                    'NotificationTypeEnum.BookingNotificationForCourtOwner_40': 'BookingNotificationForCourtOwner',
+                    'NotificationTypeEnum.BookingNotificationForBooker_41': 'BookingNotificationForBooker',
+                    'NotificationTypeEnum.NewJoinTournamentRequest_60': 'NewJoinTournamentRequest',
+                    'NotificationTypeEnum.JoinTournamentRequestApproved_61': 'JoinTournamentRequestApproved',
+                    'NotificationTypeEnum.JoinTournamentRequestRejected_62': 'JoinTournamentRequestRejected',
+                    'NotificationTypeEnum.TournamentTeamRemoved_63': 'TournamentTeamRemoved',
                     NothingToShowAtTheMoment: 'Nothing to show at the moment',
                     NoBookingsOnThisCourtYet: 'No bookings booked at this court yet.',
                     NoDescriptionProvided: 'No description provided',
@@ -416,6 +432,7 @@
                             enumName = enumName.toLowerFirst(); // constants use camel case for enum names
                             constants.enums[enumName] = constants.enums[enumName] || {};
                             constants.enums[enumName][textKey] = Number(numericKey);
+                            constants.enums[enumName][numericKey] = value;
                         }
                     }
                     else {

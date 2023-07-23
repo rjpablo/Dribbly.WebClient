@@ -3,9 +3,9 @@
 
     angular.module('siteModule')
         .service('drbblyNotificationsService', ['$timeout', 'drbblyhttpService', '$q', '$filter',
-            'drbblyDatetimeService', 'authService',
+            'drbblyDatetimeService', 'authService', 'settingsService',
             function ($timeout, drbblyhttpService, $q, $filter,
-                drbblyDatetimeService, authService) {
+                drbblyDatetimeService, authService, settingsService) {
                 var api = 'api/notifications/';
                 var _unviewedNotifications = [];
                 var _newNotificationsListeners = [];
@@ -85,7 +85,10 @@
                 }
 
                 function getNotificationDetails(getCount, beforeDate) {
-                    return drbblyhttpService.post(api + 'getNoficationDetails/' + getCount, beforeDate);
+                    return drbblyhttpService.post(api + 'getNoficationDetails/' + getCount, beforeDate)
+                        .then(notifs => {
+                            return massageNotifications(notifs)
+                        });
                 }
 
                 //updates the notification items in the notifications widget while it is open
@@ -99,6 +102,7 @@
                             drbblyhttpService.post(api + 'getNewNofications/', afterDate)
                                 .then(function (result) {
                                     if (result && result.notifications.length > 0) {
+                                        massageNotifications(result.notifications);
                                         notifications = $filter('orderBy')(result.notifications, 'dateAdded', true);
                                         afterDate = drbblyDatetimeService.toUtcDate(notifications[0].dateAdded);
                                         updateUnviewedCount(result.unviewedCount);
@@ -115,11 +119,20 @@
                     return function () {
                         isRunning = false;
                     };
+                } 
+
+                function massageNotifications(notifications) {
+                    notifications.forEach(n => {
+                        if (n.additionalInfo) {
+                            n.additionalInfo = JSON.parse(n.additionalInfo);
+                        }
+                    })
+                    return notifications;
                 }
 
                 function start() {
                     if (!_isRunning
-                        && false // TODO: remove upon deployment
+                        && !settingsService.suppressNotifications // TODO: remove upon deployment
                     ) {
                         _unviewedNotifications = [];
                         _isRunning = true;

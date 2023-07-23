@@ -136,19 +136,6 @@
                 Started: 1,
                 Finished: 2,
                 Cancelled: 3
-            },
-            /**
-             * @member
-             * @constant
-             * @default
-             */
-            notificationType: {
-                NewBookingForOwner: 0,
-                NewBookingForBooker: 1,
-                GameUpdatedForBooker: 2,
-                GameUpdatedForOwner: 3,
-                JoinTeamRequest: 20,
-                JoinTeamRequestApproved: 21
             }
         };
 
