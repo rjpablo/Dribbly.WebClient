@@ -14,6 +14,14 @@
                         </div>
                         <div class="flex-grow-1 px-3">
                             <a ui-sref="main.team.home({id: team.teamId})">{{team.name}}</a>
+                            <div>
+                                <button class="btn btn-sm btn-secondary"
+                                        ng-if="dtg.isManager"
+                                        ng-disabled="team.isBusy"
+                                        ng-click="dtg.removeTeam(team)">
+                                    Remove
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -33,7 +41,7 @@
             </div>
             <div ng-if="dtg.tournament.joinRequests && dtg.tournament.joinRequests.length">
                 <div class="row">
-                    <div ng-repeat="request in dtg.tournament.joinRequests"
+                    <div ng-repeat="request in dtg.tournament.joinRequests | orderBy : 'dateAdded' : true"
                          class="join-tournament-request d-flex py-1 col-12 col-sm-6 col-md-4 col-xl-3">
                         <div>
                             <img ng-src="{{request.team.logo? request.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"

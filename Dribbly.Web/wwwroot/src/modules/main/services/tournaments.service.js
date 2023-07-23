@@ -22,6 +22,10 @@
                     return drbblyhttpService.post(api + `joinTournament/${tournamentId}/${teamId}`);
                 }
 
+                function removeTournamentTeam(tournamentId, teamId) {
+                    return drbblyhttpService.post(api + `removeTournamentTeam/${tournamentId}/${teamId}`);
+                }
+
                 function processJoinRequest(requestId, shouldApprove) {
                     return drbblyhttpService.post(api + `processJoinRequest/${requestId}/${shouldApprove}`);
                 }
@@ -31,7 +35,8 @@
                     getNew: getNew,
                     getTournamentviewer: getTournamentviewer,
                     joinTournament: joinTournament,
-                    processJoinRequest: processJoinRequest
+                    processJoinRequest: processJoinRequest,
+                    removeTournamentTeam: removeTournamentTeam
                 };
 
                 return _service;
