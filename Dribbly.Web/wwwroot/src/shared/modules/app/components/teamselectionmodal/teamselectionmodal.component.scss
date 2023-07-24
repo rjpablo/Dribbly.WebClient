@@ -1,0 +1,41 @@
+@import '../../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-teamselectionmodal {
+
+    div.selected,
+    div.choices {
+        width: 50%;
+        padding: 0.25em;
+    }
+
+    .team-list {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.1em;
+        border: 1px solid $gray-300;
+        height: 50vh;
+        max-height: 320px;
+        overflow: auto;
+
+        .team {
+            margin-bottom: 0.1em;
+            display: flex;
+            padding: 0;
+
+            .logo {
+                height: 30px;
+                width: 30px;
+                flex-shrink: 0;
+                border-radius: 50%;
+            }
+
+            .name {
+                flex-grow: 1;
+                text-align: left;
+                padding: 0 0.15em;
+            }
+        }
+    }
+}

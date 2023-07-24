@@ -3,25 +3,50 @@
         <div drbbly-overlay="tsc.overlay">
             <section>
                 <div class="mb-3">
-                    <button class="btn btn-primary ml-auto"
+                    <button class="btn btn-sm btn-primary ml-auto"
                             ng-click="tsc.addStage()">
                         <i class="fa fa-plus"></i> Add Stage
                     </button>
                 </div>
-                <uib-tabset active="tsc.activeTabIndex">
-                    <uib-tab index="stage.id" ng-repeat="stage in tsc.tournament.stages" heading="{{stage.name}}" disable="tab.disabled">
+                <uib-tabset active="tsc.activeTabIndex"
+                            class="stage">
+                    <uib-tab index="stage.id" ng-repeat="stage in tsc.tournament.stages" heading="{{stage.name}}">
                         <uib-tabset class="sub-tabset"
                                     active="stage._activeTabIndex">
                             <uib-tab index="1" heading="Teams">
-                                <div ng-repeat="bracket in stage.brackets">
-                                    <h5>{{bracket.name}}</h5>
-                                    <div class="p-3">
-                                        
-                                    </div>                                    
+                                <div class="py-3">
+                                    <button class="btn btn-sm btn-secondary"
+                                            ng-click="tsc.editTeams(stage)">
+                                        <i class="fa fa-pencil"></i> Edit Teams
+                                    </button>
+                                </div>
+                                <div class="row">
+                                    <div ng-if="(stage.teams | filter : {bracketId: null}).length > 0"
+                                         class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                        <h5 class="text-secondary">No Bracket</h5>
+                                        <div ng-repeat="team in stage.teams | filter : {bracketId: bracket.id}"
+                                             class="team">
+                                            <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
+                                                 class="logo" />
+                                            <span class="name">{{team.team.name}}</span>
+                                        </div>
+                                    </div>
+                                    <div ng-repeat="bracket in stage.brackets"
+                                         class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                        <h5 class="text-secondary">{{bracket.name}}</h5>
+                                        <div ng-repeat="team in stage.teams | filter : {bracketId: bracket.id}"
+                                             class="team">
+                                            <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
+                                                 class="logo" />
+                                        </div>
+                                        <span ng-if="(stage.teams | filter : {bracketId: bracket.id}).length == 0">
+                                            (empty)
+                                        </span>
+                                    </div>
                                 </div>
                             </uib-tab>
                             <uib-tab index="2" heading="Games">
-                                
+
                             </uib-tab>
                         </uib-tabset>
                     </uib-tab>
