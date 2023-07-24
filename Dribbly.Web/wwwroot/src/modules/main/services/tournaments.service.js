@@ -10,12 +10,20 @@
                     return drbblyhttpService.post(api + 'addTournament', TournamentDetails);
                 }
 
+                function addTournamentStage(input) {
+                    return drbblyhttpService.post(api + 'addTournamentStage', input);
+                }
+
                 function getNew(input) {
                     return drbblyhttpService.post(api + `getNew`, input);
                 }
 
                 function getTournamentviewer(leagueId) {
                     return drbblyhttpService.get(api + `getTournamentviewer/${leagueId}`);
+                }
+
+                function getTournamentStages(tournamentId) {
+                    return drbblyhttpService.get(api + `getTournamentStages/${tournamentId}`);
                 }
 
                 function joinTournament(tournamentId, teamId) {
@@ -32,7 +40,9 @@
 
                 var _service = {
                     addTournament: addTournament,
+                    addTournamentStage: addTournamentStage,
                     getNew: getNew,
+                    getTournamentStages: getTournamentStages,
                     getTournamentviewer: getTournamentviewer,
                     joinTournament: joinTournament,
                     processJoinRequest: processJoinRequest,

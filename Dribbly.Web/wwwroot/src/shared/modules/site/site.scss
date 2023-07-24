@@ -103,6 +103,32 @@ a[ng-click] {
 }
 
 /***************
+    TAB SETS
+***************/
+
+.sub-tabset {
+    .nav {
+        background-color: $gray-700;
+        border-bottom-color: $gray-700;
+
+        .nav-item {
+
+            .nav-link {
+                border: none;
+                border-radius: 0;
+                padding: 0.5em 1rem;
+                line-height: 1em;
+
+                &.active {
+                    color: $white !important;
+                    background-color: $gray-700;
+                }
+            }
+        }
+    }
+}
+
+/***************
     SECTIONS
 ***************/
 

@@ -336,6 +336,7 @@
                     ShowingCurrentOfTotal: 'Showing {current} of {total}',
                     ShowMyBirthDate: 'Show My Birth Date',
                     SortBy: 'Sort by',
+                    Stages: 'Stages',
                     Start: 'Start',
                     StartGame: 'Start Game',
                     StartTypingToLoadSuggestions: 'Start typing to load suggestions',

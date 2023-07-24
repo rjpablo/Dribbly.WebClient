@@ -33,6 +33,7 @@
                     massageTournament(tournament);
                     lvc.tournament = tournament;
                     lvc.isOwned = authService.isCurrentUserId(lvc.tournament.addedById);
+                    lvc.isManager = lvc.isOwned;
                     lvc.app.mainDataLoaded();
                     lvc.shouldDisplayAsPublic = true; //TODO should be conditional
                     buildSubPages();
@@ -90,6 +91,15 @@
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);
                     }
+                },
+                {
+                    textKey: 'app.Stages',
+                    targetStateName: 'main.tournament.stages',
+                    targetStateParams: { id: _tournamentId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    },
+                    isRemoved: !lvc.isManager
                 }
             ]);
         }
