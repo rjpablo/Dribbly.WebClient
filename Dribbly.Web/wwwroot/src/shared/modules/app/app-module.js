@@ -16,7 +16,8 @@
         'com.2fdevs.videogular.plugins.overlayplay',
         'com.2fdevs.videogular.plugins.buffering',
         'slickCarousel',
-        'angular-inview'
+        'angular-inview',
+        'ngDragDrop'
     ]);
 
     module.config(['$titleProvider', 'constants', function ($titleProvider, constants) {

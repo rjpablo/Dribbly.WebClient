@@ -22,10 +22,6 @@ var _notLib = '!' + paths.baseSrc + 'lib/**/*';
 //Only npm files that are listed here will be inlucde in the build
 //REMEMBER: keep alphabetical order
 var nodeLibs = {
-    jquery: {
-        source: 'jquery/dist/jquery.js',
-        destination: 'jquery'
-    },
     angular: {
         source: 'angular/angular.js',
         destination: 'angular'
@@ -44,6 +40,10 @@ var nodeLibs = {
             'angular-bootstrap-colorpicker/css/colorpicker.css'
         ],
         destination: 'angular-bootstrap-colorpicker'
+    },
+    angular_dragdrop: {
+        source: 'angular-dragdrop/src/angular-dragdrop.js',
+        destination: 'angular-dragdrop'
     },
     angular_inview: {
         source: 'angular-inview/angular-inview.js',
@@ -141,6 +141,18 @@ var nodeLibs = {
     hammerjs: {
         source: 'hammerjs/hammer.js',
         destination: 'hammerjs'
+    },
+    jquery: {
+        source: 'jquery/dist/jquery.js',
+        destination: 'jquery'
+    },
+    jquery_ui: {
+        source: 'jquery-ui/dist/jquery-ui.js',
+        destination: 'jquery-ui'
+    },
+    jquery_ui_touch_punch: {
+        source: 'jquery-ui-touch-punch/jquery.ui.touch-punch.js',
+        destination: 'jquery-ui-touch-punch'
     },
     local_storage: {
         source: 'angular-local-storage/dist/angular-local-storage.js',

@@ -20,26 +20,29 @@
                                         <i class="fa fa-pencil"></i> Edit Teams
                                     </button>
                                 </div>
-                                <div class="row">
-                                    <div ng-if="(stage.teams | filter : {bracketId: null}).length > 0"
-                                         class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                        <h5 class="text-secondary">No Bracket</h5>
-                                        <div ng-repeat="team in stage.teams | filter : {bracketId: bracket.id}"
-                                             class="team">
+                                <div class="row"
+                                     ng-class="'brackets-' + stage.id">
+                                    <div ng-repeat="bracket in stage.brackets"
+                                         class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
+                                         jqyoui-droppable="{onDrop: 'tsc.onTeamDrop(bracket, stage)'}"
+                                         data-jqyoui-options="{accept:'.team:not([data-bracket={{bracket.id || 'null'}}])'}"
+                                         data-drop="true"
+                                         ng-model="bracket.teams">
+                                        <h5 class="text-secondary bracket-name">{{bracket.name}}</h5>
+                                        <div ng-repeat="team in bracket.teams | orderBy : 'team.name'"
+                                             jqyoui-draggable="{index: $index}"
+                                             data-drag="true"
+                                             data-jqyoui-options="{revert: 'invalid', animate: true, revertDuration: 200, handle: '.drag-handle', containment: '.brackets-{{stage.id}}'}"
+                                             data-bracket="{{bracket.id || 'null'}}"
+                                             class="team d-flex"
+                                             data-teamid="{{team.teamId}}"
+                                             ng-model="team">
                                             <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
                                                  class="logo" />
                                             <span class="name">{{team.team.name}}</span>
+                                            <span class="ml-auto drag-handle text-secondary"><i class="fa fa-arrows-alt"></i></span>
                                         </div>
-                                    </div>
-                                    <div ng-repeat="bracket in stage.brackets"
-                                         class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                        <h5 class="text-secondary">{{bracket.name}}</h5>
-                                        <div ng-repeat="team in stage.teams | filter : {bracketId: bracket.id}"
-                                             class="team">
-                                            <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
-                                                 class="logo" />
-                                        </div>
-                                        <span ng-if="(stage.teams | filter : {bracketId: bracket.id}).length == 0">
+                                        <span ng-if="!bracket.teams || bracket.teams.length === 0">
                                             (empty)
                                         </span>
                                     </div>

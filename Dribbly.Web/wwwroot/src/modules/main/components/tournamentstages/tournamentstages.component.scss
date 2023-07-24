@@ -2,10 +2,31 @@
 
 drbbly-tournamentstages {
     .stage {
+
+        .nav {
+            display: block;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+
+            .nav-item{
+                display: inline-block;
+            }
+        }
+
+        .ui-droppable-hover {
+            .bracket-name {
+                color: $white !important;
+                text-decoration: underline;
+            }
+        }
+
         .team {
             margin-bottom: 0.1em;
             display: flex;
             padding: 0;
+            border: 1px solid $gray-900;
+            background-color: $black;
 
             .logo {
                 height: 30px;
@@ -18,6 +39,11 @@ drbbly-tournamentstages {
                 flex-grow: 1;
                 text-align: left;
                 padding: 0 0.15em;
+            }
+
+            .drag-handle {
+                align-self: center;
+                padding: 0 0.5em;
             }
         }
     }

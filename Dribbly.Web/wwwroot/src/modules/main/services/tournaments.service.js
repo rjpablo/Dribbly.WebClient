@@ -38,6 +38,10 @@
                     return drbblyhttpService.post(api + `setStageTeams`, input);
                 }
 
+                function setTeamBracket(teamId, stageId, bracketId) {
+                    return drbblyhttpService.post(api + `setTeamBracket/${teamId}/${stageId}/${bracketId}`);
+                }
+
                 function processJoinRequest(requestId, shouldApprove) {
                     return drbblyhttpService.post(api + `processJoinRequest/${requestId}/${shouldApprove}`);
                 }
@@ -51,7 +55,8 @@
                     joinTournament: joinTournament,
                     processJoinRequest: processJoinRequest,
                     removeTournamentTeam: removeTournamentTeam,
-                    setStageTeams: setStageTeams
+                    setStageTeams: setStageTeams,
+                    setTeamBracket: setTeamBracket
                 };
 
                 return _service;

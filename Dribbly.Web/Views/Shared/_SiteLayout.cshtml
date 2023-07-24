@@ -151,7 +151,7 @@
     <link href="~/src/modules/main/components/tournamentteams/tournamentteams.component.css" rel="stylesheet" />
     <link href="~/src/modules/main/components/tournamentstages/tournamentstages.component.css" rel="stylesheet" />
     <link href="~/src/modules/main/components/addstagemodal/addstagemodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/teamselectionmodal/teamselectionmodal.component.css" rel="stylesheet" />    
+    <link href="~/src/shared/modules/app/components/teamselectionmodal/teamselectionmodal.component.css" rel="stylesheet" />
 </head>
 <body ng-controller="appController as app">
 
@@ -201,6 +201,8 @@
     @*Third Party*@
     <environment include="Development">
         <script src="~/src/lib/jquery/jquery.js"></script>
+        <script src="~/src/lib/jquery-ui/jquery-ui.js"></script>
+        <script src="~/src/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
         <script src="~/src/lib/bowser/bundled.js"></script>
         <script src="~/src/lib/hammerjs/hammer.js"></script>
         <script src="~/src/lib/moment/moment.js"></script>
@@ -237,9 +239,12 @@
         <script src="~/src/lib/videogular-controls/vg-controls.js"></script>
         <script src="~/src/lib/videogular-buffering/vg-buffering.js"></script>
         <script src="~/src/lib/videogular-overlay-play/vg-overlay-play.js"></script>
+        <script src="~/src/lib/angular-dragdrop/angular-dragdrop.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/src/lib/jquery/jquery.js"></script>
+        <script src="~/src/lib/jquery-ui/jquery-ui.js"></script>
+        <script src="~/src/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
         <script src="~/src/lib/bowser/bundled.js"></script>
         <script src="~/src/lib/hammerjs/hammer.js"></script>
         <script src="~/src/lib/moment/moment.js"></script>
@@ -276,6 +281,7 @@
         <script src="~/src/lib/videogular-controls/vg-controls.js"></script>
         <script src="~/src/lib/videogular-buffering/vg-buffering.js"></script>
         <script src="~/src/lib/videogular-overlay-play/vg-overlay-play.js"></script>
+        <script src="~/src/lib/angular-dragdrop/angular-dragdrop.js"></script>
     </environment>
 
     @*Custom Modules*@
