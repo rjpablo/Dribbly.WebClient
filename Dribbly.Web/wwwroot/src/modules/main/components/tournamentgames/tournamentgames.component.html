@@ -4,6 +4,7 @@
             <div class="section-header d-flex">
                 <h5 class="drbbly-header">Games</h5>
                 <button class="btn btn-sm btn-primary ml-auto"
+                        ng-if="dtg.isManager"
                         ng-click="dtg.addGame()">
                     <i class="fa fa-plus"></i> Add Game
                 </button>

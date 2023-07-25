@@ -38,9 +38,9 @@
                 saveModel.tournamentId = asm.model.tournament.id;
                 asm.isBusy = true;
                 drbblyTournamentsService.addTournamentStage(saveModel)
-                    .then(function () {
+                    .then(function (stage) {
                         asm.isBusy = false;
-                        close();
+                        close(stage);
                     }, function (error) {
                         asm.isBusy = false;
                         drbblyCommonService.handleError(error);

@@ -21,7 +21,8 @@
             <div ng-if="lvc.tournament"
                  class="container">
                 <ui-view tournament="lvc.tournament"
-                         on-update="lvc.onTournamentUpdate"></ui-view>
+                         on-update="lvc.onTournamentUpdate"
+                         massage-stages="lvc.massageStages"></ui-view>
             </div>
         </div>
     </div>

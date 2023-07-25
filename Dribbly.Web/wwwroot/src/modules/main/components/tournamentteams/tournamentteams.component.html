@@ -1,33 +1,105 @@
 ﻿<div class="row mt-3 mb-5">
     <div class="col">
         <section class="current-teams">
-            <div class="section-header">
+            <div class="section-header d-flex">
                 <h5 class="drbbly-header">Teams</h5>
-            </div>
-            <div ng-if="dtg.tournament.teams && dtg.tournament.teams.length">
-                <div class="row">
-                    <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-flex mb-3"
-                         ng-repeat="team in dtg.tournament.teams">
-                        <div>
-                            <img ng-src="{{team.logo? team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
-                                 class="team-logo" />
-                        </div>
-                        <div class="flex-grow-1 px-3">
-                            <a ui-sref="main.team.home({id: team.teamId})">{{team.name}}</a>
-                            <div>
-                                <button class="btn btn-sm btn-secondary"
-                                        ng-if="dtg.isManager"
-                                        ng-disabled="team.isBusy"
-                                        ng-click="dtg.removeTeam(team)">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
+                <div class="dropdown ml-auto"
+                     ng-if="dtg.isManager">
+                    <button class="btn btn-sm btn-dark dropdown-toggle no-caret"
+                            role="button" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item"
+                           ng-click="dtg.addStage()">
+                            Add Stage
+                        </a>
                     </div>
                 </div>
             </div>
-            <div ng-if="dtg.tournament.teams && dtg.tournament.teams.length == 0">
-                Participating teams appear here.
+            <div>
+                <div class="stage">
+                    <div class="bg-light text-dark px-1 d-flex align-items-center"
+                         ng-if="dtg.isManager">
+                        <span class="stage-name line-height-1">All Teams</span>
+                        <div class="dropdown ml-auto invisible">
+                            <button class="btn btn-sm btn-light dropdown-toggle no-caret"
+                                    role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item"
+                                   ng-click="dtg.editTeams(stage)">
+                                    Add/Remove Teams
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 mt-3"
+                         ng-if="dtg.isManager">
+                        <div ng-repeat="team in dtg.tournament.teams | orderBy : 'team.name'"
+                             class="col-12 col-sm-6 col-md-4 col-lg-3 mb-1">
+                            <div class="team d-flex">
+                                <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
+                                     class="logo" />
+                                <span class="name">{{team.team.name}}</span>
+                            </div>
+                        </div>
+                        <span ng-if="dtg.tournament.teams.length === 0"
+                              class="col-12 py-3">
+                            Teams that you approve to join the tournament will appear here.
+                        </span>
+                    </div>
+                </div>
+                <div ng-repeat="stage in dtg.tournament.stages"
+                     class="stage">
+                    <div class="bg-light text-dark px-1 d-flex align-items-center">
+                        <span class="stage-name line-height-1">{{stage.name}}</span>
+                        <div class="dropdown ml-auto"
+                             ng-if="dtg.isManager">
+                            <button class="btn btn-sm btn-light dropdown-toggle no-caret"
+                                    role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item"
+                                   ng-click="dtg.editTeams(stage)">
+                                    Add/Remove Teams
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3"
+                         ng-class="'brackets-' + stage.id">
+                        <div ng-repeat="bracket in stage.brackets"
+                             class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
+                             jqyoui-droppable="{onDrop: 'dtg.onTeamDrop(bracket, stage)'}"
+                             data-jqyoui-options="{accept:'.team:not([data-bracket={{bracket.id || 'null'}}])'}"
+                             data-drop="true"
+                             ng-model="bracket.teams">
+                            <span class="text-secondary bracket-name">{{bracket.name}}</span>
+                            <div ng-repeat="team in bracket.teams | orderBy : 'team.name'"
+                                 jqyoui-draggable="{index: $index}"
+                                 data-drag="true"
+                                 data-jqyoui-options="{revert: 'invalid', animate: true, revertDuration: 200, handle: '.drag-handle', containment: '.brackets-{{stage.id}}'}"
+                                 data-bracket="{{bracket.id || 'null'}}"
+                                 class="team d-flex"
+                                 data-teamid="{{team.teamId}}"
+                                 ng-model="team">
+                                <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
+                                     class="logo" />
+                                <span class="name">{{team.team.name}}</span>
+                                <span class="ml-auto drag-handle text-secondary"
+                                      ng-if="dtg.isManager"><i class="fa fa-arrows-alt"></i></span>
+                            </div>
+                            <span ng-if="!bracket.teams || bracket.teams.length === 0"
+                                  class="d-block">
+                                (empty)
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>

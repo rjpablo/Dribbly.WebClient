@@ -6,6 +6,7 @@
         .component('drbblyTournamentstages', {
             bindings: {
                 app: '<',
+                massageStages: '<',
                 tournament: '<'
             },
             controllerAs: 'tsc',
@@ -31,7 +32,7 @@
             drbblyTournamentsService.getTournamentStages(tsc.tournament.id)
                 .then(function (stages) {
                     tsc.stageOverlay.setToReady();
-                    massageStages(stages);
+                    tsc.massageStages(stages);
                     tsc.tournament.stages = stages;
                     if (stages.length > 0) {
                         $timeout(function () {
@@ -48,26 +49,6 @@
                     tsc.isBusy = false;
                     tsc.stageOverlay.setToReady();
                 });
-        }
-
-        function massageStages(stages) {
-            stages.forEach(s => {
-                s.games = tsc.tournament.games.drbblyWhere(g => g.stageId === s.id);
-                s.brackets.forEach(b => {
-                    b.teams = s.teams.drbblyWhere(t => t.bracketId == b.id);
-                })
-                var defaultBracket = s.brackets.drbblySingleOrDefault(b => b.id === null);
-                if (defaultBracket) {
-                    defaultBracket.teams = s.teams.drbblyWhere(t => t.bracketId === null);
-                }
-                else {
-                    s.brackets.unshift({
-                        id: null,
-                        name: 'Not Assigned',
-                        teams: s.teams.drbblyWhere(t => t.bracketId === null)
-                    })
-                }
-            })
         }
 
         tsc.canDeleteGame = () => true;
@@ -94,7 +75,7 @@
             drbblyTournamentsService.setTeamBracket(team.teamId, stage.id, bracketId)
                 .then(() => {
                     team.bracketId = bracketId;
-                    massageStages([stage])
+                    tsc.massageStages([stage])
                 })
                 .catch(error => drbblyCommonService.handleError(error));
         }
@@ -106,7 +87,7 @@
                     stage: stage,
                     title: 'Select teams participating in ' + stage.name,
                     teams: tsc.tournament.teams.map(t => {
-                        return { id: t.teamId, name: t.name, logo: t.logo };
+                        return { id: t.teamId, name: t.team.name, logo: t.team.logo };
                     }),
                     isSelectedCallback: team => {
                         return (stage.teams || []).drbblyAny(t => t.teamId === team.id)
@@ -126,7 +107,7 @@
             return drbblyTournamentsService.setStageTeams(input)
                 .then(function (result) {
                     stage.teams = result.teams;
-                    massageStages([stage]);
+                    tsc.massageStages([stage]);
                 })
                 .catch(function (e) {
                     drbblyCommonService.handleError(e);
@@ -145,7 +126,7 @@
                                 return {
                                     value: t.teamId,
                                     text: t.team.name,
-                                    iconUrl: t.team.logo.url
+                                    iconUrl: t.team.logo ? t.team.logo.url : constants.images.defaultTeamLogoUrl
                                 };
                             });
                         return $q.resolve(suggestions);

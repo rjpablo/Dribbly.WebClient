@@ -30,8 +30,8 @@
             drbblyTournamentsService.getTournamentviewer(_tournamentId)
                 .then(function (tournament) {
                     lvc.overlay.setToReady();
-                    massageTournament(tournament);
                     lvc.tournament = tournament;
+                    massageTournament(lvc.tournament);
                     lvc.isOwned = authService.isCurrentUserId(lvc.tournament.addedById);
                     lvc.isManager = lvc.isOwned;
                     lvc.app.mainDataLoaded();
@@ -64,6 +64,27 @@
 
         function massageTournament(tournament) {
             tournament.games.forEach(g => g.start = new Date(drbblyDatetimeService.toUtcString(g.start)));
+            lvc.massageStages(tournament.stages)
+        }
+
+        lvc.massageStages = function (stages) {
+            stages.forEach(s => {
+                s.games = lvc.tournament.games.drbblyWhere(g => g.stageId === s.id);
+                s.brackets.forEach(b => {
+                    b.teams = s.teams.drbblyWhere(t => t.bracketId == b.id);
+                })
+                var defaultBracket = s.brackets.drbblySingleOrDefault(b => b.id === null);
+                if (defaultBracket) {
+                    defaultBracket.teams = s.teams.drbblyWhere(t => t.bracketId === null);
+                }
+                else {
+                    s.brackets.unshift({
+                        id: null,
+                        name: 'Not Assigned',
+                        teams: s.teams.drbblyWhere(t => t.bracketId === null)
+                    })
+                }
+            })
         }
 
         lvc.onTournamentUpdate = function () {

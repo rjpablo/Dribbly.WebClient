@@ -6,6 +6,7 @@
         .component('drbblyTournamentteams', {
             bindings: {
                 app: '<',
+                massageStages: '<',
                 tournament: '<'
             },
             controllerAs: 'dtg',
@@ -21,7 +22,27 @@
 
         dtg.$onInit = function () {
             dtg.isManager = dtg.tournament.addedById === authService.authentication.accountId;
+            dtg.hasStages = dtg.tournament.stages && dtg.tournament.stages.length > 0;
+            dtg.filter = {};
+            if (dtg.hasStages) {
+                dtg.ddlStageChoices = dtg.tournament.stages.map(s => {
+                    return { text: s.name, value: s.id };
+                });
+                dtg.ddlStageChoices.unshift({ text: 'All', value: null });
+            }
+
+            $timeout(() => {
+                dtg.filter.stageId = null;
+            });
         };
+
+        dtg.teamsFilter = function (team, index, teams) {
+            return !dtg.hasStages || !dtg.filter.stageId ||
+                dtg.tournament.stages.drbblySingle(s => s.id == dtg.filter.stageId).teams.map(t => t.teamId)
+                .drbblyAny(t => {
+                    return t === team.teamId;
+                });
+        }
 
         dtg.rejectRequest = function (request) {
             modalService.confirm({ msg1Raw: 'Reject request?' })
@@ -31,6 +52,74 @@
                     }
                 })
         }
+
+        dtg.onTeamDrop = function (event, ui, bracket, stage) {
+            var teamId = Number(ui.draggable.attr('data-teamid'));
+            var newTeam = stage.teams.drbblySingle(t => t.teamId === teamId);
+            dtg.setTeamBracket(newTeam, stage, bracket.id);
+        };
+
+        dtg.setTeamBracket = function (team, stage, bracketId) {
+            drbblyTournamentsService.setTeamBracket(team.teamId, stage.id, bracketId)
+                .then(() => {
+                    team.bracketId = bracketId;
+                    dtg.massageStages([stage])
+                })
+                .catch(error => drbblyCommonService.handleError(error));
+        }
+
+        // #region editTeams
+        dtg.editTeams = function (stage) {
+            modalService.show({
+                view: '<drbbly-teamselectionmodal></drbbly-teamselectionmodal>',
+                model: {
+                    stage: stage,
+                    title: 'Select teams participating in ' + stage.name,
+                    teams: dtg.tournament.teams.map(t => {
+                        return { id: t.teamId, name: t.team.name, logo: t.team.logo };
+                    }),
+                    isSelectedCallback: team => {
+                        return (stage.teams || []).drbblyAny(t => t.teamId === team.id)
+                    },
+                    onSubmitCallback: data => onSetTeamsSubmitted(data, stage)
+                }
+            })
+                .catch(function () { /* do nothing */ })
+        };
+
+        function onSetTeamsSubmitted(data, stage) {
+            var input = {
+                stageId: stage.id,
+                teamIds: data.selectedTeams.map(t => t.id)
+            };
+
+            return drbblyTournamentsService.setStageTeams(input)
+                .then(function (result) {
+                    stage.teams = result.teams;
+                    dtg.massageStages([stage]);
+                })
+                .catch(function (e) {
+                    drbblyCommonService.handleError(e);
+                    throw e;
+                });
+        }
+        // #endregion editTeams
+
+        // #region AddStage
+        dtg.addStage = function () {
+            modalService.show({
+                view: '<drbbly-addstagemodal></drbbly-addstagemodal>',
+                model: {
+                    tournament: dtg.tournament
+                }
+            })
+                .then(stage => {
+                    dtg.tournament.stages.push(stage);
+                    dtg.massageStages([stage])
+                })
+                .catch(function () { /* do nothing */ })
+        };
+        // #endregion AddStage
 
         dtg.removeTeam = function (team) {
             team.isBusy = true;
