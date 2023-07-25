@@ -53,7 +53,9 @@
             else {
                 bgm.saveModel = {
                     courtId: bgm.model.courtId,
-                    tournamentId: bgm.model.tournamentId,
+                    tournamentId: (bgm.model.tournament || {}).id,
+                    stageId: (bgm.model.stage || {}).id,
+                    bracketId: (bgm.model.bracket || {}).d,
                     numberOfRegulationPeriods: 4,
                     regulationPeriodDuration: 10,
                     overtimePeriodDuration: 5,
@@ -99,11 +101,13 @@
                 entityTypes: [constants.enums.entityType.Team],
                 excludeValues: [bgm.saveModel.team2Id]
             };
+            bgm.team1TypeAheadConfig = Object.assign(bgm.team1TypeAheadConfig, (bgm.model.teamTypeAheadConfig || {}))
 
             bgm.team2TypeAheadConfig = {
                 entityTypes: [constants.enums.entityType.Team],
                 excludeValues: [bgm.saveModel.team1Id]
             };
+            bgm.team2TypeAheadConfig = Object.assign(bgm.team2TypeAheadConfig, (bgm.model.teamTypeAheadConfig || {}))
         }
 
         bgm.dateOpened = false;

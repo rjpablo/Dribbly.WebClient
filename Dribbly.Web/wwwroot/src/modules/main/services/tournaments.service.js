@@ -26,6 +26,10 @@
                     return drbblyhttpService.get(api + `getTournamentStages/${tournamentId}`);
                 }
 
+                function getTournamentTeamsAsChoices(tournamentId, stageId) {
+                    return drbblyhttpService.get(api + `getTournamentTeamsAsChoices/${tournamentId}/${stageId}`);
+                }
+
                 function isCurrentUserManager(tournamentId) {
                     return drbblyhttpService.get(api + `isCurrentUserManager/${tournamentId}`);
                 }
@@ -55,6 +59,7 @@
                     addTournamentStage: addTournamentStage,
                     getNew: getNew,
                     getTournamentStages: getTournamentStages,
+                    getTournamentTeamsAsChoices: getTournamentTeamsAsChoices,
                     getTournamentviewer: getTournamentviewer,
                     isCurrentUserManager: isCurrentUserManager,
                     joinTournament: joinTournament,

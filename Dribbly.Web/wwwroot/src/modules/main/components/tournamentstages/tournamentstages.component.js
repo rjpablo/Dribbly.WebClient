@@ -14,33 +14,45 @@
         });
 
     controllerFunc.$inject = ['drbblyTournamentsService', 'modalService', 'drbblyCommonService', 'constants',
-        'authService', 'drbblyOverlayService', '$q'];
+        'authService', 'drbblyOverlayService', 'drbblyGameshelperService', '$q', '$timeout'];
     function controllerFunc(drbblyTournamentsService, modalService, drbblyCommonService, constants,
-        authService, drbblyOverlayService, $q) {
+        authService, drbblyOverlayService, drbblyGameshelperService, $q, $timeout) {
         var tsc = this;
 
         tsc.$onInit = function () {
             tsc.overlay = drbblyOverlayService.buildOverlay();
+            tsc.stageOverlay = drbblyOverlayService.buildOverlay();
             loadStages();
         };
 
         function loadStages() {
             tsc.isBusy = true;
+            tsc.stageOverlay.setToBusy();
             drbblyTournamentsService.getTournamentStages(tsc.tournament.id)
                 .then(function (stages) {
+                    tsc.stageOverlay.setToReady();
                     massageStages(stages);
                     tsc.tournament.stages = stages;
                     if (stages.length > 0) {
-                    var activeStage = stages.drbblyFirstOrDefault(s => s.status === constants.enums.stageStatusEnum.Started);
-                    tsc.activeTabIndex = activeStage ? activeStage.id : stages[0].id;
+                        $timeout(function () {
+                            var activeStage = stages.drbblyFirstOrDefault(s => s.status === constants.enums.stageStatusEnum.Started);
+                            tsc.activeTabIndex = activeStage ? activeStage.id : stages[0].id;
+                        })
                     }
                 })
-                .catch(error => drbblyCommonService.handleError(error))
-                .finally(() => tsc.isBusy = false);
+                .catch(error => {
+                    drbblyCommonService.handleError(error);
+                    tsc.stageOverlay.setToError();
+                })
+                .finally(() => {
+                    tsc.isBusy = false;
+                    tsc.stageOverlay.setToReady();
+                });
         }
 
         function massageStages(stages) {
             stages.forEach(s => {
+                s.games = tsc.tournament.games.drbblyWhere(g => g.stageId === s.id);
                 s.brackets.forEach(b => {
                     b.teams = s.teams.drbblyWhere(t => t.bracketId == b.id);
                 })
@@ -57,6 +69,9 @@
                 }
             })
         }
+
+        tsc.canDeleteGame = () => true;
+        tsc.canEditGame = () => true;
 
         tsc.addStage = function () {
             modalService.show({
@@ -117,6 +132,31 @@
                     drbblyCommonService.handleError(e);
                     throw e;
                 });
+        }
+
+        tsc.addGame = function (stage) {
+            drbblyGameshelperService.openAddEditGameModal({
+                tournament: tsc.tournament,
+                stage: stage,
+                teamTypeAheadConfig: {
+                    onGetSuggestions: keyword => {
+                        var suggestions = stage.teams.drbblyWhere(t => t.team.name.toLowerCase().indexOf(keyword.toLowerCase()) > -1)
+                            .map(t => {
+                                return {
+                                    value: t.teamId,
+                                    text: t.team.name,
+                                    iconUrl: t.team.logo.url
+                                };
+                            });
+                        return $q.resolve(suggestions);
+                    }
+                }
+            })
+                .then(function (game) {
+                    tsc.tournament.games.push(game);
+                    stage.games.push(game);
+                })
+                .catch(function () { /* do nothing */ })
         }
 
         tsc.canDeleteItem = function (stage) {
