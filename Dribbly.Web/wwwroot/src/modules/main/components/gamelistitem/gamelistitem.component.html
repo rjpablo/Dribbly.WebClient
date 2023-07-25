@@ -3,7 +3,7 @@
     <div class="d-flex">
         <div class="team1 text-center">
             <img class="team-logo"
-                 ng-src="{{cli.game.team1.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
+                 ng-src="{{cli.game.team1.team.logo.url || $root.constants.images.defaultTeamLogoUrl}}" />
             <a ui-sref="main.team.home({id: cli.game.team1Id})"
                class="d-block small text-dark">{{cli.game.team1.isOpen? '(open team)' : cli.game.team1.name}}</a>
         </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="team2 text-center">
             <img class="team-logo"
-                 ng-src="{{cli.game.team2.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
+                 ng-src="{{cli.game.team2.team.logo.url || $root.constants.images.defaultTeamLogoUrl}}" />
             <a ui-sref="main.team.home({id: cli.game.team2Id})"
                class="d-block small text-dark">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.name}}</a>
         </div>

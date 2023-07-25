@@ -20,7 +20,18 @@
         var dtg = this;
 
         dtg.$onInit = function () {
+            dtg.hasStages = dtg.tournament.stages && dtg.tournament.stages.length > 0;
+            dtg.filter = {};
+            if (dtg.hasStages) {
+                dtg.ddlStageChoices = dtg.tournament.stages.map(s => {
+                    return { text: s.name, value: s.id };
+                });
+                dtg.ddlStageChoices.unshift({ text: 'All', value: null });
+            }
 
+            $timeout(() => {
+                dtg.filter.stageId = null;
+            });
         };
 
         dtg.addGame = function () {
@@ -33,6 +44,10 @@
                 })
                 .catch(function () { /* do nothing */ })
         };
+
+        dtg.gamesFilter = function (game, index, games) {
+            return !dtg.hasStages || !dtg.filter.stageId || game.stageId === dtg.filter.stageId;
+        }
 
         dtg.canDeleteItem = function (game) {
             return dtg.tournament.addedById === authService.authentication.userId;

@@ -1,27 +1,30 @@
 ﻿<div class="row mt-sm-3">
     <div class="col">
         <section>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <span class="">
-                            <span class="font-weight-semibold">{{dtg.tournament.games.length}}</span>
-                            &nbsp;games found
-                        </span>
-                        <button class="btn btn-primary ml-auto"
-                                ng-click="dtg.addGame()">
-                            <i class="fa fa-plus"></i> Add Game
-                        </button>
-                    </div>
-                </div>
+            <div class="section-header d-flex">
+                <h5 class="drbbly-header">Games</h5>
+                <button class="btn btn-sm btn-primary ml-auto"
+                        ng-click="dtg.addGame()">
+                    <i class="fa fa-plus"></i> Add Game
+                </button>
+            </div>
+            <div class="py-3 d-flex">
+                <select ng-model="dtg.filter.stageId"
+                        ng-change>
+                    <option ng-repeat="option in dtg.ddlStageChoices"
+                            ng-value="{{option.value}}"
+                            ng-selected="dtg.filter.stageId === option.value">
+                        {{option.text}}
+                    </option>
+                </select>
             </div>
             <div ng-if="dtg.tournament.games && dtg.tournament.games.length">
                 <div class="row">
-                    <div class="col-12">
-                        <drbbly-gamelist games="dtg.tournament.games"
-                                         can-delete-item="dtg.canDeleteItem"
-                                         can-edit-item="dtg.canEditItem"></drbbly-gamelist>
-                    </div>
+                    <drbbly-gamelistitem ng-repeat="game in (dtg.tournament.games | filter : dtg.gamesFilter | orderBy: 'start') track by game.id"
+                                         class="mb-3 mx-3"
+                                         can-delete="dtg.canDeleteItem"
+                                         can-edit="dtg.canEditItem"
+                                         game="game"></drbbly-gamelistitem>
                 </div>
             </div>
         </section>
