@@ -26,6 +26,10 @@
                     return drbblyhttpService.get(api + `getTournamentStages/${tournamentId}`);
                 }
 
+                function isCurrentUserManager(tournamentId) {
+                    return drbblyhttpService.get(api + `isCurrentUserManager/${tournamentId}`);
+                }
+
                 function joinTournament(tournamentId, teamId) {
                     return drbblyhttpService.post(api + `joinTournament/${tournamentId}/${teamId}`);
                 }
@@ -52,6 +56,7 @@
                     getNew: getNew,
                     getTournamentStages: getTournamentStages,
                     getTournamentviewer: getTournamentviewer,
+                    isCurrentUserManager: isCurrentUserManager,
                     joinTournament: joinTournament,
                     processJoinRequest: processJoinRequest,
                     removeTournamentTeam: removeTournamentTeam,
