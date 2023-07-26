@@ -4,7 +4,7 @@
         <div class="team1 text-center">
             <img class="team-logo"
                  ng-src="{{cli.game.team1.team.logo.url || $root.constants.images.defaultTeamLogoUrl}}" />
-            <a ui-sref="main.team.home({id: cli.game.team1Id})"
+            <a ui-sref="main.team.home({id: cli.game.team1.teamId})"
                ng-click="cli.stopPropagation($event)"
                class="d-block small">{{cli.game.team1.isOpen? '(open team)' : cli.game.team1.name}}</a>
         </div>
@@ -62,7 +62,7 @@
         <div class="team2 text-center">
             <img class="team-logo"
                  ng-src="{{cli.game.team2.team.logo.url || $root.constants.images.defaultTeamLogoUrl}}" />
-            <a ui-sref="main.team.home({id: cli.game.team2Id})"
+            <a ui-sref="main.team.home({id: cli.game.team2.teamId})"
                ng-click="cli.stopPropagation($event)"
                class="d-block small">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.name}}</a>
         </div>
