@@ -5,7 +5,7 @@ body {
     background: url('../../../images/backgrounds/site_background.jpg') fixed center;
 }
 
-a[ng-click]:not(.nav-link) {
+a[ng-click]:not(.nav-link, .dropdown-item) {
     color: $gray-500 !important;
 
     &:hover {

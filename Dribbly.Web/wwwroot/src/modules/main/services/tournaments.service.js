@@ -62,6 +62,10 @@
                     return drbblyhttpService.post(api + `addStageBracket/${bracketName}/${stageId}`);
                 }
 
+                function renameStage(stageId, name) {
+                    return drbblyhttpService.post(api + `renameStage/${stageId}/${name}`);
+                }
+
                 function processJoinRequest(requestId, shouldApprove) {
                     return drbblyhttpService.post(api + `processJoinRequest/${requestId}/${shouldApprove}`);
                 }
@@ -80,6 +84,7 @@
                     joinTournament: joinTournament,
                     processJoinRequest: processJoinRequest,
                     removeTournamentTeam: removeTournamentTeam,
+                    renameStage: renameStage,
                     setStageTeams: setStageTeams,
                     setTeamBracket: setTeamBracket
                 };

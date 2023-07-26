@@ -124,6 +124,27 @@
             tsc.tournament.games.drbblyRemove(g => g.id === game.id);
         }
 
+        tsc.renameStage = function (stage) {
+            modalService.input({
+                model: {
+                    prompt: "New Stage Name:",
+                    titleRaw: "Rename Stage",
+                    type: 'text',
+                    required: true,
+                    maxLength: 20,
+                    value: stage.name
+                }
+            })
+                .then(name => {
+                    drbblyTournamentsService.renameStage(stage.id, name)
+                        .then(() => {
+                            stage.name = name;
+                        })
+                        .catch(drbblyCommonService.handleError);
+                })
+                .catch(function () { /* cancelled, do nothing */ })
+        }
+
         tsc.onTeamDrop = function (event, ui, bracket, stage) {
             var teamId = Number(ui.draggable.attr('data-teamid'));
             var newTeam = stage.teams.drbblySingle(t => t.teamId === teamId);
