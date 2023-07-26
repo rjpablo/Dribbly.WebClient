@@ -99,16 +99,16 @@
         function buildSubPages() {
             lvc.app.toolbar.setNavItems([
                 {
-                    textKey: 'app.Games',
-                    targetStateName: 'main.tournament.games',
+                    textKey: 'app.Teams',
+                    targetStateName: 'main.tournament.teams',
                     targetStateParams: { id: _tournamentId },
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);
                     }
                 },
                 {
-                    textKey: 'app.Teams',
-                    targetStateName: 'main.tournament.teams',
+                    textKey: 'app.Games',
+                    targetStateName: 'main.tournament.games',
                     targetStateParams: { id: _tournamentId },
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);

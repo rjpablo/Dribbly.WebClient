@@ -45,12 +45,19 @@
                                 <span class="name">{{team.team.name}}</span>
                             </div>
                         </div>
-                        <span ng-if="dtg.tournament.teams.length === 0"
-                              class="col-12 py-3">
-                            Teams that you approve to join the tournament will appear here.
-                        </span>
+                        <div ng-if="dtg.tournament.teams.length === 0"
+                             class="col-12">
+                            <p>Teams that have been approved to join the tournament will appear here.</p>
+                            <p>
+                                Use the <a ui-sref="main.tournament.stages({id: dtg.tournament.id})" tabindex>Stages tab</a> to
+                                add teams to each stage of the tournament.
+                            </p>
+                        </div>
                     </div>
                 </div>
+                <p ng-if="!dtg.isManager && dtg.tournament.stages.length === 0">
+                    <span class="text-secondary">(No teams yet.)</span>
+                </p>
                 <div ng-repeat="stage in dtg.tournament.stages"
                      class="stage">
                     <div class="bg-light text-dark px-1 d-flex align-items-center">
@@ -70,6 +77,13 @@
                             </div>
                         </div>
                     </div>
+                    <p ng-if="dtg.isManager && stage.teams.length === 0">
+                        Use the <a ui-sref="main.tournament.stages({id: dtg.tournament.id})" tabindex>Stages tab</a> to
+                        add teams to this stage.
+                    </p>
+                    <p ng-if="!dtg.isManager && stage.teams.length === 0 && stage.brackets.length ===0">
+                        <span class="text-secondary">(No teams yet.)</span>
+                    </p>
                     <div class="row mb-3"
                          ng-class="'brackets-' + stage.id">
                         <div ng-repeat="bracket in stage.brackets"
@@ -94,7 +108,7 @@
                                       ng-if="dtg.isManager"><i class="fa fa-arrows-alt"></i></span>
                             </div>
                             <span ng-if="!bracket.teams || bracket.teams.length === 0"
-                                  class="d-block">
+                                  class="d-block text-secondary">
                                 (empty)
                             </span>
                         </div>

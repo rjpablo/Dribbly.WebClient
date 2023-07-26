@@ -21,7 +21,7 @@
 
         asm.$onInit = function () {
             asm.overlay = drbblyOverlayService.buildOverlay();
-            asm.saveModel = {};
+            asm.saveModel = { bracketsCount: 1 };
 
             asm.context.setOnInterrupt(asm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {

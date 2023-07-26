@@ -5,6 +5,12 @@
                 <div class="section-header d-flex">
                     <h5 class="drbbly-header">Stages</h5>
                 </div>
+                <div ng-if="tsc.tournament.stages.length === 0">
+                    <p>
+                        Add the different stages of the tournament and configure the teams and
+                        games for each stage.
+                    </p>
+                </div>
                 <div class="mb-3">
                     <button class="btn btn-sm btn-primary ml-auto"
                             ng-click="tsc.addStage()">

@@ -22,7 +22,7 @@
         dtg.$onInit = function () {
             dtg.hasStages = dtg.tournament.stages && dtg.tournament.stages.length > 0;
             dtg.filter = {};
-            dtg.isManager = authService.isCurrentUserId(dtg.tournament.addedById);
+            dtg.isManager = dtg.tournament.addedById === authService.authentication.accountId;
             if (dtg.hasStages) {
                 dtg.ddlStageChoices = dtg.tournament.stages.map(s => {
                     return { text: s.name, value: s.id };
