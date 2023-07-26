@@ -80,6 +80,7 @@
                 else {
                     s.brackets.unshift({
                         id: null,
+                        isDefault: true,
                         name: 'Not Assigned',
                         teams: s.teams.drbblyWhere(t => t.bracketId === null)
                     })

@@ -66,6 +66,27 @@
                 .catch(function () { /* do nothing */ })
         };
 
+        tsc.addBracket = function (stage) {
+            modalService.input({
+                model: {
+                    prompt: "Bracket Name:",
+                    titleRaw: "Add Bracket",
+                    type: 'text',
+                    required: true,
+                    maxLength: 20
+                }
+            })
+                .then(name => {
+                    drbblyTournamentsService.addStageBracket(name, stage.id)
+                        .then(bracket => {
+                            stage.brackets.push(bracket);
+                            tsc.massageStages([stage]);
+                        })
+                        .catch(drbblyCommonService.handleError);
+                })
+                .catch(function () { /* cancelled, do nothing */ })
+        }
+
         tsc.onTeamDrop = function (event, ui, bracket, stage) {
             var teamId = Number(ui.draggable.attr('data-teamid'));
             var newTeam = stage.teams.drbblySingle(t => t.teamId === teamId);
