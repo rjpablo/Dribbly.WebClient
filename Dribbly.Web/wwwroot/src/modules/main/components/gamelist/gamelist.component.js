@@ -9,7 +9,8 @@
                 titleKey: '@',
                 settings: '<',
                 canDeleteItem: '<',
-                canEditItem: '<'
+                canEditItem: '<',
+                onGameDeleted: '<'
             },
             controllerAs: 'dgl',
             templateUrl: 'drbbly-default',
@@ -26,6 +27,9 @@
         };
 
         dgl.onItemDeleted = function (game) {
+            if (dgl.onGameDeleted) {
+                dgl.onGameDeleted(game);
+            }
             dgl.games.drbblyRemove(g => g.id === game.id);
         };
 

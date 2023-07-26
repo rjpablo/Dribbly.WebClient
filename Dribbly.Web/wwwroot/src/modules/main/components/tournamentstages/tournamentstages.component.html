@@ -30,7 +30,8 @@
                                 <a class="dropdown-item">
                                     <i class="fa fa-pencil"></i> Rename Stage
                                 </a>
-                                <a class="dropdown-item text-danger">
+                                <a class="dropdown-item text-danger"
+                                   ng-click="tsc.deleteStage(stage)">
                                     <i class="fa fa-trash"></i> Delete Stage
                                 </a>
                             </div>
@@ -92,6 +93,7 @@
                                                 <div class="col-12">
                                                     <drbbly-gamelist games="stage.games"
                                                                      can-delete-item="tsc.canDeleteGame"
+                                                                     on-game-deleted="tsc.onGameDeleted"
                                                                      can-edit-item="tsc.canEditGame"></drbbly-gamelist>
                                                 </div>
                                             </div>

@@ -105,6 +105,25 @@
                 .catch(function () { /* cancelled, do nothing */ })
         }
 
+        tsc.deleteStage = function (stage) {
+            modalService.confirm({ msg1Raw: 'Delete ' + stage.name })
+                .then(confirmed => {
+                    if (confirmed) {
+                        drbblyTournamentsService.deleteStage(stage.id)
+                            .then(() => {
+                                tsc.tournament.games.drbblyRemove(g => g.stageId === stage.id);
+                                tsc.tournament.stages.drbblyRemove(s => s.id == stage.id);
+                            })
+                            .catch(drbblyCommonService.handleError);
+                    }
+                })
+                .catch(function () { /* cancelled, do nothing */ })
+        }
+
+        tsc.onGameDeleted = function (game) {
+            tsc.tournament.games.drbblyRemove(g => g.id === game.id);
+        }
+
         tsc.onTeamDrop = function (event, ui, bracket, stage) {
             var teamId = Number(ui.draggable.attr('data-teamid'));
             var newTeam = stage.teams.drbblySingle(t => t.teamId === teamId);

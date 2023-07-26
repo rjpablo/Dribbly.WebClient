@@ -38,7 +38,7 @@
                     lvc.shouldDisplayAsPublic = true; //TODO should be conditional
                     buildSubPages();
                 })
-                .catch(lvc.overlay.setToError);
+                .catch(() => lvc.overlay.setToError());
         }
 
         lvc.onJoinClicked = async function () {

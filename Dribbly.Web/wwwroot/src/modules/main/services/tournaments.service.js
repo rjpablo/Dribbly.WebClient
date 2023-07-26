@@ -54,6 +54,10 @@
                     return drbblyhttpService.post(api + `deleteStageBracket/${bracketId}`);
                 }
 
+                function deleteStage(stageId) {
+                    return drbblyhttpService.post(api + `deleteStage/${stageId}`);
+                }
+
                 function addStageBracket(bracketName, stageId) {
                     return drbblyhttpService.post(api + `addStageBracket/${bracketName}/${stageId}`);
                 }
@@ -66,6 +70,7 @@
                     addStageBracket: addStageBracket,
                     addTournament: addTournament,
                     addTournamentStage: addTournamentStage,
+                    deleteStage: deleteStage,
                     deleteStageBracket: deleteStageBracket,
                     getNew: getNew,
                     getTournamentStages: getTournamentStages,
