@@ -8,72 +8,127 @@
                         <i class="fa fa-plus"></i> Add Stage
                     </button>
                 </div>
-                <uib-tabset active="tsc.activeTabIndex"
-                            class="stage">
-                    <uib-tab index="stage.id" ng-repeat="stage in tsc.tournament.stages" heading="{{stage.name}}">
+                <div ng-repeat="stage in tsc.tournament.stages"
+                     class="stage mb-3">
+                    <div class="bg-light text-dark px-1 d-flex align-items-center">
+                        <span class="stage-name line-height-1 text-uppercase">{{stage.name}}</span>
+                        <div class="dropdown ml-auto"
+                             ng-if="tsc.isManager">
+                            <button class="btn btn-sm btn-light dropdown-toggle no-caret"
+                                    role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item">
+                                    <i class="fa fa-pencil"></i> Rename Stage
+                                </a>
+                                <a class="dropdown-item text-danger">
+                                    <i class="fa fa-trash"></i> Delete Stage
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-light p-1">
                         <div drbbly-overlay="tsc.stageOverlay">
-                            <uib-tabset class="sub-tabset"
-                                        active="stage._activeTabIndex">
+                            <uib-tabset active="stage._activeTabIndex">
+                                <!-- #region Teams -->
+                                <uib-tab index="1" heading="Teams">
+                                    <div class="border border-top-0 border-secondary px-1">
+                                        <div class="pt-1 pb-3">
+                                            <button class="btn btn-sm btn-secondary"
+                                                    ng-click="tsc.editTeams(stage)">
+                                                <i class="fa fa-pencil"></i> Edit Teams
+                                            </button>
+                                        </div>
+                                        <div class="row"
+                                             ng-class="'brackets-' + stage.id">
+                                            <div ng-repeat="bracket in stage.brackets"
+                                                 class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
+                                                 jqyoui-droppable="{onDrop: 'tsc.onTeamDrop(bracket, stage)'}"
+                                                 data-jqyoui-options="{accept:'.team:not([data-bracket={{bracket.id || 'null'}}])'}"
+                                                 data-drop="true"
+                                                 ng-model="bracket.teams">
+                                                <h5 class="text-secondary bracket-name">{{bracket.name}}</h5>
+                                                <div ng-repeat="team in bracket.teams | orderBy : 'team.name'"
+                                                     jqyoui-draggable="{index: $index}"
+                                                     data-drag="true"
+                                                     data-jqyoui-options="{revert: 'invalid', animate: true, revertDuration: 200, handle: '.drag-handle', containment: '.brackets-{{stage.id}}'}"
+                                                     data-bracket="{{bracket.id || 'null'}}"
+                                                     class="team d-flex"
+                                                     data-teamid="{{team.teamId}}"
+                                                     ng-model="team">
+                                                    <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
+                                                         class="logo" />
+                                                    <span class="name">{{team.team.name}}</span>
+                                                    <span class="ml-auto drag-handle text-secondary"><i class="fa fa-arrows-alt"></i></span>
+                                                </div>
+                                                <span ng-if="!bracket.teams || bracket.teams.length === 0">
+                                                    (empty)
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                                <!-- #endregion Teams -->
                                 <!-- #region Games -->
                                 <uib-tab index="2" heading="Games">
-                                    <div class="py-3">
-                                        <button class="btn btn-sm btn-secondary"
-                                                ng-click="tsc.addGame(stage)">
-                                            <i class="fa fa-pencil"></i> Add Game
-                                        </button>
-                                    </div>
-                                    <div ng-if="stage.games && stage.games.length">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <drbbly-gamelist games="stage.games"
-                                                                 can-delete-item="tsc.canDeleteGame"
-                                                                 can-edit-item="tsc.canEditGame"></drbbly-gamelist>
+                                    <div class="border border-top-0 border-secondary px-1">
+                                        <div class="pt-1 pb-3">
+                                            <button class="btn btn-sm btn-secondary"
+                                                    ng-click="tsc.addGame(stage)">
+                                                <i class="fa fa-pencil"></i> Add Game
+                                            </button>
+                                        </div>
+                                        <div ng-if="stage.games && stage.games.length">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <drbbly-gamelist games="stage.games"
+                                                                     can-delete-item="tsc.canDeleteGame"
+                                                                     can-edit-item="tsc.canEditGame"></drbbly-gamelist>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </uib-tab>
                                 <!-- #endregion Games -->
-                                <!-- #region Teams -->
-                                <uib-tab index="1" heading="Teams">
-                                    <div class="py-3">
-                                        <button class="btn btn-sm btn-secondary"
-                                                ng-click="tsc.editTeams(stage)">
-                                            <i class="fa fa-pencil"></i> Edit Teams
-                                        </button>
-                                    </div>
-                                    <div class="row"
-                                         ng-class="'brackets-' + stage.id">
-                                        <div ng-repeat="bracket in stage.brackets"
-                                             class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
-                                             jqyoui-droppable="{onDrop: 'tsc.onTeamDrop(bracket, stage)'}"
-                                             data-jqyoui-options="{accept:'.team:not([data-bracket={{bracket.id || 'null'}}])'}"
-                                             data-drop="true"
-                                             ng-model="bracket.teams">
-                                            <h5 class="text-secondary bracket-name">{{bracket.name}}</h5>
-                                            <div ng-repeat="team in bracket.teams | orderBy : 'team.name'"
-                                                 jqyoui-draggable="{index: $index}"
-                                                 data-drag="true"
-                                                 data-jqyoui-options="{revert: 'invalid', animate: true, revertDuration: 200, handle: '.drag-handle', containment: '.brackets-{{stage.id}}'}"
-                                                 data-bracket="{{bracket.id || 'null'}}"
-                                                 class="team d-flex"
-                                                 data-teamid="{{team.teamId}}"
-                                                 ng-model="team">
-                                                <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
-                                                     class="logo" />
-                                                <span class="name">{{team.team.name}}</span>
-                                                <span class="ml-auto drag-handle text-secondary"><i class="fa fa-arrows-alt"></i></span>
-                                            </div>
-                                            <span ng-if="!bracket.teams || bracket.teams.length === 0">
-                                                (empty)
-                                            </span>
-                                        </div>
-                                    </div>
-                                </uib-tab>
-                                <!-- #endregion Teams -->
-                            </uib-tabset>
+                                <!-- #region Brackets -->
+                                <uib-tab index="3" heading="Brackets">
+                                    <div class="border border-top-0 border-secondary px-1">
+                                        <div ng-if="stage.brackets && stage.brackets.length">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="pt-1 pb-3">
+                                                        <button class="btn btn-sm btn-secondary"
+                                                                ng-click="tsc.addBracket(stage)">
+                                                            <i class="fa fa-pencil"></i> Add Bracket
+                                                        </button>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                                            <ul class="list-unstyled">
+                                                                <li ng-repeat="bracket in stage.brackets | filter : {isDefault: '!true'}">
+                                                                    <div class="bracket-list-item pl-1">
+                                                                        <span>{{bracket.name}}</span>
+                                                                        <span class="ml-auto text-danger px-1"
+                                                                              ng-click="tsc.deleteBracket(bracket)">
+                                                                            <i class="fa fa-times"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
                         </div>
+                    </div>
+                </div>
                     </uib-tab>
+                                <!-- #endregion Brackets -->
                 </uib-tabset>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </div>

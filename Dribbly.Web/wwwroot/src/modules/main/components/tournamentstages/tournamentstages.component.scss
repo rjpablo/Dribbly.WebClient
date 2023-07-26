@@ -9,7 +9,7 @@ drbbly-tournamentstages {
             overflow-x: auto;
             overflow-y: hidden;
 
-            .nav-item{
+            .nav-item {
                 display: inline-block;
             }
         }
@@ -21,12 +21,17 @@ drbbly-tournamentstages {
             }
         }
 
+        .bracket-list-item,
         .team {
             margin-bottom: 0.1em;
             display: flex;
             padding: 0;
-            border: 1px solid $gray-900;
-            background-color: $black;
+            border: 1px solid #1a1a1a;
+            background-color: #000;
+            color: $white;
+        }
+
+        .team {
 
             .logo {
                 height: 30px;
