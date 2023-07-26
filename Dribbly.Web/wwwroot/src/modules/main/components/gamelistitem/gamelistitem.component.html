@@ -5,7 +5,8 @@
             <img class="team-logo"
                  ng-src="{{cli.game.team1.team.logo.url || $root.constants.images.defaultTeamLogoUrl}}" />
             <a ui-sref="main.team.home({id: cli.game.team1Id})"
-               class="d-block small text-dark">{{cli.game.team1.isOpen? '(open team)' : cli.game.team1.name}}</a>
+               ng-click="cli.stopPropagation($event)"
+               class="d-block small">{{cli.game.team1.isOpen? '(open team)' : cli.game.team1.name}}</a>
         </div>
         <div class="flex-grow-1 text-center">
             <div ng-if="cli.game.status === $root.constants.enums.gameStatusEnum.Started
@@ -22,7 +23,7 @@
                 <div>
                     <div class="small text-secondary"
                          ng-if="cli.game">
-                        {{cli.game.start | date: 'dd-MMM-yyyy'}}
+                        {{cli.game.start | date: 'MMM-dd-yyyy'}}
                     </div>
                     <div class="small text-secondary"
                          ng-if="cli.game">
@@ -34,35 +35,36 @@
             <div ng-if="cli.game.status === $root.constants.enums.gameStatusEnum.WaitingToStart">
                 <div class="font-weight-semibold"
                      ng-if="cli.game">
-                    {{cli.game.start | date: 'dd-MMM-yyyy'}}
+                    {{cli.game.start | date: 'MMM-dd-yyyy'}}
                 </div>
                 <div class="font-weight-semibold"
                      ng-if="cli.game">
                     {{cli.game.start | date: 'hh:mm a'}}
                 </div>
             </div>
+            <div class="controls">
+                <button class="btn btn-sm btn-secondary"
+                        ng-click="cli._openInNewTab(cli.game, $event)">
+                    <i class="fa fa-external-link"></i>
+                </button>
+                <button class="btn btn-sm btn-secondary"
+                        ng-if="cli._canEdit()"
+                        ng-click="cli.edit(cli.game, $event)">
+                    <i class="fa fa-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-danger"
+                        ng-if="cli._canDelete()"
+                        ng-click="cli.remove(cli.game, $event)">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
         </div>
         <div class="team2 text-center">
             <img class="team-logo"
                  ng-src="{{cli.game.team2.team.logo.url || $root.constants.images.defaultTeamLogoUrl}}" />
             <a ui-sref="main.team.home({id: cli.game.team2Id})"
-               class="d-block small text-dark">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.name}}</a>
+               ng-click="cli.stopPropagation($event)"
+               class="d-block small">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.name}}</a>
         </div>
-    </div>
-    <div class="controls">
-        <button class="btn btn-sm text-light"
-           ng-click="cli._openInNewTab(cli.game, $event)">
-            <i class="fa fa-external-link"></i>
-        </button>
-        <button class="btn btn-sm text-light"
-                ng-if="cli._canEdit()"
-                ng-click="cli.edit(cli.game, $event)">
-            <i class="fa fa-pencil"></i>
-        </button>
-        <button class="btn btn-sm text-danger"
-                ng-if="cli._canDelete()"
-                ng-click="cli.remove(cli.game, $event)">
-            <i class="fa fa-trash"></i>
-        </button>
     </div>
 </div>

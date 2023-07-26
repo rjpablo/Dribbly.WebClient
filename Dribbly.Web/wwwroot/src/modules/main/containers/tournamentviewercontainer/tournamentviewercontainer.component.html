@@ -2,8 +2,8 @@
     <div drbbly-overlay="lvc.overlay">
         <div class="container">
             <div class="row app-header">
-                <div class="container">
-                    <div class="bg-dark p-3">
+                <div class="col-12">
+                    <div class="p-3 bg-dark">
                         <h5 class="text-white">{{lvc.tournament.name}}</h5>
                         <button class="btn btn-primary"
                                 ng-click="lvc.onJoinClicked()">
@@ -14,12 +14,15 @@
             </div>            
         </div>
         <div id="app-navigation-container" class="container non-mobile sticky-top">
-            <drbbly-appnavigator id="app-navigator"
-                                 nav-items="lvc.app.toolbar._navItems"></drbbly-appnavigator>
+            <div class="row">
+                <div class="col-12">
+                    <drbbly-appnavigator id="app-navigator"
+                                         nav-items="lvc.app.toolbar._navItems"></drbbly-appnavigator>
+                </div>
+            </div>
         </div>
         <div class="app-body">
-            <div ng-if="lvc.tournament"
-                 class="container">
+            <div ng-if="lvc.tournament">
                 <ui-view tournament="lvc.tournament"
                          on-update="lvc.onTournamentUpdate"
                          massage-stages="lvc.massageStages"></ui-view>

@@ -1,6 +1,6 @@
-﻿<div class="row mt-sm-3">
-    <div class="col">
-        <section>
+﻿<div class="container">
+    <div class="row mt-sm-3">
+        <section class="col-12">
             <div class="section-header d-flex">
                 <h5 class="drbbly-header">Games</h5>
                 <!--<button class="btn btn-sm btn-primary ml-auto"
@@ -9,28 +9,46 @@
                     <i class="fa fa-plus"></i> Add Game
                 </button>-->
             </div>
-            <div class="py-3 d-flex"
-                 ng-show="dtg.hasStages">
-                <select ng-model="dtg.filter.stageId"
-                        ng-change>
-                    <option ng-repeat="option in dtg.ddlStageChoices"
-                            ng-value="{{option.value}}"
-                            ng-selected="dtg.filter.stageId === option.value">
-                        {{option.text}}
-                    </option>
-                </select>
-            </div>
-            <div ng-if="dtg.tournament.games && dtg.tournament.games.length">
-                <div class="row">
-                    <drbbly-gamelistitem ng-repeat="game in (dtg.tournament.games | filter : dtg.gamesFilter | orderBy: 'start') track by game.id"
-                                         class="mb-3 mx-3"
-                                         can-delete="dtg.canDeleteItem"
-                                         can-edit="dtg.canEditItem"
-                                         game="game"></drbbly-gamelistitem>
+            <div class="filters">
+                <div class="py-3 d-flex"
+                     ng-show="dtg.hasStages">
+                    <form>
+                        <select ng-model="dtg.selectedDate"
+                                class="form-control"
+                                ng-change="dtg.stageFilterChanged(dtg.filter.stage)"
+                                ng-options="date as date.label for date in dtg.gameDates track by date.date">
+                            <!--<option ng-repeat="option in dtg.ddlStageChoices"
+                                    ng-value="{{option.value}}"
+                                    ng-selected="dtg.filter.stageId === option.value">
+                                {{option.text}}
+                            </option>-->
+                        </select>
+                    </form>
                 </div>
             </div>
-            <div ng-if="dtg.tournament.games && dtg.tournament.games.length === 0">
-                <p class="text-secondary">(No games scheduled yet.)</p>
+            <div ng-if="dtg.selectedDate.games && dtg.selectedDate.games.length">
+                <!--<div class="row">
+                    <div class="col-12">
+                        <drbbly-gamelist games="dtg.tournament.games"
+                                         breakpoints="{md: 6, xl: 4}"
+                                         can-delete-item="dtg.canDeleteItem"
+                                         can-edit-item="dtg.canEditItem"></drbbly-gamelist>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <div class="col-md-6 col-xl-4"
+                         ng-repeat="game in (dtg.selectedDate.games | orderBy: 'start') track by game.id">
+                        <drbbly-gamelistitem class="w-100 mb-3"
+                                             can-delete="dtg.canDeleteItem"
+                                             can-edit="dtg.canEditItem"
+                                             game="game"></drbbly-gamelistitem>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="dtg.selectedDate.games && dtg.selectedDate.length === 0 && !dtg.isManager">
+                <p class="text-secondary">(No games scheduled.)</p>
+            </div>
+            <div ng-if="dtg.tournament.games && dtg.tournament.games.length === 0 && dtg.isManager">
                 <p ng-if="dtg.isManager">
                     Use the <a ui-sref="main.tournament.stages({id: dtg.tournament.id})" tabindex>Stages tab</a> to
                     add games and teams to each stage of the tournament.

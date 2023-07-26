@@ -22,9 +22,7 @@
         drbblyGameshelperService, $window) {
         var cli = this;
 
-        cli.$onInit = function () {
-            $element.addClass('bg-white p-1');
-        };
+        cli.$onInit = function () {};
 
         cli.clicked = function () {
             $state.go('main.game.details', { id: cli.game.id });
@@ -34,6 +32,10 @@
             event.stopPropagation();
             cli.isOpen = !cli.isOpen;
         }
+
+        cli.stopPropagation = function (event) {
+            event.stopPropagation();
+        };
 
         cli._canDelete = function () {
             return cli.game.status === constants.enums.gameStatusEnum.WaitingToStart

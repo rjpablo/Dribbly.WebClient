@@ -1,4 +1,5 @@
-﻿<nav class="bg-dark py-2">
+﻿<nav class="bg-dark py-2"
+     ng-if="dan.navItems && dan.navItems.length > 0">
     <ul class="nav">
         <li class="nav-item" ng-repeat="item in dan.navItems | filter : { isRemoved: '!true' } ">
             <a class="nav-link" ng-class="{'active': item.isActive}" ng-href="{{dan.getHref(item)}}">

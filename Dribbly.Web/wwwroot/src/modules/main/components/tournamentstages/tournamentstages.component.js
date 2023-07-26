@@ -15,9 +15,9 @@
         });
 
     controllerFunc.$inject = ['drbblyTournamentsService', 'modalService', 'drbblyCommonService', 'constants',
-        'authService', 'drbblyOverlayService', 'drbblyGameshelperService', '$q', '$timeout'];
+        'authService', 'drbblyOverlayService', 'drbblyGameshelperService', '$q', '$timeout', 'drbblyDatetimeService'];
     function controllerFunc(drbblyTournamentsService, modalService, drbblyCommonService, constants,
-        authService, drbblyOverlayService, drbblyGameshelperService, $q, $timeout) {
+        authService, drbblyOverlayService, drbblyGameshelperService, $q, $timeout, drbblyDatetimeService) {
         var tsc = this;
 
         tsc.$onInit = function () {
@@ -214,6 +214,7 @@
                 }
             })
                 .then(function (game) {
+                    game.start = new Date(drbblyDatetimeService.toUtcString(game.start));
                     tsc.tournament.games.push(game);
                     stage.games.push(game);
                 })

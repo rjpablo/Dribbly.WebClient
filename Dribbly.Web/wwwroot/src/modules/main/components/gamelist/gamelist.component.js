@@ -6,6 +6,7 @@
         .component('drbblyGamelist', {
             bindings: {
                 games: '<',
+                breakpoints: '<',
                 titleKey: '@',
                 settings: '<',
                 canDeleteItem: '<',
@@ -24,7 +25,30 @@
         dgl.$onInit = function () {
             $element.addClass('py-3');
             setSettings(dgl.settings || {});
+            setColumnClasses(dgl.breakpoints || {});
         };
+
+        function setColumnClasses(breakpoints) {
+            dgl.columnClasses = '';
+            if (breakpoints.xs) {
+                dgl.columnClasses += 'col-' + breakpoints.xs;
+            }
+            else {
+                dgl.columnClasses += 'col-12';
+            }
+            if (breakpoints.sm) {
+                dgl.columnClasses += ' col-sm-' + breakpoints.sm
+            }
+            if (breakpoints.md) {
+                dgl.columnClasses += ' col-md-' + breakpoints.md
+            }
+            if (breakpoints.lg) {
+                dgl.columnClasses += ' col-lg-' + breakpoints.lg
+            }
+            if (breakpoints.xl) {
+                dgl.columnClasses += ' col-xl-' + breakpoints.xl
+            }
+        }
 
         dgl.onItemDeleted = function (game) {
             if (dgl.onGameDeleted) {

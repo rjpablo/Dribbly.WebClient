@@ -1,7 +1,11 @@
-﻿<drbbly-gamelistitem ng-repeat="game in (dgl.games | orderBy: 'start') track by game.id"
-                     class="mb-3"
-                     can-delete="dgl.canDelete"
-                     can-edit="dgl.canEditItem"
-                     on-deleted="dgl.onItemDeleted"
-                     on-updated="dgl.onItemUpdated"
-                     game="game"></drbbly-gamelistitem>
+﻿<div class="row">
+    <div ng-class="dgl.columnClasses"
+         ng-repeat="game in (dgl.games | orderBy: 'start') track by game.id">
+        <drbbly-gamelistitem class="mb-3 w-100"
+                             can-delete="dgl.canDelete"
+                             can-edit="dgl.canEditItem"
+                             on-deleted="dgl.onItemDeleted"
+                             on-updated="dgl.onItemUpdated"
+                             game="game"></drbbly-gamelistitem>
+    </div>
+</div>
