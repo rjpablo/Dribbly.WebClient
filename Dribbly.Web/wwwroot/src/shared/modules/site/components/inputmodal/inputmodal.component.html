@@ -27,6 +27,7 @@
     <button type="button"
             i18n="site.Submit"
             class="btn btn-primary"
+            ng-disabled="inp.frmInput.$invalid"
             ng-click="inp.submit()"></button>
     <button type="button"
             i18n="site.Cancel"

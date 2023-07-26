@@ -2,6 +2,9 @@
     <div class="col">
         <div drbbly-overlay="tsc.overlay">
             <section>
+                <div class="section-header d-flex">
+                    <h5 class="drbbly-header">Stages</h5>
+                </div>
                 <div class="mb-3">
                     <button class="btn btn-sm btn-primary ml-auto"
                             ng-click="tsc.addStage()">
@@ -23,6 +26,12 @@
                                 <a class="dropdown-item"
                                    ng-click="tsc.addBracket(stage)">
                                     <i class="fa fa-plus"></i> Add Bracket
+                                </a>
+                                <a class="dropdown-item">
+                                    <i class="fa fa-pencil"></i> Rename Stage
+                                </a>
+                                <a class="dropdown-item text-danger">
+                                    <i class="fa fa-trash"></i> Delete Stage
                                 </a>
                             </div>
                         </div>
@@ -109,7 +118,7 @@
                                                                     <div class="bracket-list-item pl-1">
                                                                         <span>{{bracket.name}}</span>
                                                                         <span class="ml-auto text-danger px-1"
-                                                                              ng-click="tsc.deleteBracket(bracket)">
+                                                                              ng-click="tsc.deleteStageBracket(bracket, stage)">
                                                                             <i class="fa fa-times"></i>
                                                                         </span>
                                                                     </div>
@@ -118,12 +127,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                        </div>
-                    </div>
-                </div>
-                    </uib-tab>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
                                 <!-- #endregion Brackets -->
-                </uib-tabset>
+                            </uib-tabset>
                         </div>
                     </div>
                 </div>
