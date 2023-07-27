@@ -1,0 +1,356 @@
+﻿<div class="container">
+    <div class="row mt-3">
+        <div class="col">
+            <div drbbly-overlay="tsc.overlay">
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <section class="mb-3">
+                            <div class="section-header d-flex">
+                                <h5 class="drbbly-header">SETTINGS</h5>
+                            </div>
+                            <div class="">
+                                <div class="">
+                                    <span>Default Settings for Games</span>
+                                </div>
+                                <div class="pl-3 mb-3 border-bottom border-secondary">
+                                    <form name="tsc.fromSettings"
+                                          class="mb-3">
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-4">
+                                                    <label for="typCourt">Default Court</label>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div ng-show="!tsc.isEditing">
+                                                        <drbbly-entitystub entity="tsc.tournament.defaultCourt"
+                                                                           ng-if="tsc.tournament.defaultCourt"></drbbly-entitystub>
+                                                        <span class="text-secondary"
+                                                              ng-if="!tsc.tournament.defaultCourt">(not set)</span>
+                                                    </div>
+                                                    <drbbly-typeahead ng-if="tsc.isEditing"
+                                                                      selected-items="tsc.selectedCourts"
+                                                                      config="tsc.typeAheadConfig"
+                                                                      required
+                                                                      name="typCourt"
+                                                                      ng-model="tsc.saveModel.defaultCourtId"
+                                                                      class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-4">
+                                                    <label>Timed</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox"
+                                                               ng-if="tsc.isEditing"
+                                                               id="swTimed"
+                                                               ng-model="tsc.saveModel.isTimed"
+                                                               class="custom-control-input">
+                                                        <input type="checkbox"
+                                                               ng-if="!tsc.isEditing"
+                                                               disabled
+                                                               id="swTimed"
+                                                               ng-model="tsc.tournament.isTimed"
+                                                               class="custom-control-input">
+                                                        <label class="custom-control-label" for="swTimed"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-if="tsc.isEditing? tsc.saveModel.isTimed : tsc.tournament.isTimed">
+                                            <!-- #region Tab Headers -->
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link active" href
+                                                       data-toggle="tab" data-target="#periods" role="tab">
+                                                        Periods
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link" href
+                                                       data-toggle="tab" data-target="#clock" role="tab">
+                                                        Clock
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link" href
+                                                       data-toggle="tab" data-target="#timeouts" role="tab">
+                                                        Timeouts
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link" href
+                                                       data-toggle="tab" data-target="#fouls" role="tab">
+                                                        Fouls
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <!-- #endregion Tab Headers -->
+                                            <!-- #region Tab Panels -->
+                                            <div class="tab-content" id="myTabContent">
+                                                <!-- #region Periods -->
+                                                <div class="tab-pane show active" id="periods" role="tabpanel">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-6">
+                                                                        <label for="txtRegulationPeriodCount">No. of Regulation Periods:</label>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3">
+                                                                        <input type="number"
+                                                                               ng-if="tsc.isEditing"
+                                                                               name="txtRegulationPeriodCount"
+                                                                               ng-required="tsc.saveModel.isTimed"
+                                                                               min="1"
+                                                                               ng-model="tsc.saveModel.numberOfRegulationPeriods"
+                                                                               class="form-control" />
+                                                                        <span ng-if="!tsc.isEditing"
+                                                                              class="d-block text-center">
+                                                                            {{tsc.tournament.numberOfRegulationPeriods}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-6">
+                                                                        <label for="txtRegulationDuration">Regulation Period Duration(in minutes):</label>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3">
+                                                                        <input type="number"
+                                                                               ng-if="tsc.isEditing"
+                                                                               name="txtRegulationDuration"
+                                                                               ng-required="tsc.saveModel.isTimed"
+                                                                               min="1"
+                                                                               ng-model="tsc.saveModel.regulationPeriodDuration"
+                                                                               class="form-control" />
+                                                                        <span ng-if="!tsc.isEditing"
+                                                                              class="d-block text-center">
+                                                                            {{tsc.tournament.regulationPeriodDuration}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-6">
+                                                                        <label for="txtOvertimeDuration">Overtime Period Duration(in minutes):</label>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3">
+                                                                        <input type="number"
+                                                                               ng-if="tsc.isEditing"
+                                                                               name="txtOvertimeDuration"
+                                                                               ng-required="tsc.saveModel.isTimed"
+                                                                               min="1"
+                                                                               ng-model="tsc.saveModel.overtimePeriodDuration"
+                                                                               class="form-control" />
+                                                                        <span ng-if="!tsc.isEditing"
+                                                                              class="d-block text-center">
+                                                                            {{tsc.tournament.overtimePeriodDuration}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- #endregion -->
+                                                <!-- #region Clock -->
+                                                <div class="tab-pane show" id="clock" role="tabpanel">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-6">
+                                                                        <label for="txtdefaultShotClockDuration">Default Shot Clock Duration(minutes):</label>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3">
+                                                                        <input type="number"
+                                                                               ng-if="tsc.isEditing"
+                                                                               name="txtdefaultShotClockDuration"
+                                                                               min="1"
+                                                                               ng-model="tsc.saveModel.defaultShotClockDuration"
+                                                                               class="form-control" />
+                                                                        <span ng-if="!tsc.isEditing"
+                                                                              class="d-block text-center">
+                                                                            {{tsc.tournament.defaultShotClockDuration}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-6">
+                                                                        <label for="txtOffensiveRebondShotClockDuration">Off. Rebound Shot Clock Reset(minutes):</label>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3">
+                                                                        <input type="number"
+                                                                               ng-if="tsc.isEditing"
+                                                                               name="txtOffensiveRebondShotClockDuration"
+                                                                               min="1"
+                                                                               ng-model="tsc.saveModel.offensiveRebondShotClockDuration"
+                                                                               class="form-control" />
+                                                                        <span ng-if="!tsc.isEditing"
+                                                                              class="d-block text-center">
+                                                                            {{tsc.tournament.offensiveRebondShotClockDuration}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-6">
+                                                                        <label for="swUseRunningClock">Use Running Clock</label>
+                                                                        <i class="fa fa-info-circle" uib-tooltip="If turned on, the clock will not automatically stop after a successful field goal"></i>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3"
+                                                                         ng-class="{'text-center': !tsc.isEditing}">
+                                                                        <div class="custom-control custom-switch pb-4">
+                                                                            <input type="checkbox"
+                                                                                   id="swUseRunningClock"
+                                                                                   ng-if="!tsc.isEditing"
+                                                                                   disabled
+                                                                                   ng-model="tsc.tournament.usesRunningClock"
+                                                                                   class="custom-control-input">
+                                                                            <input type="checkbox"
+                                                                                   id="swUseRunningClock"
+                                                                                   ng-if="tsc.isEditing"
+                                                                                   ng-model="tsc.saveModel.usesRunningClock"
+                                                                                   class="custom-control-input">
+                                                                            <label class="custom-control-label" for="swUseRunningClock"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- #endregion -->
+                                                <!-- #region Timeout -->
+                                                <div class="tab-pane" id="timeouts" role="tabpanel" aria-labelledby="profile-tab">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-5">
+                                                                        <label for="txtFullTimeoutLimit">Full Timeout Limit:</label>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3">
+                                                                        <input type="number"
+                                                                               ng-if="tsc.isEditing"
+                                                                               name="txtFullTimeoutLimit"
+                                                                               min="1"
+                                                                               ng-model="tsc.saveModel.fullTimeoutLimit"
+                                                                               class="form-control" />
+                                                                        <span ng-if="!tsc.isEditing"
+                                                                              class="d-block text-center">
+                                                                            {{tsc.tournament.fullTimeoutLimit}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-5">
+                                                                        <label for="txtShortTimeoutLimit">Short Timeout Limit:</label>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3">
+                                                                        <input type="number"
+                                                                               ng-if="tsc.isEditing"
+                                                                               name="txtShortTimeoutLimit"
+                                                                               min="1"
+                                                                               ng-model="tsc.saveModel.shortTimeoutLimit"
+                                                                               class="form-control" />
+                                                                        <span ng-if="!tsc.isEditing"
+                                                                              class="d-block text-center">
+                                                                            {{tsc.tournament.shortTimeoutLimit}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- #endregion -->
+                                                <!-- #region Foul -->
+                                                <div class="tab-pane" id="fouls" role="tabpanel" aria-labelledby="contact-tab">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-5">
+                                                                        <label for="txtPersonalFoulLimit">Personal Foul Limit:</label>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3">
+                                                                        <input type="number"
+                                                                               ng-if="tsc.isEditing"
+                                                                               name="txtPersonalFoulLimit"
+                                                                               min="1"
+                                                                               ng-model="tsc.saveModel.personalFoulLimit"
+                                                                               class="form-control" />
+                                                                        <span ng-if="!tsc.isEditing"
+                                                                              class="d-block text-center">
+                                                                            {{tsc.tournament.personalFoulLimit}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="form-row">
+                                                                    <div class="col-8 col-xl-5">
+                                                                        <label for="txtTechnicalFoulLimit">Teachnical Foul Limit:</label>
+                                                                    </div>
+                                                                    <div class="col-4 col-xl-3">
+                                                                        <input type="number"
+                                                                               ng-if="tsc.isEditing"
+                                                                               name="txtTechnicalFoulLimit"
+                                                                               min="1"
+                                                                               ng-model="tsc.saveModel.technicalFoulLimit"
+                                                                               class="form-control" />
+                                                                        <span ng-if="!tsc.isEditing"
+                                                                              class="d-block text-center">
+                                                                            {{tsc.tournament.technicalFoulLimit}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- #endregion -->
+                                            </div>
+                                            <!-- #endregion Tab Panels -->
+                                        </div>
+                                    </form>
+                                </div>                                
+                            </div>
+                        </section>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary"
+                                    ng-click="tsc.edit()"
+                                    ng-if="!tsc.isEditing">
+                                Edit
+                            </button>
+                            <button class="btn btn-primary mr-1"
+                                    ng-disabled="tsc.isBusy"
+                                    ng-if="tsc.isEditing"
+                                    ng-click="tsc.saveChanges()">
+                                Save Changes
+                            </button>
+                            <button class="btn btn-secondary"
+                                    ng-disabled="tsc.isBusy"
+                                    ng-if="tsc.isEditing"
+                                    ng-click="tsc.cancelEditing()">
+                                Discard Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

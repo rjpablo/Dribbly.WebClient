@@ -4,7 +4,8 @@
     angular.module('appModule')
         .component('drbblyEntitystub', {
             bindings: {
-                entity: '<'
+                entity: '<',
+                asLink: '<'
             },
             controllerAs: 'dus',
             templateUrl: 'drbbly-default',
@@ -16,18 +17,15 @@
         var dus = this;
 
         dus.$onInit = function () {
-
+            setLink();
         };
 
-        dus.onClick = function () {
+        function setLink() {
             if (dus.entity.entityType === constants.enums.entityType.Court) {
-                modalService.show({
-                    view: '<drbbly-courtpreviewmodal></drbbly-courtpreviewmodal>',
-                    model: { court: dus.entity }
-                });
+                dus.link = $state.href('main.court.home', { id: dus.entity.id });
             }
             else if (dus.entity.entityType === constants.enums.entityType.Account) {
-                $state.go('main.account.home', { username: dus.entity.name });
+                dus.link = $state.href('main.account.home', { username: dus.entity.name });
             }
         };
     }

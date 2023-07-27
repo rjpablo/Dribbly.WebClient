@@ -6,11 +6,11 @@
     {{::'app.DeletedAccount' | i18n}}
 </span>
 <div ng-if="dus.entity.entityStatus == $root.constants.enums.entityStatus.Active"
-     class="d-inline-block">
-    <a ng-click="dus.onClick()">
+     class="d-inline-flex">
+    <a ng-href="{{dus.link}}">
         <img ng-src="{{dus.entity.iconUrl}}"
-             class="entity-icon"/>
+             class="entity-icon mr-1"/>
     </a>
-    <a ng-click="dus.onClick()"
-       class="name">{{dus.entity.name}}</a>
+    <a ng-href="{{dus.link}}"
+       class="name flex-grow-1">{{dus.entity.name}}</a>
 </div>

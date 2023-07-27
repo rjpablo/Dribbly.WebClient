@@ -22,12 +22,13 @@
         lvc.$onInit = function () {
             lvc.overlay = drbblyOverlayService.buildOverlay();
             _tournamentId = $stateParams.id;
-            loadTournament();
+            loadTournament()
+                .then(buildSubPages);
         };
 
         function loadTournament() {
             lvc.overlay.setToBusy();
-            drbblyTournamentsService.getTournamentviewer(_tournamentId)
+            return drbblyTournamentsService.getTournamentviewer(_tournamentId)
                 .then(function (tournament) {
                     lvc.overlay.setToReady();
                     lvc.tournament = tournament;
@@ -36,7 +37,6 @@
                     lvc.isManager = lvc.isOwned;
                     lvc.app.mainDataLoaded();
                     lvc.shouldDisplayAsPublic = true; //TODO should be conditional
-                    buildSubPages();
                 })
                 .catch(() => lvc.overlay.setToError());
         }
@@ -89,7 +89,7 @@
         }
 
         lvc.onTournamentUpdate = function () {
-            loadTournament();
+            return loadTournament();
         };
 
         lvc.$onDestroy = function () {
@@ -117,6 +117,15 @@
                 {
                     textKey: 'app.Stages',
                     targetStateName: 'main.tournament.stages',
+                    targetStateParams: { id: _tournamentId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    },
+                    isRemoved: !lvc.isManager
+                },
+                {
+                    textKey: 'app.Settings',
+                    targetStateName: 'main.tournament.settings',
                     targetStateParams: { id: _tournamentId },
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);

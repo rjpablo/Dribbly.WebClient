@@ -323,6 +323,31 @@
                         }]
                 }
             })
+            .state('main.tournament.settings', {
+                url: '/settings',
+                component: 'drbblyTournamentsettings',
+                resolve: {
+                    $titleKey: () => { return 'app.Stages'; },
+                    authorization: ['authService', '$state', 'drbblyToastService', 'drbblyTournamentsService', '$stateParams',
+                        function (authService, $state, drbblyToastService, drbblyTournamentsService, $stateParams) {
+                            function reject() {
+                                $state.go('main.home')
+                                drbblyToastService.error('Sorry, you don\'t have access to the requested page.')
+                            }
+
+                            return authService.checkAuthenticationThen(function () {
+                                return drbblyTournamentsService.isCurrentUserManager($stateParams.id)
+                                    .then(isManager => {
+                                        if (!isManager) {
+                                            reject();
+                                        }
+                                    })
+                                    .catch(reject);
+                            })
+                                .catch(reject);
+                        }]
+                }
+            })
             // #endregion TOURNAMENTS
 
             // #region LEAGUE

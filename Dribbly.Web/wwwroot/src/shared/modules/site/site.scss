@@ -103,6 +103,16 @@ a[ng-click]:not(.nav-link, .dropdown-item, [href]) {
 }
 
 /***************
+    FORMS
+***************/
+
+form {
+    label{
+        color: $secondary;
+    }
+}
+
+/***************
     TAB SETS
 ***************/
 
