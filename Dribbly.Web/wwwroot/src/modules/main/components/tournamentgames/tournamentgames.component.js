@@ -39,7 +39,7 @@
         function setGameDates() {
             dtg.gameDates = [];
             dtg.tournament.games.forEach(game => {
-                var date = $filter('date')(game.start, 'yyyyMMMdd');
+                var date = $filter('date')(game.start, 'yyyyMMdd');
                 var gameDate = dtg.gameDates.drbblySingleOrDefault(d => d.date === date);
                 if (gameDate) {
                     gameDate.gameCount++;
@@ -60,13 +60,13 @@
             dtg.gameDates = dtg.gameDates.sort((a, b) => a.date > b.date ? 1 : b.date > a.date ? -1 : 0);
             dtg.gameDates.unshift({
                 label: `All dates (${dtg.tournament.games.length} game${dtg.tournament.games.length > 1? 's' : ''})`,
-                date: null,
+                date: '',
                 gameCount: dtg.tournament.games.length,
                 games: dtg.tournament.games
             });
 
             $timeout(function () {
-                var todayDate = $filter('date')(new Date(), 'yyyyMMMdd');
+                var todayDate = $filter('date')(new Date(), 'yyyyMMdd');
                 var defaultDate = dtg.gameDates.drbblyFirstOrDefault(d => d.date === todayDate || d.date > todayDate);
                 dtg.selectedDate = defaultDate || dtg.gameDates[dtg.gameDates.length - 1];
             });

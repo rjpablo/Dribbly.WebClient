@@ -16,7 +16,7 @@
                         <select ng-model="dtg.selectedDate"
                                 class="form-control"
                                 ng-change="dtg.stageFilterChanged(dtg.filter.stage)"
-                                ng-options="date as date.label for date in dtg.gameDates track by date.date">
+                                ng-options="date as date.label for date in dtg.gameDates | orderBy : 'date' track by date.date">
                             <!--<option ng-repeat="option in dtg.ddlStageChoices"
                                     ng-value="{{option.value}}"
                                     ng-selected="dtg.filter.stageId === option.value">

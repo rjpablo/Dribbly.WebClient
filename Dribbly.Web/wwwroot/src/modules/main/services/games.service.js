@@ -22,8 +22,8 @@
                     return drbblyhttpService.get(api + `getGameTeam/${gameId}/${teamId}`);
                 }
 
-                function getAddGameModal(courtId) {
-                    return drbblyhttpService.get(api + 'getAddGameModal/' + courtId);
+                function getAddGameModal(input) {
+                    return drbblyhttpService.post(api + 'getAddGameModal', input);
                 }
 
                 function advancePeriod(gameId, period, remainingTime) {

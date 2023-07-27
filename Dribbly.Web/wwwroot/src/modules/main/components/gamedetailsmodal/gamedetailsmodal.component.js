@@ -51,36 +51,32 @@
                     });
             }
             else {
-                bgm.saveModel = {
+                var input = {
                     courtId: bgm.model.courtId,
-                    tournamentId: (bgm.model.tournament || {}).id,
-                    stageId: (bgm.model.stage || {}).id,
-                    bracketId: (bgm.model.bracket || {}).d,
-                    numberOfRegulationPeriods: 4,
-                    regulationPeriodDuration: 10,
-                    overtimePeriodDuration: 5,
-                    usesRunningClock: true,
-                    isTimed: true
+                    tournamentId: (bgm.model.tournament || {}).id
                 };
-                bgm.saveModel.toStatus = bgm.model.toStatus;
-                bgm.saveModel.isTeam1Open = false;
-                bgm.saveModel.isTeam2Open = false;
-                bgm.saveModel.defaultShotClockDuration = 24;
-                bgm.saveModel.OffensiveRebondShotClockDuration = 14;
-                if (!bgm.saveModel.start) {
-                    bgm.saveModel.start = new Date();
-                }
-                setStartDateOptions();
-                setTypeAheadConfig();
-                if (bgm.saveModel.courtId) {
-                    bgm.overlay.setToBusy();
-                    drbblyGamesService.getAddGameModal(bgm.saveModel.courtId)
-                        .then(function (data) {
+
+                bgm.overlay.setToBusy();
+                drbblyGamesService.getAddGameModal(input)
+                    .then(function (data) {
+                        bgm.saveModel = data;
+                        bgm.saveModel.courtId = bgm.model.courtId;
+                        bgm.saveModel.tournamentId = (bgm.model.tournament || {}).id;
+                        bgm.saveModel.stageId = (bgm.model.stage || {}).id;
+                        bgm.saveModel.bracketId = (bgm.model.bracket || {}).id;
+                        if (data.courtChoice) {
                             bgm.selectedCourts.push(data.courtChoice);
-                            bgm.overlay.setToReady();
-                        })
-                        .catch(bgm.overlay.setToError);
-                }
+                        }
+                        bgm.saveModel.isTeam1Open = false;
+                        bgm.saveModel.isTeam2Open = false;
+                        if (!bgm.saveModel.start) {
+                            bgm.saveModel.start = new Date();
+                        }
+                        setStartDateOptions();
+                        setTypeAheadConfig();
+                        bgm.overlay.setToReady();
+                    })
+                    .catch(bgm.overlay.setToError);
             }
 
             bgm.context.setOnInterrupt(bgm.onInterrupt);

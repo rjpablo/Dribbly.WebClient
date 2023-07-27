@@ -207,6 +207,34 @@
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-6">
+                                            <label for="txtdefaultShotClockDuration">Default Shot Clock Duration(minutes):</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtdefaultShotClockDuration"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.defaultShotClockDuration"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtOffensiveRebondShotClockDuration">Off. Rebound Shot Clock Reset(minutes):</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtOffensiveRebondShotClockDuration"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.offensiveRebondShotClockDuration"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
                                             <label for="swUseRunningClock">Use Running Clock</label>
                                             <i class="fa fa-info-circle" uib-tooltip="If turned on, the clock will not automatically stop after a successful field goal"></i>
                                         </div>
@@ -221,50 +249,74 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <div class="col-6">
-                                            <label for="txtRegulationDuration">Regulation Period Duration(in minutes):</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="number"
-                                                   name="txtRegulationDuration"
-                                                   ng-required="bgm.saveModel.isTimed"
-                                                   min="0"
-                                                   ng-model="bgm.saveModel.regulationPeriodDuration"
-                                                   class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <div class="col-6">
-                                            <label for="txtOvertimeDuration">Overtime Period Duration(in minutes):</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="number"
-                                                   name="txtOvertimeDuration"
-                                                   ng-required="bgm.saveModel.isTimed"
-                                                   min="0"
-                                                   ng-model="bgm.saveModel.overtimePeriodDuration"
-                                                   class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane" id="timeouts" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="card">
                             <div class="card-body">
-                                Timeout Settings
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtFullTimeoutLimit">Full Timeout Limit:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtFullTimeoutLimit"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.fullTimeoutLimit"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtShortTimeoutLimit">Short Timeout Limit:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtShortTimeoutLimit"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.shortTimeoutLimit"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane" id="fouls" role="tabpanel" aria-labelledby="contact-tab">
                         <div class="card">
                             <div class="card-body">
-                                Foul Settings
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtPersonalFoulLimit">Personal Foul Limit:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtPersonalFoulLimit"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.personalFoulLimit"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtTechnicalFoulLimit">Teachnical Foul Limit:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtTechnicalFoulLimit"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.technicalFoulLimit"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
