@@ -335,10 +335,10 @@
                                     <span class="reset-to-value bg-dark">{{gdg.game.defaultShotClockDuration}}</span>
                                 </button>
                                 <button class="btn btn-sm text-white"
-                                        ng-click="gdg.setShotTime(gdg.game.offensiveRebondShotClock * 1000, gdg.timer.isRunning())">
+                                        ng-click="gdg.setShotTime(gdg.game.OffensiveRebondShotClockDuration * 1000, gdg.timer.isRunning())">
                                     <i class="fa fa-undo"
                                        uib-tooltip="Reset the clock"></i>&nbsp;
-                                    <span class="reset-to-value bg-dark">{{gdg.game.offensiveRebondShotClock}}</span>
+                                    <span class="reset-to-value bg-dark">{{gdg.game.OffensiveRebondShotClockDuration}}</span>
                                 </button>
                                 <button class="btn btn-sm"
                                         ng-disabled="gdg.shotTimer.isRunning()"
