@@ -1,15 +1,19 @@
 @import '../../../../custom/bootstrap/scss/_variables.scss';
 
-drbbly-gameviewercontainer{
-    .teams{
+drbbly-gameviewercontainer {
+    .teams {
 
-        .vs{
-            font-size: 1.5em;
+        .status {
+            height: 5rem;
         }
 
-        .logo{
-            height: 70px;
-            width: 70px;
+        .score {
+            font-size: 3rem;
+        }
+
+        .logo {
+            height: 3rem;
+            width: 3rem;
         }
     }
 }

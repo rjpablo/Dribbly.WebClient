@@ -5,7 +5,8 @@
         .module('mainModule')
         .component('drbblyGamedetails', {
             bindings: {
-                app: '<'
+                app: '<',
+                game: '<'
             },
             controllerAs: 'gdg',
             templateUrl: 'drbbly-default',
@@ -25,39 +26,6 @@
             _gameId = $stateParams.id;
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
-            loadGame();
-        };
-
-        function loadGame() {
-            gdg.gameDetailsOverlay.setToBusy();
-            drbblyGamesService.getGame(_gameId)
-                .then(function (data) {
-                    gdg.game = angular.copy(data);
-                    gdg.game.start = new Date(drbblyDatetimeService.toUtcString(data.start));
-                    gdg.isOwned = authService.isCurrentAccountId(gdg.game.addedById);
-                    gdg.canManage = authService.isCurrentAccountId(gdg.game.addedById);
-                    checkTeamLogos();
-                    gdg.gameDetailsOverlay.setToReady();
-                    gdg.app.mainDataLoaded();
-                })
-                .catch(gdg.gameDetailsOverlay.setToError);
-        }
-
-        function checkTeamLogos() {
-            if (gdg.game.team1 && !gdg.game.team1.logo) {
-                gdg.game.team1.logo = {
-                    url: constants.images.defaultTeamLogoUrl
-                };
-            }
-            if (gdg.game.team2 && !gdg.game.team2.logo) {
-                gdg.game.team2.logo = {
-                    url: constants.images.defaultTeamLogoUrl
-                };
-            }
-        }
-
-        gdg.onGameUpdate = function () {
-            loadGame();
         };
 
         gdg.setResult = function () {
