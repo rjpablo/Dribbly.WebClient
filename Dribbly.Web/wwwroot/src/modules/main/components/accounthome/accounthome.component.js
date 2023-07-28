@@ -62,23 +62,28 @@
         };
 
         dad.onProfilePhotoClick = function () {
-            var options = {
-                items: [{
-                    textKey: 'app.ViewPrimaryPhoto',
-                    action: viewPrimaryPhoto
-                }]
-            };
-            if (dad.isOwned || permissionsService.hasPermission('Account.UpdatePhotoNotOwned')) {
-                options.items.push({
-                    textKey: 'app.ReplacePrimaryPhoto',
-                    action: function () {
-                        angular.element('#btn-replace-photo').triggerHandler('click');
-                    }
-                });
-            }
-            if (options.items.length) {
-                modalService.showOptionsList(options);
-            }
+            modalService.showMenuModal({
+                model: {
+                    buttons: [
+                        {
+                            text: 'View Photo',
+                            action: viewPrimaryPhoto,
+                            class: 'btn-secondary'
+                        },
+                        {
+                            text: 'Replace Primary Photo',
+                            action: function () {
+                                angular.element('#btn-replace-photo').triggerHandler('click');
+                            },
+                            isHidden: () => !dad.isOwned && !permissionsService.hasPermission('Account.UpdatePhotoNotOwned'),
+                            class: 'btn-secondary'
+                        }
+                    ],
+                    hideHeader: true
+                },
+                size: 'sm',
+                backdrop: true
+            });
         };
 
         function viewPrimaryPhoto() {

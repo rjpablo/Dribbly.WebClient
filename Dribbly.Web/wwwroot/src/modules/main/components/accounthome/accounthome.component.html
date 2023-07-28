@@ -20,6 +20,18 @@
                                     <span class="fa fa-pencil" aria-hidden="true"></span>
                                 </button><br />
                             </div>
+                            <ng-image-gallery images="dad.account.photos"
+                                              methods="dad.methods"
+                                              thumbnails="false"
+                                              thumb-size="100"
+                                              inline="false"
+                                              bubbles="true"
+                                              bubble-size="30"
+                                              img-bubbles="true"
+                                              bg-close="true"
+                                              piracy="true"
+                                              img-anim="fadeup"
+                                              on-delete="dad.onDeletePhoto(img, cb)"></ng-image-gallery>
                         </div>
                         <!-- Profile details -->
                         <div class="text-white">

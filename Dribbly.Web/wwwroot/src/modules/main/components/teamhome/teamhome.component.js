@@ -83,27 +83,33 @@
         };
 
         dad.onLogoClick = function () {
-            var options = {
-                items: []
-            };
-            if (!dad.team.logo.isDefault) {
-                options.items.push({
-                    textKey: 'app.ViewLogo',
-                    action: viewLogo
-                });
-            }
-            if (dad.isOwned || permissionsService.hasPermission('Team.UpdatePhotoNotOwned')) {
-                options.items.push({
-                    textKey: 'app.ReplaceLogo',
-                    action: function () {
-                        angular.element('#btn-replace-photo').triggerHandler('click');
-                    }
-                });
-                modalService.showOptionsList(options);
-            }
-            else if (!dad.team.logo.isDefault) {
+            if (!dad.isOwned) {
                 viewLogo();
+                return;
             }
+
+            modalService.showMenuModal({
+                model: {
+                    buttons: [
+                        {
+                            text: 'View Logo',
+                            action: viewLogo,
+                            class: 'btn-secondary'
+                        },
+                        {
+                            text: 'ReplaceLogo',
+                            action: function () {
+                                angular.element('#btn-replace-photo').triggerHandler('click');
+                            },
+                            isHidden: () => !dad.isOwned,
+                            class: 'btn-secondary'
+                        }
+                    ],
+                    hideHeader: true
+                },
+                size: 'sm',
+                backdrop: true
+            });            
         };
 
         function viewLogo() {
