@@ -148,7 +148,9 @@
 
                 function showMenuModal(config) {
                     config.view = '<drbbly-menumodal></drbbly-menumodal>';
-                    config.backdrop = 'static';
+                    if (config.backdrop === undefined || config.backdrop === null) {
+                        config.backdrop = 'static';
+                    }
                     return _show(config)
                 }
 

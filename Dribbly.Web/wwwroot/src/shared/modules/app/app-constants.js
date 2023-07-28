@@ -36,7 +36,23 @@
             defaultProfilePhotoUrl: 'src/images/default_images/default_profile_photo.jpg',
             defaultCourtLogoUrl: 'src/images/default_images/court_default_1.png',
             defaultTournamentLogoUrl: 'src/images/default_images/default_tournament_logo.jpg',
-            defaultTeamLogoUrl: 'src/images/default_images/default_team_logo_1.png'
+            defaultTeamLogoUrl: 'src/images/default_images/default_team_logo_1.png',
+            defaultProfilePhoto: {
+                url: 'src/images/default_images/default_profile_photo.jpg',
+                isDefault: true
+                },
+            defaultCourtLogo: {
+                url: 'src/images/default_images/court_default_1.png',
+                isDefault: true
+                },
+            defaultTournamentLogo: {
+                url: 'src/images/default_images/default_tournament_logo.jpg',
+                isDefault: true
+                },
+            defaultTeamLogo: {
+                url: 'src/images/default_images/default_team_logo_1.png',
+                isDefault: true
+                },
         };
         
         /**

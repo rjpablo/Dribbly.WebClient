@@ -13,18 +13,93 @@
         });
 
     controllerFunc.$inject = ['drbblyTournamentsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
-        'constants', 'drbblyDatetimeService', 'drbblyTeamsService', 'drbblyCommonService', 'modalService'];
+        'constants', 'drbblyDatetimeService', 'drbblyTeamsService', 'drbblyCommonService', 'modalService',
+        'drbblyFileService'];
     function controllerFunc(drbblyTournamentsService, authService, $stateParams, $state, drbblyOverlayService,
-        constants, drbblyDatetimeService, drbblyTeamsService, drbblyCommonService, modalService) {
+        constants, drbblyDatetimeService, drbblyTeamsService, drbblyCommonService, modalService,
+        drbblyFileService) {
         var lvc = this;
         var _tournamentId;
 
         lvc.$onInit = function () {
             lvc.overlay = drbblyOverlayService.buildOverlay();
+            lvc.logoOverlay = drbblyOverlayService.buildOverlay();
             _tournamentId = $stateParams.id;
             loadTournament()
                 .then(buildSubPages);
         };
+
+        // #region Logo Operations
+        lvc.onLogoClicked = function () {
+            if (lvc.tournament.logo.isDefault && !lvc.isManager) {
+                viewLogo();
+                return;
+            }
+
+            modalService.showMenuModal({
+                model: {
+                    buttons: [
+                        {
+                            text: 'View Logo',
+                            action: viewLogo,
+                            class: 'btn-secondary'
+                        },
+                        {
+                            text: 'ReplaceLogo',
+                            action: function () {
+                                angular.element('#btn-replace-photo').triggerHandler('click');
+                            },
+                            isHidden: () => !lvc.isManager,
+                            class: 'btn-secondary'
+                        }
+                    ],
+                    hideHeader: true
+                },
+                size: 'sm',
+                backdrop: true
+            })
+        };
+
+        function viewLogo() {
+            lvc.photos = [lvc.tournament.logo];
+            lvc.methods.open(0);
+        }
+
+        lvc.onLogoSelect = function (file) {
+            if (!file) { return; }
+
+            lvc.logoOverlay.setToBusy('');
+
+            var url = URL.createObjectURL(file);
+            return modalService.show({
+                view: '<drbbly-croppermodal></drbbly-croppermodal>',
+                model: {
+                    imageUrl: url,
+                    cropperOptions: {
+                        aspectRatio: 1
+                    }
+                }
+            })
+                .then(function (imageData) {
+                    var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
+                    imageData.name = fileNameNoExt + '.png';
+                    return drbblyFileService.upload(imageData, 'api/tournaments/updateLogo/' + lvc.tournament.id)
+                        .then(function (result) {
+                            if (result && result.data) {
+                                lvc.tournament.logo = result.data;
+                                lvc.tournament.logoId = result.data.id;
+                            }
+                        })
+                        .catch(function (error) {
+                            drbblyCommonService.handleError(error);
+                        });
+                })
+                .finally(function () {
+                    URL.revokeObjectURL(url)
+                    lvc.logoOverlay.setToReady();
+                });
+        };
+        // #endregion Logo Operations
 
         function loadTournament() {
             lvc.overlay.setToBusy();
@@ -64,7 +139,10 @@
 
         function massageTournament(tournament) {
             tournament.games.forEach(g => g.start = new Date(drbblyDatetimeService.toUtcString(g.start)));
-            lvc.massageStages(tournament.stages)
+            lvc.massageStages(tournament.stages);
+            if (!tournament.logo) {
+                tournament.logo = constants.images.defaultTournamentLogo;
+            }
         }
 
         lvc.massageStages = function (stages) {
