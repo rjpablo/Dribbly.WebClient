@@ -1,5 +1,6 @@
 ﻿<div class="wrapper ml-auto mr-auto"
-     ng-class="{'vertical': gdg.isVertical}">
+     ng-class="{'vertical': gdg.isVertical}"
+     ng-if="gdg.game">
     <div class="top-bar d-block border-bottom-0 d-flex align-items-center">
         <span class="game-title">{{gdg.game.title || 'Untitled Game'}}</span>
         <button class="btn btn-small"

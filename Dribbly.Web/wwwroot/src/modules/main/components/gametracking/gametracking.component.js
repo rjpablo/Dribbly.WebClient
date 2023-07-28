@@ -5,7 +5,9 @@
         .module('mainModule')
         .component('drbblyGametracking', {
             bindings: {
-                app: '<'
+                app: '<',
+                game: '<',
+                reloadGame: '<'
             },
             controllerAs: 'gdg',
             templateUrl: 'drbbly-default',
@@ -24,6 +26,7 @@
         gdg.$onInit = function () {
             gdg.app.noHeader = true;
             gdg.app.noFooter = true;
+            gdg.app.hideContainerData = true;
             _gameId = $stateParams.id;
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
@@ -42,6 +45,7 @@
             angular.element($window).off('resize', setOrientation);
             gdg.app.noHeader = false;
             gdg.app.noFooter = false;
+            gdg.app.hideContainerData = false;
         }
 
         gdg.onTimerReady = function (timer) {
@@ -77,7 +81,9 @@
                 gdg.shotTimer.setRemainingTime(0);
             });
 
-            loadGame();
+            if (gdg.shotTimer) {
+                processGame();
+            }
         }
 
         gdg.onShotTimerReady = function (timer) {
@@ -103,6 +109,10 @@
             gdg.shotTimer.onEnd(function () {
                 gdg.timer.stop();
             });
+
+            if (gdg.timer) {
+                processGame();
+            }
         }
 
         gdg.setShotTime = function (time, start) {
@@ -617,7 +627,8 @@
             })
                 .then(function (result) {
                     if (result && result.savedChanges) {
-                        loadGame();
+                        gdg.reloadGame()
+                            .then(processGame);
                     }
                 })
                 .catch(function () {
@@ -669,36 +680,29 @@
                 gdg.game.regulationPeriodDuration) * 60 * 1000
         }
 
-        function loadGame() {
-            gdg.gameDetailsOverlay.setToBusy();
-            drbblyGamesService.getGame(_gameId)
-                .then(function (data) {
-                    gdg.game = angular.copy(data);
+        function processGame() {
+            if (gdg.game.isTimed) {
+                gdg.timer.init(getCurrentPeriodDuration());
+                gdg.shotTimer.init(gdg.game.defaultShotClockDuration * 1000);
+                if (gdg.game.isLive) {
+                    gdg.timer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingTime);
+                    gdg.shotTimer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingShotTime);
+                } else {
+                    gdg.timer.setRemainingTime(gdg.game.remainingTime);
+                    gdg.shotTimer.setRemainingTime(gdg.game.remainingShotTime);
+                }
 
-                    if (gdg.game.isTimed) {
-                        gdg.timer.init(getCurrentPeriodDuration());
-                        gdg.shotTimer.init(gdg.game.defaultShotClockDuration * 1000);
-                        if (gdg.game.isLive) {
-                            gdg.timer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingTime);
-                            gdg.shotTimer.run(new Date(drbblyDatetimeService.toUtcString(gdg.game.remainingTimeUpdatedAt)), gdg.game.remainingShotTime);
-                        } else {
-                            gdg.timer.setRemainingTime(gdg.game.remainingTime);
-                            gdg.shotTimer.setRemainingTime(gdg.game.remainingShotTime);
-                        }
+                displayPeriod(gdg.game.currentPeriod);
+            }
 
-                        displayPeriod(gdg.game.currentPeriod);
-                    }
-
-                    gdg.teams = [gdg.game.team1, gdg.game.team2];
-                    gdg.players = [...gdg.game.team1.players, ...gdg.game.team2.players];
-                    gdg.game.start = drbblyDatetimeService.toLocalDateTime(data.start);
-                    gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
-                    setLineupsReady();
-                    gdg.gameDetailsOverlay.setToReady();
-                    gdg.app.mainDataLoaded();
-                    updateStatusText();
-                })
-                .catch(gdg.gameDetailsOverlay.setToError);
+            gdg.teams = [gdg.game.team1, gdg.game.team2];
+            gdg.players = [...gdg.game.team1.players, ...gdg.game.team2.players];
+            gdg.game.start = drbblyDatetimeService.toLocalDateTime(gdg.game.start);
+            gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
+            setLineupsReady();
+            gdg.gameDetailsOverlay.setToReady();
+            gdg.app.mainDataLoaded();
+            updateStatusText();
         }
 
         gdg.showGameOptions = function () {
@@ -736,7 +740,8 @@
         }
 
         gdg.onGameUpdate = function () {
-            loadGame();
+            gdg.reloadGame()
+                .then(processGame);
         };
 
         gdg.setResult = function () {
@@ -746,7 +751,8 @@
             })
                 .then(function (result) {
                     if (result && result.savedChanges) {
-                        loadGame();
+                        gdg.reloadGame()
+                            .then(processGame);
                     }
                 })
                 .catch(function () {
@@ -768,7 +774,8 @@
                 || toStatus === gdg.gameStatusEnum.WaitingToStart) {
                 drbblyGamesService.updateStatus(_gameId, toStatus)
                     .then(function () {
-                        loadGame();
+                        gdg.reloadGame()
+                            .then(processGame);
                     })
                     .catch(function (err) {
                         drbblyCommonService.handleError(err);
@@ -820,7 +827,8 @@
             drbblyGameshelperService.openAddEditGameModal(model)
                 .then(function (game) {
                     if (game) {
-                        loadGame();
+                        gdg.reloadGame()
+                            .then(processGame);
                     }
                 })
                 .catch(function () { /* do nothing */ });
@@ -834,7 +842,8 @@
             drbblyGameshelperService.openAddEditGameModal(model)
                 .then(function (game) {
                     if (game) {
-                        loadGame();
+                        gdg.reloadGame()
+                            .then(processGame);
                     }
                 })
                 .catch(function (err) { /* do nothing */ });
@@ -846,7 +855,8 @@
                     if (result) {
                         drbblyGamesService.updateStatus(_gameId, gdg.gameStatusEnum.Cancelled)
                             .then(function () {
-                                loadGame();
+                                gdg.reloadGame()
+                                    .then(processGame);
                             })
                             .catch(function () {
                                 // do nothing

@@ -29,9 +29,13 @@
             loadGame();
         };
 
+        gcc.reloadGame = function(){
+            return loadGame();
+        }
+
         function loadGame() {
             gcc.gameDetailsOverlay.setToBusy();
-            drbblyGamesService.getGame(_gameId)
+            return drbblyGamesService.getGame(_gameId)
                 .then(function (data) {
                     gcc.game = angular.copy(data);
                     gcc.game.start = new Date(drbblyDatetimeService.toUtcString(data.start));
@@ -52,6 +56,80 @@
                 gcc.game.team2.team.logo = constants.images.defaultTeamLogo;
             }
         }
+
+        gcc.setResult = function () {
+            modalService.show({
+                view: '<drbbly-gameresultmodal></drbbly-gameresultmodal>',
+                model: { gameId: _gameId }
+            })
+                .then(function (result) {
+                    if (result && result.savedChanges) {
+                        loadGame();
+                    }
+                })
+                .catch(function () {
+                    // do nothing
+                });
+        };
+
+        gcc.updateStatus = function (toStatus) {
+            if (toStatus === gcc.gameStatusEnum.Started || toStatus === gcc.gameStatusEnum.Finished) {
+                drbblyGamesService.updateStatus(_gameId, toStatus)
+                    .then(function () {
+                        loadGame();
+                    })
+                    .catch(function () {
+                        // do nothing
+                    });
+            }
+            else {
+                alert('Not yet implemented');
+            }
+        };
+
+        gcc.reopenGame = function () {
+            var model = {
+                gameId: _gameId,
+                isEdit: true,
+                toStatus: gcc.gameStatusEnum.WaitingToStart
+            };
+            drbblyGameshelperService.openAddEditGameModal(model)
+                .then(function (game) {
+                    if (game) {
+                        loadGame();
+                    }
+                })
+                .catch(function () { /* do nothing */ });
+        };
+
+        gcc.updateGame = function () {
+            var model = {
+                gameId: _gameId,
+                isEdit: true
+            };
+            drbblyGameshelperService.openAddEditGameModal(model)
+                .then(function (game) {
+                    if (game) {
+                        loadGame();
+                    }
+                })
+                .catch(function () { /* do nothing */ });
+        };
+
+        gcc.cancelGame = function () {
+            modalService.confirm({ msg1Key: 'app.CancelGamePrompt' })
+                .then(function (result) {
+                    if (result) {
+                        drbblyGamesService.updateStatus(_gameId, gcc.gameStatusEnum.Cancelled)
+                            .then(function () {
+                                loadGame();
+                            })
+                            .catch(function () {
+                                // do nothing
+                            });
+                    }
+                });
+        };
 
         gcc.$onDestroy = function () {
             gcc.app.toolbar.clearNavItems();
