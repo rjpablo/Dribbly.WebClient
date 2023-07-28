@@ -66,6 +66,14 @@
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);
                     }
+                },
+                {
+                    textKey: 'app.PlayByPlay',
+                    targetStateName: 'main.game.playByPlay',
+                    targetStateParams: { id: _gameId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
                 }
             ]);
         }

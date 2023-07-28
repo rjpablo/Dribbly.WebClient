@@ -298,6 +298,7 @@
                     NoSuggestionsFound: 'No suggestions found',
                     OpenTeam: 'Open Team',
                     Photos: 'Photos',
+                    PlayByPlay: 'Play-by-Play',
                     'PlayerPositionEnum.PointGuard_1': 'Point Guard',
                     'PlayerPositionEnum.ShootingGuard_2': 'Shooting Guard',
                     'PlayerPositionEnum.SmallForward_3': 'Small Forward',

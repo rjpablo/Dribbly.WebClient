@@ -248,6 +248,14 @@
                 }
             })
 
+            .state('main.game.playByPlay', {
+                url: '/play-by-play',
+                component: 'drbblyPlaybyplay',
+                resolve: {
+                    $titleKey: () => { return 'app.PlayByPlay'; }
+                }
+            })
+
             .state('main.game.track', {
                 url: '/track',
                 component: 'drbblyGametracking',

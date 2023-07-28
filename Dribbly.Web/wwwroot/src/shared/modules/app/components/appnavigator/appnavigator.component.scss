@@ -1,4 +1,8 @@
+@import '../../../../../custom/bootstrap/scss/_variables.scss';
+
 drbbly-appnavigator {
+    display:block;
+    background-color: $black;
 
     ul.nav {
         flex-wrap: nowrap;
