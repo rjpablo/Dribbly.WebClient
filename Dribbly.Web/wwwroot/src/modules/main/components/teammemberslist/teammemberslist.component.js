@@ -11,7 +11,9 @@
                 settings: '<',
                 onRequestProcessed: '<',
                 onMemberRemoved: '<',
-                team: '<'
+                team: '<',
+                canRemove: '<',
+                canProcessRequest: '<'
             },
             controllerAs: 'tml',
             templateUrl: 'drbbly-default',

@@ -4,6 +4,7 @@
                                 team="dad.team"
                                 list-title="'app.CurrentMembers' | i18n"
                                 settings="dad.memberListSettings"
+                                can-remove="dad.isManager"
                                 on-request-processed="dad.onRequestProcessed"
                                 on-member-removed="dad.onMemberRemoved"
                                 class="d-block mb-3">
@@ -15,6 +16,7 @@
                                     team="dad.team"
                                     list-title="'app.MemberRequests' | i18n"
                                     settings="dad.memberListSettings"
+                                    can-process-request="dad.isManger"
                                     on-request-processed="dad.onRequestProcessed"
                                     class="d-block mb-3">
             </drbbly-teammemberslist>

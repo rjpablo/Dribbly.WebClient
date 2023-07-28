@@ -26,7 +26,7 @@
                     <small>{{member.name}}</small>
                 </h4>
                 <!-- Options for requesting members -->
-                <div ng-if="member.hasPendingJoinRequest"
+                <div ng-if="member.hasPendingJoinRequest && tml.canProcessRequest"
                      class="d-flex flex-wrap">
                     <button type="button"
                             class="btn btn-primary flex-grow-1"
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <!-- Options for current members -->
-                <div ng-if="member.isCurrentMember"
+                <div ng-if="member.isCurrentMember && tml.canRemove"
                      class="d-flex">
                     <button type="button"
                             class="btn btn-secondary flex-grow-1"
