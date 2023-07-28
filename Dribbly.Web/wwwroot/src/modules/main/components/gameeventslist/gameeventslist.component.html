@@ -1,10 +1,11 @@
-﻿<div class="p-3">
-    <div class="teams p-3">
-        <div class="text-center">
+﻿<div class="p-3"
+     ng-class="{'side-by-side': gel.isSideBySide}">
+    <div class="teams py-3">
+        <div class="team">
             <img class="logo" ng-src="{{gel.game.team1.team.logo.url}}" />
             <h5 class="d-inline m-0 px-1">{{gel.game.team1.team.name}}</h5>
         </div>
-        <div class="text-center">
+        <div class="team">
             <img class="logo" ng-src="{{gel.game.team2.team.logo.url}}" />
             <h5 class="d-inline m-0 px-1">{{gel.game.team2.team.name}}</h5>
         </div>
@@ -14,29 +15,17 @@
          ng-click="gel._onItemClicked(event)"
          class="event-row">
         <div class="event-wrapper">
-            <div class="flex-grow-1 text-black"
-                 ng-if="!event.isBothTeams"
-                 ng-class="{'text-right':event.isTeam1}">
-                <span ng-if="event.performedById">{{event.performedBy.name}}</span>&nbsp;
-                <span>
-                    {{
-                    event.type === $root.constants.enums.gameEventTypeEnum.ShotMade? 'Shot Made(+' + event.additionalData.points + 'pts)' :
-                    event.type === $root.constants.enums.gameEventTypeEnum.ShotMissed? 'MISS':
-                    event.type === $root.constants.enums.gameEventTypeEnum.FoulCommitted? 'FOUL(' + event.additionalData.foulName + ')':
-                    event.type === $root.constants.enums.gameEventTypeEnum.ShotBlock? 'BLOCK':
-                    event.type === $root.constants.enums.gameEventTypeEnum.Assist? 'ASSIST':
-                    event.type === $root.constants.enums.gameEventTypeEnum.OffensiveRebound? 'REBOUND (OFF)':
-                    event.type === $root.constants.enums.gameEventTypeEnum.DefensiveRebound? 'REBOUND (DEF)':
-                    event.type === $root.constants.enums.gameEventTypeEnum.Timeout? 'TIMEOUT':
-                    event.type
-                    }}
-                </span>
-            </div>
-            <img class="player-logo" ng-src="{{event.performedBy.profilePhoto.url}}"
-                 ng-if="event.performedById" />
+            <span class="clock text-secondary">{{event.timeDisplay}}</span>
             <img class="team-logo" ng-src="{{event.isTeam1? gel.game.team1.team.logo.url : gel.game.team2.team.logo.url}}"
                  ng-if="!event.isBothTeams" />
-            <span class="clock text-secondary text-center">{{event.timeDisplay}}</span>
+            <img class="player-logo" ng-src="{{event.performedBy.profilePhoto.url}}"
+                 ng-if="event.performedById" />
+            <div class="flex-grow-1 text-light event-description"
+                 ng-if="!event.isBothTeams">
+                <span ng-if="event.performedById">{{event.performedBy.name}}</span>&nbsp;
+                <span ng-bind-html="event.eventDescriptionTemplate">                    
+                </span>
+            </div>
             <div class="common-data"
                  ng-if="event.isBothTeams">
                 <span class=""
