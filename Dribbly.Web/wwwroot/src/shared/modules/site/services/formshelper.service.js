@@ -8,7 +8,9 @@
     function serviceFn(i18nService) {
         function getDropDownListChoices(options) {
             var choices = i18nService.convertEnumToChoices(options.enumKey);
-            addDdlNullChoice(choices);
+            if (options.addDefaultChoice === undefined || options.addDefaultChoice === null || options.addDefaultChoice) {
+                addDdlNullChoice(choices);
+            }
             return choices;
         }
 

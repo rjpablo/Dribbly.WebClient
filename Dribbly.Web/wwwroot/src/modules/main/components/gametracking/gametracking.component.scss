@@ -244,6 +244,41 @@ drbbly-gametracking {
                         }
                     }
                 }
+
+                .turnover-cause-choices {
+                    .modal-content {
+                        border: none !important;
+                        background-color: rgba(0,0,0,0);
+
+                        & > drbbly-menumodal {
+                            overflow-x: hidden;
+                        }
+
+                        .modal-header {
+                            border: none;
+                            padding-right: 0;
+                        }
+
+                        .modal-body {
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: stretch;
+                            padding: 1px;
+                            margin: 0 -4px;
+
+                            .turnover-cause-choice {
+                                width: calc(33.33% - 2px);
+                                margin: 1px;
+                                border: 1px solid #333;
+                            }
+                        }
+                    }
+                }
+                /* #region Modal */
+                .modal-backdrop.show {
+                    opacity: 0.8;
+                }
+                /*#endregion */
             }
 
             .score-board {

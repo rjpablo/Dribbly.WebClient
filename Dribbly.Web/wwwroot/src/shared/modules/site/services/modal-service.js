@@ -77,13 +77,14 @@
                     modalOptions.bindToController = true;
                     modalOptions.keyboard = true;
                     //Fix for: modal and  backdrop not showing
-                    modalOptions.windowClass = 'show' + (modalOptions.isFull? ' drbbly-full-modal' : '');
-                    modalOptions.backdropClass = 'show';
+                    modalOptions.windowClass += ' show' + (modalOptions.isFull? ' drbbly-full-modal' : '');
+                    modalOptions.backdropClass += ' show';
 
                     if (modalOptions.container) {
                         modalOptions.appendTo = modalOptions.container;
                         modalOptions.container.addClass('position-relative');
                         modalOptions.windowClass += ' has-container ';
+                        modalOptions.backdropClass += ' has-container ';
                     }
 
                     modalOptions.handleDismiss = function (reason) {

@@ -16,10 +16,12 @@
 
     controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
         'drbblyOverlayService', '$stateParams', '$interval', 'drbblyCommonService', '$window',
-        'drbblyGameshelperService', 'drbblyDatetimeService', 'drbblyGameeventsService', '$document'];
+        'drbblyGameshelperService', 'drbblyDatetimeService', 'drbblyGameeventsService', '$document',
+        'drbblyFormshelperService'];
     function controllerFunc(drbblyGamesService, modalService, constants, authService,
         drbblyOverlayService, $stateParams, $interval, drbblyCommonService, $window,
-        drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService, $document) {
+        drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService, $document,
+        drbblyFormshelperService) {
         var gdg = this;
         var _gameId;
 
@@ -305,6 +307,54 @@
 
                     }
                 }
+            }
+        }
+
+        gdg.recordTurnOver = function () {
+            var typeChoices = drbblyFormshelperService.getDropDownListChoices({
+                enumKey: 'app.TurnoverCauseEnum',
+                addDefaultChoice: false
+            });
+            var buttons = [];
+            typeChoices.forEach(choice => {
+                buttons.push({
+                    text: choice.text,
+                    action: turnoverTypeSelected,
+                    data: choice,
+                    isHidden: () => choice.value === constants.enums.turnoverCauseEnum.OffensiveFoul,
+                    class: 'btn-secondary turnover-cause-choice'
+                })
+            });
+
+            modalService.showMenuModal({
+                model: {
+                    buttons: buttons
+                },
+                container: $document.find('.tabbed-content').eq(0),
+                windowClass: 'turnover-cause-choices'
+            })
+        }
+
+        function turnoverTypeSelected(choice) {
+            function updateStat() {
+                gdg.selectedPlayer.turnovers++;
+                var team = gdg.teams.drbblySingle(t => t.teamId === gdg.selectedPlayer.teamMembership.teamId);
+                team.turnovers++;
+            }
+            if (choice.value === constants.enums.turnoverCauseEnum.Stolen) {
+
+            }
+            else {
+                drbblyGameeventsService.recordTurnover({
+                    gameId: gdg.game.id,
+                    teamId: gdg.selectedPlayer.teamMembership.teamId,
+                    period: gdg.game.currentPeriod,
+                    clockTime: gdg.timer.remainingTime,
+                    type: constants.enums.gameEventTypeEnum.Turnover,
+                    performedById: gdg.selectedPlayer.teamMembership.memberAccountId,
+                    additionalData: JSON.stringify({ cause: choice.text })
+                })
+                    .then(updateStat)
             }
         }
 
@@ -646,8 +696,13 @@
                 && gdg.game.status === gdg.gameStatusEnum.Started;
         }
 
+        gdg.canRecordTurnOver = function () {
+            return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut)
+                && gdg.game.status === gdg.gameStatusEnum.Started;
+        }
+
         gdg.canCallTimeout = function () {
-            return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started && !gdg.timer.isOver();
+            return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started && (gdg.timer && !gdg.timer.isOver());
         };
 
         gdg.canChangeLineup = function () {
@@ -656,14 +711,14 @@
 
         gdg.canEndGame = function () {
             return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started // has started
-                && gdg.timer.isOver() // time has run out
+                && (gdg.timer && gdg.timer.isOver()) // time has run out
                 && gdg.game.currentPeriod >= gdg.game.numberOfRegulationPeriods // last period or OT
                 && gdg.game.team1.score !== gdg.game.team2.score; // scores are not tied
         }
 
         gdg.canGoToNextPeriod = function () {
             return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started // has started
-                && gdg.timer.isOver() // time has run out
+                && (gdg.timer && gdg.timer.isOver()) // time has run out
                 && (gdg.game.currentPeriod < gdg.game.numberOfRegulationPeriods // not the last or OT period
                     || (gdg.game.currentPeriod >= gdg.game.numberOfRegulationPeriods // last or OT period
                         && gdg.game.team1.score === gdg.game.team2.score) // but scores are not tied

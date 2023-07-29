@@ -82,6 +82,12 @@
                                         +Foul
                                     </button>
                                 </div>
+                                <button type="button"
+                                        class="btn btn-block btn-secondary"
+                                        ng-disabled="!gdg.canRecordTurnOver()"
+                                        ng-click="gdg.recordTurnOver()">
+                                    Turnover
+                                </button>
                             </div>
                             <div class="flex-grow-1 flex-shrink-1 d-flex flex-column">
                                 <div>
@@ -126,14 +132,14 @@
                                         +Foul
                                     </button>
                                 </div>
-                            </div>
-                            <div class="flex-grow-1 flex-shrink-1 d-flex flex-column">
                                 <button type="button"
                                         class="btn btn-block btn-secondary"
                                         ng-click="gdg.recordFoul()"
                                         ng-disabled="!gdg.canRecordFoul()">
                                     Foul
                                 </button>
+                            </div>
+                            <div class="flex-grow-1 flex-shrink-1 d-flex flex-column">
                                 <button type="button"
                                         class="btn btn-block btn-secondary"
                                         ng-disabled="!gdg.canCallTimeout()"
@@ -177,6 +183,10 @@
                                     <span class="value">{{gdg.selectedPlayer.rebounds || 0}}</span>
                                     <span class="label">REB</span>
                                 </div>
+                                <div class="stat">
+                                    <span class="value">{{gdg.selectedPlayer.turnovers || 0}}</span>
+                                    <span class="label">TO</span>
+                                </div>
                             </div>
                         </div>
                         <!-- Selected Team -->
@@ -195,6 +205,10 @@
                                 <div class="stat">
                                     <span class="value">{{gdg.selectedTeam.timeoutsLeft || 0}}</span>
                                     <span class="label">TOL</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="value">{{gdg.selectedTeam.turnovers || 0}}</span>
+                                    <span class="label">TO</span>
                                 </div>
                             </div>
                         </div>

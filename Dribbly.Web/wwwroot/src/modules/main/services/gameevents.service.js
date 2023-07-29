@@ -10,6 +10,9 @@
                     delete: function (eventId) {
                         return drbblyhttpService.post(api + 'delete/' + eventId);
                     },
+                    recordTurnover: function (input) {
+                        return drbblyhttpService.post(api + 'recordTurnover', input);
+                    },
                     update: function (input) {
                         return drbblyhttpService.post(api + 'update', input);
                     },
