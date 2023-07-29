@@ -320,7 +320,7 @@
                 buttons.push({
                     text: choice.text,
                     action: turnoverTypeSelected,
-                    data: choice,
+                    data: { choice: choice, period: gdg.game.currentPeriod, clockTime: gdg.timer.remainingTime },
                     isHidden: () => choice.value === constants.enums.turnoverCauseEnum.OffensiveFoul,
                     class: 'btn-secondary turnover-cause-choice'
                 })
@@ -332,29 +332,65 @@
                 },
                 container: $document.find('.tabbed-content').eq(0),
                 windowClass: 'turnover-cause-choices'
-            })
+            }).catch(err => { /*modal cancelled, do nothing*/ });
         }
 
-        function turnoverTypeSelected(choice) {
+        async function turnoverTypeSelected(data) {
             function updateStat() {
                 gdg.selectedPlayer.turnovers++;
                 var team = gdg.teams.drbblySingle(t => t.teamId === gdg.selectedPlayer.teamMembership.teamId);
                 team.turnovers++;
             }
-            if (choice.value === constants.enums.turnoverCauseEnum.Stolen) {
 
-            }
-            else {
-                drbblyGameeventsService.recordTurnover({
-                    gameId: gdg.game.id,
-                    teamId: gdg.selectedPlayer.teamMembership.teamId,
-                    period: gdg.game.currentPeriod,
-                    clockTime: gdg.timer.remainingTime,
-                    type: constants.enums.gameEventTypeEnum.Turnover,
-                    performedById: gdg.selectedPlayer.teamMembership.memberAccountId,
-                    additionalData: JSON.stringify({ cause: choice.text })
-                })
-                    .then(updateStat)
+            var turnover = {
+                gameId: gdg.game.id,
+                teamId: gdg.selectedPlayer.teamMembership.teamId,
+                period: data.period,
+                clockTime: data.clockTime,
+                type: constants.enums.gameEventTypeEnum.Turnover,
+                performedById: gdg.selectedPlayer.teamMembership.memberAccountId,
+                additionalData: JSON.stringify({ cause: data.choice.text })
+            };
+
+            drbblyGameeventsService.recordTurnover(turnover)
+                .then(updateStat)
+                .catch(function (err) {
+                    drbblyCommonService.handleError(err, null, 'The turnover was not recorded due to an error.');
+                });
+
+            if (data.choice.value === constants.enums.turnoverCauseEnum.Stolen) {
+                var opponentTeam = gdg.teams.drbblySingle(t => t.teamId != gdg.selectedPlayer.teamMembership.teamId);
+                var stolenBy = await showPlayerOptionsModal({
+                    view: '<drbbly-playerselectionmodal></drbbly-playerselectionmodal>',
+                    model: {
+                        players: opponentTeam.players.drbblyWhere(p => p.isInGame),
+                        title: 'Stolen by:'
+                    },
+                    noBorder: true,
+                    noBackground: true
+                }).catch(err => { /*modal cancelled, do nothing*/ });
+
+                if (stolenBy) {
+                    var steal = {
+                        gameId: gdg.game.id,
+                        teamId: stolenBy.teamMembership.teamId,
+                        period: data.period,
+                        clockTime: data.clockTime,
+                        type: constants.enums.gameEventTypeEnum.Steal,
+                        performedById: stolenBy.teamMembership.memberAccountId
+                    }
+
+                    var stealResult = await drbblyGameeventsService.upsert(steal)
+                        .then(data => data)
+                        .catch(function (err) {
+                            drbblyCommonService.handleError(err, null, 'The steal was not recorded due to an error.');
+                        });
+                    if (stealResult) {
+                        stolenBy.steals++;
+                        var team = gdg.teams.drbblySingle(t => t.teamId === stolenBy.teamMembership.teamId);
+                        team.steals++;
+                    }
+                }
             }
         }
 

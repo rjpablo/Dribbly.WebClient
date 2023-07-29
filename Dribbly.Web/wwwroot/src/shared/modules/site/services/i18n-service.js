@@ -229,6 +229,7 @@
                     'GameEventTypeEnum.Timeout_9': 'Timeout',
                     'GameEventTypeEnum.Timeout_10': 'Change Lineup',
                     'GameEventTypeEnum.Turnover_11': 'Turnover',
+                    'GameEventTypeEnum.Steal_12': 'Steal',
                     Games: 'Games',
                     'GameStatusEnum.WaitingToStart_0': 'Waiting To Start',
                     'GameStatusEnum.Started_1': 'Started',

@@ -87,6 +87,14 @@
                         modalOptions.backdropClass += ' has-container ';
                     }
 
+                    if (modalOptions.noBackground) {
+                        modalOptions.windowClass += ' no-background';
+                    }
+
+                    if (modalOptions.noBorder) {
+                        modalOptions.windowClass += ' no-border';
+                    }
+
                     modalOptions.handleDismiss = function (reason) {
                         if (modalOptions.onInterrupt) {
                             modalOptions.onInterrupt();

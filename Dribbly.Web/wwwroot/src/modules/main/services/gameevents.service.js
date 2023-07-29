@@ -16,6 +16,9 @@
                     update: function (input) {
                         return drbblyhttpService.post(api + 'update', input);
                     },
+                    upsert: function (input) {
+                        return drbblyhttpService.post(api + 'upsert', input);
+                    },
                     upsertFoul: function (input) {
                         return drbblyhttpService.post(api + 'upsertFoul', input);
                     },

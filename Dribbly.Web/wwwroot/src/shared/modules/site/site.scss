@@ -106,7 +106,7 @@ a[ng-click]:not(.nav-link, .dropdown-item, [href]) {
 ***************/
 
 form {
-    label{
+    label {
         color: $secondary;
     }
 }
@@ -331,6 +331,22 @@ section {
         position: absolute;
         width: 100%;
         height: 100%;
+    }
+}
+
+.modal.no-background {
+    .modal-content {
+        background-color: rgba(0,0,0,0);
+    }
+}
+
+.modal.no-border {
+    .modal-content {
+        border: none;
+
+        .modal-header {
+            border: none;
+        }
     }
 }
 
