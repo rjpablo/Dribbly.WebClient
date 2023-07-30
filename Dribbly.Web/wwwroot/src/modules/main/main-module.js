@@ -256,6 +256,14 @@
                 }
             })
 
+            .state('main.game.stats', {
+                url: '/stats',
+                component: 'drbblyGamestats',
+                resolve: {
+                    $titleKey: () => { return 'app.Stats'; }
+                }
+            })
+
             .state('main.game.track', {
                 url: '/track',
                 component: 'drbblyGametracking',

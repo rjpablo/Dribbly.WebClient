@@ -8,140 +8,101 @@
                 app: '<',
                 game: '<'
             },
-            controllerAs: 'pbp',
+            controllerAs: 'dgs',
             templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 
     controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
-        'drbblyOverlayService', '$stateParams', '$scope', '$state',
+        'drbblyOverlayService', '$stateParams', '$scope', '$timeout',
         'drbblyGameshelperService', 'drbblyDatetimeService'];
     function controllerFunc(drbblyGamesService, modalService, constants, authService,
-        drbblyOverlayService, $stateParams, $scope, $state,
+        drbblyOverlayService, $stateParams, $scope, $timeout,
         drbblyGameshelperService, drbblyDatetimeService) {
-        var pbp = this;
-        var _gameId;
+        var dgs = this;
+        var hasInitialized;
 
-        pbp.$onInit = function () {
-            _gameId = $stateParams.id;
-            pbp.gameStatusEnum = constants.enums.gameStatus;
-            pbp.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
-            //loadGame();
+        dgs.$onInit = function () {
+
         };
 
-        function loadGame() {
-            pbp.gameDetailsOverlay.setToBusy();
-            drbblyGamesService.getGame(_gameId)
-                .then(function (data) {
-                    pbp.game = angular.copy(data);
-                    pbp.game.start = new Date(drbblyDatetimeService.toUtcString(data.start));
-                    pbp.isOwned = authService.isCurrentAccountId(pbp.game.addedById);
-                    pbp.canManage = authService.isCurrentAccountId(pbp.game.addedById);
-                    checkTeamLogos();
-                    pbp.gameDetailsOverlay.setToReady();
-                    pbp.app.mainDataLoaded();
-                })
-                .catch(pbp.gameDetailsOverlay.setToError);
+        dgs.onTableReady = function (table) {
+            dgs.statTable = table;
+            initializeTable(dgs.statTable, dgs.game.team1.players.concat(dgs.game.team2.players));
         }
 
-        function checkTeamLogos() {
-            if (pbp.game.team1 && !pbp.game.team1.logo) {
-                pbp.game.team1.logo = {
-                    url: constants.images.defaultTeamLogoUrl
-                };
-            }
-            if (pbp.game.team2 && !pbp.game.team2.logo) {
-                pbp.game.team2.logo = {
-                    url: constants.images.defaultTeamLogoUrl
-                };
-            }
-        }
-
-        pbp.onGameUpdate = function () {
-            loadGame();
-        };
-
-        pbp.setResult = function () {
-            modalService.show({
-                view: '<drbbly-gameresultmodal></drbbly-gameresultmodal>',
-                model: { gameId: _gameId }
-            })
-                .then(function (result) {
-                    if (result && result.savedChanges) {
-                        loadGame();
-                    }
-                })
-                .catch(function () {
-                    // do nothing
-                });
-        };
-
-        pbp.previewCourtDetails = function (event, court) {
-            event.preventDefault();
-            event.stopPropagation();
-            modalService.show({
-                view: '<drbbly-courtpreviewmodal></drbbly-courtpreviewmodal>',
-                model: { court: court }
+        function initializeTable(table, data) {
+            hasInitialized = true;
+            table.setOptions({
+                pagination: { pageSize: 10 },
+                columns: [{
+                    field: 'jerseyNo',
+                    headerText: '#',
+                    columnClass: 'text-secondary jersey-no',
+                    headerClass: 'jersey-no',
+                },
+                {
+                    field: 'name',
+                    headerText: 'Player',
+                    dataTemplate: () => dgs.playerColumnTemplate,
+                    columnClass: 'player',
+                    headerClass: 'player'
+                },
+                {
+                    field: 'teamMembership.team.name',
+                    headerText: 'Team',
+                    headerStyle: { width: '1px', 'text-align': 'center' },
+                    style: { width: '1px', 'text-align': 'center' },
+                    dataTemplate: () => dgs.teamColumnTemplate
+                },
+                {
+                    field: 'points',
+                    headerText: 'PTS'
+                },
+                {
+                    field: 'assists',
+                    headerText: 'AST'
+                },
+                {
+                    field: 'rebounds',
+                    headerText: 'REB'
+                },
+                {
+                    field: 'blocks',
+                    headerText: 'BLK'
+                },
+                {
+                    field: 'steals',
+                    headerText: 'STL'
+                },
+                {
+                    field: 'threePM',
+                    headerText: '3PM'
+                },
+                {
+                    field: 'threePA',
+                    headerText: '3PA'
+                },
+                {
+                    headerText: '3P%',
+                    dataTemplate: (dataItem) => !dataItem.threePA ? '0.0' :
+                        '{{(rowData.dataItem.threePM / rowData.dataItem.threePA * 100) | number : 1}}'
+                },
+                {
+                    field: 'fga',
+                    headerText: 'FGA'
+                },
+                {
+                    headerText: 'FG%',
+                    dataTemplate: (dataItem) => !dataItem.fga ? '0.0' :
+                        '{{(rowData.dataItem.fgm / rowData.dataItem.fga * 100) | number : 1}}'
+                },
+                {
+                    field: 'turnovers',
+                    headerText: 'TO'
+                }]
             });
-        };
-
-        pbp.updateStatus = function (toStatus) {
-            if (toStatus === pbp.gameStatusEnum.Started || toStatus === pbp.gameStatusEnum.Finished) {
-                drbblyGamesService.updateStatus(_gameId, toStatus)
-                    .then(function () {
-                        loadGame();
-                    })
-                    .catch(function () {
-                        // do nothing
-                    });
-            }
-            else {
-                alert('Not yet implemented');
-            }
-        };
-
-        pbp.reopenGame = function () {
-            var model = {
-                gameId: _gameId,
-                isEdit: true,
-                toStatus: pbp.gameStatusEnum.WaitingToStart
-            };
-            drbblyGameshelperService.openAddEditGameModal(model)
-                .then(function (game) {
-                    if (game) {
-                        loadGame();
-                    }
-                })
-                .catch(function () { /* do nothing */ });
-        };
-
-        pbp.updateGame = function () {
-            var model = {
-                gameId: _gameId,
-                isEdit: true
-            };
-            drbblyGameshelperService.openAddEditGameModal(model)
-                .then(function (game) {
-                    if (game) {
-                        loadGame();
-                    }
-                })
-                .catch(function () { /* do nothing */ });
-        };
-
-        pbp.cancelGame = function () {
-            modalService.confirm({ msg1Key: 'app.CancelGamePrompt' })
-                .then(function (result) {
-                    if (result) {
-                        drbblyGamesService.updateStatus(_gameId, pbp.gameStatusEnum.Cancelled)
-                            .then(function () {
-                                loadGame();
-                            })
-                            .catch(function () {
-                                // do nothing
-                            });
-                    }
-                });
-        };
+            table.setData(data);
+        }
     }
 })();

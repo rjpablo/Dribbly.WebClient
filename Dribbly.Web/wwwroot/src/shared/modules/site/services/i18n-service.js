@@ -346,6 +346,7 @@
                     Start: 'Start',
                     StartGame: 'Start Game',
                     StartTypingToLoadSuggestions: 'Start typing to load suggestions',
+                    Stats: 'Stats',
                     SubmitRequest: 'Submit Request',
                     Team: 'Team',
                     Teams: 'Teams',

@@ -1,0 +1,110 @@
+﻿<div class="row">
+    <div class="col-12">
+        <div class="table-toolbar p-3 bg-primary"
+             ng-if="bdt.isEditable()">
+            <button class="btn btn-primary"
+                    ng-if="bdt.isEditable()"
+                    ng-click="bdt.addNewItem()">
+                <i class="fa fa-plus"></i> {{bdt.options.addButtonLabel || ('site.Add' | badI18n)}}
+            </button>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="table-container"
+             name="table-container">
+            <script type="text/ng-template" drbbly-template="bdt.tableTemplate">
+                <table class="table"
+                       ng-class="tableClass">
+                    <thead>
+                        <tr></tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </script>
+
+            <script type="text/ng-template" drbbly-template="bdt.tableHeaderTemplate">
+                <th ng-style="column.headerStyle"
+                    ng-class="column.headerClass"></th>
+            </script>
+
+            <script type="text/ng-template" drbbly-template="bdt.tableDataTemplate">
+                <td ng-if="rowData.isEditing && (column.isEditable === undefined || column.isEditable(dataItem))"
+                    ng-class="column.columnClass"
+                    ng-style="column.style"
+                    ng-switch="column.type">
+                    <div class="form-check"
+                         ng-switch-when="checkbox">
+                        <input type="{{column.type}}"
+                               class="form-check-input"
+                               ng-disabled="column.isDisabled(dataItem)"
+                               ng-model="dataItem[column.field]"
+                               ng-required="column.isRequired"
+                               ng-change="column._onValueChange(rowData, column)" />
+                    </div>
+                    <textarea ng-switch-when="multitext"
+                              rows="{{column.textAreaRows || 3}}"
+                              class="form-control"
+                              ng-disabled="column.isDisabled(dataItem)"
+                              ng-model="dataItem[column.field]"
+                              ng-required="column.isRequired"
+                              ng-change="column._onValueChange(rowData, column)"></textarea>
+                    <input type="{{column.type === 'currency' ? 'number' : column.type}}"
+                           class="form-control"
+                           ng-disabled="column.isDisabled(dataItem)"
+                           ng-model="dataItem[column.field]"
+                           ng-required="column.isRequired"
+                           ng-change="column._onValueChange(rowData, column)"
+                           min="{{column.min}}"
+                           ng-switch-default />
+
+                </td>
+                <td ng-if="!rowData.isEditing || (column.isEditable !== undefined && !column.isEditable(dataItem))"
+                    ng-switch="column.type"
+                    ng-class="column.columnClass"
+                    ng-style="column.style">
+                    <div class="form-check"
+                         ng-switch-when="checkbox">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               ng-model="dataItem[column.field]"
+                               disabled />
+                    </div>
+                    <span ng-switch-when="currency">{{dataItem[column.field] | currency}}</span>
+                    <pre ng-switch-when="multitext">{{dataItem[column.field]}}</pre>
+                    <span ng-switch-when="date">{{dataItem[column.field] | date : (column.dateFormat || 'mediumDate')}}</span>
+                    <span ng-switch-default class="text-nowrap">{{dataItem[column.field]}}</span>
+                </td>
+            </script>
+            <script type="text/ng-template" drbbly-template="bdt.noResultRowTemplate">
+                <td colspan="{{options.columns.length}}" class="text-center"
+                    ng-if="showEmptyRow()">
+                    <span class="d-block my-3">{{options.emptyText || 'No data'}}</span>
+                </td>
+            </script>
+            <script type="text/ng-template" drbbly-template="bdt.busyRowTemplate">
+                <td colspan="{{options.columns.length}}" class="text-center">
+                    <span class="p-3"><i class="fa fa-2x fa-circle-o-notch fa-spin"></i></span>
+                </td>
+            </script>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="table-footer p-3">
+            <div class="pagination-container"
+                 ng-hide="bdt.options.pagination === false || !bdt.tableData.rowDatas.length > 0">
+                <ul class="justify-content-center mb-0"
+                    uib-pagination
+                    total-items="bdt.totalItems"
+                    items-per-page="bdt.options.pagination.pageSize"
+                    ng-model="bdt.options.pagination.currentPage"
+                    boundary-links="true"
+                    ng-change="bdt.onPageChanged(bdt.options.pagination.currentPage)"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;"></ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,7 +13,7 @@
             return {
                 restrict: 'A',
                 scope: {
-                    atsTemplate: '='
+                    drbblyTemplate: '='
                 },
                 link: linkFunc
             };

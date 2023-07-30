@@ -36,6 +36,7 @@ a[ng-click]:not(.nav-link, .dropdown-item, [href]) {
     *::-webkit-scrollbar,
     *::-webkit-scrollbar-thumb {
         width: 26px;
+        height: 26px;
         border-radius: 13px;
         background-clip: padding-box;
         border: 10px solid transparent;
@@ -99,6 +100,15 @@ a[ng-click]:not(.nav-link, .dropdown-item, [href]) {
 
 .white-transparent-bg {
     background-color: rgba(225, 225, 225, 0.6);
+}
+
+/***************
+    TABLES
+***************/
+
+th {
+    color: $secondary;
+    font-weight: normal;
 }
 
 /***************
@@ -213,6 +223,32 @@ section {
 .drbbly-font.court-horizontal::before {
     content: '\e900';
 }
+
+/****************
+    Avatars
+****************/
+
+img.avatar {
+    width: 1.7rem;
+    height: 1.7rem;
+    object-fit: cover;
+    border-radius: 50%;
+
+    &.avatar-in-text{
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    &.avatar-lg{
+        height: 3rem;
+        width: 3rem;
+    }
+
+    &.square{
+        border-radius: 0;
+    }
+}
+
 /****************
     Widths
 ****************/

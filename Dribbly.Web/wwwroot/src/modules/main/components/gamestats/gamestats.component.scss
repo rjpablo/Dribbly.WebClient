@@ -1,20 +1,29 @@
 @import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+@import '../../../../../../node_modules/bootstrap/scss/functions';
 
-drbbly-gamedetails {
+$jersey-no-width: 2.5rem;
 
-    .teams {
+drbbly-gamestats {
+    th, td {
+        text-align: right;
+    }
 
-        .status {
-            height: 5rem;
-        }
+    th.jersey-no,
+    td.jersey-no {
+        width: $jersey-no-width;
+        position: sticky;
+        left: 0;
+        text-align: center;
+        background-color: $dark;
+    }
 
-        .score {
-            font-size: 3rem;
-        }
-
-        .logo {
-            height: 3rem;
-            width: 3rem;
-        }
+    th.player,
+    td.player {
+        text-align: left;
+        position: sticky;
+        left: $jersey-no-width;
+        white-space: nowrap;
+        background-color: $dark;
     }
 }

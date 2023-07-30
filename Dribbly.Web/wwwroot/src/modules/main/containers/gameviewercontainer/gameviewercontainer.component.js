@@ -39,6 +39,7 @@
                 .then(function (data) {
                     gcc.game = angular.copy(data);
                     gcc.game.start = new Date(drbblyDatetimeService.toUtcString(data.start));
+                    massageGame();
                     gcc.isOwned = authService.isCurrentAccountId(gcc.game.addedById);
                     gcc.canManage = authService.isCurrentAccountId(gcc.game.addedById);
                     checkTeamLogos();
@@ -46,6 +47,14 @@
                     gcc.app.mainDataLoaded();
                 })
                 .catch(gcc.gameDetailsOverlay.setToError);
+        }
+
+        function massageGame() {
+            [gcc.game.team1, gcc.game.team2].forEach(team => {
+                team.players.forEach(player => {
+                    player.teamMembership.team = team.team;
+                })
+            })
         }
 
         function checkTeamLogos() {
@@ -148,6 +157,14 @@
                 {
                     textKey: 'app.PlayByPlay',
                     targetStateName: 'main.game.playByPlay',
+                    targetStateParams: { id: _gameId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
+                },
+                {
+                    textKey: 'app.Stats',
+                    targetStateName: 'main.game.stats',
                     targetStateParams: { id: _gameId },
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);
