@@ -11,8 +11,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', '$compile', '$timeout'];
-    function controllerFn($scope, $compile, $timeout) {
+    controllerFn.$inject = ['$scope', '$compile', '$timeout', '$element'];
+    function controllerFn($scope, $compile, $timeout, $element) {
         var bdt = this;
         var _lastRowId = 0;
         var _tableContainer;
@@ -21,7 +21,7 @@
 
         bdt.$onInit = function () {
 
-            _tableContainer = angular.element($('[name="table-container"]'));
+            _tableContainer = $element.find('[name="table-container"]');
             bdt.tableData = {
                 rowDatas: []
             };
@@ -34,7 +34,7 @@
 
             bdt.onReady({
                 setData: (data) => {
-                    _allItems = data;
+                    _allItems = angular.copy(data);
                     bdt.totalItems = data.length;
                     $timeout(() => {
                         bdt.isBusy = false;

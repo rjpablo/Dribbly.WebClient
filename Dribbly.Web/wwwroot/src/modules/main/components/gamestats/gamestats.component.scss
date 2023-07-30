@@ -9,21 +9,36 @@ drbbly-gamestats {
         text-align: right;
     }
 
-    th.jersey-no,
-    td.jersey-no {
-        width: $jersey-no-width;
-        position: sticky;
-        left: 0;
-        text-align: center;
-        background-color: $dark;
+    .player-stats {
+
+        th.jersey-no,
+        td.jersey-no {
+            width: $jersey-no-width;
+            position: sticky;
+            left: 0;
+            text-align: center;
+            background-color: $dark;
+        }
+
+        th.player,
+        td.player {
+            text-align: left;
+            position: sticky;
+            left: $jersey-no-width;
+            white-space: nowrap;
+            background-color: $dark;
+        }
     }
 
-    th.player,
-    td.player {
-        text-align: left;
-        position: sticky;
-        left: $jersey-no-width;
-        white-space: nowrap;
-        background-color: $dark;
+    .team-stats {
+
+        th.team,
+        td.team {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            white-space: nowrap;
+            background-color: $dark;
+        }
     }
 }

@@ -1,12 +1,25 @@
 ﻿<div class="container">
     <div class="row">
         <div class="col">
-            <div class="bg-dark p-3 mt-3">
-                <div ng-if="dgs.game">
-                    <h5 class="py-3">Stats
-                    </h5>
-                    <drbbly-datatable on-ready="dgs.onTableReady"></drbbly-datatable>
-                </div>
+            <div class="bg-dark mt-3 py-3">
+                <uib-tabset active="dgs.activeTab">
+                    <uib-tab index="dgs.tabs.players" heading="Players">
+                        <div class="player-stats">
+                            <div ng-if="dgs.game"
+                                 class="p-3">
+                                <drbbly-datatable on-ready="dgs.onTableReady"></drbbly-datatable>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab index="dgs.tabs.teams" heading="Teams">
+                        <div class="team-stats">
+                            <div ng-if="dgs.game"
+                                 class="p-3">
+                                <drbbly-datatable on-ready="dgs.onTeamStatTableReady"></drbbly-datatable>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
             </div>
         </div>
     </div>
@@ -27,5 +40,15 @@
     <a ui-sref="main.team.home({id: rowData.dataItem.teamMembership.teamId})">
         <img class="avatar avatar-in-text"
              ng-src="{{rowData.dataItem.teamMembership.team.logo.url}}" />
+    </a>
+</script>
+
+<script type="text/ng-template" drbbly-template="dgs.gameTeamColumnTemplate">
+    <a ui-sref="main.team.home({id: rowData.dataItem.teamId})">
+        <img class="avatar avatar-in-text"
+             ng-src="{{rowData.dataItem.team.logo.url}}" />
+    </a>
+    <a ui-sref="main.team.home({id: rowData.dataItem.teamId})">
+        {{rowData.dataItem.team.name}}
     </a>
 </script>
