@@ -30,15 +30,19 @@
             dgs.activeTab = dgs.tabs.players;
         };
 
-        dgs.onTableReady = function (table) {
-            dgs.statTable = table;
-            initializeTable(dgs.statTable, dgs.game.team1.players.concat(dgs.game.team2.players));
+        dgs.onTeam1TableReady = function (table) {
+            dgs.team1StatTable = table;
+            initializeTable(dgs.team1StatTable, dgs.game.team1.players);
+        }
+
+        dgs.onTeam2TableReady = function (table) {
+            dgs.team2StatTable = table;
+            initializeTable(dgs.team2StatTable, dgs.game.team2.players);
         }
 
         function initializeTable(table, data) {
-            hasInitialized = true;
             table.setOptions({
-                pagination: { pageSize: 10 },
+                pagination: false,
                 columns: [{
                     field: 'jerseyNo',
                     headerText: '#',
@@ -51,13 +55,6 @@
                     dataTemplate: () => dgs.playerColumnTemplate,
                     columnClass: 'player',
                     headerClass: 'player'
-                },
-                {
-                    field: 'teamMembership.team.name',
-                    headerText: 'Team',
-                    headerStyle: { width: '1px', 'text-align': 'center' },
-                    style: { width: '1px', 'text-align': 'center' },
-                    dataTemplate: () => dgs.teamColumnTemplate
                 },
                 {
                     field: 'points',
@@ -91,6 +88,10 @@
                     headerText: '3P%',
                     dataTemplate: (dataItem) => !dataItem.threePA ? '0.0' :
                         '{{(rowData.dataItem.threePM / rowData.dataItem.threePA * 100) | number : 1}}'
+                },
+                {
+                    field: 'fgm',
+                    headerText: 'FGM'
                 },
                 {
                     field: 'fga',
@@ -157,6 +158,10 @@
                     headerText: '3P%',
                     dataTemplate: (dataItem) => !dataItem.threePA ? '0.0' :
                         '{{(rowData.dataItem.threePM / rowData.dataItem.threePA * 100) | number : 1}}'
+                },
+                {
+                    field: 'fgm',
+                    headerText: 'FGM'
                 },
                 {
                     field: 'fga',
