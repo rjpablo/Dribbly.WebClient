@@ -314,6 +314,13 @@
                     $titleKey: () => { return 'app.Teams'; }
                 }
             })
+            .state('main.tournament.stats', {
+                url: '/stats',
+                component: 'drbblyTournamentstats',
+                resolve: {
+                    $titleKey: () => { return 'app.Stats'; }
+                }
+            })
             .state('main.tournament.stages', {
                 url: '/stages',
                 component: 'drbblyTournamentstages',

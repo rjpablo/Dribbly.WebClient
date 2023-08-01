@@ -7,18 +7,15 @@
             <a ui-sref="main.team.home({id: cli.game.team1.teamId})"
                ng-click="cli.stopPropagation($event)"
                class="d-block small">{{cli.game.team1.isOpen? '(open team)' : cli.game.team1.name}}</a>
+            <div class="text-center font-weight-bold score"
+                 ng-hide="cli.game.status === $root.constants.enums.gameStatusEnum.WaitingToStart"
+                 ng-class="{'text-secondary': cli.game.winningTeamId !== null && cli.game.winningTeamId !== cli.game.team1Id}">{{cli.game.team1Score}}</div>
         </div>
         <div class="flex-grow-1 text-center">
             <div ng-if="cli.game.status === $root.constants.enums.gameStatusEnum.Started
                  || cli.game.status === $root.constants.enums.gameStatusEnum.Finished">
-                <div class="d-flex">
-                    <div class="flex-grow-1 text-center font-weight-bold score"
-                         ng-class="{'text-secondary': cli.game.winningTeamId === cli.game.team1Id}">{{cli.game.team1Score}}</div>
-                    <div class="text-secondary my-3">
-                        {{cli.game.status === $root.constants.enums.gameStatusEnum.Finished? 'FINAL': 'STARTED'}}
-                    </div>
-                    <div class="flex-grow-1 text-center font-weight-bold score"
-                         ng-class="{'text-secondary': cli.game.winningTeamId === cli.game.team2Id}">{{cli.game.team2Score}}</div>
+                <div class="text-secondary text-center my-3">
+                    {{cli.game.status === $root.constants.enums.gameStatusEnum.Finished? 'FINAL': 'STARTED'}}
                 </div>
                 <div>
                     <div class="small text-secondary"
@@ -65,6 +62,9 @@
             <a ui-sref="main.team.home({id: cli.game.team2.teamId})"
                ng-click="cli.stopPropagation($event)"
                class="d-block small">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.name}}</a>
+            <div class="text-center font-weight-bold score"
+                 ng-hide="cli.game.status === $root.constants.enums.gameStatusEnum.WaitingToStart"
+                 ng-class="{'text-secondary': cli.game.winningTeamId !== null && cli.game.winningTeamId !== cli.game.team2Id}">{{cli.game.team2Score}}</div>
         </div>
     </div>
 </div>

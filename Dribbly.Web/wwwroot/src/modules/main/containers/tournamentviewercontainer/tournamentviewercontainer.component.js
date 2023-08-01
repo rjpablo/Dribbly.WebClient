@@ -193,6 +193,14 @@
                     }
                 },
                 {
+                    textKey: 'app.Stats',
+                    targetStateName: 'main.tournament.stats',
+                    targetStateParams: { id: _tournamentId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
+                },
+                {
                     textKey: 'app.Stages',
                     targetStateName: 'main.tournament.stages',
                     targetStateParams: { id: _tournamentId },
