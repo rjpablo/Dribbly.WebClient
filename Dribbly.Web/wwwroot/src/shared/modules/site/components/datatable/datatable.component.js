@@ -11,8 +11,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', '$compile', '$timeout', '$element'];
-    function controllerFn($scope, $compile, $timeout, $element) {
+    controllerFn.$inject = ['$scope', '$compile', '$timeout', '$element', '$filter'];
+    function controllerFn($scope, $compile, $timeout, $element, $filter) {
         var bdt = this;
         var _lastRowId = 0;
         var _tableContainer;
@@ -31,6 +31,7 @@
                     pageSize: 10
                 }
             };
+            bdt.sortData = {};
 
             bdt.onReady({
                 setData: (data) => {
@@ -69,12 +70,29 @@
                     bdt.tableData.rowDatas.push(buildNewRowData(item));
                 });
             }
+            bdt.currentPage = pageNumber;
             $timeout(buildComponent, 100);
         }
 
         bdt.onPageChanged = function (toPage) {
             showPage(toPage);
         }
+
+        bdt.sort = function (column) {
+            if (bdt.sortData.field === column.field) {
+                if (bdt.sortData.isDescending) {
+                    bdt.sortData.field = null; //remove sorting
+                } else {
+                    bdt.sortData.isDescending = true;
+                }
+            }
+            else {
+                bdt.sortData.field = column.field;
+                bdt.sortData.isDescending = false;
+            }
+            _allItems = $filter('orderBy')(_allItems, bdt.sortData.field, bdt.sortData.isDescending);
+            showPage(bdt.currentPage);
+        };
 
         bdt.edit = (rowData) => {
             rowData.startEditing();

@@ -1,5 +1,17 @@
 drbbly-datatable {
-    .table-container{
+    .table-container {
         overflow-x: auto;
+
+        th.sort-asc::after {
+            font: normal normal normal 14px/1 FontAwesome;
+            content: "\f0d8";
+            margin-left: 0.25em;
+        }
+
+        th.sort-desc::after {
+            font: normal normal normal 14px/1 FontAwesome;
+            content: "\f0d7";
+            margin-left: 0.25em;
+        }
     }
 }

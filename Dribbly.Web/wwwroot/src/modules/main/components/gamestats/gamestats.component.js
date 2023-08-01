@@ -40,6 +40,24 @@
             initializeTable(dgs.team2StatTable, dgs.game.team2.players);
         }
 
+        dgs.$onChanges = function (changes) {
+            if (changes.game && changes.game.currentValue) {
+                massageData()
+            }
+        }
+
+        function massageData() {
+            [dgs.game.team1, dgs.game.team2].forEach(team => {
+                team.threePP = team.threePM / team.threePA;
+                team.fgp = team.fgm / team.fga;
+
+                team.players.forEach(player => {
+                    player.threePP = player.threePM / player.threePA;
+                    player.fgp = player.fgm / player.fga;
+                });
+            });
+        }
+
         function initializeTable(table, data) {
             table.setOptions({
                 pagination: false,
@@ -85,9 +103,10 @@
                     headerText: '3PA'
                 },
                 {
+                    field: 'threePP',
                     headerText: '3P%',
                     dataTemplate: (dataItem) => !dataItem.threePA ? '0.0' :
-                        '{{(rowData.dataItem.threePM / rowData.dataItem.threePA * 100) | number : 1}}'
+                        '{{rowData.dataItem.threePP * 100 | number : 1}}'
                 },
                 {
                     field: 'fgm',
@@ -98,9 +117,10 @@
                     headerText: 'FGA'
                 },
                 {
+                    field: 'fgp',
                     headerText: 'FG%',
                     dataTemplate: (dataItem) => !dataItem.fga ? '0.0' :
-                        '{{(rowData.dataItem.fgm / rowData.dataItem.fga * 100) | number : 1}}'
+                        '{{rowData.dataItem.fgp * 100 | number : 1}}'
                 },
                 {
                     field: 'turnovers',
