@@ -13,12 +13,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyTournamentsService', 'modalService', 'constants', 'authService',
-        'drbblyOverlayService', '$stateParams', '$scope', '$timeout',
-        'drbblyGameshelperService', 'drbblyDatetimeService'];
-    function controllerFunc(drbblyTournamentsService, modalService, constants, authService,
-        drbblyOverlayService, $stateParams, $scope, $timeout,
-        drbblyGameshelperService, drbblyDatetimeService) {
+    controllerFunc.$inject = ['drbblyTournamentsService', 'drbblyCommonService'];
+    function controllerFunc(drbblyTournamentsService, drbblyCommonService) {
         var dgs = this;
         var hasInitialized;
 
