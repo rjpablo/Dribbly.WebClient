@@ -66,6 +66,7 @@
                         bgm.saveModel.bracketId = (bgm.model.bracket || {}).id;
                         if (data.courtChoice) {
                             bgm.selectedCourts.push(data.courtChoice);
+                            bgm.saveModel.courtId = data.courtChoice.value;
                         }
                         bgm.saveModel.isTeam1Open = false;
                         bgm.saveModel.isTeam2Open = false;
