@@ -265,9 +265,11 @@
                 <!-- Team1 Stats -->
                 <div class="team-stats text-center d-flex flex-column align-items-center">
                     <img class="logo" ng-src="{{gdg.game.team1.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
-                    <span class="score">{{gdg.game.team1.score}}</span>
+                    <span class="score"
+                          ng-class="{'text-secondary': gdg.game.winningTeamId === gdg.game.team2Id}">{{gdg.game.team1.score}}</span>
                     <!-- Possession Team1 -->
-                    <div class="mb-2">
+                    <div class="mb-2"
+                         ng-hide="gdg.gameIsFinished()">
                         <button class="btn py-0"
                                 ng-class="{'text-secondary': gdg.game.nextPossession === 2}"
                                 ng-click="gdg.setNextPossession(1)">
@@ -275,7 +277,8 @@
                         </button>
                     </div>
                     <!-- TOL - Team1 -->
-                    <div class="mb-2">
+                    <div class="mb-2"
+                         ng-hide="gdg.gameIsFinished()">
                         <small uib-tooltip="Timeouts Left"
                                class="d-block">T.O.L.</small>
                         <drbbly-lcddisplay text="gdg.game.team1.timeoutsLeft"
@@ -284,7 +287,8 @@
                                            font-size="'1em'"></drbbly-lcddisplay>
                     </div>
                     <!-- Team Foul - Team1 -->
-                    <div class="mb-2">
+                    <div class="mb-2"
+                         ng-hide="gdg.gameIsFinished()">
                         <small uib-tooltip="Team Fouls"
                                class="d-block">Fouls</small>
                         <drbbly-lcddisplay text="gdg.game.team1.teamFoulCount"
@@ -293,7 +297,8 @@
                                            font-size="'1em'"></drbbly-lcddisplay>
                     </div>
                     <!-- Bonus Team1 -->
-                    <div class="mb-2">
+                    <div class="mb-2"
+                         ng-hide="gdg.gameIsFinished()">
                         <button class="btn"
                                 ng-click="gdg.setBonusStatus(gdg.game.team1)">
                             <strong class="text-white bonus-indicator"
@@ -309,7 +314,7 @@
                     <small class="status-text"
                            ng-class="gdg.statusText.class">{{gdg.statusText.text}}</small>
                     <div class="game-clock text-center"
-                         ng-show="gdg.game.isTimed">
+                         ng-show="gdg.game.isTimed && !gdg.gameIsFinished()">
                         <div class="w-100 d-flex justify-content-center align-items-center">
                             <drbbly-timer on-ready="gdg.onTimerReady"
                                           warning-state-threshold-seconds="120"
@@ -318,6 +323,7 @@
                                           class="game-clock"></drbbly-timer>
                         </div>
                         <div class="clock controls text-center"
+                             ng-hide="gdg.gameIsFinished()"
                              ng-cloak>
                             <button class="btn btn-sm"
                                     ng-if="!gdg.timer.isOver()"
@@ -333,7 +339,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center"
+                         ng-show="!gdg.gameIsFinished()">
                         <!-- Shot Clock -->
                         <div class="shot-clock"
                              ng-show="gdg.game.isTimed">
@@ -379,9 +386,11 @@
                 <!-- Team2 Stats -->
                 <div class="team-stats text-center d-flex flex-column align-items-center">
                     <img class="logo" ng-src="{{gdg.game.team2.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
-                    <span class="score">{{gdg.game.team2.score}}</span>
+                    <span class="score"
+                          ng-class="{'text-secondary': gdg.game.winningTeamId === gdg.game.team1Id}">{{gdg.game.team2.score}}</span>
                     <!-- Possession Team2 -->
-                    <div class="mb-2">
+                    <div class="mb-2"
+                         ng-hide="gdg.gameIsFinished()">
                         <button class="btn py-0"
                                 ng-class="{'text-secondary': gdg.game.nextPossession !== 2}"
                                 ng-click="gdg.setNextPossession(2)">
@@ -389,7 +398,8 @@
                         </button>
                     </div>
                     <!-- TOL - Team2 -->
-                    <div class="mb-2">
+                    <div class="mb-2"
+                         ng-hide="gdg.gameIsFinished()">
                         <small uib-tooltip="Timeouts Left"
                                class="d-block">T.O.L.</small>
                         <drbbly-lcddisplay text="gdg.game.team2.timeoutsLeft"
@@ -398,7 +408,8 @@
                                            font-size="'1em'"></drbbly-lcddisplay>
                     </div>
                     <!-- Team Foul - Team2 -->
-                    <div class="mb-2">
+                    <div class="mb-2"
+                         ng-hide="gdg.gameIsFinished()">
                         <small uib-tooltip="Team Fouls"
                                class="d-block">Fouls</small>
                         <drbbly-lcddisplay text="gdg.game.team2.teamFoulCount"
@@ -407,7 +418,8 @@
                                            font-size="'1em'"></drbbly-lcddisplay>
                     </div>
                     <!-- Bonus Team2 -->
-                    <div class="mb-2">
+                    <div class="mb-2"
+                         ng-hide="gdg.gameIsFinished()">
                         <button class="btn"
                                 ng-click="gdg.setBonusStatus(gdg.game.team2)">
                             <strong class="text-white bonus-indicator"
@@ -425,6 +437,11 @@
                         ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && gdg.lineupsReady"
                         ng-click="gdg.jumpBall()">
                     Jump Ball
+                </button>
+                <button type="button" class="btn btn-primary btn-block"
+                        ng-if="gdg.game.status === gdg.gameStatusEnum.Finished"
+                        ui-sref="main.game.details({id: gdg.game.id})">
+                    See Game Page
                 </button>
                 <p ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && !gdg.lineupsReady">
                     Please set the lineups for both teams
