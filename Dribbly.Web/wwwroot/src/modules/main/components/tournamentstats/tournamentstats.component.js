@@ -29,6 +29,7 @@
             };
             dgs.activeTab = dgs.tabs.players;
             loadTeams();
+            loadPlayers();
         };
 
         function loadTeams() {
@@ -39,19 +40,22 @@
                 .catch(e => drbblyCommonService.handleError(e));
         }
 
-        dgs.onTeam1TableReady = function (table) {
-            dgs.team1StatTable = table;
-            initializeTable(dgs.team1StatTable, dgs.game.team1.players);
+        function loadPlayers() {
+            drbblyTournamentsService.getPlayers({ tournamentId: dgs.tournament.id })
+                .then(data => {
+                    dgs.tournament.players = data;
+                })
+                .catch(e => drbblyCommonService.handleError(e));
         }
 
-        dgs.onTeam2TableReady = function (table) {
-            dgs.team2StatTable = table;
-            initializeTable(dgs.team2StatTable, dgs.game.team2.players);
+        dgs.onPlayersTableReady = function (table) {
+            dgs.playerStatTable = table;
+            initializeTable(dgs.playerStatTable, dgs.tournament.players);
         }
 
         function initializeTable(table, data) {
             table.setOptions({
-                pagination: false,
+                pagination: { pageSize: 10 },
                 columns: [{
                     field: 'jerseyNo',
                     headerText: '#',
@@ -59,61 +63,57 @@
                     headerClass: 'jersey-no',
                 },
                 {
-                    field: 'name',
+                    field: 'account.name',
                     headerText: 'Player',
                     dataTemplate: () => dgs.playerColumnTemplate,
                     columnClass: 'player',
                     headerClass: 'player'
                 },
                 {
-                    field: 'points',
-                    headerText: 'PTS'
+                    field: 'gw',
+                    headerText: 'GW',
+                    headerTooltip: 'Games Won'
                 },
                 {
-                    field: 'assists',
-                    headerText: 'AST'
+                    field: 'gp',
+                    headerText: 'GP',
+                    headerTooltip: 'Games Played'
                 },
                 {
-                    field: 'rebounds',
-                    headerText: 'REB'
+                    field: 'ppg',
+                    headerText: 'PPG',
+                    dataTemplate: () => '{{rowData.dataItem.ppg | number : 1}}',
+                    headerTooltip: 'Points Per Game'
                 },
                 {
-                    field: 'blocks',
-                    headerText: 'BLK'
+                    field: 'apg',
+                    headerText: 'APG',
+                    dataTemplate: () => '{{rowData.dataItem.apg | number : 1}}',
+                    headerTooltip: 'Assists Per Game'
                 },
                 {
-                    field: 'steals',
-                    headerText: 'STL'
+                    field: 'rpg',
+                    headerText: 'RPG',
+                    dataTemplate: () => '{{rowData.dataItem.rpg | number : 1}}',
+                    headerTooltip: 'Rebounds Per Game'
                 },
                 {
-                    field: 'threePM',
-                    headerText: '3PM'
+                    field: 'bpg',
+                    headerText: 'BPG',
+                    dataTemplate: () => '{{rowData.dataItem.bpg | number : 1}}',
+                    headerTooltip: 'Blocks Per Game'
                 },
                 {
-                    field: 'threePA',
-                    headerText: '3PA'
-                },
-                {
+                    field: 'threePP',
                     headerText: '3P%',
-                    dataTemplate: (dataItem) => !dataItem.threePA ? '0.0' :
-                        '{{(rowData.dataItem.threePM / rowData.dataItem.threePA * 100) | number : 1}}'
+                    dataTemplate: () => '{{rowData.dataItem.threePP * 100 | number : 1}}',
+                    headerTooltip: '3-Points Percentage'
                 },
                 {
-                    field: 'fgm',
-                    headerText: 'FGM'
-                },
-                {
-                    field: 'fga',
-                    headerText: 'FGA'
-                },
-                {
+                    field: 'fgp',
                     headerText: 'FG%',
-                    dataTemplate: (dataItem) => !dataItem.fga ? '0.0' :
-                        '{{(rowData.dataItem.fgm / rowData.dataItem.fga * 100) | number : 1}}'
-                },
-                {
-                    field: 'turnovers',
-                    headerText: 'TO'
+                    dataTemplate: () => '{{rowData.dataItem.fgp * 100 | number : 1}}',
+                    headerTooltip: 'Field Goal Percentage'
                 }]
             });
             table.setData(data);

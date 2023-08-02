@@ -50,6 +50,10 @@
                     return drbblyhttpService.post(api + `getTopTeams`, input);
                 }
 
+                function getPlayers(input) {
+                    return drbblyhttpService.post(api + `getPlayers`, input);
+                }
+
                 function updateTournamentSettings(input) {
                     return drbblyhttpService.post(api + `updateTournamentSettings`, input);
                 }
@@ -85,6 +89,7 @@
                     deleteStage: deleteStage,
                     deleteStageBracket: deleteStageBracket,
                     getNew: getNew,
+                    getPlayers: getPlayers,
                     getTopTeams: getTopTeams,
                     getTournamentStages: getTournamentStages,
                     getTournamentTeamsAsChoices: getTournamentTeamsAsChoices,

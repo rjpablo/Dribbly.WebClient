@@ -5,28 +5,10 @@
                 <uib-tabset active="dgs.activeTab">
                     <uib-tab index="dgs.tabs.players" heading="Players">
                         <div class="player-stats">
-                            <!--<div ng-if="dgs.game.team1"
+                            <div ng-if="dgs.tournament.players"
                                  class="p-3">
-                                <div class="mb-3">
-                                    <h5>
-                                        <img class="avatar mr-1"
-                                             ng-src="{{dgs.game.team1.team.logo.url}}" />
-                                        <span>{{dgs.game.team1.team.name}}</span>
-                                    </h5>
-                                </div>
-                                <drbbly-datatable on-ready="dgs.onTeam1TableReady"></drbbly-datatable>
+                                <drbbly-datatable on-ready="dgs.onPlayersTableReady"></drbbly-datatable>
                             </div>
-                            <div ng-if="dgs.game.team2"
-                                 class="p-3">
-                                <div class="mb-3">
-                                    <h5>
-                                        <img class="avatar mr-1"
-                                             ng-src="{{dgs.game.team2.team.logo.url}}" />
-                                        <span>{{dgs.game.team2.team.name}}</span>
-                                    </h5>
-                                </div>
-                                <drbbly-datatable on-ready="dgs.onTeam2TableReady"></drbbly-datatable>
-                            </div>-->
                         </div>
                     </uib-tab>
                     <uib-tab index="dgs.tabs.teams" heading="Teams">
@@ -44,12 +26,12 @@
 </div>
 
 <script type="text/ng-template" drbbly-template="dgs.playerColumnTemplate">
-    <a ui-sref="main.account.home({username: rowData.dataItem.teamMembership.account.username})"
+    <a ui-sref="main.account.home({username: rowData.dataItem.username})"
        class="mr-1">
         <img class="avatar avatar-in-text"
-             ng-src="{{rowData.dataItem.account.iconUrl}}" />
+             ng-src="{{rowData.dataItem.profilePhoto.url}}" />
     </a>
-    <a ui-sref="main.account.home({username: rowData.dataItem.teamMembership.account.username})">
+    <a ui-sref="main.account.home({username: rowData.dataItem.username})">
         {{rowData.dataItem.name}}
     </a>
 </script>
