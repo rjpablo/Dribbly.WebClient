@@ -45,7 +45,8 @@
                 view: '<drbbly-globalsearchmodal></drbbly-globalsearchmodal>',
                 model: {},
                 isFull: true
-            });
+            })
+                .catch(() => { /*do nothing*/ });
         };
 
         function onSetToolbarItems(data) {

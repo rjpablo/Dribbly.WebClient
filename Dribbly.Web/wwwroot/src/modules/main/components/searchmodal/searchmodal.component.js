@@ -21,6 +21,7 @@
         var _okToClose;
         var _markers;
         var _clusterer;
+        var _removeListener;
 
         src.$onInit = function () {
             src.mapApiKey = settingsService[constants.settings.googleMapApiKey];
@@ -42,7 +43,7 @@
             _markers = [];
 
             src.context.setOnInterrupt(src.onInterrupt);
-            drbblyEventsService.on('modal.closing', function (event) {
+            _removeListener = drbblyEventsService.on('modal.closing', function (event) {
                 if (!_okToClose) {
                     event.preventDefault();
                     src.onInterrupt();
@@ -160,5 +161,9 @@
         src.isValidSearchCriteria = function () {
             return src.searchInput && src.searchInput.name;
         };
+
+        src.$onDestroy = function () {
+            _removeListener();
+        }
     }
 })();

@@ -16,6 +16,7 @@
     controllerFn.$inject = ['constants', 'drbblyEventsService', '$element', '$scope'];
     function controllerFn(constants, drbblyEventsService, $element, $scope) {
         var gsm = this;
+        var _removeListener;
 
         gsm.$onInit = function () {
 
@@ -34,6 +35,12 @@
             ];
 
             gsm.context.setOnInterrupt(gsm.onInterrupt);
+            _removeListener = drbblyEventsService.on('modal.closing', function (event) {
+                if (!gsm.context.okToClose) {
+                    event.preventDefault();
+                    gsm.onInterrupt();
+                }
+            }, $scope);
         };
 
         function createGroup(type, title) {
@@ -80,6 +87,10 @@
 
         gsm.cancel = function () {
             gsm.onInterrupt('cancelled');
+        };
+
+        gsm.$onDestroy = function () {
+            _removeListener();
         };
     }
 })();
