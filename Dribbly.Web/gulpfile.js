@@ -5,14 +5,16 @@ const del = require("del");
 const rename = require("gulp-rename");
 const watch = require("gulp-watch");
 const sass = require('gulp-sass')(require('sass'));
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
 
 var paths = {
     baseSrc: 'wwwroot/src/',
-    baseDest: 'wwwroot/dest/',
+    baseDest: 'wwwroot/dist/',
     images: 'images/',
     node: './node_modules/',
     lib: './wwwroot/src/lib/',
-    srcDirs: ['lib/', 'lib-extensions/', 'modules/', 'shared/']
+    srcDirs: ['custom', 'lib/', 'lib-extensions/', 'modules/', 'shared/']
 };
 
 // used to exclude external libraries from watch since they
@@ -274,6 +276,7 @@ function copyNodeLibs() {
 
 function copy(source, destination) {
     return gulp.src(source)
+        .pipe(concat())
         .pipe(gulp.dest(destination));
 }
 
@@ -353,4 +356,16 @@ gulp.task('watch-html', function (done) {
 
 gulp.task('watch', gulp.parallel('watch-scripts', 'watch-styles', 'watch-html'), function (done) {
     done();
+});
+
+// concat //
+gulp.task('bundle', function () {
+    var streams = [];
+    streams.push(gulp.src(paths.baseDest + 'js/main.js')
+        .pipe(uglify())
+        .pipe(rename(function (path) {
+            path.extname = ".min.js";
+        }))
+        .pipe(gulp.dest(paths.baseDest + 'js/')));
+    return merge(streams);
 });

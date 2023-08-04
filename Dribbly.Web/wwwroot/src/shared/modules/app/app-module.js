@@ -21,9 +21,9 @@
     ]);
 
     module.config(['$titleProvider', 'constants', function ($titleProvider, constants) {
-        $titleProvider.documentTitle(function ($rootScope) {
+        $titleProvider.documentTitle(['$rootScope' ,function ($rootScope) {
             return $rootScope.$root.$title ? $rootScope.$root.$title + ' - ' + constants.site.name : constants.site.name;
-        });
+        }]);
     }]);
 
     module.run(['authService', '$transitions', '$rootScope', 'drbblyToolbarService', 'constants', '$filter', runFn]);

@@ -9,155 +9,167 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
 
-    @* External Libraries *@
-    <link href="~/src/custom/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/src/lib/cropperjs/cropper.min.css" rel="stylesheet" />
-    <link href="~/src/lib/font-awesome/font-awesome.css" rel="stylesheet">
-    <link href="~/src/lib/@@fullcalendar/core/main.css" rel="stylesheet" />
-    <link href="~/src/lib/@@fullcalendar/daygrid/main.css" rel="stylesheet" />
-    <link href="~/src/lib/@@fullcalendar/timegrid/main.css" rel="stylesheet" />
-    <link href="~/src/lib/ui-bootstrap4/ui-bootstrap-csp.css" rel="stylesheet" />
-    <link href="~/src/lib/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
-    <link href="~/src/lib/angularjs-toaster/toaster.css" rel="stylesheet" />
-    <link href="~/src/custom/angularjs-bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet" />
-    <link href="~/src/lib/angular-bootstrap-colorpicker/colorpicker.css" rel="stylesheet" />
-    <link href="~/src/lib/videogular/themes/default/videogular.css" rel="stylesheet" />
-    <link href="~/src/lib/slick-carousel/slick.css" rel="stylesheet" />
-    <link href="~/src/lib/slick-carousel/slick-theme.css" rel="stylesheet" />
+    <environment include="Development">
 
-    @* Custom *@
-    <link href="~/src/custom/ng-image-gallery/ng-image-gallery.min.css" rel="stylesheet" />
-    <link href="~/src/custom/glyphicon-to-font-awesome/glyphicon-to-font-awesome.css" rel="stylesheet" />
+        @* External Libraries *@
+        <link href="~/src/custom/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/src/lib/cropperjs/cropper.min.css" rel="stylesheet" />
+        <link href="~/src/lib/font-awesome/font-awesome.css" rel="stylesheet">
+        <link href="~/src/lib/@@fullcalendar/core/main.css" rel="stylesheet" />
+        <link href="~/src/lib/@@fullcalendar/daygrid/main.css" rel="stylesheet" />
+        <link href="~/src/lib/@@fullcalendar/timegrid/main.css" rel="stylesheet" />
+        <link href="~/src/lib/ui-bootstrap4/ui-bootstrap-csp.css" rel="stylesheet" />
+        <link href="~/src/lib/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
+        <link href="~/src/lib/angularjs-toaster/toaster.css" rel="stylesheet" />
+        <link href="~/src/custom/angularjs-bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet" />
+        <link href="~/src/lib/angular-bootstrap-colorpicker/colorpicker.css" rel="stylesheet" />
+        <link href="~/src/lib/videogular/themes/default/videogular.css" rel="stylesheet" />
+        <link href="~/src/lib/slick-carousel/slick.css" rel="stylesheet" />
+        <link href="~/src/lib/slick-carousel/slick-theme.css" rel="stylesheet" />
 
-    @* Site *@
-    <link href="~/src/shared/modules/site/site.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/date/date.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/directives/overlay/overlay.directive.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/typeahead/typeahead.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/alertmodal/alertmodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/optionsmodal/optionsmodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/modal/modal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/navigator/navigator.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/sidenavigator/sidenavigator.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/sitelogo/sitelogo.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/mobiletoolbar/mobiletoolbar.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/inputmodal/inputmodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/globalsearchmodal/globalsearchmodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/globalsearch/globalsearch.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/datatable/datatable.component.css" rel="stylesheet" />
-    @* Auth *@
-    <link href="~/src/modules/auth/components/loggedoutmenubar/loggedoutmenubar.component.css" rel="stylesheet" />
-    <link href="~/src/modules/auth/components/changepasswordmodal/changepasswordmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/auth/components/loginform/loginform.component.css" rel="stylesheet" />
-    <link href="~/src/modules/auth/components/signupform/signupform.component.css" rel="stylesheet" />
-    <link href="~/src/modules/auth/components/socialauth/socialauth.component.css" rel="stylesheet" />
-    <link href="~/src/modules/auth/components/forgotpasswordform/forgotpasswordform.component.css" rel="stylesheet" />
-    <link href="~/src/modules/auth/components/passwordresetform/passwordresetform.component.css" rel="stylesheet" />
-    <link href="~/src/modules/auth/components/authcontainer/authcontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/auth/components/loginmodal/loginmodal.component.css" rel="stylesheet" />
-    @* App *@
-    <link href="~/src/shared/modules/app/components/rating/rating.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/appnavigator/appnavigator.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/profilepicture/profilepicture.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/userstub/userstub.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/positionbadge/positionbadge.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/entitystub/entitystub.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/datetimepicker/datetimepicker.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/eventcalendar/eventcalendar.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/texteditor/texteditor.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/mapsearchcontrol/mapsearchcontrol.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/map/map.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/locationpicker/locationpicker.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/cropper/cropper.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/croppermodal/croppermodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/footer/footer.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/uploadvideomodal/uploadvideomodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/videoplayermodal/videoplayermodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/verifycontactmodal/verifycontactmodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/reviewdetailsmodal/reviewdetailsmodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/nearbycourts/nearbycourts.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/notificationitem/notificationitem.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/notificationswidget/notificationswidget.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/reviewlist/reviewlist.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/postdetailsmodal/postdetailsmodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/post/post.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/posts/posts.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/app.css" rel="stylesheet" />
+        @* Custom *@
+        <link href="~/src/custom/ng-image-gallery/ng-image-gallery.min.css" rel="stylesheet" />
+        <link href="~/src/custom/glyphicon-to-font-awesome/glyphicon-to-font-awesome.css" rel="stylesheet" />
 
-    @* Main *@
-    <link href="~/src/modules/main/components/image/image.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/timegridevent/timegridevent.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/gamedetailsmodal/gamedetailsmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/gameresultmodal/gameresultmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtprice/courtprice.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtlistitem/courtlistitem.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/accounthome/accounthome.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/accountvideos/accountvideos.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/accountphotos/accountphotos.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/accountdetails/accountdetails.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/accountdetailsmodal/accountdetailsmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/accountsettings/accountsettings.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtlist/courtlist.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courthome/courthome.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtdetails/courtdetails.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtphotos/courtphotos.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtvideos/courtvideos.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/videolistitem/videolistitem.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/searchmodal/searchmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/courtviewercontainer/courtviewercontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/courtscontainer/courtscontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/courtschedulecontainer/courtschedulecontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/teammemberslist/teammemberslist.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/teamhome/teamhome.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/teammembers/teammembers.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/teamviewercontainer/teamviewercontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtgames/courtgames.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtbookings/courtbookings.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtreviews/courtreviews.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/courtpreviewmodal/courtpreviewmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/bookingdetailsmodal/bookingdetailsmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/addteammodal/addteammodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/jointeammodal/jointeammodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/bookingviewercontainer/bookingviewercontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/gamedetails/gamedetails.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/gametracking/gametracking.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/endgamemodal/endgamemodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/addleaguemodal/addleaguemodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/leagueviewercontainer/leagueviewercontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/leagueseasons/leagueseasons.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/tournamentviewercontainer/tournamentviewercontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/addtournamentmodal/addtournamentmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/tournamentgames/tournamentgames.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/gamelist/gamelist.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/gamelistitem/gamelistitem.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/timer/timer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/editclockmodal/editclockmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/recordshotmodal/recordshotmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/fouldetailsmodal/fouldetailsmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/playerstats/playerstats.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/gameeventslist/gameeventslist.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/jumpballmodal/jumpballmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/timeoutdetailsmodal/timeoutdetailsmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/lcddisplay/lcddisplay.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/setlineupmodal/setlineupmodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/site/components/menumodal/menumodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/gameeventdetailsmodal/gameeventdetailsmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/playerlistitem/playerlistitem.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/containers/homecontainer/homecontainer.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/tournamentlistitem/tournamentlistitem.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/teamlistitem/teamlistitem.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/jointournamentmodal/jointournamentmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/tournamentteams/tournamentteams.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/tournamentstages/tournamentstages.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/addstagemodal/addstagemodal.component.css" rel="stylesheet" />
-    <link href="~/src/shared/modules/app/components/teamselectionmodal/teamselectionmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/tournamentsettings/tournamentsettings.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/playbyplay/playbyplay.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/playerselectionmodal/playerselectionmodal.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/gamestats/gamestats.component.css" rel="stylesheet" />
-    <link href="~/src/modules/main/components/tournamentstats/tournamentstats.component.css" rel="stylesheet" />
+        @* Site *@
+        <link href="~/src/shared/modules/site/site.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/date/date.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/directives/overlay/overlay.directive.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/typeahead/typeahead.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/alertmodal/alertmodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/optionsmodal/optionsmodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/modal/modal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/navigator/navigator.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/sidenavigator/sidenavigator.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/sitelogo/sitelogo.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/mobiletoolbar/mobiletoolbar.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/inputmodal/inputmodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/globalsearchmodal/globalsearchmodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/globalsearch/globalsearch.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/datatable/datatable.component.css" rel="stylesheet" />
+        @* Auth *@
+        <link href="~/src/modules/auth/components/loggedoutmenubar/loggedoutmenubar.component.css" rel="stylesheet" />
+        <link href="~/src/modules/auth/components/changepasswordmodal/changepasswordmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/auth/components/loginform/loginform.component.css" rel="stylesheet" />
+        <link href="~/src/modules/auth/components/signupform/signupform.component.css" rel="stylesheet" />
+        <link href="~/src/modules/auth/components/socialauth/socialauth.component.css" rel="stylesheet" />
+        <link href="~/src/modules/auth/components/forgotpasswordform/forgotpasswordform.component.css" rel="stylesheet" />
+        <link href="~/src/modules/auth/components/passwordresetform/passwordresetform.component.css" rel="stylesheet" />
+        <link href="~/src/modules/auth/components/authcontainer/authcontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/auth/components/loginmodal/loginmodal.component.css" rel="stylesheet" />
+        @* App *@
+        <link href="~/src/shared/modules/app/components/rating/rating.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/appnavigator/appnavigator.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/profilepicture/profilepicture.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/userstub/userstub.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/positionbadge/positionbadge.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/entitystub/entitystub.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/datetimepicker/datetimepicker.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/eventcalendar/eventcalendar.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/texteditor/texteditor.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/mapsearchcontrol/mapsearchcontrol.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/map/map.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/locationpicker/locationpicker.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/cropper/cropper.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/croppermodal/croppermodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/footer/footer.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/uploadvideomodal/uploadvideomodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/videoplayermodal/videoplayermodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/verifycontactmodal/verifycontactmodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/reviewdetailsmodal/reviewdetailsmodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/nearbycourts/nearbycourts.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/notificationitem/notificationitem.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/notificationswidget/notificationswidget.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/reviewlist/reviewlist.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/postdetailsmodal/postdetailsmodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/post/post.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/posts/posts.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/app.css" rel="stylesheet" />
+
+        @* Main *@
+        <link href="~/src/modules/main/components/image/image.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/timegridevent/timegridevent.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/gamedetailsmodal/gamedetailsmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/gameresultmodal/gameresultmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtprice/courtprice.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtlistitem/courtlistitem.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/accounthome/accounthome.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/accountvideos/accountvideos.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/accountphotos/accountphotos.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/accountdetails/accountdetails.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/accountdetailsmodal/accountdetailsmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/accountsettings/accountsettings.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtlist/courtlist.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courthome/courthome.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtdetails/courtdetails.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtphotos/courtphotos.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtvideos/courtvideos.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/videolistitem/videolistitem.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/searchmodal/searchmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/courtviewercontainer/courtviewercontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/courtscontainer/courtscontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/courtschedulecontainer/courtschedulecontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/teammemberslist/teammemberslist.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/teamhome/teamhome.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/teammembers/teammembers.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/teamviewercontainer/teamviewercontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtgames/courtgames.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtbookings/courtbookings.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtreviews/courtreviews.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/courtpreviewmodal/courtpreviewmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/bookingdetailsmodal/bookingdetailsmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/addteammodal/addteammodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/jointeammodal/jointeammodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/bookingviewercontainer/bookingviewercontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/gamedetails/gamedetails.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/gametracking/gametracking.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/endgamemodal/endgamemodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/addleaguemodal/addleaguemodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/leagueviewercontainer/leagueviewercontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/leagueseasons/leagueseasons.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/tournamentviewercontainer/tournamentviewercontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/addtournamentmodal/addtournamentmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/tournamentgames/tournamentgames.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/gamelist/gamelist.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/gamelistitem/gamelistitem.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/timer/timer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/editclockmodal/editclockmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/recordshotmodal/recordshotmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/fouldetailsmodal/fouldetailsmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/playerstats/playerstats.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/gameeventslist/gameeventslist.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/jumpballmodal/jumpballmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/timeoutdetailsmodal/timeoutdetailsmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/lcddisplay/lcddisplay.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/setlineupmodal/setlineupmodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/menumodal/menumodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/gameeventdetailsmodal/gameeventdetailsmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/playerlistitem/playerlistitem.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/homecontainer/homecontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/tournamentlistitem/tournamentlistitem.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/teamlistitem/teamlistitem.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/jointournamentmodal/jointournamentmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/tournamentteams/tournamentteams.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/tournamentstages/tournamentstages.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/addstagemodal/addstagemodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/teamselectionmodal/teamselectionmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/tournamentsettings/tournamentsettings.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/playbyplay/playbyplay.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/playerselectionmodal/playerselectionmodal.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/gamestats/gamestats.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/tournamentstats/tournamentstats.component.css" rel="stylesheet" />
+
+    </environment>
+
+    <environment exclude="Development">
+        <link href="~/dist/css/libraries.css" rel="stylesheet" />
+        <link href="~/dist/css/site.css" rel="stylesheet" />
+        <link href="~/dist/css/auth.css" rel="stylesheet" />
+        <link href="~/dist/css/app.css" rel="stylesheet" />
+        <link href="~/dist/css/main.css" rel="stylesheet" />
+    </environment>
 </head>
 <body ng-controller="appController as app">
 
@@ -246,261 +258,232 @@
         <script src="~/src/lib/videogular-buffering/vg-buffering.js"></script>
         <script src="~/src/lib/videogular-overlay-play/vg-overlay-play.js"></script>
         <script src="~/src/lib/angular-dragdrop/angular-dragdrop.js"></script>
+
+        @*Custom Modules*@
+        <script src="~/src/custom/uiroutertitle/uiroutertitle.module.js"></script>
+        <script src="~/src/custom/daypilot/js/daypilot-all.min.js"></script>
+
+        @* siteModule files *@
+        <script src="~/src/shared/modules/site/site-module.js"></script>
+        <script src="~/src/lib/angular-agility/angular-agility.min.js"></script>
+        <script src="~/src/lib-extensions/ng-form-extension.js"></script>
+        <script src="~/src/shared/modules/site/services/settings-service.js"></script>
+        <script src="~/src/shared/modules/site/services/events.service.js"></script>
+        <script src="~/src/shared/modules/site/services/toast.service.js"></script>
+        <script src="~/src/shared/modules/site/services/common.service.js"></script>
+        <script src="~/src/shared/modules/site/services/datetime.service.js"></script>
+        <script src="~/src/shared/modules/site/services/http-service.js"></script>
+        <script src="~/src/shared/modules/site/services/i18n-service.js"></script>
+        <script src="~/src/shared/modules/site/services/formshelper.service.js"></script>
+        <script src="~/src/shared/modules/site/services/notifications.service.js"></script>
+        <script src="~/src/shared/modules/site/services/overlay.service.js"></script>
+        <script src="~/src/shared/modules/site/components/typeahead/typeahead.component.js"></script>
+        <script src="~/src/shared/modules/site/services/modal-service.js"></script>
+        <script src="~/src/shared/modules/site/services/permissions-service.js"></script>
+        <script src="~/src/shared/modules/site/services/contacts.service.js"></script>
+        <script src="~/src/shared/modules/site/filters/i18n-filter.js"></script>
+        <script src="~/src/shared/modules/site/filters/gender.filter.js"></script>
+        <script src="~/src/shared/modules/site/filters/date-filter.js"></script>
+        <script src="~/src/shared/modules/site/filters/number.filter.js"></script>
+        <script src="~/src/shared/modules/site/filters/distance.filter.js"></script>
+        <script src="~/src/shared/modules/site/directives/template.directive.js"></script>
+        <script src="~/src/shared/modules/site/directives/i18n.directive.js"></script>
+        <script src="~/src/shared/modules/site/directives/customvalidator.directive.js"></script>
+        <script src="~/src/shared/modules/site/directives/duration.directive.js"></script>
+        <script src="~/src/shared/modules/site/directives/emailinput.directive.js"></script>
+        <script src="~/src/shared/modules/site/directives/confirmpassword.directive.js"></script>
+        <script src="~/src/shared/modules/site/site-controller.js"></script>
+        <script src="~/src/shared/modules/site/components/date/date.component.js"></script>
+        <script src="~/src/shared/modules/site/components/alertmodal/alertmodal.component.js"></script>
+        <script src="~/src/shared/modules/site/components/optionsmodal/optionsmodal.component.js"></script>
+        <script src="~/src/shared/modules/site/components/navigator/navigator.component.js"></script>
+        <script src="~/src/shared/modules/site/components/sitelogo/sitelogo.component.js"></script>
+        <script src="~/src/shared/modules/site/components/mobiletoolbar/mobiletoolbar.component.js"></script>
+        <script src="~/src/shared/modules/site/components/sidenavigator/sidenavigator.component.js"></script>
+        <script src="~/src/shared/modules/site/components/modal/modal.component.js"></script>
+        <script src="~/src/shared/modules/site/directives/overlay/overlay.directive.js"></script>
+        <script src="~/src/shared/modules/site/components/inputmodal/inputmodal.component.js"></script>
+        <script src="~/src/shared/modules/site/components/globalsearch/globalsearch.component.js"></script>
+        <script src="~/src/shared/modules/site/components/globalsearchmodal/globalsearchmodal.component.js"></script>
+        <script src="~/src/shared/modules/site/components/datatable/datatable.component.js"></script>
+
+        @* authModule files *@
+        <script src="~/src/modules/auth/auth-module.js"></script>
+        <script src="~/src/modules/auth/services/auth-service.js"></script>
+        <script src="~/src/modules/auth/services/authInterceptor-service.js"></script>
+        <script src="~/src/modules/auth/filters/permission-filter.js"></script>
+        <script src="~/src/modules/auth/auth-controller.js"></script>
+
+        @* appModule files *@
+        <script src="~/src/shared/modules/app/app-module.js"></script>
+        <script src="~/src/shared/modules/app/app-controller.js"></script>
+        <script src="~/src/shared/modules/app/app-constants.js"></script>
+
+        @*appModule services*@
+        <script src="~/src/shared/modules/app/services/toolbar.service.js"></script>
+        <script src="~/src/shared/modules/app/services/footer.service.js"></script>
+        <script src="~/src/shared/modules/app/services/map.service.js"></script>
+        <script src="~/src/shared/modules/app/services/file.service.js"></script>
+        <script src="~/src/shared/modules/app/services/posts.service.js"></script>
+
+        @*appModule components*@
+        <script src="~/src/shared/modules/app/filters/height-filter.js"></script>
+        <script src="~/src/shared/modules/app/filters/courts.filter.js"></script>
+        <script src="~/src/shared/modules/app/filters/schedule-filter.js"></script>
+        <script src="~/src/shared/modules/app/components/rating/rating.component.js"></script>
+        <script src="~/src/shared/modules/app/components/positionbadge/positionbadge.component.js"></script>
+        <script src="~/src/shared/modules/app/components/appnavigator/appnavigator.component.js"></script>
+        <script src="~/src/shared/modules/app/components/profilepicture/profilepicture.component.js"></script>
+        <script src="~/src/shared/modules/app/components/userstub/userstub.component.js"></script>
+        <script src="~/src/shared/modules/app/components/entitystub/entitystub.component.js"></script>
+        <script src="~/src/shared/modules/app/components/datetimepicker/datetimepicker.component.js"></script>
+        <script src="~/src/shared/modules/app/components/mapsearchcontrol/mapsearchcontrol.component.js"></script>
+        <script src="~/src/shared/modules/app/components/map/map.component.js"></script>
+        <script src="~/src/shared/modules/app/components/locationpicker/locationpicker.component.js"></script>
+        <script src="~/src/shared/modules/app/components/texteditor/texteditor.component.js"></script>
+        <script src="~/src/shared/modules/app/components/eventcalendar/eventcalendar.component.js"></script>
+        <script src="~/src/shared/modules/app/components/footer/footer.component.js"></script>
+        <script src="~/src/shared/modules/app/components/cropper/cropper.component.js"></script>
+        <script src="~/src/shared/modules/app/components/croppermodal/croppermodal.component.js"></script>
+        <script src="~/src/shared/modules/app/components/uploadvideomodal/uploadvideomodal.component.js"></script>
+        <script src="~/src/shared/modules/app/components/videoplayermodal/videoplayermodal.component.js"></script>
+        <script src="~/src/shared/modules/app/components/verifycontactmodal/verifycontactmodal.component.js"></script>
+        <script src="~/src/shared/modules/app/components/reviewdetailsmodal/reviewdetailsmodal.component.js"></script>
+        <script src="~/src/shared/modules/app/components/nearbycourts/nearbycourts.component.js"></script>
+        <script src="~/src/shared/modules/app/components/notificationitem/notificationitem.component.js"></script>
+        <script src="~/src/shared/modules/app/components/notificationswidget/notificationswidget.component.js"></script>
+        <script src="~/src/shared/modules/app/components/reviewlist/reviewlist.component.js"></script>
+        <script src="~/src/shared/modules/app/components/postdetailsmodal/postdetailsmodal.component.js"></script>
+        <script src="~/src/shared/modules/app/components/post/post.component.js"></script>
+        <script src="~/src/shared/modules/app/components/posts/posts.component.js"></script>
+
+        @*main Module*@
+        <script src="~/src/modules/main/main-module.js"></script>
+        <script src="~/src/modules/main/main-controller.js"></script>
+        <script src="~/src/modules/main/services/accounts.service.js"></script>
+        <script src="~/src/modules/main/services/courtshelper.service.js"></script>
+        <script src="~/src/modules/main/services/courts.service.js"></script>
+        <script src="~/src/modules/main/services/games.service.js"></script>
+        <script src="~/src/modules/main/services/bookings.service.js"></script>
+        <script src="~/src/modules/main/services/gameshelper.service.js"></script>
+        <script src="~/src/modules/main/services/teams.service.js"></script>
+        <script src="~/src/modules/main/services/teamshelper.service.js"></script>
+        <script src="~/src/modules/main/services/shared.service.js"></script>
+        <script src="~/src/modules/main/services/leagues.service.js"></script>
+        <script src="~/src/modules/main/services/seasons.service.js"></script>
+        <script src="~/src/modules/main/services/tournaments.service.js"></script>
+        <script src="~/src/modules/main/services/timerhelperservice.js"></script>
+        <script src="~/src/modules/main/services/gameevents.service.js"></script>
+        <script src="~/src/modules/main/services/gameeventshelper.service.js"></script>
+        <script src="~/src/modules/main/services/carouselhelper.service.js"></script>
+
+        @*mainModule components*@
+        <script src="~/src/modules/main/components/image/image.component.js"></script>
+        <script src="~/src/modules/main/components/bookingdetailsmodal/bookingdetailsmodal.component.js"></script>
+        <script src="~/src/modules/main/components/timegridevent/timegridevent.component.js"></script>
+        <script src="~/src/modules/main/components/courtprice/courtprice.component.js"></script>
+        <script src="~/src/modules/main/components/courtlistitem/courtlistitem.component.js"></script>
+        <script src="~/src/modules/main/components/gamedetailsmodal/gamedetailsmodal.component.js"></script>
+        <script src="~/src/modules/main/components/gameresultmodal/gameresultmodal.component.js"></script>
+        <script src="~/src/modules/main/components/courthome/courthome.component.js"></script>
+        <script src="~/src/modules/main/components/courtphotos/courtphotos.component.js"></script>
+        <script src="~/src/modules/main/components/courtvideos/courtvideos.component.js"></script>
+        <script src="~/src/modules/main/components/courtreviews/courtreviews.component.js"></script>
+        <script src="~/src/modules/main/components/courtgames/courtgames.component.js"></script>
+        <script src="~/src/modules/main/components/courtbookings/courtbookings.component.js"></script>
+        <script src="~/src/modules/main/components/videolistitem/videolistitem.component.js"></script>
+        <script src="~/src/modules/main/components/accountphotos/accountphotos.component.js"></script>
+        <script src="~/src/modules/main/components/accounthome/accounthome.component.js"></script>
+        <script src="~/src/modules/main/components/accountvideos/accountvideos.component.js"></script>
+        <script src="~/src/modules/main/components/accountdetails/accountdetails.component.js"></script>
+        <script src="~/src/modules/main/components/accountdetailsmodal/accountdetailsmodal.component.js"></script>
+        <script src="~/src/modules/main/components/accountsettings/accountsettings.component.js"></script>
+        <script src="~/src/modules/main/components/addteammodal/addteammodal.component.js"></script>
+        <script src="~/src/modules/main/components/jointeammodal/jointeammodal.component.js"></script>
+        <script src="~/src/modules/main/components/courtdetails/courtdetails.component.js"></script>
+        <script src="~/src/modules/main/components/addeditcourtmodal/addeditcourtmodal.component.js"></script>
+        <script src="~/src/modules/main/components/searchmodal/searchmodal.component.js"></script>
+        <script src="~/src/modules/main/containers/courtviewercontainer/courtviewercontainer.component.js"></script>
+        <script src="~/src/modules/main/components/teammemberslist/teammemberslist.component.js"></script>
+        <script src="~/src/modules/main/components/teammembers/teammembers.component.js"></script>
+        <script src="~/src/modules/main/components/teamhome/teamhome.component.js"></script>
+        <script src="~/src/modules/main/containers/teamviewercontainer/teamviewercontainer.component.js"></script>
+        <script src="~/src/modules/main/components/courtlist/courtlist.component.js"></script>
+        <script src="~/src/modules/main/components/courtpreviewmodal/courtpreviewmodal.component.js"></script>
+        <script src="~/src/modules/main/components/addleaguemodal/addleaguemodal.component.js"></script>
+        <script src="~/src/modules/main/containers/leagueviewercontainer/leagueviewercontainer.component.js"></script>
+        <script src="~/src/modules/main/components/leagueseasons/leagueseasons.component.js"></script>
+        <script src="~/src/modules/main/containers/tournamentviewercontainer/tournamentviewercontainer.component.js"></script>
+        <script src="~/src/modules/main/components/addtournamentmodal/addtournamentmodal.component.js"></script>
+        <script src="~/src/modules/main/components/tournamentgames/tournamentgames.component.js"></script>
+        <script src="~/src/modules/main/components/gamelist/gamelist.component.js"></script>
+        <script src="~/src/modules/main/components/gamelistitem/gamelistitem.component.js"></script>
+        <script src="~/src/modules/main/components/timer/timer.component.js"></script>
+        <script src="~/src/modules/main/components/editclockmodal/editclockmodal.component.js"></script>
+        <script src="~/src/modules/main/components/recordshotmodal/recordshotmodal.component.js"></script>
+        <script src="~/src/modules/main/components/fouldetailsmodal/fouldetailsmodal.component.js"></script>
+        <script src="~/src/modules/main/components/playerstats/playerstats.component.js"></script>
+        <script src="~/src/modules/main/components/gameeventslist/gameeventslist.component.js"></script>
+        <script src="~/src/modules/main/components/jumpballmodal/jumpballmodal.component.js"></script>
+        <script src="~/src/modules/main/components/timeoutdetailsmodal/timeoutdetailsmodal.component.js"></script>
+        <script src="~/src/modules/main/components/lcddisplay/lcddisplay.component.js"></script>
+        <script src="~/src/modules/main/components/setlineupmodal/setlineupmodal.component.js"></script>
+        <script src="~/src/shared/modules/site/components/menumodal/menumodal.component.js"></script>
+        <script src="~/src/modules/main/components/gameeventdetailsmodal/gameeventdetailsmodal.component.js"></script>
+        <script src="~/src/modules/main/components/playerlistitem/playerlistitem.component.js"></script>
+        <script src="~/src/modules/main/components/tournamentlistitem/tournamentlistitem.component.js"></script>
+        <script src="~/src/modules/main/components/teamlistitem/teamlistitem.component.js"></script>
+        <script src="~/src/modules/main/components/jointournamentmodal/jointournamentmodal.component.js"></script>
+        <script src="~/src/modules/main/components/tournamentteams/tournamentteams.component.js"></script>
+        <script src="~/src/modules/main/components/tournamentstages/tournamentstages.component.js"></script>
+        <script src="~/src/modules/main/components/addstagemodal/addteammodal.component.js"></script>
+        <script src="~/src/shared/modules/app/components/teamselectionmodal/teamselectionmodal.component.js"></script>
+        <script src="~/src/modules/main/components/tournamentsettings/tournamentsettings.component.js"></script>
+        <script src="~/src/modules/main/components/playbyplay/playbyplay.component.js"></script>
+        <script src="~/src/modules/main/components/playerselectionmodal/playerselectionmodal.component.js"></script>
+        <script src="~/src/modules/main/components/gamestats/gamestats.component.js"></script>
+        <script src="~/src/modules/main/components/tournamentstats/tournamentstats.component.js"></script>
+
+        @* authModule components *@
+        <script src="~/src/modules/auth/components/socialauth/socialauth.component.js"></script>
+        <script src="~/src/modules/auth/components/loggedoutmenubar/loggedoutmenubar.component.js"></script>
+        <script src="~/src/modules/auth/components/changepasswordmodal/changepasswordmodal.component.js"></script>
+        <script src="~/src/modules/auth/components/loginform/loginform.component.js"></script>
+        <script src="~/src/modules/auth/components/forgotpasswordform/forgotpasswordform.component.js"></script>
+        <script src="~/src/modules/auth/components/signupform/signupform.component.js"></script>
+        <script src="~/src/modules/auth/components/passwordresetform/passwordresetform.component.js"></script>
+        <script src="~/src/modules/auth/components/loginmodal/loginmodal.component.js"></script>
+        <script src="~/src/modules/auth/components/authcontainer/authcontainer.component.js"></script>
+
+        @*Containers*@
+
+        <script src="~/src/modules/main/containers/homecontainer/homecontainer.component.js"></script>
+        <script src="~/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js"></script>
+        <script src="~/src/modules/main/containers/courtschedulecontainer/courtschedulecontainer.component.js"></script>
+        <script src="~/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.js"></script>
+        <script src="~/src/modules/main/containers/bookingviewercontainer/bookingviewercontainer.component.js"></script>
+        <script src="~/src/modules/main/components/gamedetails/gamedetails.component.js"></script>
+        <script src="~/src/modules/main/components/gametracking/gametracking.component.js"></script>
+        <script src="~/src/modules/main/components/endgamemodal/endgamemodal.component.js"></script>
+
+        @*<script src="~/src/modules/main/containers/courtscontainer/courtscontainer.service.js"></script>*@
+        <script src="~/src/modules/main/containers/courtscontainer/courtscontainer.component.js"></script>
+
+        <script src="~/src/modules/main/containers/maincontainer/maincontainer.component.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/src/lib/jquery/jquery.js"></script>
-        <script src="~/src/lib/jquery-ui/jquery-ui.js"></script>
-        <script src="~/src/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-        <script src="~/src/lib/bowser/bundled.js"></script>
-        <script src="~/src/lib/hammerjs/hammer.js"></script>
-        <script src="~/src/lib/moment/moment.js"></script>
-        <script src="~/src/lib/bootstrap/bootstrap.bundle.js"></script>
-        <script src="~/src/lib/cropperjs/cropper.min.js"></script>
-        <script src="~/src/lib/angular/angular.js"></script>
-        <script src="~/src/lib-extensions/angular-extension.js"></script>
-        <script src="~/src/lib/angular-inview/angular-inview.js"></script>
-        <script src="~/src/lib/angular-ui-router/angular-ui-router.js"></script>
-        <script src="~/src/lib/angular-local-storage/angular-local-storage.js"></script>
-        <script src="~/src/lib-extensions/angular-sanitize-custom.js"></script>
-        <script src="~/src/lib/angular-animate/angular-animate.js"></script>
-        <script src="~/src/lib/angular-touch/angular-touch.js"></script>
-        <script src="~/src/lib/ng-infinite-scroll/ng-infinite-scroll.min.js"></script>
-        <script src="~/src/lib/slick-carousel/slick.min.js"></script>
-        <script src="~/src/lib/angular-slick-carousel/angular-slick.js"></script>
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyDmHPmEBQIgvgg0FZX1-xWF4gUOp5ajuHA&libraries=placeses,visualization,drawing,geometry,places"></script>
-        <script src="~/src/custom/markerclusterer/markerclusterer.js"></script>
-        <script src="~/src/lib/ngmap/ng-map.js"></script>
-        <script src="~/src/lib/@@fullcalendar/core/main.js"></script>
-        <script src="~/src/lib/@@fullcalendar/interaction/main.js"></script>
-        <script src="~/src/lib/@@fullcalendar/daygrid/main.js"></script>
-        <script src="~/src/lib/@@fullcalendar/timegrid/main.js"></script>
-        <script src="~/src/lib/ui-bootstrap4/ui-bootstrap.js"></script>
-        <script src="~/src/lib/ui-bootstrap4/ui-bootstrap-tpls.js"></script>
-        <script src="~/src/custom/angularjs-bootstrap-datetimepicker/js/datetimepicker.js"></script>
-        <script src="~/src/custom/angularjs-bootstrap-datetimepicker/js/datetimepicker.templates.js"></script>
-        <script src="~/src/lib/angularjs-toaster/toaster.js"></script>
-        <script src="~/src/lib/angular-bootstrap-colorpicker/bootstrap-colorpicker-module.js"></script>
-        <script src="~/src/custom/ng-image-gallery/ng-image-gallery.js"></script>
-        <script src="~/src/lib-extensions/angular-wysiwyg-custom.js"></script>
-        <script src="~/src/lib/ng-file-upload/ng-file-upload.js"></script>
-        <script src="~/src/lib/videogular/videogular/videogular.js"></script>
-        <script src="~/src/lib/videogular-controls/vg-controls.js"></script>
-        <script src="~/src/lib/videogular-buffering/vg-buffering.js"></script>
-        <script src="~/src/lib/videogular-overlay-play/vg-overlay-play.js"></script>
-        <script src="~/src/lib/angular-dragdrop/angular-dragdrop.js"></script>
+        <script src="~/dist/js/libraries.min.js"></script>
+
+        @*Custom Modules*@
+        <script src="~/src/custom/uiroutertitle/uiroutertitle.module.js"></script>
+        <script src="~/src/custom/daypilot/js/daypilot-all.min.js"></script>
+
+        <script src="~/dist/js/site.min.js"></script>
+        <script src="~/dist/js/auth.js"></script>
+        <script src="~/dist/js/app.min.js"></script>
+        <script src="~/dist/js/main.min.js"></script>
     </environment>
-
-    @*Custom Modules*@
-    <script src="~/src/custom/uiroutertitle/uiroutertitle.module.js"></script>
-    <script src="~/src/custom/daypilot/js/daypilot-all.min.js"></script>
-
-    @* siteModule files *@
-    <script src="~/src/shared/modules/site/site-module.js"></script>
-    <script src="~/src/lib/angular-agility/angular-agility.min.js"></script>
-    <script src="~/src/lib-extensions/ng-form-extension.js"></script>
-    <script src="~/src/shared/modules/site/services/settings-service.js"></script>
-    <script src="~/src/shared/modules/site/services/events.service.js"></script>
-    <script src="~/src/shared/modules/site/services/toast.service.js"></script>
-    <script src="~/src/shared/modules/site/services/common.service.js"></script>
-    <script src="~/src/shared/modules/site/services/datetime.service.js"></script>
-    <script src="~/src/shared/modules/site/services/http-service.js"></script>
-    <script src="~/src/shared/modules/site/services/i18n-service.js"></script>
-    <script src="~/src/shared/modules/site/services/formshelper.service.js"></script>
-    <script src="~/src/shared/modules/site/services/notifications.service.js"></script>
-    <script src="~/src/shared/modules/site/services/overlay.service.js"></script>
-    <script src="~/src/shared/modules/site/components/typeahead/typeahead.component.js"></script>
-    <script src="~/src/shared/modules/site/services/modal-service.js"></script>
-    <script src="~/src/shared/modules/site/services/permissions-service.js"></script>
-    <script src="~/src/shared/modules/site/services/contacts.service.js"></script>
-    <script src="~/src/shared/modules/site/filters/i18n-filter.js"></script>
-    <script src="~/src/shared/modules/site/filters/gender.filter.js"></script>
-    <script src="~/src/shared/modules/site/filters/date-filter.js"></script>
-    <script src="~/src/shared/modules/site/filters/number.filter.js"></script>
-    <script src="~/src/shared/modules/site/filters/distance.filter.js"></script>
-    <script src="~/src/shared/modules/site/directives/template.directive.js"></script>
-    <script src="~/src/shared/modules/site/directives/i18n.directive.js"></script>
-    <script src="~/src/shared/modules/site/directives/customvalidator.directive.js"></script>
-    <script src="~/src/shared/modules/site/directives/duration.directive.js"></script>
-    <script src="~/src/shared/modules/site/directives/emailinput.directive.js"></script>
-    <script src="~/src/shared/modules/site/directives/confirmpassword.directive.js"></script>
-    <script src="~/src/shared/modules/site/site-controller.js"></script>
-    <script src="~/src/shared/modules/site/components/date/date.component.js"></script>
-    <script src="~/src/shared/modules/site/components/alertmodal/alertmodal.component.js"></script>
-    <script src="~/src/shared/modules/site/components/optionsmodal/optionsmodal.component.js"></script>
-    <script src="~/src/shared/modules/site/components/navigator/navigator.component.js"></script>
-    <script src="~/src/shared/modules/site/components/sitelogo/sitelogo.component.js"></script>
-    <script src="~/src/shared/modules/site/components/mobiletoolbar/mobiletoolbar.component.js"></script>
-    <script src="~/src/shared/modules/site/components/sidenavigator/sidenavigator.component.js"></script>
-    <script src="~/src/shared/modules/site/components/modal/modal.component.js"></script>
-    <script src="~/src/shared/modules/site/directives/overlay/overlay.directive.js"></script>
-    <script src="~/src/shared/modules/site/components/inputmodal/inputmodal.component.js"></script>
-    <script src="~/src/shared/modules/site/components/globalsearch/globalsearch.component.js"></script>
-    <script src="~/src/shared/modules/site/components/globalsearchmodal/globalsearchmodal.component.js"></script>
-    <script src="~/src/shared/modules/site/components/datatable/datatable.component.js"></script>
-
-    @* authModule files *@
-    <script src="~/src/modules/auth/auth-module.js"></script>
-    <script src="~/src/modules/auth/services/auth-service.js"></script>
-    <script src="~/src/modules/auth/services/authInterceptor-service.js"></script>
-    <script src="~/src/modules/auth/filters/permission-filter.js"></script>
-    <script src="~/src/modules/auth/auth-controller.js"></script>
-
-    @* appModule files *@
-    <script src="~/src/shared/modules/app/app-module.js"></script>
-    <script src="~/src/shared/modules/app/app-controller.js"></script>
-    <script src="~/src/shared/modules/app/app-constants.js"></script>
-
-    @*appModule services*@
-    <script src="~/src/shared/modules/app/services/toolbar.service.js"></script>
-    <script src="~/src/shared/modules/app/services/footer.service.js"></script>
-    <script src="~/src/shared/modules/app/services/map.service.js"></script>
-    <script src="~/src/shared/modules/app/services/file.service.js"></script>
-    <script src="~/src/shared/modules/app/services/posts.service.js"></script>
-
-    @*appModule components*@
-    <script src="~/src/shared/modules/app/filters/height-filter.js"></script>
-    <script src="~/src/shared/modules/app/filters/courts.filter.js"></script>
-    <script src="~/src/shared/modules/app/filters/schedule-filter.js"></script>
-    <script src="~/src/shared/modules/app/components/rating/rating.component.js"></script>
-    <script src="~/src/shared/modules/app/components/positionbadge/positionbadge.component.js"></script>
-    <script src="~/src/shared/modules/app/components/appnavigator/appnavigator.component.js"></script>
-    <script src="~/src/shared/modules/app/components/profilepicture/profilepicture.component.js"></script>
-    <script src="~/src/shared/modules/app/components/userstub/userstub.component.js"></script>
-    <script src="~/src/shared/modules/app/components/entitystub/entitystub.component.js"></script>
-    <script src="~/src/shared/modules/app/components/datetimepicker/datetimepicker.component.js"></script>
-    <script src="~/src/shared/modules/app/components/mapsearchcontrol/mapsearchcontrol.component.js"></script>
-    <script src="~/src/shared/modules/app/components/map/map.component.js"></script>
-    <script src="~/src/shared/modules/app/components/locationpicker/locationpicker.component.js"></script>
-    <script src="~/src/shared/modules/app/components/texteditor/texteditor.component.js"></script>
-    <script src="~/src/shared/modules/app/components/eventcalendar/eventcalendar.component.js"></script>
-    <script src="~/src/shared/modules/app/components/footer/footer.component.js"></script>
-    <script src="~/src/shared/modules/app/components/cropper/cropper.component.js"></script>
-    <script src="~/src/shared/modules/app/components/croppermodal/croppermodal.component.js"></script>
-    <script src="~/src/shared/modules/app/components/uploadvideomodal/uploadvideomodal.component.js"></script>
-    <script src="~/src/shared/modules/app/components/videoplayermodal/videoplayermodal.component.js"></script>
-    <script src="~/src/shared/modules/app/components/verifycontactmodal/verifycontactmodal.component.js"></script>
-    <script src="~/src/shared/modules/app/components/reviewdetailsmodal/reviewdetailsmodal.component.js"></script>
-    <script src="~/src/shared/modules/app/components/nearbycourts/nearbycourts.component.js"></script>
-    <script src="~/src/shared/modules/app/components/notificationitem/notificationitem.component.js"></script>
-    <script src="~/src/shared/modules/app/components/notificationswidget/notificationswidget.component.js"></script>
-    <script src="~/src/shared/modules/app/components/reviewlist/reviewlist.component.js"></script>
-    <script src="~/src/shared/modules/app/components/postdetailsmodal/postdetailsmodal.component.js"></script>
-    <script src="~/src/shared/modules/app/components/post/post.component.js"></script>
-    <script src="~/src/shared/modules/app/components/posts/posts.component.js"></script>
-
-    @*main Module*@
-    <script src="~/src/modules/main/main-module.js"></script>
-    <script src="~/src/modules/main/main-controller.js"></script>
-    <script src="~/src/modules/main/services/accounts.service.js"></script>
-    <script src="~/src/modules/main/services/courtshelper.service.js"></script>
-    <script src="~/src/modules/main/services/courts.service.js"></script>
-    <script src="~/src/modules/main/services/games.service.js"></script>
-    <script src="~/src/modules/main/services/bookings.service.js"></script>
-    <script src="~/src/modules/main/services/gameshelper.service.js"></script>
-    <script src="~/src/modules/main/services/teams.service.js"></script>
-    <script src="~/src/modules/main/services/teamshelper.service.js"></script>
-    <script src="~/src/modules/main/services/shared.service.js"></script>
-    <script src="~/src/modules/main/services/leagues.service.js"></script>
-    <script src="~/src/modules/main/services/seasons.service.js"></script>
-    <script src="~/src/modules/main/services/tournaments.service.js"></script>
-    <script src="~/src/modules/main/services/timerhelperservice.js"></script>
-    <script src="~/src/modules/main/services/gameevents.service.js"></script>
-    <script src="~/src/modules/main/services/gameeventshelper.service.js"></script>
-    <script src="~/src/modules/main/services/carouselhelper.service.js"></script>
-
-    @*mainModule components*@
-    <script src="~/src/modules/main/components/image/image.component.js"></script>
-    <script src="~/src/modules/main/components/bookingdetailsmodal/bookingdetailsmodal.component.js"></script>
-    <script src="~/src/modules/main/components/timegridevent/timegridevent.component.js"></script>
-    <script src="~/src/modules/main/components/courtprice/courtprice.component.js"></script>
-    <script src="~/src/modules/main/components/courtlistitem/courtlistitem.component.js"></script>
-    <script src="~/src/modules/main/components/gamedetailsmodal/gamedetailsmodal.component.js"></script>
-    <script src="~/src/modules/main/components/gameresultmodal/gameresultmodal.component.js"></script>
-    <script src="~/src/modules/main/components/courthome/courthome.component.js"></script>
-    <script src="~/src/modules/main/components/courtphotos/courtphotos.component.js"></script>
-    <script src="~/src/modules/main/components/courtvideos/courtvideos.component.js"></script>
-    <script src="~/src/modules/main/components/courtreviews/courtreviews.component.js"></script>
-    <script src="~/src/modules/main/components/courtgames/courtgames.component.js"></script>
-    <script src="~/src/modules/main/components/courtbookings/courtbookings.component.js"></script>
-    <script src="~/src/modules/main/components/videolistitem/videolistitem.component.js"></script>
-    <script src="~/src/modules/main/components/accountphotos/accountphotos.component.js"></script>
-    <script src="~/src/modules/main/components/accounthome/accounthome.component.js"></script>
-    <script src="~/src/modules/main/components/accountvideos/accountvideos.component.js"></script>
-    <script src="~/src/modules/main/components/accountdetails/accountdetails.component.js"></script>
-    <script src="~/src/modules/main/components/accountdetailsmodal/accountdetailsmodal.component.js"></script>
-    <script src="~/src/modules/main/components/accountsettings/accountsettings.component.js"></script>
-    <script src="~/src/modules/main/components/addteammodal/addteammodal.component.js"></script>
-    <script src="~/src/modules/main/components/jointeammodal/jointeammodal.component.js"></script>
-    <script src="~/src/modules/main/components/courtdetails/courtdetails.component.js"></script>
-    <script src="~/src/modules/main/components/addeditcourtmodal/addeditcourtmodal.component.js"></script>
-    <script src="~/src/modules/main/components/searchmodal/searchmodal.component.js"></script>
-    <script src="~/src/modules/main/containers/courtviewercontainer/courtviewercontainer.component.js"></script>
-    <script src="~/src/modules/main/components/teammemberslist/teammemberslist.component.js"></script>
-    <script src="~/src/modules/main/components/teammembers/teammembers.component.js"></script>
-    <script src="~/src/modules/main/components/teamhome/teamhome.component.js"></script>
-    <script src="~/src/modules/main/containers/teamviewercontainer/teamviewercontainer.component.js"></script>
-    <script src="~/src/modules/main/components/courtlist/courtlist.component.js"></script>
-    <script src="~/src/modules/main/components/courtpreviewmodal/courtpreviewmodal.component.js"></script>
-    <script src="~/src/modules/main/components/addleaguemodal/addleaguemodal.component.js"></script>
-    <script src="~/src/modules/main/containers/leagueviewercontainer/leagueviewercontainer.component.js"></script>
-    <script src="~/src/modules/main/components/leagueseasons/leagueseasons.component.js"></script>
-    <script src="~/src/modules/main/containers/tournamentviewercontainer/tournamentviewercontainer.component.js"></script>
-    <script src="~/src/modules/main/components/addtournamentmodal/addtournamentmodal.component.js"></script>
-    <script src="~/src/modules/main/components/tournamentgames/tournamentgames.component.js"></script>
-    <script src="~/src/modules/main/components/gamelist/gamelist.component.js"></script>
-    <script src="~/src/modules/main/components/gamelistitem/gamelistitem.component.js"></script>
-    <script src="~/src/modules/main/components/timer/timer.component.js"></script>
-    <script src="~/src/modules/main/components/editclockmodal/editclockmodal.component.js"></script>
-    <script src="~/src/modules/main/components/recordshotmodal/recordshotmodal.component.js"></script>
-    <script src="~/src/modules/main/components/fouldetailsmodal/fouldetailsmodal.component.js"></script>
-    <script src="~/src/modules/main/components/playerstats/playerstats.component.js"></script>
-    <script src="~/src/modules/main/components/gameeventslist/gameeventslist.component.js"></script>
-    <script src="~/src/modules/main/components/jumpballmodal/jumpballmodal.component.js"></script>
-    <script src="~/src/modules/main/components/timeoutdetailsmodal/timeoutdetailsmodal.component.js"></script>
-    <script src="~/src/modules/main/components/lcddisplay/lcddisplay.component.js"></script>
-    <script src="~/src/modules/main/components/setlineupmodal/setlineupmodal.component.js"></script>
-    <script src="~/src/shared/modules/site/components/menumodal/menumodal.component.js"></script>
-    <script src="~/src/modules/main/components/gameeventdetailsmodal/gameeventdetailsmodal.component.js"></script>
-    <script src="~/src/modules/main/components/playerlistitem/playerlistitem.component.js"></script>
-    <script src="~/src/modules/main/components/tournamentlistitem/tournamentlistitem.component.js"></script>
-    <script src="~/src/modules/main/components/teamlistitem/teamlistitem.component.js"></script>
-    <script src="~/src/modules/main/components/jointournamentmodal/jointournamentmodal.component.js"></script>
-    <script src="~/src/modules/main/components/tournamentteams/tournamentteams.component.js"></script>
-    <script src="~/src/modules/main/components/tournamentstages/tournamentstages.component.js"></script>
-    <script src="~/src/modules/main/components/addstagemodal/addteammodal.component.js"></script>
-    <script src="~/src/shared/modules/app/components/teamselectionmodal/teamselectionmodal.component.js"></script>
-    <script src="~/src/modules/main/components/tournamentsettings/tournamentsettings.component.js"></script>
-    <script src="~/src/modules/main/components/playbyplay/playbyplay.component.js"></script>
-    <script src="~/src/modules/main/components/playerselectionmodal/playerselectionmodal.component.js"></script>
-    <script src="~/src/modules/main/components/gamestats/gamestats.component.js"></script>
-    <script src="~/src/modules/main/components/tournamentstats/tournamentstats.component.js"></script>
-
-    @* authModule components *@
-    <script src="~/src/modules/auth/components/socialauth/socialauth.component.js"></script>
-    <script src="~/src/modules/auth/components/loggedoutmenubar/loggedoutmenubar.component.js"></script>
-    <script src="~/src/modules/auth/components/changepasswordmodal/changepasswordmodal.component.js"></script>
-    <script src="~/src/modules/auth/components/loginform/loginform.component.js"></script>
-    <script src="~/src/modules/auth/components/forgotpasswordform/forgotpasswordform.component.js"></script>
-    <script src="~/src/modules/auth/components/signupform/signupform.component.js"></script>
-    <script src="~/src/modules/auth/components/passwordresetform/passwordresetform.component.js"></script>
-    <script src="~/src/modules/auth/components/loginmodal/loginmodal.component.js"></script>
-    <script src="~/src/modules/auth/components/authcontainer/authcontainer.component.js"></script>
-
-    @*Containers*@
-
-    <script src="~/src/modules/main/containers/homecontainer/homecontainer.component.js"></script>
-    <script src="~/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js"></script>
-    <script src="~/src/modules/main/containers/courtschedulecontainer/courtschedulecontainer.component.js"></script>
-    <script src="~/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.js"></script>
-    <script src="~/src/modules/main/containers/bookingviewercontainer/bookingviewercontainer.component.js"></script>
-    <script src="~/src/modules/main/components/gamedetails/gamedetails.component.js"></script>
-    <script src="~/src/modules/main/components/gametracking/gametracking.component.js"></script>
-    <script src="~/src/modules/main/components/endgamemodal/endgamemodal.component.js"></script>
-
-    @*<script src="~/src/modules/main/containers/courtscontainer/courtscontainer.service.js"></script>*@
-    <script src="~/src/modules/main/containers/courtscontainer/courtscontainer.component.js"></script>
-
-    <script src="~/src/modules/main/containers/maincontainer/maincontainer.component.js"></script>
 
 </body>
 </html>
