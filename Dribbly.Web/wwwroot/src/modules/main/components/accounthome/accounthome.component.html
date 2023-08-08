@@ -35,7 +35,7 @@
                         </div>
                         <!-- Profile details -->
                         <div class="text-white">
-                            <h3 class="d-inline-block text-white m-0">{{dad.account.username}}</h3>
+                            <h3 class="d-inline-block text-white m-0">{{dad.account.name}}</h3>
                             <div class="mb-2">
                                 <ul class="list-group">
                                     <li class="d-block">
@@ -86,10 +86,12 @@
                     <div class="col-12">
                         <ul class="list-group">
                             <li class="d-block">
-                                <strong class="text-muted">{{::'app.Position' | i18n}}:</strong>
-                                <span ng-if="dad.account.position">{{('app.PlayerPositionEnum.' + dad.account.position) | i18n}}</span>
-                                <span ng-show="!dad.account.position"
-                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                                <strong class="text-muted">{{::'site.FirstName' | i18n}}:</strong>
+                                <span>{{dad.account.firstName}}</span>
+                            </li>
+                            <li class="d-block">
+                                <strong class="text-muted">{{::'site.LastName' | i18n}}:</strong>
+                                <span>{{dad.account.lastName}}</span>
                             </li>
                             <li class="d-block">
                                 <strong class="text-muted">{{::'app.Height' | i18n}}:</strong>

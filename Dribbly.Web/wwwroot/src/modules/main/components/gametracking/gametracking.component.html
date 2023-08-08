@@ -233,7 +233,7 @@
                                          ng-click="gdg.togglePlayerSelection(gamePlayer)"
                                          ng-class="{'selected': gamePlayer.isSelected}">
                                         <span class="jersey-no">{{gamePlayer.teamMembership.jerseyNo}}</span>
-                                        <span class="name">{{gamePlayer.teamMembership.name}}</span>
+                                        <span class="name">{{gamePlayer.teamMembership.lastName}}</span>
                                     </div>
                                     <div ng-if="(team.players | filter : {isInGame: true}).length === 0"
                                          class="w-100 text-center">
