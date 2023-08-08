@@ -172,7 +172,7 @@
     </environment>
 </head>
 <body ng-controller="appController as app">
-
+    <script src="https://accounts.google.com/gsi/client" async></script>
     <script type="text/javascript">
         window.Dribbly = {};
         window.Dribbly.clientSettings = @Html.Raw(Json.Serialize(Model.clientSettings));

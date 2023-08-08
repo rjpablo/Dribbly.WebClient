@@ -24,6 +24,7 @@
     </div>
     <div class="form-group">
         <input class="form-control" required ng-model="suf.model.email" drbbly-emailinput
+               ng-disabled="suf.externalData && suf.model.email"
                name="txtEmail" type="email" placeholder="{{'site.Email' | i18n}}"
                maxlength="30"
                ng-class="{'is-invalid': suf.frmSignUp.txtEmail.$touched && suf.frmSignUp.txtEmail.$invalid}" />
@@ -41,7 +42,7 @@
             {{::'site.Required' | i18n}}
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-if="!suf.externalData">
         <input class="form-control"
                required
                ng-model="suf.model.password"
@@ -57,7 +58,7 @@
             {{::'site.Required' | i18n }}
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-if="!suf.externalData">
         <input class="form-control"
                ng-model="suf.model.confirmPassword"
                must-match="suf.model.password"
@@ -80,5 +81,6 @@
     </div>
     <p class="text-center">{{'auth.AlreadyHaveAnAccount' | i18n}}<a class="btn btn-link" ui-sref="auth.login">{{'auth.LogIn' | i18n}}</a></p>
     <!--<p class="text-center">{{ 'site.Or' | i18n }}</p>-->
-    <drbbly-socialauth></drbbly-socialauth>
+    <drbbly-socialauth active="!suf.externalData"
+                       is-busy="suf.isBusy"></drbbly-socialauth>
 </form>

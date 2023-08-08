@@ -2,6 +2,7 @@
     'use strict';
     var module = angular.module('authModule', [
         'siteModule',
-        'LocalStorageModule'
+        'LocalStorageModule',
+        'ui.router'
     ]);
 })();

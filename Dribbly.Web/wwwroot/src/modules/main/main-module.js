@@ -436,6 +436,9 @@
 
             .state('auth.signUp', {
                 url: '/signup',
+                params: {
+                    data: null
+                },
                 component: 'drbblySignupform',
                 resolve: {
                     $titleKey: () => { return 'auth.SignUp'; }
