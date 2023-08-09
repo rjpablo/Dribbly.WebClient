@@ -44,6 +44,7 @@
                     Error_Common_Minlength: 'Should be at least ({length}) characters long',
                     Error_Common_MustMatchPassword: 'Must match the password',
                     Error_Common_PleaseFixErrors: 'Please fix errors',
+                    Error_Common_RequiredField: 'This field is required.',
                     Error_Common_UnexpectedError: 'An unexpected error occurred. Please try again.',
                     Error_Map_CityNameNotFound: 'Could not retrieve city name.' +
                         ' Please try a different location.',

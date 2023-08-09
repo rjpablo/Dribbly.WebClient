@@ -11,7 +11,7 @@
                  class="team-member-list-item mb-3"
                  ng-click="tml.onItemClick(member)">
                 <div class="photo-container"
-                     ui-sref="main.account.home({username: member.name})">
+                     ui-sref="main.account.home({username: member.username})">
                     <div class="position-absolute ml-1 mt-1">
                         <strong class="jersey-no d-block">#{{member.jerseyNo}}</strong>
                         <strong class="position d-block">{{'app.PlayerPositionAbbrevEnum.' + member.position | i18n}}</strong>
@@ -21,7 +21,7 @@
                     <img ng-src="{{member.primaryPhotoUrl || 'src/images/default_images/default_profile_photo.jpg'}}"
                          class="w-100" />
                 </div>
-                <h4 ui-sref="main.account.home({username: member.name})"
+                <h4 ui-sref="main.account.home({username: member.username})"
                     class="text-center text-white">
                     <small>{{member.name}}</small>
                 </h4>

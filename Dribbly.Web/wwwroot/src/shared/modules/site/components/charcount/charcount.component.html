@@ -1,0 +1,6 @@
+﻿<div>
+    (<span ng-class="{'text-warning': dcc.warningThreshold && dcc.maxLength - (dcc.length || 0) <= dcc.warningThreshold, 'text-danger': dcc.length >= dcc.maxLength}">
+        {{dcc.maxLength - (dcc.length || 0)}}
+    </span>/
+    <span>{{dcc.maxLength}}</span>)
+</div>
