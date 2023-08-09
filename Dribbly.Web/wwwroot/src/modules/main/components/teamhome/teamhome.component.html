@@ -28,7 +28,7 @@
                                               on-delete="dad.onDeletePhoto(img, cb)"></ng-image-gallery>
                         </div>
                         <div class="col-auto pl-md-0">
-                            <h3 class="text-white mb-1">{{dad.team.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' : dad.team.name}}</h3>
+                            <h3 class="text-white mb-1">{{dad.team.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' : dad.team.shortName}}</h3>
                             <!--<div class="mb-1">
                                 <drbbly-rating value="0.8"></drbbly-rating><br />
                                 {{'site.FollowerCountDisplay' | i18n:{count: ((dad.team.followerCount || 0) | drbblyNumber)} }}

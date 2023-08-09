@@ -6,7 +6,7 @@
                  ng-src="{{cli.game.team1.team.logo.url || $root.constants.images.defaultTeamLogoUrl}}" />
             <a ui-sref="main.team.home({id: cli.game.team1.teamId})"
                ng-click="cli.stopPropagation($event)"
-               class="d-block small">{{cli.game.team1.isOpen? '(open team)' : cli.game.team1.name}}</a>
+               class="d-block small">{{cli.game.team1.isOpen? '(open team)' : cli.game.team1.shortName}}</a>
             <div class="text-center font-weight-bold score"
                  ng-hide="cli.game.status === $root.constants.enums.gameStatusEnum.WaitingToStart"
                  ng-class="{'text-secondary': cli.game.winningTeamId !== null && cli.game.winningTeamId !== cli.game.team1Id}">{{cli.game.team1Score}}</div>
@@ -61,7 +61,7 @@
                  ng-src="{{cli.game.team2.team.logo.url || $root.constants.images.defaultTeamLogoUrl}}" />
             <a ui-sref="main.team.home({id: cli.game.team2.teamId})"
                ng-click="cli.stopPropagation($event)"
-               class="d-block small">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.name}}</a>
+               class="d-block small">{{cli.game.team2.isOpen? '(open team)' : cli.game.team2.shortName}}</a>
             <div class="text-center font-weight-bold score"
                  ng-hide="cli.game.status === $root.constants.enums.gameStatusEnum.WaitingToStart"
                  ng-class="{'text-secondary': cli.game.winningTeamId !== null && cli.game.winningTeamId !== cli.game.team2Id}">{{cli.game.team2Score}}</div>

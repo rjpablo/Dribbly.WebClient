@@ -19,7 +19,7 @@
                                     <img class="logo" ng-src="{{gcc.game.team1.team.logo.url}}" />
                                     <a class="text-white m-0 d-block"
                                        ui-sref="main.team.home({id: gcc.game.team1.teamId})">
-                                        {{gcc.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gcc.game.team1.name}}
+                                        {{gcc.game.team1.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gcc.game.team1.shortName}}
                                     </a>
                                 </div>
                                 <div class="py-2"
@@ -61,7 +61,7 @@
                                     <img class="logo" ng-src="{{gcc.game.team2.team.logo.url}}" />
                                     <a class="text-white m-0 d-block"
                                        ui-sref="main.team({id: gcc.game.team2.teamId})">
-                                        {{gcc.game.team2.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gcc.game.team2.name}}
+                                        {{gcc.game.team2.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' :gcc.game.team2.shortName}}
                                     </a>
                                 </div>
                                 <div class="py-2"

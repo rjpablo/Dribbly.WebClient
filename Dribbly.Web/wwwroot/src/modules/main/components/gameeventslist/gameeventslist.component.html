@@ -3,11 +3,11 @@
     <div class="teams py-3">
         <div class="team">
             <img class="logo" ng-src="{{gel.game.team1.team.logo.url}}" />
-            <h5 class="d-inline m-0 px-1">{{gel.game.team1.team.name}}</h5>
+            <h5 class="d-inline m-0 px-1">{{gel.game.team1.team.shortName}}</h5>
         </div>
         <div class="team">
             <img class="logo" ng-src="{{gel.game.team2.team.logo.url}}" />
-            <h5 class="d-inline m-0 px-1">{{gel.game.team2.team.name}}</h5>
+            <h5 class="d-inline m-0 px-1">{{gel.game.team2.team.shortName}}</h5>
         </div>
     </div>
     <div ng-repeat="event in gel.events | orderBy : ['-period', '-clockTime'] : true track by event.id"
