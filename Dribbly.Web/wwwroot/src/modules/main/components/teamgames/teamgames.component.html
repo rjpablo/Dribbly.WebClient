@@ -1,0 +1,29 @@
+﻿<div class="container">
+    <div class="row no-gutters mt-3">
+        <section class="col-12">
+            <div drbbly-overlay="tgc.overlay">
+                <uib-tabset active="tgc._activeTabIndex">
+                    <!-- #region Teams -->
+                    <uib-tab index="1" heading="Upcoming">
+                        <div class="row pt-3">
+                            <div class="col-md-6 col-xl-4"
+                                 ng-repeat="game in (tgc.team.games | filter: tgc.upcomingFilter | orderBy: 'start') track by game.id">
+                                <drbbly-gamelistitem class="w-100"
+                                                     game="game"></drbbly-gamelistitem>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab index="2" heading="All">
+                        <div class="row pt-3">
+                            <div class="col-md-6 col-xl-4"
+                                 ng-repeat="game in (tgc.team.games | orderBy: 'start') track by game.id">
+                                <drbbly-gamelistitem class="w-100"
+                                                     game="game"></drbbly-gamelistitem>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>            
+        </section>
+    </div>
+</div>

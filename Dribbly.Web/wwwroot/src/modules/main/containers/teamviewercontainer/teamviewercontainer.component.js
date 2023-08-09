@@ -86,6 +86,14 @@
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);
                     }
+                },
+                {
+                    textKey: 'app.Games',
+                    targetStateName: 'main.team.games',
+                    targetStateParams: { id: _teamId },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
                 }
             ]);
         }

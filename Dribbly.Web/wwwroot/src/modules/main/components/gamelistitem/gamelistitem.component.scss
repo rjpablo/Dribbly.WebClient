@@ -7,6 +7,8 @@ drbbly-gamelistitem {
     border: 1px solid $gray-700;
     background-color: $black;
     padding: $spacer;
+    margin-bottom: 1rem;
+    height: calc(100% - 1rem);
 
     .team1, .team2 {
         width: 30%;
@@ -20,24 +22,4 @@ drbbly-gamelistitem {
     .score {
         font-size: 2em;
     }
-
-    /*.controls {
-        display: none;
-        background: rgba(0,0,0,0.6);
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        text-align: center;
-
-        .btn:hover {
-            background: #7f7f7f;
-        }
-    }
-
-    &:hover {
-        .controls {
-            display: block;
-        }
-    }*/
 }

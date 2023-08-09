@@ -206,6 +206,14 @@
                     $titleKey: () => { return 'app.Members'; }
                 }
             })
+
+            .state('main.team.games', {
+                url: '/games/',
+                component: 'drbblyTeamgames',
+                resolve: {
+                    $titleKey: () => { return 'app.Games'; }
+                }
+            })
             // #endregion TEAM
 
             // #region BOOKING
