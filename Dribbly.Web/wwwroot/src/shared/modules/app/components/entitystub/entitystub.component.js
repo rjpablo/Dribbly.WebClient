@@ -25,7 +25,7 @@
                 dus.link = $state.href('main.court.home', { id: dus.entity.id });
             }
             else if (dus.entity.entityType === constants.enums.entityType.Account) {
-                dus.link = $state.href('main.account.home', { username: dus.entity.name });
+                dus.link = $state.href('main.account.home', { username: dus.entity.username });
             }
         };
     }

@@ -38,6 +38,10 @@
                     return drbblyhttpService.post(api + `updateRemainingTime`, input);
                 }
 
+                function getGames(input) {
+                    return drbblyhttpService.post(api + `getGames`, input);
+                }
+
                 function endGame(gameId, winningTeamId) {
                     return drbblyhttpService.post(api + `endGame/${gameId}/${winningTeamId}`);
                 }
@@ -94,6 +98,7 @@
                     getAddGameModal: getAddGameModal,
                     getAll: getAll,
                     getGame: getGame,
+                    getGames: getGames,
                     getGameTeam: getGameTeam,
                     recordShot: recordShot,
                     recordTimeout: recordTimeout,

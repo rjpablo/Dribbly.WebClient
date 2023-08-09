@@ -13,24 +13,37 @@
         });
 
     controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
-        'constants'];
+        'constants', 'drbblyDatetimeService'];
     function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService,
-        constants) {
+        constants, drbblyDatetimeService) {
         var avc = this;
         var _teamId;
 
         avc.$onInit = function () {
             avc.overlay = drbblyOverlayService.buildOverlay();
             _teamId = $stateParams.id;
-            loadTeam();
+            loadTeam()
+                .then(function () {
+                    avc.isBusy = true;
+                    return drbblyTeamsService.getUserTeamRelation(_teamId)
+                        .then(function (data) {
+                            avc.isBusy = false;
+                            avc.userTeamRelation = data;
+                            avc.overlay.setToReady();
+                        }, function (error) {
+                            avc.overlay.setToError();
+                            avc.isBusy = false;
+                        });
+                })
+                .catch(() => { avc.overlay.setToError(); });
         };
 
         function loadTeam() {
             avc.overlay.setToBusy();
-            drbblyTeamsService.getTeamViewerData(_teamId)
+            return drbblyTeamsService.getTeamViewerData(_teamId)
                 .then(function (data) {
-                    avc.overlay.setToReady();
                     avc.team = data.team;
+                    avc.team.dateAdded = new Date(drbblyDatetimeService.toUtcString(avc.team.dateAdded))
                     avc.team.logo = avc.team.logo || getDefaultLogo();
                     avc.team.photos = avc.team.photos || [];
                     avc.team.photos.push(avc.team.logo);
@@ -39,7 +52,6 @@
                     avc.shouldDisplayAsPublic = true; //TODO should be conditional
                     buildSubPages();
                 })
-                .catch(avc.overlay.setToError);
         }
 
         function getDefaultLogo() {
