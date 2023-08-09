@@ -14,15 +14,19 @@
         });
 
     controllerFunc.$inject = ['constants', 'drbblyFileService', '$stateParams', 'authService', 'permissionsService',
-        'drbblyOverlayService', 'modalService', 'i18nService', 'drbblyTeamsService', 'drbblyGamesService'];
+        'drbblyOverlayService', 'modalService', 'i18nService', 'drbblyTeamsService', 'drbblyGamesService',
+        'drbblyCarouselhelperService'];
     function controllerFunc(constants, drbblyFileService, $stateParams, authService, permissionsService,
-        drbblyOverlayService, modalService, i18nService, drbblyTeamsService, drbblyGamesService) {
+        drbblyOverlayService, modalService, i18nService, drbblyTeamsService, drbblyGamesService,
+        drbblyCarouselhelperService) {
         var thc = this;
 
         thc.$onInit = function () {
             thc.teamId = $stateParams.id;
             thc.overlay = drbblyOverlayService.buildOverlay();
             thc.upcomingGamesOverlay = drbblyOverlayService.buildOverlay();
+            thc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
+            thc.carouselSettings = drbblyCarouselhelperService.buildSettings();
             thc.isOwned = authService.isCurrentAccountId(thc.team.addedById);
             thc.postsOptions = {
                 postedOnType: constants.enums.entityType.Team,
@@ -40,6 +44,7 @@
                     thc.isBusy = false;
                 });
             thc.loadUpcomingGames();
+            thc.loadTopPlayers();
         };
 
         thc.leaveTeam = function () {
@@ -77,6 +82,17 @@
                     thc.upcomingGames = result;
                 })
                 .catch(() => thc.upcomingGamesOverlay.setToError());
+        }
+
+        thc.loadTopPlayers = function () {
+            thc.topPlayersOverlay.setToBusy();
+            drbblyTeamsService.getTopPlayers(thc.teamId)
+                .then(result => {
+                    thc.topPlayersOverlay.setToReady();
+                    thc.topPlayers = result;
+                    thc.carouselSettings.enabled = true;
+                })
+                .catch(() => thc.topPlayersOverlay.setToError());
         }
 
         thc.cancelJoinRequest = function () {

@@ -24,6 +24,34 @@
                 </div>
             </div>
             <div class="row black-transparent-bg py-3 mb-3">
+                <div class="col-12 d-flex">
+                    <h5 class="drbbly-header">Top Players</h5>
+                    <a ui-sref="main.team.members({id: thc.teamId})"
+                       class="ml-auto">See All</a>
+                </div>
+                <div class="col-12">
+                    <div drbbly-overlay="thc.topPlayersOverlay">
+                        <div class="slick-slider"
+                             ng-if="thc.topPlayers.length > 0"
+                             ng-class="{'slick-dotted': thc.carouselSettings.dots}">
+                            <slick settings="thc.carouselSettings"
+                                   class="dark-transparent-bg">
+                                <div ng-repeat="player in thc.topPlayers"
+                                     class="px-3">
+                                    <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
+                                </div>
+                            </slick>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center p-3"
+                                 ng-if="thc.topPlayers.length === 0">
+                                No data yet
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row black-transparent-bg py-3 mb-3">
                 <div class="col-12">
                     <h5 class="drbbly-header">Details</h5>
                 </div>

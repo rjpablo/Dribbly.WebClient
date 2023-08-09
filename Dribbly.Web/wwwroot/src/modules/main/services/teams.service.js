@@ -20,6 +20,10 @@
                     return drbblyhttpService.get(api + 'getCurrentMembers/' + teamId);
                 }
 
+                function getTopPlayers(teamId) {
+                    return drbblyhttpService.get(api + 'getTopPlayers/' + teamId);
+                }
+
                 function getJoinRequests(teamId) {
                     return drbblyhttpService.get(api + 'getJoinRequests/' + teamId);
                 }
@@ -150,6 +154,7 @@
                     getTeamSettings: getTeamSettings,
                     getTeamVideos: getTeamVideos,
                     getTeamViewerData: getTeamViewerData,
+                    getTopPlayers: getTopPlayers,
                     getTopTeams: getTopTeams,
                     getUserTeamRelation: getUserTeamRelation,
                     joinTeam: joinTeam,
