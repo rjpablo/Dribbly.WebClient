@@ -60,6 +60,7 @@
 
         gsm.onSearchComponentReady = function (widget) {
             gsm.searchWidget = widget;
+            gsm.searchWidget.focus();
         };
 
         gsm.onResultsUpdated = function (results) {

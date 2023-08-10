@@ -21,18 +21,20 @@
     controllerFunc.$inject = ['constants', '$state'];
     function controllerFunc(constants, $state) {
         var gcc = this;
+        var _typeahead;
 
         gcc.$onInit = function () {
             setTypeAheadConfig();
-            if (gcc.onReady) {
-                gcc.onReady({
-                    selectItem: onItemSelected
-                });
-            }
         };
 
-        gcc.search = function () {
-            
+        gcc.onTypeaheadReady = function (typeahead) {
+            _typeahead = typeahead;
+            if (gcc.onReady) {
+                gcc.onReady({
+                    selectItem: onItemSelected,
+                    focus: _typeahead.focus
+                });
+            }
         }
 
         function setTypeAheadConfig() {

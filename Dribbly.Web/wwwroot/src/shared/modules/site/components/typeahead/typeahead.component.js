@@ -14,7 +14,8 @@
                 selectedItems: '=',
                 name: '<',
                 ngModel: '=',
-                config: '<'
+                config: '<',
+                onReady: '<'
             },
             require: { ngModelCtrl: 'ngModel' },
             controllerAs: 'dta',
@@ -31,6 +32,9 @@
                 angular.element($element).find('input.typeahead-text-input')[0].focus();
             });
             dta.selectedItems = dta.selectedItems || [];
+            if (dta.onReady) {
+                dta.onReady({ focus: focus });
+            }
         };
 
         dta._getItems = function (keyword) {
@@ -104,5 +108,10 @@
                 }
             }
         };
+
+        function focus() {
+            var input = $element.find('input.typeahead-text-input')[0];
+            $timeout(() => input.focus());
+        }
     }
 })();
