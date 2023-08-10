@@ -17,7 +17,7 @@
         var dan = this;
 
         dan.$onInit = function () {
-
+            setActiveItem($state.current.name);
         };
 
         dan.getHref = function (item) {
@@ -25,16 +25,16 @@
         };
 
         dan.itemClicked = function (item, e) {
-            setActiveItem(item);
+            setActiveItem(item.targetStateName);
             if (item.action) {
                 e.preventDefault();
                 item.action();
             }
         };
 
-        function setActiveItem(activeItem){
+        function setActiveItem(stateName){
             dan.navItems.forEach(function (item) {
-                item.isActive = item.targetStateName === activeItem.targetStateName;
+                item.isActive = item.targetStateName === stateName;
             });
         };
     }
