@@ -1,77 +1,90 @@
 ﻿<div class="app-container">
     <div drbbly-overlay="avc.overlay">
         <div class="container info-summary">
-            <div class="row py-3 app-header border-left border-right gradent-gray-black-v-bg">
-                <div class="col-sm-6">
-                    <div class="row flex-nowrap">
-                        <div class="col-auto logo-container">
-                            <img ng-src="{{avc.team.logo.url}}"
-                                 class="profile-photo d-block mx-auto"
-                                 ng-click="avc.onLogoClick()" />
-                            <button id="btn-replace-photo"
-                                    class="d-none"
-                                    ngf-select="avc.onLogoSelect($file)"
-                                    ng-model="avc.profilePicture"
-                                    ngf-pattern="'image/*'"
-                                    ngf-accept="'image/*'"
-                                    ngf-max-size="20MB"></button>
-                            <ng-image-gallery images="avc.team.photos"
-                                              methods="avc.methods"
-                                              thumbnails="false"
-                                              inline="false"
-                                              bubbles="true"
-                                              bubble-size="30"
-                                              img-bubbles="true"
-                                              bg-close="true"
-                                              piracy="true"
-                                              img-anim="fadeup"
-                                              on-delete="avc.onDeletePhoto(img, cb)"></ng-image-gallery>
-                        </div>
-                        <div class="col-auto pl-md-0">
-                            <h3 class="text-white mb-1">{{avc.team.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' : avc.team.shortName}}</h3>
-                            <div class="drbbly-no-animation">
-                                <div ng-hide="avc.isBusy">
-                                    <div ng-show="!avc.userTeamRelation.hasPendingJoinRequest"
-                                         class="d-inline-block">
-                                        <button type="button"
-                                                class="btn btn-danger mb-3"
-                                                ng-show="avc.userTeamRelation.isCurrentMember"
-                                                ng-click="avc.leaveTeam()">
-                                            {{::'app.LeaveTeam' | i18n}}
-                                        </button>
-                                        <button type="button"
-                                                class="btn btn-primary mb-3"
-                                                ng-show="!avc.userTeamRelation.isCurrentMember"
-                                                ng-click="avc.joinTeam()">
-                                            {{::'app.Join' | i18n}}
-                                        </button>
+            <div class="row app-header ">
+                <div class="col-12">
+                    <div class="p-3 border-left border-right gradent-gray-black-v-bg">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row flex-nowrap">
+                                    <div class="col-auto logo-container">
+                                        <img ng-src="{{avc.team.logo.url}}"
+                                             class="profile-photo d-block mx-auto"
+                                             ng-click="avc.onLogoClick()" />
+                                        <button id="btn-replace-photo"
+                                                class="d-none"
+                                                ngf-select="avc.onLogoSelect($file)"
+                                                ng-model="avc.profilePicture"
+                                                ngf-pattern="'image/*'"
+                                                ngf-accept="'image/*'"
+                                                ngf-max-size="20MB"></button>
+                                        <ng-image-gallery images="avc.team.photos"
+                                                          methods="avc.methods"
+                                                          thumbnails="false"
+                                                          inline="false"
+                                                          bubbles="true"
+                                                          bubble-size="30"
+                                                          img-bubbles="true"
+                                                          bg-close="true"
+                                                          piracy="true"
+                                                          img-anim="fadeup"
+                                                          on-delete="avc.onDeletePhoto(img, cb)"></ng-image-gallery>
                                     </div>
-                                    <button type="button"
-                                            class="btn btn-primary mb-3"
-                                            ng-show="avc.userTeamRelation.hasPendingJoinRequest"
-                                            ng-click="avc.cancelJoinRequest()">
-                                        {{::'app.CancelRequestToJoin' | i18n}}
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-primary mb-3"
-                                            ng-click="avc.followTeam()">
-                                        {{::'app.PlusFollow' | i18n}}
-                                    </button>
+                                    <div class="col-auto pl-md-0">
+                                        <h3 class="text-white mb-1">{{avc.team.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' : avc.team.shortName}}</h3>
+                                        <div class="drbbly-no-animation">
+                                            <div ng-hide="avc.isBusy">
+                                                <button type="button"
+                                                        class="btn btn-primary mb-3"
+                                                        ng-click="avc.followTeam()">
+                                                    {{::'app.PlusFollow' | i18n}}
+                                                </button>
+                                                <div ng-show="!avc.userTeamRelation.hasPendingJoinRequest"
+                                                     class="d-inline-block">
+                                                    <button type="button"
+                                                            class="btn btn-secondary mb-3"
+                                                            ng-show="avc.userTeamRelation.isCurrentMember"
+                                                            ng-click="avc.leaveTeam()">
+                                                        {{::'app.LeaveTeam' | i18n}}
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-primary mb-3"
+                                                            ng-show="!avc.userTeamRelation.isCurrentMember"
+                                                            ng-click="avc.joinTeam()">
+                                                        {{::'app.Join' | i18n}}
+                                                    </button>
+                                                </div>
+                                                <button type="button"
+                                                        class="btn btn-secondary mb-3"
+                                                        ng-show="avc.userTeamRelation.hasPendingJoinRequest"
+                                                        ng-click="avc.cancelJoinRequest()">
+                                                    {{::'app.CancelRequestToJoin' | i18n}}
+                                                </button>
+                                                <button type="button"
+                                                        class="btn btn-secondary mb-3"
+                                                        ng-if="avc.isManager"
+                                                        ng-click="avc.update()">
+                                                    Update Details
+                                                </button>
+                                            </div>
+                                            <span ng-hide="!avc.isBusy"
+                                                  class="btn btn-secondary"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <span ng-hide="!avc.isBusy"
-                                      class="btn btn-secondary"><i class="fa fa-circle-o-notch fa-spin"></i></span>
                             </div>
+                            <div class="col-sm-6"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6"></div>
             </div>
         </div>
         <div id="app-navigation-container"
              class="container">
-            <div class="row border border-top-0">
+            <div class="row">
                 <div class="col-12">
-                    <drbbly-appnavigator nav-items="avc.app.toolbar._navItems"></drbbly-appnavigator>
+                    <drbbly-appnavigator nav-items="avc.app.toolbar._navItems"
+                                         class="border border-top-0"></drbbly-appnavigator>
                 </div>
             </div>
         </div>

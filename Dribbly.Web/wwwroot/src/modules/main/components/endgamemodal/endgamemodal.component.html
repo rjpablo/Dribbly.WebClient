@@ -3,15 +3,24 @@
 </div>
 <div class="modal-body">
     <div drbbly-overlay="bgm.overlay">
-        <div><strong>{{bgm.winningTeam.name}}</strong> will be declared the winner.</div>
+        <div class="py-5 text-center" ng-show="!bgm.isSaving"><strong>{{bgm.winningTeam.name}}</strong> will be declared the winner.</div>
+        <div class="py-5 text-center" ng-show="bgm.isSaving">Saving changes and updating stats. Please don't close the dialog.</div>
+    </div>
+    <div ng-show="bgm.isSaving">
+        <!-- Ad -->
+        <span class="d-block text-center">Advertisement</span>
+        <drbbly-ad type="'horizontal'"></drbbly-ad>
     </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary"
-            i18n="site.Confirm"
             ng-disabled="bgm.isBusy || bgm.frmGameDetails.$invalid || bgm.frmGameDetails.$pristine"
             type="submit"
-            ng-click="bgm.handleSubmitClick()"></button>
+            ng-click="bgm.handleSubmitClick()"
+            ng-switch="bgm.isSaving">
+        <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+        <span ng-switch-default>{{::'site.Confirm' | i18n}}</span>
+    </button>
     <button i18n="site.Cancel"
             class="btn btn-secondary"
             type="button"

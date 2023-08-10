@@ -282,9 +282,9 @@
                         });
                     if (shotResult) {
                         gdg.game.team1Score = shotResult.team1Score;
-                        gdg.game.team1.score = shotResult.team1Score;
+                        gdg.game.team1.points = shotResult.team1Score;
                         gdg.game.team2Score = shotResult.team2Score;
-                        gdg.game.team2.score = shotResult.team2Score;
+                        gdg.game.team2.points = shotResult.team2Score;
 
                         gdg.selectedPlayer.points = shotResult.takenBy.points;
                         gdg.selectedPlayer.fga = shotResult.takenBy.fga;
@@ -545,7 +545,7 @@
                             gdg.game.team2Score = result.game.team2Score;
                             result.teams.forEach(t => {
                                 var team = gdg.teams.drbblySingle(tm => tm.teamId === t.teamId);
-                                team.score = t.score;
+                                team.points = t.points;
                             });
                             result.players.forEach(p => {
                                 var player = gdg.players.drbblySingle(pl => pl.id === p.id);
@@ -757,7 +757,7 @@
             return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started // has started
                 && (gdg.timer && gdg.timer.isOver()) // time has run out
                 && gdg.game.currentPeriod >= gdg.game.numberOfRegulationPeriods // last period or OT
-                && gdg.game.team1.score !== gdg.game.team2.score; // scores are not tied
+                && gdg.game.team1.points !== gdg.game.team2.points; // scores are not tied
         }
 
         gdg.canGoToNextPeriod = function () {
@@ -765,7 +765,7 @@
                 && (gdg.timer && gdg.timer.isOver()) // time has run out
                 && (gdg.game.currentPeriod < gdg.game.numberOfRegulationPeriods // not the last or OT period
                     || (gdg.game.currentPeriod >= gdg.game.numberOfRegulationPeriods // last or OT period
-                        && gdg.game.team1.score === gdg.game.team2.score) // but scores are not tied
+                && gdg.game.team1.points === gdg.game.team2.points) // but scores are not tied
                 );
         }
 

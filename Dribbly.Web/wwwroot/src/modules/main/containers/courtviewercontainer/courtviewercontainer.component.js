@@ -119,16 +119,19 @@
                 },
                 {
                     textKey: 'site.Bookings',
+                    isRemoved: true,
                     targetStateName: 'main.court.bookings',
                     targetStateParams: { id: _courtId }
                 },
                 {
                     textKey: 'site.Schedule',
+                    isRemoved: true,
                     targetStateName: 'main.court.schedule',
                     targetStateParams: { id: _courtId }
                 },
                 {
                     textKey: 'site.Reviews',
+                    isRemoved: true,
                     targetStateName: 'main.court.reviews',
                     targetStateParams: { id: _courtId }
                 }

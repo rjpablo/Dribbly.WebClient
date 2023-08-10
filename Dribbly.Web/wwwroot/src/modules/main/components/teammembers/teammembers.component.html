@@ -1,25 +1,51 @@
 ﻿<div class="container px-0 px-sm-3">
-    <div drbbly-overlay="dad.overlay">
-        <drbbly-teammemberslist members="dad.currentMembers"
-                                team="dad.team"
-                                list-title="'app.CurrentMembers' | i18n"
-                                settings="dad.memberListSettings"
-                                can-remove="dad.isManager"
-                                on-request-processed="dad.onRequestProcessed"
-                                on-member-removed="dad.onMemberRemoved"
-                                class="d-block mb-3">
-        </drbbly-teammemberslist>
-    </div>
-    <div ng-if="dad.isManager">
-        <div drbbly-overlay="dad.joinRequestsOverlay">
-            <drbbly-teammemberslist members="dad.requestingMembers"
-                                    team="dad.team"
-                                    list-title="'app.MemberRequests' | i18n"
-                                    settings="dad.memberListSettings"
-                                    can-process-request="dad.isManger"
-                                    on-request-processed="dad.onRequestProcessed"
-                                    class="d-block mb-3">
-            </drbbly-teammemberslist>
+    <div class="row">
+        <div class="col-12 col-md-9">
+            <div class="row">
+                <div class="col-12">
+                    <div drbbly-overlay="dad.overlay">
+                        <drbbly-teammemberslist members="dad.currentMembers"
+                                                team="dad.team"
+                                                list-title="'app.CurrentMembers' | i18n"
+                                                settings="dad.memberListSettings"
+                                                can-remove="dad.isManager"
+                                                on-request-processed="dad.onRequestProcessed"
+                                                on-member-removed="dad.onMemberRemoved"
+                                                class="d-block mb-3">
+                        </drbbly-teammemberslist>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <!-- Ad -->
+                    <span class="d-block text-center">Advertisement</span>
+                    <drbbly-ad type="'horizontal'"></drbbly-ad>
+                </div>
+                <div class="col-12" ng-if="dad.isManager">
+                    <div drbbly-overlay="dad.joinRequestsOverlay">
+                        <drbbly-teammemberslist members="dad.requestingMembers"
+                                                team="dad.team"
+                                                list-title="'app.MemberRequests' | i18n"
+                                                settings="dad.memberListSettings"
+                                                can-process-request="dad.isManger"
+                                                on-request-processed="dad.onRequestProcessed"
+                                                class="d-block mb-3">
+                        </drbbly-teammemberslist>
+                    </div>
+                </div>
+                <div class="col-12" ng-if="dad.isManager">
+                    <!-- Ad -->
+                    <span class="d-block text-center">Advertisement</span>
+                    <drbbly-ad type="'horizontal'"></drbbly-ad>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 d-none d-md-block">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
         </div>
     </div>
 </div>

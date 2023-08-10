@@ -1,6 +1,6 @@
 ﻿<div class="container">
-    <div class="row no-gutters mt-3">
-        <section class="col-12">
+    <div class="row mt-3">
+        <div class="col-12 col-md-9">
             <div drbbly-overlay="tgc.overlay">
                 <uib-tabset active="tgc._activeTabIndex">
                     <!-- #region Teams -->
@@ -11,6 +11,11 @@
                                 <drbbly-gamelistitem class="w-100"
                                                      game="game"></drbbly-gamelistitem>
                             </div>
+                            <div class="col-12">
+                                <!-- Ad -->
+                                <span class="d-block text-center">Advertisement</span>
+                                <drbbly-ad type="'horizontal'"></drbbly-ad>
+                            </div>
                         </div>
                     </uib-tab>
                     <uib-tab index="2" heading="All">
@@ -20,10 +25,23 @@
                                 <drbbly-gamelistitem class="w-100"
                                                      game="game"></drbbly-gamelistitem>
                             </div>
+                            <div class="col-12">
+                                <!-- Ad -->
+                                <span class="d-block text-center">Advertisement</span>
+                                <drbbly-ad type="'horizontal'"></drbbly-ad>
+                            </div>
                         </div>
                     </uib-tab>
                 </uib-tabset>
-            </div>            
-        </section>
+            </div>
+        </div>
+        <div class="col-md-3 d-none d-md-block">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
     </div>
 </div>

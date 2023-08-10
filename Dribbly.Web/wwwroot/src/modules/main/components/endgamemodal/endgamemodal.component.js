@@ -76,12 +76,15 @@
         function submit(saveModel) {
             saveModel.gameId = saveModel.id;
             bgm.isBusy = true;
+            bgm.isSaving = true;
             drbblyGamesService.endGame(bgm.model.gameId, bgm.winningTeam.id)
                 .then(function () {
                     bgm.isBusy = false;
+                    bgm.isSaving = false;
                     close({ savedChanges: true });
                 }, function (error) {
                     bgm.isBusy = false;
+                    bgm.isSaving = false;
                     drbblyCommonService.handleError(error);
                 });
         }

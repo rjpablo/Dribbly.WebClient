@@ -1,6 +1,6 @@
 ﻿<div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-12 col-md-9">
             <div class="toolbar mb-3">
                 <span class="text-white"
                       ng-if="dap.photos">{{'app.FoundCountPhotos' | i18n: {count: dap.photos.length} }}</span>
@@ -16,7 +16,7 @@
                 </a>
             </div>
             <!--<drbbly-image ng-repeat="photo in dap.photos"
-                  image-url="{{photo.url}}"></drbbly-image>-->
+      image-url="{{photo.url}}"></drbbly-image>-->
             <div class="carousel-container mb-3"
                  ng-if="dap.photos">
                 <ng-image-gallery images="dap.photos"
@@ -31,6 +31,14 @@
                                   piracy="true"
                                   img-anim="fadeup"
                                   on-delete="dap.deletePhoto(img, cb)"></ng-image-gallery>
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
             </div>
         </div>
     </div>

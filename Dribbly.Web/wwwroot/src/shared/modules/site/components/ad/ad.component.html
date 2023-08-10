@@ -1,0 +1,8 @@
+﻿<div>
+    <a ng-href="{{ads.ad.link}}" class="d-block position-relative" target="_blank">
+        <img class="brand-icon"
+             ng-if="ads.ad.showBrandIcon && ads.ad.brandLogoUrl"
+             ng-src="{{ads.ad.brandLogoUrl}}" />
+        <img class="ad-image" ng-src="{{ads.ad.imageUrl}}" />
+    </a>
+</div>

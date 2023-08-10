@@ -27,7 +27,7 @@
             thc.upcomingGamesOverlay = drbblyOverlayService.buildOverlay();
             thc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
             thc.carouselSettings = drbblyCarouselhelperService.buildSettings();
-            thc.isOwned = authService.isCurrentAccountId(thc.team.addedById);
+            thc.isManager = authService.isCurrentAccountId(thc.team.addedById);
             thc.postsOptions = {
                 postedOnType: constants.enums.entityType.Team,
                 postedOnId: thc.team.id
