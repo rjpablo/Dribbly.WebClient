@@ -4,7 +4,7 @@
             <div class="mb-3">
                 <span class="text-white"
                       ng-if="dcv.videos">{{'app.FoundCountVideos' | i18n: {count: dcv.videos.length} }}</span>
-                <a class="btn-link float-right"
+                <a class="btn btn-sm btn-primary float-right"
                    ng-if="::dcv.isOwned || ('Court.AddVideoNotOwned' | drbblyPermission)"
                    ngf-select="dcv.addVideos($files)"
                    ng-model="dcv.profilePicture"
@@ -17,11 +17,16 @@
                     <i class="fa fa-plus"></i>&nbsp;{{::'app.UploadAVideo' | i18n}}
                 </a>
             </div>
-            <div class="row videos">
+            <div class="row videos mb-3">
                 <drbbly-videolistitem ng-repeat="video in dcv.videos"
                                       class="col-12 col-sm-6 col-md-4 col-xl-3"
                                       options="dcv.videoListItemOptions"
                                       video="video"></drbbly-videolistitem>
+            </div>
+            <div>
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'horizontal'"></drbbly-ad>
             </div>
         </div>
         <div class="col-12 col-lg-3">

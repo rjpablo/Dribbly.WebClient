@@ -4,7 +4,7 @@
             <div class="mb-3">
                 <span class="text-white"
                       ng-if="dcp.photos">{{'app.FoundCountPhotos' | i18n: {count: dcp.photos.length} }}</span>
-                <a class="btn-link float-right"
+                <a class="btn btn-sm btn-primary float-right"
                    ng-if="::dcp.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
                    ngf-select="dcp.addPhotos($files)"
                    ng-model="dcd.profilePicture"
