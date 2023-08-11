@@ -47,6 +47,7 @@
                 body: angular.element('[id="page-body-container"]'),
                 appNavigationContainer: angular.element('[id="app-navigation-container"]'),
                 appHeader: angular.element('[id="app-header"]'),
+                appBody: angular.element('[id="app-body"]'),
                 header: angular.element('[id="page-header-container"]'),
                 footer: angular.element('[id="page-footer-container"]'),
                 footer_mobile: angular.element('[id="page-footer-container"] drbbly-footer > div.mobile-only')
@@ -87,12 +88,20 @@
 
         app.scrollTo = function (element, offset) {
             var el = document.getElementById('drbbly-root-container');
-            var currScroll = el.scrollTop;
-            var appHeader = app.sections.appHeader.outerHeight();
-            var header = app.sections.header.outerHeight();
-            var nav = app.sections.appNavigationContainer.outerHeight();
-            el.scrollTop = element.getBoundingClientRect().top + currScroll + (offset || 0)
+            var scrollTop = element.getBoundingClientRect().top + el.scrollTop + (offset || 0)
                 - app.sections.header.outerHeight() - app.sections.appNavigationContainer.outerHeight();
+            el.scrollTop = scrollTop;
+        }
+
+        app.scrollToAppBodyTop = function () {
+            var appBody = document.getElementById('app-body');
+            var root = document.getElementById('drbbly-root-container');
+            var scrollTop = appBody.getBoundingClientRect().top + root.scrollTop
+                - app.sections.header.outerHeight() - app.sections.appNavigationContainer.outerHeight();
+            // scroll only if root is scrolled past appBody
+            if (root.scrollTop > scrollTop) {
+                root.scrollTop = scrollTop;
+            }
         }
 
     }

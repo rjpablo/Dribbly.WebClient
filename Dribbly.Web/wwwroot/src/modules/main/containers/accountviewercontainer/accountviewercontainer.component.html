@@ -1,5 +1,6 @@
 ﻿<div class="app-container">
-    <div class="container app-header px-0 px-sm-3">
+    <div id="app-header"
+         class="container app-header px-0 px-sm-3">
         <div class="gradent-gray-black-v-bg py-3 border-left border-right top-section">
             <div class="row">
                 <!-- #region Photo + Details -->
@@ -54,27 +55,27 @@
                         <div class="d-inline-block text-center">
                             <h3 class="m-0 d-block text-white">{{avc.stats.ppg | number : 1}}</h3>
                             <small class="text-muted"
-                                  title="Points Per Game">PPG</small>
+                                   title="Points Per Game">PPG</small>
                         </div>
                         <div class="d-inline-block text-center">
                             <h3 class="m-0 d-block text-white">{{avc.stats.apg | number : 1}}</h3>
                             <small class="text-muted"
-                                  title="Assists Per Game">APG</small>
+                                   title="Assists Per Game">APG</small>
                         </div>
                         <div class="d-inline-block text-center">
                             <h3 class="m-0 d-block text-white">{{avc.stats.rpg | number : 1}}</h3>
                             <small class="text-muted"
-                                  title="Rebounds Per Game">RPG</small>
+                                   title="Rebounds Per Game">RPG</small>
                         </div>
                         <div class="d-inline-block text-center">
                             <h3 class="m-0 d-block text-white">{{(avc.stats.threePP * 100) | number : 0}}</h3>
                             <small class="text-muted"
-                                  title="Three-Point Percentage">3P%</small>
+                                   title="Three-Point Percentage">3P%</small>
                         </div>
                         <div class="d-inline-block text-center">
                             <h3 class="m-0 d-block text-white">{{avc.stats.gp}}</h3>
                             <small class="text-muted"
-                                  title="Games Played">GP</small>
+                                   title="Games Played">GP</small>
                         </div>
                     </div>
                 </div>
@@ -84,9 +85,11 @@
     </div>
     <div id="app-navigation-container" class="container sticky-top mb-3 px-0 px-sm-3">
         <drbbly-appnavigator nav-items="avc.app.toolbar._navItems"
+                             app="avc.app"
                              class="border-left border-right"></drbbly-appnavigator>
     </div>
-    <div class="app-body">
+    <div class="app-body"
+         id="app-body">
         <div class="container px-0 px-sm-3"
              ng-if="avc.account && avc.account.entityStatus !== $root.constants.enums.accountStatus.Active">
             <div class="card">

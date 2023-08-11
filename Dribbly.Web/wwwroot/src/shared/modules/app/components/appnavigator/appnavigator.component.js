@@ -5,20 +5,31 @@
         .component('drbblyAppnavigator', {
             bindings: {
                 onInit: '<',
-                navItems: '<'
+                navItems: '<',
+                app: '<'
             },
             controllerAs: 'dan',
             templateUrl: 'drbbly-default',
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$state'];
-    function controllerFn($state) {
+    controllerFn.$inject = ['$state', '$transitions', '$timeout'];
+    function controllerFn($state, $transitions, $timeout) {
         var dan = this;
+        var _removeStateChangeListener;
 
         dan.$onInit = function () {
             setActiveItem($state.current.name);
+
+            _removeStateChangeListener = $transitions.onSuccess({}, function (trans) {
+                setActiveItem($state.current.name);
+                dan.app.scrollToAppBodyTop();
+            });
         };
+
+        dan.$onDestroy = function () {
+            _removeStateChangeListener();
+        }
 
         dan.getHref = function (item) {
             return $state.href(item.targetStateName, item.targetStateParams);

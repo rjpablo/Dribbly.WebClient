@@ -1,6 +1,7 @@
 ﻿<div class="app-container">
     <div drbbly-overlay="gcc.gameDetailsOverlay">
-        <div class="container app-header px-0 px-sm-3"
+        <div id="app-header"
+             class="container app-header px-0 px-sm-3"
              ng-hide="gcc.app.hideContainerData">
             <div class="border-right border-left border-secondary gradent-gray-black-v-bg">
                 <div class="row py-3">
@@ -151,11 +152,13 @@
                 <div class="col-12">
                     <drbbly-appnavigator id="app-navigator"
                                          class="bg-black d-block border-left border-right border-secondary"
-                                         nav-items="gcc.app.toolbar._navItems"></drbbly-appnavigator>
+                                         nav-items="gcc.app.toolbar._navItems"
+                                         app="gcc.app"></drbbly-appnavigator>
                 </div>
             </div>
         </div>
-        <div class="app-body">
+        <div id="app-body"
+             class="app-body">
             <ui-view app="gcc.app"
                      reload-game="gcc.reloadGame"
                      game="gcc.game"></ui-view>

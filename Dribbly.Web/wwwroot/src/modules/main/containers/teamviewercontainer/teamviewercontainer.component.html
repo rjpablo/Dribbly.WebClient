@@ -1,7 +1,8 @@
 ﻿<div class="app-container">
     <div drbbly-overlay="avc.overlay">
-        <div class="container info-summary">
-            <div class="row app-header ">
+        <div id="app-header"
+             class="container info-summary px-0 px-sm-3">
+            <div class="row app-header">
                 <div class="col-12">
                     <div class="p-3 border-left border-right gradent-gray-black-v-bg">
                         <div class="row">
@@ -80,15 +81,17 @@
             </div>
         </div>
         <div id="app-navigation-container"
-             class="container">
+             class="container px-0 px-sm-3">
             <div class="row">
                 <div class="col-12">
                     <drbbly-appnavigator nav-items="avc.app.toolbar._navItems"
+                                         app="avc.app"
                                          class="border-left border-right"></drbbly-appnavigator>
                 </div>
             </div>
         </div>
-        <div class="app-body">
+        <div id="app-body"
+             class="app-body">
             <div class="container"
                  ng-if="avc.team && avc.team.entityStatus !== $root.constants.enums.entityStatus.Active">
                 <div class="card">

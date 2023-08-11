@@ -1,6 +1,7 @@
 ﻿<div class="app-container">
     <div drbbly-overlay="lvc.overlay">
-        <div class="container app-header px-0 px-sm-3">
+        <div id="app-header"
+             class="container app-header px-0 px-sm-3">
             <div class="bg-dark p-3 d-flex">
                 <div class="logo">
                     <div drbbly-overlay="lvc.logoOverlay">
@@ -50,11 +51,13 @@
                 <div class="col-12">
                     <drbbly-appnavigator id="app-navigator"
                                          class="bg-dark"
-                                         nav-items="lvc.app.toolbar._navItems"></drbbly-appnavigator>
+                                         nav-items="lvc.app.toolbar._navItems"
+                                         app="lvc.app"></drbbly-appnavigator>
                 </div>
             </div>
         </div>
-        <div class="app-body">
+        <div id="app-body"
+             class="app-body">
             <div ng-if="lvc.tournament">
                 <ui-view tournament="lvc.tournament"
                          on-update="lvc.onTournamentUpdate"

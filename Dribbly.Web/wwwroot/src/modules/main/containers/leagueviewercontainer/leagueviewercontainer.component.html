@@ -8,13 +8,15 @@
                     </div>
                     <div class="row">
                         <div class="non-mobile col-12">
-                            <drbbly-appnavigator nav-items="lvc.app.toolbar._navItems"></drbbly-appnavigator>
+                            <drbbly-appnavigator nav-items="lvc.app.toolbar._navItems"
+                                                 app="lvc.app"></drbbly-appnavigator>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="app-body">
+        <div id="app-body"
+             class="app-body">
             <div class="container"
                  ng-if="lvc.league && lvc.league.entityStatus !== $root.constants.enums.entityStatus.Active">
                 <div class="card">

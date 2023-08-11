@@ -487,8 +487,7 @@
     function runFn(authService, $transitions, $rootScope) {
 
         $transitions.onSuccess({}, function (transition) {
-            var root = angular.element('#drbbly-root-container')[0];
-            root.scrollTo(0, 0);
+            
         });
 
         $transitions.onRetain({}, function (transition, state) {
