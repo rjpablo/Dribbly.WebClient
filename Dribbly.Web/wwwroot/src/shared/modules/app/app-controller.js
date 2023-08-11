@@ -46,6 +46,7 @@
             app.sections = {
                 body: angular.element('[id="page-body-container"]'),
                 appNavigationContainer: angular.element('[id="app-navigation-container"]'),
+                appHeader: angular.element('[id="app-header"]'),
                 header: angular.element('[id="page-header-container"]'),
                 footer: angular.element('[id="page-footer-container"]'),
                 footer_mobile: angular.element('[id="page-footer-container"] drbbly-footer > div.mobile-only')
@@ -83,6 +84,16 @@
         app.hideMobileToolbar = function () {
             app.mobileToolBarIsVisible = false;
         };
+
+        app.scrollTo = function (element, offset) {
+            var el = document.getElementById('drbbly-root-container');
+            var currScroll = el.scrollTop;
+            var appHeader = app.sections.appHeader.outerHeight();
+            var header = app.sections.header.outerHeight();
+            var nav = app.sections.appNavigationContainer.outerHeight();
+            el.scrollTop = element.getBoundingClientRect().top + currScroll + (offset || 0)
+                - app.sections.header.outerHeight() - app.sections.appNavigationContainer.outerHeight();
+        }
 
     }
 })();

@@ -12,82 +12,39 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyCourtsService', '$stateParams', '$timeout', 'drbblyCourtshelperService',
-        'drbblyDatetimeService', 'drbblyOverlayService'];
-    function controllerFunc(drbblyCourtsService, $stateParams, $timeout, drbblyCourtshelperService,
-        drbblyDatetimeService, drbblyOverlayService) {
+    controllerFunc.$inject = ['$stateParams', 'drbblyGamesService', 'drbblyOverlayService'];
+    function controllerFunc($stateParams, drbblyGamesService, drbblyOverlayService) {
         var cgc = this;
 
         cgc.$onInit = function () {
-            cgc.courtsListOverlay = drbblyOverlayService.buildOverlay();
+            cgc.gamesOverlay = drbblyOverlayService.buildOverlay();
             cgc.courtId = $stateParams.id;
-            drbblyCourtsService.getCourtGames(cgc.courtId)
-                .then(function (events) {
-                    cgc.games = massageEvents(events || []);
-                    cgc.schedulerOptions = getSchedulerOptions(angular.copy(cgc.games));
-                    cgc.courtsListOverlay.setToReady();
-                })
-                .catch(cgc.courtsListOverlay.setToError);
-        };
-
-        cgc.courtFilter = function (item) {
-            return (item.title || '').toLowerCase().indexOf((cgc.titleFilter || '').toLowerCase()) > -1;
-        };
-
-        function massageEvents(events) {
-            return events.map(function (event) {
-                event.text = event.title;
-                event.dateAdded = drbblyDatetimeService.toUtcString(event.dateAdded);
-                event.start = drbblyDatetimeService.toUtcString(event.start);
-                event.end = drbblyDatetimeService.toUtcString(event.end);
-                //event.editable = authService.authentication && authService.authentication.userId === event.addedBy;
-                return event;
-            });
-        }
-
-        function getSchedulerOptions(events) {
-            return {
-                events: events || [],
-                config: {
-                    startDate: new Date(),
-                    viewType: "Week"
-                },
-                onEventClick: onEventClick,
-                onTimeRangeSelected: onTimeRangeSelected
+            cgc.pagination = {
+                currentPage: 1,
+                pageSize: 10
             };
+            loadGames();
+        };
+
+        function loadGames() {
+            var input = {
+                courtIds: [cgc.courtId]
+            };
+            cgc.gamesOverlay.setToBusy();
+            drbblyGamesService.getGames(input)
+                .then(result => {
+                    cgc.gamesOverlay.setToReady();
+                    cgc.games = result;
+                    cgc.showPage(cgc.pagination.currentPage, false);
+                })
+                .catch(() => cgc.gamesOverlay.setToError());
         }
 
-        // Scheduler Events Hanlders - START
-        function onEventClick(args) {
-            drbblyCourtshelperService.openBookGameModal(args.e.data)
-                .then(function (result) {
-                    //redirect to game details
-                })
-                .catch(function (error) {
-
-                });
+        cgc.showPage = function(pageNumber, scrollToTop) {
+            cgc.displayedGames = cgc.games.slice(cgc.pagination.pageSize * (pageNumber - 1), cgc.pagination.pageSize * pageNumber)
+            if (scrollToTop !== false) {
+                cgc.app.scrollTo(document.getElementById('court-games'), -15);
+            }
         }
-
-        function onTimeRangeSelected(game) {
-            game.start = new Date(game.start.value);
-            game.end = new Date(game.end.value);
-            game.courtId = cgc.courtId;
-            drbblyCourtshelperService.openBookGameModal(game, { isEdit: false })
-                .then(function (result) {
-                    $timeout(function () {
-                        cgc.scheduler.events.add(new DayPilot.Event({
-                            start: new DayPilot.Date(result.start),
-                            end: new DayPilot.Date(result.end),
-                            id: result.id,
-                            text: result.title
-                        }));
-                    });
-                })
-                .catch(function (error) {
-
-                })
-                .finally(cgc.scheduler.clearSelection);
-        }
-        // Scheduler Event Handlers - END
     }
 })();

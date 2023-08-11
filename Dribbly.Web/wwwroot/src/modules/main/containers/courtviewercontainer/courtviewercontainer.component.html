@@ -5,7 +5,8 @@
              i18n="app.TheRequestedCourtIsNotAvailable">
         </div>
         <div ng-if="dcc.court && !dcc.court.isDeleted">
-            <div class="app-header container px-0 px-sm-3">
+            <div class="app-header container px-0 px-sm-3"
+                 id="app-header">
                 <div>
                     <div class="row">
                         <div class="col-12">
@@ -111,6 +112,7 @@
             </div>
             <div class="app-body">
                 <ui-view court="dcc.court"
+                         app="dcc.app"
                          on-update="dcc.onCourtUpdate"></ui-view>
                 <div class="container">
                     <drbbly-nearbycourts reference-coordinates="dcc.court"
