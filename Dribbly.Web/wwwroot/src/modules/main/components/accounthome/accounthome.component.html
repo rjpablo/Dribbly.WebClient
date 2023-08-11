@@ -1,82 +1,5 @@
 ﻿<div drbbly-overlay="dad.overlay">
     <div class="container px-0 px-sm-3">
-        <div class="gradent-gray-black-v-bg mb-3 p-2 top-section">
-            <div class="row">
-                <div class="col-12 col-md-7 col-lg-6 col-xl-5">
-                    <div class="d-flex flex-nowrap">
-                        <div class="mr-3">
-                            <img ng-src="{{dad.account.profilePhoto.url}}"
-                                 class="profile-photo"
-                                 ng-click="dad.onProfilePhotoClick()" />
-                            <div class="controls float-right d-none">
-                                <button id="btn-replace-photo"
-                                        class="btn btn-sm btn-outline-light"
-                                        ng-if="dad.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
-                                        ngf-select="dad.onPrimaryPhotoSelect($file)"
-                                        ng-model="dad.account.profilePhoto"
-                                        ngf-pattern="'image/*'"
-                                        ngf-accept="'image/*'"
-                                        ngf-max-size="20MB">
-                                    <span class="fa fa-pencil" aria-hidden="true"></span>
-                                </button><br />
-                            </div>
-                            <ng-image-gallery images="dad.account.photos"
-                                              methods="dad.methods"
-                                              thumbnails="false"
-                                              thumb-size="100"
-                                              inline="false"
-                                              bubbles="true"
-                                              bubble-size="30"
-                                              img-bubbles="true"
-                                              bg-close="true"
-                                              piracy="true"
-                                              img-anim="fadeup"
-                                              on-delete="dad.onDeletePhoto(img, cb)"></ng-image-gallery>
-                        </div>
-                        <!-- Profile details -->
-                        <div class="text-white">
-                            <h3 class="d-inline-block text-white m-0">{{dad.account.name}}</h3>
-                            <div class="mb-2">
-                                <ul class="list-group">
-                                    <li class="d-block">
-                                        <strong class="text-muted">{{::'app.Position' | i18n}}:</strong>
-                                        <span ng-if="dad.account.position">{{('app.PlayerPositionEnum.' + dad.account.position) | i18n}}</span>
-                                        <span ng-show="!dad.account.position"
-                                              class="text-muted">({{::'site.NotSet' | i18n}})</span>
-                                    </li>
-                                    <li class="d-block">
-                                        <strong class="text-muted">{{::'app.Height' | i18n}}:</strong>
-                                        <span>{{dad.account.heightInches | height}}</span>
-                                    </li>
-                                    <li class="d-block">
-                                        <strong class="text-muted">{{::'app.Gender' | i18n}}:</strong>
-                                        <span>{{dad.account.gender | gender}}</span>
-                                    </li>
-                                </ul>
-                                <drbbly-rating value="dad.account.rating"></drbbly-rating>
-                            </div>
-
-                            <div>
-                                <button type="button" class="btn btn-primary mb-3">{{::'app.PlusFollow' | i18n}}</button>
-                                <button type="button" class="btn btn-secondary mb-3">{{::'app.Message' | i18n}}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-5 col-lg-6 col-xl-7">
-                    <div class="d-flex justify-content-around">
-                        <div class="d-inline-block text-center">
-                            <h2 class="m-0 d-block px-1 text-white">0/0</h2>
-                            <span class="text-muted">{{::'app.WinRate' | i18n}}</span>
-                        </div>
-                        <div class="d-inline-block text-center">
-                            <h2 class="m-0 d-block px-1 text-white">0</h2>
-                            <span class="text-muted">{{::'app.Mvps' | i18n}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-12 col-md-9">
                 <div class="black-transparent-bg py-3 mb-3">
@@ -86,23 +9,23 @@
                     <div class="col-12">
                         <ul class="list-group">
                             <li class="d-block">
-                                <strong class="text-muted">{{::'site.FirstName' | i18n}}:</strong>
+                                <span class="text-muted">{{::'site.FirstName' | i18n}}:</span>
                                 <span>{{dad.account.firstName}}</span>
                             </li>
                             <li class="d-block">
-                                <strong class="text-muted">{{::'site.LastName' | i18n}}:</strong>
+                                <span class="text-muted">{{::'site.LastName' | i18n}}:</span>
                                 <span>{{dad.account.lastName}}</span>
                             </li>
                             <li class="d-block">
-                                <strong class="text-muted">{{::'app.Height' | i18n}}:</strong>
+                                <span class="text-muted">{{::'app.Height' | i18n}}:</span>
                                 <span>{{dad.account.heightInches | height}}</span>
                             </li>
                             <li class="d-block">
-                                <strong class="text-muted">{{::'app.Gender' | i18n}}:</strong>
+                                <span class="text-muted">{{::'app.Gender' | i18n}}:</span>
                                 <span>{{dad.account.gender | gender}}</span>
                             </li>
                             <li class="d-block">
-                                <strong class="text-muted">{{::'app.HomeCourt' | i18n}}:</strong>
+                                <span class="text-muted">{{::'app.HomeCourt' | i18n}}:</span>
                                 <drbbly-entitystub entity="dad.account.homeCourt"
                                                    ng-if="dad.account.homeCourt"></drbbly-entitystub>
                                 <span ng-show="!dad.account.homeCourt"
@@ -110,7 +33,7 @@
                             </li>
                             <li class="d-block"
                                 ng-if="dad.isOwned">
-                                <strong class="text-muted">{{::'app.Age' | i18n}}:</strong>
+                                <span class="text-muted">{{::'app.Age' | i18n}}:</span>
                                 <span ng-if="dad.account.age">{{'app.AgeValue' | i18n : { age: dad.account.age } }}</span>
                                 <span ng-show="!dad.account.age"
                                       class="text-muted">({{::'site.NotSet' | i18n}})</span>

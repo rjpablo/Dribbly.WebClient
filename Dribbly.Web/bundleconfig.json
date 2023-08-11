@@ -93,7 +93,8 @@
       "wwwroot/src/shared/modules/site/components/inputmodal/inputmodal.component.js",
       "wwwroot/src/shared/modules/site/components/globalsearch/globalsearch.component.js",
       "wwwroot/src/shared/modules/site/components/globalsearchmodal/globalsearchmodal.component.js",
-      "wwwroot/src/shared/modules/site/components/datatable/datatable.component.js"
+      "wwwroot/src/shared/modules/site/components/datatable/datatable.component.js",
+      "wwwroot/src/shared/modules/site/components/ad/ad.component.js"
     ]
   },
   {
@@ -302,7 +303,8 @@
       "wwwroot/src/shared/modules/site/components/inputmodal/inputmodal.component.css",
       "wwwroot/src/shared/modules/site/components/globalsearchmodal/globalsearchmodal.component.css",
       "wwwroot/src/shared/modules/site/components/globalsearch/globalsearch.component.css",
-      "wwwroot/src/shared/modules/site/components/datatable/datatable.component.css"
+      "wwwroot/src/shared/modules/site/components/datatable/datatable.component.css",
+      "wwwroot/src/shared/modules/site/components/ad/ad.component.css"
     ]
   },
   {
