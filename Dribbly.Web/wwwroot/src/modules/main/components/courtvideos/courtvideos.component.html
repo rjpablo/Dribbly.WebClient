@@ -1,35 +1,36 @@
-﻿<div class="row">
-
-    <div class="col-12 col-lg-9">
-        <div class="mb-3">
-            <span class="text-white"
-                  ng-if="dcv.videos">{{'app.FoundCountVideos' | i18n: {count: dcv.videos.length} }}</span>
-            <a class="btn-link float-right"
-               ng-if="::dcv.isOwned || ('Court.AddVideoNotOwned' | drbblyPermission)"
-               ngf-select="dcv.addVideos($files)"
-               ng-model="dcv.profilePicture"
-               ngf-pattern="'video/*'"
-               ngf-multiple="false"
-               ngf-accept="'video/*'"
-               ngf-max-size="{{dcv.maxSize}}"
-               ng-disabled="dcv.isBusy"
-               href="#">
-                <i class="fa fa-plus"></i>&nbsp;{{::'app.UploadAVideo' | i18n}}
-            </a>
+﻿<div class="container mt-3">
+    <div class="row">
+        <div class="col-12 col-lg-9">
+            <div class="mb-3">
+                <span class="text-white"
+                      ng-if="dcv.videos">{{'app.FoundCountVideos' | i18n: {count: dcv.videos.length} }}</span>
+                <a class="btn-link float-right"
+                   ng-if="::dcv.isOwned || ('Court.AddVideoNotOwned' | drbblyPermission)"
+                   ngf-select="dcv.addVideos($files)"
+                   ng-model="dcv.profilePicture"
+                   ngf-pattern="'video/*'"
+                   ngf-multiple="false"
+                   ngf-accept="'video/*'"
+                   ngf-max-size="{{dcv.maxSize}}"
+                   ng-disabled="dcv.isBusy"
+                   href="#">
+                    <i class="fa fa-plus"></i>&nbsp;{{::'app.UploadAVideo' | i18n}}
+                </a>
+            </div>
+            <div class="row videos">
+                <drbbly-videolistitem ng-repeat="video in dcv.videos"
+                                      class="col-12 col-sm-6 col-md-4 col-xl-3"
+                                      options="dcv.videoListItemOptions"
+                                      video="video"></drbbly-videolistitem>
+            </div>
         </div>
-        <div class="row videos">
-            <drbbly-videolistitem ng-repeat="video in dcv.videos"
-                                  class="col-12 col-sm-6 col-md-4 col-xl-3"
-                                  options="dcv.videoListItemOptions"
-                                  video="video"></drbbly-videolistitem>
-        </div>
-    </div>
-    <div class="col-12 col-lg-3">
-        <div class="sticky-top">
-            <!-- Ad -->
-            <span class="d-block text-center">Advertisement</span>
-            <drbbly-ad type="'square'"></drbbly-ad>
-            <drbbly-ad type="'square'"></drbbly-ad>
+        <div class="col-12 col-lg-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
         </div>
     </div>
 </div>

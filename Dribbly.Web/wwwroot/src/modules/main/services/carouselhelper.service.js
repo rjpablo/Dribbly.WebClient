@@ -16,6 +16,8 @@
                         mobileFirst: true,
                         arrows: false,
                         dots: true,
+                        infinite: true,
+                        waitForAnimate: false,
                         method: {},
                         responsive: [
                             {

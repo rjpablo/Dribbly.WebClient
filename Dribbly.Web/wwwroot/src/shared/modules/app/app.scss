@@ -51,6 +51,9 @@
     }
 
     .app-body {
+        position: relative;
+        z-index: 0; // so contents of inside .app-body overlap with #app-navigation-container
+
         @include media-breakpoint-up(sm) {
             /*padding-top: 40px;*/
         }

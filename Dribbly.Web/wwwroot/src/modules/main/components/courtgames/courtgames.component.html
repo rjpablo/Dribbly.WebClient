@@ -1,41 +1,43 @@
-﻿<div class="row mt-sm-3">
-    <div class="col">
-        <section drbbly-overlay="cgc.courtsListOverlay">
-            <div ng-if="cgc.games && cgc.games.length">
-                <form name="cgc.searchForm" class="bg-light p-3 form">
-                    <div class="form-group">
-                        <input class="form-control" ng-model="cgc.titleFilter" placeholder="{{::'app.FilterGamesByTitle' | i18n}}" />
-                    </div>
-                </form>
-                <div class="row">
-                    <div class="col">
-                        <div class="bg-light p-3">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-secondary">{{::'app.Id' | i18n}}</th>
-                                        <th class="text-secondary">{{::'app.Title' | i18n}}</th>
-                                        <th class="text-secondary">{{::'app.Schedule' | i18n}}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="game in cgc.games | filter : cgc.courtFilter">
-                                        <td>{{game.id}}</td>
-                                        <td><a ui-sref="main.game({id: game.id})"><strong>{{game.title || ('app.Untitled' | i18n)}}</strong></a></td>
-                                        <td>{{game | drbblyschedule}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+﻿<div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <section drbbly-overlay="cgc.courtsListOverlay">
+                <div ng-if="cgc.games && cgc.games.length">
+                    <form name="cgc.searchForm" class="bg-light p-3 form">
+                        <div class="form-group">
+                            <input class="form-control" ng-model="cgc.titleFilter" placeholder="{{::'app.FilterGamesByTitle' | i18n}}" />
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col">
+                            <div class="bg-light p-3">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-secondary">{{::'app.Id' | i18n}}</th>
+                                            <th class="text-secondary">{{::'app.Title' | i18n}}</th>
+                                            <th class="text-secondary">{{::'app.Schedule' | i18n}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="game in cgc.games | filter : cgc.courtFilter">
+                                            <td>{{game.id}}</td>
+                                            <td><a ui-sref="main.game({id: game.id})"><strong>{{game.title || ('app.Untitled' | i18n)}}</strong></a></td>
+                                            <td>{{game | drbblyschedule}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div ng-if="cgc.games && !cgc.games.length"
-                 class="card mt-3 mt-sm-0">
-                <div class="card-body text-center">
-                    <p class="m-0">{{::'app.NoGamesOnThisCourtYet' | i18n}}</p>
+                <div ng-if="cgc.games && !cgc.games.length"
+                     class="card mt-3 mt-sm-0">
+                    <div class="card-body text-center">
+                        <p class="m-0">{{::'app.NoGamesOnThisCourtYet' | i18n}}</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 </div>
