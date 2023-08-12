@@ -1,0 +1,14 @@
+﻿drbbly-accountscontainer {
+    .top-players {
+        drbbly-playerlistitem {
+            width: 100%;
+        }
+    }
+
+    .leaders {
+        .player-name {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}

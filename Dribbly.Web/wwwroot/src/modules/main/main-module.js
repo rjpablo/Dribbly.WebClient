@@ -45,6 +45,14 @@
             // #endregion MAIN
 
             // #region ACCOUNT
+            .state('main.players', {
+                url: '/players',
+                component: 'drbblyAccountscontainer',
+                resolve: {
+                    $titleKey: () => { return 'site.Players'; }
+                }
+            })
+
             .state('main.account', {
                 abstract: true,
                 url: '/account/:username',

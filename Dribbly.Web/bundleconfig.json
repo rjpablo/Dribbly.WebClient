@@ -248,19 +248,18 @@
       "wwwroot/src/modules/main/components/playerselectionmodal/playerselectionmodal.component.js",
       "wwwroot/src/modules/main/components/gamestats/gamestats.component.js",
       "wwwroot/src/modules/main/components/tournamentstats/tournamentstats.component.js",
+      "wwwroot/src/modules/main/components/gamedetails/gamedetails.component.js",
+      "wwwroot/src/modules/main/components/gametracking/gametracking.component.js",
+      "wwwroot/src/modules/main/components/endgamemodal/endgamemodal.component.js",
 
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
       "wwwroot/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js",
       "wwwroot/src/modules/main/containers/courtschedulecontainer/courtschedulecontainer.component.js",
       "wwwroot/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.js",
       "wwwroot/src/modules/main/containers/bookingviewercontainer/bookingviewercontainer.component.js",
-      "wwwroot/src/modules/main/components/gamedetails/gamedetails.component.js",
-      "wwwroot/src/modules/main/components/gametracking/gametracking.component.js",
-      "wwwroot/src/modules/main/components/endgamemodal/endgamemodal.component.js",
-
       "wwwroot/src/modules/main/containers/courtscontainer/courtscontainer.component.js",
-
-      "wwwroot/src/modules/main/containers/maincontainer/maincontainer.component.js"
+      "wwwroot/src/modules/main/containers/maincontainer/maincontainer.component.js",
+      "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.js"
     ]
   },
   // styles
@@ -428,7 +427,8 @@
       "wwwroot/src/modules/main/components/playbyplay/playbyplay.component.css",
       "wwwroot/src/modules/main/components/playerselectionmodal/playerselectionmodal.component.css",
       "wwwroot/src/modules/main/components/gamestats/gamestats.component.css",
-      "wwwroot/src/modules/main/components/tournamentstats/tournamentstats.component.css"
+      "wwwroot/src/modules/main/components/tournamentstats/tournamentstats.component.css",
+      "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css"
     ]
   }
 ]

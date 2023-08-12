@@ -98,6 +98,8 @@
                     SendCode: 'Send Code',
                     SiteName: constants.site.name,
                     SlashHour: '/hr',
+                    'SortDirection.Ascending_0': 'Ascending',
+                    'SortDirection.Descending_1': 'Descending',
                     Submit: 'Submit',
                     Teams: 'Teams',
                     To: 'To',
@@ -314,6 +316,15 @@
                     'PlayerPositionAbbrevEnum.PowerForward_4': 'PF',
                     'PlayerPositionAbbrevEnum.Center_5': 'C',
                     'PlayerPositionAbbrevEnum.Coach_6': 'CO',
+                    'StatEnum.OverallScore_0': 'Overall Score',
+                    'StatEnum.PPG_1': 'Points Per Game',
+                    'StatEnum.RPG_2': 'Rebounds Per Game',
+                    'StatEnum.APG_3': 'Assists Per Game',
+                    'StatEnum.FGP_4': 'Field Goal Percentage',
+                    'StatEnum.BPG_5': 'Blocks Per Game',
+                    'StatEnum.TPG_6': '3Pts Per Game',
+                    'StatEnum.SPG_7': 'Steals Per Game',
+                    'StatEnum.ThreePP_8': '3-Point Percentage',
                     PleaseAllowAccessToLocationToLoadNearbyCourts: 'Please allow access to location to load nearby courts.',
                     PleaseContactTheFollowingNumberForInquiries: 'Please contact the following number for inquiries:<br/><br/><h3 class="text-center">{number}</h3>',
                     PlusFollow: '+ Follow',
@@ -448,6 +459,7 @@
                             theEnum[numericKey] = value;
                             theEnum[textKey] = value;
                             moduleEntries[enumName] = theEnum;
+                            moduleEntries[enumName + '.' + numericKey] = value;
                             enumName = enumName.toLowerFirst(); // constants use camel case for enum names
                             constants.enums[enumName] = constants.enums[enumName] || {};
                             constants.enums[enumName][textKey] = Number(numericKey);
