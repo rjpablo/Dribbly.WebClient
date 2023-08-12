@@ -21,6 +21,7 @@
 
         dap.$onInit = function () {
             dap.isOwned = dap.account.id === authService.authentication.userId;
+            dap.methods = {};
             drbblyAccountsService.getAccountPhotos(dap.account.id)
                 .then(function (photos) {
                     dap.photos = massagePhotos(photos);
@@ -33,10 +34,8 @@
             modalService.confirm('app.DeletePhotoConfirmationMsg')
                 .then(function (result) {
                     if (result) {
-                        drbblyAccountsService.deletePhoto(photo.id, dap.account.id)
-                            .then(function () {
-                                done();
-                            })
+                        return drbblyAccountsService.deletePhoto(photo.id, dap.account.id)
+                            .then(done)
                             .catch(function (error) {
                                 drbblyCommonService.handleError(error);
                             });

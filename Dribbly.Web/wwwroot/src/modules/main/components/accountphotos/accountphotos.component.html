@@ -15,22 +15,12 @@
                     <i class="fa fa-plus"></i>&nbsp;{{::'app.UploadAPhoto' | i18n}}
                 </a>
             </div>
-            <!--<drbbly-image ng-repeat="photo in dap.photos"
-      image-url="{{photo.url}}"></drbbly-image>-->
             <div class="carousel-container mb-3"
                  ng-if="dap.photos">
-                <ng-image-gallery images="dap.photos"
-                                  methods="dap.methods"
-                                  thumbnails="true"
-                                  thumb-size="100"
-                                  inline="false"
-                                  bubbles="true"
-                                  bubble-size="30"
-                                  img-bubbles="true"
-                                  bg-close="true"
-                                  piracy="true"
-                                  img-anim="fadeup"
-                                  on-delete="dap.deletePhoto(img, cb)"></ng-image-gallery>
+                <drbbly-gallery can-add="false"
+                                media="dap.photos"
+                                on-delete="dap.deletePhoto"
+                                options="{hideCaptions: true, methods: dap.methods}"></drbbly-gallery>
             </div>
         </div>
         <div class="col-12 col-md-3">

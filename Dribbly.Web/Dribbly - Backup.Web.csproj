@@ -48,10 +48,4 @@
     <Folder Include="wwwroot\src\shared\modules\app\components\scheduletimetable\" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <None Include="wwwroot\src\shared\modules\app\components\gallery\gallery.component.js" />
-    <None Include="wwwroot\src\shared\modules\app\components\gallery\gallery.component.scss" />
-  </ItemGroup>
-
 </Project>

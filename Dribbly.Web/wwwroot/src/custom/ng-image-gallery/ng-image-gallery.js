@@ -18,7 +18,7 @@
                 thumbLimit: false,
                 inline: false,
                 bubbles: true,
-                bubbleSize: 20,
+                bubbleSize: 10,
                 imgBubbles: false,
                 bgClose: false,
                 piracy: false,
@@ -29,7 +29,11 @@
                     editButtonTitle: 'Edit this image...',
                     closeButtonTitle: 'Close',
                     externalLinkButtonTitle: 'Open image in new tab...'
-                }
+                },
+                showImageBackdrop: true,
+                imageBackdropColor: 'rgba(0, 0, 0, 1)',
+                inlineImageBackdropColor: 'rgba(0, 0, 0, 0)', // transparent
+                sortable: false
             };
 
             return {
@@ -72,7 +76,9 @@
                         scope.$apply(function () {
                             if (attributes.asyncKind == 'thumb') {
                                 element.css({ backgroundImage: 'url("' + attributes.showImageAsync + '")' });
-                                element.empty(); // remove loading animation element
+                                // remove loading animation element
+                                var loaderEl = element.find('div.loader')[0];
+                                loaderEl.remove();
                             }
                             else if (attributes.asyncKind == 'bubble') {
                                 element.css({ backgroundImage: 'url("' + attributes.showImageAsync + '")' });
@@ -80,7 +86,9 @@
                         });
                     };
                     image.onerror = function () {
-                        element.empty(); // remove loading animation element
+                        // remove loading animation element
+                        var loaderEl = element.find('div.loader')[0];
+                        loaderEl.remove();
                     }
                 }
             };
@@ -178,7 +186,7 @@
                     transclude: false,
                     restrict: 'AE',
                     scope: {
-                        images: '=',		// []
+                        images: '<',		// []
                         methods: '=?',		// {}
                         conf: '=?',		// {}
 
@@ -193,113 +201,21 @@
                         piracy: '=?',		// true|false
                         imgAnim: '@?',		// {name}
                         textValues: '=?',		// {}
+                        hideCaptions: '=?',
+                        cover: '=?', // the image will cover the whole gallery
+                        sortable: '=?', // true|false
 
+                        onBeforeOpen: '&?',	// function
                         onOpen: '&?',		// function
                         onClose: '&?',		// function,
                         onDelete: '&?',
-                        onEdit: '&?'
+                        onEdit: '&?',
+                        onSort: '&?'
                     },
-                    template: '<div class="ng-image-gallery img-move-dir-{{_imgMoveDirection}}" ng-class="{inline:inline}" ng-hide="images.length == 0">' +
-
-                        // Thumbnails container
-                        //  Hide for inline gallery
-                        '<div ng-if="thumbnails && !inline" class="ng-image-gallery-thumbnails">' +
-                        '<div class="thumb" ng-repeat="image in images track by image.id" ng-if="thumbLimit ? $index < thumbLimit : true" ng-click="methods.open($index);" show-image-async="{{image.thumbUrl || image.url}}" title="{{image.title}}" async-kind="thumb" ng-style="{\'width\' : thumbSize+\'px\', \'height\' : thumbSize+\'px\'}">' +
-                        '<div class="loader"></div>' +
-                        '</div>' +
-                        '</div>' +
-
-                        // Modal container
-                        // (inline container for inline modal)
-                        '<div class="ng-image-gallery-modal" ng-if="opened" ng-cloak>' +
-
-                        // Gallery backdrop container
-                        // (hide for inline gallery)
-                        '<div class="ng-image-gallery-backdrop" ng-if="!inline"></div>' +
-
-                        // Gallery contents container
-                        // (hide when image is loading)
-                        '<div class="ng-image-gallery-content" ng-show="!imgLoading" ng-click="backgroundClose($event);">' +
-
-                        // actions icons container
-                        '<div class="actions-icons-container">' +
-                        // Delete image icon
-                        '<div class="delete-img" ng-repeat="image in images track by image.id" ng-if="_activeImg == image && image.deletable" title="{{textValues.deleteButtonTitle}}" ng-click="_deleteImg(image)"></div>' +
-
-                        // Edit image icon
-                        '<div class="edit-img" ng-repeat="image in images track by image.id" ng-if="_activeImg == image && image.editable" title="{{textValues.editButtonTitle}}" ng-click="_editImg(image)"></div>' +
-                        '</div>' +
-
-                        // control icons container
-                        '<div class="control-icons-container">' +
-                        // External link icon
-                        '<a class="ext-url" ng-repeat="image in images track by image.id" ng-if="_activeImg == image && image.extUrl" href="{{image.extUrl}}" target="_blank" title="{{textValues.externalLinkButtonTitle}}"></a>' +
-
-                        // Close Icon (hidden in inline gallery)
-                        '<div class="close" ng-click="methods.close();" ng-if="!inline"  title="{{textValues.closeButtonTitle}}"></div>' +
-                        '</div>' +
-
-                        // Prev-Next Icons
-                        // Add `bubbles-on` class when bubbles are enabled (for offset)
-                        '<div class="prev" ng-click="methods.prev();" ng-class="{\'bubbles-on\':bubbles}" ng-hide="images.length == 1"></div>' +
-                        '<div class="next" ng-click="methods.next();" ng-class="{\'bubbles-on\':bubbles}" ng-hide="images.length == 1"></div>' +
-
-                        // Galleria container
-                        '<div class="galleria">' +
-
-                        // Images container
-                        '<div class="galleria-images img-anim-{{imgAnim}} img-move-dir-{{_imgMoveDirection}}">' +
-                        '<img class="galleria-image" ng-right-click ng-repeat="image in images track by image.id" ng-if="_activeImg == image" ng-src="{{image.url}}" ondragstart="return false;" ng-attr-alt="{{image.alt || undefined}}"/>' +
-                        '</div>' +
-
-                        // Image description container
-                        '<div class="galleria-title-description-wrapper">' +
-                        '<div ng-repeat="image in images track by image.id" ng-if="(image.title || image.desc) && (_activeImg == image)">' +
-                        '<div class="title" ng-if="image.title" ng-bind-html="image.title | ngImageGalleryTrust"></div>' +
-                        '<div class="desc" ng-if="image.desc" ng-bind-html="image.desc | ngImageGalleryTrust"></div>' +
-                        '</div>' +
-                        '</div>' +
-
-                        // Bubble navigation container
-                        '<div class="galleria-bubbles-wrapper" ng-if="bubbles && !imgBubbles" ng-hide="images.length == 1" ng-style="{\'height\' : bubbleSize+\'px\'}" bubble-auto-fit>' +
-                        '<div class="galleria-bubbles" bubble-auto-scroll ng-style="{\'margin-left\': _bubblesContainerMarginLeft}">' +
-                        '<span class="galleria-bubble" ng-click="_setActiveImg(image);" ng-repeat="image in images track by image.id" ng-class="{active : (_activeImg == image)}" ng-style="{\'width\' : bubbleSize+\'px\', \'height\' : bubbleSize+\'px\', margin: _bubbleMargin}"></span>' +
-                        '</div>' +
-                        '</div>' +
-
-                        // Image bubble navigation container
-                        '<div class="galleria-bubbles-wrapper" ng-if="bubbles && imgBubbles" ng-hide="images.length == 1" ng-style="{\'height\' : bubbleSize+\'px\'}" bubble-auto-fit>' +
-                        '<div class="galleria-bubbles" bubble-auto-scroll ng-style="{\'margin-left\': _bubblesContainerMarginLeft}">' +
-                        '<span class="galleria-bubble img-bubble" ng-click="_setActiveImg(image);" ng-repeat="image in images track by image.id" ng-class="{active : (_activeImg == image)}" show-image-async="{{image.bubbleUrl || image.thumbUrl || image.url}}" async-kind="bubble" ng-style="{\'width\' : bubbleSize+\'px\', \'height\' : bubbleSize+\'px\', \'border-width\' : bubbleSize/10+\'px\', margin: _bubbleMargin}"></span>' +
-                        '</div>' +
-                        '</div>' +
-
-                        '</div>' +
-
-                        '</div>' +
-
-                        // Loading animation overlay container
-                        // (show when image is loading)
-                        '<div class="ng-image-gallery-loader" ng-show="imgLoading">' +
-                        '<div class="spinner">' +
-                        '<div class="rect1"></div>' +
-                        '<div class="rect2"></div>' +
-                        '<div class="rect3"></div>' +
-                        '<div class="rect4"></div>' +
-                        '<div class="rect5"></div>' +
-                        '</div>' +
-                        '</div>' +
-
-                        // (show when image cannot be loaded)
-                        '<div class="ng-image-gallery-errorplaceholder" ng-show="imgError">' +
-                        '<div class="ng-image-gallery-error-placeholder" ng-bind-html="textValues.imageLoadErrorMsg | ngImageGalleryTrust"></div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>',
-
+                    templateUrl: '/src/custom/ng-image-gallery/ng-image-gallery.html',
                     link: {
                         pre: function (scope, elem, attr) {
-
+                            var lastDragStart; // the timestamp when a last drap event started
                             /*
                              *	Operational functions
                             **/
@@ -366,7 +282,7 @@
                                 // Load image
                                 scope._loadImg(imgObj).then(function (imgObj) {
                                     scope._activeImg = imgObj;
-                                    scope._activeImageIndex = scope.images.indexOf(imgObj);
+                                    scope._imageGalleryContentStyle = { 'background-image': 'url(' + imgObj.url + ')' }
                                     scope.imgError = false;
                                 }, function () {
                                     /**** Customization - START****/
@@ -395,10 +311,13 @@
                                 }
                             };
 
-                            scope._deleteImg = function (img) {
+                            scope._deleteImg = function (img, e) {
+                                e.stopPropagation();
                                 var _deleteImgCallback = function () {
                                     var index = scope.images.indexOf(img);
-                                    scope.images.splice(index, 1);
+                                    if (index >= 0) {
+                                        scope.images.splice(index, 1);
+                                    }
 
                                     /**** CUSTOMIZATION - START ****/
                                     // Original code:
@@ -462,6 +381,10 @@
                                 scope.piracy = (conf.piracy != undefined) ? conf.piracy : (scope.piracy != undefined) ? scope.piracy : ngImageGalleryOpts.piracy;
                                 scope.imgAnim = (conf.imgAnim != undefined) ? conf.imgAnim : (scope.imgAnim != undefined) ? scope.imgAnim : ngImageGalleryOpts.imgAnim;
                                 scope.textValues = (conf.textValues != undefined) ? conf.textValues : (scope.textValues != undefined) ? scope.textValues : ngImageGalleryOpts.textValues;
+                                scope.showImageBackdrop = (conf.showImageBackdrop != undefined) ? conf.showImageBackdrop : (scope.showImageBackdrop != undefined) ? scope.showImageBackdrop : ngImageGalleryOpts.showImageBackdrop;
+                                scope.imageBackdropColor = (conf.imageBackdropColor != undefined) ? conf.imageBackdropColor : (scope.imageBackdropColor != undefined) ? scope.imageBackdropColor : ngImageGalleryOpts.imageBackdropColor;
+                                scope.inlineImageBackdropColor = (conf.inlineImageBackdropColor != undefined) ? conf.inlineImageBackdropColor : (scope.inlineImageBackdropColor != undefined) ? scope.inlineImageBackdropColor : ngImageGalleryOpts.inlineImageBackdropColor;
+                                scope.sortable = (conf.sortable != undefined) ? conf.sortable : (scope.sortable != undefined) ? scope.sortable : ngImageGalleryOpts.sortable;
                             });
 
                             scope.onOpen = (scope.onOpen != undefined) ? scope.onOpen : angular.noop;
@@ -475,7 +398,7 @@
                                 if (imagesFirstWatch) {
                                     imagesFirstWatch = false;
                                 }
-                                else if (scope.images.length) {
+                                else if (scope.images && scope.images.length) {
                                     scope._setActiveImg(scope.images[scope._activeImageIndex || 0]);
                                 }
                             });
@@ -497,8 +420,23 @@
                             // Open modal automatically if inline
                             scope.$watch('inline', function () {
                                 $timeout(function () {
-                                    if (scope.inline) scope.methods.open();
+                                    if (scope.inline) scope.methods.open(scope._activeImageIndex);
                                 });
+                            });
+
+                            // Open modal automatically if inline
+                            scope.$watch('sortable', function () {
+                                if (!scope.inline && scope.thumbnails) {
+                                    $timeout(function () {
+                                        var sortableInstance = $(".ng-image-gallery-thumbnails");
+                                        if (scope.sortable) {
+                                            sortableInstance.sortable('enable');
+                                        }
+                                        else {
+                                            sortableInstance.sortable('disable');
+                                        }
+                                    }, 100);
+                                }
                             });
 
 
@@ -511,6 +449,13 @@
 
                             // Open gallery modal
                             scope.methods.open = function (imgIndex) {
+                                if (scope.onBeforeOpen && !scope.onBeforeOpen({ index: imgIndex })) {
+                                    return;
+                                }
+
+                                // if a drag event started 500ms ago, do not open. The user probably didn't intend to open the gallery
+                                if ((new Date() - lastDragStart) / 1000 < 0.5) return;
+
                                 // Open modal from an index if one passed
                                 scope._activeImageIndex = (imgIndex) ? imgIndex : 0;
 
@@ -527,11 +472,19 @@
 
                             // Close gallery modal
                             scope.methods.close = function () {
-                                scope.opened = false; // Model closed
+                                if (scope.isOriginallyInline) { // Just set back to inline if originally inline
+                                    scope.inline = scope.isOriginallyInline;
+                                    $timeout(function () {
+                                        // set overflow hidden to body
+                                        angular.element(document.body).removeClass('body-overflow-hidden');
+                                        scope.onClose();
+                                    }, 300);
+                                    return;
+                                }
 
+                                scope.opened = false; // Model closed
                                 // set overflow hidden to body
                                 angular.element(document.body).removeClass('body-overflow-hidden');
-
                                 // call close event after transition
                                 $timeout(function () {
                                     scope.onClose();
@@ -559,6 +512,26 @@
                                 }
                             }
 
+                            // Change image to prev
+                            scope.methods.expand = function (imgIndex) {
+                                scope.isOriginallyInline = scope.inline;
+                                scope.inline = false;
+                                scope.methods.open(imgIndex);
+                            }
+
+                            scope.canExpand = function () {
+                                return scope.inline;
+                            }
+
+                            scope.methods.getFiles = function () {
+                                var values = [];
+                                $('.thumb').each(function () {
+                                    var image = scope.images.badFirst(i => i.id == $(this).attr("id"));
+                                    values.push(image);
+                                });
+                                return values;
+                            }
+
                             // Close gallery on background click
                             scope.backgroundClose = function (e) {
                                 if (!scope.bgClose || scope.inline) return;
@@ -571,19 +544,20 @@
                                     'close',
                                     'next',
                                     'prev',
-                                    'galleria-bubble'
+                                    'galleria-bubble',
+                                    'expand',
+                                    'expand-icon'
                                 ];
 
                                 // check if clicked element has a class that
                                 // belongs to `noCloseClasses`
                                 for (var i = 0; i < e.target.classList.length; i++) {
                                     if (noCloseClasses.indexOf(e.target.classList[i]) != -1) {
-                                        break;
-                                    }
-                                    else {
-                                        scope.methods.close();
+                                        return;
                                     }
                                 }
+
+                                scope.methods.close();
                             }
 
 
@@ -653,6 +627,25 @@
                             $rootScope.$on('$stateChangeSuccess', removeClassFromDocumentBody);
                             $rootScope.$on('$routeChangeSuccess', removeClassFromDocumentBody);
 
+                            $timeout(function () {
+                                var thumbnailsContainer = $(".ng-image-gallery-thumbnails");
+                                thumbnailsContainer.sortable({
+                                    start: (event, ui) => {
+                                        lastDragStart = new Date();
+                                        console.log('drag start');
+                                    },
+                                    update: function (event, ui) {
+                                        updateModel();
+                                    } //end update         
+                                });
+                            }, 100);
+
+
+                            function updateModel() {
+                                if (scope.onSort) {
+                                    scope.onSort(scope.methods.getFiles());
+                                }
+                            }
                         }
                     }
                 }

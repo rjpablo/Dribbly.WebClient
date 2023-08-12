@@ -22,6 +22,7 @@
         dcp.$onInit = function () {
             dcp.courtId = $stateParams.id;
             dcp.isOwned = authService.isCurrentAccountId(dcp.court.ownerId);
+            dcp.methods = {};
             drbblyCourtsService.getCourtPhotos(dcp.courtId)
                 .then(function (photos) {
                     dcp.photos = massagePhotos(photos);

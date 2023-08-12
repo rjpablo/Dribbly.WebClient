@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyAccountsService', 'authService', '$stateParams', '$state', 'permissionsService',
-        'modalService'];
+        'modalService', 'drbblyFileService'];
     function controllerFunc(drbblyAccountsService, authService, $stateParams, $state, permissionsService,
-        modalService) {
+        modalService, drbblyFileService) {
         var avc = this;
         var _username;
 
@@ -70,7 +70,8 @@
                 },
                 size: 'sm',
                 backdrop: true
-            });
+            })
+                .catch(() => { /*do nothing*/ });
         };
 
         function viewPrimaryPhoto() {
@@ -116,7 +117,6 @@
                             if (result && result.data) {
                                 avc.account.profilePhoto = result.data;
                                 avc.account.profilePhotoId = result.data.id;
-                                avc.onUpdate();
                             }
                         })
                         .catch(function (error) {
