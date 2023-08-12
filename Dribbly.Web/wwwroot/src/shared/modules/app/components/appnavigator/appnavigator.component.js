@@ -19,13 +19,17 @@
         var _removeStateChangeListener;
 
         dan.$onInit = function () {
-            setActiveItem($state.current.name);
-
             _removeStateChangeListener = $transitions.onSuccess({}, function (trans) {
                 setActiveItem($state.current.name);
                 dan.app.scrollToAppBodyTop();
             });
         };
+
+        dan.$onChanges = function (changes) {
+            if (changes.navItems && changes.navItems.currentValue.length > 0) {
+                setActiveItem($state.current.name);
+            }
+        }
 
         dan.$onDestroy = function () {
             _removeStateChangeListener();
