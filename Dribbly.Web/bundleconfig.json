@@ -3,8 +3,16 @@
 [
   // scripts
   {
+    "outputFileName": "wwwroot/dist/js/scripts.js",
+    "inputFiles": [
+      "wwwroot/src/scripts/js-error-handler.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/dist/js/libraries.js",
     "inputFiles": [
+      "wwwroot/src/lib-extensions/js-extension.js",
+      "wwwroot/src/lib-extensions/array-extension.js",
       "wwwroot/src/lib/jquery/jquery.js",
       "wwwroot/src/lib/jquery-ui/jquery-ui.js",
       "wwwroot/src/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js",

@@ -369,3 +369,11 @@ gulp.task('bundle', function () {
         .pipe(gulp.dest(paths.baseDest + 'js/')));
     return merge(streams);
 });
+
+gulp.task('clean-publish-folder', function clean() {
+    var paths = [
+        'bin/Publish/wwwroot/src/**/*.js',
+        'bin/Publish/wwwroot/src/**/*.scss',
+        'bin/Publish/wwwroot/src/**/*.css'];
+    return del(paths);
+});

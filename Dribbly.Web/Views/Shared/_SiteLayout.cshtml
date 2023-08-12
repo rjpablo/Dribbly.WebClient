@@ -212,16 +212,17 @@
         }
     </script>
 
-    <script src="~/src/modules/main/scripts/js-error-handler.js"></script>
 
     <toaster-container toaster-options="{'time-out': 2000, 'position-class': 'toast-top-center'}"></toaster-container>
     @RenderBody()
 
-    <script src="~/src/lib-extensions/js-extension.js"></script>
-    <script src="~/src/lib-extensions/array-extension.js"></script>
 
-    @*Third Party*@
     <environment include="Development">
+        <script src="~/src/scripts/js-error-handler.js"></script>
+
+        @*Third Party*@
+        <script src="~/src/lib-extensions/js-extension.js"></script>
+        <script src="~/src/lib-extensions/array-extension.js"></script>
         <script src="~/src/lib/jquery/jquery.js"></script>
         <script src="~/src/lib/jquery-ui/jquery-ui.js"></script>
         <script src="~/src/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
@@ -482,11 +483,8 @@
     </environment>
     <environment exclude="Development">
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyDmHPmEBQIgvgg0FZX1-xWF4gUOp5ajuHA&libraries=placeses,visualization,drawing,geometry,places"></script>
+        <script src="~/dist/js/scripts.min.js"></script>
         <script src="~/dist/js/libraries.min.js"></script>
-
-        @*Custom Modules*@
-        <script src="~/src/custom/uiroutertitle/uiroutertitle.module.js"></script>
-        <script src="~/src/custom/daypilot/js/daypilot-all.min.js"></script>
 
         <script src="~/dist/js/site.min.js"></script>
         <script src="~/dist/js/auth.min.js"></script>

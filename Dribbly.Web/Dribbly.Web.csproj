@@ -44,6 +44,7 @@
     <Folder Include="wwwroot\src\lib\" />
     <Folder Include="wwwroot\src\lib\angular-ui-router-title\" />
     <Folder Include="wwwroot\src\modules\auth\directives\" />
+    <Folder Include="wwwroot\src\modules\main\scripts\" />
     <Folder Include="wwwroot\src\shared\modules\app\components\scheduletimetable\" />
   </ItemGroup>
 
