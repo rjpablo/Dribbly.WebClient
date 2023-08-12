@@ -33,11 +33,11 @@
                                     class="mb-1"
                                     ng-class="{'font-weight-bold': $first}">
                                     <div class="d-flex flex-nowrap">
-                                        <a ui-sref="main.team.home({id: team.team.id})">
+                                        <a ui-sref="main.team.home({id: team.teamId})">
                                             <img ng-src="{{team.logo? team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
                                                  class="avatar mr-1" />
                                         </a>
-                                        <a ui-sref="main.team.home({id: team.team.id})"
+                                        <a ui-sref="main.team.home({id: team.teamId})"
                                            class="team-name">{{team.shortName}}</a>
                                         <span class="ml-auto">{{group.getValue(team)}}</span>
                                     </div>
