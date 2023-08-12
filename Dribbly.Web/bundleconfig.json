@@ -16,7 +16,6 @@
       "wwwroot/src/lib/jquery/jquery.js",
       "wwwroot/src/lib/jquery-ui/jquery-ui.js",
       "wwwroot/src/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js",
-      "wwwroot/src/modules/main/scripts/js-error-handler.js",
       "wwwroot/src/lib/bowser/bundled.js",
       "wwwroot/src/lib/hammerjs/hammer.js",
       "wwwroot/src/lib/moment/moment.js",
