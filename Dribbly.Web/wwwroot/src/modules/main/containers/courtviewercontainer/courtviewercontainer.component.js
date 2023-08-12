@@ -64,7 +64,7 @@
         }
 
         dcc.onPrimaryPhotoClick = function () {
-            drbblyCourtsService.getCourtPhotos(dcc.courtId)
+            drbblyCourtsService.getCourtPhotos(_courtId)
                 .then(function (photos) {
                     dcc.photos = massagePhotos(photos);
                     var primaryPhotoIndex = dcc.photos.findIndex(photo => photo.id === dcc.court.primaryPhoto.id);

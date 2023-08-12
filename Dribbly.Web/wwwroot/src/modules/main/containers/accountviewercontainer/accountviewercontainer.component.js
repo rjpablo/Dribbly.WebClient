@@ -70,7 +70,8 @@
                 },
                 size: 'sm',
                 backdrop: true
-            });
+            })
+                .catch(() => { /*do nothing*/ });
         };
 
         function viewPrimaryPhoto() {

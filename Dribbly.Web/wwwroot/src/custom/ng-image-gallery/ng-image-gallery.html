@@ -1,0 +1,104 @@
+﻿<div class="ng-image-gallery img-move-dir-{{_imgMoveDirection}}" ng-class="{inline:inline}" ng-hide="images.length == 0">
+
+    <!--// Thumbnails container-->
+    <!--//  Hide for inline gallery-->
+    <div ng-show="thumbnails && !inline" class="ng-image-gallery-thumbnails">
+        <div class="thumb" id="{{image.id}}" ng-repeat="image in images track by image.id" ng-if="thumbLimit ? $index < thumbLimit : true" ng-click="methods.open($index);" show-image-async="{{image.thumbUrl || image.url}}" title="{{image.title}}" async-kind="thumb" ng-style="{'width' : thumbSize + 'px', 'height' : thumbSize + 'px'}">
+            <div class="loader"></div>
+            <div class="thumb-actions pull-right">
+                <button ng-if="image.deletable" class="btn btn-sm btn-light" ng-click="_deleteImg(image, $event)"><i class="fa fa-trash"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!--// Modal container
+    // (inline container for inline modal)-->
+    <div class="ng-image-gallery-modal" ng-if="opened" ng-cloak>
+
+        <!--// Gallery backdrop container
+        // (hide for inline gallery)-->
+        <div class="ng-image-gallery-backdrop" ng-if="showImageBackdrop" ng-style="{'background-color': (inline? inlineImageBackdropColor : imageBackdropColor)}"></div>
+
+        <!--// Gallery contents container
+        // (hide when image is loading)-->
+        <div class="ng-image-gallery-content" ng-show="!imgLoading" ng-click="backgroundClose($event);">
+
+            <!--// actions icons container-->
+            <div class="actions-icons-container">
+                <!--// Delete image icon-->
+                <div class="delete-img" ng-repeat="image in images track by image.id" ng-if="_activeImg == image && image.deletable" title="{{textValues.deleteButtonTitle}}" ng-click="_deleteImg(image, $event)"></div>
+                <!--// Edit image icon-->
+                <div class="edit-img" ng-repeat="image in images track by image.id" ng-if="_activeImg == image && image.editable" title="{{textValues.editButtonTitle}}" ng-click="_editImg(image)"></div>
+            </div>
+
+            <!--// control icons container-->
+            <div class="control-icons-container">
+                <!--// External link icon-->
+                <a class="ext-url" ng-repeat="image in images track by image.id" ng-show="_activeImg == image && image.extUrl" href="{{image.extUrl}}" target="_blank" title="{{textValues.externalLinkButtonTitle}}">
+                    <i class="fa fa-external-link"></i>
+                </a>
+                <!--// Close Icon (hidden in inline gallery)-->
+                <div class="close" ng-click="methods.close();" ng-show="!inline" title="{{textValues.closeButtonTitle}}">
+                    <i class="fa fa-times"></i>
+                </div>
+            </div>
+
+            <!--// Galleria container-->
+            <div class="galleria" ng-class="{'cover': cover}">
+                <!--// Images container-->
+                <div class="galleria-images img-anim-{{imgAnim}} img-move-dir-{{_imgMoveDirection}}">
+                    <div ng-style="{'background-image': 'url(' + _activeImg.url + ')'}"
+                         ng-show="inline && !cover"
+                         class="galleria-image-backdrop"></div>
+                    <img class="galleria-image" ng-right-click ng-repeat="image in images track by image.id" ng-if="_activeImg == image" ng-src="{{image.url}}" ondragstart="return false;" ng-attr-alt="{{image.alt || undefined}}"
+                         ng-click="methods.expand($index);" />
+                </div>
+
+                <!--// Image description container-->
+                <div class="galleria-title-description-wrapper"
+                     ng-hide="hideCaptions">
+                    <div ng-repeat="image in images track by image.id" ng-if="(image.title || image.desc) && (_activeImg == image)">
+                        <div class="title" ng-if="image.title" ng-bind-html="image.title | ngImageGalleryTrust"></div>
+                        <div class="desc" ng-if="image.desc" ng-bind-html="image.desc | ngImageGalleryTrust"></div>
+                    </div>
+                </div>
+
+                <!--// Bubble navigation container-->
+                <div class="galleria-bubbles-wrapper" ng-if="bubbles && !imgBubbles" ng-hide="images.length == 1" ng-style="{'height' : bubbleSize + 'px'}" bubble-auto-fit>
+                    <div class="galleria-bubbles" bubble-auto-scroll ng-style="{'margin-left': _bubblesContainerMarginLeft}">
+                        <span class="galleria-bubble" ng-click="_setActiveImg(image);" ng-repeat="image in images track by image.id" ng-class="{active : (_activeImg == image)}" ng-style="{'width' : bubbleSize + 'px', 'height' : bubbleSize + 'px', margin: _bubbleMargin}"></span>
+                    </div>
+                </div>
+
+                <!--// Image bubble navigation container-->
+                <div class="galleria-bubbles-wrapper" ng-if="bubbles && imgBubbles" ng-hide="images.length == 1" ng-style="{'height' : bubbleSize + 'px'}" bubble-auto-fit>
+                    <div class="galleria-bubbles" bubble-auto-scroll ng-style="{'margin-left': _bubblesContainerMarginLeft}">
+                        <span class="galleria-bubble img-bubble" ng-click="_setActiveImg(image);" ng-repeat="image in images track by image.id" ng-class="{active : (_activeImg == image)}" show-image-async="{{image.bubbleUrl || image.thumbUrl || image.url}}" async-kind="bubble" ng-style="{'width' : bubbleSize + 'px', 'height' : bubbleSize + 'px', 'border-width' : bubbleSize/10 + 'px', margin: _bubbleMargin}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!--// Prev-Next Icons
+            // Add `bubbles-on` class when bubbles are enabled (for offset)-->
+            <div class="prev" ng-click="methods.prev();" ng-class="{'bubbles-on':bubbles}" ng-hide="images.length == 1"></div>
+            <div class="next" ng-click="methods.next();" ng-class="{'bubbles-on':bubbles}" ng-hide="images.length == 1"></div>
+        </div>
+
+        <!--// Loading animation overlay container
+        // (show when image is loading)-->
+        <div class="ng-image-gallery-loader" ng-show="imgLoading">
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+        </div>
+
+        <!--// (show when image cannot be loaded)-->
+        <div class="ng-image-gallery-errorplaceholder" ng-show="imgError">
+            <div class="ng-image-gallery-error-placeholder" ng-bind-html="textValues.imageLoadErrorMsg | ngImageGalleryTrust"></div>
+        </div>
+    </div>
+</div>

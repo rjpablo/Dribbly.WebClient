@@ -18,18 +18,10 @@
             </div>
             <div class="carousel-container mb-3"
                  ng-if="dcp.photos">
-                <ng-image-gallery images="dcp.photos"
-                                  methods="dcp.methods"
-                                  thumbnails="true"
-                                  thumb-size="100"
-                                  inline="false"
-                                  bubbles="true"
-                                  bubble-size="30"
-                                  img-bubbles="true"
-                                  bg-close="true"
-                                  piracy="true"
-                                  img-anim="fadeup"
-                                  on-delete="dcp.deletePhoto(img, cb)"></ng-image-gallery>
+                <drbbly-gallery can-add="false"
+                                media="dcp.photos"
+                                on-delete="dcp.deletePhoto"
+                                options="{hideCaptions: true, methods: dcp.methods}"></drbbly-gallery>
             </div>
             <div class="">
                 <!-- Ad -->

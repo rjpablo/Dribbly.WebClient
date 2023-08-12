@@ -165,7 +165,9 @@
       "wwwroot/src/shared/modules/app/components/reviewlist/reviewlist.component.js",
       "wwwroot/src/shared/modules/app/components/postdetailsmodal/postdetailsmodal.component.js",
       "wwwroot/src/shared/modules/app/components/post/post.component.js",
-      "wwwroot/src/shared/modules/app/components/posts/posts.component.js"
+      "wwwroot/src/shared/modules/app/components/posts/posts.component.js",
+      "wwwroot/src/shared/modules/app/components/gallery/gallery.component.js",
+      "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.js"
     ]
   },
   {
@@ -357,7 +359,9 @@
       "wwwroot/src/shared/modules/app/components/postdetailsmodal/postdetailsmodal.component.css",
       "wwwroot/src/shared/modules/app/components/post/post.component.css",
       "wwwroot/src/shared/modules/app/components/posts/posts.component.css",
-      "wwwroot/src/shared/modules/app/app.css"
+      "wwwroot/src/shared/modules/app/app.css",
+      "wwwroot/src/shared/modules/app/components/gallery/gallery.component.css",
+      "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.css"
     ]
   },
   {
