@@ -12,10 +12,10 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$element', 'authService', '$state', '$window', '$rootScope',
-        'drbblyToolbarService', 'modalService'];
-    function controllerFn($element, authService, $state, $window, $rootScope,
-        drbblyToolbarService, modalService) {
+    controllerFn.$inject = ['$element', 'authService', '$state', '$window', '$rootScope', 'drbblyGameshelperService',
+        'drbblyToolbarService', 'modalService', 'drbblyTeamshelperService', 'drbblyCourtshelperService'];
+    function controllerFn($element, authService, $state, $window, $rootScope, drbblyGameshelperService,
+        drbblyToolbarService, modalService, drbblyTeamshelperService, drbblyCourtshelperService) {
         var mtb = this;
 
         mtb.$onInit = function () {
@@ -38,6 +38,76 @@
 
         mtb.isAuthenticated = function () {
             return authService.authentication.isAuthenticated;
+        };
+
+        mtb.openCreateMenu = function () {
+            var buttons = [{
+                text: 'New Game',
+                action: addGame,
+                class: 'btn btn-secondary',
+                isHidden: () => true
+            },{
+                text: 'Create a Team',
+                action: addTeam,
+                class: 'btn btn-secondary'
+            },{
+                text: 'Create a Tournament',
+                action: addTournament,
+                class: 'btn btn-secondary'
+            },{
+                text: 'Register a Court',
+                action: addCourt,
+                class: 'btn btn-secondary'
+            },];
+
+            modalService.showMenuModal({
+                model: {
+                    buttons: buttons,
+                    title: 'Create'
+                }
+            }).catch(err => { /*modal cancelled, do nothing*/ });
+        }
+        function addGame() {
+            drbblyGameshelperService.openAddEditGameModal({})
+                .then(function (game) {
+                    if (game) {
+                        $state.go('main.game.details', { id: game.id });
+                    }
+                })
+                .catch(function () { /* do nothing */ })
+        }
+
+        function addTeam() {
+            drbblyTeamshelperService.openAddTeamModal({})
+                .then(function (team) {
+                    if (team) {
+                        $state.go('main.team.home', { id: team.id });
+                    }
+                })
+                .catch(function () { /* do nothing */ });
+        }
+
+        function addCourt() {
+            drbblyCourtshelperService.registerCourt()
+                .then(function (court) {
+                    if (court) {
+                        $state.go('main.court.details', { id: court.id });
+                    }
+                })
+                .catch(function () { /* do nothing */ });
+        }
+
+        function addTournament() {
+            authService.checkAuthenticationThen(function () {
+                return modalService.show({
+                    view: '<drbbly-addtournamentmodal></drbbly-addtournamentmodal>',
+                    model: {}
+                });
+            })
+                .then(function (tournament) {
+                    $state.go('main.tournament.games', { id: tournament.id });
+                })
+                .catch(function () { /* do nothing */ });
         };
 
         mtb.openSearchModal = function () {
