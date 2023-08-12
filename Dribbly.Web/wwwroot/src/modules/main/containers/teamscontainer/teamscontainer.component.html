@@ -1,0 +1,66 @@
+﻿<div class="container">
+    <section class="pt-3 top-team">
+        <div class="">
+            <h5 class="drbbly-header">Top Teams</h5>
+        </div>
+        <div drbbly-overlay="dtc.topTeamsOverlay">
+            <div class="slick-slider"
+                 ng-class="{'slick-dotted': dtc.carouselSettings.dots}">
+                <slick settings="dtc.carouselSettings"
+                       class="dark-transparent-bg">
+                    <div ng-repeat="team in dtc.topTeams"
+                         class="px-3">
+                        <drbbly-teamlistitem team="team"></drbbly-teamlistitem>
+                    </div>
+                </slick>
+            </div>
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-12 col-lg-9">
+            <section class="pt-3 top-teams leaders">
+                <div>
+                    <h5 class="drbbly-header">Leaders Per Category</h5>
+                </div>
+                <div drbbly-overlay="dtc.leadersOverlay">
+                    <div class="row">
+                        <div ng-repeat="group in dtc.leaderGroups"
+                             class="col-12 col-sm-6 col-md-4">
+                            <h6 class="text-uppercase border-bottom">{{::('app.StatEnum.' + group.category) | i18n}}</h6>
+                            <ul class="list-unstyled"
+                                ng-if="!group.failedToLoad">
+                                <li ng-repeat="team in group.teams"
+                                    class="mb-1"
+                                    ng-class="{'font-weight-bold': $first}">
+                                    <div class="d-flex flex-nowrap">
+                                        <a ui-sref="main.team.home({id: team.team.id})">
+                                            <img ng-src="{{team.logo? team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
+                                                 class="avatar mr-1" />
+                                        </a>
+                                        <a ui-sref="main.team.home({id: team.team.id})"
+                                           class="team-name">{{team.shortName}}</a>
+                                        <span class="ml-auto">{{group.getValue(team)}}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div ng-if="group.failedToLoad" class="text-secondary">(Failed to load.)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-12 col-lg-3">
+            <div>
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!-- Ad -->
+        <span class="d-block text-center">Advertisement</span>
+        <drbbly-ad type="'horizontal'"></drbbly-ad>
+    </div>
+</div>

@@ -78,6 +78,10 @@
                     return drbblyhttpService.post(api + 'getTopTeams', input);
                 }
 
+                function getTeams(input) {
+                    return drbblyhttpService.post(api + 'getTeams', input);
+                }
+
                 function addTeam(teamDetails) {
                     return drbblyhttpService.post(api + 'addTeam', teamDetails);
                 }
@@ -145,12 +149,13 @@
                     getJoinRequests: getJoinRequests,
                     getManagedTeamsAsChoices: getManagedTeamsAsChoices,
                     getTeam: getTeam,
+                    getTeamBookings: getTeamBookings,
                     getTeamByUsername: getTeamByUsername,
                     getTeamDetailsModal: getTeamDetailsModal,
                     getTeamDropDownSuggestions: getTeamDropDownSuggestions,
                     getTeamGames: getTeamGames,
-                    getTeamBookings: getTeamBookings,
                     getTeamPhotos: getTeamPhotos,
+                    getTeams: getTeams,
                     getTeamSettings: getTeamSettings,
                     getTeamVideos: getTeamVideos,
                     getTeamViewerData: getTeamViewerData,

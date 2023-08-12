@@ -189,6 +189,13 @@
             // #endregion Court
 
             // #region TEAM
+            .state('main.teams', {
+                url: '/teams',
+                component: 'drbblyTeamscontainer',
+                resolve: {
+                    $titleKey: () => { return 'site.Teams'; }
+                }
+            })
 
             .state('main.team', {
                 params: {
