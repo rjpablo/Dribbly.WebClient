@@ -27,6 +27,7 @@
             rsm.eventIsShot = rsm.event.type === rsm.gameEventTypeEnum.ShotMade
                 || rsm.event.type === rsm.gameEventTypeEnum.ShotMissed;
             rsm.eventIsAssist = rsm.event.type === rsm.gameEventTypeEnum.Assist;
+            rsm.eventIsShotBlock = rsm.event.type === rsm.gameEventTypeEnum.ShotBlock;
             _allPlayers = rsm.model.game.team1.players.concat(rsm.model.game.team2.players);
             setPerformedByOptions();
 
@@ -59,6 +60,12 @@
                         || e.type === rsm.gameEventTypeEnum.ShotMissed);
                 rsm.performedByOptions = _allPlayers.drbblyWhere(p => p.teamMembership.teamId === shot.teamId
                     && p.accountId !== shot.performedById);
+            }
+            else if (rsm.eventIsShotBlock) {
+                var shot = rsm.model.associatedPlays
+                    .drbblySingleOrDefault(e => e.type === rsm.gameEventTypeEnum.ShotMade
+                        || e.type === rsm.gameEventTypeEnum.ShotMissed);
+                rsm.performedByOptions = _allPlayers.drbblyWhere(p => p.teamMembership.teamId !== shot.teamId);
             }
         }
 

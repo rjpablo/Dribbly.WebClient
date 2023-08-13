@@ -526,7 +526,8 @@
                 var eventIsRebound = event.type === constants.enums.gameEventTypeEnum.DefensiveRebound
                     || event.type === constants.enums.gameEventTypeEnum.OffensiveRebound;
                 var eventIsAssist = event.type === constants.enums.gameEventTypeEnum.Assist;
-                if (eventIsShot || eventIsRebound || eventIsAssist) {
+                var eventIsShotBlock = event.type === constants.enums.gameEventTypeEnum.ShotBlock;
+                if (eventIsShot || eventIsRebound || eventIsAssist || eventIsShotBlock) {
                     var input = {
                         game: gdg.game,
                         event: event,
@@ -566,11 +567,13 @@
 
                         if (result.isDelete) {
                             gdg.game.gameEvents.drbblyRemove(event);
-                            input.associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
+                            if (eventIsShot)
+                                input.associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
                         }
                         else {
                             gdg.playByPlayWidget.updateItem(result.event);
-                            input.associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
+                            if (eventIsShot)
+                                input.associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
                         }
                     }
                 }

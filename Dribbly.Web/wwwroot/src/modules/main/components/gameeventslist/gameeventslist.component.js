@@ -57,9 +57,9 @@
             var orig = gel.events.drbblySingle(ev => ev.id === e.id);
             Object.assign(orig, e);
             massageItem(orig);
-            if (e.additionalData) {
-                orig.additionalData = JSON.parse(e.additionalData);
-            }
+            orig.additionalData = typeof e.additionalData === 'string' ?
+                JSON.parse(e.additionalData) :
+                e.additionalData;
             orig.isTeam1 = e.teamId === gel.game.team1.teamId;
             orig.isTeam2 = e.teamId === gel.game.team2.teamId;
             orig.isBothTeams = e.teamId === null;
