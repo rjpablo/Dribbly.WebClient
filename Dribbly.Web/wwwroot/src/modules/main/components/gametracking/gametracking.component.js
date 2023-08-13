@@ -520,7 +520,7 @@
         };
 
         gdg.showGameEventDetails = async function (event) {
-            if (!gdg.gameIsFinished) {
+            if (!gdg.gameIsFinished()) {
                 if (event.type === constants.enums.gameEventTypeEnum.ShotMade
                     || event.type === constants.enums.gameEventTypeEnum.ShotMissed) {
                     //get associated plays
