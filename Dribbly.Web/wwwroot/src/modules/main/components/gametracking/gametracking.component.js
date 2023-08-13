@@ -525,7 +525,8 @@
                     || event.type === constants.enums.gameEventTypeEnum.ShotMissed;
                 var eventIsRebound = event.type === constants.enums.gameEventTypeEnum.DefensiveRebound
                     || event.type === constants.enums.gameEventTypeEnum.OffensiveRebound;
-                if (eventIsShot || eventIsRebound) {
+                var eventIsAssist = event.type === constants.enums.gameEventTypeEnum.Assist;
+                if (eventIsShot || eventIsRebound || eventIsAssist) {
                     var input = {
                         game: gdg.game,
                         event: event,
@@ -565,11 +566,11 @@
 
                         if (result.isDelete) {
                             gdg.game.gameEvents.drbblyRemove(event);
-                            associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
+                            input.associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
                         }
                         else {
                             gdg.playByPlayWidget.updateItem(result.event);
-                            associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
+                            input.associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
                         }
                     }
                 }

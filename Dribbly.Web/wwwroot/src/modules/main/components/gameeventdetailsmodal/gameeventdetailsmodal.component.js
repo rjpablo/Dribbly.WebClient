@@ -18,15 +18,14 @@
     function controllerFn($scope, modalService, drbblyEventsService, constants, $timeout,
         drbblyGameeventsService, drbblyCommonService, drbblyGameeventshelperService) {
         var rsm = this;
-        var _gameEventTypeEnum = constants.enums.gameEventTypeEnum;
         var _allPlayers;
 
         rsm.$onInit = function () {
+            rsm.gameEventTypeEnum = constants.enums.gameEventTypeEnum;
             rsm.event = angular.copy(rsm.model.event, {});
-            rsm.eventIsShot = rsm.event.type === _gameEventTypeEnum.ShotMade
-                || rsm.event.type === _gameEventTypeEnum.ShotMissed;
-            rsm.eventIsRebound = rsm.event.type === _gameEventTypeEnum.DefensiveRebound
-                || rsm.event.type === _gameEventTypeEnum.OffensiveRebound;
+            rsm.eventIsShot = rsm.event.type === rsm.gameEventTypeEnum.ShotMade
+                || rsm.event.type === rsm.gameEventTypeEnum.ShotMissed;
+            rsm.eventIsAssist = rsm.event.type === rsm.gameEventTypeEnum.Assist;
             _allPlayers = rsm.model.game.team1.players.concat(rsm.model.game.team2.players);
             setPerformedByOptions();
 
@@ -49,8 +48,16 @@
         };
 
         function setPerformedByOptions() {
+            // non-in-game players are included because line-ups may have changed since the event was recorded
             if (rsm.eventIsShot || rsm.eventIsRebound) {
                 rsm.performedByOptions = _allPlayers;
+            }
+            else if (rsm.eventIsAssist) {
+                var shot = rsm.model.associatedPlays
+                    .drbblySingleOrDefault(e => e.type === rsm.gameEventTypeEnum.ShotMade
+                        || e.type === rsm.gameEventTypeEnum.ShotMissed);
+                rsm.performedByOptions = _allPlayers.drbblyWhere(p => p.teamMembership.teamId === shot.teamId
+                    && p.accountId !== shot.performedById);
             }
         }
 
@@ -116,17 +123,17 @@
             input.teamId = input.performedBy.teamMembership.teamId;
             rsm.isBusy = true;
             if (rsm.eventIsShot) {
-                input.type = input.isMiss ? _gameEventTypeEnum.ShotMissed : _gameEventTypeEnum.ShotMade;
+                input.type = input.isMiss ? rsm.gameEventTypeEnum.ShotMissed : rsm.gameEventTypeEnum.ShotMade;
             }
             else if (rsm.eventIsRebound) {
                 var shot = rsm.model.associatedPlays
-                    .drbblySingleOrDefault(e => e.type === _gameEventTypeEnum.ShotMade || e.type === _gameEventTypeEnum.ShotMissed);
+                    .drbblySingleOrDefault(e => e.type === rsm.gameEventTypeEnum.ShotMade || e.type === rsm.gameEventTypeEnum.ShotMissed);
                 if (shot) {
                     var shotPerformedBy = _allPlayers.drbblySingleOrDefault(p => p.accountId === shot.performedById);
                     if (shotPerformedBy) {
                         input.type = input.performedBy.teamMembership.teamId === shotPerformedBy.teamMembership.teamId ?
-                            _gameEventTypeEnum.OffensiveRebound :
-                            _gameEventTypeEnum.DefensiveRebound;
+                            rsm.gameEventTypeEnum.OffensiveRebound :
+                            rsm.gameEventTypeEnum.DefensiveRebound;
                     }
                 }
             }
