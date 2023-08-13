@@ -14,13 +14,14 @@
         });
 
     controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'constants', '$timeout',
-        'drbblyGameeventsService', 'drbblyCommonService', 'drbblyGameeventshelperService'];
+        'drbblyGameeventsService', 'drbblyCommonService', 'drbblyGameeventshelperService', 'drbblyOverlayService'];
     function controllerFn($scope, modalService, drbblyEventsService, constants, $timeout,
-        drbblyGameeventsService, drbblyCommonService, drbblyGameeventshelperService) {
+        drbblyGameeventsService, drbblyCommonService, drbblyGameeventshelperService, drbblyOverlayService) {
         var rsm = this;
         var _allPlayers;
 
         rsm.$onInit = function () {
+            rsm.overlay = drbblyOverlayService.buildOverlay();
             rsm.gameEventTypeEnum = constants.enums.gameEventTypeEnum;
             rsm.event = angular.copy(rsm.model.event, {});
             rsm.eventIsShot = rsm.event.type === rsm.gameEventTypeEnum.ShotMade
@@ -69,6 +70,7 @@
                 .then(confirmed => {
                     if (confirmed) {
                         rsm.isBusy = true;
+                        rsm.overlay.setToBusy("Reverting...");
                         drbblyGameeventsService.delete(rsm.event.id)
                             .then(result => {
                                 close(result);
@@ -76,7 +78,10 @@
                             .catch(err => {
                                 drbblyCommonService.handleError(err);
                             })
-                            .finally(() => rsm.isBusy = false);
+                            .finally(() => {
+                                rsm.isBusy = false;
+                                rsm.overlay.setToReady();
+                            });
                     }
                 })
 
@@ -137,6 +142,8 @@
                     }
                 }
             }
+
+            rsm.overlay.setToBusy("Saving...");
             drbblyGameeventsService.update(input)
                 .then(result => {
                     close(result);
@@ -144,7 +151,10 @@
                 .catch(err => {
                     drbblyCommonService.handleError(err);
                 })
-                .finally(() => rsm.isBusy = false);
+                .finally(() => {
+                    rsm.isBusy = false;
+                    rsm.overlay.setToReady();
+                });
         };
 
         function close(result) {

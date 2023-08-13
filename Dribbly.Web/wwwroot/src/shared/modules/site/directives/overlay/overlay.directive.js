@@ -45,6 +45,9 @@
                     function update(switchingOff) {
 
                         element.addClass('overlay-target');
+                        if (ovl.options && ovl.options.fill) {
+                            element.addClass('fill');
+                        }
 
                         if (!ovl.overlay._status) {
                             if (switchingOff) {
@@ -67,21 +70,24 @@
                         //with F12 tools it will stop.  So it is just the UI not updating properly.
                         //We have tried various things with time outs, using jQuery instead of angular, etc.
                         //Nothing works.  So, we will keep two icons so that we don't have to remove fa-spin from the second.
-
+                        var iconSizeClass = 'fa-4x';
+                        if (ovl.options && ovl.options.iconSize === 'sm') {
+                            iconSizeClass = 'fa-2x';
+                        }
                         switch (ovl.overlay._status) {
                             case 'busy':
-                                ovl.iconBusy = getItem('busyIcon', 'fa fa-circle-o-notch fa-4x fa-spin loader');
+                                ovl.iconBusy = getItem('busyIcon', 'fa fa-circle-o-notch fa-spin loader ' + iconSizeClass);
                                 ovl.icon = 'ng-cloak';
                                 ovl.msg = getMessage('busyMsg', _busyMessage);
                                 break;
                             case 'error':
                                 ovl.iconBusy = 'ng-cloak';
-                                ovl.icon = getItem('errorIcon', 'fa fa-exclamation-triangle fa-4x');
+                                ovl.icon = getItem('errorIcon', 'fa fa-exclamation-triangle ' + iconSizeClass);
                                 ovl.msg = getMessage('errorMsg', _errorMsg);
                                 break;
                             default:
                                 ovl.iconDefault = 'ng-cloak';
-                                ovl.icon = getItem('defaultIcon', 'fa fa-question-circle fa-4x');
+                                ovl.icon = getItem('defaultIcon', 'fa fa-question-circle ' + iconSizeClass);
                                 ovl.msg = getMessage('defaultMsg', '...');
                                 break;
                         }

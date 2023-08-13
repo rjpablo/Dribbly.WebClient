@@ -1,83 +1,84 @@
-﻿<div class="modal-body">    
-    <!-- #region Rebound -->
-    <form name="rsm.frmEvent"
-          class="flex-grow-1">
-        <h5 ng-if="rsm.eventIsShot">Shot Details</h5>
-        <h5 ng-if="rsm.eventIsRebound">Rebound Details</h5>
-        <h5 ng-if="rsm.eventIsAssist">Assist Details</h5>
-        <div class="form-group">
-            <div class="form-row">
-                <div class="col-4">
-                    <label>Performed By:</label>
-                </div>
-                <div class="col-8 d-flex">
-                    <select class="form-control"
-                            ng-model="rsm.event.performedBy">
-                        <option ng-repeat="player in rsm.performedByOptions"
-                                ng-value="player">
-                            {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                        </option>
-                    </select>
-                    <input type="text"
-                           name="performedBy"
-                           required
-                           hidden
-                           ng-model="rsm.event.performedBy.teamMembership.account.id" />
-                </div>
-            </div>
-            <!-- #region Shot Only -->
-            <div class="form-row"
-                 ng-if="rsm.eventIsShot">
-                <div class="col-4">
-                    <div class="form-group">
-                        <label class="m-0">Points:</label>
+﻿<div class="modal-body">
+    <div drbbly-overlay="rsm.overlay"
+         options="{iconSize: 'sm', fill: true}">
+        <form name="rsm.frmEvent"
+              class="flex-grow-1">
+            <h5 ng-if="rsm.eventIsShot">Shot Details</h5>
+            <h5 ng-if="rsm.eventIsRebound">Rebound Details</h5>
+            <h5 ng-if="rsm.eventIsAssist">Assist Details</h5>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-4">
+                        <label>Performed By:</label>
                     </div>
-                </div>
-                <div class="col-8">
-                    <div class="form-group">
-                        <input type="number"
+                    <div class="col-8 d-flex">
+                        <select class="form-control"
+                                ng-model="rsm.event.performedBy">
+                            <option ng-repeat="player in rsm.performedByOptions"
+                                    ng-value="player">
+                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
+                            </option>
+                        </select>
+                        <input type="text"
+                               name="performedBy"
                                required
-                               min="1"
-                               max="3"
-                               class="points form-control"
-                               ng-model="rsm.event.points" />
+                               hidden
+                               ng-model="rsm.event.performedBy.teamMembership.account.id" />
                     </div>
                 </div>
-            </div>
-            <div class="form-row"
-                 ng-if="rsm.eventIsShot">
-                <div class="col-4">
-                </div>
-                <div class="col-8">
-                    <div class="form-group">
-                        <div class="form-check-inline">
-                            <label class="m-0">
-                                <input type="radio"
-                                       ng-value="false"
-                                       ng-model="rsm.event.isMiss"
-                                       ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
-                                       class="form-check-input"
-                                       name="madeOrMiss">
-                                Made
-                            </label>
+                <!-- #region Shot Only -->
+                <div class="form-row"
+                     ng-if="rsm.eventIsShot">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="m-0">Points:</label>
                         </div>
-                        <div class="form-check-inline">
-                            <label class="m-0">
-                                <input type="radio"
-                                       ng-value="true"
-                                       ng-model="rsm.event.isMiss"
-                                       class="form-check-input"
-                                       name="madeOrMiss">
-                                Missed
-                            </label>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <input type="number"
+                                   required
+                                   min="1"
+                                   max="3"
+                                   class="points form-control"
+                                   ng-model="rsm.event.points" />
                         </div>
                     </div>
                 </div>
+                <div class="form-row"
+                     ng-if="rsm.eventIsShot">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <div class="form-check-inline">
+                                <label class="m-0">
+                                    <input type="radio"
+                                           ng-value="false"
+                                           ng-model="rsm.event.isMiss"
+                                           ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
+                                           class="form-check-input"
+                                           name="madeOrMiss">
+                                    Made
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="m-0">
+                                    <input type="radio"
+                                           ng-value="true"
+                                           ng-model="rsm.event.isMiss"
+                                           class="form-check-input"
+                                           name="madeOrMiss">
+                                    Missed
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #endregion -->
             </div>
-            <!-- #endregion -->
-        </div>
-    </form>
-    <!-- #endregion -->
+        </form>
+    </div>
 </div>
 <div class="modal-footer m-1">
     <button class="btn btn-danger"
