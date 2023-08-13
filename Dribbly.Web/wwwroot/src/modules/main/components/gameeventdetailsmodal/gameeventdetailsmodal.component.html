@@ -75,6 +75,34 @@
             </div>
         </form>
     </div>
+    <!-- #region Rebound -->
+    <form name="rsm.frmRebound"
+          ng-if="rsm.saveModel.type === $root.constants.enums.gameEventTypeEnum.Rebound"
+          class="flex-grow-1">
+        <h5>Rebound Details</h5>
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col-4">
+                    <label>Performed By:</label>
+                </div>
+                <div class="col-8 d-flex">
+                    <select class="form-control"
+                            ng-model="rsm.event.performedBy">
+                        <option ng-repeat="player in rsm.performedByOptions"
+                                ng-value="player">
+                            {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
+                        </option>
+                    </select>
+                    <input type="text"
+                           name="performedBy"
+                           required
+                           hidden
+                           ng-model="rsm.event.performedBy.teamMembership.account.id" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- #endregion -->
 </div>
 <div class="modal-footer m-1">
     <button class="btn btn-danger"

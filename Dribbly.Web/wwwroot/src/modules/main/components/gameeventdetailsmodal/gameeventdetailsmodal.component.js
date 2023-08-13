@@ -83,75 +83,6 @@
             return bodyTemplate;
         }
 
-        rsm.addFoul = function () {
-            rsm.foulPlayerOptions = rsm.opposingTeam.players;
-            rsm.foulTypeOptions = constants.Fouls;
-            rsm.saveModel.withFoul = true;
-
-            if (!rsm.foul) {
-                rsm.foul = {};
-                if (rsm.foulPlayerOptions.length === 1) {
-                    // Set as default if there's only one
-                    rsm.foul.performedBy = rsm.foulPlayerOptions[0];
-                }
-                //set Shooting fouls as the default
-                rsm.foul.foul = rsm.foulTypeOptions.drbblySingle(f => f.name === 'Shooting');
-            }
-        };
-
-        rsm.addBlock = function () {
-            rsm.blockPlayerOptions = rsm.opposingTeam.players
-                .drbblyWhere(p => p.isInGame);
-            rsm.saveModel.withBlock = true;
-
-            if (!rsm.block) {
-                rsm.block = {
-                    type: constants.enums.gameEventTypeEnum.ShotBlock
-                };
-                if (rsm.blockPlayerOptions.length === 1) {
-                    // Set as default if there's only one
-                    rsm.block.performedBy = rsm.blockPlayerOptions[0];
-                }
-            }
-        };
-
-        rsm.addRebound = function () {
-            rsm.reboundPlayerOptions = rsm.opposingTeam.players.concat(rsm.shooterTeam.players)
-                .drbblyWhere(p => p.isInGame);
-            rsm.saveModel.withRebound = true;
-
-            if (!rsm.rebound) {
-                rsm.rebound = {
-                    type: constants.enums.gameEventTypeEnum.Rebound
-                };
-                if (rsm.reboundPlayerOptions.length === 1) {
-                    // Set as default if there's only one
-                    rsm.rebound.performedBy = rsm.reboundPlayerOptions[0];
-                }
-            }
-        };
-
-        rsm.addAssist = function () {
-            rsm.assistPlayerOptions = rsm.shooterTeam.players
-                .drbblyWhere(p => p.teamMembership.memberAccountId !== rsm.saveModel.performedBy.memberAccountId
-                    && p.isInGame);
-            rsm.saveModel.withAssist = true;
-
-            if (!rsm.assist) {
-                rsm.assist = {
-                    type: constants.enums.gameEventTypeEnum.Assist
-                };
-                if (rsm.assistPlayerOptions.length === 1) {
-                    // Set as default if there's only one
-                    rsm.assist.performedBy = rsm.assistPlayerOptions[0];
-                }
-            }
-        };
-
-        rsm.removeFoul = function () {
-            rsm.saveModel.withFoul = false;
-        };
-
         rsm.onInterrupt = function (reason) {
             if (rsm.frmShot.$dirty) {
                 modalService.showUnsavedChangesWarning()
@@ -170,22 +101,6 @@
                 rsm.context.dismiss(reason);
             }
         };
-
-        rsm.onMadeMissChanged = function (isMiss) {
-            if (isMiss) {
-                rsm.saveModel.withAssist = false;
-            } else {
-                rsm.saveModel.withBlock = false;
-                rsm.saveModel.withRebound = false;
-            }
-        };
-
-        function setTeams() {
-            rsm.shooterTeam = rsm.model.game.team1.teamId === rsm.model.performedBy.teamId ?
-                rsm.model.game.team1 : rsm.model.game.team2;
-            rsm.opposingTeam = rsm.model.game.team1.teamId === rsm.model.performedBy.teamId ?
-                rsm.model.game.team2 : rsm.model.game.team1;
-        }
 
         rsm.handleSubmitClick = function () {
             var input = rsm.saveModel;
