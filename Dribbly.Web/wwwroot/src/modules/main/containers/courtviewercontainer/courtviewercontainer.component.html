@@ -76,12 +76,12 @@
                                                         type="button">
                                                     <i class="fa fa-phone"></i>&nbsp;{{::'site.Contact' | i18n}}
                                                 </button>
-                                                <div class="dropdown d-inline-block"
+                                                <div class="dropdown dropdown d-inline-block"
                                                      ng-if="dcc.isOwned || ('Court.DeleteNotOwned' | drbblyPermission)">
                                                     <button type="button" class="btn btn-secondary dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <span class="fa fa-ellipsis-h"></span>
                                                     </button>
-                                                    <div class="dropdown-menu">
+                                                    <div class="dropdown-menu dropdown-menu-right">
                                                         <a class="dropdown-item text-danger"
                                                            ng-if="dcc.isOwned || ('Court.DeleteNotOwned' | drbblyPermission)"
                                                            ng-click="dcc.deleteCourt()">{{::'app.DeleteCourt' | i18n}}</a>
