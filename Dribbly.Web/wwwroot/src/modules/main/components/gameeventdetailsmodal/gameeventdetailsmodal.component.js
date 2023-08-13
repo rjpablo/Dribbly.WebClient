@@ -18,19 +18,25 @@
     function controllerFn($scope, modalService, drbblyEventsService, constants, $timeout,
         drbblyGameeventsService, drbblyCommonService, drbblyGameeventshelperService) {
         var rsm = this;
+        var _gameEventTypeEnum = constants.enums.gameEventTypeEnum;
+        var _allPlayers;
 
         rsm.$onInit = function () {
-            rsm.saveModel = angular.copy(rsm.model.event, {});
+            rsm.event = angular.copy(rsm.model.event, {});
+            rsm.eventIsShot = rsm.event.type === _gameEventTypeEnum.ShotMade
+                || rsm.event.type === _gameEventTypeEnum.ShotMissed;
+            rsm.eventIsRebound = rsm.event.type === _gameEventTypeEnum.DefensiveRebound
+                || rsm.event.type === _gameEventTypeEnum.OffensiveRebound;
+            _allPlayers = rsm.model.game.team1.players.concat(rsm.model.game.team2.players);
             setPerformedByOptions();
 
-            if (rsm.saveModel.type === constants.enums.gameEventTypeEnum.ShotMade
-                || rsm.saveModel.type === constants.enums.gameEventTypeEnum.ShotMissed) {
-                rsm.saveModel.points = rsm.saveModel.additionalData.points;
+            if (rsm.eventIsShot) {
+                rsm.event.points = rsm.event.additionalData.points;
             }
 
             $timeout(function () { // wait for dropdown to be ready
-                rsm.saveModel.performedBy = rsm.performedByOptions
-                    .drbblySingle(p => p.teamMembership.account.id === rsm.saveModel.performedById);
+                rsm.event.performedBy = rsm.performedByOptions
+                    .drbblySingle(p => p.teamMembership.account.id === rsm.event.performedById);
             }, 100);
 
             rsm.context.setOnInterrupt(rsm.onInterrupt);
@@ -43,7 +49,9 @@
         };
 
         function setPerformedByOptions() {
-            rsm.performedByOptions = rsm.model.game.team1.players.concat(rsm.model.game.team2.players);
+            if (rsm.eventIsShot || rsm.eventIsRebound) {
+                rsm.performedByOptions = _allPlayers;
+            }
         }
 
         rsm.revert = function () {
@@ -54,7 +62,7 @@
                 .then(confirmed => {
                     if (confirmed) {
                         rsm.isBusy = true;
-                        drbblyGameeventsService.delete(rsm.saveModel.id)
+                        drbblyGameeventsService.delete(rsm.event.id)
                             .then(result => {
                                 close(result);
                             })
@@ -84,7 +92,7 @@
         }
 
         rsm.onInterrupt = function (reason) {
-            if (rsm.frmShot.$dirty) {
+            if (rsm.frmEvent.$dirty) {
                 modalService.showUnsavedChangesWarning()
                     .then(function (response) {
                         if (response) {
@@ -103,10 +111,25 @@
         };
 
         rsm.handleSubmitClick = function () {
-            var input = rsm.saveModel;
-            input.performedById = rsm.saveModel.performedBy.teamMembership.account.id;
+            var input = rsm.event;
+            input.performedById = rsm.event.performedBy.teamMembership.account.id;
             input.teamId = input.performedBy.teamMembership.teamId;
             rsm.isBusy = true;
+            if (rsm.eventIsShot) {
+                input.type = input.isMiss ? _gameEventTypeEnum.ShotMissed : _gameEventTypeEnum.ShotMade;
+            }
+            else if (rsm.eventIsRebound) {
+                var shot = rsm.model.associatedPlays
+                    .drbblySingleOrDefault(e => e.type === _gameEventTypeEnum.ShotMade || e.type === _gameEventTypeEnum.ShotMissed);
+                if (shot) {
+                    var shotPerformedBy = _allPlayers.drbblySingleOrDefault(p => p.accountId === shot.performedById);
+                    if (shotPerformedBy) {
+                        input.type = input.performedBy.teamMembership.teamId === shotPerformedBy.teamMembership.teamId ?
+                            _gameEventTypeEnum.OffensiveRebound :
+                            _gameEventTypeEnum.DefensiveRebound;
+                    }
+                }
+            }
             drbblyGameeventsService.update(input)
                 .then(result => {
                     close(result);

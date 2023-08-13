@@ -521,53 +521,55 @@
 
         gdg.showGameEventDetails = async function (event) {
             if (!gdg.gameIsFinished()) {
-                if (event.type === constants.enums.gameEventTypeEnum.ShotMade
-                    || event.type === constants.enums.gameEventTypeEnum.ShotMissed) {
+                var eventIsShot = event.type === constants.enums.gameEventTypeEnum.ShotMade
+                    || event.type === constants.enums.gameEventTypeEnum.ShotMissed;
+                var eventIsRebound = event.type === constants.enums.gameEventTypeEnum.DefensiveRebound
+                    || event.type === constants.enums.gameEventTypeEnum.OffensiveRebound;
+                if (eventIsShot || eventIsRebound) {
+                    var input = {
+                        game: gdg.game,
+                        event: event,
+                        associatedPlays: []
+                    };
+
                     //get associated plays
-                    var associatedPlays = gdg.game.gameEvents
+                    input.associatedPlays = gdg.game.gameEvents
                         .drbblyWhere(e => (event.shotId !== null && (e.id === event.shotId || e.shotId === event.shotId)) ||
                             (e.shotId === event.id));
 
                     var result = await showPlayerOptionsModal({
                         view: '<drbbly-gameeventdetailsmodal></drbbly-gameeventdetailsmodal>',
-                        model: {
-                            game: gdg.game,
-                            event: event,
-                            associatedPlays: associatedPlays
-                        }
+                        model: input
                     }).catch(err => { /*modal cancelled, do nothing*/ });
 
                     if (result) {
-                        if (event.type === constants.enums.gameEventTypeEnum.ShotMade
-                            || event.type === constants.enums.gameEventTypeEnum.ShotMissed) {
+                        gdg.game.team1Score = result.game.team1Score;
+                        gdg.game.team2Score = result.game.team2Score;
+                        result.teams.forEach(t => {
+                            var team = gdg.teams.drbblySingle(tm => tm.teamId === t.teamId);
+                            team.points = t.points;
+                            team.teamFoulCount = t.teamFoulCount;
+                        });
+                        result.players.forEach(p => {
+                            var player = gdg.players.drbblySingle(pl => pl.id === p.id);
+                            player.points = p.points;
+                            player.fouls = p.fouls;
+                            player.rebounds = p.rebounds;
+                            player.assists = p.assists;
+                            player.blocks = p.blocks;
+                            player.fga = p.fga;
+                            player.fgm = p.fgm;
+                            player.threePA = p.threePA;
+                            player.threePM = p.threePM;
+                        });
 
-                            gdg.game.team1Score = result.game.team1Score;
-                            gdg.game.team2Score = result.game.team2Score;
-                            result.teams.forEach(t => {
-                                var team = gdg.teams.drbblySingle(tm => tm.teamId === t.teamId);
-                                team.points = t.points;
-                            });
-                            result.players.forEach(p => {
-                                var player = gdg.players.drbblySingle(pl => pl.id === p.id);
-                                player.points = p.points;
-                                player.fouls = p.fouls;
-                                player.rebounds = p.rebounds;
-                                player.assists = p.assists;
-                                player.blocks = p.blocks;
-                                player.fga = p.fga;
-                                player.fgm = p.fgm;
-                                player.threePA = p.threePA;
-                                player.threePM = p.threePM;
-                            });
-
-                            if (result.isDelete) {
-                                gdg.game.gameEvents.drbblyRemove(event);
-                                associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
-                            }
-                            else {
-                                gdg.playByPlayWidget.updateItem(result.event);
-                                associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
-                            }
+                        if (result.isDelete) {
+                            gdg.game.gameEvents.drbblyRemove(event);
+                            associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
+                        }
+                        else {
+                            gdg.playByPlayWidget.updateItem(result.event);
+                            associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
                         }
                     }
                 }
@@ -765,7 +767,7 @@
                 && (gdg.timer && gdg.timer.isOver()) // time has run out
                 && (gdg.game.currentPeriod < gdg.game.numberOfRegulationPeriods // not the last or OT period
                     || (gdg.game.currentPeriod >= gdg.game.numberOfRegulationPeriods // last or OT period
-                && gdg.game.team1.points === gdg.game.team2.points) // but scores are not tied
+                        && gdg.game.team1.points === gdg.game.team2.points) // but scores are not tied
                 );
         }
 
