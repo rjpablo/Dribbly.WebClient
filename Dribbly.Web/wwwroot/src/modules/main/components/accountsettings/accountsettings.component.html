@@ -1,23 +1,36 @@
 ﻿<div class="container">
     <div drbbly-overlay="das.overlay">
         <div class="row">
-            <section class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6">
-                <h6 class="text-muted">{{::'app.Security' | i18n}}</h6>
-                <ul class="list-group">
-                    <li class="list-group-item">
+            <div class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6 px-0 px-sm-3">
+                <div class="card drbbly-card w-100 mb-3">
+                    <div class="card-header">
+                        <h5 class="drbbly-header d-inline-block m-0">
+                            {{::'app.Security' | i18n}}
+                        </h5>
+                        <button ng-if="dad.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
+                                ng-click="dad.edit()"
+                                class="btn btn-sm btn-secondary float-right">
+                            <span class="fa fa-pencil" aria-hidden="true"></span>&nbsp;
+                            {{::'site.Edit' | i18n}}
+                        </button>
+                    </div>
+                    <div class="card-body">
                         <div class="row">
-                            <div class="text-secondary col-12 col-sm-3">{{::'site.Email' | i18n}}</div>
-                            <div class="col-12 col-sm-9">
-                                <span>{{das.account.email}}</span>
-                                <button class="btn btn-link p-0" tabindex="-1">
+                            <div class="col-12 col-sm-3">
+                                <label class="text-secondary">{{::'site.Email' | i18n}}</label>
+                            </div>
+                            <div class="col-12 col-sm-9 d-flex">
+                                <div class="flex-grow-1">
+                                    <span>{{das.account.email}}</span>
+                                </div>
+                                <button class="btn btn-link p-0" tabindex="-1"
+                                        ng-click="das.replaceEmail()">
                                     <i class="fa fa-pencil"></i>
                                 </button>
                             </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="text-secondary col-12 col-sm-3">{{::'site.Password' | i18n}}</div>
+                            <div class="col-12 col-sm-3">
+                                <label class="text-secondary">{{::'site.Password' | i18n}}</label>
+                            </div>
                             <div class="col-12 col-sm-9">
                                 <button ng-click="das.changePassword()"
                                         class="btn btn-link p-0"
@@ -26,18 +39,24 @@
                                 </button>
                             </div>
                         </div>
-                    </li>
-                </ul>
-            </section>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
-            <section class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6">
-                <h6 class="text-muted">{{::'app.Profile' | i18n}}</h6>
-                <ul class="list-group">
-                    <li class="list-group-item">
+            <div class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6 px-0 px-sm-3">
+                <div class="card drbbly-card w-100 mb-3">
+                    <div class="card-header">
+                        <h5 class="drbbly-header d-inline-block m-0">
+                            {{::'app.Profile' | i18n}}
+                        </h5>
+                    </div>
+                    <div class="card-body">
                         <div class="row">
-                            <div class="text-secondary col-12 col-sm-3">{{::'app.KeepPrivate' | i18n}}</div>
-                            <div class="col-12 col-sm-9">
+                            <div class="col-12 col-sm-3">
+                                <label class="text-secondary">{{::'app.KeepPrivate' | i18n}}</label>
+                            </div>
+                            <div class="col-12 col-sm-9 d-flex">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox"
                                            id="swKeepPrivate"
@@ -47,11 +66,9 @@
                                     <label class="custom-control-label" for="swKeepPrivate"></label>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="text-secondary col-12 col-sm-3">{{::'app.ShowMyBirthDate' | i18n}}</div>
+                            <!--<div class="col-12 col-sm-3">
+                                <label class="text-secondary">{{::'app.ShowMyBirthDate' | i18n}}</label>
+                            </div>
                             <div class="col-12 col-sm-9">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox"
@@ -60,11 +77,11 @@
                                            class="custom-control-input">
                                     <label class="custom-control-label" for="swShowBirthDate"></label>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
-                    </li>
-                </ul>
-            </section>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <section class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6">

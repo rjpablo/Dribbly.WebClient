@@ -12,11 +12,11 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', 'drbblyEventsService', 'modalService'];
-    function controllerFn($scope, drbblyEventsService, modalService) {
+    controllerFn.$inject = ['$scope', 'drbblyEventsService', 'modalService', '$element', '$timeout'];
+    function controllerFn($scope, drbblyEventsService, modalService, $element, $timeout) {
         var inp = this;
 
-        inp.$onInit = function () {          
+        inp.$onInit = function () {
             inp.context.setOnInterrupt(inp.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
                 if (!inp.context.okToClose) {
@@ -25,6 +25,10 @@
                     inp.context.dismiss(reason);
                 }
             }, $scope);
+
+            $timeout(() => {
+                $element.find('input[name=input]').select();
+            });
         };
 
         inp.onInterrupt = function (reason) {
@@ -47,8 +51,10 @@
         };
 
         inp.submit = function () {
-            inp.context.okToClose = true;
-            inp.context.submit(inp.model.value);
+            if (inp.frmInput.$valid && (!inp.model.isValid || inp.model.isValid(inp.model.value))) {
+                inp.context.okToClose = true;
+                inp.context.submit(inp.model.value);
+            }
         };
 
         inp.cancel = function () {

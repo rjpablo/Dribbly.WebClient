@@ -90,6 +90,10 @@
                     return drbblyhttpService.post(api + 'setStatus/' + accountId + '/' + status);
                 }
 
+                function replaceEmail(input) {
+                    return drbblyhttpService.post(api + 'replaceEmail', input);
+                }
+
                 function setIsPublic(userId, isPublic) {
                     return drbblyhttpService.post(api + 'setIsPublic/' + userId + '/' + isPublic);
                 }
@@ -112,6 +116,7 @@
                     getPlayers: getPlayers,
                     getTopPlayers: getTopPlayers,
                     register: register,
+                    replaceEmail: replaceEmail,
                     setIsPublic: setIsPublic,
                     setStatus: setStatus,
                     updateAccount: updateAccount

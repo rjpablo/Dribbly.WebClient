@@ -14,9 +14,9 @@
         });
 
     controllerFunc.$inject = ['i18nService', 'authService', '$stateParams', 'modalService', '$state',
-        'drbblyOverlayService', 'drbblyAccountsService', 'drbblyToastService', 'constants'];
+        'drbblyOverlayService', 'drbblyAccountsService', 'drbblyToastService', 'constants', 'drbblyCommonService'];
     function controllerFunc(i18nService, authService, $stateParams, modalService, $state,
-        drbblyOverlayService, drbblyAccountsService, drbblyToastService, constants) {
+        drbblyOverlayService, drbblyAccountsService, drbblyToastService, constants, drbblyCommonService) {
         var das = this;
 
         das.$onInit = function () {
@@ -46,8 +46,25 @@
                 .catch(function () { /*cancelled*/ });
         };
 
-        das.changeEmail = function () {
-            alert('Not yet implemented (HOOP-47)');
+        das.replaceEmail = function () {
+            modalService.input({
+                model: {
+                    prompt: "New Email:",
+                    titleRaw: "Replace Email",
+                    type: 'email',
+                    required: true,
+                    value: das.account.email,
+                    isValid: value => value !== das.account.email
+                }
+            })
+                .then(email => {
+                    drbblyAccountsService.replaceEmail({ newEmail: email })
+                        .then(() => {
+                            das.account.email = email;
+                        })
+                        .catch(e => drbblyCommonService.handleError(e));
+                })
+                .catch(function () { /* cancelled, do nothing */ })
         };
 
         das.handleIsPublicChanged = function () {

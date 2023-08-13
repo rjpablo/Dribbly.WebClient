@@ -8,10 +8,23 @@
         <p ng-if="inp.model.msg2Key">{{inp.model.msg2Key | i18n}}</p>
         <p ng-if="inp.model.msg2Raw">{{inp.model.msg2Raw}}</p>
     </div>
-    <form name="inp.frmInput">
+    <form name="inp.frmInput"
+          ng-submit="inp.submit()">
         <div class="form-group">
             <label>{{inp.model.prompt}}</label>
+            <input type="text"
+                   ng-if="inp.model.type === 'email'"
+                   drbbly-emailinput
+                   name="input"
+                   min="inp.model.min"
+                   max="inp.model.max"
+                   maxlength="{{inp.model.maxLength}}"
+                   minlength="{{inp.model.minLength}}"
+                   class="form-control d-block"
+                   ng-required="inp.model.required"
+                   ng-model="inp.model.value" />
             <input type="{{inp.model.type}}"
+                   ng-if="inp.model.type !== 'email'"
                    name="input"
                    min="inp.model.min"
                    max="inp.model.max"
@@ -27,7 +40,7 @@
     <button type="button"
             i18n="site.Submit"
             class="btn btn-primary"
-            ng-disabled="inp.frmInput.$invalid"
+            ng-disabled="inp.frmInput.$pristine || inp.frmInput.$invalid || (inp.model.isValid && !inp.model.isValid(inp.model.value))"
             ng-click="inp.submit()"></button>
     <button type="button"
             i18n="site.Cancel"
