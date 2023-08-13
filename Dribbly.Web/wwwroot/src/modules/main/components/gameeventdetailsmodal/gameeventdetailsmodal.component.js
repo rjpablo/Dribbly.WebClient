@@ -77,7 +77,7 @@
 
         function getRevertConfirmationMessageTemplate() {
             var bodyTemplate = '';
-            if ((rsm.model.associatedPlays.length || []) > 0) {
+            if (rsm.eventIsShot && (rsm.model.associatedPlays.length || []) > 0) {
                 bodyTemplate = '<p class="text-left">Revert this play and the following associated plays?</p>' +
                     '<ul>'
                 rsm.model.associatedPlays.forEach(event => {
