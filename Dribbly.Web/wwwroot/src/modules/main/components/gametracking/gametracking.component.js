@@ -151,37 +151,40 @@
         }
 
         gdg.setLineup = async function (team) {
-            var modalResult = await modalService
+            var teams = await modalService
                 .show({
                     view: '<drbbly-setlineupmodal></drbbly-setlineupmodal>',
                     model: {
-                        team: team
+                        teams: gdg.teams,
+                        selectedTeam: team
                     }
                 }).catch(err => { /*modal cancelled, do nothing*/ });
 
-            if (modalResult) {
-                team.players.forEach(p => {
-                    p.isInGame = modalResult.selectedPlayers.drbblyAny(s => s.id === p.id);
-                });
-                team.players.sort((a, b) => {
-                    return a.isInGame && !b.isInGame ? -1 :
-                        !a.isInGame && b.isInGame ? 1 :
-                            0;
-                });
-
-                setLineupsReady()
-
-                drbblyGamesService.updateLineup({
-                    gameId: _gameId,
-                    teamId: team.teamId,
-                    period: gdg.game.currentPeriod,
-                    clockTime: gdg.timer.remainingTime,
-                    gamePlayerIds: modalResult.selectedPlayers.map(p => p.id)
-                })
-                    .catch(function (err) {
-                        gdg.game.nextPossession = currentValue;
-                        drbblyCommonService.handleError(err);
+            if (teams) {
+                teams.forEach(t => {
+                    var team = gdg.teams.drbblySingle(tm => tm.teamId == t.teamId);
+                    team.players.forEach(p => {
+                        p.isInGame = t.selectedPlayers.drbblyAny(s => s.id === p.id);
                     });
+                    team.players.sort((a, b) => {
+                        return a.isInGame && !b.isInGame ? -1 :
+                            !a.isInGame && b.isInGame ? 1 :
+                                0;
+                    });
+
+                    setLineupsReady()
+
+                    drbblyGamesService.updateLineup({
+                        gameId: _gameId,
+                        teamId: t.teamId,
+                        period: gdg.game.currentPeriod,
+                        clockTime: gdg.timer.remainingTime,
+                        gamePlayerIds: t.selectedPlayers.map(p => p.id)
+                    })
+                        .catch(function (err) {
+                            drbblyCommonService.handleError(err);
+                        });
+                })
             }
         }
 
@@ -785,7 +788,7 @@
         };
 
         gdg.canChangeLineup = function () {
-            return gdg.selectedTeam && gdg.game && gdg.game.status !== gdg.gameStatusEnum.Finished;
+            return gdg.game && gdg.game.status !== gdg.gameStatusEnum.Finished;
         };
 
         gdg.canEndGame = function () {

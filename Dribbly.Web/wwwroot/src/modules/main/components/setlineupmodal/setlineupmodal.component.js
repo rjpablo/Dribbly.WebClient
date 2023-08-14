@@ -24,10 +24,15 @@
 
         stu.$onInit = function () {
             stu.overlay = drbblyOverlayService.buildOverlay();
-            stu.players = angular.copy(stu.model.team.players);
-            stu.players.forEach(p => {
-                p.selected = !!p.isInGame;
-            });
+            stu.teams = angular.copy(stu.model.teams);
+            stu.teams.forEach(t => {
+                t.players.forEach(p => {
+                    p.selected = !!p.isInGame;
+                });
+            })
+            if (stu.model.selectedTeam) {
+                stu.activeTab = stu.model.selectedTeam.id;
+            }
 
             stu.context.setOnInterrupt(stu.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
@@ -38,9 +43,12 @@
             }, $scope);
         };
 
-        stu.toggleSelected = function (player) {
+        stu.toggleSelected = function (player, team) {
             player.selected = !player.selected;
+            team.isModified = true;
             stu.hasMadeChanges = true;
+            team.inValid = team.players.drbblyCount(p => p.selected) > 5
+            stu.inValid = stu.teams.drbblyAny(t => t.inValid);
         };
 
         stu.onInterrupt = function (reason) {
@@ -63,7 +71,14 @@
         };
 
         stu.handleSubmitClick = function () {
-            close({ selectedPlayers: stu.players.drbblyWhere(p => p.selected) });
+            var result = [];
+            stu.teams.drbblyWhere(t => t.isModified).forEach(t => {
+                result.push({
+                    teamId: t.teamId,
+                    selectedPlayers: t.players.drbblyWhere(p => p.selected)
+                })
+            });
+            close(result);
         };
 
         function close(result) {
