@@ -7,10 +7,12 @@
             <h5 ng-if="rsm.eventIsRebound">Rebound Details</h5>
             <h5 ng-if="rsm.eventIsAssist">Assist Details</h5>
             <h5 ng-if="rsm.eventIsShotBlock">Shot Block Details</h5>
+            <h5 ng-if="rsm.eventIsFoul">Foul Details</h5>
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-4">
-                        <label>Performed By:</label>
+                        <label ng-if="!rsm.eventIsFoul">Performed By:</label>
+                        <label ng-if="rsm.eventIsFoul">Committed By:</label>
                     </div>
                     <div class="col-8 d-flex">
                         <select class="form-control"
@@ -73,6 +75,32 @@
                                     Missed
                                 </label>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #endregion -->
+                <!-- #region Foul Only -->
+                <div class="form-group"
+                     ng-if="rsm.eventIsFoul">
+                    <div class="form-row">
+                        <div class="col-4">
+                            <label>Foul Type:</label>
+                        </div>
+                        <div class="col-8 d-flex">
+                            <select class="form-control"
+                                    ng-model="rsm.foul">
+                                <option ng-repeat="foul in rsm.foulTypeOptions"
+                                        ng-value="foul"
+                                        ng-class="{'text-warning': foul.isTechnical,
+                                    'text-danger': foul.isFlagrant}">
+                                    {{foul.name}}
+                                </option>
+                            </select>
+                            <input type="text"
+                                   name="foulType"
+                                   required
+                                   hidden
+                                   ng-model="rsm.foul.id" />
                         </div>
                     </div>
                 </div>

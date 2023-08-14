@@ -527,7 +527,8 @@
                     || event.type === constants.enums.gameEventTypeEnum.OffensiveRebound;
                 var eventIsAssist = event.type === constants.enums.gameEventTypeEnum.Assist;
                 var eventIsShotBlock = event.type === constants.enums.gameEventTypeEnum.ShotBlock;
-                if (eventIsShot || eventIsRebound || eventIsAssist || eventIsShotBlock) {
+                if (eventIsShot || eventIsRebound || eventIsAssist || eventIsShotBlock
+                    || event.type === constants.enums.gameEventTypeEnum.FoulCommitted) {
                     var input = {
                         game: gdg.game,
                         event: event,

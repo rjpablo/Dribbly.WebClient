@@ -28,6 +28,7 @@
                 || rsm.event.type === rsm.gameEventTypeEnum.ShotMissed;
             rsm.eventIsAssist = rsm.event.type === rsm.gameEventTypeEnum.Assist;
             rsm.eventIsShotBlock = rsm.event.type === rsm.gameEventTypeEnum.ShotBlock;
+            rsm.eventIsFoul = rsm.event.type === rsm.gameEventTypeEnum.FoulCommitted;
             _allPlayers = rsm.model.game.team1.players.concat(rsm.model.game.team2.players);
             setPerformedByOptions();
 
@@ -66,6 +67,14 @@
                     .drbblySingleOrDefault(e => e.type === rsm.gameEventTypeEnum.ShotMade
                         || e.type === rsm.gameEventTypeEnum.ShotMissed);
                 rsm.performedByOptions = _allPlayers.drbblyWhere(p => p.teamMembership.teamId !== shot.teamId);
+            }
+            else if (rsm.eventIsFoul) {
+                var shot = rsm.model.associatedPlays
+                    .drbblySingleOrDefault(e => e.type === rsm.gameEventTypeEnum.ShotMade
+                        || e.type === rsm.gameEventTypeEnum.ShotMissed);
+                rsm.performedByOptions = _allPlayers.drbblyWhere(p => !shot || p.teamMembership.teamId !== shot.teamId);
+                rsm.foulTypeOptions = constants.Fouls;
+                rsm.foul = rsm.foulTypeOptions.drbblySingle(f => f.name === rsm.event.additionalData.foulName);
             }
         }
 
@@ -148,6 +157,9 @@
                             rsm.gameEventTypeEnum.DefensiveRebound;
                     }
                 }
+            }
+            else if (rsm.eventIsFoul) {
+                input.foulId = rsm.foul.id;
             }
 
             rsm.overlay.setToBusy("Saving...");
