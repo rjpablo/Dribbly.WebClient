@@ -8,11 +8,12 @@
             <h5 ng-if="rsm.eventIsAssist">Assist Details</h5>
             <h5 ng-if="rsm.eventIsShotBlock">Shot Block Details</h5>
             <h5 ng-if="rsm.eventIsFoul">Foul Details</h5>
+            <h5 ng-if="rsm.eventIsTurnover">Turnover Details</h5>
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-4">
-                        <label ng-if="!rsm.eventIsFoul">Performed By:</label>
-                        <label ng-if="rsm.eventIsFoul">Committed By:</label>
+                        <label ng-if="!(rsm.eventIsFoul || rsm.eventIsTurnover)">Performed By:</label>
+                        <label ng-if="rsm.eventIsFoul || rsm.eventIsTurnover">Committed By:</label>
                     </div>
                     <div class="col-8 d-flex">
                         <select class="form-control"
@@ -29,6 +30,28 @@
                                ng-model="rsm.event.performedBy.teamMembership.account.id" />
                     </div>
                 </div>
+                <!-- #region Turnover Only -->
+                <div class="form-row"
+                     ng-if="rsm.eventIsTurnover">
+                    <div class="col-4">
+                        <label>Cause:</label>
+                    </div>
+                    <div class="col-8 d-flex">
+                        <select class="form-control"
+                                ng-model="rsm.event.cause">
+                            <option ng-repeat="cause in rsm.turnoverCauseChoices"
+                                    ng-value="cause">
+                                {{cause.text}}
+                            </option>
+                        </select>
+                        <input type="number"
+                               name="performedBy"
+                               required
+                               hidden
+                               ng-model="rsm.event.cause.value" />
+                    </div>
+                </div>
+                <!-- #endregion -->
                 <!-- #region Shot Only -->
                 <div class="form-row"
                      ng-if="rsm.eventIsShot">

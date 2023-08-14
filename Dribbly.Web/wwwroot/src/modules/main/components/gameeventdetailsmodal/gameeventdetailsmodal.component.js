@@ -13,9 +13,9 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'constants', '$timeout',
+    controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'constants', '$timeout', 'drbblyFormshelperService',
         'drbblyGameeventsService', 'drbblyCommonService', 'drbblyGameeventshelperService', 'drbblyOverlayService'];
-    function controllerFn($scope, modalService, drbblyEventsService, constants, $timeout,
+    function controllerFn($scope, modalService, drbblyEventsService, constants, $timeout, drbblyFormshelperService,
         drbblyGameeventsService, drbblyCommonService, drbblyGameeventshelperService, drbblyOverlayService) {
         var rsm = this;
         var _allPlayers;
@@ -29,8 +29,13 @@
             rsm.eventIsAssist = rsm.event.type === rsm.gameEventTypeEnum.Assist;
             rsm.eventIsShotBlock = rsm.event.type === rsm.gameEventTypeEnum.ShotBlock;
             rsm.eventIsFoul = rsm.event.type === rsm.gameEventTypeEnum.FoulCommitted;
+            rsm.eventIsTurnover = rsm.event.type === rsm.gameEventTypeEnum.Turnover;
             _allPlayers = rsm.model.game.team1.players.concat(rsm.model.game.team2.players);
             setPerformedByOptions();
+
+            if (rsm.eventIsTurnover) {
+                setTurnoverCuaseChoices();
+            }
 
             if (rsm.eventIsShot) {
                 rsm.event.points = rsm.event.additionalData.points;
@@ -52,7 +57,7 @@
 
         function setPerformedByOptions() {
             // non-in-game players are included because line-ups may have changed since the event was recorded
-            if (rsm.eventIsShot || rsm.eventIsRebound) {
+            if (rsm.eventIsShot || rsm.eventIsRebound || rsm.eventIsTurnover) {
                 rsm.performedByOptions = _allPlayers;
             }
             else if (rsm.eventIsAssist) {
@@ -76,6 +81,14 @@
                 rsm.foulTypeOptions = constants.Fouls;
                 rsm.foul = rsm.foulTypeOptions.drbblySingle(f => f.name === rsm.event.additionalData.foulName);
             }
+        }
+
+        function setTurnoverCuaseChoices() {
+            rsm.turnoverCauseChoices = drbblyFormshelperService.getDropDownListChoices({
+                enumKey: 'app.TurnoverCauseEnum',
+                addDefaultChoice: false
+            });
+            rsm.event.cause = rsm.turnoverCauseChoices.drbblySingle(c => c.value === rsm.event.additionalData.causeId);
         }
 
         rsm.revert = function () {
@@ -160,6 +173,9 @@
             }
             else if (rsm.eventIsFoul) {
                 input.foulId = rsm.foul.id;
+            }
+            else if (rsm.eventIsTurnover){
+                rsm.event.additionalData = JSON.stringify({ cause: rsm.event.cause.text, causeId: rsm.event.cause.value })
             }
 
             rsm.overlay.setToBusy("Saving...");

@@ -353,7 +353,7 @@
                 clockTime: data.clockTime,
                 type: constants.enums.gameEventTypeEnum.Turnover,
                 performedById: gdg.selectedPlayer.teamMembership.memberAccountId,
-                additionalData: JSON.stringify({ cause: data.choice.text })
+                additionalData: JSON.stringify({ cause: data.choice.text, causeId: data.choice.value })
             };
 
             drbblyGameeventsService.recordTurnover(turnover)
@@ -527,7 +527,8 @@
                     || event.type === constants.enums.gameEventTypeEnum.OffensiveRebound;
                 var eventIsAssist = event.type === constants.enums.gameEventTypeEnum.Assist;
                 var eventIsShotBlock = event.type === constants.enums.gameEventTypeEnum.ShotBlock;
-                if (eventIsShot || eventIsRebound || eventIsAssist || eventIsShotBlock
+                var eventIsTurnover = event.type === constants.enums.gameEventTypeEnum.Turnover;
+                if (eventIsShot || eventIsRebound || eventIsAssist || eventIsShotBlock || eventIsTurnover
                     || event.type === constants.enums.gameEventTypeEnum.FoulCommitted) {
                     var input = {
                         game: gdg.game,
