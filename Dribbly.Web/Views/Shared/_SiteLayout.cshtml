@@ -198,7 +198,8 @@
                 window.Dribbly.userPlatform = {};
             }
             finally {
-                return $.post(window.Dribbly.clientSettings.loggingServiceAddress, {
+                var logUrl = window.Dribbly.clientSettings.serviceBase + window.Dribbly.clientSettings.loggingServiceAddress;
+                return $.post(logUrl, {
                     message: message,
                     errorMessage: errorMsg,
                     url: url,
