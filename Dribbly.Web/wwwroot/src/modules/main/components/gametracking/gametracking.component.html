@@ -11,6 +11,7 @@
     <div class="control-panel">
         <!-- Tabbed Contents -->
         <div class="tabbed-content">
+            <!-- #region Tab Headers -->
             <ul class="nav nav-tabs bg-primary" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active"
@@ -31,6 +32,7 @@
                     </a>
                 </li>
             </ul>
+            <!-- #endregion -->
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane show active"
                      id="controls"
@@ -228,12 +230,12 @@
                                 </div>
                                 <strong class="text-center bg-white score text-dark"
                                         ng-class="{'text-secondary': gdg.game.winningTeamId !== null && gdg.game.winningTeamId !== team.team.id}">
-
                                     {{team.points || 0}}
                                 </strong>
                                 <div class="players d-flex align-items-stretch border border-dark bg-dark">
                                     <div ng-repeat="gamePlayer in team.players | filter : {isInGame: true}"
-                                         class="player bg-secondary"
+                                         class="player text-white"
+                                         ng-style="{'background-color': gamePlayer.teamColor}"
                                          ng-click="gdg.togglePlayerSelection(gamePlayer)"
                                          ng-class="{'selected': gamePlayer.isSelected}">
                                         <span class="jersey-no">{{gamePlayer.teamMembership.jerseyNo}}</span>
@@ -270,6 +272,7 @@
                 <div class="team-stats text-center d-flex flex-column align-items-center">
                     <img class="logo" ng-src="{{gdg.game.team1.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
                     <span class="score"
+                          ng-style="{'border-top': '2px solid ' + gdg.game.team1.teamColor}"
                           ng-class="{'text-secondary': gdg.game.winningTeamId === gdg.game.team2Id}">{{gdg.game.team1.points}}</span>
                     <!-- Possession Team1 -->
                     <div class="mb-2"
@@ -391,6 +394,7 @@
                 <div class="team-stats text-center d-flex flex-column align-items-center">
                     <img class="logo" ng-src="{{gdg.game.team2.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
                     <span class="score"
+                          ng-style="{'border-top': '2px solid ' + gdg.game.team2.teamColor}"
                           ng-class="{'text-secondary': gdg.game.winningTeamId === gdg.game.team1Id}">{{gdg.game.team2.points}}</span>
                     <!-- Possession Team2 -->
                     <div class="mb-2"

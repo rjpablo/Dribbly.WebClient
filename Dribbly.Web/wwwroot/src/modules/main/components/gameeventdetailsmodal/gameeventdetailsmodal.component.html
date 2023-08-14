@@ -9,6 +9,7 @@
             <h5 ng-if="rsm.eventIsShotBlock">Shot Block Details</h5>
             <h5 ng-if="rsm.eventIsFoul">Foul Details</h5>
             <h5 ng-if="rsm.eventIsTurnover">Turnover Details</h5>
+            <h5 ng-if="rsm.eventIsSteal">Steal Details</h5>
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-4">
@@ -19,7 +20,9 @@
                         <select class="form-control"
                                 ng-model="rsm.event.performedBy">
                             <option ng-repeat="player in rsm.performedByOptions"
-                                    ng-value="player">
+                                    ng-value="player"
+                                    class="text-white"
+                                    ng-style="{'background-color': player.teamColor}">
                                 {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
                             </option>
                         </select>

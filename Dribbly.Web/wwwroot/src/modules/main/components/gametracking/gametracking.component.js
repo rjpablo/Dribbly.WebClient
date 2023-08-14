@@ -37,6 +37,19 @@
             angular.element($window).on('resize', setOrientation);
         };
 
+        gdg.$onChanges = function (changes) {
+            if (changes.game && changes.game.currentValue) {
+                setTeamColors();
+            }
+        }
+
+        function setTeamColors() {
+            gdg.game.team1.teamColor = '#1a44d3';
+            gdg.game.team1.players.forEach(p => p.teamColor = gdg.game.team1.teamColor);
+            gdg.game.team2.teamColor = '#a90329';
+            gdg.game.team2.players.forEach(p => p.teamColor = gdg.game.team2.teamColor);
+        }
+
         function setOrientation() {
             var screenWidth = window.innerWidth;
             var screenHeight = window.innerHeight;
@@ -529,7 +542,8 @@
                 var eventIsShotBlock = event.type === constants.enums.gameEventTypeEnum.ShotBlock;
                 var eventIsTurnover = event.type === constants.enums.gameEventTypeEnum.Turnover;
                 if (eventIsShot || eventIsRebound || eventIsAssist || eventIsShotBlock || eventIsTurnover
-                    || event.type === constants.enums.gameEventTypeEnum.FoulCommitted) {
+                    || event.type === constants.enums.gameEventTypeEnum.FoulCommitted
+                    || event.type === constants.enums.gameEventTypeEnum.Steal) {
                     var input = {
                         game: gdg.game,
                         event: event,

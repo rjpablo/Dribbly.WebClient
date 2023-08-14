@@ -30,6 +30,7 @@
             rsm.eventIsShotBlock = rsm.event.type === rsm.gameEventTypeEnum.ShotBlock;
             rsm.eventIsFoul = rsm.event.type === rsm.gameEventTypeEnum.FoulCommitted;
             rsm.eventIsTurnover = rsm.event.type === rsm.gameEventTypeEnum.Turnover;
+            rsm.eventIsSteal = rsm.event.type === rsm.gameEventTypeEnum.Turnover;
             _allPlayers = rsm.model.game.team1.players.concat(rsm.model.game.team2.players);
             setPerformedByOptions();
 
@@ -57,7 +58,7 @@
 
         function setPerformedByOptions() {
             // non-in-game players are included because line-ups may have changed since the event was recorded
-            if (rsm.eventIsShot || rsm.eventIsRebound || rsm.eventIsTurnover) {
+            if (rsm.eventIsShot || rsm.eventIsRebound || rsm.eventIsTurnover || eventIsSteal) {
                 rsm.performedByOptions = _allPlayers;
             }
             else if (rsm.eventIsAssist) {

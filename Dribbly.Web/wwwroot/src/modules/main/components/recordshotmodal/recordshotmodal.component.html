@@ -54,6 +54,8 @@
                         <select class="form-control"
                                 ng-model="rsm.foul.performedBy">
                             <option ng-repeat="player in rsm.foulPlayerOptions"
+                                    class="text-white"
+                                    ng-style="{'background-color': player.teamColor}"
                                     ng-value="player">
                                 {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
                             </option>
@@ -112,6 +114,8 @@
                         <select class="form-control"
                                 ng-model="rsm.block.performedBy">
                             <option ng-repeat="player in rsm.blockPlayerOptions"
+                                    class="text-white"
+                                    ng-style="{'background-color': player.teamColor}"
                                     ng-value="player">
                                 {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
                             </option>
@@ -143,6 +147,8 @@
                         <select class="form-control"
                                 ng-model="rsm.assist.performedBy">
                             <option ng-repeat="player in rsm.assistPlayerOptions"
+                                    class="text-white"
+                                    ng-style="{'background-color': player.teamColor}"
                                     ng-value="player">
                                 {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
                             </option>
@@ -174,6 +180,8 @@
                         <select class="form-control"
                                 ng-model="rsm.rebound.performedBy">
                             <option ng-repeat="player in rsm.reboundPlayerOptions"
+                                    class="text-white"
+                                    ng-style="{'background-color': player.teamColor}"
                                     ng-value="player">
                                 {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
                             </option>
