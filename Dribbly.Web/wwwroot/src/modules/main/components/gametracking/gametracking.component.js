@@ -17,11 +17,11 @@
     controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
         'drbblyOverlayService', '$stateParams', '$interval', 'drbblyCommonService', '$window',
         'drbblyGameshelperService', 'drbblyDatetimeService', 'drbblyGameeventsService', '$document',
-        'drbblyFormshelperService', '$timeout'];
+        'drbblyFormshelperService', '$timeout', '$state'];
     function controllerFunc(drbblyGamesService, modalService, constants, authService,
         drbblyOverlayService, $stateParams, $interval, drbblyCommonService, $window,
         drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService, $document,
-        drbblyFormshelperService, $timeout) {
+        drbblyFormshelperService, $timeout, $state) {
         var gdg = this;
         var _gameId;
 
@@ -752,6 +752,19 @@
                 });
         }
 
+        async function exitGame() {
+            var proceed = true;
+            if (gdg.game.status === gdg.gameStatusEnum.Started) {
+                proceed = await modalService.confirm({ msg1Raw: 'The game is on-going. Do you really wish to exit?', titleRaw: 'Exit Game' })
+                    .catch(function () {
+                        proceed = false;
+                    });
+            }
+            if (proceed) {
+                $state.go('main.game.details', { id: _gameId });
+            }
+        }
+
         gdg.canRecordShot = function () {
             return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut)
                 && gdg.game.status === gdg.gameStatusEnum.Started;
@@ -846,6 +859,11 @@
                             text: 'Reset Game',
                             action: () => gdg.updateStatus(gdg.gameStatusEnum.WaitingToStart),
                             isHidden: () => gdg.game.status === gdg.gameStatusEnum.WaitingToStart,
+                            class: 'btn-secondary'
+                        },
+                        {
+                            text: 'Exit Game',
+                            action: exitGame,
                             class: 'btn-secondary'
                         }
                     ],
