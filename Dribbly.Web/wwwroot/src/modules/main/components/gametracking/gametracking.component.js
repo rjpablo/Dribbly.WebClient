@@ -17,11 +17,11 @@
     controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
         'drbblyOverlayService', '$stateParams', '$interval', 'drbblyCommonService', '$window',
         'drbblyGameshelperService', 'drbblyDatetimeService', 'drbblyGameeventsService', '$document',
-        'drbblyFormshelperService', '$timeout', '$state'];
+        'drbblyFormshelperService', '$timeout', '$state', 'settingsService'];
     function controllerFunc(drbblyGamesService, modalService, constants, authService,
         drbblyOverlayService, $stateParams, $interval, drbblyCommonService, $window,
         drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService, $document,
-        drbblyFormshelperService, $timeout, $state) {
+        drbblyFormshelperService, $timeout, $state, settingsService) {
         var gdg = this;
         var _gameId;
 
@@ -860,8 +860,8 @@
                         },
                         {
                             text: 'Reset Game',
-                            action: () => gdg.updateStatus(gdg.gameStatusEnum.WaitingToStart),
-                            isHidden: () => gdg.game.status === gdg.gameStatusEnum.WaitingToStart,
+                            action: () => gdg.updateStatus(gdg.gameStatusEnum.Started),
+                            isHidden: () => !settingsService.allowGameReset || gdg.game.status === gdg.gameStatusEnum.WaitingToStart,
                             class: 'btn-secondary'
                         },
                         {

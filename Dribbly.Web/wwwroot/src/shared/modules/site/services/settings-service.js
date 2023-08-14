@@ -11,6 +11,7 @@
         var _clientId = 'dribbly-web';
         var _clientSecret = '5YV7M1r981yoGhELyB84aC+KiYksxZf1OY3++C1CtRM=';
         var _settingsApiBaseUrl = 'api/settings/';
+        Object.assign(_service, window.Dribbly.clientSettings);
 
         var _getInitialSettings = function () {
             var deferred = $q.defer();

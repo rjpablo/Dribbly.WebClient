@@ -5,5 +5,6 @@
         public string LoggingServiceAddress { get; set; }
         public string ServiceBase { get; set; }
         public bool SuppressNotifications { get; set; }
+        public bool AllowGameReset { get; set; }
     }
 }
