@@ -39,9 +39,9 @@
         dtg.teamsFilter = function (team, index, teams) {
             return !dtg.hasStages || !dtg.filter.stageId ||
                 dtg.tournament.stages.drbblySingle(s => s.id == dtg.filter.stageId).teams.map(t => t.teamId)
-                .drbblyAny(t => {
-                    return t === team.teamId;
-                });
+                    .drbblyAny(t => {
+                        return t === team.teamId;
+                    });
         }
 
         dtg.rejectRequest = function (request) {
@@ -121,14 +121,20 @@
         };
         // #endregion AddStage
 
-        dtg.removeTeam = function (team) {
+        dtg.withdrawTeam = function (team) {
             team.isBusy = true;
-            modalService.confirm({ msg1Raw: 'Remove ' + team.name + ' from the tournament?' })
+            modalService.confirm({ msg1Raw: 'Remove ' + team.team.name + ' from the tournament?' })
                 .then(confirmed => {
                     if (confirmed) {
                         drbblyTournamentsService.removeTournamentTeam(dtg.tournament.id, team.teamId)
                             .then(() => {
                                 dtg.tournament.teams.drbblyRemove(t => t.teamId == team.teamId);
+                                dtg.tournament.stages.forEach(stage => {
+                                    stage.teams.drbblyRemove(t => t.teamId === team.teamId);
+                                    stage.brackets.forEach(b => {
+                                        b.teams.drbblyRemove(t => t.teamId === team.teamId);
+                                    })
+                                })
                             })
                             .catch(e => drbblyCommonService.handleError(e))
                             .finally(() => team.isBusy = false);

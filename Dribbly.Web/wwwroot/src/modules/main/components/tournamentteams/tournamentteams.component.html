@@ -27,12 +27,26 @@
                                 </div>
                                 <div class="row mb-3 mt-3"
                                      ng-if="dtg.isManager">
-                                    <div ng-repeat="team in dtg.tournament.teams | orderBy : 'team.name'"
+                                    <div ng-repeat="team in dtg.tournament.teams | orderBy : 'team.shortName'"
                                          class="col-12 col-sm-6 col-md-4 col-lg-3 mb-1">
                                         <div class="team d-flex">
                                             <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
                                                  class="logo" />
-                                            <span class="name">{{team.team.name}}</span>
+                                            <span class="name">{{team.team.shortName}}</span>
+                                            <div class="dropdown ml-auto"
+                                                 ng-if="dtg.isManager">
+                                                <button class="btn btn-sm dropdown-toggle no-caret"
+                                                        role="button" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item"
+                                                       ng-click="dtg.withdrawTeam(team)">
+                                                        Withdraw Team
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div ng-if="dtg.tournament.teams.length === 0"
@@ -59,7 +73,7 @@
                                             <i class="fa fa-ellipsis-h"></i>
                                         </button>
 
-                                        <div class="dropdown-menu">
+                                        <div class="dropdown-menu dropdown-menu-right"">
                                             <a class="dropdown-item"
                                                ng-click="dtg.editTeams(stage)">
                                                 Add/Remove Teams
@@ -83,7 +97,7 @@
                                          data-drop="true"
                                          ng-model="bracket.teams">
                                         <span class="text-secondary bracket-name">{{bracket.name}}</span>
-                                        <div ng-repeat="team in bracket.teams | orderBy : 'team.name'"
+                                        <div ng-repeat="team in bracket.teams | orderBy : 'team.shortName'"
                                              jqyoui-draggable="{index: $index}"
                                              data-drag="true"
                                              data-jqyoui-options="{revert: 'invalid', animate: true, revertDuration: 200, handle: '.drag-handle', containment: '.brackets-{{stage.id}}'}"
@@ -93,7 +107,7 @@
                                              ng-model="team">
                                             <img ng-src="{{team.team.logo? team.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
                                                  class="logo" />
-                                            <span class="name">{{team.team.name}}</span>
+                                            <span class="name">{{team.team.shortName}}</span>
                                             <span class="ml-auto drag-handle text-secondary"
                                                   ng-if="dtg.isManager"><i class="fa fa-arrows-alt"></i></span>
                                         </div>
@@ -130,7 +144,7 @@
                                     </div>
                                     <div class="flex-grow-1 px-3">
                                         <a ui-sref="main.team.home({id: request.teamId})"
-                                           class="d-block mb-2">{{request.team.name}}</a>
+                                           class="d-block mb-2">{{request.team.shortName}}</a>
                                         <div>
                                             <button class="btn btn-sm btn-primary"
                                                     ng-disabled="request.isBusy"
