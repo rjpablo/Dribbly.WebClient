@@ -121,6 +121,7 @@
 
         avc.update = function () {
             drbblyTeamshelperService.openAddTeamModal({
+                id: avc.team.id,
                 name: avc.team.name,
                 shortName: avc.team.shortName,
                 isEdit: true

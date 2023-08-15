@@ -57,20 +57,20 @@
                 var saveModel = angular.copy(bgm.saveModel);
                 bgm.isBusy = true;
                 if (bgm.model.isEdit) {
-                    drbblyTeamsService.addTeam(saveModel)
+                    drbblyTeamsService.updateTeam(saveModel)
                         .then(function (result) {
                             bgm.isBusy = false;
-                            close(result);
+                            close(saveModel);
                         }, function (error) {
                             bgm.isBusy = false;
                             drbblyCommonService.handleError(error);
                         });
                 }
                 else {
-                    drbblyTeamsService.updateTeam(saveModel)
+                    drbblyTeamsService.addTeam(saveModel)
                         .then(function (result) {
                             bgm.isBusy = false;
-                            close(saveModel);
+                            close(result);
                         }, function (error) {
                             bgm.isBusy = false;
                             drbblyCommonService.handleError(error);
