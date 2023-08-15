@@ -19,7 +19,8 @@
         var drl = this;
 
         drl.$onInit = function () {
-
+            drl.postTypeEnum = constants.enums.postTypeEnum;
+            drl.post.additionalData = JSON.parse(drl.post.additionalData);
         };
 
         drl.editPost = function () {
@@ -46,7 +47,8 @@
         };
 
         drl.canEdit = function () {
-            return drl.post.addedById === authService.authentication.userId;
+            return drl.post.addedById === authService.authentication.userId
+                && drl.post.type !== drl.postTypeEnum.GameCreated;
         };
 
         drl.canDelete = function () {

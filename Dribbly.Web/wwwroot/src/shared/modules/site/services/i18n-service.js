@@ -329,6 +329,7 @@
                     PleaseContactTheFollowingNumberForInquiries: 'Please contact the following number for inquiries:<br/><br/><h3 class="text-center">{number}</h3>',
                     PlusFollow: '+ Follow',
                     Position: 'Position',
+                    'PostTypeEnum.GameCreated_1': 'Game Created',
                     PrimaryPhoto: 'PrimaryPhoto',
                     Private: 'Private',
                     ProcessingEllipsis: 'Processing...',
