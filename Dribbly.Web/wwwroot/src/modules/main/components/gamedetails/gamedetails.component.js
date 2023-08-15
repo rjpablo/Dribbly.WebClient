@@ -27,5 +27,20 @@
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
         };
+
+        gdg.$onChanges = changes => {
+            if (changes.game && changes.game.currentValue) {
+                gdg.isManager = authService.isCurrentAccountId(gdg.game.addedById);
+                gdg.postsOptions = {
+                    postedOnType: constants.enums.entityType.Game,
+                    postedOnId: gdg.game.id,
+                    title: 'Updates',
+                    addButtonLabel: 'New Update',
+                    emplyLabel: 'No updates found.',
+                    canPost: gdg.isManager
+                };
+
+            }
+        }
     }
 })();

@@ -23,7 +23,7 @@
             dad.isOwned = authService.isCurrentUserId(dad.account.identityUserId);
             dad.postsOptions = {
                 postedOnType: constants.enums.entityType.Account,
-                postedOnId: dad.account.identityUserId
+                postedOnId: dad.account.id
             };
             loadAccount();
         };

@@ -1,7 +1,16 @@
 ﻿<div class="container">
     <div class="row">
-        <div class="col pt-3">
-            <h5>Game Details</h5>
+        <div class="col-12 col-md-9">
+            <drbbly-posts options="gdg.postsOptions"
+                          ng-if="gdg.postsOptions"></drbbly-posts>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
         </div>
     </div>
 </div>
