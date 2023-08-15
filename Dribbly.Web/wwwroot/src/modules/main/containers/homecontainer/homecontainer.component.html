@@ -1,4 +1,31 @@
 ﻿<div class="container">
+    <section class="features-carousel">
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.featuresCarouselSettings.dots}">
+            <slick settings="dhc.featuresCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="feature in dhc.features | filter : {isHidden: '!true'}"
+                     class="feature px-3">
+                    <div class="background"
+                         ng-style="{'background-image': 'url(' + feature.backgroundUrl + ')',
+                                    'background-position': feature.backgroundPosition}"></div>
+                    <div class="content p-3 pt-5">
+                        <div class="feature-name">
+                            <h3>{{feature.name}}</h3>
+                            <div class="feature-description mb-2">
+                                {{feature.description}}
+                            </div>
+                            <button class="btn btn-primary action"
+                                    ng-if="feature.action"
+                                    ng-click="feature.action()">
+                                {{feature.actionLabel}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </slick>
+        </div>
+    </section>
     <section drbbly-overlay="dhc.topPlayersOverlay" class="pt-3 top-players">
         <div class="section-header">
             <h5 class="drbbly-header">Top Players</h5>
