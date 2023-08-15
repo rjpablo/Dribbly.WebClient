@@ -47,12 +47,25 @@
                         <div class="text-center text-secondary">
                             <div>{{gcc.game.start | date : 'MMM-dd-yyyy'}}</div>
                             <div>{{gcc.game.start | date : 'HH:mm a'}}</div>
-                            <a ui-sref="main.court.home({id: gcc.game.court.id})" class="m-0 p-0 pb-1">
+                            <div>
                                 <i class="fa fa-map-marker mr-1"></i>
-                                <span ng-click="gcc.previewCourtDetails($event, gcc.game.court)">
-                                    {{gcc.game.court.name}}
-                                </span>
-                            </a>
+                                <a ui-sref="main.court.home({id: gcc.game.court.id})" class="m-0 p-0 pb-1">
+                                    <span ng-click="gcc.previewCourtDetails($event, gcc.game.court)">
+                                        {{gcc.game.court.name}}
+                                    </span>
+                                </a>
+
+                            </div>
+                            <div>
+                                <i class="fa fa-trophy mr-1"></i>
+                                <a ui-sref="main.tournament.games({id: gcc.game.tournamentId})"
+                                   class="m-0 p-0 pb-1"
+                                   ng-if="gcc.game.tournament">
+                                    <span>
+                                        {{gcc.game.tournament.name}}
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-4 col-sm-3 px-1 text-center">
