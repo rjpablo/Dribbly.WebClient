@@ -34,6 +34,10 @@
     overflow-y: auto;
 }
 
+#app-navigation-container {
+    z-index: 1;
+}
+
 #page-body-container {
     min-height: 100%;
 
