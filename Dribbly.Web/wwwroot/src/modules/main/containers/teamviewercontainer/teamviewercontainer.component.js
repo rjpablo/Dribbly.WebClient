@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
-        'constants', 'drbblyDatetimeService'];
+        'constants', 'drbblyDatetimeService', 'drbblyTeamshelperService'];
     function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService,
-        constants, drbblyDatetimeService) {
+        constants, drbblyDatetimeService, drbblyTeamshelperService) {
         var avc = this;
         var _teamId;
 
@@ -61,12 +61,76 @@
             };
         }
 
+        avc.onLogoClick = function () {
+            if (!avc.isManager) {
+                viewLogo();
+                return;
+            }
+
+            modalService.showMenuModal({
+                model: {
+                    buttons: [
+                        {
+                            text: 'View Logo',
+                            action: viewLogo,
+                            class: 'btn-secondary'
+                        },
+                        {
+                            text: 'ReplaceLogo',
+                            action: function () {
+                                angular.element('#btn-replace-photo').triggerHandler('click');
+                            },
+                            isHidden: () => !avc.isManager,
+                            class: 'btn-secondary'
+                        }
+                    ],
+                    hideHeader: true
+                },
+                size: 'sm',
+                backdrop: true
+            });
+        };
+
+        function viewLogo() {
+            avc.methods.open(0);
+            //drbblyTeamsService.getTeamPhotos(avc.team.id)
+            //    .then(function (photos) {
+            //        avc.team.photos = massagePhotos(photos);
+            //    })
+            //    .catch(function (error) {
+            //        // TODO: display error in a toast
+            //    });
+        }
+
+        function massagePhotos(photos) {
+            var canDeleteNotOwned = permissionsService.hasPermission('Team.DeletePhotoNotOwned');
+            angular.forEach(photos, function (photo) {
+                photo.deletable = photo.id !== avc.team.logoId &&
+                    (avc.isOwned || canDeleteNotOwned);
+            });
+            return photos;
+        }
+
         avc.onTeamUpdate = function () {
             loadTeam();
         };
 
         avc.$onDestroy = function () {
             avc.app.toolbar.clearNavItems();
+        };
+
+        avc.update = function () {
+            drbblyTeamshelperService.openAddTeamModal({
+                name: avc.team.name,
+                shortName: avc.team.shortName,
+                isEdit: true
+            })
+                .then(function (team) {
+                    if (team) {
+                        avc.team.name = team.name;
+                        avc.team.shortName = team.shortName;
+                    }
+                });
         };
 
         function buildSubPages() {

@@ -114,57 +114,6 @@
                 .catch(function () { /*do nothing*/ });
         };
 
-        thc.onLogoClick = function () {
-            if (!thc.isOwned) {
-                viewLogo();
-                return;
-            }
-
-            modalService.showMenuModal({
-                model: {
-                    buttons: [
-                        {
-                            text: 'View Logo',
-                            action: viewLogo,
-                            class: 'btn-secondary'
-                        },
-                        {
-                            text: 'ReplaceLogo',
-                            action: function () {
-                                angular.element('#btn-replace-photo').triggerHandler('click');
-                            },
-                            isHidden: () => !thc.isOwned,
-                            class: 'btn-secondary'
-                        }
-                    ],
-                    hideHeader: true
-                },
-                size: 'sm',
-                backdrop: true
-            });
-        };
-
-        function viewLogo() {
-            var logoIndex = thc.team.photos.findIndex(value => value.id === thc.team.logoId);
-            thc.methods.open(logoIndex);
-            //drbblyTeamsService.getTeamPhotos(thc.team.id)
-            //    .then(function (photos) {
-            //        thc.team.photos = massagePhotos(photos);
-            //    })
-            //    .catch(function (error) {
-            //        // TODO: display error in a toast
-            //    });
-        }
-
-        function massagePhotos(photos) {
-            var canDeleteNotOwned = permissionsService.hasPermission('Team.DeletePhotoNotOwned');
-            angular.forEach(photos, function (photo) {
-                photo.deletable = photo.id !== thc.team.logoId &&
-                    (thc.isOwned || canDeleteNotOwned);
-            });
-            return photos;
-        }
-
         thc.joinTeam = function () {
             thc.isBusy = true;
             return authService.checkAuthenticationThen(function () {

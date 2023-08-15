@@ -1,6 +1,6 @@
 [drbbly-overlay] {
     position: relative !important;
-    min-height: 200px; /*don't let it collapse too small, could hide loading icon, etc.*/
+    min-height: 150px; /*don't let it collapse too small, could hide loading icon, etc.*/
     box-sizing: border-box !important;
 
     &.fill {

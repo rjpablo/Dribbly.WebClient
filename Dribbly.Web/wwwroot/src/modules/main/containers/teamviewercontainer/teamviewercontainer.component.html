@@ -19,27 +19,17 @@
                                                 ngf-pattern="'image/*'"
                                                 ngf-accept="'image/*'"
                                                 ngf-max-size="20MB"></button>
-                                        <ng-image-gallery images="avc.team.photos"
-                                                          methods="avc.methods"
-                                                          thumbnails="false"
-                                                          inline="false"
-                                                          bubbles="true"
-                                                          bubble-size="30"
-                                                          img-bubbles="true"
-                                                          bg-close="true"
-                                                          piracy="true"
-                                                          img-anim="fadeup"
-                                                          on-delete="avc.onDeletePhoto(img, cb)"></ng-image-gallery>
                                     </div>
                                     <div class="col-auto pl-md-0">
                                         <h3 class="text-white mb-1">{{avc.team.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' : avc.team.shortName}}</h3>
                                         <div class="drbbly-no-animation">
                                             <div ng-hide="avc.isBusy">
-                                                <button type="button"
-                                                        class="btn btn-primary mb-3"
-                                                        ng-click="avc.followTeam()">
-                                                    {{::'app.PlusFollow' | i18n}}
-                                                </button>
+                                                <!--<button type="button"
+                                                    class="btn btn-primary mb-3"
+                                                    ng-if="!avc.isManager"
+                                                    ng-click="avc.followTeam()">
+                                                {{::'app.PlusFollow' | i18n}}
+                                            </button>-->
                                                 <div ng-show="!avc.userTeamRelation.hasPendingJoinRequest"
                                                      class="d-inline-block">
                                                     <button type="button"
@@ -80,6 +70,17 @@
                 </div>
             </div>
         </div>
+        <ng-image-gallery images="[avc.team.logo]"
+                          methods="avc.methods"
+                          thumbnails="false"
+                          inline="false"
+                          bubbles="true"
+                          bubble-size="30"
+                          img-bubbles="true"
+                          bg-close="true"
+                          piracy="true"
+                          img-anim="fadeup"
+                          on-delete="avc.onDeletePhoto(img, cb)"></ng-image-gallery>
         <div id="app-navigation-container"
              class="container px-0 px-sm-3">
             <div class="row">

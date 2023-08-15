@@ -22,7 +22,7 @@
         bgm.$onInit = function () {
             bgm.overlay = drbblyOverlayService.buildOverlay();
             bgm.teamStatus = constants.enums.teamStatus;
-            bgm.saveModel = {};
+            bgm.saveModel = angular.copy(bgm.model);
 
             bgm.context.setOnInterrupt(bgm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
@@ -56,14 +56,26 @@
             if (bgm.frmTeamDetails.$valid) {
                 var saveModel = angular.copy(bgm.saveModel);
                 bgm.isBusy = true;
-                drbblyTeamsService.addTeam(saveModel)
-                    .then(function (result) {
-                        bgm.isBusy = false;
-                        close(result);
-                    }, function (error) {
-                        bgm.isBusy = false;
-                        drbblyCommonService.handleError(error);
-                    });
+                if (bgm.model.isEdit) {
+                    drbblyTeamsService.addTeam(saveModel)
+                        .then(function (result) {
+                            bgm.isBusy = false;
+                            close(result);
+                        }, function (error) {
+                            bgm.isBusy = false;
+                            drbblyCommonService.handleError(error);
+                        });
+                }
+                else {
+                    drbblyTeamsService.updateTeam(saveModel)
+                        .then(function (result) {
+                            bgm.isBusy = false;
+                            close(saveModel);
+                        }, function (error) {
+                            bgm.isBusy = false;
+                            drbblyCommonService.handleError(error);
+                        });
+                }
             }
         };
 
