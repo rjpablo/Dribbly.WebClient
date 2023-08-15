@@ -39,4 +39,8 @@
         </a>
         &nbsp;created the game;
     </div>
+    <div ng-if="drl.post.type === drl.postTypeEnum.GameRescheduled"
+         class="my-3">
+        Game schedule moved to <drbbly-date date="drl.post.additionalData.newSchedule"></drbbly-date>
+    </div>
 </div>
