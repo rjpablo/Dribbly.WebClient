@@ -942,7 +942,7 @@
         }
 
         gdg.goToNextPeriod = function () {
-            var period = gdg.game.currentPeriod++;
+            var period = gdg.game.currentPeriod + 1;
             var newTime = getCurrentPeriodDuration();
             gdg.isBusy = true;
             drbblyGamesService.advancePeriod(_gameId, period, newTime)
