@@ -260,6 +260,7 @@
       "wwwroot/src/modules/main/components/gamedetails/gamedetails.component.js",
       "wwwroot/src/modules/main/components/gametracking/gametracking.component.js",
       "wwwroot/src/modules/main/components/endgamemodal/endgamemodal.component.js",
+      "wwwroot/src/modules/main/components/tournamenthome/tournamenthome.component.js",
 
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
       "wwwroot/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js",
@@ -440,6 +441,8 @@
       "wwwroot/src/modules/main/components/playerselectionmodal/playerselectionmodal.component.css",
       "wwwroot/src/modules/main/components/gamestats/gamestats.component.css",
       "wwwroot/src/modules/main/components/tournamentstats/tournamentstats.component.css",
+      "wwwroot/src/modules/main/components/tournamenthome/tournamenthome.component.css",
+
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css"
     ]

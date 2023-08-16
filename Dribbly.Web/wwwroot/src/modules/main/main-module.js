@@ -318,7 +318,11 @@
             .state('main.tournament', {
                 abstract: true,
                 url: '/tournament/:id',
-                component: 'drbblyTournamentviewercontainer',
+                component: 'drbblyTournamentviewercontainer'
+            })
+            .state('main.tournament.home', {
+                url: '',
+                component: 'drbblyTournamenthome',
                 resolve: {
                     $titleKey: () => { return 'app.TournamentDetails'; }
                 }
