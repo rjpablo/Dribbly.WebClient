@@ -47,29 +47,6 @@
             thc.loadTopPlayers();
         };
 
-        thc.leaveTeam = function () {
-            thc.isBusy = true;
-            return modalService.confirm({
-                msg1Raw: i18nService.getString('app.LeaveTeamConfirmationPrompt', { teamName: thc.team.name })
-            })
-                .then(function (result) {
-                    if (result) {
-                        return authService.checkAuthenticationThen(function () {
-                            return drbblyTeamsService.leaveTeam(thc.teamId)
-                                .then(function (result) {
-                                    thc.userTeamRelation = result;
-                                    thc.isBusy = false;
-                                }, function () {
-                                    thc.isBusy = false;
-                                });
-                        }, function () { thc.isBusy = false; });
-                    }
-                })
-                .finally(function () {
-                    thc.isBusy = false;
-                });
-        };
-
         thc.loadUpcomingGames = function () {
             var input = {
                 teamIds: [thc.teamId],
@@ -95,44 +72,12 @@
                 .catch(() => thc.topPlayersOverlay.setToError());
         }
 
-        thc.cancelJoinRequest = function () {
-            thc.isBusy = true;
-            drbblyTeamsService.cancelJoinRequest(thc.teamId)
-                .then(function () {
-                    thc.userTeamRelation.hasPendingJoinRequest = false;
-                    thc.isBusy = false;
-                }, function () {
-                    thc.isBusy = false;
-                });
-        };
-
         thc.edit = function () {
             drbblyTeamshelperService.editTeam(thc.team)
                 .then(function () {
                     thc.onUpdate();
                 })
                 .catch(function () { /*do nothing*/ });
-        };
-
-        thc.joinTeam = function () {
-            thc.isBusy = true;
-            return authService.checkAuthenticationThen(function () {
-                return modalService.show({
-                    view: '<drbbly-jointeammodal></drbbly-jointeammodal>',
-                    model: { teamName: thc.team.name, teamId: thc.team.id },
-                    size: 'sm'
-                })
-                    .then(function (result) {
-                        thc.userTeamRelation = result;
-                        thc.isBusy = false;
-                    })
-                    .catch(function () {
-                        thc.isBusy = false;
-                    });
-            }, function () { thc.isBusy = false; })
-                .catch(function () {
-                    thc.isBusy = false;
-                });;
         };
 
         thc.followTeam = function () {

@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
-        'constants', 'drbblyDatetimeService', 'drbblyTeamshelperService'];
+        'constants', 'drbblyDatetimeService', 'drbblyTeamshelperService', 'modalService'];
     function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService,
-        constants, drbblyDatetimeService, drbblyTeamshelperService) {
+        constants, drbblyDatetimeService, drbblyTeamshelperService, modalService) {
         var avc = this;
         var _teamId;
 
@@ -54,12 +54,67 @@
                 })
         }
 
+        avc.joinTeam = function () {
+            avc.isBusy = true;
+            return authService.checkAuthenticationThen(function () {
+                return modalService.show({
+                    view: '<drbbly-jointeammodal></drbbly-jointeammodal>',
+                    model: { teamName: avc.team.name, teamId: avc.team.id },
+                    size: 'sm'
+                })
+                    .then(function (result) {
+                        avc.userTeamRelation = result;
+                        avc.isBusy = false;
+                    })
+                    .catch(function () {
+                        avc.isBusy = false;
+                    });
+            }, function () { avc.isBusy = false; })
+                .catch(function (e) {
+                    avc.isBusy = false;
+                });;
+        };
+
         function getDefaultLogo() {
             return {
                 url: '../../../../../' + constants.images.defaultTeamLogoUrl,
                 isDefault: true
             };
         }
+
+        avc.leaveTeam = function () {
+            avc.isBusy = true;
+            return modalService.confirm({
+                msg1Raw: i18nService.getString('app.LeaveTeamConfirmationPrompt', { teamName: avc.team.name })
+            })
+                .then(function (result) {
+                    if (result) {
+                        return authService.checkAuthenticationThen(function () {
+                            return drbblyTeamsService.leaveTeam(avc.team.id)
+                                .then(function (result) {
+                                    avc.userTeamRelation = result;
+                                    avc.isBusy = false;
+                                }, function () {
+                                    avc.isBusy = false;
+                                });
+                        }, function () { avc.isBusy = false; });
+                    }
+                })
+                .finally(function () {
+                    avc.isBusy = false;
+                });
+        };
+
+        avc.cancelJoinRequest = function () {
+            avc.isBusy = true;
+            drbblyTeamsService.cancelJoinRequest(avc.team.id)
+                .then(function () {
+                    avc.userTeamRelation.hasPendingJoinRequest = false;
+                    avc.isBusy = false;
+                }, function () {
+                    avc.isBusy = false;
+                });
+        };
 
         avc.onLogoClick = function () {
             if (!avc.isManager) {
@@ -93,22 +148,6 @@
 
         function viewLogo() {
             avc.methods.open(0);
-            //drbblyTeamsService.getTeamPhotos(avc.team.id)
-            //    .then(function (photos) {
-            //        avc.team.photos = massagePhotos(photos);
-            //    })
-            //    .catch(function (error) {
-            //        // TODO: display error in a toast
-            //    });
-        }
-
-        function massagePhotos(photos) {
-            var canDeleteNotOwned = permissionsService.hasPermission('Team.DeletePhotoNotOwned');
-            angular.forEach(photos, function (photo) {
-                photo.deletable = photo.id !== avc.team.logoId &&
-                    (avc.isOwned || canDeleteNotOwned);
-            });
-            return photos;
         }
 
         avc.onTeamUpdate = function () {
