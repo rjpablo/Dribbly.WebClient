@@ -22,6 +22,8 @@
 
         gel.$onInit = function () {
             gel.events.forEach(massageItem);
+            gel.periods = gel.events.drbblyGroupBy('period', 'period');
+            gel.periods.forEach(p => p.period = getPeriodLabel(p.period));
             angular.element($window).on('resize', setOrientation);
             if (gel.onReady) {
                 gel.onReady({
@@ -30,6 +32,12 @@
             }
             setOrientation();
         };
+
+        function getPeriodLabel(period) {
+            return period > gel.game.numberOfRegulationPeriods ?
+                ('OT' + (period - gel.game.numberOfRegulationPeriods)) :
+                (period || 0).toOrdinal();
+        }
 
         function setOrientation() {
             gel.isSideBySide = gel.sideBySideThreshold && window.innerWidth >= gel.sideBySideThreshold;

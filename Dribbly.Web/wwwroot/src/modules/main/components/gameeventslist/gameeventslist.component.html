@@ -10,32 +10,39 @@
             <h5 class="d-inline m-0 px-1">{{gel.game.team2.team.shortName}}</h5>
         </div>
     </div>
-    <div ng-repeat="event in gel.events | orderBy : ['-period', '-clockTime'] : true track by event.id"
-         ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2, 'is-both': event.isBothTeams}"
-         ng-click="gel._onItemClicked(event)"
-         class="event-row">
-        <div class="event-wrapper">
-            <span class="clock text-secondary">{{event.timeDisplay}}</span>
-            <img class="team-logo" ng-src="{{event.isTeam1? gel.game.team1.team.logo.url : gel.game.team2.team.logo.url}}"
-                 ng-if="!event.isBothTeams" />
-            <img class="player-logo" ng-src="{{event.performedBy.profilePhoto.url}}"
-                 ng-if="event.performedById" />
-            <div class="flex-grow-1 text-light event-description"
-                 ng-if="!event.isBothTeams">
-                <span ng-if="event.performedById">{{event.performedBy.name}}</span>&nbsp;
-                <span ng-bind-html="event.eventDescriptionTemplate">                    
-                </span>
+    <div ng-repeat="period in gel.periods | orderBy : ['period']">
+        <div class="period bg-black">
+            <div class="d-inline-block py-1 px-3 text-secondary">
+                <h5>{{period.period}}</h5>
             </div>
-            <div class="common-data"
-                 ng-if="event.isBothTeams">
-                <span class=""
-                      ng-if="event.type === $root.constants.enums.gameEventTypeEnum.Jumpball">
-                    JUMP BALL
-                </span>
-                <span class=""
-                      ng-if="event.type === $root.constants.enums.gameEventTypeEnum.Timeout">
-                    OFFICIAL TIMEOUT
-                </span>
+        </div>
+        <div ng-repeat="event in period.items | orderBy : ['clockTime'] : true track by event.id"
+             ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2, 'is-both': event.isBothTeams}"
+             ng-click="gel._onItemClicked(event)"
+             class="event-row">
+            <div class="event-wrapper">
+                <span class="clock text-secondary">{{event.timeDisplay}}</span>
+                <img class="team-logo" ng-src="{{event.isTeam1? gel.game.team1.team.logo.url : gel.game.team2.team.logo.url}}"
+                     ng-if="!event.isBothTeams" />
+                <img class="player-logo" ng-src="{{event.performedBy.profilePhoto.url}}"
+                     ng-if="event.performedById" />
+                <div class="flex-grow-1 text-light event-description"
+                     ng-if="!event.isBothTeams">
+                    <span ng-if="event.performedById">{{event.performedBy.name}}</span>&nbsp;
+                    <span ng-bind-html="event.eventDescriptionTemplate">
+                    </span>
+                </div>
+                <div class="common-data"
+                     ng-if="event.isBothTeams">
+                    <span class=""
+                          ng-if="event.type === $root.constants.enums.gameEventTypeEnum.Jumpball">
+                        JUMP BALL
+                    </span>
+                    <span class=""
+                          ng-if="event.type === $root.constants.enums.gameEventTypeEnum.Timeout">
+                        OFFICIAL TIMEOUT
+                    </span>
+                </div>
             </div>
         </div>
     </div>

@@ -464,7 +464,8 @@
                 jumpball: {
                     gameId: gdg.game.id,
                     type: constants.enums.gameEventTypeEnum.Jumpball,
-                    clockTime: gdg.timer.remainingTime
+                    clockTime: gdg.timer.remainingTime,
+                    period: gdg.game.currentPeriod
                 }
             };
 
@@ -952,9 +953,7 @@
                     displayPeriod(gdg.game.currentPeriod);
                     displayTime(gdg.timer.remainingTime);
                 })
-                .catch(function () {
-                    // do nothing
-                })
+                .catch(drbblyCommonService.handleError)
                 .finally(function () {
                     gdg.isBusy = false;
                 });

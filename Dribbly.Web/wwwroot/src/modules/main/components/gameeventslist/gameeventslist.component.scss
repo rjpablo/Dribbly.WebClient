@@ -1,13 +1,23 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+
 drbbly-gameeventslist {
     display: block;
     width: 100%;
 
     .teams {
-        
+
         .logo {
             height: 30px;
             width: 30px;
         }
+    }
+
+    .period {
+        position: sticky;
+        top: 0;
+        background-color: $black;
     }
 
     .event-row {
@@ -50,6 +60,10 @@ drbbly-gameeventslist {
                 display: flex;
                 align-items: center;
             }
+        }
+
+        .period {
+            text-align: center;
         }
 
         .event-row {

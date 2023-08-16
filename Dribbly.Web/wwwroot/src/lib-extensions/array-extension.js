@@ -334,4 +334,25 @@
         }
     });
 
+    Object.defineProperty(Array.prototype, 'drbblyGroupBy', {
+        value: function (key, keyLabel) {
+            var groups = [];
+            this.forEach(item => {
+                var group = groups.drbblySingleOrDefault(g => g[keyLabel] === item[key]);
+                if (group) {
+                    group.items.push(item);
+                }
+                else {
+                    group = {
+                        items: [item]
+                    };
+                    group[keyLabel] = item[key];
+                    groups.push(group);
+                }
+            });
+
+            return groups;
+        }
+    });
+
 })();
