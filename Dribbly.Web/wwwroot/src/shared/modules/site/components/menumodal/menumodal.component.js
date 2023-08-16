@@ -38,15 +38,16 @@
             mmc.context.setOnInterrupt(mmc.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
                 if (!mmc.context.okToClose) {
-                    event.preventDefault();
                     mmc.onInterrupt();
                 }
             }, $scope);
         };
 
         mmc.onItemClicked = function (btn) {
-            btn.action(btn.data);
+            // the next 2 lines must be in their current order or an error will occur
+            // if btn.action causes a page redirect
             close(btn);
+            btn.action(btn.data);
         };
 
         mmc.onInterrupt = function (reason) {
