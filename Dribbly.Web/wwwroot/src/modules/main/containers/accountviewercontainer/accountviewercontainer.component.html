@@ -55,27 +55,27 @@
                 <div class="col-12 col-md-5 col-lg-6 col-xl-7">
                     <div class="d-flex justify-content-around align-items-center h-100">
                         <div class="d-inline-block text-center">
-                            <h3 class="m-0 d-block text-white">{{avc.stats.ppg | number : 1}}</h3>
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.ppg | number : 1) : '-'}}</h3>
                             <small class="text-muted"
                                    title="Points Per Game">PPG</small>
                         </div>
                         <div class="d-inline-block text-center">
-                            <h3 class="m-0 d-block text-white">{{avc.stats.apg | number : 1}}</h3>
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.apg | number : 1) : '-'}}</h3>
                             <small class="text-muted"
                                    title="Assists Per Game">APG</small>
                         </div>
                         <div class="d-inline-block text-center">
-                            <h3 class="m-0 d-block text-white">{{avc.stats.rpg | number : 1}}</h3>
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.rpg | number : 1) : '-'}}</h3>
                             <small class="text-muted"
                                    title="Rebounds Per Game">RPG</small>
                         </div>
                         <div class="d-inline-block text-center">
-                            <h3 class="m-0 d-block text-white">{{(avc.stats.threePP * 100) | number : 0}}</h3>
+                            <h3 class="m-0 d-block text-white">{{avc.stats? ((avc.stats.threePP * 100) | number : 0) : '-'}}</h3>
                             <small class="text-muted"
                                    title="Three-Point Percentage">3P%</small>
                         </div>
                         <div class="d-inline-block text-center">
-                            <h3 class="m-0 d-block text-white">{{avc.stats.gp}}</h3>
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.gp) : '-'}}</h3>
                             <small class="text-muted"
                                    title="Games Played">GP</small>
                         </div>
