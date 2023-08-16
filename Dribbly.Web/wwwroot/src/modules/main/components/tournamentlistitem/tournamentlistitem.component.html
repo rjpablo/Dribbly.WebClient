@@ -1,6 +1,6 @@
 ﻿<div class="photo-container"
-     ui-sref="main.tournament.games({id: tli.tournament.id})">
+     ui-sref="main.tournament.home({id: tli.tournament.id})">
     <img ng-src="{{tli.tournament.logo? tli.tournament.logo.url : 'src/images/default_images/default_tournament_logo.jpg'}}"
          class="w-100" />
 </div>
-<a ui-sref="main.tournament.games({id: tli.tournament.id})">{{tli.tournament.name}}</a>
+<a ui-sref="main.tournament.home({id: tli.tournament.id})">{{tli.tournament.name}}</a>
