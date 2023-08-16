@@ -30,8 +30,11 @@
             </div>
         </div>
     </div>
-    <div ng-if="drl.post.type !== drl.postTypeEnum.GameCreated"
+    <div ng-if="drl.post.type !== drl.postTypeEnum.GameCreated
+         && drl.post.type !== drl.postTypeEnum.GameRescheduled
+         && drl.post.type !== drl.postTypeEnum.TournamentCreated"
          ng-bind-html="drl.post.content" class="my-3"></div>
+    <!-- #region Games -->
     <div ng-if="drl.post.type === drl.postTypeEnum.GameCreated"
          class="my-3">
         <a ui-sref="main.account.home({username: drl.post.additionalData.gameCreatedByUsername})">
@@ -44,4 +47,14 @@
         Game schedule moved to <drbbly-date date="drl.post.additionalData.newSchedule"
                                             class="font-weight-bold"></drbbly-date>
     </div>
+    <!-- #endregion -->
+    <!-- #region Tournaments -->
+    <div ng-if="drl.post.type === drl.postTypeEnum.TournamentCreated"
+         class="my-3">
+        <a ui-sref="main.account.home({username: drl.post.additionalData.createdByUsername})">
+            {{drl.post.additionalData.createdByName}}
+        </a>
+        &nbsp;created the tournament;
+    </div>
+    <!-- #endregion -->
 </div>

@@ -331,6 +331,7 @@
                     Position: 'Position',
                     'PostTypeEnum.GameCreated_1': 'Game Created',
                     'PostTypeEnum.GameRescheduled_2': 'Game Rescheduled',
+                    'PostTypeEnum.TournamentCreated_11': 'Tournament Created',
                     PrimaryPhoto: 'PrimaryPhoto',
                     Private: 'Private',
                     ProcessingEllipsis: 'Processing...',

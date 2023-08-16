@@ -121,7 +121,7 @@
                 });
             })
                 .then(function (tournament) {
-                    $state.go('main.tournament.teams', { id: tournament.id });
+                    $state.go('main.tournament.home', { id: tournament.id });
                 })
                 .catch(function () { /* do nothing */ });
         };

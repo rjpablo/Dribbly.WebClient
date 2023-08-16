@@ -14,13 +14,12 @@
         });
 
     controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyTournamentsService', 'drbblyCommonService',
-        'drbblyDatetimeService', 'constants', 'drbblyOverlayService'];
+        'constants'];
     function controllerFn($scope, modalService, drbblyEventsService, drbblyTournamentsService, drbblyCommonService,
-        drbblyDatetimeService, constants, drbblyOverlayService) {
+        constants) {
         var atm = this;
 
         atm.$onInit = function () {
-            atm.overlay = drbblyOverlayService.buildOverlay();
             atm.saveModel = {};
 
             atm.context.setOnInterrupt(atm.onInterrupt);
