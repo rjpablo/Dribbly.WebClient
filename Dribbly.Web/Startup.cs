@@ -63,6 +63,14 @@ namespace Dribbly.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Main}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "all",
+                    template: "{*url}",
+                    defaults: new
+                    {
+                        controller = "main",
+                        Action= "Index",
+                    });
             });
         }
     }
