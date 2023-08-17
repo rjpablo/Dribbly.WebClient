@@ -25,11 +25,11 @@
                                         <div class="drbbly-no-animation">
                                             <div ng-hide="avc.isBusy">
                                                 <!--<button type="button"
-                                                    class="btn btn-primary mb-3"
-                                                    ng-if="!avc.isManager"
-                                                    ng-click="avc.followTeam()">
-                                                {{::'app.PlusFollow' | i18n}}
-                                            </button>-->
+                                                        class="btn btn-primary mb-3"
+                                                        ng-if="!avc.isManager"
+                                                        ng-click="avc.followTeam()">
+                                                    {{::'app.PlusFollow' | i18n}}
+                                                </button>-->
                                                 <div ng-show="!avc.userTeamRelation.hasPendingJoinRequest"
                                                      class="d-inline-block">
                                                     <button type="button"
@@ -56,6 +56,10 @@
                                                         ng-if="avc.isManager"
                                                         ng-click="avc.update()">
                                                     Update Details
+                                                </button>
+                                                <button type="button" class="btn btn-facebook mb-3"
+                                                        ng-click="avc.fbShare()">
+                                                    <i class="fa fa-facebook"></i> Share
                                                 </button>
                                             </div>
                                             <span ng-hide="!avc.isBusy"

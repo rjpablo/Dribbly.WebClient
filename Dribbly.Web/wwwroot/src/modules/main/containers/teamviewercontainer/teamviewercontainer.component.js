@@ -146,6 +146,12 @@
             });
         };
 
+        avc.fbShare = function () {
+            var url = `https://www.facebook.com/sharer/sharer.php?s=100&p[url]=${location.host}/team/${_teamId}`;
+            window.open(url, 'targetWindow', 'toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
+            return false;
+        }
+
         function viewLogo() {
             avc.methods.open(0);
         }
