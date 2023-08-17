@@ -20,6 +20,13 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Test"
       }
+    },
+    "Test SSL": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Test"
+      }
     }
   },
   "iisSettings": {
@@ -27,7 +34,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:30585",
-      "sslPort": 0
+      "sslPort": 44352
     }
   }
 }
