@@ -22,11 +22,24 @@
         drbblyGameshelperService, $window) {
         var cli = this;
 
-        cli.$onInit = function () {};
+        cli.$onInit = function () { };
 
-        cli.clicked = function () {
-            $state.go('main.game.details', { id: cli.game.id });
+        cli.clicked = function (event) {
+            if (!isControl(event.target))
+                $state.go('main.game.details', { id: cli.game.id });
         };
+
+        function isControl(element) {
+            var controlsContainer = $element.find('.controls')[0];
+            var node = element.parentNode;
+            while (node != null && node !== $element[0]) {
+                if (node == controlsContainer) {
+                    return true;
+                }
+                node = node.parentNode;
+            }
+        }
+
         cli.toggleOptions = function (event) {
             event.preventDefault();
             event.stopPropagation();
@@ -86,6 +99,13 @@
             var url = $state.href('main.game.details', { id: game.id });
             $window.open(url, '_blank');
         };
+
+        cli.fbShare = function (event) {
+            event.stopPropagation();
+            var url = `https://www.facebook.com/sharer/sharer.php?s=100&p[url]=${location.host}/game/${cli.game.id}`;
+            window.open(url, 'targetWindow', 'toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
+            return false;
+        }
 
     }
 })();

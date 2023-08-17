@@ -54,6 +54,20 @@
                         ng-click="cli.remove(cli.game, $event)">
                     <i class="fa fa-trash"></i>
                 </button>
+                <div class="dropdown d-inline-block">
+                    <button class="btn btn-sm btn-secondary dropdown-toggle no-caret"
+                            role="button" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item btn btn-facebook"
+                           data-no-redirect="true"
+                           ng-click="cli.fbShare($event)">
+                            <i class="fa fa-facebook"></i> Share
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="team2 text-center">
