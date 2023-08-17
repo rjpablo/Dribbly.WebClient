@@ -42,9 +42,15 @@
                             <h3 class="text-white text-center text-md-left">{{avc.account.name}}</h3>
                             <div>
                                 <!--<button type="button" class="btn btn-primary mb-3"
-                                        ng-if="!avc.isOwned">{{::'app.PlusFollow' | i18n}}</button>-->
+                                ng-if="!avc.isOwned">{{::'app.PlusFollow' | i18n}}</button>-->
                                 <button type="button"
-                                        class="btn btn-secondary mb-3">{{::'app.Message' | i18n}}</button>
+                                        class="btn btn-secondary mb-3">
+                                    {{::'app.Message' | i18n}}
+                                </button>
+                                <button type="button" class="btn btn-facebook mb-3"
+                                        ng-click="avc.fbShare()">
+                                    <i class="fa fa-facebook"></i> Share
+                                </button>
                             </div>
                         </div>
                         <!-- #endregion -->
