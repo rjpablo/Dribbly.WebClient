@@ -497,7 +497,7 @@
             });
         // #endregion TRACKING
 
-        $locationProvider.hashPrefix('');
+        $locationProvider.html5Mode(true);
 
         $httpProvider.interceptors.push('authInterceptorService');
     }

@@ -60,9 +60,21 @@ namespace Dribbly.Web
 
             app.UseMvc(routes =>
             {
+                // Set Main/Index as the default route
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Main}/{action=Index}/{id?}");
+
+                // Reroute all requests to Main/Index
+                // Required 
+                routes.MapRoute(
+                    name: "all",
+                    template: "{*url}",
+                    defaults: new
+                    {
+                        controller = "Main",
+                        Action= "Index",
+                    });
             });
         }
     }
