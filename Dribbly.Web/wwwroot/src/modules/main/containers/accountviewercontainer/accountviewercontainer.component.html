@@ -71,14 +71,24 @@
                                    title="Assists Per Game">APG</small>
                         </div>
                         <div class="d-inline-block text-center">
+                            <h3 class="m-0 d-block text-white">{{avc.stats && avc.stats.threePP != null? ((avc.stats.threePP * 100) | number : 0) : '-'}}</h3>
+                            <small class="text-muted"
+                                   title="Three-Point Percentage">3P%</small>
+                        </div>
+                        <div class="d-inline-block text-center">
                             <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.rpg | number : 1) : '-'}}</h3>
                             <small class="text-muted"
                                    title="Rebounds Per Game">RPG</small>
                         </div>
                         <div class="d-inline-block text-center">
-                            <h3 class="m-0 d-block text-white">{{avc.stats? ((avc.stats.threePP * 100) | number : 0) : '-'}}</h3>
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.bpg | number : 1) : '-'}}</h3>
                             <small class="text-muted"
-                                   title="Three-Point Percentage">3P%</small>
+                                   title="Blocks Per Game">BPG</small>
+                        </div>
+                        <div class="d-inline-block text-center">
+                            <h3 class="m-0 d-block text-white">{{avc.stats && avc.stats.ftp != null? ((avc.stats.ftp * 100) | number : 0) : '-'}}</h3>
+                            <small class="text-muted"
+                                   title="Three-Point Percentage">FTP</small>
                         </div>
                         <div class="d-inline-block text-center">
                             <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.gp) : '-'}}</h3>

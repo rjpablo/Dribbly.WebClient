@@ -16,7 +16,7 @@
                 <h5>{{period.period}}</h5>
             </div>
         </div>
-        <div ng-repeat="event in period.items | orderBy : ['clockTime'] : true track by event.id"
+        <div ng-repeat="event in period.items | orderBy : ['clockTime', '-dateAdded'] : true track by event.id"
              ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2, 'is-both': event.isBothTeams}"
              ng-click="gel._onItemClicked(event)"
              class="event-row">

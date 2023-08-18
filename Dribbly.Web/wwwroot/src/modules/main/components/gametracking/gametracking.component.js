@@ -291,7 +291,7 @@
 
             if (modalResult) {
                 if (modalResult.shot) {
-                    var shotResult = await drbblyGamesService.recordShot(modalResult)
+                    var shotResult = await drbblyGameeventsService.recordShot(modalResult)
                         .then(data => data)
                         .catch(function (err) {
                             drbblyCommonService.handleError(err, null, 'The shot was not recoded due to an error.')
@@ -299,8 +299,23 @@
                     if (shotResult) {
                         gdg.game.team1Score = shotResult.team1Score;
                         gdg.game.team1.points = shotResult.team1Score;
+                        gdg.game.team1.fga = shotResult.team1.fga;
+                        gdg.game.team1.fgm = shotResult.team1.fgm;
+                        gdg.game.team1.threePA = shotResult.team1.threePA;
+                        gdg.game.team1.threePM = shotResult.team1.threePM;
+                        gdg.game.team1.blocks = shotResult.team1.blocks;
+                        gdg.game.team1.assists = shotResult.team1.assists;
+                        gdg.game.team1.rebounds = shotResult.team1.rebounds;
+
                         gdg.game.team2Score = shotResult.team2Score;
                         gdg.game.team2.points = shotResult.team2Score;
+                        gdg.game.team2.fga = shotResult.team2.fga;
+                        gdg.game.team2.fgm = shotResult.team2.fgm;
+                        gdg.game.team2.threePA = shotResult.team2.threePA;
+                        gdg.game.team2.threePM = shotResult.team2.threePM;
+                        gdg.game.team2.blocks = shotResult.team2.blocks;
+                        gdg.game.team2.assists = shotResult.team2.assists;
+                        gdg.game.team2.rebounds = shotResult.team2.rebounds;
 
                         gdg.selectedPlayer.points = shotResult.takenBy.points;
                         gdg.selectedPlayer.fga = shotResult.takenBy.fga;
@@ -485,7 +500,7 @@
                     game: gdg.game,
                     performedBy: gdg.selectedPlayer,
                     period: gdg.game.currentPeriod,
-                    clockTime: gdg.timer.remainingTime,
+                    clockTime: gdg.timer.remainingTime
                 }
             }).catch(err => { /*modal cancelled, do nothing*/ });
 
@@ -499,6 +514,19 @@
                     applyFoulResult(foulResult, gdg.selectedPlayer);
                 }
             }
+        }
+
+        gdg.recordFreeThrow = function (player) {
+            var event = {
+                gameId: gdg.game.id,
+                clockTime: gdg.timer.remainingTime,
+                period: gdg.game.currentPeriod,
+                performedById: player.teamMembership.account.id,
+                type: constants.enums.gameEventTypeEnum.FreeThrowMade, //this is temporary
+                isNew: true
+            }
+
+            gdg.showGameEventDetails(event);
         }
 
         gdg.timeout = async function () {
@@ -545,9 +573,12 @@
                 var eventIsAssist = event.type === constants.enums.gameEventTypeEnum.Assist;
                 var eventIsShotBlock = event.type === constants.enums.gameEventTypeEnum.ShotBlock;
                 var eventIsTurnover = event.type === constants.enums.gameEventTypeEnum.Turnover;
+                var eventIsFreeThrow = event.type === constants.enums.gameEventTypeEnum.FreeThrowMade
+                    || event.type === constants.enums.gameEventTypeEnum.FreeThrowMissed;
                 if (eventIsShot || eventIsRebound || eventIsAssist || eventIsShotBlock || eventIsTurnover
                     || event.type === constants.enums.gameEventTypeEnum.FoulCommitted
-                    || event.type === constants.enums.gameEventTypeEnum.Steal) {
+                    || event.type === constants.enums.gameEventTypeEnum.Steal
+                    || (eventIsFreeThrow && event.isNew)) {
                     var input = {
                         game: gdg.game,
                         event: event,
@@ -571,6 +602,8 @@
                             var team = gdg.teams.drbblySingle(tm => tm.teamId === t.teamId);
                             team.points = t.points;
                             team.teamFoulCount = t.teamFoulCount;
+                            team.fta = t.fta;
+                            team.ftm = t.ftm;
                         });
                         result.players.forEach(p => {
                             var player = gdg.players.drbblySingle(pl => pl.id === p.id);
@@ -583,17 +616,21 @@
                             player.fgm = p.fgm;
                             player.threePA = p.threePA;
                             player.threePM = p.threePM;
+                            player.fta = p.fta;
+                            player.ftm = p.ftm;
                         });
 
-                        if (result.isDelete) {
-                            gdg.game.gameEvents.drbblyRemove(event);
-                            if (eventIsShot)
-                                input.associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
-                        }
-                        else {
-                            gdg.playByPlayWidget.updateItem(result.event);
-                            if (eventIsShot)
-                                input.associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
+                        if (!event.isNew) {
+                            if (result.isDelete) {
+                                gdg.game.gameEvents.drbblyRemove(event);
+                                if (eventIsShot)
+                                    input.associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
+                            }
+                            else {
+                                gdg.playByPlayWidget.updateItem(result.event);
+                                if (eventIsShot)
+                                    input.associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
+                            }
                         }
                     }
                 }
@@ -775,6 +812,11 @@
         }
 
         gdg.canRecordFoul = function () {
+            return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut)
+                && gdg.game.status === gdg.gameStatusEnum.Started;
+        }
+
+        gdg.canRecordFreeThrow = function () {
             return gdg.selectedPlayer && !(gdg.isEjected(gdg.selectedPlayer) || gdg.selectedPlayer.hasFouledOut)
                 && gdg.game.status === gdg.gameStatusEnum.Started;
         }

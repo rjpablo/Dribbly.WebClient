@@ -31,15 +31,20 @@
             rsm.eventIsFoul = rsm.event.type === rsm.gameEventTypeEnum.FoulCommitted;
             rsm.eventIsTurnover = rsm.event.type === rsm.gameEventTypeEnum.Turnover;
             rsm.eventIsSteal = rsm.event.type === rsm.gameEventTypeEnum.Turnover;
+            rsm.eventIsRebound = rsm.event.type === rsm.gameEventTypeEnum.Rebound;
+            rsm.eventIsFreeThrow = rsm.event.type === rsm.gameEventTypeEnum.FreeThrowMade
+                || rsm.event.type === constants.enums.gameEventTypeEnum.FreeThrowMissed;
             _allPlayers = rsm.model.game.team1.players.concat(rsm.model.game.team2.players);
             setPerformedByOptions();
 
             if (rsm.eventIsTurnover) {
                 setTurnoverCuaseChoices();
             }
-
-            if (rsm.eventIsShot) {
+            else if (rsm.eventIsShot) {
                 rsm.event.points = rsm.event.additionalData.points;
+            }
+            else if (rsm.eventIsFreeThrow) {
+                rsm.event.attemptResults = [];
             }
 
             $timeout(function () { // wait for dropdown to be ready
@@ -56,12 +61,38 @@
             }, $scope);
         };
 
+        rsm.addFreeThrowResult = function (isMade) {
+            rsm.frmEvent.$setDirty();
+            rsm.event.attemptResults.push(isMade);
+        }
+
+        rsm.addRebound = function () {
+            rsm.frmEvent.$setDirty();
+            rsm.event.rebound = {
+                gameId: rsm.event.gameId,
+                period: rsm.event.period,
+                clockTime: rsm.event.clockTime
+            };
+            setReboundedByOptions();
+        }
+
+        function setReboundedByOptions() {
+            if (rsm.event.isNew) {
+                rsm.reboundedByOptions = _allPlayers.drbblyWhere(p => p.isInGame);
+            }
+            else {
+                rsm.reboundedByOptions = _allPlayers;
+            }
+        }
+
+        rsm.removeFreeThrowResult = function () {
+            rsm.frmEvent.$setDirty();
+            rsm.event.attemptResults.length = rsm.event.attemptResults.length - 1;
+        }
+
         function setPerformedByOptions() {
             // non-in-game players are included because line-ups may have changed since the event was recorded
-            if (rsm.eventIsShot || rsm.eventIsRebound || rsm.eventIsTurnover || eventIsSteal) {
-                rsm.performedByOptions = _allPlayers;
-            }
-            else if (rsm.eventIsAssist) {
+            if (rsm.eventIsAssist) {
                 var shot = rsm.model.associatedPlays
                     .drbblySingleOrDefault(e => e.type === rsm.gameEventTypeEnum.ShotMade
                         || e.type === rsm.gameEventTypeEnum.ShotMissed);
@@ -81,6 +112,9 @@
                 rsm.performedByOptions = _allPlayers.drbblyWhere(p => !shot || p.teamMembership.teamId !== shot.teamId);
                 rsm.foulTypeOptions = constants.Fouls;
                 rsm.foul = rsm.foulTypeOptions.drbblySingle(f => f.name === rsm.event.additionalData.foulName);
+            }
+            else {
+                rsm.performedByOptions = _allPlayers;
             }
         }
 
@@ -175,12 +209,24 @@
             else if (rsm.eventIsFoul) {
                 input.foulId = rsm.foul.id;
             }
-            else if (rsm.eventIsTurnover){
+            else if (rsm.eventIsTurnover) {
                 rsm.event.additionalData = JSON.stringify({ cause: rsm.event.cause.text, causeId: rsm.event.cause.value })
+            }
+            else if (rsm.eventIsFreeThrow && input.rebound && rsm.reboundedBy) {
+                input.rebound.type =
+                    rsm.reboundedBy.teamMembership.teamId === rsm.event.performedBy.teamMembership.teamId ?
+                        rsm.gameEventTypeEnum.OffensiveRebound :
+                        rsm.gameEventTypeEnum.DefensiveRebound;
+                input.rebound.performedById = rsm.reboundedBy.teamMembership.account.id;
+                input.rebound.teamId = rsm.reboundedBy.teamMembership.teamId;
             }
 
             rsm.overlay.setToBusy("Saving...");
-            drbblyGameeventsService.update(input)
+
+            var promise = rsm.eventIsFreeThrow ?
+                drbblyGameeventsService.upsertFreeThrow(input) :
+                drbblyGameeventsService.update(input);
+            promise
                 .then(result => {
                     close(result);
                 })

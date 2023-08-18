@@ -90,7 +90,8 @@
                         <div class="row">
                             <div class="text-center col-12 p-3 d-flex justify-content-center align-items-start">
                                 <div ng-if="gcc.canManage">
-                                    <div class="btn-group mb-2" uib-dropdown is-open="status.isopen">
+                                    <div class="btn-group mb-2" uib-dropdown is-open="status.isopen"
+                                         ng-if="gcc.game.status !== gcc.gameStatusEnum.Finished">
                                         <a class="btn btn-primary"
                                            ui-sref="main.game.track()"
                                            ng-if="gcc.game.status === gcc.gameStatusEnum.WaitingToStart">
@@ -123,9 +124,9 @@
                                             <a class="dropdown-item"
                                                ng-if="gcc.game.status === gcc.gameStatusEnum.Started"
                                                ng-click="gcc.updateStatus(gcc.gameStatusEnum.Finished)">{{::'app.EndGame' | i18n}}</a>
-                                            <a class="dropdown-item"
+                                            <!--<a class="dropdown-item"
                                                ng-if="gcc.game.status === gcc.gameStatusEnum.Started || gcc.game.status === gcc.gameStatusEnum.Finished"
-                                               ng-click="gcc.setResult()">{{::'app.SetResult' | i18n}}</a>
+                                               ng-click="gcc.setResult()">{{::'app.SetResult' | i18n}}</a>-->
                                             <a class="dropdown-item"
                                                ng-if="gcc.game.status === gcc.gameStatusEnum.Cancelled"
                                                ng-click="gcc.reopenGame()">{{::'app.ReOpen' | i18n}}</a>

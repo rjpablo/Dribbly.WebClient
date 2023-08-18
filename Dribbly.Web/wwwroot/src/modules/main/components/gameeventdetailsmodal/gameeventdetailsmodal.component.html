@@ -10,13 +10,14 @@
             <h5 ng-if="rsm.eventIsFoul">Foul Details</h5>
             <h5 ng-if="rsm.eventIsTurnover">Turnover Details</h5>
             <h5 ng-if="rsm.eventIsSteal">Steal Details</h5>
-            <div class="form-group">
-                <div class="form-row">
-                    <div class="col-4">
-                        <label ng-if="!(rsm.eventIsFoul || rsm.eventIsTurnover)">Performed By:</label>
-                        <label ng-if="rsm.eventIsFoul || rsm.eventIsTurnover">Committed By:</label>
-                    </div>
-                    <div class="col-8 d-flex">
+            <h5 ng-if="rsm.eventIsFreeThrow">Free Throw Details</h5>
+            <div class="form-row">
+                <div class="col-4">
+                    <label ng-if="!(rsm.eventIsFoul || rsm.eventIsTurnover)">Performed By:</label>
+                    <label ng-if="rsm.eventIsFoul || rsm.eventIsTurnover">Committed By:</label>
+                </div>
+                <div class="col-8 d-flex">
+                    <div class="form-group">
                         <select class="form-control"
                                 ng-model="rsm.event.performedBy">
                             <option ng-repeat="player in rsm.performedByOptions"
@@ -33,111 +34,182 @@
                                ng-model="rsm.event.performedBy.teamMembership.account.id" />
                     </div>
                 </div>
-                <!-- #region Turnover Only -->
-                <div class="form-row"
-                     ng-if="rsm.eventIsTurnover">
+            </div>
+            <!-- #region Turnover Only -->
+            <div class="form-row"
+                 ng-if="rsm.eventIsTurnover">
+                <div class="col-4">
+                    <label>Cause:</label>
+                </div>
+                <div class="col-8 d-flex">
+                    <select class="form-control"
+                            ng-model="rsm.event.cause">
+                        <option ng-repeat="cause in rsm.turnoverCauseChoices"
+                                ng-value="cause">
+                            {{cause.text}}
+                        </option>
+                    </select>
+                    <input type="number"
+                           name="performedBy"
+                           required
+                           hidden
+                           ng-model="rsm.event.cause.value" />
+                </div>
+            </div>
+            <!-- #endregion -->
+            <!-- #region Shot Only -->
+            <div class="form-row"
+                 ng-if="rsm.eventIsShot">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="m-0">Points:</label>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <input type="number"
+                               required
+                               min="1"
+                               max="3"
+                               class="points form-control"
+                               ng-model="rsm.event.points" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-row"
+                 ng-if="rsm.eventIsShot">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <div class="form-check-inline">
+                            <label class="m-0">
+                                <input type="radio"
+                                       ng-value="false"
+                                       ng-model="rsm.event.isMiss"
+                                       ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
+                                       class="form-check-input"
+                                       name="madeOrMiss">
+                                Made
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="m-0">
+                                <input type="radio"
+                                       ng-value="true"
+                                       ng-model="rsm.event.isMiss"
+                                       class="form-check-input"
+                                       name="madeOrMiss">
+                                Missed
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion -->
+            <!-- #region Foul Only -->
+            <div class="form-group"
+                 ng-if="rsm.eventIsFoul">
+                <div class="form-row">
                     <div class="col-4">
-                        <label>Cause:</label>
+                        <label>Foul Type:</label>
                     </div>
                     <div class="col-8 d-flex">
                         <select class="form-control"
-                                ng-model="rsm.event.cause">
-                            <option ng-repeat="cause in rsm.turnoverCauseChoices"
-                                    ng-value="cause">
-                                {{cause.text}}
+                                ng-model="rsm.foul">
+                            <option ng-repeat="foul in rsm.foulTypeOptions"
+                                    ng-value="foul"
+                                    ng-class="{'text-warning': foul.isTechnical,
+                                    'text-danger': foul.isFlagrant}">
+                                {{foul.name}}
                             </option>
                         </select>
-                        <input type="number"
+                        <input type="text"
+                               name="foulType"
+                               required
+                               hidden
+                               ng-model="rsm.foul.id" />
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion -->
+            <!-- #region Free Throw Only -->
+            <div class="form-row"
+                 ng-repeat="result in rsm.event.attemptResults track by $index"
+                 ng-if="rsm.eventIsFreeThrow">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="m-0">{{($index + 1).toOrdinal()}} attempt:</label>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <div class="d-flex">
+                            <span ng-if="result">Made</span>
+                            <span ng-if="!result">Missed</span>
+                            <a class="ml-2"
+                               ng-click="rsm.removeFreeThrowResult()"
+                               ng-if="$last">
+                                <i class="fa fa-times"></i>
+                            </a>
+                            <a ng-click="rsm.addRebound()"
+                               class="ml-2"
+                               ng-if="$last && !result && !rsm.event.rebound">add Rebound</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row"
+                 ng-if="rsm.event.rebound">
+                <div class="col-4">
+                    <label>Rebounded By:</label>
+                </div>
+                <div class="col-8 d-flex">
+                    <div class="form-group d-flex">
+                        <select class="form-control"
+                                ng-model="rsm.reboundedBy">
+                            <option ng-repeat="player in rsm.reboundedByOptions"
+                                    ng-value="player"
+                                    class="text-white"
+                                    ng-style="{'background-color': player.teamColor}">
+                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
+                            </option>
+                        </select>
+                        <a class="ml-2"
+                           ng-click="rsm.event.rebound = null">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        <input type="text"
                                name="performedBy"
                                required
                                hidden
-                               ng-model="rsm.event.cause.value" />
+                               ng-model="rsm.reboundedBy.teamMembership.account.id" />
                     </div>
                 </div>
-                <!-- #endregion -->
-                <!-- #region Shot Only -->
-                <div class="form-row"
-                     ng-if="rsm.eventIsShot">
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label class="m-0">Points:</label>
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="form-group">
-                            <input type="number"
-                                   required
-                                   min="1"
-                                   max="3"
-                                   class="points form-control"
-                                   ng-model="rsm.event.points" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row"
-                     ng-if="rsm.eventIsShot">
-                    <div class="col-4">
-                    </div>
-                    <div class="col-8">
-                        <div class="form-group">
-                            <div class="form-check-inline">
-                                <label class="m-0">
-                                    <input type="radio"
-                                           ng-value="false"
-                                           ng-model="rsm.event.isMiss"
-                                           ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
-                                           class="form-check-input"
-                                           name="madeOrMiss">
-                                    Made
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="m-0">
-                                    <input type="radio"
-                                           ng-value="true"
-                                           ng-model="rsm.event.isMiss"
-                                           class="form-check-input"
-                                           name="madeOrMiss">
-                                    Missed
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- #endregion -->
-                <!-- #region Foul Only -->
-                <div class="form-group"
-                     ng-if="rsm.eventIsFoul">
-                    <div class="form-row">
-                        <div class="col-4">
-                            <label>Foul Type:</label>
-                        </div>
-                        <div class="col-8 d-flex">
-                            <select class="form-control"
-                                    ng-model="rsm.foul">
-                                <option ng-repeat="foul in rsm.foulTypeOptions"
-                                        ng-value="foul"
-                                        ng-class="{'text-warning': foul.isTechnical,
-                                    'text-danger': foul.isFlagrant}">
-                                    {{foul.name}}
-                                </option>
-                            </select>
-                            <input type="text"
-                                   name="foulType"
-                                   required
-                                   hidden
-                                   ng-model="rsm.foul.id" />
-                        </div>
-                    </div>
-                </div>
-                <!-- #endregion -->
             </div>
+            <div class="form-row"
+                 ng-if="rsm.event.attemptResults.length < 3 && !rsm.event.rebound">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    <button class="btn btn-sm btn-primary"
+                            ng-click="rsm.addFreeThrowResult(true)">
+                        +1 Made
+                    </button>
+                    <button class="btn btn-sm btn-secondary"
+                            ng-click="rsm.addFreeThrowResult(false)">
+                        +1 Missed
+                    </button>
+                </div>
+            </div>
+            <!-- #endregion -->
         </form>
     </div>
 </div>
 <div class="modal-footer m-1">
     <button class="btn btn-danger"
             type="button"
+            ng-if="!rsm.event.isNew"
             ng-click="rsm.revert()"
             ng-disabled="rsm.isBusy">
         <i class="fa fa-trash"></i>

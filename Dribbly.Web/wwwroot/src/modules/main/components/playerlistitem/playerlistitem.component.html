@@ -18,7 +18,7 @@
             </tr>
             <tr class="stat" title="3-Point Percentage">
                 <td class="label">3P%</td>
-                <td class="value">{{pli.player.threePP | number : 1}}</td>
+                <td class="value">{{pli.player.threePP == null? '-' : (pli.player.threePP | number : 1)}}</td>
             </tr>
             <tr class="stat">
                 <td class="label" title="Games Played">GP</td>

@@ -102,13 +102,19 @@
                 {
                     field: 'threePP',
                     headerText: '3P%',
-                    dataTemplate: () => '{{rowData.dataItem.threePP * 100 | number : 1}}',
+                    dataTemplate: () => '{{rowData.dataItem.threePP === null? \'-\' : (rowData.dataItem.threePP * 100 | number : 1)}}',
                     headerTooltip: '3-Points Percentage'
+                },
+                {
+                    field: 'ftp',
+                    headerText: 'FT%',
+                    dataTemplate: () => '{{rowData.dataItem.ftp === null? \'-\':(rowData.dataItem.ftp * 100 | number : 0)}}',
+                    headerTooltip: 'Free Throws Percentage'
                 },
                 {
                     field: 'fgp',
                     headerText: 'FG%',
-                    dataTemplate: () => '{{rowData.dataItem.fgp * 100 | number : 1}}',
+                    dataTemplate: () => '{{rowData.dataItem.fgp === null? \'-\':(rowData.dataItem.fgp * 100 | number : 0)}}',
                     headerTooltip: 'Field Goal Percentage'
                 }]
             });
@@ -168,13 +174,19 @@
                 {
                     field: 'threePP',
                     headerText: '3P%',
-                    dataTemplate: () => '{{rowData.dataItem.threePP * 100 | number : 1}}',
+                    dataTemplate: () => '{{rowData.dataItem.threePP === null? \'-\' : (rowData.dataItem.threePP * 100 | number : 1)}}',
                     headerTooltip: '3-Points Percentage'
+                },
+                {
+                    field: 'ftp',
+                    headerText: 'FT%',
+                    dataTemplate: () => '{{rowData.dataItem.ftp === null? \'-\':(rowData.dataItem.ftp * 100 | number : 0)}}',
+                    headerTooltip: 'Free Throws Percentage'
                 },
                 {
                     field: 'fgp',
                     headerText: 'FG%',
-                    dataTemplate: () => '{{rowData.dataItem.fgp * 100 | number : 1}}',
+                    dataTemplate: () => '{{rowData.dataItem.fgp === null? \'-\':(rowData.dataItem.fgp * 100 | number : 0)}}',
                     headerTooltip: 'Field Goal Percentage'
                 }]
             });

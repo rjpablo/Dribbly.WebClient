@@ -58,7 +58,9 @@
                                         event.type === constants.enums.gameEventTypeEnum.Timeout ? '<span class="text-white font-weight-semibold">TIMEOUT</span>' :
                                             event.type === constants.enums.gameEventTypeEnum.Steal ? '<span class="text-white font-weight-semibold">STEAL</span>' :
                                                 event.type === constants.enums.gameEventTypeEnum.Turnover ? '<span class="text-white font-weight-semibold">TURNOVER</span> (' + event.additionalData.cause + ')' :
-                                                    event.type;
+                                                    event.type === constants.enums.gameEventTypeEnum.FreeThrowMade ? '<span class="text-white font-weight-semibold">FREE THROW</span> (Made)' :
+                                                        event.type === constants.enums.gameEventTypeEnum.FreeThrowMissed ? '<span class="text-white font-weight-semibold">FREE THROW</span> (Missed)' :
+                                                            event.type;
         }
 
         function updateItem(e) {

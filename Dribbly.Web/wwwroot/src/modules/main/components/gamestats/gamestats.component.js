@@ -105,8 +105,22 @@
                 {
                     field: 'threePP',
                     headerText: '3P%',
-                    dataTemplate: (dataItem) => !dataItem.threePA ? '0.0' :
-                        '{{rowData.dataItem.threePP * 100 | number : 1}}'
+                    dataTemplate: (dataItem) => !dataItem.threePA ? '-' :
+                        '{{rowData.dataItem.threePP * 100 | number : 0}}'
+                },
+                {
+                    field: 'ftm',
+                    headerText: 'FTM'
+                },
+                {
+                    field: 'fta',
+                    headerText: 'FTA'
+                },
+                {
+                    field: 'ftp',
+                    headerText: 'FT%',
+                    dataTemplate: (dataItem) => !dataItem.fta ? '-' :
+                        '{{(rowData.dataItem.ftm / rowData.dataItem.fta * 100) | number : 0}}'
                 },
                 {
                     field: 'fgm',
@@ -119,8 +133,8 @@
                 {
                     field: 'fgp',
                     headerText: 'FG%',
-                    dataTemplate: (dataItem) => !dataItem.fga ? '0.0' :
-                        '{{rowData.dataItem.fgp * 100 | number : 1}}'
+                    dataTemplate: (dataItem) => !dataItem.fga ? '-' :
+                        '{{rowData.dataItem.fgp * 100 | number : 0}}'
                 },
                 {
                     field: 'turnovers',
@@ -147,7 +161,7 @@
                     headerClass: 'team'
                 },
                 {
-                    field: 'score',
+                    field: 'points',
                     headerText: 'PTS'
                 },
                 {
@@ -175,9 +189,24 @@
                     headerText: '3PA'
                 },
                 {
+                    field: 'threePP',
                     headerText: '3P%',
-                    dataTemplate: (dataItem) => !dataItem.threePA ? '0.0' :
-                        '{{(rowData.dataItem.threePM / rowData.dataItem.threePA * 100) | number : 1}}'
+                    dataTemplate: (dataItem) => !dataItem.threePA ? '-' :
+                        '{{(rowData.dataItem.threePM / rowData.dataItem.threePA * 100) | number : 0}}'
+                },
+                {
+                    field: 'ftm',
+                    headerText: 'FTM'
+                },
+                {
+                    field: 'fta',
+                    headerText: 'FTA'
+                },
+                {
+                    field: 'ftp',
+                    headerText: 'FT%',
+                    dataTemplate: (dataItem) => !dataItem.fta ? '-' :
+                        '{{(rowData.dataItem.ftm / rowData.dataItem.fta * 100) | number : 0}}'
                 },
                 {
                     field: 'fgm',
@@ -188,9 +217,10 @@
                     headerText: 'FGA'
                 },
                 {
+                    field: 'fgp',
                     headerText: 'FG%',
-                    dataTemplate: (dataItem) => !dataItem.fga ? '0.0' :
-                        '{{(rowData.dataItem.fgm / rowData.dataItem.fga * 100) | number : 1}}'
+                    dataTemplate: (dataItem) => !dataItem.fga ? '-' :
+                        '{{(rowData.dataItem.fgm / rowData.dataItem.fga * 100) | number : 0}}'
                 },
                 {
                     field: 'turnovers',

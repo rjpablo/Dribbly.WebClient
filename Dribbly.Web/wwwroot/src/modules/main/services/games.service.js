@@ -54,10 +54,6 @@
                     return drbblyhttpService.post(api + 'updateGameResult', result);
                 }
 
-                function recordShot(shot) {
-                    return drbblyhttpService.post(api + 'recordShot', shot);
-                }
-
                 function recordTimeout(input) {
                     return drbblyhttpService.post(api + 'recordTimeout', input);
                 }
@@ -100,7 +96,6 @@
                     getGame: getGame,
                     getGames: getGames,
                     getGameTeam: getGameTeam,
-                    recordShot: recordShot,
                     recordTimeout: recordTimeout,
                     startGame: startGame,
                     setBonusStatus: setBonusStatus,

@@ -144,6 +144,12 @@
                             <div class="flex-grow-1 flex-shrink-1 d-flex flex-column">
                                 <button type="button"
                                         class="btn btn-block btn-secondary"
+                                        ng-disabled="!gdg.canRecordFreeThrow()"
+                                        ng-click="gdg.recordFreeThrow(gdg.selectedPlayer)">
+                                    Free Throw
+                                </button>
+                                <button type="button"
+                                        class="btn btn-block btn-secondary"
                                         ng-disabled="!gdg.canCallTimeout()"
                                         ng-click="gdg.timeout()">
                                     Timeout
@@ -186,12 +192,12 @@
                                     <span class="label">REB</span>
                                 </div>
                                 <div class="stat">
-                                    <span class="value">{{gdg.selectedPlayer.turnovers || 0}}</span>
-                                    <span class="label">TO</span>
+                                    <span class="value">{{gdg.selectedPlayer.fta || 0}}</span>
+                                    <span class="label">FTA</span>
                                 </div>
                                 <div class="stat">
-                                    <span class="value">{{gdg.selectedPlayer.blocks || 0}}</span>
-                                    <span class="label">BLK</span>
+                                    <span class="value">{{gdg.selectedPlayer.ftm || 0}}</span>
+                                    <span class="label">FTM</span>
                                 </div>
                             </div>
                         </div>

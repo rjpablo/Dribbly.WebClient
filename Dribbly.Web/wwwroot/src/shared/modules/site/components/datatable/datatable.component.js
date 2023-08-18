@@ -79,16 +79,17 @@
         }
 
         bdt.sort = function (column) {
+            // will sort the column in descending order first
             if (bdt.sortData.field === column.field) {
                 if (bdt.sortData.isDescending) {
-                    bdt.sortData.field = null; //remove sorting
+                    bdt.sortData.isDescending = false;
                 } else {
-                    bdt.sortData.isDescending = true;
+                    bdt.sortData.field = null; //remove sorting
                 }
             }
             else {
                 bdt.sortData.field = column.field;
-                bdt.sortData.isDescending = false;
+                bdt.sortData.isDescending = true;
             }
             _allItems = $filter('orderBy')(_allItems, bdt.sortData.field, bdt.sortData.isDescending);
             showPage(bdt.currentPage);
