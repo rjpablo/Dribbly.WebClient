@@ -578,7 +578,7 @@
                 if (eventIsShot || eventIsRebound || eventIsAssist || eventIsShotBlock || eventIsTurnover
                     || event.type === constants.enums.gameEventTypeEnum.FoulCommitted
                     || event.type === constants.enums.gameEventTypeEnum.Steal
-                    || (eventIsFreeThrow && event.isNew)) {
+                    || eventIsFreeThrow) {
                     var input = {
                         game: gdg.game,
                         event: event,
@@ -622,13 +622,13 @@
 
                         if (!event.isNew) {
                             if (result.isDelete) {
-                                gdg.game.gameEvents.drbblyRemove(event);
-                                if (eventIsShot)
+                                gdg.playByPlayWidget.removeItem(event);
+                                if (eventIsShot || eventIsFreeThrow)
                                     input.associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
                             }
                             else {
                                 gdg.playByPlayWidget.updateItem(result.event);
-                                if (eventIsShot)
+                                if (eventIsShot || eventIsFreeThrow)
                                     input.associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
                             }
                         }

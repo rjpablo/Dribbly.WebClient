@@ -13,7 +13,7 @@
     <div ng-repeat="period in gel.periods | orderBy : ['period']">
         <div class="period bg-black">
             <div class="d-inline-block py-1 px-3 text-secondary">
-                <h5>{{period.period}}</h5>
+                <h5>{{period.label}}</h5>
             </div>
         </div>
         <div ng-repeat="event in period.items | orderBy : ['clockTime', '-dateAdded'] : true track by event.id"

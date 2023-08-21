@@ -82,25 +82,24 @@
                 </div>
                 <div class="col-8">
                     <div class="form-group">
-                        <div class="form-check-inline">
-                            <label class="m-0">
+                        <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-primary"
+                                   ng-class="{'active': !rsm.event.isMiss}">
                                 <input type="radio"
                                        ng-value="false"
                                        ng-model="rsm.event.isMiss"
                                        ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
                                        class="form-check-input"
-                                       name="madeOrMiss">
-                                Made
+                                       name="madeOrMiss"> Made
                             </label>
-                        </div>
-                        <div class="form-check-inline">
-                            <label class="m-0">
+                            <label class="btn btn-primary"
+                                   ng-class="{'active': rsm.event.isMiss}">
                                 <input type="radio"
                                        ng-value="true"
                                        ng-model="rsm.event.isMiss"
+                                       ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
                                        class="form-check-input"
-                                       name="madeOrMiss">
-                                Missed
+                                       name="madeOrMiss"> Missed
                             </label>
                         </div>
                     </div>
@@ -136,7 +135,7 @@
             <!-- #region Free Throw Only -->
             <div class="form-row"
                  ng-repeat="result in rsm.event.attemptResults track by $index"
-                 ng-if="rsm.eventIsFreeThrow">
+                 ng-if="rsm.eventIsFreeThrow && rsm.event.isNew">
                 <div class="col-4">
                     <div class="form-group">
                         <label class="m-0">{{($index + 1).toOrdinal()}} attempt:</label>
@@ -155,6 +154,35 @@
                             <a ng-click="rsm.addRebound()"
                                class="ml-2"
                                ng-if="$last && !result && !rsm.event.rebound">add Rebound</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row"
+                 ng-if="rsm.eventIsFreeThrow && !rsm.event.isNew">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-primary"
+                                   ng-class="{'active': !rsm.event.isMiss}">
+                                <input type="radio"
+                                       ng-value="false"
+                                       ng-model="rsm.event.isMiss"
+                                       ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
+                                       class="form-check-input"
+                                       name="madeOrMiss"> Made
+                            </label>
+                            <label class="btn btn-primary"
+                                   ng-class="{'active': rsm.event.isMiss}">
+                                <input type="radio"
+                                       ng-value="true"
+                                       ng-model="rsm.event.isMiss"
+                                       ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
+                                       class="form-check-input"
+                                       name="madeOrMiss"> Missed
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -188,7 +216,7 @@
                 </div>
             </div>
             <div class="form-row"
-                 ng-if="rsm.event.attemptResults.length < 3 && !rsm.event.rebound">
+                 ng-if="rsm.event.attemptResults.length < 3 && !rsm.event.rebound && rsm.event.isNew">
                 <div class="col-4">
                 </div>
                 <div class="col-8">

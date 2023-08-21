@@ -23,10 +23,11 @@
         gel.$onInit = function () {
             gel.events.forEach(massageItem);
             gel.periods = gel.events.drbblyGroupBy('period', 'period');
-            gel.periods.forEach(p => p.period = getPeriodLabel(p.period));
+            gel.periods.forEach(p => p.label = getPeriodLabel(p.period));
             angular.element($window).on('resize', setOrientation);
             if (gel.onReady) {
                 gel.onReady({
+                    removeItem: removeItem,
                     updateItem: updateItem
                 });
             }
@@ -41,6 +42,12 @@
 
         function setOrientation() {
             gel.isSideBySide = gel.sideBySideThreshold && window.innerWidth >= gel.sideBySideThreshold;
+        }
+
+        function removeItem(event) {
+            gel.events.drbblyRemove(event);
+            var period = gel.periods.drbblySingle(p => p.period === event.period);
+            period.items.drbblyRemove(event);
         }
 
         gel.$onDestroy = function () {

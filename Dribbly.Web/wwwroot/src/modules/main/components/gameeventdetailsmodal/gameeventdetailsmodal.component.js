@@ -31,7 +31,8 @@
             rsm.eventIsFoul = rsm.event.type === rsm.gameEventTypeEnum.FoulCommitted;
             rsm.eventIsTurnover = rsm.event.type === rsm.gameEventTypeEnum.Turnover;
             rsm.eventIsSteal = rsm.event.type === rsm.gameEventTypeEnum.Turnover;
-            rsm.eventIsRebound = rsm.event.type === rsm.gameEventTypeEnum.Rebound;
+            rsm.eventIsRebound = rsm.event.type === rsm.gameEventTypeEnum.OffensiveRebound
+                || rsm.event.type === rsm.gameEventTypeEnum.DefensiveRebound;
             rsm.eventIsFreeThrow = rsm.event.type === rsm.gameEventTypeEnum.FreeThrowMade
                 || rsm.event.type === constants.enums.gameEventTypeEnum.FreeThrowMissed;
             _allPlayers = rsm.model.game.team1.players.concat(rsm.model.game.team2.players);
@@ -223,7 +224,7 @@
 
             rsm.overlay.setToBusy("Saving...");
 
-            var promise = rsm.eventIsFreeThrow ?
+            var promise = rsm.eventIsFreeThrow && rsm.event.isNew ?
                 drbblyGameeventsService.upsertFreeThrow(input) :
                 drbblyGameeventsService.update(input);
             promise
