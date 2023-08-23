@@ -49,6 +49,7 @@
         <link href="~/src/shared/modules/site/components/datatable/datatable.component.css" rel="stylesheet" />
         <link href="~/src/shared/modules/site/components/charcount/charcount.component.css" rel="stylesheet" />
         <link href="~/src/shared/modules/site/components/ad/ad.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/site/components/chat/chat.component.css" rel="stylesheet" />
 
         @* Auth *@
         <link href="~/src/modules/auth/components/loggedoutmenubar/loggedoutmenubar.component.css" rel="stylesheet" />
@@ -231,6 +232,7 @@
         <script src="~/src/lib/jquery/jquery.js"></script>
         <script src="~/src/lib/jquery-ui/jquery-ui.js"></script>
         <script src="~/src/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
+        <script src="~/src/custom/signalr/jquery.signalr-2.2.2.js"></script>
         <script src="~/src/lib/bowser/bundled.js"></script>
         <script src="~/src/lib/hammerjs/hammer.js"></script>
         <script src="~/src/lib/moment/moment.js"></script>
@@ -290,6 +292,7 @@
         <script src="~/src/shared/modules/site/components/typeahead/typeahead.component.js"></script>
         <script src="~/src/shared/modules/site/services/modal-service.js"></script>
         <script src="~/src/shared/modules/site/services/permissions-service.js"></script>
+        <script src="~/src/shared/modules/site/services/chats.service.js"></script>
         <script src="~/src/shared/modules/site/services/contacts.service.js"></script>
         <script src="~/src/shared/modules/site/filters/i18n-filter.js"></script>
         <script src="~/src/shared/modules/site/filters/gender.filter.js"></script>
@@ -318,6 +321,7 @@
         <script src="~/src/shared/modules/site/components/datatable/datatable.component.js"></script>
         <script src="~/src/shared/modules/site/components/charcount/charcount.component.js"></script>
         <script src="~/src/shared/modules/site/components/ad/ad.component.js"></script>
+        <script src="~/src/shared/modules/site/components/chat/chat.component.js"></script>
 
         @* authModule files *@
         <script src="~/src/modules/auth/auth-module.js"></script>
@@ -499,6 +503,8 @@
         <script src="~/dist/js/app.min.js"></script>
         <script src="~/dist/js/main.min.js"></script>
     </environment>
+
+    <script src="@(Model.clientSettings.ServiceBase + Model.clientSettings.ChatHubName)/hubs"></script>
 
 </body>
 </html>

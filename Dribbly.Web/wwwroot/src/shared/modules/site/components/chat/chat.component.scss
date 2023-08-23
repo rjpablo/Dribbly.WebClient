@@ -1,0 +1,232 @@
+@import '../../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-chat {
+    @media (max-width: 575px) {
+        .chat-app.open {
+            height: 100%;
+            width: 100%;
+            background: #00000096;
+
+            .open-content {
+                position: fixed;
+                top: 10px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                right: 10px;
+                bottom: 10px;
+                left: 10px;
+                height: unset;
+
+                &.has-selected-room {
+
+                    .rooms {
+                        display: none;
+                    }
+
+                    .chat-box {
+                        display: flex;
+                    }
+                }
+
+                &.no-room-selected {
+
+                    .chat-box {
+                        display: none !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .chat-app {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        z-index: 1110;
+
+        img.icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        &.open {
+            .closed-content {
+                display: none !important;
+            }
+        }
+
+        &.closed {
+            .open-content {
+                display: none !important;
+            }
+        }
+
+        .open-content {
+            height: 480px;
+            background-color: $white;
+            border: 1px solid #ccc;
+            display: none;
+
+            & > div:nth-child(2) {
+                overflow-y: auto;
+                flex-grow: 1;
+            }
+
+            .rooms > button {
+                border: none;
+                background: transparent;
+            }
+
+            .chat-box {
+                width: 320px;
+
+                & > div:first-child {
+                    overflow-y: auto;
+                    flex-grow: 1;
+                }
+
+                .messages {
+                    padding: 10px;
+                    overflow-y: auto;
+
+                    .alerts {
+                        position: sticky;
+                        top: 0;
+                        width: 100%;
+                        z-index: 1;
+                    }
+
+                    .message {
+                        margin-bottom: 15px;
+
+                        &.sent {
+                            text-align: right;
+                            margin-left: 50px;
+                            align-items: end;
+
+                            .text {
+                                background-color: #0f4fff;
+                                text-align: left;
+                            }
+
+                            .ng-image-gallery-thumbnails .thumb {
+                                float: right;
+                            }
+                        }
+
+                        &.received {
+                            text-align: left;
+                            margin-right: 50px;
+                            align-items: start;
+
+                            .text {
+                                background-color: #393939
+                            }
+                        }
+
+                        .text {
+                            display: inline-block;
+                            padding: 5px;
+                            color: #fff;
+                            border-radius: 5px;
+                            font-family: inherit;
+                            font-size: inherit;
+                            white-space: normal;
+                        }
+
+                        .ng-image-gallery-thumbnails .thumb {
+                            height: 50px !important;
+                            width: 25% !important;
+                        }
+                    }
+                }
+
+                .input-box {
+                    padding: 10px;
+                    border-top: 1px solid #ccc;
+                    position: relative;
+
+                    .media-preview .ng-image-gallery-thumbnails .thumb {
+                        height: 50px !important;
+                        width: 20% !important;
+
+                        .thumb-actions > * {
+                            padding: 0.125rem 0.25rem;
+                        }
+                    }
+
+                    form {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        textarea {
+                            resize: none;
+                        }
+                    }
+
+                    .status-overlay {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        background: #cdcdcd;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+
+                input[type="file"] {
+                    display: none;
+                }
+
+                .send-button,
+                .emoji-button {
+                    padding: 10px;
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+                }
+
+                .send-button:hover,
+                .emoji-button:hover {
+                    background-color: #f5f5f5;
+                }
+            }
+
+            .rooms {
+
+                & > .room-handle {
+                }
+            }
+
+            @media (max-width: 575px) {
+                .chat-box, .rooms {
+                    flex-grow: 1;
+                }
+            }
+        }
+
+        .closed-content {
+
+            .toggle .unviewed-indicator {
+                position: absolute;
+                right: 7px;
+                top: 10px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .closed-content {
+                border-radius: 50%;
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+}

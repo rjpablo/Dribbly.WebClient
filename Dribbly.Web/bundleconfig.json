@@ -16,6 +16,7 @@
       "wwwroot/src/lib/jquery/jquery.js",
       "wwwroot/src/lib/jquery-ui/jquery-ui.js",
       "wwwroot/src/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.js",
+      "wwwroot/src/custom/signalr/jquery.signalr-2.2.2.js",
       "wwwroot/src/lib/bowser/bundled.js",
       "wwwroot/src/lib/hammerjs/hammer.js",
       "wwwroot/src/lib/moment/moment.js",
@@ -72,6 +73,7 @@
       "wwwroot/src/shared/modules/site/services/formshelper.service.js",
       "wwwroot/src/shared/modules/site/services/notifications.service.js",
       "wwwroot/src/shared/modules/site/services/overlay.service.js",
+      "wwwroot/src/shared/modules/site/services/chats.service.js",
       "wwwroot/src/shared/modules/site/components/typeahead/typeahead.component.js",
       "wwwroot/src/shared/modules/site/services/modal-service.js",
       "wwwroot/src/shared/modules/site/services/permissions-service.js",
@@ -101,7 +103,8 @@
       "wwwroot/src/shared/modules/site/components/globalsearch/globalsearch.component.js",
       "wwwroot/src/shared/modules/site/components/globalsearchmodal/globalsearchmodal.component.js",
       "wwwroot/src/shared/modules/site/components/datatable/datatable.component.js",
-      "wwwroot/src/shared/modules/site/components/ad/ad.component.js"
+      "wwwroot/src/shared/modules/site/components/ad/ad.component.js",
+      "wwwroot/src/shared/modules/site/components/chat/chat.component.js"
     ]
   },
   {
@@ -315,7 +318,8 @@
       "wwwroot/src/shared/modules/site/components/globalsearchmodal/globalsearchmodal.component.css",
       "wwwroot/src/shared/modules/site/components/globalsearch/globalsearch.component.css",
       "wwwroot/src/shared/modules/site/components/datatable/datatable.component.css",
-      "wwwroot/src/shared/modules/site/components/ad/ad.component.css"
+      "wwwroot/src/shared/modules/site/components/ad/ad.component.css",
+      "wwwroot/src/shared/modules/site/components/chat/chat.component.css"
     ]
   },
   {

@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyAccountsService', 'authService', '$stateParams', '$state', 'permissionsService',
-        'modalService', 'drbblyFileService', 'constants'];
+        'modalService', 'drbblyFileService', 'constants', 'drbblyEventsService'];
     function controllerFunc(drbblyAccountsService, authService, $stateParams, $state, permissionsService,
-        modalService, drbblyFileService, constants) {
+        modalService, drbblyFileService, constants, drbblyEventsService) {
         var avc = this;
         var _username;
 
@@ -79,6 +79,22 @@
             window.open(url, 'targetWindow', 'toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
             return false;
         }
+
+        avc.message = function () {
+            authService.checkAuthenticationThen(() => {
+                if (!avc.isOwned) {
+                    drbblyEventsService.broadcast('drbbly.chat.openChat',
+                        {
+                            withParticipant: {
+                                id: avc.account.id,
+                                name: avc.account.name,
+                                photo: avc.account.profilePhoto
+                            },
+                            type: constants.enums.chatTypeEnum.Private
+                        });
+                }
+            })
+        };
 
         function viewPrimaryPhoto() {
             drbblyAccountsService.getAccountPhotos(avc.account.id)

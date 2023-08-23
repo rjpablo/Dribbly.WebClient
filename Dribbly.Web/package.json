@@ -46,6 +46,7 @@
     "videogular-overlay-play": "1.4.4"
   },
   "devDependencies": {
+    "@microsoft/signalr": "^7.0.5",
     "angular-dragdrop": "^1.0.13",
     "del": "4.1.1",
     "gulp": "4.0.2",

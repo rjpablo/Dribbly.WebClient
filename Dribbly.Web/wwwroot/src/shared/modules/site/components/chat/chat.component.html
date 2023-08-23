@@ -1,0 +1,128 @@
+﻿<div class="chat-app text-dark"
+     ng-if="cht.isAuthenticated"
+     ng-class="{'open': cht.isOpen, 'closed': !cht.isOpen}">
+    <div class="open-content d-flex flex-column"
+         ng-class="{'has-selected-room': cht.hasSelectedRoom, 'no-room-selected': !cht.hasSelectedRoom}">
+        <div class="d-flex d-sm-none align-items-center">
+            <h3 class="ml-3 text-dark"><i class="fa fa-envelope-o mr-1"></i>Chats</h3>
+            <div class="ml-auto">
+                <i class="fa fa-2x fa-times mr-2"
+                   ng-click="cht.toggle()"></i>
+            </div>
+        </div>
+        <div class="d-flex overflow-y-auto">
+            <div class="rooms border-right border-light">
+                <button type="button" ng-repeat="room in cht.rooms | orderBy: 'lastUpdateTime' : true"
+                        class="d-flex border-bottom border-light w-100 align-content-center"
+                        ng-click="cht.setActiveRoom(room)">
+                    <span class="p-3 d-flex align-content-center room-handle flex-grow-1">
+                        <img ng-src="{{room.roomIcon? room.roomIcon.url : $root.constants.images.defaultProfilePhoto.url}}"
+                             class="icon mr-1" />
+                        <span class="font-weight-semibold">{{room.roomName}}</span>
+                    </span>
+                    <span class="badge badge-pill badge-info ml-auto align-self-center mr-2"
+                          ng-if="room.unviewedCount">{{room.unviewedCount}}</span>
+                </button>
+                <div class="p-3 text-center"
+                     ng-if="cht.rooms.length === 0">You don't have any conversations yet.</div>
+            </div>
+            <div class="chat-box d-flex flex-column">
+                <div class="d-flex flex-column">
+                    <div class="p-3 border-bottom border-light d-flex align-items-center">
+                        <div class="mr-2"
+                             ng-show="cht.activeRoom">
+                            <i class="fa fa-2x fa-arrow-left"
+                               ng-click="cht.exitRoom()"></i>
+                        </div>
+                        <img ng-src="{{cht.activeRoom.roomIcon? cht.activeRoom.roomIcon.url : $root.constants.images.defaultProfilePhoto.url}}"
+                             ng-show="cht.activeRoom"
+                             class="icon mr-1" />
+                        <span class="font-weight-semibold"
+                              ng-show="cht.activeRoom">{{cht.activeRoom.roomName}}</span>
+                        <div class="ml-auto">
+                            <i class="fa fa-2x fa-times d-none d-sm-inline"
+                               ng-click="cht.toggle()"></i>
+                        </div>
+                    </div>
+                    <div class="messages"
+                         in-view-container>
+                        <div class="alerts">
+                            <div ng-if="cht.hubIsConnecting"
+                                 class="bg-secondary text-center">
+                                <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+                            </div>
+                            <div ng-if="cht.isReconnecting"
+                                 class="bg-secondary text-center">
+                                <i class="fa fa-circle-o-notch fa-spin"></i> Reconnecting...
+                            </div>
+                        </div>
+                        <div ng-repeat="message in cht.activeRoom.messages"
+                             class="message d-flex flex-column"
+                             ng-class="{'sent': message.isSender, 'received':!message.isSender, 'unseen': (message.status == cht.messageRecipientStatusEnum.NotSeen)}"
+                             in-view="cht.inView(message, $inview)"
+                             in-view-options="{offset: [-25, 0, -25, 0]}">
+                            <pre class="text mb-0"
+                                 ng-if="message.text">{{message.text}}</pre>
+                            <drbbly-gallery can-add="false"
+                                            class="w-100"
+                                            ng-if="message.mediaCollection.length > 0"
+                                            options="{hideCaptions: true, methods: cht.methods}"
+                                            media="message.mediaCollection"
+                                            on-delete="cht.onRemovePhoto"></drbbly-gallery>
+                            <span ng-if="message.isSending" class="small text-secondary">sending...</span>
+                            <span ng-if="message.isFailed" class="small text-danger">failed</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-box"
+                     ng-show="cht.activeRoom">
+                    <div class="media-preview">
+                        <drbbly-gallery can-add="false"
+                                        on-delete="cht.onRemovePhoto"
+                                        media="cht.previewImages"></drbbly-gallery>
+                    </div>
+                    <form ng-submit="cht.send()"
+                          class="w-100">
+                        <div class="form-row d-flex flex-nowrap w-100">
+                            <button class="send-button"
+                                    ng-disabled="cht.hubIsConnecting || cht.isBusy"
+                                    ngf-select="cht.addPhotos($files)"
+                                    ngf-pattern="'image/*'"
+                                    ngf-multiple="true"
+                                    ngf-accept="'image/*'"
+                                    ngf-max-size="{{cht.maxPhotoSize}}">
+                                <i class="fa fa-picture-o"></i>
+                            </button>
+                            <textarea ng-model="cht.text"
+                                      class="flex-grow-1"
+                                      id="drbbly-chat-input"
+                                      ng-keypress="cht.onKeypress($event)"
+                                      ng-keydown="cht.onKeydown($event)"
+                                      ng-focus="cht.onFocus()"
+                                      ng-keyup="cht.onKeyup($event)"
+                                      placeholder="Type your message here"></textarea>
+                            <button class="send-button"
+                                    ng-disabled="cht.hubIsConnecting || cht.isBusy"
+                                    type="submit"
+                                    ng-enabled="chat.text || cht.previewImages.length > 0">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="status-overlay"
+                         ng-show="cht.hubIsConnecting">
+                        <span><i class="fa fa-circle-o-notch fa-spin mr-1"></i>{{cht.connectionStatus || 'connecting...'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="closed-content bg-black border border-primary text-primary mb-3 mb-sm-0 mr-3 mr-sm-0">
+        <div class="p-3 toggle"
+             ng-click="cht.toggle()">
+            <i class="fa fa-2x fa-envelope-o"></i>
+            <span class="badge badge-info badge-pill unviewed-indicator"
+                  ng-show="cht.totalUnviewedCount > 0">{{cht.totalUnviewedCount}}</span>
+        </div>
+    </div>
+</div>

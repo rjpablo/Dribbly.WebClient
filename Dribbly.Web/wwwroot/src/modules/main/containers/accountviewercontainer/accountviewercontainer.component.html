@@ -44,7 +44,9 @@
                                 <!--<button type="button" class="btn btn-primary mb-3"
                                 ng-if="!avc.isOwned">{{::'app.PlusFollow' | i18n}}</button>-->
                                 <button type="button"
-                                        class="btn btn-secondary mb-3">
+                                        ng-if="!avc.isOwned"
+                                        class="btn btn-secondary mb-3"
+                                        ng-click="avc.message()">
                                     {{::'app.Message' | i18n}}
                                 </button>
                                 <button type="button" class="btn btn-facebook mb-3"

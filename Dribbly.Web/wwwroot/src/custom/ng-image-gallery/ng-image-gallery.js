@@ -494,7 +494,7 @@
 
                             // Change image to next
                             scope.methods.next = function () {
-                                if (scope._activeImageIndex == (scope.images.length - 1)) {
+                                if (scope._activeImageIndex == ((scope.images || []).length - 1)) {
                                     scope._activeImageIndex = 0;
                                 }
                                 else {

@@ -52,6 +52,8 @@
   <ItemGroup>
     <None Include="wwwroot\src\shared\modules\app\components\gallery\gallery.component.js" />
     <None Include="wwwroot\src\shared\modules\app\components\gallery\gallery.component.scss" />
+    <None Include="wwwroot\src\shared\modules\site\components\chat\chat.component.js" />
+    <None Include="wwwroot\src\shared\modules\site\components\chat\chat.component.scss" />
   </ItemGroup>
 
 </Project>

@@ -24,6 +24,10 @@ var _notLib = '!' + paths.baseSrc + 'lib/**/*';
 //Only npm files that are listed here will be inlucde in the build
 //REMEMBER: keep alphabetical order
 var nodeLibs = {
+    signalr: {
+        source: '@microsoft/signalr/dist/browser/signalr.min.js',
+        destination: 'signalr'
+    },
     angular: {
         source: 'angular/angular.js',
         destination: 'angular'
@@ -276,7 +280,6 @@ function copyNodeLibs() {
 
 function copy(source, destination) {
     return gulp.src(source)
-        .pipe(concat())
         .pipe(gulp.dest(destination));
 }
 
