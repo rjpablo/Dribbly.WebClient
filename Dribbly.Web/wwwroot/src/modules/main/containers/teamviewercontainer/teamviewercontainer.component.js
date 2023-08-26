@@ -14,10 +14,10 @@
 
     controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
         'constants', 'drbblyDatetimeService', 'drbblyTeamshelperService', 'modalService', 'drbblyEventsService',
-        'drbblyFileService'];
+        'drbblyFileService', 'i18nService'];
     function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService,
         constants, drbblyDatetimeService, drbblyTeamshelperService, modalService, drbblyEventsService,
-        drbblyFileService) {
+        drbblyFileService, i18nService) {
         var avc = this;
         var _teamId;
 

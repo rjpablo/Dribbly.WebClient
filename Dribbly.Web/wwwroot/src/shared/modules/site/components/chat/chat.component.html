@@ -46,35 +46,47 @@
                                ng-click="cht.toggle()"></i>
                         </div>
                     </div>
+                    <!-- #region Messages -->
                     <div class="messages"
                          in-view-container>
                         <div class="alerts">
                             <div ng-if="cht.hubIsConnecting"
-                                 class="bg-secondary text-center">
+                                 class="bg-secondary text-center text-white">
                                 <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
                             </div>
                             <div ng-if="cht.isReconnecting"
-                                 class="bg-secondary text-center">
+                                 class="bg-secondary text-center text-white">
                                 <i class="fa fa-circle-o-notch fa-spin"></i> Reconnecting...
                             </div>
                         </div>
                         <div ng-repeat="message in cht.activeRoom.messages"
-                             class="message d-flex flex-column"
+                             class="message d-flex"
                              ng-class="{'sent': message.isSender, 'received':!message.isSender, 'unseen': (message.status == cht.messageRecipientStatusEnum.NotSeen)}"
                              in-view="cht.inView(message, $inview)"
                              in-view-options="{offset: [-25, 0, -25, 0]}">
-                            <pre class="text mb-0"
-                                 ng-if="message.text">{{message.text}}</pre>
-                            <drbbly-gallery can-add="false"
-                                            class="w-100"
-                                            ng-if="message.mediaCollection.length > 0"
-                                            options="{hideCaptions: true, methods: cht.methods}"
-                                            media="message.mediaCollection"
-                                            on-delete="cht.onRemovePhoto"></drbbly-gallery>
-                            <span ng-if="message.isSending" class="small text-secondary">sending...</span>
-                            <span ng-if="message.isFailed" class="small text-danger">failed</span>
+                            <div class="sender">
+                                <a ui-sref="main.account.home({username: message.sender.username})"
+                                   title="{{message.sender.name}}">
+                                    <img ng-src="{{message.sender.profilePhoto? message.sender.profilePhoto.url : $root.constants.images.defaultProfilePhoto.url}}"
+                                         ng-show="cht.activeRoom"
+                                         class="icon" />
+                                </a>
+                            </div>
+                            <div class="content d-flex flex-column">
+                                <pre class="text mb-0"
+                                     ng-if="message.text">{{message.text}}</pre>
+                                <drbbly-gallery can-add="false"
+                                                class="w-100"
+                                                ng-if="message.mediaCollection.length > 0"
+                                                options="{hideCaptions: true, methods: cht.methods}"
+                                                media="message.mediaCollection"
+                                                on-delete="cht.onRemovePhoto"></drbbly-gallery>
+                                <span ng-if="message.isSending" class="small text-secondary">sending...</span>
+                                <span ng-if="message.isFailed" class="small text-danger">failed</span>
+                            </div>
                         </div>
                     </div>
+                    <!-- #endregion -->
                 </div>
                 <div class="input-box"
                      ng-show="cht.activeRoom">

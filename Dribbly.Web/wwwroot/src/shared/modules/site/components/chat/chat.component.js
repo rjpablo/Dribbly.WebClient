@@ -101,7 +101,8 @@
                 isTemporary: true, // create the chat only when an actual message is sent
                 participantIds: [data.withParticipant.id, authService.authentication.accountId],
                 messages: [],
-                type: data.type
+                type: data.type,
+                code: data.code
             };
             return await drbblyChatsService.getOrCreatePrivateChat(data.withParticipant.id, tempChat);
         }
@@ -134,17 +135,16 @@
             };
 
             _chatHub.client.ReceiveMessage = message => {
-                massageMessage(message);
                 var room = cht.rooms.drbblySingleOrDefault(r => (r.chatId != null && r.chatId === message.chatId)
                     || (r.isTemporary && r.type == data.type && r.participants.drbblyAny(p => p.participantId == data.withParticipant.id))); //if a temporary chat room exists
                 if (room) {
+                    massageMessage(message, room);
                     if (room.isTemporary) {
                         room.chatId = message.chatId;
                         room.isTemporary = false;
                     }
                     if (!room.messages.drbblyAny(m => m.messageId === message.messageId)) {
                         room.messages.push(message);
-                        scrollToBottom();
                         if (!message.isSender) {
                             room.unviewedCount++;
                             updateTotalUnviewedCount();
@@ -162,13 +162,24 @@
                                     .then(() => { })
                                     .catch(err => { drbblyCommonService.handleError(err); })
                                 updateTotalUnviewedCount();
-                                $scope.$apply();
                             }
                         })
                         .catch(err => {
                             // TODO: handle properly
                             drbblyCommonService.handleError(err);
                         });
+                }
+            };
+
+            _chatHub.client.removedFromChat = function (chatId) {
+                var room = cht.rooms.drbblySingleOrDefault(r => r.chatId === chatId);
+                if (room) {
+                    if (cht.activeRoom === room) {
+                        cht.exitRoom();
+                    }
+                    cht.rooms.drbblyRemove(room);
+                    updateTotalUnviewedCount();
+                    $scope.$apply();
                 }
             };
 
@@ -253,14 +264,15 @@
             })
         }
 
-        function massageMessage(message) {
+        function massageMessage(message, room) {
+            message.sender = room.participants.drbblySingleOrDefault(p => p.id === message.senderId);
             message.isSender = message.senderId === authService.authentication.accountId;
         }
 
         cht.setActiveRoom = (room) => {
             cht.hasSelectedRoom = true;
             if (!cht.activeRoom || (room.chatId && cht.activeRoom.chatId !== room.chatId)) {
-                room.messages.forEach(massageMessage)
+                room.messages.forEach(message => massageMessage(message, room));
                 cht.activeRoom = room;
                 reset();
                 scrollToBottom();
