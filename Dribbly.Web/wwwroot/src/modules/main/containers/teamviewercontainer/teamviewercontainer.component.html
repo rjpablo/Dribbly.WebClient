@@ -6,9 +6,9 @@
                 <div class="col-12">
                     <div class="p-3 border-left border-right gradent-gray-black-v-bg">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row flex-nowrap">
-                                    <div class="col-auto logo-container">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-12 col-md-auto logo-container">
                                         <img ng-src="{{avc.team.logo.url}}"
                                              class="profile-photo d-block mx-auto"
                                              ng-click="avc.onLogoClick()" />
@@ -20,16 +20,10 @@
                                                 ngf-accept="'image/*'"
                                                 ngf-max-size="20MB"></button>
                                     </div>
-                                    <div class="col-auto pl-md-0">
+                                    <div class="col-12 col-md-auto pl-md-0 d-flex align-items-center flex-column align-items-md-start">
                                         <h3 class="text-white mb-1">{{avc.team.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' : avc.team.shortName}}</h3>
-                                        <div class="drbbly-no-animation">
-                                            <div ng-hide="avc.isBusy">
-                                                <!--<button type="button"
-                                                        class="btn btn-primary mb-3"
-                                                        ng-if="!avc.isManager"
-                                                        ng-click="avc.followTeam()">
-                                                    {{::'app.PlusFollow' | i18n}}
-                                                </button>-->
+                                        <div>
+                                            <div class="d-flex" ng-hide="avc.isBusy">
                                                 <div ng-show="!avc.userTeamRelation.hasPendingJoinRequest"
                                                      class="d-inline-block">
                                                     <button type="button"
@@ -42,13 +36,7 @@
                                                             class="btn btn-secondary mb-3"
                                                             ng-show="avc.userTeamRelation.isCurrentMember || avc.isManager"
                                                             ng-click="avc.message()">
-                                                        {{::'app.Message' | i18n}}
-                                                    </button>
-                                                    <button type="button"
-                                                            class="btn btn-secondary mb-3"
-                                                            ng-show="avc.userTeamRelation.isCurrentMember"
-                                                            ng-click="avc.leaveTeam()">
-                                                        {{::'app.LeaveTeam' | i18n}}
+                                                        Team Chat
                                                     </button>
                                                 </div>
                                                 <button type="button"
@@ -57,16 +45,30 @@
                                                         ng-click="avc.cancelJoinRequest()">
                                                     {{::'app.CancelRequestToJoin' | i18n}}
                                                 </button>
-                                                <button type="button"
-                                                        class="btn btn-secondary mb-3"
-                                                        ng-if="avc.isManager"
-                                                        ng-click="avc.update()">
-                                                    Update Details
-                                                </button>
-                                                <button type="button" class="btn btn-facebook mb-3"
+                                                <button class="btn btn-facebook mb-3 ml-1"
                                                         ng-click="avc.fbShare()">
                                                     <i class="fa fa-facebook"></i> Share
                                                 </button>
+                                                <div class="dropdown d-inline-block ml-1"
+                                                     ng-if="avc.isManager || avc.userTeamRelation.isCurrentMember">
+                                                    <button type="button"
+                                                            class="btn btn-secondary dropdown-toggle-split"
+                                                            data-toggle="dropdown">
+                                                        <span class="fa fa-ellipsis-h"></span>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <button class="dropdown-item btn btn-secondary"
+                                                                ng-if="avc.isManager"
+                                                                ng-click="avc.update()">
+                                                            Update Details
+                                                        </button>
+                                                        <button class="dropdown-item btn btn-secondary"
+                                                                ng-show="avc.userTeamRelation.isCurrentMember"
+                                                                ng-click="avc.leaveTeam()">
+                                                            {{::'app.LeaveTeam' | i18n}}
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <span ng-hide="!avc.isBusy"
                                                   class="btn btn-secondary"><i class="fa fa-circle-o-notch fa-spin"></i></span>
