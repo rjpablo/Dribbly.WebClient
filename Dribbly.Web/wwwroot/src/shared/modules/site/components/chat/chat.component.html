@@ -34,11 +34,13 @@
                             <i class="fa fa-2x fa-arrow-left"
                                ng-click="cht.exitRoom()"></i>
                         </div>
-                        <img ng-src="{{cht.activeRoom.roomIcon? cht.activeRoom.roomIcon.url : $root.constants.images.defaultProfilePhoto.url}}"
-                             ng-show="cht.activeRoom"
-                             class="icon mr-1" />
-                        <span class="font-weight-semibold"
-                              ng-show="cht.activeRoom">{{cht.activeRoom.roomName}}</span>
+                        <a ng-href="{{cht.activeRoom.link}}">
+                            <img ng-src="{{cht.activeRoom.roomIcon? cht.activeRoom.roomIcon.url : $root.constants.images.defaultProfilePhoto.url}}"
+                                 ng-show="cht.activeRoom"
+                                 class="icon mr-1" />
+                            <span class="font-weight-semibold"
+                                  ng-show="cht.activeRoom">{{cht.activeRoom.roomName}}</span>
+                        </a>
                         <div class="ml-auto">
                             <i class="fa fa-2x fa-times d-none d-sm-inline"
                                ng-click="cht.toggle()"></i>

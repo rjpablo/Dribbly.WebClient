@@ -11,9 +11,9 @@
         });
 
     controllerFn.$inject = ['drbblyChatsService', 'authService', 'drbblyEventsService', 'constants', '$element', '$timeout',
-        'drbblyCommonService', 'settingsService', '$q', 'drbblyFileService', '$scope'];
+        'drbblyCommonService', 'settingsService', '$q', 'drbblyFileService', '$scope', '$state'];
     function controllerFn(drbblyChatsService, authService, drbblyEventsService, constants, $element, $timeout,
-        drbblyCommonService, settingsService, $q, drbblyFileService, $scope) {
+        drbblyCommonService, settingsService, $q, drbblyFileService, $scope, $state) {
         var cht = this;
         var _chatHub;
         var _connectionId;
@@ -245,6 +245,10 @@
                     var otherParticipant = room.participants.drbblySingle(p => p.id !== authService.authentication.accountId);
                     room.title = otherParticipant.name;
                     room.roomIcon = otherParticipant.profilePhoto;
+                    room.link = $state.href('main.account.home', { username: otherParticipant.username })
+                }
+                else if (room.type === constants.enums.chatTypeEnum.Team) {
+                    room.link = $state.href('main.team.home', { id: room.code.replace('tm', '') })
                 }
             })
         }
