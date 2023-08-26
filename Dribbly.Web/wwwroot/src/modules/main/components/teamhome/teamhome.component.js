@@ -84,40 +84,6 @@
             alert('Not yet implemented');
         };
 
-        thc.onLogoSelect = function (file) {
-            if (!file) { return; }
-
-            var url = URL.createObjectURL(file);
-
-            return modalService.show({
-                view: '<drbbly-croppermodal></drbbly-croppermodal>',
-                model: {
-                    imageUrl: url,
-                    cropperOptions: {
-                        aspectRatio: 1
-                    }
-                }
-            })
-                .then(function (imageData) {
-                    var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
-                    imageData.name = fileNameNoExt + '.png';
-                    drbblyFileService.upload(imageData, 'api/teams/uploadLogo/' + thc.team.id)
-                        .then(function (result) {
-                            if (result && result.data) {
-                                thc.team.logo = result.data;
-                                thc.team.logoId = result.data.id;
-                                thc.onUpdate();
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                })
-                .finally(function () {
-                    URL.revokeObjectURL(url)
-                });
-        };
-
         thc.onDeletePhoto = function (img, callback) {
             modalService.confirm('app.DeletePhotoConfirmationMsg')
                 .then(function (result) {

@@ -32,6 +32,10 @@
                     return drbblyhttpService.get(api + 'getTeam/' + id);
                 }
 
+                function getTeamChat(id) {
+                    return drbblyhttpService.get(api + 'getTeamChat/' + id);
+                }
+
                 function getTeamDetailsModal(id) {
                     return drbblyhttpService.get(api + 'getTeamDetailsModal/' + id);
                 }
@@ -149,6 +153,7 @@
                     getJoinRequests: getJoinRequests,
                     getManagedTeamsAsChoices: getManagedTeamsAsChoices,
                     getTeam: getTeam,
+                    getTeamChat: getTeamChat,
                     getTeamBookings: getTeamBookings,
                     getTeamByUsername: getTeamByUsername,
                     getTeamDetailsModal: getTeamDetailsModal,

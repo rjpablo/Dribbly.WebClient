@@ -41,13 +41,15 @@
             });
 
             _unregisterOpenChat = drbblyEventsService.on('drbbly.chat.openChat', async (event, data) => {
-                var chatCode = '';
                 if (data.type === constants.enums.chatTypeEnum.Private) {
                     var participantIds = [data.withParticipant.id, authService.authentication.accountId]
-                    chatCode = 'pr' + Math.min(...participantIds) + '-' + Math.max(...participantIds);
+                    data.code = 'pr' + Math.min(...participantIds) + '-' + Math.max(...participantIds);
+                }
+                else if (data.type === constants.enums.chatTypeEnum.Team) {
+                    data.code = 'tm' + data.team.id;
                 }
                 //check if the rooom has been loaded and then set it to active if so
-                var room = cht.rooms.drbblyFirstOrDefault(r => r.code === chatCode);
+                var room = cht.rooms.drbblyFirstOrDefault(r => r.code === data.code);
                 if (room) {
                     cht.setActiveRoom(room);
                     focusInput();
@@ -55,7 +57,18 @@
                 else {
 
                     if (data.type === constants.enums.chatTypeEnum.Private) {
-                        room = await createPrivateChat(data);
+                        room = await createPrivateChat(data)
+                            .catch(err => {
+                                // TODO: handle properly
+                                drbblyCommonService.handleError(err, null, 'Failed to retrieve messages');
+                            });
+                    }
+                    else if (data.type === constants.enums.chatTypeEnum.Team) {
+                        room = await data.getChat()
+                            .catch(err => {
+                                // TODO: handle properly
+                                drbblyCommonService.handleError(err, null, 'Failed to retrieve messages');
+                            });
                     }
 
                     if (room) {
@@ -90,11 +103,7 @@
                 messages: [],
                 type: data.type
             };
-            return await drbblyChatsService.getOrCreatePrivateChat(data.withParticipant.id, tempChat)
-                .catch(err => {
-                    // TODO: handle properly
-                    drbblyCommonService.handleError(err, null, 'Failed to retrieve messages');
-                });
+            return await drbblyChatsService.getOrCreatePrivateChat(data.withParticipant.id, tempChat);
         }
 
         cht.addPhotos = function (images) {

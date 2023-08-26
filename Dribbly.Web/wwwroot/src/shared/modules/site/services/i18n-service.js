@@ -135,7 +135,7 @@
                     CancelRequestToJoin: 'Cancel Request To Join',
                     Change: 'Change',
                     'ChatTypeEnum.Private_0': 'Private',
-                    'ChatTypeEnum.Group_1': 'Group',
+                    'ChatTypeEnum.Team_1': 'Team',
                     City: 'City',
                     Court: 'Court',
                     CourtDetailsMobileNoLabel: 'Mobile no. that users can contact to inquire about this court',

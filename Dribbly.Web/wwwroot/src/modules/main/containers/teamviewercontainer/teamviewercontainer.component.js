@@ -13,9 +13,11 @@
         });
 
     controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
-        'constants', 'drbblyDatetimeService', 'drbblyTeamshelperService', 'modalService'];
+        'constants', 'drbblyDatetimeService', 'drbblyTeamshelperService', 'modalService', 'drbblyEventsService',
+        'drbblyFileService'];
     function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService,
-        constants, drbblyDatetimeService, drbblyTeamshelperService, modalService) {
+        constants, drbblyDatetimeService, drbblyTeamshelperService, modalService, drbblyEventsService,
+        drbblyFileService) {
         var avc = this;
         var _teamId;
 
@@ -36,6 +38,53 @@
                         });
                 })
                 .catch(() => { avc.overlay.setToError(); });
+        };
+
+        avc.message = function () {
+            authService.checkAuthenticationThen(() => {
+                if (!avc.isOwned) {
+                    drbblyEventsService.broadcast('drbbly.chat.openChat',
+                        {
+                            team: avc.team,
+                            type: constants.enums.chatTypeEnum.Team,
+                            getChat: () => drbblyTeamsService.getTeamChat(_teamId)
+                        }
+                    );
+                }
+            })
+        };
+
+        avc.onLogoSelect = function (file) {
+            if (!file) { return; }
+
+            var url = URL.createObjectURL(file);
+
+            return modalService.show({
+                view: '<drbbly-croppermodal></drbbly-croppermodal>',
+                model: {
+                    imageUrl: url,
+                    cropperOptions: {
+                        aspectRatio: 1
+                    }
+                }
+            })
+                .then(function (imageData) {
+                    var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
+                    imageData.name = fileNameNoExt + '.png';
+                    drbblyFileService.upload(imageData, 'api/teams/uploadLogo/' + avc.team.id)
+                        .then(function (result) {
+                            if (result && result.data) {
+                                avc.team.logo = result.data;
+                                avc.team.logoId = result.data.id;
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                })
+                .finally(function () {
+                    URL.revokeObjectURL(url)
+                });
         };
 
         function loadTeam() {

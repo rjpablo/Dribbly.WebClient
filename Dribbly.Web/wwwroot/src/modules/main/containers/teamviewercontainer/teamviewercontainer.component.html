@@ -33,16 +33,22 @@
                                                 <div ng-show="!avc.userTeamRelation.hasPendingJoinRequest"
                                                      class="d-inline-block">
                                                     <button type="button"
-                                                            class="btn btn-secondary mb-3"
-                                                            ng-show="avc.userTeamRelation.isCurrentMember"
-                                                            ng-click="avc.leaveTeam()">
-                                                        {{::'app.LeaveTeam' | i18n}}
-                                                    </button>
-                                                    <button type="button"
                                                             class="btn btn-primary mb-3"
                                                             ng-show="!avc.userTeamRelation.isCurrentMember"
                                                             ng-click="avc.joinTeam()">
                                                         {{::'app.Join' | i18n}}
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-secondary mb-3"
+                                                            ng-show="avc.userTeamRelation.isCurrentMember || avc.isManager"
+                                                            ng-click="avc.message()">
+                                                        {{::'app.Message' | i18n}}
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-secondary mb-3"
+                                                            ng-show="avc.userTeamRelation.isCurrentMember"
+                                                            ng-click="avc.leaveTeam()">
+                                                        {{::'app.LeaveTeam' | i18n}}
                                                     </button>
                                                 </div>
                                                 <button type="button"
