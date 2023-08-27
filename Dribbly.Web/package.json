@@ -61,6 +61,7 @@
     "jsdoc": "~3.6.6",
     "merge-stream": "2.0.0",
     "sass": "^1.47.0",
-    "useref": "1.4.1"
+    "useref": "1.4.1",
+    "video.js": "8.5.2"
   }
 }

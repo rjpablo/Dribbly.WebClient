@@ -13,17 +13,16 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', '$sce', 'drbblyEventsService'];
-    function controllerFn($scope, $sce, drbblyEventsService) {
+    controllerFn.$inject = ['$scope', '$sce', 'drbblyEventsService', '$element', '$timeout'];
+    function controllerFn($scope, $sce, drbblyEventsService, $element, $timeout) {
         var vpm = this;
         var _okToClose;
-        var _video;
         var _api;
+        var _player;
 
         vpm.$onInit = function () {
             vpm.isBusy = true;
-            _video = vpm.model.video;
-            buildConfig();
+            vpm.video = angular.copy(vpm.model.video);
 
             vpm.context.setOnInterrupt(vpm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event) {
@@ -32,22 +31,26 @@
                     vpm.onInterrupt();
                 }
             }, $scope);
+
+            $timeout(function () {
+                var vidEl = $element.find('video-js')[0];
+                _player = videojs(vidEl, {
+                    controls: true,
+                    autoplay: false,
+                    preload: 'auto'
+                });
+
+                _player.src({ type: 'video/mp4', src: vpm.video.url + '#t=0.1' });
+
+                _player.ready(() => {
+                    _player.play();
+                });
+            })
+
         };
 
-        function buildConfig() {
-            vpm.config = {
-                autoplay: true,
-                sources: [
-                    { src: $sce.trustAsResourceUrl(_video.src), type: _video.type , preload: 'metadata'}
-                ],
-                theme: "src/lib/videogular/themes/default/videogular.css",
-                plugins: {
-                    controls: {
-                        autoHide: true,
-                        autoHideTime: 5000
-                    }
-                }
-            };
+        vpm.$onDestroy = function () {
+            _player.dispose();
         }
 
         vpm.menuItemClick = function (menuItem, event) {

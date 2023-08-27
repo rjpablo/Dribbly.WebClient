@@ -48,13 +48,10 @@
       "wwwroot/src/custom/ng-image-gallery/ng-image-gallery.js",
       "wwwroot/src/lib-extensions/angular-wysiwyg-custom.js",
       "wwwroot/src/lib/ng-file-upload/ng-file-upload.js",
-      "wwwroot/src/lib/videogular/videogular/videogular.js",
-      "wwwroot/src/lib/videogular-controls/vg-controls.js",
-      "wwwroot/src/lib/videogular-buffering/vg-buffering.js",
-      "wwwroot/src/lib/videogular-overlay-play/vg-overlay-play.js",
       "wwwroot/src/lib/angular-dragdrop/angular-dragdrop.js",
       "wwwroot/src/custom/uiroutertitle/uiroutertitle.module.js",
-      "wwwroot/src/custom/daypilot/js/daypilot-all.min.js"
+      "wwwroot/src/custom/daypilot/js/daypilot-all.min.js",
+      "wwwroot/src/lib/video-js/video.min.js"
     ]
   },
   {
@@ -292,12 +289,11 @@
       "wwwroot/src/lib/angularjs-toaster/toaster.css",
       "wwwroot/src/custom/angularjs-bootstrap-datetimepicker/css/datetimepicker.css",
       "wwwroot/src/lib/angular-bootstrap-colorpicker/colorpicker.css",
-      "wwwroot/src/lib/videogular/themes/default/videogular.css",
       "wwwroot/src/lib/slick-carousel/slick.css",
       "wwwroot/src/lib/slick-carousel/slick-theme.css",
-
       "wwwroot/src/custom/ng-image-gallery/ng-image-gallery.min.css",
-      "wwwroot/src/custom/glyphicon-to-font-awesome/glyphicon-to-font-awesome.css"
+      "wwwroot/src/custom/glyphicon-to-font-awesome/glyphicon-to-font-awesome.css",
+      "wwwroot/src/lib/video-js/video-js.min.css"
     ]
   },
   {

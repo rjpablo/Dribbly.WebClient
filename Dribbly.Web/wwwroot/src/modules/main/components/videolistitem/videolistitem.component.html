@@ -4,7 +4,8 @@
     </div>
     <div class="drbbly-video-overlay"
          ng-click="vli.clicked()">
-        <span class="duration">{{vli.duration}}</span>
+        <span class="duration"
+              ng-hide="vli.options.hideDetails">{{vli.duration}}</span>
     </div>
     <div class="controls">
         <div class="dropdown"
@@ -28,7 +29,8 @@
         </div>
     </div>
 </div>
-<div class="details bg-white p-2">
+<div class="details bg-white p-2"
+     ng-hide="vli.options.hideDetails">
     <h4 class="title"><small>{{vli.video.title}}</small></h4>
     <drbbly-date date="vli.video.dateAdded"
                  as-from-now="true"

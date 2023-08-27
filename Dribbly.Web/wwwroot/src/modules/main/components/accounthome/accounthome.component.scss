@@ -9,4 +9,15 @@ drbbly-accounthome {
             width: 150px;
         }
     }
+
+    .highlights {
+        .videos-wrapper{
+            white-space: nowrap;
+            overflow-x:auto;
+
+            drbbly-videolistitem:not(:last-child){
+                margin-right: 5px;
+            }
+        }
+    }
 }

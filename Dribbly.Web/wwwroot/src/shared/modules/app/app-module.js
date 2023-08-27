@@ -11,10 +11,6 @@
         'ngFileUpload',
         'daypilot',
         'thatisuday.ng-image-gallery',
-        'com.2fdevs.videogular',
-        'com.2fdevs.videogular.plugins.controls',
-        'com.2fdevs.videogular.plugins.overlayplay',
-        'com.2fdevs.videogular.plugins.buffering',
         'slickCarousel',
         'angular-inview',
         'ngDragDrop'

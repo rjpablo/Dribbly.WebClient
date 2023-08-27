@@ -2,43 +2,27 @@
     <div class="container px-0 px-sm-3">
         <div class="row">
             <div class="col-12 col-md-9">
-                <div class="black-transparent-bg py-3 mb-3">
+                <div class="black-transparent-bg py-3 mb-3 highlights"
+                     ng-if="dad.highlights.length > 0">
                     <div class="col-12">
-                        <h5 class="drbbly-header">{{::'app.Profile' | i18n}}</h5>
+                        <h5 class="drbbly-header">Highlights</h5>
                     </div>
                     <div class="col-12">
-                        <ul class="list-group">
-                            <li class="d-block">
-                                <span class="text-muted">{{::'site.FirstName' | i18n}}:</span>
-                                <span>{{dad.account.firstName}}</span>
-                            </li>
-                            <li class="d-block">
-                                <span class="text-muted">{{::'site.LastName' | i18n}}:</span>
-                                <span>{{dad.account.lastName}}</span>
-                            </li>
-                            <li class="d-block">
-                                <span class="text-muted">{{::'app.Height' | i18n}}:</span>
-                                <span>{{dad.account.heightInches | height}}</span>
-                            </li>
-                            <li class="d-block">
-                                <span class="text-muted">{{::'app.Gender' | i18n}}:</span>
-                                <span>{{dad.account.gender | gender}}</span>
-                            </li>
-                            <li class="d-block">
-                                <span class="text-muted">{{::'app.HomeCourt' | i18n}}:</span>
-                                <drbbly-entitystub entity="dad.account.homeCourt"
-                                                   ng-if="dad.account.homeCourt"></drbbly-entitystub>
-                                <span ng-show="!dad.account.homeCourt"
-                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
-                            </li>
-                            <li class="d-block"
-                                ng-if="dad.isOwned">
-                                <span class="text-muted">{{::'app.Age' | i18n}}:</span>
-                                <span ng-if="dad.account.age">{{'app.AgeValue' | i18n : { age: dad.account.age } }}</span>
-                                <span ng-show="!dad.account.age"
-                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
-                            </li>
-                        </ul>
+                        <div class="videos-wrapper">
+                            <drbbly-videolistitem ng-repeat="video in dad.highlights"
+                                                  options="{ hideDetails: true }"
+                                                  video="video"></drbbly-videolistitem>
+                        </div>
+                        <button type="button"
+                                ng-if="dad.isOwned"
+                                class="btn btn-outline-secondary text-center"
+                                ngf-select="dad.addHighlight($files)"
+                                ngf-pattern="'video/*'"
+                                ngf-multiple="true"
+                                ngf-accept="'video/*'"
+                                ngf-max-size="20MB">
+                            + Add
+                        </button>
                     </div>
                 </div>
                 <drbbly-posts options="dad.postsOptions"></drbbly-posts>

@@ -82,8 +82,8 @@
                     return deferred.promise;
                 }
 
-                function addAccountVideo(accountId, video, file) {
-                    return drbblyFileService.upload(file, api + 'addAccountVideo/' + accountId, video);
+                function addAccountVideo(accountId, video, file, addToHighlights) {
+                    return drbblyFileService.upload(file, api + 'addAccountVideo/' + accountId + '/' + !!addToHighlights, video);
                 }
 
                 function setStatus(accountId, status) {
