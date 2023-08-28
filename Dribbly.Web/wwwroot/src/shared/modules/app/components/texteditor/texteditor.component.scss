@@ -1,3 +1,21 @@
-.wysiwyg-menu {
-    border: 1px solid #ccc;
+@import '../../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-texteditor {
+    .wysiwyg-menu {
+        border: 1px solid #ccc;
+
+        & > div {
+            background-color: $white;
+
+            button {
+                color: $black;
+            }
+        }
+    }
+
+    .wysiwyg-text {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
 }

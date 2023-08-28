@@ -10,20 +10,41 @@
                 <div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="primary-photo-container">
-                                <drbbly-image class="primary-photo"
-                                              on-click="dcc.onPrimaryPhotoClick"
-                                              image-url="{{dcc.court.primaryPhoto.url || './images/default_images/court_default_1.png'}}"></drbbly-image>
-                                <div class="controls float-right">
+                            <div class="primary-photo-container border border-top-0 border-bottom-0">
+                                <div ng-if="!dcc.court.primaryPhoto"
+                                     class="d-flex justify-content-center align-items-center bg-secondary h-100">
                                     <button class="btn btn-sm btn-outline-light"
                                             ng-if="dcc.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
                                             ngf-select="dcc.changePrimaryPicture($file)"
                                             ng-model="dcc.profilePicture"
                                             ngf-pattern="'image/*'"
                                             ngf-accept="'image/*'"
-                                            ngf-max-size="20MB">
-                                        <span class="fa fa-pencil" aria-hidden="true"></span>
-                                    </button><br />
+                                            ngf-max-size="20MB"
+                                            ng-disabled="dcc.updatingPrimaryPhoto">
+                                        <span ng-if="dcc.updatingPrimaryPhoto">
+                                            <i class="fa fa-circle-o-notch fa-spin"></i> Processing...
+                                        </span>
+                                        <span ng-if="!dcc.updatingPrimaryPhoto">
+                                            <i class="fa fa-plus"></i> Upload Photo
+                                        </span>
+                                    </button>
+                                </div>
+                                <div ng-if="dcc.court.primaryPhoto"
+                                     class="h-100">
+                                    <drbbly-image class="primary-photo"
+                                                  on-click="dcc.onPrimaryPhotoClick"
+                                                  image-url="{{dcc.court.primaryPhoto.url || './images/default_images/court_default_1.png'}}"></drbbly-image>
+                                    <div class="controls float-right">
+                                        <button class="btn btn-sm btn-outline-light"
+                                                ng-if="dcc.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
+                                                ngf-select="dcc.changePrimaryPicture($file)"
+                                                ng-model="dcc.profilePicture"
+                                                ngf-pattern="'image/*'"
+                                                ngf-accept="'image/*'"
+                                                ngf-max-size="20MB">
+                                            <span class="fa fa-pencil" aria-hidden="true"></span>
+                                        </button><br />
+                                    </div>
                                 </div>
                                 <ng-image-gallery images="dcc.photos"
                                                   methods="dcc.methods"
@@ -88,7 +109,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-lg-5 mb-3 text-center">
+                                            <!--<div class="col-12 col-lg-5 mb-3 text-center">
                                                 <h3 class="text-warning rate"
                                                     ng-if="!dcc.court.isFreeToPlay">
                                                     {{ (dcc.court.ratePerHour || 0) | currency:'P':0 }}
@@ -97,7 +118,7 @@
                                                 <h3>
                                                     <span ng-if="dcc.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
                                                 </h3>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>

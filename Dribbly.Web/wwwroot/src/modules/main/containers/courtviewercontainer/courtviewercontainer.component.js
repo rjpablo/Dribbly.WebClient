@@ -14,10 +14,10 @@
 
     controllerFunc.$inject = ['drbblyCourtsService', 'permissionsService', 'drbblyCourtshelperService',
         'drbblyOverlayService', '$stateParams', 'drbblyFooterService', '$scope', '$state', 'authService',
-        'drbblyGameshelperService', 'i18nService', 'modalService', 'drbblyFileService'];
+        'drbblyGameshelperService', 'i18nService', 'modalService', 'drbblyFileService', 'constants'];
     function controllerFunc(drbblyCourtsService, permissionsService, drbblyCourtshelperService,
         drbblyOverlayService, $stateParams, drbblyFooterService, $scope, $state, authService,
-        drbblyGameshelperService, i18nService, modalService, drbblyFileService) {
+        drbblyGameshelperService, i18nService, modalService, drbblyFileService, constants) {
         var dcc = this;
         var _courtId;
         var _priceComponent;
@@ -39,6 +39,7 @@
             drbblyCourtsService.getCourt(_courtId)
                 .then(function (data) {
                     dcc.court = data;
+                    //dcc.court.primaryPhoto = dcc.court.primaryPhoto || constants.images.defaultCourtLogo;
                     dcc.isOwned = authService.isCurrentAccountId(dcc.court.ownerId);
                     dcc.courtsDetailsOverlay.setToReady();
                     createPriceComponent();
@@ -162,6 +163,7 @@
 
         dcc.changePrimaryPicture = function (file) {
             if (!file) { return; }
+            dcc.updatingPrimaryPhoto = true;
             drbblyFileService.upload(file, 'api/courts/updateCourtPhoto/' + dcc.court.id)
                 .then(function (result) {
                     //loadCourt();
@@ -169,7 +171,8 @@
                 })
                 .catch(function (error) {
                     console.log(error);
-                });
+                })
+                .finally(() => dcc.updatingPrimaryPhoto = false);
         };
 
         function buildSubPages() {
