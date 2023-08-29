@@ -1,0 +1,63 @@
+﻿<div class="container">
+    <div class="row mt-3">
+        <div class="col-12">
+            <div drbbly-overlay="tgc.overlay">
+                <uib-tabset active="tgc._activeTabIndex">
+                    <!-- #region Players -->
+                    <uib-tab index="1" heading="Upcoming">
+                        <div class="row pt-3">
+                            <div class="col-md-6 col-xl-4"
+                                 ng-repeat="stat in (tgc.account.gameStats | filter: tgc.upcomingFilter | orderBy: 'game.start') track by stat.game.id">
+                                <drbbly-gamelistitem class="w-100"
+                                                     game="stat.game"></drbbly-gamelistitem>
+                            </div>
+                            <div ng-if="(tgc.account.gameStats | filter: tgc.upcomingFilter).length === 0"
+                                 class="col-12 p-3 text-center">
+                                No upcoming games found
+                            </div>
+                            <div class="col-12">
+                                <!-- Ad -->
+                                <span class="d-block text-center">Advertisement</span>
+                                <drbbly-ad type="'horizontal'"></drbbly-ad>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab index="2" heading="All">
+                        <div class="row pt-3">
+                            <div class="col-12 player-stats"
+                                 ng-if="tgc.account.gameStats.length > 0">
+                                <drbbly-datatable on-ready="tgc.onPlayersTableReady"></drbbly-datatable>
+                            </div>
+                            <div class="col-12"
+                                 ng-if="tgc.account.gameStats.length === 0">
+                                <div class="p-3 text-center">
+                                    No games yet
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" drbbly-template="tgc.gameTeamColumnTemplate">
+    <a ui-sref="main.team.home({id: rowData.dataItem.teamId})">
+        <img class="avatar avatar-in-text"
+             ng-src="{{rowData.dataItem.team.logo.url}}" />
+    </a>
+    <a ui-sref="main.team.home({id: rowData.dataItem.teamId})">
+        {{rowData.dataItem.team.name}}
+    </a>
+</script>
+
+<script type="text/ng-template" drbbly-template="tgc.gameColumnTemplate">
+    <a ui-sref="main.game.details({id: rowData.dataItem.game.id})">
+        {{rowData.dataItem.game.title || 'Untitled'}}
+    </a>
+</script>
+
+<script type="text/ng-template" drbbly-template="tgc.dateColumnTemplate">
+    {{rowData.dataItem.game.start | date : 'MM/dd/yy'}}
+</script>

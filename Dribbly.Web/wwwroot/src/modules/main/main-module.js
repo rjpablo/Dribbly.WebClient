@@ -67,6 +67,14 @@
                 }
             })
 
+            .state('main.account.games', {
+                url: '/games',
+                component: 'drbblyPlayergames',
+                resolve: {
+                    $titleKey: () => { return 'app.Games'; }
+                }
+            })
+
             .state('main.account.details', {
                 url: '/details',
                 component: 'drbblyAccountdetails',

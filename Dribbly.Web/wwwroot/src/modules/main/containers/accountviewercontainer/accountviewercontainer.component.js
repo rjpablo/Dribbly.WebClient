@@ -177,12 +177,9 @@
                     }
                 },
                 {
-                    textKey: 'app.Details',
-                    targetStateName: 'main.account.details',
-                    targetStateParams: { username: _username },
-                    action: function () {
-                        $state.go(this.targetStateName, this.targetStateParams);
-                    }
+                    textKey: 'app.Games',
+                    targetStateName: 'main.account.games',
+                    targetStateParams: { username: _username }
                 },
                 {
                     textKey: 'app.Photos',
@@ -193,6 +190,14 @@
                     textKey: 'site.Videos',
                     targetStateName: 'main.account.videos',
                     targetStateParams: { username: _username }
+                },
+                {
+                    textKey: 'app.Details',
+                    targetStateName: 'main.account.details',
+                    targetStateParams: { username: _username },
+                    action: function () {
+                        $state.go(this.targetStateName, this.targetStateParams);
+                    }
                 },
                 {
                     textKey: 'app.Settings',
