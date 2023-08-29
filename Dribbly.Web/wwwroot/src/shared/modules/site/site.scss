@@ -37,7 +37,6 @@ a[ng-click]:not(.nav-link, .dropdown-item, [href]) {
     *::-webkit-scrollbar-thumb {
         width: 26px;
         height: 26px;
-        min-height: 50px;
         border-radius: 13px;
         background-clip: padding-box;
         border: 10px solid transparent;

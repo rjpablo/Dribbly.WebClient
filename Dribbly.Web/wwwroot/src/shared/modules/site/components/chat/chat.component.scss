@@ -159,6 +159,11 @@ drbbly-chat {
                             }
                         }
                     }
+
+                    *::-webkit-scrollbar,
+                    *::-webkit-scrollbar-thumb {
+                        min-height: 50px;
+                    }
                 }
 
                 .input-box {

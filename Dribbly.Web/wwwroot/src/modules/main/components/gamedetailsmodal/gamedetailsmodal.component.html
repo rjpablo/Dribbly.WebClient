@@ -326,12 +326,18 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary"
-            i18n="site.Submit"
             ng-disabled="bgm.isBusy || bgm.frmGameDetails.$invalid || (bgm.model.isEdit && bgm.frmGameDetails.$pristine)"
             type="submit"
-            ng-click="bgm.submit()"></button>
+            ng-click="bgm.submit()">
+        <span ng-if="!bgm.isBusy">
+            Submit
+        </span>
+        <span ng-if="bgm.isBusy">
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+        </span>
+    </button>
     <button i18n="site.Cancel"
-            class="btn btn-warning"
+            class="btn btn-secondary"
             type="button"
             ng-click="bgm.cancel()"
             ng-disabled="bgm.isBusy"></button>

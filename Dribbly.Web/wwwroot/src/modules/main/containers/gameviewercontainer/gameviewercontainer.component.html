@@ -56,11 +56,10 @@
                                 </a>
 
                             </div>
-                            <div>
+                            <div ng-if="gcc.game.tournament">
                                 <i class="fa fa-trophy mr-1"></i>
                                 <a ui-sref="main.tournament.home({id: gcc.game.tournamentId})"
-                                   class="m-0 p-0 pb-1"
-                                   ng-if="gcc.game.tournament">
+                                   class="m-0 p-0 pb-1">
                                     <span>
                                         {{gcc.game.tournament.name}}
                                     </span>
@@ -88,7 +87,7 @@
                     <!-- #region Options -->
                     <div class="col">
                         <div class="row">
-                            <div class="text-center col-12 p-3 d-flex justify-content-center align-items-start">
+                            <div class="text-center col-12 p-3 d-flex justify-content-center align-items-start flex-wrap">
                                 <div ng-if="gcc.canManage">
                                     <div class="btn-group mb-2" uib-dropdown is-open="status.isopen"
                                          ng-if="gcc.game.status !== gcc.gameStatusEnum.Finished">
@@ -125,8 +124,8 @@
                                                ng-if="gcc.game.status === gcc.gameStatusEnum.Started"
                                                ng-click="gcc.updateStatus(gcc.gameStatusEnum.Finished)">{{::'app.EndGame' | i18n}}</a>
                                             <!--<a class="dropdown-item"
-                                               ng-if="gcc.game.status === gcc.gameStatusEnum.Started || gcc.game.status === gcc.gameStatusEnum.Finished"
-                                               ng-click="gcc.setResult()">{{::'app.SetResult' | i18n}}</a>-->
+                                            ng-if="gcc.game.status === gcc.gameStatusEnum.Started || gcc.game.status === gcc.gameStatusEnum.Finished"
+                                            ng-click="gcc.setResult()">{{::'app.SetResult' | i18n}}</a>-->
                                             <a class="dropdown-item"
                                                ng-if="gcc.game.status === gcc.gameStatusEnum.Cancelled"
                                                ng-click="gcc.reopenGame()">{{::'app.ReOpen' | i18n}}</a>
