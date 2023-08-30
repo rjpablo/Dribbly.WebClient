@@ -29,6 +29,10 @@
 
         function setTargetLink() {
             switch (dni.item.type) {
+                case _notificationTypes.NewGameForBooker:
+                case _notificationTypes.NewGameForOwner:
+                    dni.targetLink = $state.href('main.game.details', { id: dni.item.additionalInfo.gameId });
+                    break;
                 case _notificationTypes.NewBookingForBooker:
                 case _notificationTypes.NewBookingForOwner:
                     dni.targetLink = $state.href('main.booking', { id: dni.item.bookingId });
@@ -38,6 +42,10 @@
                 case _notificationTypes.JoinTournamentRequestRejected:
                 case _notificationTypes.TournamentTeamRemoved:
                     dni.targetLink = $state.href('main.tournament.teams', { id: dni.item.additionalInfo.tournamentId });
+                    break;
+                case _notificationTypes.JoinTeamRequestApproved:
+                case _notificationTypes.JoinTeamRequest:
+                    dni.targetLink = $state.href('main.team.members', { id: dni.item.additionalInfo.teamId });
                     break;
 
             }

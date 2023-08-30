@@ -21,16 +21,14 @@
                     <drbbly-ad type="'horizontal'"></drbbly-ad>
                 </div>
                 <div class="col-12" ng-if="dad.isManager">
-                    <div drbbly-overlay="dad.joinRequestsOverlay">
-                        <drbbly-teammemberslist members="dad.requestingMembers"
-                                                team="dad.team"
-                                                list-title="'app.MemberRequests' | i18n"
-                                                settings="dad.memberListSettings"
-                                                can-process-request="dad.isManager"
-                                                on-request-processed="dad.onRequestProcessed"
-                                                class="d-block mb-3">
-                        </drbbly-teammemberslist>
-                    </div>
+                    <drbbly-teammemberslist members="dad.requestingMembers"
+                                            team="dad.team"
+                                            list-title="'app.MemberRequests' | i18n"
+                                            settings="dad.memberListSettings"
+                                            can-process-request="dad.isManager"
+                                            on-request-processed="dad.onRequestProcessed"
+                                            class="d-block mb-3">
+                    </drbbly-teammemberslist>
                 </div>
                 <div class="col-12" ng-if="dad.isManager">
                     <!-- Ad -->

@@ -13,16 +13,13 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['constants', '$stateParams', 'authService', 'permissionsService',
-        'drbblyOverlayService', 'modalService', 'i18nService', 'drbblyTeamsService'];
-    function controllerFunc(constants, $stateParams, authService, permissionsService,
-        drbblyOverlayService, modalService, i18nService, drbblyTeamsService) {
+    controllerFunc.$inject = ['$stateParams', 'authService', 'drbblyOverlayService', 'drbblyTeamsService'];
+    function controllerFunc($stateParams, authService, drbblyOverlayService, drbblyTeamsService) {
         var dad = this;
 
         dad.$onInit = function () {
             dad.teamId = $stateParams.id;
             dad.overlay = drbblyOverlayService.buildOverlay();
-            dad.joinRequestsOverlay = drbblyOverlayService.buildOverlay();
             dad.isOwned = authService.isCurrentAccountId(dad.team.addedById);
             dad.isBusy = true;
             dad.isManager = authService.isCurrentAccountId(dad.team.managedById);
@@ -64,14 +61,11 @@
         }
 
         function loadPendingRequests() {
-            dad.joinRequestsOverlay.setToBusy();
             drbblyTeamsService.getJoinRequests(dad.teamId)
                 .then(function (data) {
                     dad.isBusy = false;
                     dad.requestingMembers = data;
-                    dad.joinRequestsOverlay.setToReady();
                 }, function (error) {
-                    dad.joinRequestsOverlay.setToError();
                     dad.isBusy = false;
                 });
         }

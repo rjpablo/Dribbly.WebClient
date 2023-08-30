@@ -285,6 +285,7 @@
                     Notification_JoinTeamRequestApproved: 'Your request to join <strong>{teamName}</strong> has been approved.',
                     Notification_JoinTournamentRequestApproved: 'You request for <strong>{teamName}</strong> to join <strong>{tournamentName}</strong> has been approved.',
                     Notification_JoinTournamentRequestRejected: 'You request for <strong>{teamName}</strong> to join <strong>{tournamentName}</strong> was rejected.',
+                    Notification_NewGameForOwner: '<strong>{addedBy}</strong> added a game at <strong>{courtName}</strong>.',
                     Notification_NewJoinTournamentRequest: '<strong>{teamName}</strong> is requesting to join <strong>{tournamentName}</strong>.',
                     Notification_TournamentTeamRemoved: '<strong>{teamName}</strong> was removed from the tournament <strong>{tournamentName}</strong>.',
                     Notification_UserMadeABookingAtCourtName: '<strong>{userName}</strong> has booked a game for <strong>{courtName}</strong>',

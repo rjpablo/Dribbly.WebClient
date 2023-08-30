@@ -11,22 +11,18 @@
         <!--#region Game-Related  -->
         <div ng-if="dni.item.type === $root.constants.enums.notificationTypeEnum.GameUpdatedForBooker ||
              dni.item.type === $root.constants.enums.notificationTypeEnum.GameUpdatedForOwner"
-             ng-bind-html="('app.Notification_UserUpdatedGame' | i18n : {courtName: dni.item.game.title, userName: dni.item.updateddByName})">
+             ng-bind-html="('app.Notification_UserUpdatedGame' | i18n : {courtName: dni.item.game.title, userName: dni.item.updatedByName})">
         </div>
         <!--#endregion Game-Related  -->
-        <!--#region JoinTeamRequest-Related  -->
-        <div ng-if="dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTeamRequest"
-             ng-bind-html="('app.Notification_JoinTeamRequest' | i18n : {requestorName: dni.item.requestorName, teamName: dni.item.teamName})">
-        </div>
-        <div ng-if="dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTeamRequestApproved"
-             ng-bind-html="('app.Notification_JoinTeamRequestApproved' | i18n : {teamName: dni.item.teamName})">
-        </div>
-        <!--#endregion JoinTeamRequest-Related -->
         <!--#region Tournament-Related  -->
         <div ng-if="dni.item.type === $root.constants.enums.notificationTypeEnum.NewJoinTournamentRequest ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTeamRequest ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTeamRequestApproved ||
              dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTournamentRequestApproved ||
              dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTournamentRequestRejected ||
-             dni.item.type === $root.constants.enums.notificationTypeEnum.TournamentTeamRemoved"
+             dni.item.type === $root.constants.enums.notificationTypeEnum.TournamentTeamRemoved ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.NewGameForOwner ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.NewGameForBooker"
              ng-bind-html="::dni.getTemplate(dni.item)">
         </div>
         <!--#endregion JoinTeamRequest-Related -->
