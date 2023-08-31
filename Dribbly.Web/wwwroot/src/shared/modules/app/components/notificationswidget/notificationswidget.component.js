@@ -13,33 +13,53 @@
     controllerFn.$inject = ['drbblyNotificationsService', '$filter', 'drbblyDatetimeService', '$timeout'];
     function controllerFn(drbblyNotificationsService, $filter, drbblyDatetimeService, $timeout) {
         var dnw = this;
-        var _newNotificationListenerRemover;
         var _oldestLoadedDate; // The dateAdded property of the oldest notification that has been loaded
 
         dnw.$onInit = function () {
             dnw.allNotifs = [];
-            dnw.unViewedCount = drbblyNotificationsService.getUnviewedCount();
-            drbblyNotificationsService.onUnviewedCountChanged(function (unviewedCount) {
-                dnw.unViewedCount = unviewedCount;
-            });
+            dnw.unViewedCount = 0; // drbblyNotificationsService.getUnviewedCount();
+            drbblyNotificationsService.getUnviewedCount();
+            initializeHub();
         };
 
-        function onNewNotifications(notifications) {
-            dnw.allNotifs = notifications.concat(dnw.allNotifs);
+        function initializeHub() {
+
+            drbblyNotificationsService.on('notificationReceived', notif => {
+                $timeout(() => {
+                    //TODO: preview notification?
+                    if (dnw.isOpen) {
+                        dnw.allNotifs.unshift(notif);
+                    }
+                });
+            });
+
+            drbblyNotificationsService.on('unviewedCountChanged', function (unviewedCount) {
+                $timeout(() => dnw.unViewedCount = unviewedCount);
+            });
+
+            drbblyNotificationsService.on('reconnecting', function () {
+                $timeout(() => dnw.isReconnecting = true);
+            });
+
+            drbblyNotificationsService.on('reconnected', function () {
+                $timeout(() => dnw.isReconnecting = false);
+            });
+
+            drbblyNotificationsService.on('disconnected', function () {
+                $timeout(() => dnw.isReconnecting = true);
+            });
+
+            drbblyNotificationsService.on('connected', function () {
+                $timeout(() => dnw.hubIsConnecting = false);
+            });
         }
 
         dnw.onToggle = function (isOpen) {
+            dnw.isOpen = isOpen;
             if (isOpen) {
-                dnw.loadMore()
-                    .then(function () {
-                        var afterDate = dnw.allNotifs.length > 0 ?
-                            new Date(drbblyDatetimeService.toUtcString(dnw.allNotifs[0].dateAdded)) :
-                            drbblyDatetimeService.getUtcNow();
-                        _newNotificationListenerRemover = drbblyNotificationsService.monitorNewNotifications(afterDate, onNewNotifications);
-                    });
+                dnw.loadMore();
             }
             else {
-                removeNewNotificationListener();
                 clearData();
             }
         };
@@ -48,13 +68,6 @@
             _oldestLoadedDate = null;
             dnw.allNotifs.length = 0;
             dnw.enableInfiniteScrolling = false;
-        }
-
-        function removeNewNotificationListener() {
-            if (_newNotificationListenerRemover) {
-                _newNotificationListenerRemover.call();
-                _newNotificationListenerRemover = null;
-            }
         }
 
         dnw.loadMore = function (isFromInfiniteScroll) {
@@ -91,7 +104,6 @@
         };
 
         dnw.$onDestroy = function () {
-            removeNewNotificationListener();
         };
     }
 })();

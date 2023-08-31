@@ -123,18 +123,19 @@
         };
 
         function initialize() {
-            _chatHub = $.connection.chatHub;
+            var connection = $.hubConnection();
+            _chatHub = connection.createHubProxy(settingsService.chatHubName);
 
-            _chatHub.client.UnviewedCountChanged = data => {
+            _chatHub.on('UnviewedCountChanged', data => {
                 var room = cht.rooms.drbblySingleOrDefault(r => (r.chatId != null && r.chatId === data.chatId));
                 if (room) {
                     room.unviewedCount = data.unviewedCount;
                     updateTotalUnviewedCount();
                     $scope.$apply();
                 }
-            };
+            });
 
-            _chatHub.client.ReceiveMessage = message => {
+            _chatHub.on('ReceiveMessage', message => {
                 var room = cht.rooms.drbblySingleOrDefault(r => (r.chatId != null && r.chatId === message.chatId)
                     || (r.isTemporary && r.type == data.type && r.participants.drbblyAny(p => p.participantId == data.withParticipant.id))); //if a temporary chat room exists
                 if (room) {
@@ -169,9 +170,9 @@
                             drbblyCommonService.handleError(err);
                         });
                 }
-            };
+            });
 
-            _chatHub.client.removedFromChat = function (chatId) {
+            _chatHub.on('removedFromChat', function (chatId) {
                 var room = cht.rooms.drbblySingleOrDefault(r => r.chatId === chatId);
                 if (room) {
                     if (cht.activeRoom === room) {
@@ -181,27 +182,27 @@
                     updateTotalUnviewedCount();
                     $scope.$apply();
                 }
-            };
+            });
 
-            $.connection.hub.reconnecting(function () {
+            connection.reconnecting(function () {
                 cht.isReconnecting = true;
                 $scope.$apply();
             });
 
-            $.connection.hub.reconnected(function () {
+            connection.reconnected(function () {
                 cht.isReconnecting = false;
                 $scope.$apply();
             });
 
-            $.connection.hub.disconnected(function () {
+            connection.disconnected(function () {
                 cht.isReconnecting = true;
                 $scope.$apply();
                 setTimeout(function () {
-                    $.connection.hub.start()
+                    connection.start()
                         .done(function () {
                             cht.isReconnecting = false;
                             $scope.$apply();
-                            _connectionId = $.connection.hub.id;
+                            _connectionId = connection.id;
                             onConnectionRenewed();
                         })
                         .fail(function (err) {
@@ -210,11 +211,11 @@
                 }, 5000); // Restart connection after 5 seconds.
             });
 
-            $.connection.hub.url = settingsService.serviceBase + settingsService.chatHubName;
-            $.connection.hub.start()
+            connection.url = settingsService.serviceBase + 'signalr';
+            connection.start()
                 .done(function () {
                     cht.hubIsConnecting = false;
-                    _connectionId = $.connection.hub.id;
+                    _connectionId = connection.id;
                     loadChats()
                         .then(joinPersonalHub);
                 })
@@ -228,7 +229,7 @@
         }
 
         function joinPersonalHub() {
-            _chatHub.server.joinGroup(_connectionId, authService.authentication.accountId);
+            _chatHub.invoke('joinGroup', _connectionId, authService.authentication.accountId);
         }
 
         function reset() {

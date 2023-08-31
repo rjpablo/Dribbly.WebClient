@@ -7,5 +7,6 @@
         public bool SuppressNotifications { get; set; }
         public bool AllowGameReset { get; set; }
         public string ChatHubName { get; set; }
+        public string NotificationsHubName { get; set; }
     }
 }

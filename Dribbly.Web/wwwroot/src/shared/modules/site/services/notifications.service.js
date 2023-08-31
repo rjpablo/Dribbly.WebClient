@@ -12,10 +12,63 @@
                 var _unviewedCountChangedListeners = [];
                 var _isRunning;
                 var _unviewedCount;
-                var _newNotificationsStart;
+                var _hub;
+                var _listeners = {};
+                var _connection;
+
+                // #region Hub Configuration
+                function initializeHub() {
+                    _connection = $.hubConnection();
+                    _hub = _connection.createHubProxy(settingsService.notificationsHubName);
+                    _connection.url = settingsService.serviceBase + 'signalr';
+
+                    _hub.on('receiveNotification', notif => {
+                        _unviewedCount.count++;
+                        notifyUnviewedCountListeners(_unviewedCount.count);
+                        massageNotifications([notif]);
+                        broadcast('notificationReceived', notif);
+                    });
+
+                    _connection.reconnecting(function () {
+                        broadcast('reconnecting');
+                    });
+
+                    _connection.reconnected(function () {
+                        broadcast('reconnected');
+                        joinPersonalHub();
+                    });
+
+                    _connection.disconnected(function () {
+                        broadcast('disconnected');
+                        $timeout(function () {
+                            _connection.start()
+                                .done(function () {
+                                    broadcast('reconnected');
+                                    joinPersonalHub();
+                                })
+                                .fail(function (err) {
+                                    console.log('Could not re-establish connection!');
+                                });
+                        }, 5000); // Restart connection after 5 seconds.
+                    });
+
+                    _connection.start()
+                        .done(function () {
+                            broadcast('connected');
+                            joinPersonalHub();
+                        })
+                        .fail(function (err) {
+                            broadcast('connectionFailed');
+                        });
+                }
+
+                function joinPersonalHub() {
+                    _hub.invoke('joinGroup', _connection.id, authService.authentication.accountId);
+                }
+                // #endregion Hub Configuration
 
                 // updates the number in the tool bar that indicates the number of unread notifications
-                function getUnviewed() {
+                function getUnviewedCount() {
 
                     if (!authService.authentication.isAuthenticated) {
                         _isRunning = false;
@@ -57,23 +110,11 @@
                 }
 
                 function notifyUnviewedCountListeners(unviewedCount) {
-                    angular.forEach(_unviewedCountChangedListeners, function (listener) {
-                        listener(unviewedCount);
-                    });
-                }
-
-                function getUnviewedCount() {
-                    return (_unviewedCount || {}).count;
+                    broadcast('unviewedCountChanged', unviewedCount);
                 }
 
                 function getDetailedNotifications(beforeDate, loadCount = 2) {
                     return getNotificationDetails(loadCount, beforeDate);
-                }
-
-                function notifyListeners(newItems) {
-                    angular.forEach(_newNotificationsListeners, function (listener) {
-                        listener(newItems);
-                    });
                 }
 
                 function monitorNotifications() {
@@ -119,7 +160,7 @@
                     return function () {
                         isRunning = false;
                     };
-                } 
+                }
 
                 function massageNotifications(notifications) {
                     notifications.forEach(n => {
@@ -136,7 +177,7 @@
                     ) {
                         _unviewedNotifications = [];
                         _isRunning = true;
-                        monitorNotifications();
+                        initializeHub();
                     }
                 }
 
@@ -157,13 +198,33 @@
                     _isRunning = false;
                 }
 
+                function on(eventName, callback) {
+                    if (!_listeners[eventName]) {
+                        _listeners[eventName] = [];
+                    }
+                    var group = _listeners[eventName];
+                    group.push(callback);
+                    return function () {
+                        group.drbblyRemove(callback);
+                    }
+                }
+
+                function broadcast(eventName, data) {
+                    var group = _listeners[eventName];
+                    if (group) {
+                        angular.forEach(group, listener => listener(data));
+                    }
+                }
+
                 var _service = {
                     getAllFetched: getAllFetched,
                     getDetailedNotifications: getDetailedNotifications,
                     getNotificationDetails: getNotificationDetails,
                     getUnviewedCount: getUnviewedCount,
                     addNewNotificationsListener: addNewNotificationsListener,
+                    massageNotifications: massageNotifications,
                     monitorNewNotifications: monitorNewNotifications,
+                    on: on,
                     onUnviewedCountChanged: onUnviewedCountChanged,
                     setIsViewed: setIsViewed,
                     start: start,
