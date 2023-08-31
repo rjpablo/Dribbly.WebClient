@@ -159,7 +159,7 @@
                         .then(room => {
                             if (room) {
                                 cht.rooms.push(room);
-                                _chatHub.server.joinGroup(_connectionId, room.chatId)
+                                _chatHub.invoke('joinGroup', _connectionId, room.chatId)
                                     .then(() => { })
                                     .catch(err => { drbblyCommonService.handleError(err); })
                                 updateTotalUnviewedCount();
