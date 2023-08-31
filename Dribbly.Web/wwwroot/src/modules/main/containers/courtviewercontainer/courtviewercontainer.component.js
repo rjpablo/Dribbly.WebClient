@@ -156,7 +156,7 @@
         dcc.edit = function () {
             drbblyCourtshelperService.editCourt(dcc.court)
                 .then(function () {
-                    dcc.onUpdate();
+                    loadCourt();
                 })
                 .catch(function () { /*do nothing*/ });
         };
@@ -166,8 +166,7 @@
             dcc.updatingPrimaryPhoto = true;
             drbblyFileService.upload(file, 'api/courts/updateCourtPhoto/' + dcc.court.id)
                 .then(function (result) {
-                    //loadCourt();
-                    dcc.onUpdate();
+                    loadCourt();
                 })
                 .catch(function (error) {
                     console.log(error);
