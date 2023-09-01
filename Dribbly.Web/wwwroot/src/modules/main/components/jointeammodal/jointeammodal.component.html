@@ -44,24 +44,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="col-3">
-                            <label>{{::'app.Position' | i18n}}*:</label><br />
-                        </div>
-                        <div class="col-9">
-                            <select class="form-control"
-                                    ng-model="jtm.request.position"
-                                    required>
-                                <option ng-repeat="option in jtm.ddlPositionOptions"
-                                        value="{{option.value}}"
-                                        ng-selected="jtm.request.position === option.value">
-                                    {{option.text}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
             </fieldset>
         </form>
     </div>

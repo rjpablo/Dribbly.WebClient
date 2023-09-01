@@ -14,21 +14,19 @@
         });
 
     controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'drbblyTeamsService', 'drbblyCommonService',
-        'drbblyFormshelperService', 'constants', 'drbblyOverlayService', '$timeout'];
+        'constants', 'drbblyOverlayService', '$timeout'];
     function controllerFn($scope, modalService, drbblyEventsService, drbblyTeamsService, drbblyCommonService,
-        drbblyFormshelperService, constants, drbblyOverlayService, $timeout) {
+        constants, drbblyOverlayService, $timeout) {
         var jtm = this;
 
         jtm.$onInit = function () {
             jtm.overlay = drbblyOverlayService.buildOverlay();
             jtm.teamStatus = constants.enums.teamStatus;
             jtm.request = { teamId: jtm.model.teamId };
-            setDdlOptions();
 
             if (jtm.model.isEditByManager) {
-                $timeout(function () { // wait for position dropdown to render
+                $timeout(function () {
                     jtm.request.jerseyNo = jtm.model.request.jerseyNo;
-                    jtm.request.position = jtm.model.request.position;
                     jtm.request.memberAccountId = jtm.model.request.memberAccountId;
                 });
             }
@@ -41,11 +39,6 @@
                 }
             }, $scope);
         };
-
-        function setDdlOptions() {
-            jtm.ddlPositionOptions = drbblyFormshelperService.getDropDownListChoices({ enumKey: 'app.PlayerPositionEnum' });
-            jtm.ddlPositionOptions.drbblyRemove({ value: constants.enums.playerPositionEnum.Coach });
-        }
 
         jtm.onInterrupt = function (reason) {
             if (jtm.frmJoinTeam.$dirty) {
