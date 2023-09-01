@@ -16,14 +16,13 @@ drbbly-playergames {
             background-color: $dark;
         }
 
-        th.game,
-        td.game {
+        th.gameId,
+        td.gameId {
             left: 0;
             max-width: 150px;
             text-overflow: ellipsis;
             text-align: left;
             position: sticky;
-            white-space: nowrap;
         }
     }
 }

@@ -44,6 +44,10 @@
                 stat.team = stat.teamId === stat.game.team1Id ?
                     stat.game.team1.team :
                     stat.game.team2.team;
+
+                stat.opponentTeam = stat.teamId === stat.game.team1Id ?
+                    stat.game.team2.team :
+                    stat.game.team1.team;
             })
         }
 
@@ -59,12 +63,27 @@
             table.setOptions({
                 pagination: { pageSize: 10 },
                 columns: [{
-                    field: 'game.title',
-                    headerText: 'Game',
-                    dataTemplate: () => tgc.gameColumnTemplate,
-                    columnClass: 'game',
-                    headerClass: 'game'
-                }, {
+                    field: 'game.id',
+                    headerText: 'Game ID',
+                    dataTemplate: () => tgc.gameIdColumnTemplate,
+                    columnClass: 'gameId',
+                    headerClass: 'gameId text-nowrap'
+                },
+                {
+                    field: 'team.name',
+                    headerText: 'Team',
+                    dataTemplate: () => tgc.gameTeamColumnTemplate,
+                    columnClass: 'team text-nowrap',
+                    headerClass: 'team'
+                },
+                {
+                    field: 'opponentTeam.name',
+                    headerText: 'Opponent',
+                    dataTemplate: () => tgc.opponentTeamColumnTemplate,
+                    columnClass: 'team text-nowrap',
+                    headerClass: 'team'
+                },
+                {
                     field: 'game.dateAdded',
                     headerText: 'Date',
                     columnClass: 'text-nowrap',
@@ -135,13 +154,6 @@
                 {
                     field: 'turnovers',
                     headerText: 'TO'
-                },
-                {
-                    field: 'name',
-                    headerText: 'Team',
-                    dataTemplate: () => tgc.gameTeamColumnTemplate,
-                    columnClass: 'team text-nowrap',
-                    headerClass: 'team'
                 }]
             });
             table.setData(data);
