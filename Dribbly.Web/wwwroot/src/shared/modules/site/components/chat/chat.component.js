@@ -255,7 +255,7 @@
             rooms.forEach(room => {
                 if (room.type === constants.enums.chatTypeEnum.Private) {
                     var otherParticipant = room.participants.drbblySingle(p => p.id !== authService.authentication.accountId);
-                    room.title = otherParticipant.name;
+                    room.roomName = otherParticipant.name;
                     room.roomIcon = otherParticipant.profilePhoto;
                     room.link = $state.href('main.account.home', { username: otherParticipant.username })
                 }
