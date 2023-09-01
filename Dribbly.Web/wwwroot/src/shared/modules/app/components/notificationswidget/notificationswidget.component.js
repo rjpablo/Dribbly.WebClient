@@ -65,6 +65,7 @@
         };
 
         function clearData() {
+            dnw.noMoreItems = false;
             _oldestLoadedDate = null;
             dnw.allNotifs.length = 0;
             dnw.enableInfiniteScrolling = false;
@@ -72,11 +73,11 @@
 
         dnw.loadMore = function (isFromInfiniteScroll) {
 
-            if (isFromInfiniteScroll && !dnw.enableInfiniteScrolling) return;
+            if (dnw.noMoreItems || (isFromInfiniteScroll && !dnw.enableInfiniteScrolling)) return;
 
             dnw.isBusy = true;
             dnw.enableInfiniteScrolling = false;
-            return drbblyNotificationsService.getDetailedNotifications(_oldestLoadedDate, 6)
+            return drbblyNotificationsService.getDetailedNotifications(_oldestLoadedDate, 10)
                 .then(function (data) {
                     dnw.isBusy = false;
                     if (data && data.length) {
@@ -84,6 +85,7 @@
                         _oldestLoadedDate = drbblyDatetimeService.toUtcDate(data[data.length - 1].dateAdded);
                         dnw.allNotifs = dnw.allNotifs.concat(data);
                     }
+                    dnw.noMoreItems = !data || data.length < 10;
                     dnw.enableInfiniteScrolling = true;
                 }, function () {
                     dnw.isBusy = false;

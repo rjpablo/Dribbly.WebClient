@@ -2,7 +2,7 @@
      is-open="dnw.ddlNotificationsIsOpen"
      on-toggle="dnw.onToggle(open)"
      auto-close="outsideClick">
-    <a class="btn btn-link"
+    <a class="btn btn-link toggle"
        ng-click="dnw.ddlNotificationsIsOpen = !dnw.ddlNotificationsIsOpen; $event.stopPropagation();">
         <i class="fa fa-bell"></i>
         <div class="notification-badge-container"
@@ -13,30 +13,36 @@
     <div class="dropdown-menu dropdown-menu-right notifications-dropdown-menu"
          uib-dropdown-menu
          role="menu">
-        <h6 class="dropdown-header">Notifications</h6>
-        <div class="items-container">
-            <div class="items border-top border-bottom"
-                 in-view-container
-                 infinite-scroll-distance="1"
-                 infinite-scroll-parent
-                 infinite-scroll="dnw.loadMore(true)">
-                <drbbly-notificationitem ng-repeat="item in dnw.allNotifs track by (item.id + '_' + item.type)"
-                                         ng-click="dnw.ddlNotificationsIsOpen = false"
-                                         class="dropdown-item border-bottom d-inline-block p-0"
-                                         in-view="dnw.inView(item, $inview)"
-                                         in-view-options="{offset: [-50, 0, 0, 0]}"
-                                         ng-class="{'border-bottom-0': $last, 'unviewed': !item.isViewed}"
-                                         item="item"></drbbly-notificationitem>
+        <div class="content-wrappper">
+            <div class="d-flex align-items-center py-3 pl-3 pr-1 bg-black header border-bottom">
+                <h3 class="flex-grow-1">Notifications</h3>
+                <button class="btn btn-sm btn-black"
+                        ng-click="dnw.ddlNotificationsIsOpen = false">
+                    <i class="fa fa-2x fa-times"></i>
+                </button>
             </div>
-            <div class="black-transparent-bg p-3 loading-indicator text-center"
-                 ng-show="dnw.isBusy">
-                <i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{::'app.LoadingMoreItemsEllipsis' | i18n}}
+            <div class="items-container">
+                <div class="items border-bottom"
+                     in-view-container
+                     infinite-scroll-distance="2"
+                     infinite-scroll-parent
+                     infinite-scroll="dnw.loadMore(true)">
+                    <drbbly-notificationitem ng-repeat="item in dnw.allNotifs track by (item.id + '_' + item.type)"
+                                             ng-click="dnw.ddlNotificationsIsOpen = false"
+                                             class="dropdown-item border-bottom d-inline-block p-0"
+                                             in-view="dnw.inView(item, $inview)"
+                                             in-view-options="{offset: [-50, 0, 0, 0]}"
+                                             ng-class="{'unviewed': !item.isViewed}"
+                                             item="item"></drbbly-notificationitem>
+                    <div class="black-transparent-bg p-3 loading-indicator text-center">
+                        <span ng-show="dnw.isBusy">
+                            <i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{::'app.LoadingMoreItemsEllipsis' | i18n}}
+                        </span>
+                        <span ng-show="dnw.noMoreItems && !dnw.isBusy"
+                              class="text-secondary">No more items to load.</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <!--<button class="btn btn-outline-secondary mx-auto border-0 w-100"
-                ng-click="dnw.loadMore()">
-            <span ng-if="!dnw.isBusy">{{::'app.LoadMore' | i18n}}</span>
-            <span ng-if="dnw.isBusy"><i class="fa fa-cog fa-spin"></i></span>
-        </button>-->
     </div>
 </div>

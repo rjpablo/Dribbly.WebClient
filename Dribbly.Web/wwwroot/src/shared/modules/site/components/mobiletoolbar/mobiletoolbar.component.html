@@ -22,10 +22,12 @@
                         ng-click="mtb.openSearchModal()">
                     <i class="fa fa-search"></i>
                 </button>
+                <drbbly-notificationswidget class="ml-auto"
+                                            ng-if="mtb.isAuthenticated()"></drbbly-notificationswidget>
                 <!-- TODO: remove refenrences if app-navigator stays in the footer permanently -->
                 <!--<div ng-if="mtb.toolbar._navItems && mtb.toolbar._navItems.length" class="app-navigator">
-                    <drbbly-appnavigator nav-items="mtb.toolbar._navItems"></drbbly-appnavigator>
-                </div>-->
+        <drbbly-appnavigator nav-items="mtb.toolbar._navItems"></drbbly-appnavigator>
+    </div>-->
             </div>
         </div>
     </div>
