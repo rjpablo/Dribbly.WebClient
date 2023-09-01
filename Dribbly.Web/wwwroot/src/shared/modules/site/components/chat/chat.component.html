@@ -58,6 +58,17 @@
                                  class="bg-secondary text-center text-white">
                                 <i class="fa fa-circle-o-notch fa-spin"></i> Reconnecting...
                             </div>
+                            <div ng-if="cht.activeRoom.isBusy"
+                                 class="text-center">
+                                <i class="fa fa-circle-o-notch fa-spin"></i> Loading conversation...
+                            </div>
+                            <div ng-if="cht.activeRoom.isError"
+                                 class="text-center">
+                                <span class="text-danger">
+                                    <i class="fa fa-exclamation-triangle"></i> Failed to conversation.
+                                </span><br />
+                                <a ng-click="cht.activeRoom.retry()">Retry</a>
+                            </div>
                         </div>
                         <div ng-repeat="message in cht.activeRoom.messages"
                              class="message d-flex"
@@ -99,7 +110,7 @@
                           class="w-100">
                         <div class="form-row d-flex flex-nowrap w-100">
                             <button class="send-button"
-                                    ng-disabled="cht.hubIsConnecting || cht.isBusy"
+                                    ng-disabled="cht.hubIsConnecting || cht.isBusy || cht.activeRoom.isError"
                                     ngf-select="cht.addPhotos($files)"
                                     ngf-pattern="'image/*'"
                                     ngf-multiple="true"
@@ -116,7 +127,7 @@
                                       ng-keyup="cht.onKeyup($event)"
                                       placeholder="Type your message here"></textarea>
                             <button class="send-button"
-                                    ng-disabled="cht.hubIsConnecting || cht.isBusy"
+                                    ng-disabled="cht.hubIsConnecting || cht.isBusy || cht.activeRoom.isError"
                                     type="submit"
                                     ng-enabled="chat.text || cht.previewImages.length > 0">
                                 <i class="fa fa-paper-plane"></i>

@@ -40,55 +40,75 @@
                 initialize();
             });
 
-            _unregisterOpenChat = drbblyEventsService.on('drbbly.chat.openChat', async (event, data) => {
-                if (data.type === constants.enums.chatTypeEnum.Private) {
-                    var participantIds = [data.withParticipant.id, authService.authentication.accountId]
-                    data.code = 'pr' + Math.min(...participantIds) + '-' + Math.max(...participantIds);
-                }
-                else if (data.type === constants.enums.chatTypeEnum.Team) {
-                    data.code = 'tm' + data.team.id;
-                }
-                //check if the rooom has been loaded and then set it to active if so
-                var room = cht.rooms.drbblyFirstOrDefault(r => r.code === data.code);
-                if (room) {
-                    cht.setActiveRoom(room);
-                    focusInput();
-                }
-                else {
-
-                    if (data.type === constants.enums.chatTypeEnum.Private) {
-                        room = await createPrivateChat(data)
-                            .catch(err => {
-                                // TODO: handle properly
-                                drbblyCommonService.handleError(err, null, 'Failed to retrieve messages');
-                            });
-                    }
-                    else if (data.type === constants.enums.chatTypeEnum.Team) {
-                        room = await data.getChat()
-                            .catch(err => {
-                                // TODO: handle properly
-                                drbblyCommonService.handleError(err, null, 'Failed to retrieve messages');
-                            });
-                    }
-
-                    if (room) {
-                        massageRooms([room]);
-                        cht.rooms.unshift(room);
-                        cht.setActiveRoom(room);
-                        focusInput();
-                    }
-                }
-            });
-
-            function focusInput() {
-                cht.isOpen = true;
-                $timeout(() => $element.find('#drbbly-chat-input').focus(), 100);
-            }
+            _unregisterOpenChat = drbblyEventsService.on('drbbly.chat.openChat', openChat);
 
             if (cht.isAuthenticated) {
                 initialize();
             }
         };
+
+        function openChat(event, data) {
+            if (data.type === constants.enums.chatTypeEnum.Private) {
+                var participantIds = [data.withParticipant.id, authService.authentication.accountId]
+                data.code = 'pr' + Math.min(...participantIds) + '-' + Math.max(...participantIds);
+            }
+            else if (data.type === constants.enums.chatTypeEnum.Team) {
+                data.code = 'tm' + data.team.id;
+            }
+            //check if the rooom has been loaded and then set it to active if so
+            var room = cht.rooms.drbblyFirstOrDefault(r => r.code === data.code);
+            if (room) {
+                cht.setActiveRoom(room);
+                focusInput();
+            }
+            else {
+                var tempRoom = {
+                    code: data.code,
+                    messages: [],
+                    isTemporary: true,
+                    isBusy: true
+                };
+                var roomPromise;
+                if (data.type === constants.enums.chatTypeEnum.Private) {
+                    tempRoom.roomIcon = data.withParticipant.photo;
+                    tempRoom.roomName = data.withParticipant.name;
+                    roomPromise = createPrivateChat(data);
+                }
+                else if (data.type === constants.enums.chatTypeEnum.Team) {
+                    tempRoom.roomIcon = data.team.logo;
+                    tempRoom.roomName = data.team.name;
+                    roomPromise = data.getChat();
+                }
+
+                cht.rooms.unshift(tempRoom);
+                cht.setActiveRoom(tempRoom);
+
+                roomPromise
+                    .then(room => {
+                        if (room) {
+                            tempRoom.isBusy = false;
+                            Object.assign(tempRoom, room);
+                            tempRoom.isTemporary = false;
+                            massageRooms([tempRoom]);
+                            cht.setActiveRoom(tempRoom);
+                            focusInput();
+                        }
+                    })
+                    .catch(err => {
+                        // TODO: handle properly
+                        tempRoom.isBusy = false;
+                        tempRoom.isError = true;
+                        tempRoom.retry = () => {
+                            cht.rooms.drbblyRemove(r => r.code === tempRoom.code);
+                            openChat(event, data);
+                        };
+                    });
+            }
+        }
+
+        function focusInput() {
+            $timeout(() => $element.find('#drbbly-chat-input').focus(), 100);
+        }
 
         cht.$onDestroy = function () {
             _unregisterOpenChat();
@@ -272,7 +292,8 @@
 
         cht.setActiveRoom = (room) => {
             cht.hasSelectedRoom = true;
-            if (!cht.activeRoom || (room.chatId && cht.activeRoom.chatId !== room.chatId)) {
+            cht.isOpen = true;
+            if (!cht.activeRoom || cht.activeRoom.isTemporary || (cht.activeRoom.code !== room.code)) {
                 room.messages.forEach(message => massageMessage(message, room));
                 cht.activeRoom = room;
                 reset();
