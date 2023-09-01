@@ -16,6 +16,7 @@
         drbblyCommonService, settingsService, $q, drbblyFileService, $scope, $state) {
         var cht = this;
         var _chatHub;
+        var _hasInitialized;
         var _connectionId;
         var _shiftKeyPressed;
         var _tempMediaId;
@@ -35,9 +36,11 @@
             cht.hubIsConnecting = true;
             cht.isAuthenticated = authService.authentication.isAuthenticated;
 
-            _unregisterLoginSuccessful = drbblyEventsService.on('badLoginSuccessful', (event, data) => {
-                cht.isAuthenticated = true;
-                initialize();
+            _unregisterLoginSuccessful = drbblyEventsService.on('dribbly.login.successful', (event, data) => {
+                if (!_hasInitialized) {
+                    cht.isAuthenticated = true;
+                    initialize();
+                }
             });
 
             _unregisterOpenChat = drbblyEventsService.on('drbbly.chat.openChat', openChat);
@@ -143,6 +146,7 @@
         };
 
         function initialize() {
+            _hasInitialized = true;
             var connection = $.hubConnection();
             _chatHub = connection.createHubProxy(settingsService.chatHubName);
 

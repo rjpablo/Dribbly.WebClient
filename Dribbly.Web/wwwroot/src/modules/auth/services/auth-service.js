@@ -5,9 +5,9 @@
         .factory('authService', serviceFn);
 
     serviceFn.$inject = ['$http', '$q', 'localStorageService', 'settingsService', '$state', '$location', 'modalService',
-        'permissionsService'];
+        'permissionsService', 'drbblyEventsService'];
     function serviceFn($http, $q, localStorageService, settingsService, $state, $location, modalService,
-        permissionsService) {
+        permissionsService, drbblyEventsService) {
 
         var authServiceFactory = {};
         var _useRefreshTokens = true;
@@ -57,6 +57,8 @@
                             _authentication.accountId = parseInt(response.data.accountId);
 
                             deferred.resolve(response);
+
+                            drbblyEventsService.broadcast('dribbly.login.successful');
 
                         })
                         .catch(function (error) {
@@ -211,6 +213,7 @@
                     _authentication.accountId = parseInt(response.data.accountId);
 
                     deferred.resolve(response);
+                    drbblyEventsService.broadcast('dribbly.login.successful');
 
                 })
                 .catch(function (err) {
@@ -246,6 +249,9 @@
                     _authentication.accountId = parseInt(response.data.accountId);
 
                     deferred.resolve(response);
+                    if (response.data.hasRegistered) {
+                        drbblyEventsService.broadcast('dribbly.login.successful');
+                    }
 
                 }).catch(function (err) {
                     _logOut();
