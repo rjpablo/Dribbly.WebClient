@@ -35,6 +35,9 @@
             setOrientation();
 
             angular.element($window).on('resize', setOrientation);
+            gdg.app.updatePageDetails({
+                title: (gdg.game.title || 'Untitled Game') + ' - Tracker'
+            });
         };
 
         gdg.$onChanges = function (changes) {

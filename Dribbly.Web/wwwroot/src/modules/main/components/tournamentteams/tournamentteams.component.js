@@ -34,6 +34,10 @@
             $timeout(() => {
                 dtg.filter.stageId = null;
             });
+            dtg.app.updatePageDetails({
+                title: (dtg.tournament.name) + ' - Teams',
+                image: dtg.tournament.logo.url
+            });
         };
 
         dtg.teamsFilter = function (team, index, teams) {

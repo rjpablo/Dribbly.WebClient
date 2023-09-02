@@ -121,6 +121,7 @@
 
         <div ng-if="avc.account && avc.account.entityStatus === $root.constants.enums.accountStatus.Active">
             <ui-view account="avc.account"
+                     app="avc.app"
                      on-update="avc.onAccountUpdate"
                      ng-if="avc.shouldDisplayAsPublic"></ui-view>
             <div class="container"

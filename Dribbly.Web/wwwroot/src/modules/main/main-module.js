@@ -35,22 +35,14 @@
 
             .state('main.home', {
                 url: '/home',
-                component: 'drbblyHomeContainer',
-                resolve: {
-                    $titleKey: function () {
-                        return 'site.Home';
-                    }
-                }
+                component: 'drbblyHomeContainer'
             })
             // #endregion MAIN
 
             // #region ACCOUNT
             .state('main.players', {
                 url: '/players',
-                component: 'drbblyAccountscontainer',
-                resolve: {
-                    $titleKey: () => { return 'site.Players'; }
-                }
+                component: 'drbblyAccountscontainer'
             })
 
             .state('main.account', {
@@ -61,117 +53,75 @@
 
             .state('main.account.home', {
                 url: '',
-                component: 'drbblyAccounthome',
-                resolve: {
-                    $titleKey: () => { return 'site.Home'; }
-                }
+                component: 'drbblyAccounthome'
             })
 
             .state('main.account.games', {
                 url: '/games',
-                component: 'drbblyPlayergames',
-                resolve: {
-                    $titleKey: () => { return 'app.Games'; }
-                }
+                component: 'drbblyPlayergames'
             })
 
             .state('main.account.details', {
                 url: '/details',
-                component: 'drbblyAccountdetails',
-                resolve: {
-                    $titleKey: () => { return 'site.AccountDetails'; }
-                }
+                component: 'drbblyAccountdetails'
             })
 
             .state('main.account.settings', {
                 url: '/settings',
-                component: 'drbblyAccountsettings',
-                resolve: {
-                    $titleKey: () => { return 'site.AccountSettings'; }
-                }
+                component: 'drbblyAccountsettings'
             })
 
             .state('main.account.photos', {
                 url: '/photos',
-                component: 'drbblyAccountphotos',
-                resolve: {
-                    $titleKey: () => { return 'app.Photos'; }
-                }
+                component: 'drbblyAccountphotos'
             })
 
             .state('main.account.videos', {
                 url: '/videos',
-                component: 'drbblyAccountvideos',
-                resolve: {
-                    $titleKey: () => { return 'app.AccountVideos'; }
-                }
+                component: 'drbblyAccountvideos'
             })
             // #endregion ACCOUNT
 
             // #region Court
             .state('main.courts', {
                 url: '/courts',
-                template: '<drbbly-courts-container></drbbly-courts-container>',
-                resolve: {
-                    $titleKey: () => { return 'site.Courts'; }
-                }
+                component: 'drbblyCourtsContainer'
             })
 
             .state('main.court', {
                 abstract: true,
                 url: '/court/:id',
-                component: 'drbblyCourtviewercontainer',
-                resolve: {
-                    $titleKey: () => { return 'site.CourtDetails'; }
-                }
+                component: 'drbblyCourtviewercontainer'
             })
 
             .state('main.court.home', {
                 url: '/home',
-                component: 'drbblyCourthome',
-                resolve: {
-                    $titleKey: () => { return 'site.CourtHome'; }
-                }
+                component: 'drbblyCourthome'
             })
 
             .state('main.court.details', {
                 url: '/details',
-                component: 'drbblyCourtdetails',
-                resolve: {
-                    $titleKey: () => { return 'site.CourtDetails'; }
-                }
+                component: 'drbblyCourtdetails'
             })
 
             .state('main.court.photos', {
                 url: '/photos',
-                component: 'drbblyCourtphotos',
-                resolve: {
-                    $titleKey: () => { return 'app.CourtPhotos'; }
-                }
+                component: 'drbblyCourtphotos'
             })
 
             .state('main.court.videos', {
                 url: '/videos',
-                component: 'drbblyCourtvideos',
-                resolve: {
-                    $titleKey: () => { return 'app.CourtVideos'; }
-                }
+                component: 'drbblyCourtvideos'
             })
 
             .state('main.court.games', {
                 url: '/games',
-                component: 'drbblyCourtgames',
-                resolve: {
-                    $titleKey: () => { return 'site.CourtGames'; }
-                }
+                component: 'drbblyCourtgames'
             })
 
             .state('main.court.bookings', {
                 url: '/bookings',
-                component: 'drbblyCourtbookings',
-                resolve: {
-                    $titleKey: () => { return 'site.CourtBookings'; }
-                }
+                component: 'drbblyCourtbookings'
             })
 
             .state('main.court.schedule', {
@@ -180,18 +130,12 @@
                     defaultDate: null
                 },
                 url: '/schedule',
-                component: 'drbblyCourtschedulecontainer',
-                resolve: {
-                    $titleKey: () => { return 'site.CourtSchedule'; }
-                }
+                component: 'drbblyCourtschedulecontainer'
             })
 
             .state('main.court.reviews', {
                 url: '/reviews',
-                component: 'drbblyCourtreviews',
-                resolve: {
-                    $titleKey: () => { return 'app.CourtReviews'; }
-                }
+                component: 'drbblyCourtreviews'
             })
 
             // #endregion Court
@@ -199,10 +143,7 @@
             // #region TEAM
             .state('main.teams', {
                 url: '/teams',
-                component: 'drbblyTeamscontainer',
-                resolve: {
-                    $titleKey: () => { return 'site.Teams'; }
-                }
+                component: 'drbblyTeamscontainer'
             })
 
             .state('main.team', {
@@ -216,26 +157,17 @@
 
             .state('main.team.home', {
                 url: '',
-                component: 'drbblyTeamhome',
-                resolve: {
-                    $titleKey: () => { return 'site.Home'; }
-                }
+                component: 'drbblyTeamhome'
             })
 
             .state('main.team.members', {
                 url: '/members/',
-                component: 'drbblyTeammembers',
-                resolve: {
-                    $titleKey: () => { return 'app.Members'; }
-                }
+                component: 'drbblyTeammembers'
             })
 
             .state('main.team.games', {
                 url: '/games/',
-                component: 'drbblyTeamgames',
-                resolve: {
-                    $titleKey: () => { return 'app.Games'; }
-                }
+                component: 'drbblyTeamgames'
             })
             // #endregion TEAM
 
@@ -243,18 +175,12 @@
 
             .state('main.booking', {
                 url: '/booking/:id',
-                component: 'drbblyBookingviewercontainer',
-                resolve: {
-                    $titleKey: () => { return 'app.BookingDetails'; }
-                }
+                component: 'drbblyBookingviewercontainer'
             })
 
             .state('main.booking.details', {
                 url: '/details',
-                component: 'drbblybookingdetails',
-                resolve: {
-                    $titleKey: () => { return 'app.BookingDetails'; }
-                }
+                component: 'drbblybookingdetails'
             })
             // #endregion BOOKING
 
@@ -265,41 +191,28 @@
                 },
                 url: '/game/:id',
                 abstract: true,
-                component: 'drbblyGameviewercontainer',
-                resolve: {
-                    $titleKey: () => { return 'app.GameDetails'; }
-                }
+                component: 'drbblyGameviewercontainer'
             })
 
             .state('main.game.details', {
                 url: '',
-                component: 'drbblyGamedetails',
-                resolve: {
-                    $titleKey: () => { return 'app.GameDetails'; }
-                }
+                component: 'drbblyGamedetails'
             })
 
             .state('main.game.playByPlay', {
                 url: '/play-by-play',
-                component: 'drbblyPlaybyplay',
-                resolve: {
-                    $titleKey: () => { return 'app.PlayByPlay'; }
-                }
+                component: 'drbblyPlaybyplay'
             })
 
             .state('main.game.stats', {
                 url: '/stats',
-                component: 'drbblyGamestats',
-                resolve: {
-                    $titleKey: () => { return 'app.Stats'; }
-                }
+                component: 'drbblyGamestats'
             })
 
             .state('main.game.track', {
                 url: '/track',
                 component: 'drbblyGametracking',
                 resolve: {
-                    $titleKey: () => { return 'app.GameDetails'; },
                     authorization: ['authService', '$state', 'drbblyToastService', 'drbblyGamesService', '$stateParams',
                         function (authService, $state, drbblyToastService, drbblyGamesService, $stateParams) {
                             function reject() {
@@ -330,37 +243,24 @@
             })
             .state('main.tournament.home', {
                 url: '',
-                component: 'drbblyTournamenthome',
-                resolve: {
-                    $titleKey: () => { return 'app.TournamentDetails'; }
-                }
+                component: 'drbblyTournamenthome'
             })
             .state('main.tournament.games', {
                 url: '/games',
-                component: 'drbblyTournamentgames',
-                resolve: {
-                    $titleKey: () => { return 'app.Games'; }
-                }
+                component: 'drbblyTournamentgames'
             })
             .state('main.tournament.teams', {
                 url: '/teams',
-                component: 'drbblyTournamentteams',
-                resolve: {
-                    $titleKey: () => { return 'app.Teams'; }
-                }
+                component: 'drbblyTournamentteams'
             })
             .state('main.tournament.stats', {
                 url: '/stats',
-                component: 'drbblyTournamentstats',
-                resolve: {
-                    $titleKey: () => { return 'app.Stats'; }
-                }
+                component: 'drbblyTournamentstats'
             })
             .state('main.tournament.stages', {
                 url: '/stages',
                 component: 'drbblyTournamentstages',
                 resolve: {
-                    $titleKey: () => { return 'app.Stages'; },
                     authorization: ['authService', '$state', 'drbblyToastService', 'drbblyTournamentsService', '$stateParams',
                         function (authService, $state, drbblyToastService, drbblyTournamentsService, $stateParams) {
                             function reject() {
@@ -385,7 +285,6 @@
                 url: '/settings',
                 component: 'drbblyTournamentsettings',
                 resolve: {
-                    $titleKey: () => { return 'app.Stages'; },
                     authorization: ['authService', '$state', 'drbblyToastService', 'drbblyTournamentsService', '$stateParams',
                         function (authService, $state, drbblyToastService, drbblyTournamentsService, $stateParams) {
                             function reject() {
@@ -415,18 +314,12 @@
                 },
                 abstract: true,
                 url: '/league/:id',
-                component: 'drbblyLeagueviewercontainer',
-                resolve: {
-                    $titleKey: () => { return 'app.LeagueDetails'; }
-                }
+                component: 'drbblyLeagueviewercontainer'
             })
 
             .state('main.league.seasons', {
                 url: '/seasons',
-                component: 'drbblyLeagueseasons',
-                resolve: {
-                    $titleKey: () => { return 'app.Seasons'; }
-                }
+                component: 'drbblyLeagueseasons'
             })
             // #endregion LEAGUE
 
@@ -443,10 +336,7 @@
                     resumeUrl: '',
                     messageKey: ''
                 },
-                component: 'drbblyLoginform',
-                resolve: {
-                    $titleKey: () => { return 'auth.LogIn'; }
-                }
+                component: 'drbblyLoginform'
             })
 
             .state('auth.passwordReset', {
@@ -455,18 +345,12 @@
                     email: '',
                     token: ''
                 },
-                component: 'drbblyPasswordresetform',
-                resolve: {
-                    $titleKey: () => { return 'auth.ResetPassword'; }
-                }
+                component: 'drbblyPasswordresetform'
             })
 
             .state('auth.forgotPassword', {
                 url: '/forgotpassword',
-                component: 'drbblyForgotpasswordform',
-                resolve: {
-                    $titleKey: () => { return 'auth.ForgotPassword'; }
-                }
+                component: 'drbblyForgotpasswordform'
             })
 
             .state('auth.signUp', {
@@ -474,10 +358,7 @@
                 params: {
                     data: null
                 },
-                component: 'drbblySignupform',
-                resolve: {
-                    $titleKey: () => { return 'auth.SignUp'; }
-                }
+                component: 'drbblySignupform'
             })
             // #endregion AUTH
 
@@ -498,8 +379,7 @@
                             });
 
                         return deferred.promise;
-                    }],
-                    $titleKey: () => { return 'app.GameTracking'; }
+                    }]
                 },
                 component: 'drbblyTrackingcontainer'
             });

@@ -26,6 +26,10 @@
             dgs.activeTab = dgs.tabs.players;
             loadTeams();
             loadPlayers();
+            dgs.app.updatePageDetails({
+                title: (dgs.tournament.name) + ' - Stats',
+                image: dgs.tournament.logo.url
+            });
         };
 
         function loadTeams() {

@@ -22,6 +22,10 @@
             tgc.isManager = tgc.team.addedById === authService.authentication.accountId;
             tgc._activeTabIndex = 1;
             loadGames();
+            tgc.app.updatePageDetails({
+                title: (tgc.team.name) + ' - Games',
+                image: tgc.team.logo.url
+            });
         };
 
         function loadGames() {

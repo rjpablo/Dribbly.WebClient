@@ -6,7 +6,8 @@
         .component('drbblyAccountphotos', {
             bindings: {
                 onUpdate: '<',
-                account: '<'
+                account: '<',
+                app: '<'
             },
             controllerAs: 'dap',
             templateUrl: 'drbbly-default',
@@ -28,6 +29,10 @@
                 }, function () {
                     // TODO: show error in a toast
                 });
+            dap.app.updatePageDetails({
+                title: dap.account.name + ' - Photos',
+                image: dap.account.profilePhoto.url
+            });
         };
 
         dap.deletePhoto = function (photo, done) {

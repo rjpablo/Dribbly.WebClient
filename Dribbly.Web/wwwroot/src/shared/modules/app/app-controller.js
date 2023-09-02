@@ -104,5 +104,20 @@
             }
         }
 
+        app.updatePageDetails = function (data) {
+            var title = data.title ? `${data.title} - ${constants.site.name}` : constants.site.name;
+            var description = data.description ? data.description :
+                data.title ? title : constants.site.description;
+            document.title = title;
+            document.querySelector('meta[name="description"]')
+                .setAttribute("content", description);
+            document.querySelector('meta[property="og:title"]')
+                .setAttribute("content", title);
+            document.querySelector('meta[property="og:description"]')
+                .setAttribute("content", description);
+            document.querySelector('meta[property="og:image"]')
+                .setAttribute("content", data.image || constants.site.shareImageUrl);
+        }
+
     }
 })();

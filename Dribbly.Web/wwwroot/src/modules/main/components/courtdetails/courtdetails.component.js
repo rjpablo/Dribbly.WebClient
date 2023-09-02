@@ -6,7 +6,8 @@
         .component('drbblyCourtdetails', {
             bindings: {
                 court: '<',
-                onUpdate: '<'
+                onUpdate: '<',
+                app: '<'
             },
             controllerAs: 'dcd',
             templateUrl: 'drbbly-default',
@@ -15,10 +16,10 @@
 
     controllerFunc.$inject = ['authService', 'drbblyCourtshelperService', 'drbblyFileService', '$stateParams', 'i18nService',
         'drbblyOverlayService', 'drbblyCourtsService', 'drbblyFooterService', 'permissionsService', 'modalService',
-        'drbblyGameshelperService', '$state'];
+        'drbblyGameshelperService', '$state', 'constants'];
     function controllerFunc(authService, drbblyCourtshelperService, drbblyFileService, $stateParams, i18nService,
         drbblyOverlayService, drbblyCourtsService, drbblyFooterService, permissionsService, modalService,
-        drbblyGameshelperService, $state) {
+        drbblyGameshelperService, $state, constants) {
         var dcd = this;
         var _priceComponent;
 
@@ -30,7 +31,10 @@
                 id: 'location-picker-map'
             };
             dcd.overlay.setToReady();
-            //loadCourt();
+            dcd.app.updatePageDetails({
+                title: dcd.court.name + ' - Details',
+                image: (dcd.court.primaryPhoto || constants.images.defaultCourtLogo).url
+            });
         };
 
         dcd.onPrimaryPhotoClick = function () {
@@ -103,7 +107,7 @@
                         $state.go('main.game.details', { id: game.id });
                     }
                 })
-                .catch(function () { /* do nothing */})
+                .catch(function () { /* do nothing */ })
         };
 
         dcd.showContact = function () {

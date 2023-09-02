@@ -6,7 +6,8 @@
         .component('drbblyCourthome', {
             bindings: {
                 court: '<',
-                onUpdate: '<'
+                onUpdate: '<',
+                app: '<'
             },
             controllerAs: 'dcd',
             templateUrl: 'drbbly-default',
@@ -40,6 +41,10 @@
             dcd.loadUpcomingGames();
             dcd.loadLocalPlayers();
             dcd.overlay.setToReady();
+            dcd.app.updatePageDetails({
+                title: dcd.court.name + ' - Home',
+                image: (dcd.court.primaryPhoto || constants.images.defaultCourtLogo).url
+            });
         };
 
         dcd.onMapReady = function () {

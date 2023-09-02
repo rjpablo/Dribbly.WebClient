@@ -26,8 +26,15 @@
             _gameId = $stateParams.id;
             pbp.gameStatusEnum = constants.enums.gameStatus;
             pbp.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
-            //loadGame();
         };
+
+        pbp.$onChanges = changes => {
+            if (changes.game && changes.game.currentValue) {
+                pbp.app.updatePageDetails({
+                    title: (pbp.game.title || 'Untitled Game') + ' - Play-by-Play'
+                });
+            }
+        }
 
         function loadGame() {
             pbp.gameDetailsOverlay.setToBusy();

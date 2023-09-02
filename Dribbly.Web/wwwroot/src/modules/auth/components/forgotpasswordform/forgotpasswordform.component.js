@@ -5,7 +5,8 @@
         .module('authModule')
         .component('drbblyForgotpasswordform', {
             bindings: {
-                goToLogin: '<'
+                goToLogin: '<',
+                app: '<'
             },
             controllerAs: 'fpf',
             templateUrl: 'drbbly-default',
@@ -17,7 +18,11 @@
         var fpf = this;
 
         fpf.$onInit = function () {
-            
+            if (fpf.app) {
+                fpf.app.updatePageDetails({
+                    title: 'Forgot Password'
+                });
+            }
         };
 
         fpf.submit = function () {

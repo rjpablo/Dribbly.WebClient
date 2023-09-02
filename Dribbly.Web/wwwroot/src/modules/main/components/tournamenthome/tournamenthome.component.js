@@ -19,6 +19,10 @@
 
         dth.$onInit = function () {
             dth.filter = {};
+            dth.app.updatePageDetails({
+                title: (dth.tournament.name) + ' - Home',
+                image: dth.tournament.logo.url
+            });
         };
 
         dth.$onChanges = changes => {

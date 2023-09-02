@@ -14,13 +14,16 @@
 
     controllerFunc.$inject = ['drbblyTeamsService', 'drbblyToolbarService', '$state', 'drbblyAccountsService',
         'drbblyOverlayService', '$timeout', 'drbblyTournamentsService', 'drbblyCarouselhelperService',
-        'drbblyCourtsService', 'authService', 'drbblyTeamshelperService', 'modalService'];
+        'drbblyCourtsService', 'authService', 'drbblyTeamshelperService', 'modalService', 'constants'];
     function controllerFunc(drbblyTeamsService, drbblyToolbarService, $state, drbblyAccountsService,
         drbblyOverlayService, $timeout, drbblyTournamentsService, drbblyCarouselhelperService, drbblyCourtsService,
-        authService, drbblyTeamshelperService, modalService) {
+        authService, drbblyTeamshelperService, modalService, constants) {
         var dhc = this;
 
         dhc.$onInit = function () {
+            dhc.app.updatePageDetails({
+                description: constants.site.description
+            });
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
             dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();
             dhc.tournamentsOverlay = drbblyOverlayService.buildOverlay();

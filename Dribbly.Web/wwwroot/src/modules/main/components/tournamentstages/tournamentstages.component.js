@@ -25,6 +25,10 @@
             tsc.stageOverlay = drbblyOverlayService.buildOverlay();
             loadStages();
             tsc.isManager = tsc.tournament.addedById === authService.authentication.accountId;
+            tsc.app.updatePageDetails({
+                title: (tsc.tournament.name) + ' - Stages',
+                image: tsc.tournament.logo.url
+            });
         };
 
         function loadStages() {

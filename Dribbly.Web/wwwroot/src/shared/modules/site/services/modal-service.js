@@ -11,9 +11,9 @@
                 }
 
                 controllerFn.$inject = ['$uibModalInstance', '$transitions', '$location', '$urlRouter',
-                    '$log', '$titleService'];
+                    '$log'];
                 function controllerFn($uibModalInstance, $transitions, $location, $urlRouter,
-                    $log, $titleService) {
+                    $log) {
                     var mod = this;
 
                     mod.$onInit = function () {
@@ -29,7 +29,6 @@
                     function dismiss(reason) {
                         unSub();
                         $uibModalInstance.dismiss(reason);
-                        $titleService.setTitle();
                     }
 
                     var unSub = $transitions.onBefore({}, function (transition) {
@@ -53,7 +52,6 @@
                                 // state's title). And the browser's title doesn't get updated
                                 // until document.title gets assign a different value resulting to
                                 // an incorrect title on the browser
-                                $titleService.setTitle(transition.$to());
                                 $location.url($urlRouter.location);
                             }
                             // Will cause mod.context.onInterrupt to run by publishing the 'modal.closing' event

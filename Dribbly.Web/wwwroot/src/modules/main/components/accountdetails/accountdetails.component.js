@@ -6,7 +6,8 @@
         .component('drbblyAccountdetails', {
             bindings: {
                 account: '<',
-                onUpdate: '<'
+                onUpdate: '<',
+                app: '<'
             },
             controllerAs: 'dad',
             templateUrl: 'drbbly-default',
@@ -22,6 +23,10 @@
             dad.overlay = drbblyOverlayService.buildOverlay();
             dad.isOwned = authService.isCurrentUserId(dad.account.identityUserId);
             loadAccount();
+            dad.app.updatePageDetails({
+                title: dad.account.name + ' - Account Details',
+                image: dad.account.profilePhoto.url
+            });
         };
 
         function loadAccount() {

@@ -6,6 +6,11 @@
     <base href="/" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="@Model.clientSettings.SiteDescription" />
+    <title>@(Model.clientSettings.SiteName) - @(Model.clientSettings.TagLine)</title>
+    <meta property="og:title" content="@(Model.clientSettings.SiteName) - @(Model.clientSettings.TagLine)" />
+    <meta property="og:description" content="@(Model.clientSettings.SiteDescription)" />
+    <meta property="og:image" content="@(Model.clientSettings.SiteSharedImageUrl)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
 
@@ -15,9 +20,9 @@
         <link href="~/src/custom/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         <link href="~/src/lib/cropperjs/cropper.min.css" rel="stylesheet" />
         <link href="~/src/lib/font-awesome/font-awesome.css" rel="stylesheet">
-        <link href="~/src/lib/@@fullcalendar/core/main.css" rel="stylesheet" />
-        <link href="~/src/lib/@@fullcalendar/daygrid/main.css" rel="stylesheet" />
-        <link href="~/src/lib/@@fullcalendar/timegrid/main.css" rel="stylesheet" />
+        <link href="~/src/lib/fullcalendar/core/main.css" rel="stylesheet" />
+        <link href="~/src/lib/fullcalendar/daygrid/main.css" rel="stylesheet" />
+        <link href="~/src/lib/fullcalendar/timegrid/main.css" rel="stylesheet" />
         <link href="~/src/lib/ui-bootstrap4/ui-bootstrap-csp.css" rel="stylesheet" />
         <link href="~/src/lib/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
         <link href="~/src/lib/angularjs-toaster/toaster.css" rel="stylesheet" />
@@ -254,10 +259,10 @@
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyDmHPmEBQIgvgg0FZX1-xWF4gUOp5ajuHA&libraries=placeses,visualization,drawing,geometry,places"></script>
         <script src="~/src/custom/markerclusterer/markerclusterer.js"></script>
         <script src="~/src/lib/ngmap/ng-map.js"></script>
-        <script src="~/src/lib/@@fullcalendar/core/main.js"></script>
-        <script src="~/src/lib/@@fullcalendar/interaction/main.js"></script>
-        <script src="~/src/lib/@@fullcalendar/daygrid/main.js"></script>
-        <script src="~/src/lib/@@fullcalendar/timegrid/main.js"></script>
+        <script src="~/src/lib/fullcalendar/core/main.js"></script>
+        <script src="~/src/lib/fullcalendar/interaction/main.js"></script>
+        <script src="~/src/lib/fullcalendar/daygrid/main.js"></script>
+        <script src="~/src/lib/fullcalendar/timegrid/main.js"></script>
         <script src="~/src/lib/ui-bootstrap4/ui-bootstrap.js"></script>
         <script src="~/src/lib/ui-bootstrap4/ui-bootstrap-tpls.js"></script>
         <script src="~/src/custom/angularjs-bootstrap-datetimepicker/js/datetimepicker.js"></script>

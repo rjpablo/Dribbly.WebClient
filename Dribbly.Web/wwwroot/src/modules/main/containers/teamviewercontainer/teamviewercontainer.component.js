@@ -93,7 +93,7 @@
                 .then(function (data) {
                     avc.team = data.team;
                     avc.team.dateAdded = new Date(drbblyDatetimeService.toUtcString(avc.team.dateAdded))
-                    avc.team.logo = avc.team.logo || getDefaultLogo();
+                    avc.team.logo = avc.team.logo || constants.images.defaultTeamLogo;
                     avc.team.photos = avc.team.photos || [];
                     avc.team.photos.push(avc.team.logo);
                     avc.isManager = authService.isCurrentAccountId(avc.team.addedById);
@@ -123,13 +123,6 @@
                     avc.isBusy = false;
                 });;
         };
-
-        function getDefaultLogo() {
-            return {
-                url: '../../../../../' + constants.images.defaultTeamLogoUrl,
-                isDefault: true
-            };
-        }
 
         avc.leaveTeam = function () {
             avc.isBusy = true;

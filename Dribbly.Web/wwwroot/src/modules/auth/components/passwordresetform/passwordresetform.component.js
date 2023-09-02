@@ -4,7 +4,9 @@
     angular
         .module('authModule')
         .component('drbblyPasswordresetform', {
-            bindings: {},
+            bindings: {
+                app: '<'
+            },
             controllerAs: 'prf',
             templateUrl: 'drbbly-default',
             controller: controllerFunc
@@ -19,6 +21,11 @@
                 email: $stateParams.email,
                 token: $stateParams.token
             };
+            if (prf.app) {
+                prf.app.updatePageDetails({
+                    title: 'Password Reset'
+                });
+            }
         };
 
         prf.resetPassword = function () {

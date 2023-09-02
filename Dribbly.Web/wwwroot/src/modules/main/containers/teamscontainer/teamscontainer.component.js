@@ -19,6 +19,10 @@
         var dtc = this;
 
         dtc.$onInit = function () {
+            dtc.app.updatePageDetails({
+                title: 'Teams',
+                description: 'Find basketball teams grouped and sorted by their performance statistics, a testament to their dedication and skill.'
+            });
             dtc.topTeamsOverlay = drbblyOverlayService.buildOverlay();
             dtc.leadersOverlay = drbblyOverlayService.buildOverlay();
             dtc.carouselSettings = drbblyCarouselhelperService.buildSettings();

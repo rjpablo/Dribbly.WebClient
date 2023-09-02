@@ -5,15 +5,16 @@
         .module('mainModule')
         .component('drbblyCourtgames', {
             bindings: {
-                app: '<'
+                app: '<',
+                court: '<'
             },
             controllerAs: 'cgc',
             templateUrl: 'drbbly-default',
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$stateParams', 'drbblyGamesService', 'drbblyOverlayService'];
-    function controllerFunc($stateParams, drbblyGamesService, drbblyOverlayService) {
+    controllerFunc.$inject = ['$stateParams', 'drbblyGamesService', 'drbblyOverlayService', 'constants'];
+    function controllerFunc($stateParams, drbblyGamesService, drbblyOverlayService, constants) {
         var cgc = this;
 
         cgc.$onInit = function () {
@@ -24,6 +25,11 @@
                 pageSize: 10
             };
             loadGames();
+            cgc.app.updatePageDetails({
+                title: cgc.court.name + ' - Games',
+                description: 'Games scheduled at ' + cgc.court.name,
+                image: (cgc.court.primaryPhoto || constants.images.defaultCourtLogo).url
+            });
         };
 
         function loadGames() {

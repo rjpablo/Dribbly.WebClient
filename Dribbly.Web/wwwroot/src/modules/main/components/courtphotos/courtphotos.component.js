@@ -6,7 +6,8 @@
         .component('drbblyCourtphotos', {
             bindings: {
                 onUpdate: '<',
-                court: '<'
+                court: '<',
+                app: '<'
             },
             controllerAs: 'dcp',
             templateUrl: 'drbbly-default',
@@ -14,9 +15,9 @@
         });
 
     controllerFunc.$inject = ['authService', 'modalService', '$stateParams', 'permissionsService',
-        'drbblyCommonService', 'drbblyCourtsService'];
+        'drbblyCommonService', 'drbblyCourtsService', 'constants'];
     function controllerFunc(authService, modalService, $stateParams, permissionsService,
-        drbblyCommonService, drbblyCourtsService) {
+        drbblyCommonService, drbblyCourtsService, constants) {
         var dcp = this;
 
         dcp.$onInit = function () {
@@ -29,6 +30,10 @@
                 }, function () {
                     // TODO: show error in a toast
                 });
+            dcp.app.updatePageDetails({
+                title: dcp.court.name + ' - Photos',
+                image: (dcp.court.primaryPhoto || constants.images.defaultCourtLogo).url
+            });
         };
 
         dcp.deletePhoto = function (photo, done) {

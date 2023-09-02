@@ -5,6 +5,7 @@
         .module('mainModule')
         .component('drbblyTeamhome', {
             bindings: {
+                app: '<',
                 team: '<',
                 onUpdate: '<'
             },
@@ -45,6 +46,10 @@
                 });
             thc.loadUpcomingGames();
             thc.loadTopPlayers();
+            thc.app.updatePageDetails({
+                title: (thc.team.name) + ' - Home',
+                image: thc.team.logo.url
+            });
         };
 
         thc.loadUpcomingGames = function () {

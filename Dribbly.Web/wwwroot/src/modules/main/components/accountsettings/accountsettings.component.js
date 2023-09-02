@@ -6,7 +6,8 @@
         .component('drbblyAccountsettings', {
             bindings: {
                 account: '<',
-                onUpdate: '<'
+                onUpdate: '<',
+                app: '<'
             },
             controllerAs: 'das',
             templateUrl: 'drbbly-default',
@@ -28,6 +29,10 @@
                 .then(loadData, function (err) {
                     das.overlay.setToError();
                 });
+            das.app.updatePageDetails({
+                title: das.account.name + ' - Account Settings',
+                image: das.account.profilePhoto.url
+            });
         };
 
         function loadData(data) {

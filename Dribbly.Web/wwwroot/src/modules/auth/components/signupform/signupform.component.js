@@ -4,7 +4,9 @@
     angular
         .module('authModule')
         .component('drbblySignupform', {
-            bindings: {},
+            bindings: {
+                app: '<'
+            },
             controllerAs: 'suf',
             templateUrl: 'drbbly-default',
             controller: controllerFunc
@@ -31,6 +33,11 @@
                 $timeout(function () {
                     $element.find('[name=username]').focus();
                 },)
+            }
+            if (suf.app) {
+                suf.app.updatePageDetails({
+                    title: 'Sign Up'
+                });
             }
         };
 

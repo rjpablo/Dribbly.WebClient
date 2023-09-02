@@ -22,6 +22,10 @@
             tgc.isManager = tgc.account.id === authService.authentication.accountId;
             tgc._activeTabIndex = 1;
             loadGames();
+            tgc.app.updatePageDetails({
+                title: tgc.account.name + ' - Games',
+                image: tgc.account.profilePhoto.url
+            });
         };
 
         function loadGames() {

@@ -34,6 +34,10 @@
             $timeout(() => {
                 dtg.filter.stageId = null;
             });
+            dtg.app.updatePageDetails({
+                title: (dtg.tournament.name) + ' - Games',
+                image: dtg.tournament.logo.url
+            });
         };
 
         function setGameDates() {

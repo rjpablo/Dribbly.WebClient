@@ -42,6 +42,9 @@
 
         dgs.$onChanges = function (changes) {
             if (changes.game && changes.game.currentValue) {
+                dgs.app.updatePageDetails({
+                    title: (dgs.game.title || 'Untitled Game') + ' - Stats'
+                });
                 massageData()
             }
         }

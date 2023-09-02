@@ -6,7 +6,8 @@
         .component('drbblyAccountvideos', {
             bindings: {
                 onUpdate: '<',
-                account: '<'
+                account: '<',
+                app: '<'
             },
             controllerAs: 'dav',
             templateUrl: 'drbbly-default',
@@ -32,6 +33,10 @@
                     dav.videos = videos || [];
                     dav.overlay.setToReady();
                 }, dav.overlay.setToError);
+            dav.app.updatePageDetails({
+                title: dav.account.name + ' - Videos',
+                image: dav.account.profilePhoto.url
+            });
         };
 
         dav.deleteVideo = function (video, done) {

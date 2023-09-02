@@ -5,6 +5,7 @@
         .module('mainModule')
         .component('drbblyTeammembers', {
             bindings: {
+                app: '<',
                 team: '<',
                 onUpdate: '<'
             },
@@ -34,6 +35,10 @@
                 loadSize: 6,
                 initialItemCount: 0
             }
+            dad.app.updatePageDetails({
+                title: (dad.team.name) + ' - Members',
+                image: dad.team.logo.url
+            });
         };
 
         dad.onRequestProcessed = function (isApproved) {

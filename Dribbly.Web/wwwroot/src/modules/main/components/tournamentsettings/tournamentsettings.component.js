@@ -25,6 +25,10 @@
             tsc.stageOverlay = drbblyOverlayService.buildOverlay();
             tsc.isManager = tsc.tournament.addedById === authService.authentication.accountId;
             setDefaultCourtEntity();
+            tsc.app.updatePageDetails({
+                title: (tsc.tournament.name) + ' - Settings',
+                image: tsc.tournament.logo.url
+            });
         };
 
         tsc.edit = function () {

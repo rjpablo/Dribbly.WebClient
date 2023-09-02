@@ -19,6 +19,10 @@
         var dhc = this;
 
         dhc.$onInit = function () {
+            dhc.app.updatePageDetails({
+                title: 'Players',
+                description: 'Discover top athletes grouped by statistics, showcasing the game\'s rising stars and seasoned legends.'
+            });
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
             dhc.leadersOverlay = drbblyOverlayService.buildOverlay();
             dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();

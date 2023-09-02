@@ -19,6 +19,10 @@
         var dcc = this;
 
         dcc.$onInit = function () {
+            dcc.app.updatePageDetails({
+                title: 'Courts',
+                description: 'Find the perfect spot for your next match, whether you\'re searching for public Basketball courts or facilities available for rent.'
+            });
             $element.addClass('drbbly-courts-container');
             dcc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             setInitialCarouselSettings();

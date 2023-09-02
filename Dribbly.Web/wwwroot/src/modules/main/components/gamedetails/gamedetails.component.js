@@ -30,6 +30,9 @@
 
         gdg.$onChanges = changes => {
             if (changes.game && changes.game.currentValue) {
+                gdg.app.updatePageDetails({
+                    title: (gdg.game.title || 'Untitled Game') + ' - Details'
+                });
                 gdg.isManager = authService.isCurrentAccountId(gdg.game.addedById);
                 gdg.postsOptions = {
                     postedOnType: constants.enums.entityType.Game,

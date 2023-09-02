@@ -61,7 +61,8 @@
         <div id="app-body"
              class="app-body">
             <div ng-if="lvc.tournament">
-                <ui-view tournament="lvc.tournament"
+                <ui-view app="lvc.app"
+                         tournament="lvc.tournament"
                          on-update="lvc.onTournamentUpdate"
                          massage-stages="lvc.massageStages"></ui-view>
             </div>

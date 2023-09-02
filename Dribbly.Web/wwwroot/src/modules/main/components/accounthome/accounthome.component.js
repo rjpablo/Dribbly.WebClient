@@ -6,7 +6,8 @@
         .component('drbblyAccounthome', {
             bindings: {
                 account: '<',
-                onUpdate: '<'
+                onUpdate: '<',
+                app: '<'
             },
             controllerAs: 'dad',
             templateUrl: 'drbbly-default',
@@ -30,6 +31,10 @@
             };
             dad.highlights = dad.account.highlights.map(h => h.file);
             loadAccount();
+            dad.app.updatePageDetails({
+                title: dad.account.name + ' - Profile',
+                image: dad.account.profilePhoto.url
+            });
         };
 
         function loadAccount() {

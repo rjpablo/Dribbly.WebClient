@@ -124,25 +124,25 @@ var nodeLibs = {
             '@fullcalendar/core/main.js',
             '@fullcalendar/core/main.css'
         ],
-        destination: '@fullcalendar/core'
+        destination: 'fullcalendar/core'
     },
     fullcalendar_daygrid: {
         source: [
             '@fullcalendar/daygrid/main.js',
             '@fullcalendar/daygrid/main.css'
         ],
-        destination: '@fullcalendar/daygrid'
+        destination: 'fullcalendar/daygrid'
     },
     fullcalendar_interaction: {
         source: '@fullcalendar/interaction/main.js',
-        destination: '@fullcalendar/interaction'
+        destination: 'fullcalendar/interaction'
     },
     fullcalendar_timegrid: {
         source: [
             '@fullcalendar/timegrid/main.js',
             '@fullcalendar/timegrid/main.css'
         ],
-        destination: '@fullcalendar/timegrid'
+        destination: 'fullcalendar/timegrid'
     },
     hammerjs: {
         source: 'hammerjs/hammer.js',

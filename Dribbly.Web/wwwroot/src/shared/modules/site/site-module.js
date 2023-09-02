@@ -16,7 +16,11 @@
 
     module.constant('constants', {
         site: {
-            name: 'Dribbly'
+            name: window.Dribbly.clientSettings.siteName,
+            description: window.Dribbly.clientSettings.siteDescription,
+            shareImageUrl: window.Dribbly.clientSettings.siteSharedImageUrl,
+            logoUrl: window.Dribbly.clientSettings.siteLogoUrl,
+            tagLine: window.Dribbly.clientSettings.tagLine
         }
     });
 

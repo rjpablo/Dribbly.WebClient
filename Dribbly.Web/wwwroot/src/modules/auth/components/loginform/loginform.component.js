@@ -7,7 +7,8 @@
             bindings: {
                 showResetPassword: '<',
                 onLoginSuccess: '<',
-                messageKey: '<'
+                messageKey: '<',
+                app: '<'
             },
             controllerAs: 'dlf',
             templateUrl: 'drbbly-default',
@@ -21,6 +22,11 @@
         dlf.$onInit = function () {
             dlf.messageKey = dlf.messageKey || $stateParams.messageKey;
             dlf.isBusy = false;
+            if (dlf.app) {
+                dlf.app.updatePageDetails({
+                    title: 'Login'
+                });
+            }
         };
 
         dlf.login = function () {

@@ -116,6 +116,7 @@
 
             <div ng-if="avc.team && avc.team.entityStatus === $root.constants.enums.entityStatus.Active">
                 <ui-view team="avc.team"
+                         app="avc.app"
                          on-update="avc.onTeamUpdate"
                          ng-if="avc.shouldDisplayAsPublic"></ui-view>
                 <div class="container"

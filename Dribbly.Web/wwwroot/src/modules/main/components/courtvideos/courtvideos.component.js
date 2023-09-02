@@ -6,7 +6,8 @@
         .component('drbblyCourtvideos', {
             bindings: {
                 onUpdate: '<',
-                court: '<'
+                court: '<',
+                app: '<'
             },
             controllerAs: 'dcv',
             templateUrl: 'drbbly-default',
@@ -14,9 +15,9 @@
         });
 
     controllerFunc.$inject = ['authService', 'modalService', '$stateParams', 'permissionsService',
-        'drbblyCommonService', 'drbblyCourtsService', 'settingsService'];
+        'drbblyCommonService', 'drbblyCourtsService', 'settingsService', 'constants'];
     function controllerFunc(authService, modalService, $stateParams, permissionsService,
-        drbblyCommonService, drbblyCourtsService, settingsService) {
+        drbblyCommonService, drbblyCourtsService, settingsService, constants) {
         var dcv = this;
         var _canDeleteNotOwned;
 
@@ -33,6 +34,10 @@
                 }, function () {
                     // todo: show error overlay
                 });
+            dcv.app.updatePageDetails({
+                title: dcv.court.name + ' - Videos',
+                image: (dcv.court.primaryPhoto || constants.images.defaultCourtLogo).url
+            });
         };
 
         function setVideoListItemsOptions() {
