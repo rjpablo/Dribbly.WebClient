@@ -7,12 +7,6 @@
                         <h5 class="drbbly-header d-inline-block m-0">
                             {{::'app.Security' | i18n}}
                         </h5>
-                        <button ng-if="dad.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
-                                ng-click="dad.edit()"
-                                class="btn btn-sm btn-secondary float-right">
-                            <span class="fa fa-pencil" aria-hidden="true"></span>&nbsp;
-                            {{::'site.Edit' | i18n}}
-                        </button>
                     </div>
                     <div class="card-body">
                         <div class="row">
