@@ -38,7 +38,7 @@ drbbly-videolistitem {
                 cursor: pointer;
 
                 .duration {
-                    background: #000;
+                    background: rgba(0,0,0, 0.8);
                     padding: 3px;
                     position: absolute;
                     bottom: 2px;
@@ -53,13 +53,19 @@ drbbly-videolistitem {
                 position: absolute;
                 top: 0;
                 right: 0;
+
+                [data-toggle="dropdown"] {
+                    background-color: rgba(0,0,0, 0.8);
+                    width: 20px;
+                    height: 20px;
+                    padding: 0;
+                    line-height: 1;
+                    border-radius: 2px;
+                }
             }
         }
 
         &.details {
-            background-color: $gray-100;
-            min-height: 7em;
-            max-height: 7em;
 
             .title {
                 max-height: 2.5em;

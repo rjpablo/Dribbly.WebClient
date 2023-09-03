@@ -14,9 +14,9 @@
                     <button ng-repeat="item in vpm.model.options.menuItems"
                             class="dropdown-item"
                             ng-click="vpm.menuItemClick(item, $event)"
-                            ng-show="item.isVisible(vpm.video)"
+                            ng-hide="item.isHidden && item.isHidden(vpm.video)"
                             type="button">
-                        {{item.textKey | i18n}}
+                        {{item.text}}
                     </button>
                 </div>
             </div>

@@ -35,7 +35,29 @@
                 title: dad.account.name + ' - Profile',
                 image: dad.account.profilePhoto.url
             });
+            dad.highlightsOptions = {
+                hideDetails: true,
+                menuItems: [{
+                    text: 'Remove',
+                    action: removeHighlight
+                }]
+            }
         };
+
+        function removeHighlight(video) {
+            modalService.confirm({ msg1Raw: 'Remove from highlights?' })
+                .then(confirmed => {
+                    if (confirmed) {
+                        drbblyAccountsService.removeHighlight(video.id)
+                            .then(() => {
+                                dad.highlights.drbblyRemove(h => h.id === video.id);
+                            })
+                    }
+                })
+                .catch(function (error) {
+                    drbblyCommonService.handleError(error);
+                });
+        }
 
         function loadAccount() {
             dad.overlay.setToBusy();

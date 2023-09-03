@@ -7,7 +7,7 @@
         <span class="duration"
               ng-hide="vli.options.hideDetails">{{vli.duration}}</span>
     </div>
-    <div class="controls">
+    <div class="controls p-1">
         <div class="dropdown"
              ng-if="vli.options.menuItems.length">
             <button type="button"
@@ -17,22 +17,26 @@
                     aria-expanded="false">
                 <i class="fa fa-ellipsis-h"></i>
             </button>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu dropdown-menu-right">
                 <button ng-repeat="item in vli.options.menuItems"
                         class="dropdown-item"
                         ng-click="item.action(vli.video, $event)"
-                        ng-show="item.isVisible(vli.video)"
+                        ng-hide="item.isHidden && item.isHidden(vli.video)"
                         type="button">
-                    {{item.textKey | i18n}}
+                    {{item.text}}
                 </button>
             </div>
         </div>
     </div>
 </div>
-<div class="details bg-white p-2"
+<div class="details p-2 bg-black"
      ng-hide="vli.options.hideDetails">
-    <h4 class="title"><small>{{vli.video.title}}</small></h4>
-    <drbbly-date date="vli.video.dateAdded"
-                 as-from-now="true"
-                 class="text-muted"></drbbly-date>
+    <span class="title text-white font-weight-semibold">
+        {{vli.video.title}}
+    </span>
+    <small>
+        <drbbly-date date="vli.video.dateAdded"
+                     as-from-now="true"
+                     class="text-muted"></drbbly-date>
+    </small>
 </div>

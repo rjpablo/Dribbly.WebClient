@@ -98,6 +98,14 @@
                     return drbblyhttpService.post(api + 'replaceEmail', input);
                 }
 
+                function removeHighlight(fileId) {
+                    return drbblyhttpService.post(api + 'removeHighlight/' + fileId);
+                }
+
+                function deleteVideo(videoId) {
+                    return drbblyhttpService.post(api + 'deleteVideo/' + videoId);
+                }
+
                 function setIsPublic(userId, isPublic) {
                     return drbblyhttpService.post(api + 'setIsPublic/' + userId + '/' + isPublic);
                 }
@@ -106,6 +114,7 @@
                     addAccountPhotos: addAccountPhotos,
                     addAccountVideo: addAccountVideo,
                     deletePhoto: deletePhoto,
+                    deleteVideo: deleteVideo,
                     getAllAccounts: getAllAccounts,
                     getAccount: getAccount,
                     getAccountByUsername: getAccountByUsername,
@@ -121,6 +130,7 @@
                     getPlayers: getPlayers,
                     getTopPlayers: getTopPlayers,
                     register: register,
+                    removeHighlight: removeHighlight,
                     replaceEmail: replaceEmail,
                     setIsPublic: setIsPublic,
                     setStatus: setStatus,

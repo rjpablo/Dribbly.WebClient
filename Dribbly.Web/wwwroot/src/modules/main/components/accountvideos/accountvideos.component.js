@@ -37,15 +37,22 @@
                 title: dav.account.name + ' - Videos',
                 image: dav.account.profilePhoto.url
             });
+
+            dav.videoOptions = {
+                menuItems: [{
+                    text: 'Delete',
+                    action: dav.deleteVideo
+                }]
+            }
         };
 
-        dav.deleteVideo = function (video, done) {
-            modalService.confirm('app.DeleteVideoConfirmationMsg')
+        dav.deleteVideo = function (video) {
+            modalService.confirm({msg1Raw: 'Delete Video?'})
                 .then(function (result) {
                     if (result) {
-                        drbblyAccountsService.deleteVideo(dav.accountId, video.id)
+                        drbblyAccountsService.deleteVideo(video.id)
                             .then(function () {
-                                done();
+                                dav.videos.drbblyRemove(v => v.id === video.id);
                             })
                             .catch(function (error) {
                                 drbblyCommonService.handleError(error);
