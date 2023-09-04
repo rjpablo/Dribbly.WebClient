@@ -19,7 +19,8 @@
                 _adjustingSections = true;
                 $timeout(function () {
                     setSections();
-                    var headerHeight = app.sections.header.outerHeight();
+                    var headerHeight = app.sections.header.outerHeight() || 0;
+                    app.sections.cokieBanner.css('top', headerHeight);
                     app.sections.body.css('padding-top', headerHeight);
                     app.sections.appNavigationContainer.css('top', headerHeight + 'px');
                     if (isScreenSmall()) {
@@ -45,6 +46,7 @@
         function setSections() {
             app.sections = {
                 body: angular.element('[id="page-body-container"]'),
+                cokieBanner: angular.element('[id="cookieConsent"]'),
                 appNavigationContainer: angular.element('[id="app-navigation-container"]'),
                 appHeader: angular.element('[id="app-header"]'),
                 appBody: angular.element('[id="app-body"]'),

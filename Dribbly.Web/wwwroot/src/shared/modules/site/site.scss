@@ -47,6 +47,10 @@ a[ng-click]:not(.nav-link, .dropdown-item, [href]) {
     }
 }
 
+#cookieConsent{
+    z-index: 2;
+}
+
 .top-bar {
     border-bottom: 2px solid $orange;
 }

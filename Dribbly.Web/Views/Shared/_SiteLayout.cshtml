@@ -177,6 +177,7 @@
         <link href="~/src/modules/main/containers/teamscontainer/teamscontainer.component.css" rel="stylesheet" />
         <link href="~/src/modules/main/components/tournamenthome/tournamenthome.component.css" rel="stylesheet" />
         <link href="~/src/modules/main/components/playergames/playergames.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.css" rel="stylesheet" />
     </environment>
 
     <environment exclude="Development">
@@ -227,6 +228,8 @@
 
 
     <toaster-container toaster-options="{'time-out': 2000, 'position-class': 'toast-top-center'}"></toaster-container>
+    
+    <partial name="_CookieConsentPartial" />
     @RenderBody()
 
 
@@ -492,6 +495,7 @@
         <script src="~/src/modules/main/components/gamedetails/gamedetails.component.js"></script>
         <script src="~/src/modules/main/components/gametracking/gametracking.component.js"></script>
         <script src="~/src/modules/main/components/endgamemodal/endgamemodal.component.js"></script>
+        <script src="~/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.js"></script>
 
         @*<script src="~/src/modules/main/containers/courtscontainer/courtscontainer.service.js"></script>*@
         <script src="~/src/modules/main/containers/courtscontainer/courtscontainer.component.js"></script>

@@ -271,7 +271,8 @@
       "wwwroot/src/modules/main/containers/courtscontainer/courtscontainer.component.js",
       "wwwroot/src/modules/main/containers/maincontainer/maincontainer.component.js",
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.js",
-      "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.js"
+      "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.js",
+      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.js"
     ]
   },
   // styles
@@ -446,7 +447,8 @@
       "wwwroot/src/modules/main/components/tournamenthome/tournamenthome.component.css",
 
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",
-      "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css"
+      "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css",
+      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.css"
     ]
   }
 ]

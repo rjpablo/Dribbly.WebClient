@@ -382,8 +382,18 @@
                     }]
                 },
                 component: 'drbblyTrackingcontainer'
-            });
+            })
         // #endregion TRACKING
+
+        // #region PRIVACY POLICY
+            .state('main.privacypolicy', {
+                params: {
+                    id: ''
+                },
+                url: '/privacy-policy',
+                component: 'drbblyPrivacypolicycontainer'
+            })
+        // #endregion PRIVACY POLICY
 
         $locationProvider.html5Mode(true);
 

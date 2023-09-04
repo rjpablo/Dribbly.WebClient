@@ -10,7 +10,6 @@
             <a ui-sref="auth.login" ng-if="!dsn.isAuthenticated()" ng-click="dsn.logIn()">{{'auth.LogIn' | i18n}}</a>
         </div>
     </div>
-    <div class="separator"></div>
     <nav>
         <ul class="nav">
             <li ng-repeat="item in dsn.navItems">
@@ -20,6 +19,16 @@
                     <span class="d-inline text-center drbbly-font menu-item-icon"
                           ng-class="item.icon"></span>
                     <span class="d-inline menu-item-text">{{item.textKey | i18n}}</span>
+                </a>
+            </li>
+        </ul>
+        <div class="separator"></div>
+        <ul class="nav">
+            <li>
+                <a class="nav-link"
+                   ui-sref="main.privacypolicy">
+                    <span class="d-inline text-center drbbly-font menu-item-icon"></span>
+                    <span class="d-inline menu-item-text">Privacy Policy</span>
                 </a>
             </li>
         </ul>

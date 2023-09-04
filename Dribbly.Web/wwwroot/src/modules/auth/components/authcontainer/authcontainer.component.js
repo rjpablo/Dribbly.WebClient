@@ -22,6 +22,8 @@
             if (stateName === 'auth.login') {
                 checkURL();
             }
+
+            dac.app.mainDataLoaded();
         };
 
         function checkURL() {
