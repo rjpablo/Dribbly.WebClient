@@ -10,13 +10,23 @@
             <h5 class="d-inline m-0 px-1">{{gel.game.team2.team.shortName}}</h5>
         </div>
     </div>
-    <div ng-repeat="period in gel.periods | orderBy : ['period']">
+    <div class="text-center mb-3">
+        <div class="custom-control custom-switch">
+            <input type="checkbox"
+                   id="latestFirst"
+                   ng-model="gel.latestFirst"
+                   ng-change="gel.latestFirstChanged()"
+                   class="custom-control-input">
+            <label class="custom-control-label" for="latestFirst">Latest First</label>
+        </div>
+    </div>
+    <div ng-repeat="period in gel.periods | orderBy : ['period'] : gel.latestFirst">
         <div class="period bg-black">
             <div class="d-inline-block py-1 px-3 text-secondary">
                 <h5>{{period.label}}</h5>
             </div>
         </div>
-        <div ng-repeat="event in period.items | orderBy : ['clockTime', '-dateAdded'] : true track by event.id"
+        <div ng-repeat="event in period.items | orderBy : ['clockTime', '-dateAdded'] : !gel.latestFirst track by event.id"
              ng-class="{'is-team1': event.isTeam1, 'is-team2': event.isTeam2, 'is-both': event.isBothTeams}"
              ng-click="gel._onItemClicked(event)"
              class="event-row">

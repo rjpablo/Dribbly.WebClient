@@ -232,7 +232,7 @@
                     'GameEventTypeEnum.DefensiveRebound_7': 'Defensive Rebound',
                     'GameEventTypeEnum.Jumpball_8': 'Jumpball',
                     'GameEventTypeEnum.Timeout_9': 'Timeout',
-                    'GameEventTypeEnum.Timeout_10': 'Change Lineup',
+                    'GameEventTypeEnum.ChangeLineup_10': 'Change Lineup',
                     'GameEventTypeEnum.Turnover_11': 'Turnover',
                     'GameEventTypeEnum.Steal_12': 'Steal',
                     'GameEventTypeEnum.FreeThrowMade_13': 'Free Throw Made',

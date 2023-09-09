@@ -16,14 +16,14 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyTimerhelperService', '$window', 'constants'];
-    function controllerFunc(drbblyTimerhelperService, $window, constants) {
+    controllerFunc.$inject = ['drbblyTimerhelperService', '$window', 'constants', 'settingsService', '$timeout', '$element'];
+    function controllerFunc(drbblyTimerhelperService, $window, constants, settingsService, $timeout, $element) {
         var gel = this;
+        var _connection, _hub;
+        var _allPlayers;
 
         gel.$onInit = function () {
-            gel.events.forEach(massageItem);
-            gel.periods = gel.events.drbblyGroupBy('period', 'period');
-            gel.periods.forEach(p => p.label = getPeriodLabel(p.period));
+            gel.latestFirst = true;
             angular.element($window).on('resize', setOrientation);
             if (gel.onReady) {
                 gel.onReady({
@@ -33,6 +33,102 @@
             }
             setOrientation();
         };
+
+        gel.$onChanges = function (changes) {
+            if (changes.game && changes.game.currentValue) {
+                gel.events = gel.game.gameEvents;
+                gel.events.forEach(massageItem);
+                gel.periods = gel.events.drbblyGroupBy('period', 'period');
+                gel.periods.forEach(p => p.label = getPeriodLabel(p.period));
+                _allPlayers = gel.game.team1.players.concat(gel.game.team2.players);
+                initializeHub();
+            }
+        }
+
+        gel.latestFirstChanged = function () {
+            console.log(gel.latestFirst);
+        }
+
+        function initializeHub() {
+            gel.hubInitialized = true;
+            _connection = $.hubConnection();
+            _hub = _connection.createHubProxy('gameHub');
+            _connection.url = settingsService.serviceBase + 'signalr';
+
+            _hub.on('upsertGameEvent', event => {
+                if (event) {
+                    $timeout(function () {
+                        event.performedBy = _allPlayers.drbblySingle(p => p.accountId === event.performedById).account;
+                        massageItem(event);
+                        var period = gel.periods.drbblySingleOrDefault(p => p.period === event.period);
+                        if (period) {
+                            if (period.items.drbblyAny(e => e.id === event.id)) {
+                                updateItem(event);
+                            }
+                            else {
+                                period.items.push(event);
+                                gel.events.push(event);
+                            }
+                        }
+                        else {
+                            period = {
+                                period: event.period,
+                                label: getPeriodLabel(event.period),
+                                items: [event]
+                            };
+                            gel.periods.push(period);
+                            gel.events.push(event);
+                        }
+                    });
+                }
+            });
+
+            _hub.on('deleteGameEvent', data => {
+                var event = gel.events.drbblySingleOrDefault(e => e.id === data.id);
+                if (event) {
+                    var period = gel.periods.drbblySingleOrDefault(p => p.period === event.period);
+                    if (period) {
+                        period.items.drbblyRemove(e => e.id === event.id);
+                    }
+                    gel.events.drbblyRemove(e => e.id === event.id);
+                }
+            });
+
+            _connection.reconnecting(function () {
+                gel.hubIsReconnecting = true;
+            });
+
+            _connection.reconnected(function () {
+                gel.hubIsReconnecting = false;
+                joinGameHub();
+            });
+
+            _connection.disconnected(function () {
+                gel.hubIsReconnecting = true;
+                $timeout(function () {
+                    _connection.start()
+                        .done(function () {
+                            joinGameHub();
+                        })
+                        .fail(function (err) {
+                            console.log('Could not re-establish connection!');
+                        });
+                }, 5000); // Restart connection after 5 seconds.
+            });
+
+            _connection.start()
+                .done(function () {
+                    gel.hubIsReconnecting = false;
+                    joinGameHub();
+                })
+                .fail(function (err) {
+                    broadcast('connectionFailed');
+                });
+        }
+
+        function joinGameHub() {
+            _hub.invoke('joinGroup', _connection.id, gel.game.id);
+        }
 
         function getPeriodLabel(period) {
             return period > gel.game.numberOfRegulationPeriods ?
@@ -62,7 +158,7 @@
                             event.type === constants.enums.gameEventTypeEnum.Assist ? '<span class="text-white font-weight-semibold">ASSIST</span>' :
                                 event.type === constants.enums.gameEventTypeEnum.OffensiveRebound ? '<span class="text-white font-weight-semibold">REBOUND</span> (off)' :
                                     event.type === constants.enums.gameEventTypeEnum.DefensiveRebound ? '<span class="text-white font-weight-semibold">REBOUND</span> (def)' :
-                                        event.type === constants.enums.gameEventTypeEnum.Timeout ? '<span class="text-white font-weight-semibold">TIMEOUT</span>' :
+                                        event.type === constants.enums.gameEventTypeEnum.Timeout ? (`<span class="text-white font-weight-semibold">${event.additionalData.isOfficial ? 'OFFICAL ' : ''}TIMEOUT</span>`) :
                                             event.type === constants.enums.gameEventTypeEnum.Steal ? '<span class="text-white font-weight-semibold">STEAL</span>' :
                                                 event.type === constants.enums.gameEventTypeEnum.Turnover ? '<span class="text-white font-weight-semibold">TURNOVER</span> (' + event.additionalData.cause + ')' :
                                                     event.type === constants.enums.gameEventTypeEnum.FreeThrowMade ? '<span class="text-white font-weight-semibold">FREE THROW</span> (Made)' :
@@ -84,7 +180,10 @@
         }
 
         function massageItem(e) {
-            if (typeof e.additionalData === 'string') {
+            if (!e.additionalData) {
+                e.additionalData = {};
+            }
+            else if (typeof e.additionalData === 'string') {
                 e.additionalData = JSON.parse(e.additionalData);
             }
             e.isTeam1 = e.teamId === gel.game.team1.teamId;
