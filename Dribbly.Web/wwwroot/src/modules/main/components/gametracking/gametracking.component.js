@@ -35,14 +35,14 @@
             setOrientation();
 
             angular.element($window).on('resize', setOrientation);
-            gdg.app.updatePageDetails({
-                title: (gdg.game.title || 'Untitled Game') + ' - Tracker'
-            });
         };
 
         gdg.$onChanges = function (changes) {
             if (changes.game && changes.game.currentValue) {
                 setTeamColors();
+                gdg.app.updatePageDetails({
+                    title: (gdg.game.title || 'Untitled Game') + ' - Tracker'
+                });
             }
         }
 

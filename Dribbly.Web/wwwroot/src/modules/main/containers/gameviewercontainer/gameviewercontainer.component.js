@@ -26,10 +26,11 @@
             gcc.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
             gcc.gameStatusEnum = constants.enums.gameStatus;
             buildSubPages();
-            loadGame();
+            loadGame()
+                .then(() => drbblyGameshelperService.track(gcc.game));
         };
 
-        gcc.reloadGame = function(){
+        gcc.reloadGame = function () {
             return loadGame();
         }
 
@@ -43,7 +44,8 @@
             gcc.gameDetailsOverlay.setToBusy();
             return drbblyGamesService.getGame(_gameId)
                 .then(function (data) {
-                    gcc.game = angular.copy(data);
+                    gcc.game = gcc.game || {};
+                    Object.assign(gcc.game, data);
                     gcc.game.start = new Date(drbblyDatetimeService.toUtcString(data.start));
                     massageGame();
                     gcc.isOwned = authService.isCurrentAccountId(gcc.game.addedById);
@@ -148,6 +150,7 @@
 
         gcc.$onDestroy = function () {
             gcc.app.toolbar.clearNavItems();
+            drbblyGameshelperService.untrack(gcc.game);
         };
 
         function buildSubPages() {
