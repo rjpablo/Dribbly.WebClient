@@ -6,7 +6,9 @@
         <span class="rate">{{ (cli.court.ratePerHour || 0) | currency:'P':0 }}<small>{{::'site.SlashHour' | i18n}}</small></span>
     </div>
     <div class="details">
-        <a ui-sref="main.court.home({id: cli.court.id})" class="name d-block">{{cli.court.name}}</a>
+        <a ui-sref="main.court.home({id: cli.court.id})"
+           class="name text-line-2"'
+           title="{{cli.court.name}}">{{cli.court.name}}</a>
         <drbbly-rating class="d-block" value="cli.court.rating"></drbbly-rating>
         <span ng-if="cli.court.distance"
               class="text-muted">{{cli.court.distance | drbblyDistance}}</span>

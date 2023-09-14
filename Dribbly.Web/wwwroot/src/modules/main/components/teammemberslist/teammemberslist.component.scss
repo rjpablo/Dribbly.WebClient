@@ -2,6 +2,7 @@
 
 drbbly-teammemberslist {
     .team-member-list-item {
+
         .jersey-no,
         .position {
             color: $white;
@@ -10,11 +11,8 @@ drbbly-teammemberslist {
             -webkit-text-stroke: 1px $black;
         }
 
-        .position{
+        .position {
             font-size: 1em;
-        }
-
-        .photo-container {
         }
     }
 }

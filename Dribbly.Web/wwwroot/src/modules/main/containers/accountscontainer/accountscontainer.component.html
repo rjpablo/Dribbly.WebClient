@@ -31,7 +31,8 @@
                                 ng-if="!group.failedToLoad">
                                 <li ng-repeat="player in group.players"
                                     class="mb-1"
-                                    ng-class="{'font-weight-bold': $first}">
+                                    ng-class="{'font-weight-bold': $first}"
+                                    title="{{player.name}}">
                                     <div class="d-flex flex-nowrap">
                                         <a ui-sref="main.account.home({username: player.username})"
                                            class="player-name">
@@ -39,7 +40,7 @@
                                                  class="avatar mr-1" />
                                         </a>
                                         <a ui-sref="main.account.home({username: player.username})"
-                                           class="player-name">{{player.name}}</a>
+                                           class="player-name text-line-1">{{player.name}}</a>
                                         <span class="ml-auto">{{group.getValue(player)}}</span>
                                     </div>
                                 </li>
