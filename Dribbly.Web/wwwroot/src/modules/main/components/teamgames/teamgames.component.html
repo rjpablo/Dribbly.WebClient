@@ -11,6 +11,10 @@
                                 <drbbly-gamelistitem class="w-100"
                                                      game="game"></drbbly-gamelistitem>
                             </div>
+                            <div class="col-12"
+                                 ng-if="(tgc.team.games | filter: tgc.upcomingFilter).length === 0">
+                                <p class="text-center py-3">No upcoming games.</p>
+                            </div>
                             <div class="col-12">
                                 <!-- Ad -->
                                 <span class="d-block text-center">Advertisement</span>
@@ -24,6 +28,10 @@
                                  ng-repeat="game in (tgc.team.games | orderBy: 'start') track by game.id">
                                 <drbbly-gamelistitem class="w-100"
                                                      game="game"></drbbly-gamelistitem>
+                            </div>
+                            <div class="col-12"
+                                 ng-if="(tgc.team.games | filter: tgc.upcomingFilter).length === 0">
+                                <p class="text-center py-3">No games yet.</p>
                             </div>
                             <div class="col-12">
                                 <!-- Ad -->
