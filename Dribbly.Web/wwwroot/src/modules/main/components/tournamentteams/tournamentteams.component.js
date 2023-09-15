@@ -24,6 +24,7 @@
             dtg.isManager = dtg.tournament.addedById === authService.authentication.accountId;
             dtg.hasStages = dtg.tournament.stages && dtg.tournament.stages.length > 0;
             dtg.filter = {};
+            dtg._activeTabIndex = 1;
             if (dtg.hasStages) {
                 dtg.ddlStageChoices = dtg.tournament.stages.map(s => {
                     return { text: s.name, value: s.id };
