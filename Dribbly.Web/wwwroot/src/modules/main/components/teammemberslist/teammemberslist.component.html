@@ -7,7 +7,7 @@
     <div class="col-12">
         <div class="row">
             <div ng-repeat="member in tml.displayedMembers track by member.id"
-                 ng-class="tml._settings.wrapItems? 'col-4 col-md-3 col-lg-2' : 'mx-3'"
+                 ng-class="tml._settings.wrapItems? 'col-4 col-lg-3 col-xl-2' : 'mx-3'"
                  class="team-member-list-item mb-3 d-flex flex-column"
                  ng-click="tml.onItemClick(member)">
                 <div class="photo-container"
@@ -18,14 +18,14 @@
                     <img ng-src="{{member.primaryPhotoUrl || 'src/images/default_images/default_profile_photo.jpg'}}"
                          class="w-100" />
                 </div>
-                <h4 ui-sref="main.account.home({username: member.username})"
+                <h5 ui-sref="main.account.home({username: member.username})"
                     class="text-center text-white member-name flex-grow-1 text-line-2"
                     title="{{member.name}}">
                     <small>{{member.name}}</small>
-                </h4>
+                </h5>
                 <!-- Options for requesting members -->
                 <div ng-if="member.hasPendingJoinRequest && tml.canProcessRequest"
-                     class="d-flex flex-wrap">
+                     class="d-flex flex-wrap justify-content-center">
                     <div class="btn-group">
                         <button type="button"
                                 class="btn btn-primary flex-grow-1"

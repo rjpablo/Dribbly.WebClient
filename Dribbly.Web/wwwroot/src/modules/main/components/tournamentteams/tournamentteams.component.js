@@ -81,7 +81,7 @@
                     stage: stage,
                     title: 'Select teams participating in ' + stage.name,
                     teams: dtg.tournament.teams.map(t => {
-                        return { id: t.teamId, name: t.team.name, logo: t.team.logo };
+                        return { id: t.teamId, name: t.team.shortName, logo: t.team.logo };
                     }),
                     isSelectedCallback: team => {
                         return (stage.teams || []).drbblyAny(t => t.teamId === team.id)

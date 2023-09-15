@@ -44,27 +44,27 @@
                         ng-click="cli._openInNewTab(cli.game, $event)">
                     <i class="fa fa-external-link"></i>
                 </button>
-                <button class="btn btn-sm btn-secondary"
-                        ng-if="cli._canEdit()"
-                        ng-click="cli.edit(cli.game, $event)">
-                    <i class="fa fa-pencil"></i>
+                <button class="btn btn-sm btn-facebook"
+                        data-no-redirect="true"
+                        ng-click="cli.fbShare($event)">
+                    <i class="fa fa-share"></i>
                 </button>
-                <button class="btn btn-sm btn-danger"
-                        ng-if="cli._canDelete()"
-                        ng-click="cli.remove(cli.game, $event)">
-                    <i class="fa fa-trash"></i>
-                </button>
-                <div class="dropdown d-inline-block">
+                <div class="dropdown d-inline-block"
+                     ng-if="cli._canEdit() || cli._canDelete()">
                     <button class="btn btn-sm btn-secondary dropdown-toggle no-caret"
                             role="button" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-ellipsis-h"></i>
                     </button>
-
                     <div class="dropdown-menu">
-                        <a class="dropdown-item btn btn-facebook"
-                           data-no-redirect="true"
-                           ng-click="cli.fbShare($event)">
-                            <i class="fa fa-facebook"></i> Share
+                        <a class="dropdown-item btn btn-sm btn-secondary"
+                           ng-if="cli._canEdit()"
+                           ng-click="cli.edit(cli.game, $event)">
+                            <i class="fa fa-pencil"></i> Edit Game
+                        </a>
+                        <a class="dropdown-item btn btn-sm btn-danger text-danger"
+                           ng-if="cli._canDelete()"
+                           ng-click="cli.remove(cli.game, $event)">
+                            <i class="fa fa-trash"></i> Delete Game
                         </a>
                     </div>
                 </div>

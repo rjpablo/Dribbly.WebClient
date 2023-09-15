@@ -32,6 +32,7 @@
         <input type="time" step="60"
                class="form-control"
                ng-model="dtp._timeModel"
+               ng-model-options="{timeSecondsFormat: ''}"
                ng-if="dtp.timeOptions"
                ng-change="dtp._timeChanged()" />
         <!--<div uib-timepicker
