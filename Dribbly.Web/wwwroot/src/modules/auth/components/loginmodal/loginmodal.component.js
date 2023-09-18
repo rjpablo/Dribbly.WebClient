@@ -16,6 +16,7 @@
     controllerFn.$inject = ['$scope', 'drbblyEventsService'];
     function controllerFn($scope, drbblyEventsService) {
         var mod = this;
+        var _unregisterLoginSuccessful;
 
         mod.$onInit = function () {
             mod.saveModel = angular.copy((mod.model || {}));
@@ -26,6 +27,10 @@
                     mod.cancel();
                 }
             }, $scope);
+
+            _unregisterLoginSuccessful = drbblyEventsService.on('dribbly.login.successful', (event, data) => {
+                close({ isLoginSuccessful: true });
+            });
         };
 
         mod.submit = function () {
@@ -47,5 +52,9 @@
             mod.context.okToClose = true;
             mod.context.dismiss();
         };
+
+        mod.$onDestroy = function () {
+            _unregisterLoginSuccessful();
+        }
     }
 })();

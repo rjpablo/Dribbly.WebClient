@@ -8,9 +8,9 @@
         var baseApiRoute = 'api/Chats/';
 
         var _service = {
-            getChats: () => drbblyhttpService.get(baseApiRoute + 'GetChats/'),
+            getChats: () => drbblyhttpService.get(baseApiRoute + 'GetChats/', { triggersLogin: false }),
             getChat: (chatId) => drbblyhttpService.get(baseApiRoute + 'GetChat/' + chatId),
-            getUnviewedCount: (chatId) => drbblyhttpService.get(baseApiRoute + 'GetUnviewedCount/' + chatId),
+            getUnviewedCount: (chatId) => drbblyhttpService.get(baseApiRoute + 'GetUnviewedCount/' + chatId, { triggersLogin: false }),
             getPrivateChat: (withUserId) => drbblyhttpService.get(baseApiRoute + 'GetPrivateChat/' + withUserId),
             getOrCreatePrivateChat: (withUserId, chat) => drbblyhttpService.post(baseApiRoute + 'GetOrCreatePrivateChat/' + withUserId, chat),
             joinGroup: (connectionId, groupName) => drbblyhttpService.post(baseApiRoute + 'JoinGroup/' + connectionId + '/' + groupName),

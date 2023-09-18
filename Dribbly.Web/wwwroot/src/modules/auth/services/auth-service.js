@@ -106,7 +106,7 @@
             return $http.post(settingsService.serviceBase + 'api/account/resetPassword', input);
         }
 
-        var _fillAuthData = function () {
+        var _fillAuthData = async function () {
 
             var authData = localStorageService.get('authorizationData');
             if (authData) {
@@ -117,6 +117,8 @@
                 _authentication.userId = parseInt(authData.userId);
                 _authentication.accountId = parseInt(authData.accountId);
                 permissionsService.setPermissions(authData.permissions);
+
+                await _verifyToken();
             }
 
         };
@@ -188,6 +190,17 @@
             var redirectUri = settingsService.siteRoot + '#/login';
             var externalProviderUrl = settingsService.serviceBase + "api/Account/ExternalLogin?provider=" + provider + "&response_type=token&client_id=" + settingsService.clientId + "&redirect_uri=" + redirectUri;
             window.location.href = externalProviderUrl;
+        }
+
+        function _verifyToken() {
+            $http.post(settingsService.serviceBase + 'api/account/verifyToken')
+                .then(function () {
+                    drbblyEventsService.broadcast('dribbly.login.successful');
+                })
+                .catch(function () {
+                    _logOut();
+                    drbblyEventsService.broadcast('dribbly.auth.fail');
+                });
         }
 
         var _registerExternal = function (registerExternalData) {

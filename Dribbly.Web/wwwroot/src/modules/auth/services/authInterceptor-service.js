@@ -29,17 +29,22 @@
                                 .then(function () {
                                     _retryHttpRequest(rejection.config, deferred);
                                 }, function (error) {
-                                    authService.showLoginModal()
-                                        .then(function (result) {
-                                            if (result.isLoginSuccessful) {
-                                                _retryHttpRequest(rejection.config, deferred);
-                                            }
-                                        }, function () {
-                                            deferred.reject(rejection);
-                                        });
+                                    if (rejection.config.triggersLogin === false) {
+                                        deferred.reject(rejection);
+                                    }
+                                    else {
+                                        authService.showLoginModal()
+                                            .then(function (result) {
+                                                if (result.isLoginSuccessful) {
+                                                    _retryHttpRequest(rejection.config, deferred);
+                                                }
+                                            }, function () {
+                                                deferred.reject(rejection);
+                                            });
+                                    }
                                 });
                         }
-                        else if (!rejection.config.isRetried) {
+                        else if (!rejection.config.isRetried && rejection.config.triggersLogin !== false) {
                             authService.showLoginModal()
                                 .then(function (result) {
                                     if (result.isLoginSuccessful) {
@@ -51,7 +56,9 @@
                         }
                         else {
                             handleRejection(rejection);
-                            authService.showLoginModal();
+                            if (rejection.config.triggersLogin !== false) {
+                                authService.showLoginModal();
+                            }
                         }
                     }
                     else {

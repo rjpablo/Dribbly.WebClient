@@ -17,9 +17,9 @@
 
     module.run(['authService', '$transitions', '$rootScope', 'drbblyToolbarService', 'constants', '$filter',
         'drbblyGameshelperService',
-        function runFn(authService, $transitions, $rootScope, drbblyToolbarService, constants, $filter,
+        async function runFn(authService, $transitions, $rootScope, drbblyToolbarService, constants, $filter,
             drbblyGameshelperService        ) {
-            authService.fillAuthData();
+            await authService.fillAuthData();
             window.Dribbly.authentication = authService.authentication;
             $rootScope.$root.auth = authService.authentication;
             $rootScope.$root.constants = constants;

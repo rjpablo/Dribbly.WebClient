@@ -78,7 +78,7 @@
                         return $q.resolve();
                     }
 
-                    return drbblyhttpService.get(api + 'getUnviewedCount')
+                    return drbblyhttpService.get(api + 'getUnviewedCount', {triggersLogin: false})
                         .then(function (data) {
                             updateUnviewedCount(data);
                         }, function () {
