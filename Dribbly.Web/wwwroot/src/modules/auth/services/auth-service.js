@@ -154,7 +154,7 @@
                     .then(function (response) {
                         localStorageService.set('authorizationData', {
                             token: response.data.access_token,
-                            username: response.data.userName,
+                            username: response.data.username,
                             userId: parseInt(response.data.userId),
                             accountId: parseInt(response.data.accountId),
                             refreshToken: response.data.refresh_token,
@@ -164,7 +164,7 @@
                         });
 
                         _authentication.isAuthenticated = true;
-                        _authentication.username = response.data.userName;
+                        _authentication.username = response.data.username;
                         _authentication.useRefreshTokens = _useRefreshTokens;
                         _authentication.profilePicture = _temporaryProfilePicture;
                         _authentication.userId = parseInt(response.data.userId);
@@ -235,7 +235,7 @@
 
                     localStorageService.set('authorizationData', {
                         token: response.data.access_token,
-                        username: response.data.userName,
+                        username: response.data.username,
                         userId: parseInt(response.data.userId),
                         accountId: parseInt(response.data.accountId),
                         refreshToken: response.data.refresh_token,
@@ -243,7 +243,7 @@
                     });
 
                     _authentication.isAuthenticated = true;
-                    _authentication.username = response.data.userName;
+                    _authentication.username = response.data.username;
                     _authentication.useRefreshTokens = _useRefreshTokens;
                     _authentication.userId = parseInt(response.data.userId);
                     _authentication.accountId = parseInt(response.data.accountId);

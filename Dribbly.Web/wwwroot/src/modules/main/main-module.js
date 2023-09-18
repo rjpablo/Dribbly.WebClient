@@ -383,9 +383,9 @@
                 },
                 component: 'drbblyTrackingcontainer'
             })
-        // #endregion TRACKING
+            // #endregion TRACKING
 
-        // #region PRIVACY POLICY
+            // #region PRIVACY POLICY
             .state('main.privacypolicy', {
                 params: {
                     id: ''
@@ -393,7 +393,7 @@
                 url: '/privacy-policy',
                 component: 'drbblyPrivacypolicycontainer'
             })
-        // #endregion PRIVACY POLICY
+            // #endregion PRIVACY POLICY
 
         $locationProvider.html5Mode(true);
 
@@ -404,7 +404,7 @@
     function runFn(authService, $transitions, $rootScope) {
 
         $transitions.onSuccess({}, function (transition) {
-            
+
         });
 
         $transitions.onRetain({}, function (transition, state) {

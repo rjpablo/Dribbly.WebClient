@@ -47,7 +47,7 @@
             if (suf.isExternal) {
                 authService.registerExternal(suf.model)
                     .then(function (response) {
-                        $state.go('main.accout.home', { username: response.data.username })
+                        $state.go('main.account.home', { username: response.data.username })
                             .catch(function () {
                                 suf.isBusy = false;
                             });
