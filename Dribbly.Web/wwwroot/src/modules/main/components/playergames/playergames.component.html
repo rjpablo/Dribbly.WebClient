@@ -48,7 +48,7 @@
              ng-src="{{rowData.dataItem.opponentTeam.logo.url}}" />
     </a>
     <a ui-sref="main.team.home({id: rowData.dataItem.opponentTeam.id})">
-        {{rowData.dataItem.opponentTeam.name}}
+        {{rowData.dataItem.opponentTeam.shortName}}
     </a>
 </script>
 
@@ -58,7 +58,7 @@
              ng-src="{{rowData.dataItem.team.logo.url}}" />
     </a>
     <a ui-sref="main.team.home({id: rowData.dataItem.teamId})">
-        {{rowData.dataItem.team.name}}
+        {{rowData.dataItem.team.shortName}}
     </a>
 </script>
 
