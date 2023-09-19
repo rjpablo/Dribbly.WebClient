@@ -262,6 +262,7 @@
       "wwwroot/src/modules/main/components/gametracking/gametracking.component.js",
       "wwwroot/src/modules/main/components/endgamemodal/endgamemodal.component.js",
       "wwwroot/src/modules/main/components/tournamenthome/tournamenthome.component.js",
+      "wwwroot/src/modules/main/components/playergames/playergames.component.js",
       "wwwroot/src/modules/main/components/playerselectormodal/playerselectormodal.component.js",
       "wwwroot/src/modules/main/components/playerselect/playerselect.component.js",
 
@@ -447,6 +448,7 @@
       "wwwroot/src/modules/main/components/gamestats/gamestats.component.css",
       "wwwroot/src/modules/main/components/tournamentstats/tournamentstats.component.css",
       "wwwroot/src/modules/main/components/tournamenthome/tournamenthome.component.css",
+      "wwwroot/src/modules/main/components/playergames/playergames.component.css",
       "wwwroot/src/modules/main/components/playerselectormodal/playerselectormodal.component.css",
       "wwwroot/src/modules/main/components/playerselect/playerselect.component.css",
 

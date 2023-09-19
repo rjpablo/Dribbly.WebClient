@@ -39,7 +39,8 @@
                 hideDetails: true,
                 menuItems: [{
                     text: 'Remove',
-                    action: removeHighlight
+                    action: removeHighlight,
+                    isHidden: () => !dad.isOwned
                 }]
             }
         };

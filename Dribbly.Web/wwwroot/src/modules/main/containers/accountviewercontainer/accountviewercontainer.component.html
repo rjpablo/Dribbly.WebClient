@@ -63,7 +63,7 @@
                 <div class="col-12 col-md-5 col-lg-6 col-xl-7">
                     <div class="d-flex justify-content-around align-items-center h-100">
                         <div class="d-inline-block text-center">
-                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.ppg | number : 1) : '-'}}</h3>
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.ppg | number : 0) : '-'}}</h3>
                             <small class="text-muted"
                                    title="Points Per Game">PPG</small>
                         </div>
@@ -90,7 +90,7 @@
                         <div class="d-inline-block text-center">
                             <h3 class="m-0 d-block text-white">{{avc.stats && avc.stats.ftp != null? ((avc.stats.ftp * 100) | number : 0) : '-'}}</h3>
                             <small class="text-muted"
-                                   title="Three-Point Percentage">FTP</small>
+                                   title="Three-Point Percentage">FT%</small>
                         </div>
                         <div class="d-inline-block text-center">
                             <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.gp) : '-'}}</h3>
