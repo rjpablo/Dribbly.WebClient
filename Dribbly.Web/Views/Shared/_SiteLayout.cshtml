@@ -1,4 +1,7 @@
 ﻿@model Dribbly.Web.ViewModels.SiteViewModel
+@{
+    var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+}
 
 <!DOCTYPE html>
 <html ng-app="mainModule">
@@ -183,11 +186,11 @@
     </environment>
 
     <environment exclude="Development">
-        <link href="~/dist/css/libraries.min.css" rel="stylesheet" />
-        <link href="~/dist/css/site.min.css" rel="stylesheet" />
-        <link href="~/dist/css/auth.min.css" rel="stylesheet" />
-        <link href="~/dist/css/app.min.css" rel="stylesheet" />
-        <link href="~/dist/css/main.min.css" rel="stylesheet" />
+        <link href="~/dist/css/libraries.min.css?v=@timeStamp" rel="stylesheet" />
+        <link href="~/dist/css/site.min.css?v=@timeStamp" rel="stylesheet" />
+        <link href="~/dist/css/auth.min.css?v=@timeStamp" rel="stylesheet" />
+        <link href="~/dist/css/app.min.css?v=@timeStamp" rel="stylesheet" />
+        <link href="~/dist/css/main.min.css?v=@timeStamp" rel="stylesheet" />
     </environment>
 </head>
 <body ng-controller="appController as app">
@@ -508,13 +511,13 @@
     </environment>
     <environment exclude="Development">
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyD8rY4ZOWDSbgsAlydn2m1LExO0sHrpQkE&libraries=placeses,visualization,drawing,geometry,places"></script> @*Account Linked: rjpablo.secondary@gmail.com*@
-        <script src="~/dist/js/scripts.min.js"></script>
-        <script src="~/dist/js/libraries.min.js"></script>
+        <script src="~/dist/js/scripts.min.js?v=@timeStamp"></script>
+        <script src="~/dist/js/libraries.min.js?v=@timeStamp"></script>
 
-        <script src="~/dist/js/site.min.js"></script>
-        <script src="~/dist/js/auth.min.js"></script>
-        <script src="~/dist/js/app.min.js"></script>
-        <script src="~/dist/js/main.min.js"></script>
+        <script src="~/dist/js/site.min.js?v=@timeStamp"></script>
+        <script src="~/dist/js/auth.min.js?v=@timeStamp"></script>
+        <script src="~/dist/js/app.min.js?v=@timeStamp"></script>
+        <script src="~/dist/js/main.min.js?v=@timeStamp"></script>
     </environment>
 
     <script src="@(Model.clientSettings.ServiceBase)signalr/hubs"></script>
