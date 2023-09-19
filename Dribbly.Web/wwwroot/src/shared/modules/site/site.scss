@@ -283,6 +283,17 @@ img.avatar {
 /****************
    Typography
 ****************/
+@font-face {
+    font-family: "sportsjersey";
+    src: url("../../../fonts/sportsjersey/sportsjersey.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.text-sporty {
+    font-family: "sportsjersey"
+}
+
 .line-height-1 {
     line-height: 1rem;
 }

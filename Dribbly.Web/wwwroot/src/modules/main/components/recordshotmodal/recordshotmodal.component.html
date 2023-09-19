@@ -51,15 +51,11 @@
                         <label>Fouled By:</label>
                     </div>
                     <div class="col-8 d-flex">
-                        <select class="form-control"
-                                ng-model="rsm.foul.performedBy">
-                            <option ng-repeat="player in rsm.foulPlayerOptions"
-                                    class="text-white"
-                                    ng-style="{'background-color': player.teamColor}"
-                                    ng-value="player">
-                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                            </option>
-                        </select>
+                        <drbbly-playerselect player="rsm.foul.performedBy"
+                                             class="form-control"
+                                             choices="rsm.foulPlayerOptions"
+                                             prompt="Fouled By"
+                                             modal-container="rsm.options.container"></drbbly-playerselect>
                         <input type="text"
                                name="performedBy"
                                required
@@ -111,15 +107,11 @@
                         <label>Blocked By:</label>
                     </div>
                     <div class="col-8 d-flex">
-                        <select class="form-control"
-                                ng-model="rsm.block.performedBy">
-                            <option ng-repeat="player in rsm.blockPlayerOptions"
-                                    class="text-white"
-                                    ng-style="{'background-color': player.teamColor}"
-                                    ng-value="player">
-                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                            </option>
-                        </select>
+                        <drbbly-playerselect player="rsm.block.performedBy"
+                                             class="form-control"
+                                             choices="rsm.blockPlayerOptions"
+                                             prompt="Blocked By"
+                                             modal-container="rsm.options.container"></drbbly-playerselect>
                         <input type="text"
                                name="performedBy"
                                required
@@ -144,15 +136,11 @@
                         <label>Assisted By:</label>
                     </div>
                     <div class="col-8 d-flex">
-                        <select class="form-control"
-                                ng-model="rsm.assist.performedBy">
-                            <option ng-repeat="player in rsm.assistPlayerOptions"
-                                    class="text-white"
-                                    ng-style="{'background-color': player.teamColor}"
-                                    ng-value="player">
-                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                            </option>
-                        </select>
+                        <drbbly-playerselect player="rsm.assist.performedBy"
+                                             class="form-control"
+                                             choices="rsm.assistPlayerOptions"
+                                             prompt="Assisted By"
+                                             modal-container="rsm.options.container"></drbbly-playerselect>
                         <input type="text"
                                name="performedBy"
                                required
@@ -177,15 +165,11 @@
                         <label>Rebounded By:</label>
                     </div>
                     <div class="col-8 d-flex">
-                        <select class="form-control"
-                                ng-model="rsm.rebound.performedBy">
-                            <option ng-repeat="player in rsm.reboundPlayerOptions"
-                                    class="text-white"
-                                    ng-style="{'background-color': player.teamColor}"
-                                    ng-value="player">
-                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                            </option>
-                        </select>
+                        <drbbly-playerselect player="rsm.rebound.performedBy"
+                                             class="form-control"
+                                             choices="rsm.reboundPlayerOptions"
+                                             prompt="Rebounded By"
+                                             modal-container="rsm.options.container"></drbbly-playerselect>
                         <input type="text"
                                name="performedBy"
                                required

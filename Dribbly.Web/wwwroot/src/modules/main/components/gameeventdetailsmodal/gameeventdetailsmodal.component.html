@@ -17,16 +17,12 @@
                     <label ng-if="rsm.eventIsFoul || rsm.eventIsTurnover">Committed By:</label>
                 </div>
                 <div class="col-8 d-flex">
-                    <div class="form-group">
-                        <select class="form-control"
-                                ng-model="rsm.event.performedBy">
-                            <option ng-repeat="player in rsm.performedByOptions"
-                                    ng-value="player"
-                                    class="text-white"
-                                    ng-style="{'background-color': player.teamColor}">
-                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                            </option>
-                        </select>
+                    <div class="form-group w-100">
+                        <drbbly-playerselect player="rsm.event.performedBy"
+                                             class="form-control"
+                                             choices="rsm.performedByOptions"
+                                             prompt="{{(rsm.eventIsFoul || rsm.eventIsTurnover)? 'Committed By' : 'Performed By'}}"
+                                             modal-container="rsm.options.container"></drbbly-playerselect>
                         <input type="text"
                                name="performedBy"
                                required
@@ -193,16 +189,12 @@
                     <label>Rebounded By:</label>
                 </div>
                 <div class="col-8 d-flex">
-                    <div class="form-group d-flex">
-                        <select class="form-control"
-                                ng-model="rsm.reboundedBy">
-                            <option ng-repeat="player in rsm.reboundedByOptions"
-                                    ng-value="player"
-                                    class="text-white"
-                                    ng-style="{'background-color': player.teamColor}">
-                                {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                            </option>
-                        </select>
+                    <div class="form-group d-flex w-100">
+                        <drbbly-playerselect player="rsm.reboundedBy"
+                                             class="form-control"
+                                             choices="rsm.reboundedByOptions"
+                                             prompt="Rebounded By"
+                                             modal-container="rsm.options.container"></drbbly-playerselect>
                         <a class="ml-2"
                            ng-click="rsm.event.rebound = null">
                             <i class="fa fa-times"></i>

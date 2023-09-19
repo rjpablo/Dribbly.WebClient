@@ -77,12 +77,14 @@
                     //Fix for: modal and  backdrop not showing
                     modalOptions.windowClass += ' show' + (modalOptions.isFull? ' drbbly-full-modal' : '');
                     modalOptions.backdropClass += ' show';
+                    modalOptions.options = modalOptions.options || {};
 
                     if (modalOptions.container) {
                         modalOptions.appendTo = modalOptions.container;
                         modalOptions.container.addClass('position-relative');
                         modalOptions.windowClass += ' has-container ';
                         modalOptions.backdropClass += ' has-container ';
+                        modalOptions.options.container = modalOptions.container;
                     }
 
                     if (modalOptions.noBackground) {

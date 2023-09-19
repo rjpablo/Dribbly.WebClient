@@ -168,7 +168,8 @@
                             <img class="profile-photo"
                                  ng-src="{{gdg.selectedPlayer.teamMembership.account.profilePhoto.url || 'src/images/default_images/default_profile_photo.jpg'}}" />
                             <span class="d-inline-block px-1 name">
-                                {{'#' + gdg.selectedPlayer.teamMembership.jerseyNo + ' ' + gdg.selectedPlayer.teamMembership.name}}
+                                <span class="text-sporty">{{gdg.selectedPlayer.teamMembership.jerseyNo}}</span>
+                                {{' ' + gdg.selectedPlayer.account.lastName}}
                                 <span ng-if="gdg.selectedPlayer.hasFouledOut || gdg.isEjected(gdg.selectedPlayer)"
                                       class="font-weight-light">
                                     ({{gdg.selectedPlayer.hasFouledOut? 'FOULED OUT':'EJECTED'}})
@@ -244,7 +245,7 @@
                                          ng-style="{'background-color': gamePlayer.teamColor}"
                                          ng-click="gdg.togglePlayerSelection(gamePlayer)"
                                          ng-class="{'selected': gamePlayer.isSelected}">
-                                        <span class="jersey-no">{{gamePlayer.teamMembership.jerseyNo}}</span>
+                                        <span class="jersey-no text-sporty">{{gamePlayer.teamMembership.jerseyNo}}</span>
                                         <span class="name">{{gamePlayer.teamMembership.lastName}}</span>
                                     </div>
                                     <div ng-if="(team.players | filter : {isInGame: true}).length === 0"
