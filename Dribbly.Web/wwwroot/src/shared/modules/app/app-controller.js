@@ -95,6 +95,14 @@
             el.scrollTop = scrollTop;
         }
 
+        app.hideChat = function () {
+            app.chatIsHidden = true;
+        };
+
+        app.showChat = function () {
+            app.chatIsHidden = false;
+        };
+
         app.scrollToAppBodyTop = function () {
             var appBody = document.getElementById('app-body');
             var root = document.getElementById('drbbly-root-container');

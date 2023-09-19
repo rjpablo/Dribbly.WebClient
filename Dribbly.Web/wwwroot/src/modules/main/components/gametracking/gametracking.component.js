@@ -29,6 +29,7 @@
             gdg.app.noHeader = true;
             gdg.app.noFooter = true;
             gdg.app.hideContainerData = true;
+            gdg.app.hideChat();
             _gameId = $stateParams.id;
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
@@ -64,6 +65,7 @@
             gdg.app.noHeader = false;
             gdg.app.noFooter = false;
             gdg.app.hideContainerData = false;
+            gdg.app.showChat();
         }
 
         gdg.gameIsFinished = function () {
