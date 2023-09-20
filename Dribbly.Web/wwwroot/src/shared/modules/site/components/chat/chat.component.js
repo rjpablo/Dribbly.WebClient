@@ -34,6 +34,7 @@
             _tempMediaId = -1;
             cht.maxPhotoSize = (settingsService.maxVideoUploadMb || 2) + 'MB';
             cht.hubIsConnecting = true;
+            cht.isAuthenticated = authService.authentication.isAuthenticated;
 
             _unregisterLoginSuccessful = drbblyEventsService.on('dribbly.login.successful', (event, data) => {
                 if (!_hasInitialized) {
@@ -43,6 +44,10 @@
             });
 
             _unregisterOpenChat = drbblyEventsService.on('drbbly.chat.openChat', openChat);
+
+            if (cht.isAuthenticated) {
+                initialize();
+            }
         };
 
         function openChat(event, data) {
