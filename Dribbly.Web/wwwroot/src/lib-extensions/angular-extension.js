@@ -38,6 +38,7 @@
 
     function overrideComponentFunc(module) {
         var originalComponentFn = module.component;
+        var timestamp = Date.now();
         module.component = function (componentName, options) {
             var moduleName = module.name.replace('Module', '');
             //if registering a component... (vs. retrieving)
@@ -48,24 +49,24 @@
                     if (moduleName === 'main') {
                         if (trimmedComponentName.indexOf('container') > -1) {
                             options.templateUrl = './src/modules/main/containers/' + trimmedComponentName + '/'
-                                + trimmedComponentName + '.component.html';
+                                + trimmedComponentName + '.component.html?v=' + timestamp;
                         }
                         else {
                             options.templateUrl = './src/modules/main/components/' + trimmedComponentName + '/'
-                                + trimmedComponentName + '.component.html';
+                                + trimmedComponentName + '.component.html?v=' + timestamp;
                         }
                     }
                     else if (moduleName === 'app') {
                         options.templateUrl = './src/shared/modules/app/components/' + trimmedComponentName + '/'
-                            + trimmedComponentName + '.component.html';
+                            + trimmedComponentName + '.component.html?v=' + timestamp;
                     }
                     else if (moduleName === 'site') {
                         options.templateUrl = './src/shared/modules/site/components/' + trimmedComponentName + '/'
-                            + trimmedComponentName + '.component.html';
+                            + trimmedComponentName + '.component.html?v=' + timestamp;
                     }
                     else if (moduleName === 'auth') {
                         options.templateUrl = './src/modules/auth/components/' + trimmedComponentName + '/'
-                            + trimmedComponentName + '.component.html';
+                            + trimmedComponentName + '.component.html?v=' + timestamp;
                     }
                 }
             }
