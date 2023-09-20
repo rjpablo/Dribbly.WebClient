@@ -36,8 +36,10 @@
                         msg2Raw: friendlyMsg
                     });
 
-                    errorLog = buildErrorLog(error.message, error.message, null, null, error.stack);
-                    $log.error(errorLog);
+                    if (!isHttpError(error)) { // http errors are already logged by the web api
+                        errorLog = buildErrorLog(error.message, error.message, null, null, error.stack);
+                        $log.error(errorLog);
+                    }
                 };
 
                 var _handleHttpError = function (error) {

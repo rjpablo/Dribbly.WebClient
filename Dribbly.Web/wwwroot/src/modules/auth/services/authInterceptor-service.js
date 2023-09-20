@@ -55,23 +55,16 @@
                                 });
                         }
                         else {
-                            handleRejection(rejection);
                             if (rejection.config.triggersLogin !== false) {
                                 authService.showLoginModal();
                             }
                         }
                     }
                     else {
-                        handleRejection(rejection);
                         deferred.reject(rejection);
                     }
                     return deferred.promise;
                 };
-
-                function handleRejection(rejection) {
-                    var drbblyCommonService = $injector.get('drbblyCommonService');
-                    drbblyCommonService.handleHttpError(rejection);
-                }
 
                 var _retryHttpRequest = function (config, deferred) {
                     var $http = $injector.get('$http');
