@@ -54,6 +54,34 @@
                     },
                     // Shopee
                     {
+                        // CY Shorts Jordan Drifit Jersey Shorts for Men unisex fit size 28 to 36
+                        imageUrl: 'https://down-ph.img.susercontent.com/file/sg-11134201-22100-xxl3ugximriv76',
+                        link: 'https://invl.io/cljv7yz',
+                        showBrandIcon: true,
+                        brandLogoUrl: 'https://icon-library.com/images/shopee-icon/shopee-icon-0.jpg'
+                    },
+                    {
+                        // Puma Best Seller Jersey Short For Men
+                        imageUrl: 'https://down-ph.img.susercontent.com/file/ph-11134207-7qul1-lf7qaynmt8261f',
+                        link: 'https://invl.io/cljv7yk',
+                        showBrandIcon: true,
+                        brandLogoUrl: 'https://icon-library.com/images/shopee-icon/shopee-icon-0.jpg'
+                    },
+                    {
+                        // CY Short two toned Drifit Jersey Shorts for Men [BEST SELLER] 2659#
+                        imageUrl: 'https://down-ph.img.susercontent.com/file/sg-11134201-22100-azuzbqdlysiv6c',
+                        link: 'https://invl.io/cljv7y2',
+                        showBrandIcon: true,
+                        brandLogoUrl: 'https://icon-library.com/images/shopee-icon/shopee-icon-0.jpg'
+                    },
+                    {
+                        // Addidas Side Best Seller Jersey Short For Men
+                        imageUrl: 'https://down-ph.img.susercontent.com/file/sg-11134201-23020-vsrfpy4ct9mv42',
+                        link: 'https://invl.io/cljv7xk',
+                        showBrandIcon: true,
+                        brandLogoUrl: 'https://icon-library.com/images/shopee-icon/shopee-icon-0.jpg'
+                    },
+                    {
                         // Elastic quick-drying sports tights fitness pants men's basketball running training compression tight
                         imageUrl: 'https://down-ph.img.susercontent.com/file/ph-11134207-7qukx-lh5v0h8fwuzq06',
                         link: 'https://invl.io/cljv7pj',
