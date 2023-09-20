@@ -48,13 +48,13 @@
                 if (gameDate) {
                     gameDate.gameCount++;
                     gameDate.games.push(game);
-                    gameDate.label = $filter('date')(game.start, 'MMM-dd-yyyy') + ` (${gameDate.gameCount} games)`;
+                    gameDate.label = $filter('date')(game.start, 'dd-MMM-yy') + ` (${gameDate.gameCount} games)`;
                 }
                 else {
                     dtg.gameDates.push({
                         date: date,
                         gameCount: 1,
-                        label: $filter('date')(game.start, 'MMM-dd-yyyy') + ` (1 game)`,
+                        label: $filter('date')(game.start, 'dd-MMM-yy') + ` (1 game)`,
                         month: $filter('date')(game.start, 'MMM'),
                         day: $filter('date')(game.start, 'dd'),
                         games: [game]

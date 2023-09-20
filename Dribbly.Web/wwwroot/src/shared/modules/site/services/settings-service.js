@@ -33,7 +33,7 @@
             data.forEach(function (setting) {
                 _service[setting.key] = setting.value !== '' ? setting.value : setting.defaultValue;
             });
-            _service.defaultDateFormat = 'MMM d, y h:mm a';
+            _service.defaultDateFormat = 'dd-MMM-yy h:mm a';
             _service.defaultTimeFormat = 'h:mm a';
             _service.suppressNotifications = window.Dribbly.clientSettings.suppressNotifications;
         }

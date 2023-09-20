@@ -20,7 +20,7 @@
                 <div>
                     <div class="small text-secondary"
                          ng-if="cli.game">
-                        {{cli.game.start | date: 'MMM-dd-yyyy'}}
+                        {{cli.game.start | date: 'dd-MMM-yy'}}
                     </div>
                     <div class="small text-secondary"
                          ng-if="cli.game">
@@ -32,7 +32,7 @@
             <div ng-if="cli.game.status === $root.constants.enums.gameStatusEnum.WaitingToStart">
                 <div class="font-weight-semibold"
                      ng-if="cli.game">
-                    {{cli.game.start | date: 'MMM-dd-yyyy'}}
+                    {{cli.game.start | date: 'dd-MMM-yy'}}
                 </div>
                 <div class="font-weight-semibold"
                      ng-if="cli.game">
