@@ -3,17 +3,19 @@
 
     angular.module('appModule')
         .service('drbblyFileService', serviceFunc);
-    serviceFunc.$inject = ['Upload', 'settingsService', '$rootScope', '$compile', '$interpolate'];
-    function serviceFunc(Upload, settingsService, $rootScope, $compile, $interpolate) {
+    serviceFunc.$inject = ['Upload', 'settingsService', '$rootScope', '$compile', '$interpolate', '$q'];
+    function serviceFunc(Upload, settingsService, $rootScope, $compile, $interpolate, $q) {
         var _browseButton;
 
-        function upload(files, apiMethod, otherInfo) {
+        async function upload(files, apiMethod, otherInfo) {
             var data;
-            if (files.length) {
-                data = { files: files };
+            var compressedFiles = await compressImages(files);
+
+            if (compressedFiles.length) {
+                data = { files: compressedFiles };
             }
             else {
-                data = { file: files };
+                data = { file: compressedFiles };
             }
 
             data.otherInfo = JSON.stringify(otherInfo);
@@ -23,6 +25,56 @@
                 data: data
             });
         }
+
+        /* File Compression methods - START */
+
+        async function compressImages(files) {
+            var compressionTasks = [];
+            var result = [];
+            for (var file of files) {
+                // We don't have to compress files that aren't images
+                if (!file.type.startsWith('image')) {
+                    result.push(file);
+                    continue;
+                }
+
+                // We compress the file by 50%
+                compressionTasks.push(
+                    compressImage(file, {
+                        quality: 0.5,
+                        type: 'image/jpeg',
+                    }).then(blob => {
+                        result.push(new File([blob], file.name, {
+                            type: blob.type,
+                        }));
+                    })
+                );
+            }
+
+            return $q.all(compressionTasks)
+                .then(function () {
+                    return result;
+                })
+        }
+
+        const compressImage = async (file, { quality = 0.8, type = file.type }) => {
+            // Get as image data
+            const imageBitmap = await createImageBitmap(file);
+
+            // Draw to canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = imageBitmap.width;
+            canvas.height = imageBitmap.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(imageBitmap, 0, 0);
+
+            // Turn into Blob
+            return new Promise((resolve) =>
+                canvas.toBlob(resolve, type, quality)
+            );
+        };
+
+        /* File Compression methods - END */
 
         function browseVideo(callback, event) {
             var options = {
