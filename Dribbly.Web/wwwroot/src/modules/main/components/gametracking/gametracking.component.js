@@ -278,7 +278,7 @@
             }
 
             if (!isMiss) {
-                gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000, gdg.timer.isRunning());
+                gdg.resetShotClockFull();
             }
 
             var modalResult = await showPlayerOptionsModal({
@@ -350,6 +350,10 @@
             }
         }
 
+        gdg.resetShotClockFull = function () {
+            gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000, gdg.timer.isRunning());
+        }
+
         gdg.recordTurnOver = function () {
             var typeChoices = drbblyFormshelperService.getDropDownListChoices({
                 enumKey: 'app.TurnoverCauseEnum',
@@ -373,6 +377,7 @@
                 container: $document.find('.tabbed-content').eq(0),
                 windowClass: 'turnover-cause-choices'
             }).catch(err => { /*modal cancelled, do nothing*/ });
+            gdg.resetShotClockFull();
         }
 
         async function turnoverTypeSelected(data) {
