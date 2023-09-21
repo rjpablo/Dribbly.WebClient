@@ -22,7 +22,7 @@
                             <button class="btn btn-secondary player" ng-repeat="player in team.players | filter : {selected: true}"
                                     ng-click="stu.toggleSelected(player, team)">
                                 <span class="jersey-no text-sporty">{{player.jerseyNo}}</span>
-                                <span class="name">{{player.name}}</span>
+                                <span class="name">{{player.account.lastName}}</span>
                             </button>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                             <button class="btn btn-secondary player" ng-repeat="player in team.players | filter : {selected: false}"
                                     ng-click="stu.toggleSelected(player, team)">
                                 <span class="jersey-no text-sporty">{{player.jerseyNo}}</span>
-                                <span class="name">{{player.name}}</span>
+                                <span class="name">{{player.account.lastName}}</span>
                             </button>
                         </div>
                     </div>
