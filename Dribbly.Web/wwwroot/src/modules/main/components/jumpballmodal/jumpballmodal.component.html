@@ -15,13 +15,10 @@
                     </div>
                     <div class="players">
                         <div class="form-group">
-                            <select class="form-control"
-                                    ng-model="jbm.team1Player">
-                                <option ng-repeat="player in jbm.team1PlayerOptions"
-                                        ng-value="player">
-                                    {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                                </option>
-                            </select>
+                            <drbbly-playerselect player="jbm.team1Player"
+                                                 class="form-control"
+                                                 choices="jbm.team1PlayerOptions"
+                                                 modal-container="jbm.options.container"></drbbly-playerselect>
                             <input type="text"
                                    name="performedBy"
                                    required
@@ -42,13 +39,10 @@
                     </div>
                     <div class="players">
                         <div class="form-group">
-                            <select class="form-control"
-                                    ng-model="jbm.team2Player">
-                                <option ng-repeat="player in jbm.team2PlayerOptions"
-                                        ng-value="player">
-                                    {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                                </option>
-                            </select>
+                            <drbbly-playerselect player="jbm.team2Player"
+                                                 class="form-control"
+                                                 choices="jbm.team2PlayerOptions"
+                                                 modal-container="jbm.options.container"></drbbly-playerselect>
                             <input type="text"
                                    name="performedBy"
                                    required

@@ -6,13 +6,11 @@
                 <h5>Fould Details</h5>
                 <div class="form-group">
                     <label>Committed By:</label><br />
-                    <select class="form-control"
-                            ng-model="rsm.model.performedBy">
-                        <option ng-repeat="player in rsm.foulPlayerOptions"
-                                ng-value="player">
-                            {{player.teamMembership.jerseyNo}} - {{player.teamMembership.name}}
-                        </option>
-                    </select>
+                    <drbbly-playerselect player="rsm.model.performedBy"
+                                         class="form-control"
+                                         choices="rsm.foulPlayerOptions"
+                                         prompt="Committed By"
+                                         modal-container="rsm.options.container"></drbbly-playerselect>
                     <input type="text"
                            name="performedBy"
                            required
