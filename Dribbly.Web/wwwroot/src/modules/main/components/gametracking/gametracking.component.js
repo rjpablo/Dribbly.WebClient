@@ -885,6 +885,7 @@
             gdg.game.start = drbblyDatetimeService.toLocalDateTime(gdg.game.start);
             gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
             setLineupsReady();
+            setTeamColors();
             gdg.gameDetailsOverlay.setToReady();
             gdg.app.mainDataLoaded();
             updateStatusText();
@@ -908,7 +909,7 @@
                         },
                         {
                             text: 'Reset Game',
-                            action: () => gdg.updateStatus(gdg.gameStatusEnum.Started),
+                            action: () => gdg.updateStatus(gdg.gameStatusEnum.WaitingToStart),
                             isHidden: () => !settingsService.allowGameReset || gdg.game.status === gdg.gameStatusEnum.WaitingToStart,
                             class: 'btn-secondary'
                         },
