@@ -17,11 +17,11 @@
     controllerFunc.$inject = ['drbblyGamesService', 'modalService', 'constants', 'authService',
         'drbblyOverlayService', '$stateParams', '$interval', 'drbblyCommonService', '$window',
         'drbblyGameshelperService', 'drbblyDatetimeService', 'drbblyGameeventsService', '$document',
-        'drbblyFormshelperService', '$timeout', '$state', 'settingsService'];
+        'drbblyFormshelperService', '$timeout', '$state', 'settingsService', 'drbblyToastService'];
     function controllerFunc(drbblyGamesService, modalService, constants, authService,
         drbblyOverlayService, $stateParams, $interval, drbblyCommonService, $window,
         drbblyGameshelperService, drbblyDatetimeService, drbblyGameeventsService, $document,
-        drbblyFormshelperService, $timeout, $state, settingsService) {
+        drbblyFormshelperService, $timeout, $state, settingsService, drbblyToastService) {
         var gdg = this;
         var _gameId;
 
@@ -490,7 +490,7 @@
             };
 
             var startResult = drbblyGamesService.startGame(input);
-
+            drbblyToastService.info('The game has started.');
             gdg.game.status = gdg.gameStatusEnum.Started;
             gdg.timer.start();
         }

@@ -3,8 +3,7 @@
 </div>
 <div class="modal-body">
     <div class="border-bottom mb-3">
-        <form name="jbm.frmJumpball"
-              ng-if="!jbm.clockHasStarted">
+        <form name="jbm.frmJumpball">
             <div class="form-row">
                 <div class="col-5">
                     <div class="team-details">
@@ -54,14 +53,10 @@
 
             </div>
         </form>
-        <div ng-if="jbm.clockHasStarted">
-            <h5 class="text-center">The game has started.</h5>
-        </div>
     </div>
     <div>
         <button class="btn btn-primary btn-block btn-lg mb-1"
                 ng-disabled="jbm.frmJumpball.$invalid"
-                ng-if="!jbm.clockHasStarted"
                 ng-click="jbm.startClock()">
             Start Clock
         </button>

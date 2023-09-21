@@ -54,8 +54,8 @@
                     team1Player: jbm.team1Player.teamMembership,
                     team2Player: jbm.team2Player.teamMembership
                 });
+                close(null);
             }
-            jbm.clockHasStarted = true;
         };
 
         function close(result) {
