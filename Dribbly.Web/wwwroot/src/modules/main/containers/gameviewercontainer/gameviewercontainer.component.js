@@ -59,6 +59,11 @@
 
         function massageGame() {
             [gcc.game.team1, gcc.game.team2].forEach(team => {
+                team.players.sort((a, b) => {
+                    return a.jerseyNo > b.jerseyNo ? 1 :
+                        a.jerseyNo < b.jerseyNo ? -1 :
+                            0;
+                });
                 team.players.forEach(player => {
                     player.teamMembership.team = team.team;
                 })
