@@ -340,11 +340,10 @@
                             modalResult.assist.performedByGamePlayer.assists = shotResult.assistResult.totalAssists;
                         }
 
-
                         if (modalResult.withFoul) {
                             applyFoulResult(shotResult.foulResult, modalResult.foul.performedByGamePlayer);
+                            gdg.recordFreeThrow(gdg.selectedPlayer);
                         }
-
                     }
                 }
             }
