@@ -22,7 +22,8 @@
     function controllerFn($scope, drbblyEventsService, constants, drbblyOverlayService) {
         var psm = this;
 
-        psm.$onInit = function () {            
+        psm.$onInit = function () {
+            groupChoices();
 
             psm.context.setOnInterrupt(psm.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
@@ -32,6 +33,23 @@
                 }
             }, $scope);
         };
+
+        function groupChoices() {
+            psm.teams = [];
+            psm.model.players.forEach(p => {
+                var team = psm.teams.drbblySingleOrDefault(t => t.id === p.teamMembership.teamId);
+                if (team) {
+                    team.players.push(p);
+                }
+                else {
+                    team = {
+                        id: p.teamMembership.teamId,
+                        players: [p]
+                    };
+                    psm.teams.push(team);
+                }
+            });
+        }
 
         psm.select = function (player) {
             close(player);

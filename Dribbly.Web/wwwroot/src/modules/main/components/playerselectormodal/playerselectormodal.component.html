@@ -21,14 +21,16 @@
                 </div>
             </uib-tab-heading>-->
     <div class="">
-        <div class="player-list">
-            <button class="btn btn-secondary player" ng-repeat="player in psm.model.players"
-                    ng-click="psm.select(player)"
-                    ng-style="{'background-color': player.teamColor}">
-                <img class="avatar" ng-src="{{player.profilePhoto.url}}" />&nbsp;
-                <span class="jersey-no text-sporty">{{player.jerseyNo}}</span>
-                <span class="name text-line-1">{{player.account.lastName}}</span>
-            </button>
+        <div class="team"
+             ng-repeat="team in psm.teams">
+            <div class="player-list">
+                <button class="btn btn-secondary player" ng-repeat="player in team.players"
+                        ng-click="psm.select(player)"
+                        ng-style="{'background-color': player.teamColor}">
+                    <span class="jersey-no text-sporty">{{player.jerseyNo}}</span>
+                    <span class="name text-line-1">{{player.account.lastName}}</span>
+                </button>
+            </div>
         </div>
     </div>
     <!--</uib-tab>

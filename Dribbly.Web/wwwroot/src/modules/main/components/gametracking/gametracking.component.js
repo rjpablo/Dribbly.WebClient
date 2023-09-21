@@ -405,11 +405,14 @@
             if (data.choice.value === constants.enums.turnoverCauseEnum.Stolen) {
                 var opponentTeam = gdg.teams.drbblySingle(t => t.teamId != gdg.selectedPlayer.teamMembership.teamId);
                 var stolenBy = await showPlayerOptionsModal({
-                    view: '<drbbly-playerselectionmodal></drbbly-playerselectionmodal>',
+                    view: '<drbbly-playerselectormodal></drbbly-playerselectormodal>',
                     model: {
                         players: opponentTeam.players.drbblyWhere(p => p.isInGame),
                         title: 'Stolen by:'
                     },
+                    container: $document.find('.tabbed-content').eq(0),
+                    backdrop: 'static',
+                    windowClass: 'player-selector-modal',
                     noBorder: true,
                     noBackground: true
                 }).catch(err => { /*modal cancelled, do nothing*/ });

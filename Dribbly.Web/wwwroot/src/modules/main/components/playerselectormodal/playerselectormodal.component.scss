@@ -14,7 +14,7 @@ drbbly-playerselectormodal {
                 height: 100%;
                 padding: 0;
 
-                &.active{
+                &.active {
                     border-bottom: 2px solid $primary;
                 }
             }
@@ -29,22 +29,27 @@ drbbly-playerselectormodal {
 
     .player-list {
         display: flex;
-        flex-direction: column;
-        align-items: stretch;
         padding: 0.1em;
-        overflow: auto;
+        flex-wrap: wrap;
 
         .player {
             margin-bottom: 0.1em;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 20%;
+            padding: 3px;
 
             .jersey-no {
-                margin-right: auto;
+                display: block;
+                text-align: center;
                 width: 1.5em;
             }
 
             .name {
                 flex-grow: 1;
+                font-size: 0.8em;
+                width: 100%;
             }
         }
     }
