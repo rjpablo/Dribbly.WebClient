@@ -5,6 +5,15 @@
 $top-bar-height: 2em;
 $nav-link-active-bg: rgba($black,0.15);
 
+body.game-tracking {
+    overflow-y: auto;
+    padding-top: 1px;
+
+    #drbbly-root-container {
+        position: unset;
+    }
+}
+
 #page-body-container {
     min-height: unset !important;
 }
@@ -24,6 +33,7 @@ drbbly-gametracking {
         display: flex;
         min-height: 330px;
         flex-direction: column;
+        margin-top: 10px;
 
         .top-bar {
             height: $top-bar-height;
@@ -298,11 +308,12 @@ drbbly-gametracking {
                 }
                 /* #region Modal */
                 .modal {
-                    .modal-dialog{
-                        .modal-footer{
+                    .modal-dialog {
+                        .modal-footer {
                             justify-content: start;
                         }
                     }
+
                     .modal-backdrop.show {
                         opacity: 0.8;
                     }

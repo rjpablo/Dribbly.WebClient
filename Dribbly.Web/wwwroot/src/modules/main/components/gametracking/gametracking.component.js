@@ -38,6 +38,7 @@
             setOrientation();
 
             angular.element($window).on('resize', setOrientation);
+            $('body').addClass('game-tracking');
         };
 
         gdg.$onChanges = function (changes) {
@@ -67,6 +68,7 @@
             drbblyGameshelperService.untrack(gcc.game);
             _unregisterUpdateClockHandler();
             _unregisterUpdatePeriodHandler();
+            $('body').removeClass('game-tracking');
         }
 
         function setTeamColors() {
