@@ -33,6 +33,9 @@
                 case _notificationTypes.NewGameForOwner:
                     dni.targetLink = $state.href('main.game.details', { id: dni.item.additionalInfo.gameId });
                     break;
+                case _notificationTypes.AssignedAsTimekeeper:
+                    dni.targetLink = $state.href('main.game.track', { id: dni.item.additionalInfo.gameId });
+                    break;
                 case _notificationTypes.NewBookingForBooker:
                 case _notificationTypes.NewBookingForOwner:
                     dni.targetLink = $state.href('main.booking', { id: dni.item.bookingId });
@@ -47,7 +50,6 @@
                 case _notificationTypes.JoinTeamRequest:
                     dni.targetLink = $state.href('main.team.members', { id: dni.item.additionalInfo.teamId });
                     break;
-
             }
         }
     }

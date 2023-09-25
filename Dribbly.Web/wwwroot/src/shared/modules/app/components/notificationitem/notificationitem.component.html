@@ -22,7 +22,8 @@
              dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTournamentRequestRejected ||
              dni.item.type === $root.constants.enums.notificationTypeEnum.TournamentTeamRemoved ||
              dni.item.type === $root.constants.enums.notificationTypeEnum.NewGameForOwner ||
-             dni.item.type === $root.constants.enums.notificationTypeEnum.NewGameForBooker"
+             dni.item.type === $root.constants.enums.notificationTypeEnum.NewGameForBooker ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.AssignedAsTimekeeper"
              ng-bind-html="::dni.getTemplate(dni.item)">
         </div>
         <!--#endregion JoinTeamRequest-Related -->

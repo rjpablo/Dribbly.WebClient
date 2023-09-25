@@ -14,8 +14,8 @@
                     return drbblyhttpService.get(api + 'getGame/' + id);
                 }
 
-                function currentUserIsGameManager(gameId) {
-                    return drbblyhttpService.get(api + 'currentUserIsGameManager/' + gameId);
+                function canTrackGame(gameId) {
+                    return drbblyhttpService.get(api + 'canTrackGame/' + gameId);
                 }
 
                 function getGameTeam(gameId, teamId) {
@@ -74,6 +74,10 @@
                     return drbblyhttpService.post(api + 'setTimeoutsLeft/' + gameTeamId + '/' + timeoutsLeft);
                 }
 
+                function setTimekeeper(gameTeamId, timekeeperId) {
+                    return drbblyhttpService.post(api + 'setTimekeeper/' + gameTeamId + '/' + timekeeperId);
+                }
+
                 function setTeamFoulCount(gameTeamId, foulCount) {
                     return drbblyhttpService.post(api + 'setTeamFoulCount/' + gameTeamId + '/' + foulCount);
                 }
@@ -89,7 +93,7 @@
                 var _service = {
                     addGame: addGame,
                     advancePeriod: advancePeriod,
-                    currentUserIsGameManager: currentUserIsGameManager,
+                    canTrackGame: canTrackGame,
                     endGame: endGame,
                     getAddGameModal: getAddGameModal,
                     getAll: getAll,
@@ -100,8 +104,9 @@
                     startGame: startGame,
                     setBonusStatus: setBonusStatus,
                     setNextPossession: setNextPossession,
-                    setTimeoutsLeft: setTimeoutsLeft,
                     setTeamFoulCount: setTeamFoulCount,
+                    setTimekeeper,
+                    setTimeoutsLeft: setTimeoutsLeft,
                     updateGame: updateGame,
                     updateGameResult: updateGameResult,
                     updateLineup: updateLineup,

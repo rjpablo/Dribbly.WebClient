@@ -294,12 +294,14 @@
 
         gdg.recordShot = async function (points, isMiss, withFoul) {
 
-            if ((!isMiss && !gdg.game.usesRunningClock) || withFoul) {
-                gdg.timer.stop();
-            }
+            if (gdg.isTimekeeper) {
+                if ((!isMiss && !gdg.game.usesRunningClock) || withFoul) {
+                    gdg.timer.stop();
+                }
 
-            if (!isMiss) {
-                gdg.resetShotClockFull();
+                if (!isMiss) {
+                    gdg.resetShotClockFull();
+                }
             }
 
             var modalResult = await showPlayerOptionsModal({
@@ -525,7 +527,9 @@
 
         gdg.recordFoul = async function () {
 
-            gdg.timer.stop();
+            if (gdg.isTimekeeper) {
+                gdg.timer.stop();
+            }
 
             var modalResult = await showPlayerOptionsModal({
                 view: '<drbbly-fouldetailsmodal></drbbly-fouldetailsmodal>',
@@ -563,7 +567,9 @@
         }
 
         gdg.timeout = async function () {
-            gdg.timer.stop();
+            if (gdg.isTimekeeper) {
+                gdg.timer.stop();
+            }
             var modalResult = await showPlayerOptionsModal({
                 view: '<drbbly-timeoutdetailsmodal></drbbly-timeoutdetailsmodal>',
                 model: {
@@ -598,7 +604,7 @@
         };
 
         gdg.showGameEventDetails = async function (event) {
-            if (!gdg.gameIsFinished()) {
+            if (gdg.scoreKeeper && !gdg.gameIsFinished()) {
                 var eventIsShot = event.type === constants.enums.gameEventTypeEnum.ShotMade
                     || event.type === constants.enums.gameEventTypeEnum.ShotMissed;
                 var eventIsRebound = event.type === constants.enums.gameEventTypeEnum.DefensiveRebound
@@ -912,6 +918,9 @@
             gdg.players = [...gdg.game.team1.players, ...gdg.game.team2.players];
             gdg.game.start = drbblyDatetimeService.toLocalDateTime(gdg.game.start);
             gdg.isOwned = gdg.game.addedBy.identityUserId === authService.authentication.userId;
+            gdg.isTimekeeper = !gdg.game.timekeeperId
+                || authService.authentication.accountId === gdg.game.timekeeperId;
+            gdg.scoreKeeper = gdg.isOwned;
             setLineupsReady();
             setTeamColors();
             gdg.gameDetailsOverlay.setToReady();
@@ -932,13 +941,19 @@
                         {
                             text: 'Change Game Settings',
                             action: gdg.showSettings,
-                            isHidden: () => gdg.game.status === gdg.gameStatusEnum.Finished,
+                            isHidden: () => gdg.game.status === gdg.gameStatusEnum.Finished || !gdg.scoreKeeper,
+                            class: 'btn-secondary'
+                        },
+                        {
+                            text: 'Set Timekeeper',
+                            action: gdg.setTimekeeper,
+                            isHidden: () => gdg.game.status === gdg.gameStatusEnum.Finished || !gdg.scoreKeeper,
                             class: 'btn-secondary'
                         },
                         {
                             text: 'Reset Game',
                             action: () => gdg.updateStatus(gdg.gameStatusEnum.WaitingToStart),
-                            isHidden: () => !settingsService.allowGameReset || gdg.game.status === gdg.gameStatusEnum.WaitingToStart,
+                            isHidden: () => !settingsService.allowGameReset || gdg.game.status === gdg.gameStatusEnum.WaitingToStart || !gdg.scoreKeeper,
                             class: 'btn-secondary'
                         },
                         {
@@ -952,6 +967,43 @@
                 container: $document.find('.wrapper').eq(0),
                 size: 'sm'
             })
+        }
+
+        gdg.setTimekeeper = function() {
+            var selectedItems = [];
+            if (gdg.game.timekeeper) {
+                selectedItems.push({
+                    text: gdg.game.timekeeper.name,
+                    iconUrl: gdg.game.timekeeper.iconUrl,
+                    value: gdg.game.timekeeperId
+                })
+            }
+            modalService
+                .input({
+                    model: {
+                        type: 'typeahead',
+                        prompt: 'Assign Timekeeper',
+                        value: gdg.game.timekeeperId,
+                        typeAheadConfig: {
+                            entityTypes: [constants.enums.entityType.Account],
+                            excludeValues: gdg.game.timekeeperId ? [gdg.game.timekeeperId] : null,
+                            selectedItems: selectedItems
+                        }
+                    }
+                })
+                .then(value => {
+                    drbblyGamesService.setTimekeeper(gdg.game.id, value)
+                        .then(function (result) {
+                            gdg.game.timekeeper = result;
+                            gdg.game.timekeeperId = value;
+                            gdg.isTimekeeper = !gdg.game.timekeeperId
+                                || authService.authentication.accountId === gdg.game.timekeeperId;
+                        })
+                        .catch(function (err) {
+                            drbblyCommonService.handleError(err, null, 'Failed to set timekeeper due to an unexpected error.');
+                        });
+                })
+                .catch(function (err) { /* input cancelled */ });
         }
 
         gdg.showSettings = function () {

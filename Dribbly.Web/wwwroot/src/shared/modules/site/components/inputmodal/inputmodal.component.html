@@ -10,10 +10,11 @@
     </div>
     <form name="inp.frmInput"
           ng-submit="inp.submit()">
-        <div class="form-group">
-            <label>{{inp.model.prompt}}</label>
+        <div class="form-group"
+             ng-switch="inp.model.type">
+            <label for="input">{{inp.model.prompt}}</label>
             <input type="text"
-                   ng-if="inp.model.type === 'email'"
+                   ng-switch-when="email"
                    drbbly-emailinput
                    name="input"
                    min="inp.model.min"
@@ -23,8 +24,15 @@
                    class="form-control d-block"
                    ng-required="inp.model.required"
                    ng-model="inp.model.value" />
+            <drbbly-typeahead selected-items="inp.selectedItems"
+                              ng-switch-when="typeahead"
+                              config="inp.typeAheadConfig"
+                              ng-required="inp.model.required"
+                              name="input"
+                              ng-model="inp.model.value"
+                              class="form-control" />
             <input type="{{inp.model.type}}"
-                   ng-if="inp.model.type !== 'email'"
+                   ng-switch-default
                    name="input"
                    min="inp.model.min"
                    max="inp.model.max"

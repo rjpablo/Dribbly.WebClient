@@ -17,6 +17,11 @@
         var inp = this;
 
         inp.$onInit = function () {
+
+            if (inp.model.type === 'typeahead') {
+                setTypeAheadConfig(inp.model.typeAheadConfig);
+            }
+
             inp.context.setOnInterrupt(inp.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
                 if (!inp.context.okToClose) {
@@ -60,5 +65,15 @@
         inp.cancel = function () {
             inp.onInterrupt('cancelled');
         };
+
+        function setTypeAheadConfig(config) {
+            inp.selectedItems = config.selectedItems;
+            var defaultConfig = {
+                onUnselect: () => {
+                    inp.frmInput.$setDirty();
+                }
+            };
+            inp.typeAheadConfig = Object.assign(defaultConfig, config);
+        }
     }
 })();

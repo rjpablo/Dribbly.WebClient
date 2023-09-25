@@ -221,7 +221,7 @@
                             }
 
                             return authService.checkAuthenticationThen(function () {
-                                return drbblyGamesService.currentUserIsGameManager($stateParams.id)
+                                return drbblyGamesService.canTrackGame($stateParams.id)
                                     .then(isManager => {
                                         if (!isManager) {
                                             reject();
