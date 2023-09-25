@@ -9,7 +9,7 @@
                 onReady: '<',
                 onUpdate: '<',
                 onStop: '<',
-                onEditted:'<',
+                onEditted: '<',
                 autoStart: '<',
                 showControls: '<',
                 label: '<',
@@ -103,28 +103,31 @@
                 this.duration = duration;
                 displayTime(this.duration);
             }
-            setRemainingTime(duration, start) {
+            setRemainingTime(duration, start, suppressEvents) {
                 if (this.running) {
-                    this.stop();
+                    this.stop({ suppressEvents: suppressEvents });
                 }
                 this.duration = duration;
                 displayTime(this.duration);
                 if (start) {
-                    this.start();
+                    this.start({ suppressEvents: suppressEvents });
                 }
             }
-            start() {
+            start(data) {
+                data = data || {};
+                this._startedAt = new Date();
                 if (!this.running) {
-                    if (!this.onStartCallback || this.onStartCallback(this.duration)) {
-                        this.run(new Date(), this.duration);
-                        if (this.onStartedCallback) {
+                    if (data.suppressEvents || !this.onStartCallback || this.onStartCallback(this.duration)) {
+                        this.run(this._startedAt, this.duration);
+                        if (!data.suppressEvents && this.onStartedCallback) {
                             this.onStartedCallback();
                         }
                     }
                 }
             }
-            run(start, startDuration) {
-                var proceed = !this.onRunCallback || this.onRunCallback(this.duration);
+            run(start, startDuration, suppressEvents) {
+                this._startedAt = start;
+                var proceed = suppressEvents || !this.onRunCallback || this.onRunCallback(this.duration);
                 if (proceed) {
                     this.running = true;
                     var _this = this;
@@ -135,12 +138,12 @@
                             if (_this.duration <= 0) {
                                 _this.duration = 0;
                                 _this.stop();
-                                if (_this.onEndCallback) {
+                                if (!suppressEvents && _this.onEndCallback) {
                                     _this.onEndCallback();
                                 }
                             }
                             displayTime(_this.duration);
-                            if (_this.onUpdateCallback) {
+                            if (!suppressEvents && _this.onUpdateCallback) {
                                 _this.onUpdateCallback(_this.duration);
                             }
                         }
@@ -189,10 +192,11 @@
                     this.onResetCallback();
                 }
             }
-            stop() {
+            stop(data) {
+                data = data || {};
                 this.running = false;
                 $interval.cancel(this.timerInterval);
-                if (this.onStopCallback) {
+                if (!data.suppressEvents && this.onStopCallback) {
                     this.onStopCallback();
                 }
             }
@@ -217,6 +221,9 @@
             }
             get hasStarted() {
                 return this.duration !== this.origDuration;
+            }
+            get startedAt() {
+                return this._startedAt
             }
         }
     }

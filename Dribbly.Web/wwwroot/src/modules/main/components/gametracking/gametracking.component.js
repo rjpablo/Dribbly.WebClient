@@ -24,13 +24,15 @@
         drbblyFormshelperService, $timeout, $state, settingsService, drbblyToastService) {
         var gdg = this;
         var _gameId;
+        var _unregisterUpdateClockHandler;
+        var _unregisterUpdatePeriodHandler;
 
         gdg.$onInit = function () {
             gdg.app.noHeader = true;
             gdg.app.noFooter = true;
             gdg.app.hideContainerData = true;
             gdg.app.hideChat();
-            _gameId = $stateParams.id;
+            _gameId = Number($stateParams.id);
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
             setOrientation();
@@ -44,7 +46,27 @@
                 gdg.app.updatePageDetails({
                     title: (gdg.game.title || 'Untitled Game') + ' - Tracker'
                 });
+                drbblyGameshelperService.track(gdg.game);
+                if (!_unregisterUpdateClockHandler) {
+                    _unregisterUpdateClockHandler = drbblyGameshelperService.hub
+                        .on('updateClock', handleUpdateClockEvent);
+                }
+                if (!_unregisterUpdatePeriodHandler) {
+                    _unregisterUpdateClockHandler = drbblyGameshelperService.hub
+                        .on('updatePeriod', updatePeriod);
+                }
             }
+        }
+
+        gdg.$onDestroy = function () {
+            angular.element($window).off('resize', setOrientation);
+            gdg.app.noHeader = false;
+            gdg.app.noFooter = false;
+            gdg.app.hideContainerData = false;
+            gdg.app.showChat();
+            drbblyGameshelperService.untrack(gcc.game);
+            _unregisterUpdateClockHandler();
+            _unregisterUpdatePeriodHandler();
         }
 
         function setTeamColors() {
@@ -60,14 +82,6 @@
             gdg.isVertical = screenHeight > screenWidth;
         }
 
-        gdg.$onDestroy = function () {
-            angular.element($window).off('resize', setOrientation);
-            gdg.app.noHeader = false;
-            gdg.app.noFooter = false;
-            gdg.app.hideContainerData = false;
-            gdg.app.showChat();
-        }
-
         gdg.gameIsFinished = function () {
             return gdg.game.status === gdg.gameStatusEnum.Finished;
         }
@@ -76,8 +90,9 @@
             gdg.timer = timer;
             gdg.timer.onUpdate(displayTime);
             gdg.timer.onStop(function () {
-                updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, false);
                 gdg.shotTimer.stop();
+                updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, false);
+                broadcastUpdateClock(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, false);
                 updateStatusText();
             });
             gdg.timer.onStart(function () {
@@ -86,11 +101,14 @@
                     return false;
                 }
 
-                updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, true);
                 if (gdg.shotTimer.isOver()) {
                     gdg.shotTimer.reset();
                 }
                 gdg.shotTimer.start();
+
+                updateTime(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, true);
+                broadcastUpdateClock(gdg.timer.remainingTime, gdg.shotTimer.remainingTime, true);
+
                 return true;
             });
             gdg.timer.onStarted(function () {
@@ -99,6 +117,7 @@
             gdg.timer.onEditted(function (time, commit) {
                 updateTime(time.totalMs, gdg.shotTimer.remainingTime, false)
                     .then(commit);
+                broadcastUpdateClock(time.totalMs, gdg.shotTimer.remainingTime, false)
             });
 
             gdg.timer.onEnd(function () {
@@ -129,6 +148,7 @@
             gdg.shotTimer.onEditted(function (time, commit) {
                 updateTime(gdg.timer.remainingTime, time.totalMs, false)
                     .then(commit);
+                broadcastUpdateClock(gdg.timer.remainingTime, time.totalMs, false)
             });
             gdg.shotTimer.onEnd(function () {
                 gdg.timer.stop();
@@ -142,6 +162,7 @@
         gdg.setShotTime = function (time, start) {
             time = time < gdg.timer.remainingTime ? time : gdg.timer.remainingTime;
             updateTime(gdg.timer.remainingTime, time, start);
+            broadcastUpdateClock(gdg.timer.remainingTime, time, start);
             gdg.shotTimer.setRemainingTime(time, start);
         };
 
@@ -996,17 +1017,57 @@
             return drbblyGamesService.updateRemainingTime(input);
         }
 
+        function broadcastUpdateClock(gameTimeRemaining, shotTimeRemaining, isLive) {
+            var timeStamp = drbblyDatetimeService.getUtcNow();
+            var input = {
+                gameId: _gameId,
+                timeRemaining: gameTimeRemaining,
+                updatedAt: gdg.timer.startedAt,
+                isLive: isLive,
+                shotTimeRemaining: shotTimeRemaining
+            };
+            drbblyGameshelperService.hub.updateClock(input);
+        }
+
+        function handleUpdateClockEvent(data) {
+            if (data.gameId === _gameId) {
+                var suppressEvents = true;
+                if (data.isLive) {
+                    gdg.timer.run(new Date(drbblyDatetimeService.toUtcString(data.updatedAt)), data.timeRemaining, suppressEvents);
+                    gdg.shotTimer.run(new Date(drbblyDatetimeService.toUtcString(data.updatedAt)), data.shotTimeRemaining, suppressEvents);
+                }
+                else {
+                    gdg.shotTimer.setRemainingTime(data.shotTimeRemaining, data.isLive, suppressEvents);
+                    gdg.timer.setRemainingTime(data.timeRemaining, data.isLive, suppressEvents);
+                }
+            }
+            updateStatusText();
+        }
+
+        function updatePeriod(data) {
+            if (data.gameId === _gameId) {
+                gdg.game.currentPeriod = data.period;
+                gdg.timer.init(data.duration);
+                gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000);
+                displayPeriod(gdg.game.currentPeriod);
+                displayTime(gdg.timer.remainingTime);
+                updateStatusText();
+            }
+        }
+
         gdg.goToNextPeriod = function () {
             var period = gdg.game.currentPeriod + 1;
-            var newTime = getCurrentPeriodDuration();
+            var duration = getCurrentPeriodDuration();
             gdg.isBusy = true;
-            drbblyGamesService.advancePeriod(_gameId, period, newTime)
+            drbblyGamesService.advancePeriod(_gameId, period, duration)
                 .then(function () {
-                    gdg.game.currentPeriod = period;
-                    gdg.timer.init(newTime);
-                    gdg.setShotTime(gdg.game.defaultShotClockDuration * 1000);
-                    displayPeriod(gdg.game.currentPeriod);
-                    displayTime(gdg.timer.remainingTime);
+                    var data = {
+                        gameId: _gameId,
+                        period: period,
+                        duration: duration
+                    };
+                    updatePeriod(data);
+                    drbblyGameshelperService.hub.updatePeriod(data);
                 })
                 .catch(drbblyCommonService.handleError)
                 .finally(function () {
@@ -1060,74 +1121,6 @@
                     }
                 });
         };
-
-        class BadTimer {
-            duration = 0;
-            running = false;
-            constructor(duration) {
-                this.origDuration = duration;
-                this.duration = duration;
-            }
-            start() {
-                this.run(new Date(), this.duration)
-                if (this.onStartCallback) {
-                    this.onStartCallback();
-                }
-            }
-            run(start, startDuration) {
-                this.running = true;
-                var _this = this;
-                this.timerInterval = $interval(function () {
-                    if (_this.isRunning) {
-                        var now = new Date();
-                        _this.duration = startDuration - (now - start);
-                        if (_this.duration <= 0) {
-                            _this.duration = 0;
-                            _this.stop();
-                        }
-                        _this.onUpdateCallback(_this.duration);
-                    }
-                }, 100);
-            }
-            onUpdate(cb) {
-                this.onUpdateCallback = cb;
-            }
-            onStop(cb) {
-                this.onStopCallback = cb;
-            }
-            onStart(cb) {
-                this.onStartCallback = cb;
-            }
-            reset(duration) {
-                if (duration !== null && duration !== undefined) {
-                    this.origDuration = duration;
-                }
-                this.duration = this.origDuration;
-            }
-            stop() {
-                this.running = false;
-                $interval.cancel(this.timerInterval);
-                if (this.onStopCallback) {
-                    this.onStopCallback();
-                }
-            }
-            isRunning() {
-                return this.running;
-            }
-            isOver() {
-                return this.duration === 0;
-            }
-            toggle() {
-                if (this.running) {
-                    this.stop();
-                } else {
-                    this.start();
-                }
-            }
-            get remainingTime() {
-                return this.duration;
-            }
-        }
     }
 
 })();

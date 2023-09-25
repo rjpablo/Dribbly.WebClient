@@ -124,7 +124,7 @@ drbbly-gametracking {
                                 object-fit: cover;
                             }
 
-                            .name{
+                            .name {
                                 white-space: nowrap;
                             }
 
@@ -297,8 +297,15 @@ drbbly-gametracking {
                     }
                 }
                 /* #region Modal */
-                .modal-backdrop.show {
-                    opacity: 0.8;
+                .modal {
+                    .modal-dialog{
+                        .modal-footer{
+                            justify-content: start;
+                        }
+                    }
+                    .modal-backdrop.show {
+                        opacity: 0.8;
+                    }
                 }
                 /*#endregion */
             }

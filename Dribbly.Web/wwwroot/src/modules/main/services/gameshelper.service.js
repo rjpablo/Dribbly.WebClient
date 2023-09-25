@@ -7,6 +7,7 @@
                 var _hubConnection;
                 var _hub;
                 var _trackedGames = [];
+                var _listeners = [];
 
                 function openAddEditGameModal(model) {
                     return authService.checkAuthenticationThen(function () {
@@ -29,6 +30,22 @@
                                     game.team1Score = data.team1Score;
                                     game.team2Score = data.team2Score;
                                 })
+                            });
+                        }
+                    });
+
+                    _hub.on('updateClock', data => {
+                        if (data) {
+                            $timeout(function () {
+                                broadcast('updateClock', data);
+                            });
+                        }
+                    });
+
+                    _hub.on('updatePeriod', data => {
+                        if (data) {
+                            $timeout(function () {
+                                broadcast('updatePeriod', data);
                             });
                         }
                     });
@@ -82,6 +99,14 @@
                     _hub.invoke('joinGroup', _hubConnection.id, game.id);
                 }
 
+                function updateClock(input) {
+                    _hub.invoke('updateClock', input);
+                }
+
+                function updatePeriod(data) {
+                    _hub.invoke('updatePeriod', data);
+                }
+
                 function track(game) {
                     _trackedGames.push(game);
                     joinGameHub(game);
@@ -91,7 +116,30 @@
                     _trackedGames.drbblyRemove(game);
                 }
 
+                function on(eventName, callback) {
+                    if (!_listeners[eventName]) {
+                        _listeners[eventName] = [];
+                    }
+                    var group = _listeners[eventName];
+                    group.push(callback);
+                    return function () {
+                        group.drbblyRemove(callback);
+                    }
+                }
+
+                function broadcast(eventName, data) {
+                    var group = _listeners[eventName];
+                    if (group) {
+                        angular.forEach(group, listener => listener(data));
+                    }
+                }
+
                 var _service = {
+                    hub: {
+                        on: on,
+                        updateClock: updateClock,
+                        updatePeriod: updatePeriod
+                    },
                     initializeGameHub: initializeGameHub,
                     openAddEditGameModal: openAddEditGameModal,
                     track: track,
