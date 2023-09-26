@@ -163,9 +163,9 @@
 
         gdg.setShotTime = function (time, start) {
             time = time < gdg.timer.remainingTime ? time : gdg.timer.remainingTime;
-            updateTime(gdg.timer.remainingTime, time, start);
-            broadcastUpdateClock(gdg.timer.remainingTime, time, start);
             gdg.shotTimer.setRemainingTime(time, start);
+            updateTime(gdg.timer.remainingTime, time, start);
+            broadcastUpdateClock(gdg.timer.remainingTime, time, start, gdg.shotTimer.startedAt);
         };
 
         gdg.setNextPossession = function (nextPossession) {
@@ -971,7 +971,7 @@
             })
         }
 
-        gdg.setTimekeeper = function() {
+        gdg.setTimekeeper = function () {
             var selectedItems = [];
             if (gdg.game.timekeeper) {
                 selectedItems.push({
@@ -1071,12 +1071,11 @@
             return drbblyGamesService.updateRemainingTime(input);
         }
 
-        function broadcastUpdateClock(gameTimeRemaining, shotTimeRemaining, isLive) {
-            var timeStamp = drbblyDatetimeService.getUtcNow();
+        function broadcastUpdateClock(gameTimeRemaining, shotTimeRemaining, isLive, startedAt) {
             var input = {
                 gameId: _gameId,
                 timeRemaining: gameTimeRemaining,
-                updatedAt: gdg.timer.startedAt,
+                updatedAt: startedAt || gdg.timer.startedAt,
                 isLive: isLive,
                 shotTimeRemaining: shotTimeRemaining
             };
@@ -1084,6 +1083,7 @@
         }
 
         function handleUpdateClockEvent(data) {
+            console.log('handleUpdateClockEvent:: UpdatedAt:' + data.updatedAt.toString());
             if (data.gameId === _gameId) {
                 var suppressEvents = true;
                 if (data.isLive) {

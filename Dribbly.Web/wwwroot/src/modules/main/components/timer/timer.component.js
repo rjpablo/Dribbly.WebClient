@@ -129,6 +129,9 @@
                 this._startedAt = start;
                 var proceed = suppressEvents || !this.onRunCallback || this.onRunCallback(this.duration);
                 if (proceed) {
+                    if (this.timerInterval) {
+                        $interval.cancel(this.timerInterval);
+                    }
                     this.running = true;
                     var _this = this;
                     this.timerInterval = $interval(function () {
@@ -195,7 +198,9 @@
             stop(data) {
                 data = data || {};
                 this.running = false;
-                $interval.cancel(this.timerInterval);
+                if (this.timerInterval) {
+                    $interval.cancel(this.timerInterval);
+                }
                 if (!data.suppressEvents && this.onStopCallback) {
                     this.onStopCallback();
                 }
