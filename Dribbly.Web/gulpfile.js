@@ -351,6 +351,10 @@ gulp.task('clean-publish-folder', function clean() {
     var paths = [
         'bin/Publish/wwwroot/src/**/*.js',
         'bin/Publish/wwwroot/src/**/*.scss',
-        'bin/Publish/wwwroot/src/**/*.css'];
+        'bin/Publish/wwwroot/src/**/*.css',
+        'bin/Publish/wwwroot/dist/js/*.js',
+        '!bin/Publish/wwwroot/dist/js/*.min.js',
+        'bin/Publish/wwwroot/dist/css/*.css',
+        '!bin/Publish/wwwroot/dist/css/*.min.css'];
     return del(paths);
 });
