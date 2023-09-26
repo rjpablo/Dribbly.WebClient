@@ -42,6 +42,14 @@
                         }
                     });
 
+                    _hub.on('setTol', data => {
+                        if (data) {
+                            $timeout(function () {
+                                broadcast('setTol', data);
+                            });
+                        }
+                    });
+
                     _hub.on('updatePeriod', data => {
                         if (data) {
                             $timeout(function () {
@@ -107,6 +115,10 @@
                     _hub.invoke('updatePeriod', data);
                 }
 
+                function invoke(eventName, data) {
+                    _hub.invoke(eventName, data);
+                }
+
                 function track(game) {
                     _trackedGames.push(game);
                     joinGameHub(game);
@@ -137,6 +149,7 @@
                 var _service = {
                     hub: {
                         on: on,
+                        invoke: invoke,
                         updateClock: updateClock,
                         updatePeriod: updatePeriod
                     },

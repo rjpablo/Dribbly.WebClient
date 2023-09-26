@@ -26,6 +26,7 @@
         var _gameId;
         var _unregisterUpdateClockHandler;
         var _unregisterUpdatePeriodHandler;
+        var _unregisterSetTolHandler;
 
         gdg.$onInit = function () {
             gdg.app.noHeader = true;
@@ -56,6 +57,10 @@
                     _unregisterUpdateClockHandler = drbblyGameshelperService.hub
                         .on('updatePeriod', updatePeriod);
                 }
+                if (!_unregisterSetTolHandler) {
+                    _unregisterUpdateClockHandler = drbblyGameshelperService.hub
+                        .on('setTol', handleSetTol);
+                }
             }
         }
 
@@ -68,6 +73,7 @@
             drbblyGameshelperService.untrack(gcc.game);
             _unregisterUpdateClockHandler();
             _unregisterUpdatePeriodHandler();
+            _unregisterSetTolHandler();
             $('body').removeClass('game-tracking');
         }
 
@@ -741,11 +747,26 @@
                 await drbblyGamesService.setTimeoutsLeft(gameTeam.id, value)
                     .then(function () {
                         gameTeam.timeoutsLeft = value;
+                        drbblyGameshelperService.hub.invoke('setTol',
+                            {
+                                gameId: _gameId,
+                                teamId: gameTeam.teamId,
+                                timeoutsLeft: value
+                            })
                     })
                     .catch(function (err) {
                         drbblyCommonService.handleError(err, null, 'Failed to save T.O.L. due to an error.');
                     });
 
+            }
+        }
+
+        function handleSetTol(data) {
+            if (_gameId === data.gameId) {
+                var gameTeam = gdg.teams.drbblySingleOrDefault(t => t.teamId === data.teamId);
+                if (gameTeam) {
+                    gameTeam.timeoutsLeft = data.timeoutsLeft;
+                }
             }
         }
 
