@@ -27,6 +27,8 @@
         var _unregisterUpdateClockHandler;
         var _unregisterUpdatePeriodHandler;
         var _unregisterSetTolHandler;
+        var _hubListeners = [];
+        var _hasInitializedGame;
 
         gdg.$onInit = function () {
             gdg.app.noHeader = true;
@@ -49,18 +51,21 @@
                     title: (gdg.game.title || 'Untitled Game') + ' - Tracker'
                 });
                 drbblyGameshelperService.track(gdg.game);
-                if (!_unregisterUpdateClockHandler) {
-                    _unregisterUpdateClockHandler = drbblyGameshelperService.hub
-                        .on('updateClock', handleUpdateClockEvent);
+                if (!_hasInitializedGame) {
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('updateClock', handleUpdateClockEvent));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('updatePeriod', updatePeriod));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('setTol', handleSetTol));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('setBonus', handleSetBonus));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('setNextPossession', handleSetNextPossession));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('setTeamFoulCount', handleSetTeamFoulCount));
                 }
-                if (!_unregisterUpdatePeriodHandler) {
-                    _unregisterUpdateClockHandler = drbblyGameshelperService.hub
-                        .on('updatePeriod', updatePeriod);
-                }
-                if (!_unregisterSetTolHandler) {
-                    _unregisterUpdateClockHandler = drbblyGameshelperService.hub
-                        .on('setTol', handleSetTol);
-                }
+                _hasInitializedGame = true;
             }
         }
 
@@ -71,9 +76,7 @@
             gdg.app.hideContainerData = false;
             gdg.app.showChat();
             drbblyGameshelperService.untrack(gcc.game);
-            _unregisterUpdateClockHandler();
-            _unregisterUpdatePeriodHandler();
-            _unregisterSetTolHandler();
+            _hubListeners.forEach(listener => listener()); //unregister hub listeners
             $('body').removeClass('game-tracking');
         }
 
@@ -178,10 +181,23 @@
             var currentValue = gdg.game.nextPossession;
             gdg.game.nextPossession = nextPossession;
             drbblyGamesService.setNextPossession(_gameId, nextPossession)
+                .then(function () {
+                    drbblyGameshelperService.hub.invoke('setNextPossession',
+                        {
+                            gameId: _gameId,
+                            nextPossession: nextPossession
+                        });
+                })
                 .catch(function (err) {
                     gdg.game.nextPossession = currentValue;
                     drbblyCommonService.handleError(err, null, 'The foul was not recoded due to an error.');
                 });
+        }
+
+        function handleSetNextPossession(data) {
+            if (_gameId === data.gameId) {
+                gdg.game.nextPossession = data.nextPossession;
+            }
         }
 
         gdg.setLineup = async function (team) {
@@ -710,11 +726,26 @@
                 await drbblyGamesService.setTeamFoulCount(gameTeam.id, value)
                     .then(function () {
                         gameTeam.teamFoulCount = value;
+                        drbblyGameshelperService.hub.invoke('setTeamFoulCount',
+                            {
+                                gameId: _gameId,
+                                teamId: gameTeam.teamId,
+                                foulCount: value
+                            });
                     })
                     .catch(function (err) {
                         drbblyCommonService.handleError(err, null, 'Failed to update team foul count due to an error.');
                     });
 
+            }
+        }
+
+        function handleSetTeamFoulCount(data) {
+            if (_gameId === data.gameId) {
+                var gameTeam = gdg.teams.drbblySingleOrDefault(t => t.teamId === data.teamId);
+                if (gameTeam) {
+                    gameTeam.teamFoulCount = data.foulCount;
+                }
             }
         }
         // #endregion Team Foul Setting
@@ -752,7 +783,7 @@
                                 gameId: _gameId,
                                 teamId: gameTeam.teamId,
                                 timeoutsLeft: value
-                            })
+                            });
                     })
                     .catch(function (err) {
                         drbblyCommonService.handleError(err, null, 'Failed to save T.O.L. due to an error.');
@@ -786,9 +817,26 @@
             gameTeam.isInBonus = !gameTeam.isInBonus;
 
             drbblyGamesService.setBonusStatus(gameTeam.id, gameTeam.isInBonus)
+                .then(function () {
+                    drbblyGameshelperService.hub.invoke('setBonus',
+                        {
+                            gameId: _gameId,
+                            teamId: gameTeam.teamId,
+                            isInBonus: gameTeam.isInBonus
+                        });
+                })
                 .catch(function (err) {
                     drbblyCommonService.handleError(err, null, 'Failed to save bonus status due to an error.');
                 });
+        }
+
+        function handleSetBonus(data) {
+            if (_gameId === data.gameId) {
+                var gameTeam = gdg.teams.drbblySingleOrDefault(t => t.teamId === data.teamId);
+                if (gameTeam) {
+                    gameTeam.isInBonus = data.isInBonus;
+                }
+            }
         }
 
         // #endregion TOL Setting

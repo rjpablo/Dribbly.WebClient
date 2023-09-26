@@ -8,6 +8,7 @@
                 var _hub;
                 var _trackedGames = [];
                 var _listeners = [];
+                var events = ['updateClock', 'setTol', 'setBonus', 'updatePeriod', 'setNextPossession', 'setTeamFoulCount'];
 
                 function openAddEditGameModal(model) {
                     return authService.checkAuthenticationThen(function () {
@@ -34,30 +35,6 @@
                         }
                     });
 
-                    _hub.on('updateClock', data => {
-                        if (data) {
-                            $timeout(function () {
-                                broadcast('updateClock', data);
-                            });
-                        }
-                    });
-
-                    _hub.on('setTol', data => {
-                        if (data) {
-                            $timeout(function () {
-                                broadcast('setTol', data);
-                            });
-                        }
-                    });
-
-                    _hub.on('updatePeriod', data => {
-                        if (data) {
-                            $timeout(function () {
-                                broadcast('updatePeriod', data);
-                            });
-                        }
-                    });
-
                     _hub.on('updateGameStatus', data => {
                         if (data) {
                             $timeout(function () {
@@ -66,6 +43,16 @@
                                 })
                             });
                         }
+                    });
+
+                    events.forEach(event => {
+                        _hub.on(event, data => {
+                            if (data) {
+                                $timeout(function () {
+                                    broadcast(event, data);
+                                });
+                            }
+                        });
                     });
 
                     _hubConnection.reconnecting(function () {
