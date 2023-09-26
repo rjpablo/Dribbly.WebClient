@@ -64,6 +64,8 @@
                         .on('setNextPossession', handleSetNextPossession));
                     _hubListeners.push(drbblyGameshelperService.hub
                         .on('setTeamFoulCount', handleSetTeamFoulCount));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('setScores', handleSetScores));
                 }
                 _hasInitializedGame = true;
             }
@@ -349,6 +351,7 @@
                             drbblyCommonService.handleError(err, null, 'The shot was not recoded due to an error.')
                         });
                     if (shotResult) {
+                        invokeSetScores(shotResult.team1Score, shotResult.team2Score)
                         gdg.game.team1Score = shotResult.team1Score;
                         gdg.game.team1.points = shotResult.team1Score;
                         gdg.game.team1.fga = shotResult.team1.fga;
@@ -394,6 +397,24 @@
                     }
                 }
             }
+        }
+
+        function handleSetScores(data) {
+            if (_gameId === data.gameId) {
+                gdg.game.team1Score = data.team1Score;
+                gdg.game.team1.points = data.team1Score;
+                gdg.game.team2Score = data.team2Score;
+                gdg.game.team2.points = data.team2Score;
+            }
+        }
+
+        function invokeSetScores(team1Score, team2Score) {
+            var data = {
+                gameId: _gameId,
+                team1Score,
+                team2Score
+            };
+            drbblyGameshelperService.hub.invoke('setScores', data);
         }
 
         gdg.resetShotClockFull = function () {
@@ -659,6 +680,7 @@
                     }).catch(err => { /*modal cancelled, do nothing*/ });
 
                     if (result) {
+                        invokeSetScores(result.game.team1Score, result.game.team2Score)
                         gdg.game.team1Score = result.game.team1Score;
                         gdg.game.team2Score = result.game.team2Score;
                         result.teams.forEach(t => {
