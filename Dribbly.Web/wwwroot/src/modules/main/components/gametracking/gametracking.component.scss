@@ -325,7 +325,7 @@ drbbly-gametracking {
                 border: 5px solid $primary;
                 border-radius: 0px 5px 5px 0px;
                 padding: 5px;
-                /*width: calc(35% - 4px);*/
+                max-width: calc(35%);
                 height: 100%;
                 display: inline-block;
                 min-height: 300px;
@@ -347,6 +347,7 @@ drbbly-gametracking {
                 }
 
                 .clocks {
+                    max-width: 50%;
 
                     .status-text {
                         line-height: 1em;
@@ -432,6 +433,7 @@ drbbly-gametracking {
 
                 .score-board {
                     max-height: 300px;
+                    max-width: unset;
                     border-bottom: none;
                     border-radius: 5px 5px 0px 0px;
                 }

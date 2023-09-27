@@ -251,10 +251,10 @@
                                         <span class="jersey-no text-sporty">{{gamePlayer.teamMembership.jerseyNo}}</span>
                                         <span class="name">{{gamePlayer.teamMembership.lastName}}</span>
                                     </div>
-                                    <div ng-if="(team.players | filter : {isInGame: true}).length === 0"
-                                         class="w-100 text-center">
-                                        <a ng-click="gdg.setLineup(team)"><small>Set Lineup</small></a>
-                                    </div>
+                                    <button class="btn btn-sm btn-primary w-100" ng-if="(team.players | filter : {isInGame: true}).length === 0"
+                                            ng-click="gdg.setLineup(team)">
+                                        Set Starting Lineup
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -332,21 +332,22 @@
                     <small class="status-text"
                            ng-class="gdg.statusText.class">{{gdg.statusText.text}}</small>
                     <div class="game-clock text-center"
+                         ng-class="{'mb-2': !gdg.isTimekeeper}"
                          ng-show="gdg.game.isTimed && !gdg.gameIsFinished()">
                         <div class="w-100 d-flex justify-content-center align-items-center">
                             <drbbly-timer on-ready="gdg.onTimerReady"
                                           warning-state-threshold-seconds="120"
                                           toggle-on-click="gdg.isTimekeeper"
-                                          font-size="'1.5em'"
+                                          font-size="'2em'"
                                           class="game-clock"></drbbly-timer>
                         </div>
                         <div class="clock controls text-center"
                              ng-hide="gdg.gameIsFinished()"
-                             ng-cloak
-                             ng-class="{'invisible': !gdg.isTimekeeper}">
+                             ng-if="gdg.isTimekeeper">
                             <button class="btn btn-sm"
                                     ng-if="!gdg.timer.isOver()"
-                                    ng-click="gdg.timer.toggle()">
+                                    ng-click="gdg.timer.toggle()"
+                                    ng-disabled="!gdg.lineupsReady">
                                 <i class="fa text-white"
                                    ng-class="gdg.timer.isRunning()? 'fa-pause':'fa-play'"></i>
                             </button>
@@ -362,6 +363,7 @@
                          ng-show="!gdg.gameIsFinished()">
                         <!-- Shot Clock -->
                         <div class="shot-clock"
+                             ng-class="{'mb-2': !gdg.isTimekeeper}"
                              ng-show="gdg.game.isTimed">
                             <drbbly-timer on-ready="gdg.onShotTimerReady"
                                           class="game-clock"
@@ -370,7 +372,7 @@
                                           font-size="'1.5em'"
                                           label="'SHOT CLOCK'"></drbbly-timer>
                             <div class="controls text-center"
-                                 ng-class="{'invisible': !gdg.isTimekeeper}">
+                                 ng-if="gdg.isTimekeeper">
                                 <button class="btn btn-sm text-white"
                                         ng-click="gdg.resetShotClockFull()">
                                     <i class="fa fa-undo"
@@ -400,6 +402,13 @@
                                                is-danger="dtc.timer.isOver()"
                                                on-click="dtc.clicked"
                                                font-size="'1em'"></drbbly-lcddisplay>
+                        </div>
+                        <div ng-if="!gdg.isTimekeeper && gdg.game.timekeeper"
+                             title="Timekeeping is assigned to {{gdg.game.timekeeper.name}}"
+                             class="text-line-2 text-center w-100 mb-2">
+                            <span class="text-secondary"><i class="fa fa-clock-o"></i></span>
+                            <a ng-click="gdg.setTimekeeper()"
+                               href>{{gdg.game.timekeeper.name}}</a>
                         </div>
                     </div>
                 </div>
@@ -453,15 +462,9 @@
                 </div>
             </div>
             <!-- Game Options -->
-            <div class="p-1 flex-grow-1 d-flex align-items-center game-options text-center">
-                <div ng-if="!gdg.isTimekeeper && gdg.game.timekeeper"
-                     class="text-center w-100">
-                    <span class="text-secondary">Timekeeping assigned to:</span><br />
-                    <a ng-click="gdg.setTimekeeper()"
-                       href>{{gdg.game.timekeeper.name}}</a>
-                </div>
+            <div class="p-1 flex-grow-1 d-flex flex-column align-items-center game-options text-center">
                 <button type="button" class="btn btn-primary btn-block"
-                        ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && gdg.lineupsReady"
+                        ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && gdg.lineupsReady && gdg.isTimekeeper"
                         ng-click="gdg.jumpBall()">
                     Jump Ball
                 </button>
@@ -470,8 +473,14 @@
                         ui-sref="main.game.details({id: gdg.game.id})">
                     See Game Page
                 </button>
-                <p ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && !gdg.lineupsReady">
-                    Please set the lineups for both teams
+                <p ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && !gdg.lineupsReady && gdg.scoreKeeper">
+                    Please set the starting lineups
+                </p>
+                <p ng-if="!gdg.scoreKeeper && !gdg.lineupsReady">
+                    Waiting for the scorekeeper to set the starting lineups
+                </p>
+                <p ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && gdg.lineupsReady && !gdg.isTimekeeper">
+                    Waiting for the timekeeper to start the game
                 </p>
                 <button type="button" class="btn btn-primary btn-block"
                         ng-if="gdg.canEndGame()"

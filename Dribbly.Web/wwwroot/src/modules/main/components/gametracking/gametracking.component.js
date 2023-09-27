@@ -66,6 +66,8 @@
                         .on('setTeamFoulCount', handleSetTeamFoulCount));
                     _hubListeners.push(drbblyGameshelperService.hub
                         .on('setScores', handleSetScores));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('setTeamLineup', handleSetTeamLineup));
                 }
                 _hasInitializedGame = true;
             }
@@ -109,7 +111,10 @@
                 updateStatusText();
             });
             gdg.timer.onStart(function () {
-                if (gdg.game.status === gdg.gameStatusEnum.WaitingToStart) {
+                if (!gdg.lineupsReady) {
+                    return;
+                }
+                else if (gdg.game.status === gdg.gameStatusEnum.WaitingToStart) {
                     gdg.jumpBall();
                     return false;
                 }
@@ -214,18 +219,6 @@
 
             if (teams) {
                 teams.forEach(t => {
-                    var team = gdg.teams.drbblySingle(tm => tm.teamId == t.teamId);
-                    team.players.forEach(p => {
-                        p.isInGame = t.selectedPlayers.drbblyAny(s => s.id === p.id);
-                    });
-                    team.players.sort((a, b) => {
-                        return a.isInGame && !b.isInGame ? -1 :
-                            !a.isInGame && b.isInGame ? 1 :
-                                0;
-                    });
-
-                    setLineupsReady()
-
                     drbblyGamesService.updateLineup({
                         gameId: _gameId,
                         teamId: t.teamId,
@@ -233,6 +226,17 @@
                         clockTime: gdg.timer.remainingTime,
                         gamePlayerIds: t.selectedPlayers.map(p => p.id)
                     })
+                        .then(() => {
+                            var data = {
+                                gameId: _gameId,
+                                team: {
+                                    teamId: t.teamId,
+                                    selectedPlayerIds: t.selectedPlayers.map(p => p.id)
+                                }
+                            };
+                            drbblyGameshelperService.hub.invoke('setTeamLineup', data);
+                            handleSetTeamLineup(data);
+                        })
                         .catch(function (err) {
                             drbblyCommonService.handleError(err);
                         });
@@ -241,8 +245,24 @@
         }
 
         function setLineupsReady() {
-            gdg.lineupsReady = gdg.game.team1.players.drbblyCount(p => p.isInGame) > 0
-                && gdg.game.team2.players.drbblyCount(p => p.isInGame) > 0;
+            gdg.lineupsReady = gdg.game.team1.players.drbblyAny(p => p.isInGame)
+                && gdg.game.team2.players.drbblyAny(p => p.isInGame);
+        }
+
+        function handleSetTeamLineup(data) {
+            if (_gameId === data.gameId) {
+                var team = gdg.teams.drbblySingle(tm => tm.teamId === data.team.teamId);
+                team.players.forEach(p => {
+                    p.isInGame = data.team.selectedPlayerIds.drbblyAny(id => id === p.id);
+                });
+                team.players.sort((a, b) => {
+                    return a.isInGame && !b.isInGame ? -1 :
+                        !a.isInGame && b.isInGame ? 1 :
+                            0;
+                });
+
+                setLineupsReady();
+            }
         }
 
         function displayTime(duration) {
@@ -551,11 +571,11 @@
                 }).catch(err => { /*modal cancelled, do nothing*/ });
         }
 
-        function onJumpball(data) {
-
+        function onJumpball() {
+            var startedAt = new Date();
             var input = {
                 gameId: gdg.game.id,
-                startedAt: drbblyDatetimeService.getUtcNow(),
+                startedAt: new Date(startedAt.toUTCString()),
                 jumpball: {
                     gameId: gdg.game.id,
                     type: constants.enums.gameEventTypeEnum.Jumpball,
@@ -564,7 +584,16 @@
                 }
             };
 
-            var startResult = drbblyGamesService.startGame(input);
+            var time = gdg.timer.remainingTime;
+            var shotTime = gdg.shotTimer.remainingTime;
+            drbblyGamesService.startGame(input)
+                .catch(() => {
+                    updateTime(time, shotTime, false)
+                    broadcastUpdateClock(time, shotTime, false, new Date());
+                    gdg.updateStatus(gdg.gameStatusEnum.WaitingToStart);
+                    gdg.timer.setRemainingTime(time, false, true);
+                    gdg.shotTimer.setRemainingTime(shotTime, false, true);
+                });
             drbblyToastService.info('The game has started.');
             gdg.game.status = gdg.gameStatusEnum.Started;
             gdg.timer.start();
@@ -970,7 +999,8 @@
             return gdg.game && gdg.game.status === gdg.gameStatusEnum.Started // has started
                 && (gdg.timer && gdg.timer.isOver()) // time has run out
                 && gdg.game.currentPeriod >= gdg.game.numberOfRegulationPeriods // last period or OT
-                && gdg.game.team1.points !== gdg.game.team2.points; // scores are not tied
+                && gdg.game.team1.points !== gdg.game.team2.points // scores are not tied
+                && gdg.isTimekeeper;
         }
 
         gdg.canGoToNextPeriod = function () {

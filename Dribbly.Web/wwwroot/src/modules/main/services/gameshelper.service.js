@@ -9,7 +9,7 @@
                 var _trackedGames = [];
                 var _listeners = [];
                 var events = ['updateClock', 'setTol', 'setBonus', 'updatePeriod', 'setNextPossession',
-                    'setTeamFoulCount', 'setScores'];
+                    'setTeamFoulCount', 'setScores', 'setTeamLineup'];
 
                 function openAddEditGameModal(model) {
                     return authService.checkAuthenticationThen(function () {
