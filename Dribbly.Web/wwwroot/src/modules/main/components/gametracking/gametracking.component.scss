@@ -265,18 +265,6 @@ drbbly-gametracking {
                     }
                 }
 
-                .player-selector-modal {
-                    .modal-content {
-                        border: none !important;
-                        background-color: rgba(0,0,0,0);
-
-                        .modal-header {
-                            border: none;
-                            padding-right: 0;
-                        }
-                    }
-                }
-
                 .turnover-cause-choices {
                     .modal-content {
                         border: none !important;
@@ -415,7 +403,7 @@ drbbly-gametracking {
             }
         }
 
-        .form-control {
+        .form-control:not(drbbly-playerselect) {
             display: inline-block;
             padding: 0;
             height: unset;

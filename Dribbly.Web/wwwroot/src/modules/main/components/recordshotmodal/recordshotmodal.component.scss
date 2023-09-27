@@ -9,8 +9,16 @@ drbbly-recordshotmodal {
         }
     }
 
+    .modal-footer {
+        .additional-options {
+            & > :not(:last-child) {
+                margin-right: 0.25rem;
+            }
+        }
+    }
+
     .form-row .col-8 {
-        select{
+        select {
             width: calc(100% - 28px);
         }
     }

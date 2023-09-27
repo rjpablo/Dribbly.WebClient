@@ -19,7 +19,10 @@
 
         rsm.$onInit = function () {
             rsm.saveModel = angular.copy(rsm.model, {});
+            rsm.saveModel.isMade = !rsm.saveModel.isMiss;
             setTeams();
+            rsm.shooterOptions = rsm.opposingTeam.players.concat(rsm.shooterTeam.players)
+                .drbblyWhere(p => p.isInGame);
 
             if (rsm.saveModel.withFoul) {
                 rsm.addFoul();
@@ -35,7 +38,13 @@
         };
 
         rsm.addFoul = function () {
-            rsm.foulPlayerOptions = rsm.opposingTeam.players;
+            rsm.foulPlayerOptions = rsm.opposingTeam.players.drbblyWhere( p => true); //returns a new array
+            rsm.foulPlayerOptions.sort((a, b) => {
+                return a.isInGame && !b.isInGame ? -1 :
+                    b.isInGame && !a.isInGame ? 1 :
+                        a.isInGame && b.isInGame ? (a.jerseyNo - b.jerseyNo) :
+                            0;
+            });
             rsm.foulTypeOptions = constants.Fouls;
             rsm.saveModel.withFoul = true;
 
@@ -84,7 +93,7 @@
 
         rsm.addAssist = function () {
             rsm.assistPlayerOptions = rsm.shooterTeam.players
-                .drbblyWhere(p => p.teamMembership.memberAccountId !== rsm.saveModel.performedBy.memberAccountId
+                .drbblyWhere(p => p.teamMembership.memberAccountId !== rsm.saveModel.performedBy.teamMembership.memberAccountId
                     && p.isInGame);
             rsm.saveModel.withAssist = true;
 
@@ -122,12 +131,13 @@
             }
         };
 
-        rsm.onMadeMissChanged = function (isMiss) {
-            if (isMiss) {
-                rsm.saveModel.withAssist = false;
-            } else {
+        rsm.onMadeMissChanged = function (isMade) {
+            rsm.saveModel.isMiss = !isMade;
+            if (isMade) {
                 rsm.saveModel.withBlock = false;
                 rsm.saveModel.withRebound = false;
+            } else {
+                rsm.saveModel.withAssist = false;
             }
         };
 
@@ -144,8 +154,8 @@
                     shot: {
                         points: rsm.saveModel.points,
                         isMiss: rsm.saveModel.isMiss,
-                        performedById: rsm.saveModel.performedBy.memberAccountId,
-                        teamId: rsm.saveModel.performedBy.teamId,
+                        performedById: rsm.saveModel.performedBy.teamMembership.memberAccountId,
+                        teamId: rsm.saveModel.performedBy.teamMembership.teamId,
                         gameId: rsm.saveModel.game.id,
                         period: rsm.saveModel.period,
                         clockTime: rsm.saveModel.clockTime,
@@ -200,7 +210,7 @@
 
                 if (result.withRebound) {
                     result.rebound = {
-                        type: rsm.rebound.performedBy.teamMembership.teamId === rsm.saveModel.performedBy.teamId ?
+                        type: rsm.rebound.performedBy.teamMembership.teamId === rsm.saveModel.performedBy.teamMembership.teamId ?
                             constants.enums.gameEventTypeEnum.OffensiveRebound :
                             constants.enums.gameEventTypeEnum.DefensiveRebound,
                         performedById: rsm.rebound.performedBy.teamMembership.account.id,

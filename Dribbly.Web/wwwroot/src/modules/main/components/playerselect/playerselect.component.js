@@ -7,7 +7,8 @@
                 player: '=',
                 choices: '<',
                 prompt: '@',
-                modalContainer: '<'
+                modalContainer: '<',
+                openOnInit: '<'
             },
             controllerAs: 'psd',
             templateUrl: 'drbbly-default',
@@ -19,23 +20,28 @@
         var psd = this;
 
         psd.$onInit = function () {
-            angular.element($element).on('click', function () {
-                modalService
-                    .show({
-                        view: '<drbbly-playerselectormodal></drbbly-playerselectormodal>',
-                        model: {
-                            players: psd.choices,
-                            title: psd.prompt
-                        },
-                        container: psd.modalContainer,
-                        backdrop: 'static',
-                        windowClass: 'player-selector-modal'
-                    })
-                    .then(player => {
-                            psd.player = player;
-                    })
-                    .catch(err => { /*modal cancelled, do nothing*/ });
-            });
+            angular.element($element).on('click', open);
+            if (psd.openOnInit) {
+                open();
+            }
         };
+
+        function open() {
+            modalService
+                .show({
+                    view: '<drbbly-playerselectormodal></drbbly-playerselectormodal>',
+                    model: {
+                        players: psd.choices,
+                        title: psd.prompt
+                    },
+                    container: psd.modalContainer,
+                    backdrop: 'static',
+                    windowClass: 'player-selector-modal'
+                })
+                .then(player => {
+                    psd.player = player;
+                })
+                .catch(err => { /*modal cancelled, do nothing*/ });
+        }
     }
 })();

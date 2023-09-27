@@ -354,7 +354,7 @@
                 view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
                 model: {
                     game: gdg.game,
-                    performedBy: gdg.selectedPlayer.teamMembership,
+                    performedBy: gdg.selectedPlayer,
                     points: points,
                     period: gdg.game.currentPeriod,
                     clockTime: gdg.timer.remainingTime,

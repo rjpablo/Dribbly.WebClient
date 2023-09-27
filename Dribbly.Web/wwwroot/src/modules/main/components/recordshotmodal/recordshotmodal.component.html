@@ -4,38 +4,55 @@
     <div class="shot-details">
         <form name="rsm.frmShot"
               class="flex-grow-1">
-            <div class="form-row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label class="m-0">Points:</label>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-4">
+                        <label>Shooter:</label>
+                    </div>
+                    <div class="col-8 d-flex">
+                        <drbbly-playerselect player="rsm.saveModel.performedBy"
+                                             class="form-control"
+                                             choices="rsm.shooterOptions"
+                                             prompt="Shooter"
+                                             modal-container="rsm.options.container"></drbbly-playerselect>
                         <input type="number"
-                               class="ml-2 points form-control"
-                               ng-model="rsm.saveModel.points" />
+                               name="shooter"
+                               required
+                               hidden
+                               ng-model="rsm.saveModel.performedBy.teamMembership.account.id" />
+                        <button class="btn ml-auto ml-1 invisible">
+                            <i class="fa fa-times"></i>
+                        </button>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <div class="form-check-inline">
-                            <label class="m-0">
-                                <input type="radio"
-                                       ng-value="false"
-                                       ng-model="rsm.saveModel.isMiss"
-                                       ng-change="rsm.onMadeMissChanged(rsm.saveModel.isMiss)"
-                                       class="form-check-input"
-                                       name="madeOrMiss">
-                                Made
-                            </label>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-4">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-8">
+                        <div class="btn-group mr-2">
+                            <label class="btn btn-primary btn-sm" ng-model="rsm.saveModel.points" uib-btn-radio="1">1pt</label>
+                            <label class="btn btn-primary btn-sm" ng-model="rsm.saveModel.points" uib-btn-radio="2">2pts</label>
+                            <label class="btn btn-primary btn-sm" ng-model="rsm.saveModel.points" uib-btn-radio="3">3pts</label>
                         </div>
-                        <div class="form-check-inline">
-                            <label class="m-0">
-                                <input type="radio"
-                                       ng-value="true"
-                                       ng-model="rsm.saveModel.isMiss"
-                                       class="form-check-input"
-                                       name="madeOrMiss">
-                                Missed
-                            </label>
-                        </div>
+                        <!--<input type="number"
+                        min="1"
+                        max="3"
+                        class="mr-2 points form-control"
+                        ng-model="rsm.saveModel.points" />-->
+                        <label>
+                            Made
+                            <div class="d-inline-block custom-control custom-switch">
+                                <input type="checkbox"
+                                       id="swMade"
+                                       ng-model="rsm.saveModel.isMade"
+                                       ng-change="rsm.onMadeMissChanged(rsm.saveModel.isMade)"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="swMade"></label>
+                            </div>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -43,7 +60,8 @@
     </div>
     <!-- Fould Details -->
     <div class="foul-details"
-         ng-show="rsm.saveModel.withFoul">
+         ng-if="rsm.saveModel.withFoul"
+         ng-cloak>
         <form name="rsm.frmFoul">
             <div class="form-group">
                 <div class="form-row">
@@ -54,6 +72,7 @@
                         <drbbly-playerselect player="rsm.foul.performedBy"
                                              class="form-control"
                                              choices="rsm.foulPlayerOptions"
+                                             open-on-init="true"
                                              prompt="Fouled By"
                                              modal-container="rsm.options.container"></drbbly-playerselect>
                         <input type="text"
@@ -99,7 +118,7 @@
     </div>
     <!-- Block Details -->
     <div class="block-details"
-         ng-show="rsm.saveModel.withBlock">
+         ng-if="rsm.saveModel.withBlock">
         <form name="rsm.frmBlock">
             <div class="form-group">
                 <div class="form-row">
@@ -109,6 +128,7 @@
                     <div class="col-8 d-flex">
                         <drbbly-playerselect player="rsm.block.performedBy"
                                              class="form-control"
+                                             open-on-init="true"
                                              choices="rsm.blockPlayerOptions"
                                              prompt="Blocked By"
                                              modal-container="rsm.options.container"></drbbly-playerselect>
@@ -128,7 +148,7 @@
     </div>
     <!-- Assist Details -->
     <div class="assist-details"
-         ng-show="rsm.saveModel.withAssist">
+         ng-if="rsm.saveModel.withAssist">
         <form name="rsm.frmAssist">
             <div class="form-group">
                 <div class="form-row">
@@ -138,6 +158,7 @@
                     <div class="col-8 d-flex">
                         <drbbly-playerselect player="rsm.assist.performedBy"
                                              class="form-control"
+                                             open-on-init="true"
                                              choices="rsm.assistPlayerOptions"
                                              prompt="Assisted By"
                                              modal-container="rsm.options.container"></drbbly-playerselect>
@@ -157,7 +178,7 @@
     </div>
     <!-- Rebound Details -->
     <div class="rebound-details"
-         ng-show="rsm.saveModel.withRebound">
+         ng-if="rsm.saveModel.withRebound">
         <form name="rsm.frmRebound">
             <div class="form-group">
                 <div class="form-row">
@@ -167,6 +188,7 @@
                     <div class="col-8 d-flex">
                         <drbbly-playerselect player="rsm.rebound.performedBy"
                                              class="form-control"
+                                             open-on-init="true"
                                              choices="rsm.reboundPlayerOptions"
                                              prompt="Rebounded By"
                                              modal-container="rsm.options.container"></drbbly-playerselect>
@@ -184,7 +206,44 @@
             </div>
         </form>
     </div>
-    <div class="additional-options">
+    <!--<div class="additional-options">
+        <button class="btn btn-secondary"
+                ng-show="!rsm.saveModel.withFoul && !rsm.saveModel.withBlock && !rsm.saveModel.withRebound"
+                ng-click="rsm.addFoul()">
+            +Foul
+        </button>
+        <button class="btn btn-secondary"
+                ng-show="!rsm.saveModel.withBlock && rsm.saveModel.isMiss && !rsm.saveModel.withFoul"
+                ng-click="rsm.addBlock()">
+            +Blk
+        </button>
+        <button class="btn btn-secondary"
+                ng-show="!rsm.saveModel.isMiss && !rsm.saveModel.withAssist && rsm.shooterTeam.players.length > 1"
+                ng-click="rsm.addAssist()">
+            +Ast
+        </button>
+        <button class="btn btn-secondary"
+                ng-show="rsm.saveModel.isMiss && !rsm.saveModel.withRebound  && !rsm.saveModel.withFoul"
+                ng-click="rsm.addRebound()">
+            +Reb
+        </button>
+    </div>-->
+</div>
+<div class="modal-footer m-1">
+    <button class="btn btn-primary"
+            ng-disabled="rsm.isBusy || rsm.frmShot.$invalid
+            || (rsm.saveModel.withFoul && rsm.frmFoul.$invalid) || (rsm.saveModel.withBlock && rsm.frmBlock.$invalid)"
+            type="submit"
+            ng-click="rsm.handleSubmitClick()">
+        <i class="fa fa-check"></i>
+    </button>
+    <button class="btn btn-secondary"
+            type="button"
+            ng-click="rsm.cancel()"
+            ng-disabled="rsm.isBusy">
+        <i class="fa fa-times"></i>
+    </button>
+    <div class="additional-options flex-grow-1 d-flex justify-content-end">
         <button class="btn btn-secondary"
                 ng-show="!rsm.saveModel.withFoul && !rsm.saveModel.withBlock && !rsm.saveModel.withRebound"
                 ng-click="rsm.addFoul()">
@@ -206,19 +265,4 @@
             +Reb
         </button>
     </div>
-</div>
-<div class="modal-footer m-1">
-    <button class="btn btn-primary"
-            ng-disabled="rsm.isBusy || rsm.frmShot.$invalid
-            || (rsm.saveModel.withFoul && rsm.frmFoul.$invalid) || (rsm.saveModel.withBlock && rsm.frmBlock.$invalid)"
-            type="submit"
-            ng-click="rsm.handleSubmitClick()">
-        <i class="fa fa-check"></i>
-    </button>
-    <button class="btn btn-secondary"
-            type="button"
-            ng-click="rsm.cancel()"
-            ng-disabled="rsm.isBusy">
-        <i class="fa fa-times"></i>
-    </button>
 </div>
