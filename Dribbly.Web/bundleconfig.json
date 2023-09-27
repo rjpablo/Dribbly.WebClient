@@ -265,6 +265,7 @@
       "wwwroot/src/modules/main/components/playergames/playergames.component.js",
       "wwwroot/src/modules/main/components/playerselectormodal/playerselectormodal.component.js",
       "wwwroot/src/modules/main/components/playerselect/playerselect.component.js",
+      "wwwroot/src/modules/main/components/teamcolorselectormodal/teamcolorselectormodal.component.js",
 
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
       "wwwroot/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js",
@@ -451,6 +452,7 @@
       "wwwroot/src/modules/main/components/playergames/playergames.component.css",
       "wwwroot/src/modules/main/components/playerselectormodal/playerselectormodal.component.css",
       "wwwroot/src/modules/main/components/playerselect/playerselect.component.css",
+      "wwwroot/src/modules/main/components/teamcolorselectormodal/teamcolorselectormodal.component.css",
 
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css",

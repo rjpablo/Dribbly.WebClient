@@ -554,6 +554,20 @@
             }
         }
 
+        gdg.openColorSelector = function (team) {
+            showPlayerOptionsModal({
+                view: '<drbbly-teamcolorselectormodal></drbbly-teamcolorselectormodal>',
+                model: {
+                    title: 'Select Color'
+                }
+            })
+                .then(color => {
+                    team.teamColor = color;
+                    team.players.forEach(p => p.teamColor = color);
+                })
+                .catch(err => { /*modal cancelled, do nothing*/ });
+        }
+
         async function showPlayerOptionsModal(config) {
             config.container = $document.find('.tabbed-content').eq(0);
             return await modalService.show(config);

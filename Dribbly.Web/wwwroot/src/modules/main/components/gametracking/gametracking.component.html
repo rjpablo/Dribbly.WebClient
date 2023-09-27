@@ -214,6 +214,10 @@
                                 {{gdg.selectedTeam.shortName}}
                             </span>
                             <div class="stats">
+                                <div class="team-color-preview ml-2"
+                                     ng-click="gdg.openColorSelector(gdg.selectedTeam)"
+                                     ng-style="{'background-color': gdg.selectedTeam.teamColor}">
+                                </div>
                                 <div class="stat">
                                     <span class="value">{{gdg.selectedTeam.teamFoulCount || 0}}</span>
                                     <span class="label">F</span>

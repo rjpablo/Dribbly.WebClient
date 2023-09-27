@@ -138,9 +138,16 @@ drbbly-gametracking {
                                 white-space: nowrap;
                             }
 
+                            .team-color-preview {
+                                height: 1.5em;
+                                width: 1.5em;
+                                border: 1px solid rgb(255, 255, 255, 0.3);
+                            }
+
                             .stats {
                                 margin-left: auto;
                                 display: flex;
+                                align-items: center;
 
                                 .stat {
                                     text-align: center;
