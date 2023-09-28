@@ -103,10 +103,8 @@
                 }
 
                 function updateUnviewedCount(data) {
-                    if (!_unviewedCount || (_unviewedCount.count !== data.count && _unviewedCount.asOf < data.asOf)) {
-                        _unviewedCount = data;
-                        notifyUnviewedCountListeners(_unviewedCount.count);
-                    }
+                    _unviewedCount = data;
+                    notifyUnviewedCountListeners(_unviewedCount.count);
                 }
 
                 function notifyUnviewedCountListeners(unviewedCount) {

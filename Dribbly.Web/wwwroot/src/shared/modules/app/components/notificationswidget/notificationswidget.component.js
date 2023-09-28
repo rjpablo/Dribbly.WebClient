@@ -10,16 +10,25 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['drbblyNotificationsService', '$filter', 'drbblyDatetimeService', '$timeout'];
-    function controllerFn(drbblyNotificationsService, $filter, drbblyDatetimeService, $timeout) {
+    controllerFn.$inject = ['drbblyNotificationsService', '$filter', 'drbblyDatetimeService', '$timeout',
+        'drbblyEventsService', 'authService'];
+    function controllerFn(drbblyNotificationsService, $filter, drbblyDatetimeService, $timeout,
+        drbblyEventsService, authService) {
         var dnw = this;
         var _oldestLoadedDate; // The dateAdded property of the oldest notification that has been loaded
 
         dnw.$onInit = function () {
             dnw.allNotifs = [];
             dnw.unViewedCount = 0; // drbblyNotificationsService.getUnviewedCount();
-            drbblyNotificationsService.getUnviewedCount();
+            if (authService.authentication && authService.authentication.isAuthenticated) {
+                drbblyNotificationsService.start();
+                drbblyNotificationsService.getUnviewedCount();
+            }
             initializeHub();
+            drbblyEventsService.on('dribbly.login.successful', () => {
+                drbblyNotificationsService.start();
+                drbblyNotificationsService.getUnviewedCount();
+            });
         };
 
         function initializeHub() {
