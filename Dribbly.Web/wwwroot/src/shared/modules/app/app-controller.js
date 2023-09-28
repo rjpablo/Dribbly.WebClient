@@ -4,14 +4,22 @@
     angular.module('appModule')
         .controller('appController', ctrlFn);
 
-    ctrlFn.$inject = ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService', '$timeout', 'constants'];
-    function ctrlFn($rootScope, drbblyOverlayService, drbblyToolbarService, $timeout, constants) {
+    ctrlFn.$inject = ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService', '$timeout', 'constants',
+        'authService'];
+    function ctrlFn($rootScope, drbblyOverlayService, drbblyToolbarService, $timeout, constants,
+        authService) {
         var app = this;
         var _adjustingSections;
         app.overlay = drbblyOverlayService.buildOverlay();
 
         app.$onInit = function () {
-            app.toolbar = drbblyToolbarService.buildToolbar();
+            authService.verifyToken()
+                .then(() => {
+                    window.Dribbly.authentication = authService.authentication;
+                    $rootScope.$root.auth = authService.authentication;
+                    app.toolbar = drbblyToolbarService.buildToolbar();
+                    app.authVerified = true;
+                })
         };
 
         function adjustSections() {

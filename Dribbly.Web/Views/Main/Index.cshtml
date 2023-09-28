@@ -7,7 +7,7 @@
 <div id="drbbly-body-overlay"></div>
 <div id="drbbly-root-container"
      app="app"
-     ng-if="!app.overlay.isError"
+     ng-if="!app.overlay.isError && app.authVerified"
      ui-view></div>
 <div id="app-overlay"
      ng-class="{'has-error': app.overlay.isError}">

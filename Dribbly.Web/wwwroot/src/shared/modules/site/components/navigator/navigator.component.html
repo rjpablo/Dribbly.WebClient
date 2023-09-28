@@ -38,7 +38,7 @@
         </ul>
         <div class="dropdown">
             <button class="btn btn-primary"
-                    type="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-plus"></i>&nbsp;{{::'app.New' | i18n}}...
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -60,20 +60,21 @@
             <li ng-if="nav.isAuthenticated()"
                 class="nav-item">
                 <div uib-dropdown>
-                    <a ui-sref="main.account.home({username: $root.auth.username})"
-                       class="btn btn-link">
-                        <i class="menu-item-icon fa fa-user text-secondary"></i>
-                    </a>
-                    <a class="btn btn-link"
+                    <a class="btn btn-link no-caret"
                        uib-dropdown-toggle>
-                        <span class="caret"></span>
+                        <img class="avatar" ng-src="{{$root.auth.profilePicture}}" />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right"
                          uib-dropdown-menu
                          role="menu">
                         <h6 class="dropdown-header" ng-bind-html="'site.LoggedInAs' | i18n:({username: $root.auth.username})"></h6>
-                        <a class="dropdown-item" ng-click="nav.logOut()">{{'site.LogOut' | i18n}}</a>
-                        <a class="dropdown-item" ng-click="nav.test()">Test API call</a> <!--TEST FUNCTIONALITY ONLY-->
+                        <a ui-sref="main.account.home({username: $root.auth.username})"
+                           class="dropdown-item">
+                            My Profile
+                        </a>
+                        <a class="dropdown-item"
+                           ng-click="nav.logOut()"
+                           tabindex>{{'site.LogOut' | i18n}}</a>
                     </div>
                 </div>
             </li>

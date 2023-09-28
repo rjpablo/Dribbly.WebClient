@@ -45,14 +45,14 @@
                                 accountId: parseInt(response.data.accountId),
                                 refreshToken: response.data.refresh_token,
                                 useRefreshTokens: _useRefreshTokens,
-                                profilePicture: _temporaryProfilePicture,
+                                profilePicture: response.data.profilePicture || _temporaryProfilePicture,
                                 permissions: data
                             });
 
                             _authentication.isAuthenticated = true;
                             _authentication.username = loginData.username;
                             _authentication.useRefreshTokens = _useRefreshTokens;
-                            _authentication.profilePicture = _temporaryProfilePicture;
+                            _authentication.profilePicture = response.data.profilePicture || _temporaryProfilePicture;
                             _authentication.userId = parseInt(response.data.userId);
                             _authentication.accountId = parseInt(response.data.accountId);
 
@@ -106,7 +106,7 @@
             return $http.post(settingsService.serviceBase + 'api/account/resetPassword', input);
         }
 
-        var _fillAuthData = async function () {
+        var _fillAuthData = function () {
 
             var authData = localStorageService.get('authorizationData');
             if (authData) {
@@ -117,8 +117,6 @@
                 _authentication.userId = parseInt(authData.userId);
                 _authentication.accountId = parseInt(authData.accountId);
                 permissionsService.setPermissions(authData.permissions);
-
-                await _verifyToken();
             }
 
         };
@@ -147,12 +145,13 @@
 
             var authData = localStorageService.get('authorizationData');
             localStorageService.remove('authorizationData');
+            //_logOut();
 
             if (authData && authData.useRefreshTokens) {
 
                 var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + settingsService.clientId;
 
-                $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, isRefreshToken: true })
                     .then(function (response) {
                         localStorageService.set('authorizationData', {
                             token: response.data.access_token,
@@ -161,14 +160,14 @@
                             accountId: parseInt(response.data.accountId),
                             refreshToken: response.data.refresh_token,
                             useRefreshTokens: _useRefreshTokens,
-                            profilePicture: _temporaryProfilePicture,
+                            profilePicture: response.data.profilePicture || _temporaryProfilePicture,
                             permissions: authData.permissions
                         });
 
                         _authentication.isAuthenticated = true;
                         _authentication.username = response.data.username;
                         _authentication.useRefreshTokens = _useRefreshTokens;
-                        _authentication.profilePicture = _temporaryProfilePicture;
+                        _authentication.profilePicture = response.data.profilePicture || _temporaryProfilePicture;
                         _authentication.userId = parseInt(response.data.userId);
                         _authentication.accountId = parseInt(response.data.accountId);
                         permissionsService.setPermissions(authData.permissions);
@@ -192,15 +191,22 @@
             window.location.href = externalProviderUrl;
         }
 
-        function _verifyToken() {
-            $http.post(settingsService.serviceBase + 'api/account/verifyToken')
-                .then(function () {
-                    drbblyEventsService.broadcast('dribbly.login.successful');
-                })
-                .catch(function () {
-                    _logOut();
-                    drbblyEventsService.broadcast('dribbly.auth.fail');
-                });
+        async function _verifyToken() {
+            var authData = localStorageService.get('authorizationData');
+            if (authData) {
+                await $http.post(settingsService.serviceBase + 'api/account/verifyToken')
+                    .then(function () {
+                        _fillAuthData();
+                        //drbblyEventsService.broadcast('dribbly.auth.verified');
+                    })
+                    .catch(function () {
+                        _logOut();
+                        //drbblyEventsService.broadcast('dribbly.auth.fail');
+                    });
+            }
+            else {
+                drbblyEventsService.broadcast('dribbly.auth.verified');
+            }
         }
 
         var _registerExternal = function (registerExternalData) {
@@ -216,6 +222,7 @@
                         userId: parseInt(response.data.userId),
                         accountId: parseInt(response.data.accountId),
                         refreshToken: response.data.refresh_token,
+                        profilePicture: response.data.profilePicture || _temporaryProfilePicture,
                         useRefreshTokens: _useRefreshTokens
                     });
 
@@ -224,6 +231,7 @@
                     _authentication.useRefreshTokens = _useRefreshTokens;
                     _authentication.userId = parseInt(response.data.userId);
                     _authentication.accountId = parseInt(response.data.accountId);
+                    _authentication.profilePicture = response.data.profilePicture || _temporaryProfilePicture;
 
                     deferred.resolve(response);
                     drbblyEventsService.broadcast('dribbly.login.successful');
@@ -252,6 +260,7 @@
                         userId: parseInt(response.data.userId),
                         accountId: parseInt(response.data.accountId),
                         refreshToken: response.data.refresh_token,
+                        profilePicture: response.data.profilePicture || _temporaryProfilePicture,
                         useRefreshTokens: _useRefreshTokens
                     });
 
@@ -260,6 +269,7 @@
                     _authentication.useRefreshTokens = _useRefreshTokens;
                     _authentication.userId = parseInt(response.data.userId);
                     _authentication.accountId = parseInt(response.data.accountId);
+                    _authentication.profilePicture = response.data.profilePicture || _temporaryProfilePicture;
 
                     deferred.resolve(response);
                     if (response.data.hasRegistered) {
@@ -343,6 +353,7 @@
         authServiceFactory.login = _login;
         authServiceFactory.logOut = _logOut;
         authServiceFactory.fillAuthData = _fillAuthData;
+        authServiceFactory.verifyToken = _verifyToken;
         authServiceFactory.authentication = _authentication;
         authServiceFactory.refreshToken = _refreshToken;
         authServiceFactory.test = _test;
