@@ -5,21 +5,26 @@
         .controller('appController', ctrlFn);
 
     ctrlFn.$inject = ['$rootScope', 'drbblyOverlayService', 'drbblyToolbarService', '$timeout', 'constants',
-        'authService'];
+        'authService', 'drbblyEventsService'];
     function ctrlFn($rootScope, drbblyOverlayService, drbblyToolbarService, $timeout, constants,
-        authService) {
+        authService, drbblyEventsService) {
         var app = this;
         var _adjustingSections;
         app.overlay = drbblyOverlayService.buildOverlay();
 
-        app.$onInit = function () {
-            authService.verifyToken()
-                .then(() => {
+        app.$onInit = async function () {
+            app.authVerified = authService.isAuthVerified();
+            if (app.authVerified) {
+                window.Dribbly.authentication = authService.authentication;
+                app.toolbar = drbblyToolbarService.buildToolbar();
+            }
+            else {
+                drbblyEventsService.on('dribbly.auth.verified', () => {
                     window.Dribbly.authentication = authService.authentication;
-                    $rootScope.$root.auth = authService.authentication;
                     app.toolbar = drbblyToolbarService.buildToolbar();
                     app.authVerified = true;
-                })
+                });
+            }
         };
 
         function adjustSections() {

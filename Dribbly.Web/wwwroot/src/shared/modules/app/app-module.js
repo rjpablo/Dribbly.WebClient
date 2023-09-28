@@ -21,6 +21,8 @@
             drbblyGameshelperService) {            
             $rootScope.$root.constants = constants;
             $rootScope.$root.$filter = $filter;
+            await authService.verifyToken();
+            $rootScope.$root.auth = authService.authentication;
             drbblyGameshelperService.initializeGameHub();
 
             $transitions.onSuccess({}, function (trans) {

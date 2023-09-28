@@ -220,6 +220,7 @@
                                 drbblyToastService.error('Sorry, you don\'t have access to the requested page.')
                             }
 
+                            // this line executes before verify token finishes so authData is empty and login modal is raised
                             return authService.checkAuthenticationThen(function () {
                                 return drbblyGamesService.canTrackGame($stateParams.id)
                                     .then(isManager => {

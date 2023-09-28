@@ -5,13 +5,15 @@
         .factory('authService', serviceFn);
 
     serviceFn.$inject = ['$http', '$q', 'localStorageService', 'settingsService', '$state', '$location', 'modalService',
-        'permissionsService', 'drbblyEventsService'];
+        'permissionsService', 'drbblyEventsService', 'constants'];
     function serviceFn($http, $q, localStorageService, settingsService, $state, $location, modalService,
-        permissionsService, drbblyEventsService) {
+        permissionsService, drbblyEventsService, constants) {
 
         var authServiceFactory = {};
         var _useRefreshTokens = true;
-        var _temporaryProfilePicture = 'https://i7.pngguru.com/preview/178/419/741/computer-icons-avatar-login-user-avatar.jpg';
+        var _temporaryProfilePicture = constants.images.defaultProfilePhoto.url;
+        var _authQueue = [];
+        var _authVerified;
 
         var _authentication = {
             isAuthenticated: false,
@@ -91,9 +93,10 @@
             localStorageService.remove('authorizationData');
 
             _authentication.isAuthenticated = false;
-            _authentication.username = "";
+            _authentication.username = '';
             _authentication.userId = null;
             _authentication.accountId = null;
+            _authentication.profilePicture = null;
             permissionsService.setPermissions([]);
 
         };
@@ -144,46 +147,62 @@
             var deferred = $q.defer();
 
             var authData = localStorageService.get('authorizationData');
-            localStorageService.remove('authorizationData');
-            //_logOut();
+            //localStorageService.remove('authorizationData');
 
             if (authData && authData.useRefreshTokens) {
+                _authQueue.push(deferred);
 
-                var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + settingsService.clientId;
+                if (_authQueue.length === 0) {
+                    var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + settingsService.clientId;
 
-                $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, isRefreshToken: true })
-                    .then(function (response) {
-                        localStorageService.set('authorizationData', {
-                            token: response.data.access_token,
-                            username: response.data.username,
-                            userId: parseInt(response.data.userId),
-                            accountId: parseInt(response.data.accountId),
-                            refreshToken: response.data.refresh_token,
-                            useRefreshTokens: _useRefreshTokens,
-                            profilePicture: response.data.profilePicture || _temporaryProfilePicture,
-                            permissions: authData.permissions
+                    $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, isRefreshToken: true })
+                        .then(function (response) {
+                            localStorageService.set('authorizationData', {
+                                token: response.data.access_token,
+                                username: response.data.username,
+                                userId: parseInt(response.data.userId),
+                                accountId: parseInt(response.data.accountId),
+                                refreshToken: response.data.refresh_token,
+                                useRefreshTokens: _useRefreshTokens,
+                                profilePicture: response.data.profilePicture || _temporaryProfilePicture,
+                                permissions: authData.permissions
+                            });
+
+                            _authentication.isAuthenticated = true;
+                            _authentication.username = response.data.username;
+                            _authentication.useRefreshTokens = _useRefreshTokens;
+                            _authentication.profilePicture = response.data.profilePicture || _temporaryProfilePicture;
+                            _authentication.userId = parseInt(response.data.userId);
+                            _authentication.accountId = parseInt(response.data.accountId);
+                            permissionsService.setPermissions(authData.permissions);
+
+                            while (_authQueue.length > 0) {
+                                var d = _authQueue[0];
+                                d.resolve(response);
+                                _authQueue.drbblyRemove(d);
+                            }
+                        })
+                        .catch(function (err, status) {
+                            _logOut();
+                            while (_authQueue.length > 0) {
+                                var d = _authQueue[0];
+                                d.reject(err);
+                                _authQueue.drbblyRemove(d);
+                            }
                         });
-
-                        _authentication.isAuthenticated = true;
-                        _authentication.username = response.data.username;
-                        _authentication.useRefreshTokens = _useRefreshTokens;
-                        _authentication.profilePicture = response.data.profilePicture || _temporaryProfilePicture;
-                        _authentication.userId = parseInt(response.data.userId);
-                        _authentication.accountId = parseInt(response.data.accountId);
-                        permissionsService.setPermissions(authData.permissions);
-
-                        deferred.resolve(response);
-                    }).catch(function (err, status) {
-                        _logOut();
-                        deferred.reject(err);
-                    });
+                }
             }
             else {
                 deferred.reject();
             }
 
             return deferred.promise;
+
         };
+
+        function isAuthVerified() {
+            return _authVerified;
+        }
 
         function _loginExternal(provider) {
             var redirectUri = settingsService.siteRoot + '#/login';
@@ -194,17 +213,20 @@
         async function _verifyToken() {
             var authData = localStorageService.get('authorizationData');
             if (authData) {
-                await $http.post(settingsService.serviceBase + 'api/account/verifyToken')
+                await $http.post(settingsService.serviceBase + 'api/account/verifyToken', null, { triggersLogin: false })
                     .then(function () {
                         _fillAuthData();
-                        //drbblyEventsService.broadcast('dribbly.auth.verified');
                     })
                     .catch(function () {
                         _logOut();
-                        //drbblyEventsService.broadcast('dribbly.auth.fail');
+                    })
+                    .finally(() => {
+                        _authVerified = true;
+                        drbblyEventsService.broadcast('dribbly.auth.verified');
                     });
             }
             else {
+                _authVerified = true;
                 drbblyEventsService.broadcast('dribbly.auth.verified');
             }
         }
@@ -292,7 +314,7 @@
                 _refreshToken()
                     .then(function () {
                         deferred.resolve();
-                    }, function () {
+                    }, function (err) {
                         showLoginModal()
                             .then(deferred.resolve, deferred.reject);
                     });
@@ -324,11 +346,6 @@
             return deferred.promise;
         }
 
-        function _redirectoToLogin() {
-            var resumeUrl = $location.url();
-            $state.go('auth.login', { resumeUrl: resumeUrl });
-        }
-
         function _isCurrentUserId(id) {
             return _authentication.userId && _authentication.userId === id;
         }
@@ -354,6 +371,7 @@
         authServiceFactory.logOut = _logOut;
         authServiceFactory.fillAuthData = _fillAuthData;
         authServiceFactory.verifyToken = _verifyToken;
+        authServiceFactory.isAuthVerified = isAuthVerified;
         authServiceFactory.authentication = _authentication;
         authServiceFactory.refreshToken = _refreshToken;
         authServiceFactory.test = _test;

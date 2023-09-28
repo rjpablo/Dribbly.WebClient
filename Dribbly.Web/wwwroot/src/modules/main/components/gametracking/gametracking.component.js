@@ -79,7 +79,7 @@
             gdg.app.noFooter = false;
             gdg.app.hideContainerData = false;
             gdg.app.showChat();
-            drbblyGameshelperService.untrack(gcc.game);
+            drbblyGameshelperService.untrack(gdg.game);
             _hubListeners.forEach(listener => listener()); //unregister hub listeners
             $('body').removeClass('game-tracking');
         }

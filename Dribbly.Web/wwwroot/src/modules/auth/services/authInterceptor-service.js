@@ -10,12 +10,12 @@
 
                     config.headers = config.headers || {};
 
-                    if (!config.isRefreshToken) {
+                    //if (!config.isRefreshToken) {
                         var authData = localStorageService.get('authorizationData');
                         if (authData) {
                             config.headers.Authorization = 'Bearer ' + authData.token;
                         }
-                    }
+                    //}
 
                     return config;
                 };
