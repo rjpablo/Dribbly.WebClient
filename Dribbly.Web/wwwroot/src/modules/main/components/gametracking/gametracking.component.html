@@ -282,12 +282,12 @@
         <!-- Score Board -->
         <div class="score-board d-flex flex-column bg-dark">
             <!-- Game Details -->
-            <div class="d-flex justify-content-around">
+            <div class="d-flex justify-content-around flex-grow-1">
                 <!-- Team1 Stats -->
                 <div class="team-stats text-center d-flex flex-column align-items-center">
                     <img class="logo" ng-src="{{gdg.game.team1.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
                     <span class="score"
-                          ng-style="{'background-color': gdg.game.team1.teamColor}"
+                          ng-style="{'background-color': gdg.game.status === gdg.gameStatusEnum.Finished? 'transparent' : gdg.game.team1.teamColor }"
                           ng-class="{'text-secondary': gdg.game.winningTeamId === gdg.game.team2Id}">{{gdg.game.team1.points}}</span>
                     <!-- Possession Team1 -->
                     <div class="mb-2"
@@ -420,7 +420,7 @@
                 <div class="team-stats text-center d-flex flex-column align-items-center">
                     <img class="logo" ng-src="{{gdg.game.team2.team.logo.url || 'src/images/default_images/default_team_logo_1.png'}}" />
                     <span class="score"
-                          ng-style="{'background-color': gdg.game.team2.teamColor}"
+                          ng-style="{'background-color': gdg.game.status === gdg.gameStatusEnum.Finished? 'transparent' : gdg.game.team2.teamColor}"
                           ng-class="{'text-secondary': gdg.game.winningTeamId === gdg.game.team1Id}">{{gdg.game.team2.points}}</span>
                     <!-- Possession Team2 -->
                     <div class="mb-2"
@@ -466,7 +466,7 @@
                 </div>
             </div>
             <!-- Game Options -->
-            <div class="p-1 flex-grow-1 d-flex flex-column align-items-center game-options text-center">
+            <div class="p-1 d-flex flex-column align-items-center game-options text-center">
                 <button type="button" class="btn btn-primary btn-block"
                         ng-if="gdg.game.status === gdg.gameStatusEnum.WaitingToStart && gdg.lineupsReady && gdg.isTimekeeper"
                         ng-click="gdg.jumpBall()">
