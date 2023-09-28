@@ -43,6 +43,7 @@
             }
             else if (rsm.eventIsShot) {
                 rsm.event.points = rsm.event.additionalData.points;
+                rsm.event.isMade = !rsm.event.isMiss;
             }
             else if (rsm.eventIsFreeThrow) {
                 rsm.event.attemptResults = [];
@@ -151,6 +152,10 @@
                 })
 
         };
+
+        rsm.onMadeMissChanged = function (isMade) {
+            rsm.event.isMiss = !isMade;
+        }
 
         function getRevertConfirmationMessageTemplate() {
             var bodyTemplate = '';

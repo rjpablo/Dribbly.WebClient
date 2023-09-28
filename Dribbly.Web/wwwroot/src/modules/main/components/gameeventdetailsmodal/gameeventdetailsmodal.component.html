@@ -58,46 +58,27 @@
                  ng-if="rsm.eventIsShot">
                 <div class="col-4">
                     <div class="form-group">
-                        <label class="m-0">Points:</label>
+                        <label class="m-0">&nbsp;</label>
                     </div>
                 </div>
                 <div class="col-8">
                     <div class="form-group">
-                        <input type="number"
-                               required
-                               min="1"
-                               max="3"
-                               class="points form-control"
-                               ng-model="rsm.event.points" />
-                    </div>
-                </div>
-            </div>
-            <div class="form-row"
-                 ng-if="rsm.eventIsShot">
-                <div class="col-4">
-                </div>
-                <div class="col-8">
-                    <div class="form-group">
-                        <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-primary"
-                                   ng-class="{'active': !rsm.event.isMiss}">
-                                <input type="radio"
-                                       ng-value="false"
-                                       ng-model="rsm.event.isMiss"
-                                       ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
-                                       class="form-check-input"
-                                       name="madeOrMiss"> Made
-                            </label>
-                            <label class="btn btn-primary"
-                                   ng-class="{'active': rsm.event.isMiss}">
-                                <input type="radio"
-                                       ng-value="true"
-                                       ng-model="rsm.event.isMiss"
-                                       ng-change="rsm.onMadeMissChanged(rsm.event.isMiss)"
-                                       class="form-check-input"
-                                       name="madeOrMiss"> Missed
-                            </label>
+                        <div class="btn-group mr-2">
+                            <label class="btn btn-primary btn-sm" ng-model="rsm.event.points" uib-btn-radio="1">1pt</label>
+                            <label class="btn btn-primary btn-sm" ng-model="rsm.event.points" uib-btn-radio="2">2pts</label>
+                            <label class="btn btn-primary btn-sm" ng-model="rsm.event.points" uib-btn-radio="3">3pts</label>
                         </div>
+                        <label>
+                            Made
+                            <div class="d-inline-block custom-control custom-switch">
+                                <input type="checkbox"
+                                       id="swMade"
+                                       ng-model="rsm.event.isMade"
+                                       ng-change="rsm.onMadeMissChanged(rsm.event.isMade)"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="swMade"></label>
+                            </div>
+                        </label>
                     </div>
                 </div>
             </div>
