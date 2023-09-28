@@ -147,11 +147,9 @@
             var deferred = $q.defer();
 
             var authData = localStorageService.get('authorizationData');
-            //localStorageService.remove('authorizationData');
+            localStorageService.remove('authorizationData');
 
             if (authData && authData.useRefreshTokens) {
-                _authQueue.push(deferred);
-
                 if (_authQueue.length === 0) {
                     var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + settingsService.clientId;
 
@@ -191,6 +189,7 @@
                             }
                         });
                 }
+                _authQueue.push(deferred);
             }
             else {
                 deferred.reject();
