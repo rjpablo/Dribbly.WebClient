@@ -24,10 +24,9 @@
                 var _responseError = function (rejection) {
                     var deferred = $q.defer();
                     if (rejection.status === 401) { //Access denied
-                        var authData = localStorageService.get('authorizationData');
                         var authService = $injector.get('authService');
 
-                        if (authData && authData.useRefreshTokens && !rejection.config.isRetried) {
+                        if (!rejection.config.isRetried) {
                             authService.refreshToken()
                                 .then(function () {
                                     _retryHttpRequest(rejection.config, deferred);
@@ -47,20 +46,8 @@
                                     }
                                 });
                         }
-                        else if (!rejection.config.isRetried && rejection.config.triggersLogin !== false) {
-                            authService.showLoginModal()
-                                .then(function (result) {
-                                    if (result.isLoginSuccessful) {
-                                        _retryHttpRequest(rejection.config, deferred);
-                                    }
-                                }, function () {
-                                    deferred.reject(rejection);
-                                });
-                        }
                         else {
-                            if (rejection.config.triggersLogin !== false) {
-                                authService.showLoginModal();
-                            }
+                            deferred.reject(rejection);
                         }
                     }
                     else {

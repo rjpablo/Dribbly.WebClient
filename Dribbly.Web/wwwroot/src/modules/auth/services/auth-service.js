@@ -149,7 +149,7 @@
             var authData = localStorageService.get('authorizationData');
             localStorageService.remove('authorizationData');
 
-            if (authData && authData.useRefreshTokens) {
+            if ((authData && authData.useRefreshTokens) || _authQueue.length > 0) {
                 if (_authQueue.length === 0) {
                     var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + settingsService.clientId;
 
@@ -309,7 +309,7 @@
         var _checkAuthentication = function () {
             var deferred = $q.defer();
 
-            if (!(_authentication && _authentication.isAuthenticated)) {
+            if (!(_authentication && _authentication.isAuthenticated) || _authQueue.length > 0) {
                 _refreshToken()
                     .then(function () {
                         deferred.resolve();

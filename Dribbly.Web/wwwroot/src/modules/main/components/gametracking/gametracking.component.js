@@ -586,10 +586,9 @@
         }
 
         function onJumpball() {
-            var startedAt = new Date();
             var input = {
                 gameId: gdg.game.id,
-                startedAt: new Date(startedAt.toUTCString()),
+                startedAt: new Date(new Date().toUTCString()),
                 jumpball: {
                     gameId: gdg.game.id,
                     type: constants.enums.gameEventTypeEnum.Jumpball,
@@ -1210,7 +1209,7 @@
             var input = {
                 gameId: _gameId,
                 timeRemaining: gameTimeRemaining,
-                updatedAt: startedAt || gdg.timer.startedAt,
+                updatedAt: (startedAt || gdg.timer.startedAt).toUTCString(),
                 isLive: isLive,
                 shotTimeRemaining: shotTimeRemaining
             };
@@ -1218,7 +1217,6 @@
         }
 
         function handleUpdateClockEvent(data) {
-            console.log('handleUpdateClockEvent:: UpdatedAt:' + data.updatedAt.toString());
             if (data.gameId === _gameId) {
                 var suppressEvents = true;
                 if (data.isLive) {

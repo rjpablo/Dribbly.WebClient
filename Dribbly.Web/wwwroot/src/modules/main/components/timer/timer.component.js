@@ -115,8 +115,8 @@
             }
             start(data) {
                 data = data || {};
-                this._startedAt = new Date();
                 if (!this.running) {
+                    this._startedAt = new Date();
                     if (data.suppressEvents || !this.onStartCallback || this.onStartCallback(this.duration)) {
                         this.run(this._startedAt, this.duration);
                         if (!data.suppressEvents && this.onStartedCallback) {
