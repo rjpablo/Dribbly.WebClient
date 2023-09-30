@@ -1133,12 +1133,13 @@
                             isHidden: () => gdg.game.status !== gdg.gameStatusEnum.Started,
                             class: 'btn-secondary'
                         },
-                        {
-                            text: 'Change Game Settings',
-                            action: gdg.showSettings,
-                            isHidden: () => gdg.game.status === gdg.gameStatusEnum.Finished || !gdg.scoreKeeper,
-                            class: 'btn-secondary'
-                        },
+                        // Hide this for now
+                        //{
+                        //    text: 'Change Game Settings',
+                        //    action: gdg.showSettings,
+                        //    isHidden: () => gdg.game.status === gdg.gameStatusEnum.Finished || !gdg.scoreKeeper,
+                        //    class: 'btn-secondary'
+                        //},
                         {
                             text: 'Set Timekeeper',
                             action: gdg.setTimekeeper,

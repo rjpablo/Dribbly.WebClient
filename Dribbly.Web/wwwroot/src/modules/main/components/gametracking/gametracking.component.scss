@@ -39,6 +39,10 @@ drbbly-gametracking {
             width: 100%;
             height: $top-bar-height;
 
+            button {
+                padding: 0.375rem 0.5rem;
+            }
+
             .game-title {
                 flex-grow: 1;
                 white-space: nowrap;

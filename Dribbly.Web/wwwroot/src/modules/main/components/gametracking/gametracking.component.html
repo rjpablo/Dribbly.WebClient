@@ -2,7 +2,11 @@
      ng-class="{'vertical': gdg.isVertical}"
      ng-if="gdg.game">
     <div class="top-bar d-block border-bottom-0 d-flex align-items-center">
-        <span class="game-title">{{gdg.game.title || 'Untitled Game'}}</span>
+        <span class="game-title text-line-1">{{gdg.game.title || 'Untitled Game'}}</span>
+        <button class="btn btn-small"
+                ng-click="gdg.setTimekeeper()">
+            <i class="fa fa-clock-o"></i>
+        </button>
         <button class="btn btn-small"
                 ng-click="gdg.showGameOptions()">
             <i class="fa fa-cog"></i>
