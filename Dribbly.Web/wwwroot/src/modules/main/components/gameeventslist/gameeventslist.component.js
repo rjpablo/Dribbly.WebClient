@@ -28,7 +28,8 @@
             if (gel.onReady) {
                 gel.onReady({
                     removeItem: removeItem,
-                    updateItem: updateItem
+                    updateItem: updateItem,
+                    upsertItem: upsertItem
                 });
             }
             setOrientation();
@@ -36,11 +37,11 @@
 
         gel.$onChanges = function (changes) {
             if (changes.game && changes.game.currentValue) {
+                _allPlayers = gel.game.team1.players.concat(gel.game.team2.players);
                 gel.events = gel.game.gameEvents;
                 gel.events.forEach(massageItem);
                 gel.periods = gel.events.drbblyGroupBy('period', 'period');
                 gel.periods.forEach(p => p.label = getPeriodLabel(p.period));
-                _allPlayers = gel.game.team1.players.concat(gel.game.team2.players);
                 initializeHub();
             }
         }
@@ -55,44 +56,9 @@
             _hub = _connection.createHubProxy('gameHub');
             _connection.url = settingsService.serviceBase + 'signalr';
 
-            _hub.on('upsertGameEvent', event => {
-                if (event) {
-                    $timeout(function () {
-                        event.performedBy = _allPlayers.drbblySingle(p => p.accountId === event.performedById).account;
-                        massageItem(event);
-                        var period = gel.periods.drbblySingleOrDefault(p => p.period === event.period);
-                        if (period) {
-                            if (period.items.drbblyAny(e => e.id === event.id)) {
-                                updateItem(event);
-                            }
-                            else {
-                                period.items.push(event);
-                                gel.events.push(event);
-                            }
-                        }
-                        else {
-                            period = {
-                                period: event.period,
-                                label: getPeriodLabel(event.period),
-                                items: [event]
-                            };
-                            gel.periods.push(period);
-                            gel.events.push(event);
-                        }
-                    });
-                }
-            });
+            _hub.on('upsertGameEvent', upsertItem);
 
-            _hub.on('deleteGameEvent', data => {
-                var event = gel.events.drbblySingleOrDefault(e => e.id === data.id);
-                if (event) {
-                    var period = gel.periods.drbblySingleOrDefault(p => p.period === event.period);
-                    if (period) {
-                        period.items.drbblyRemove(e => e.id === event.id);
-                    }
-                    gel.events.drbblyRemove(e => e.id === event.id);
-                }
-            });
+            _hub.on('deleteGameEvent', removeItem);
 
             _connection.reconnecting(function () {
                 gel.hubIsReconnecting = true;
@@ -140,10 +106,43 @@
             gel.isSideBySide = gel.sideBySideThreshold && window.innerWidth >= gel.sideBySideThreshold;
         }
 
-        function removeItem(event) {
-            gel.events.drbblyRemove(event);
-            var period = gel.periods.drbblySingle(p => p.period === event.period);
-            period.items.drbblyRemove(event);
+        function removeItem(data) {
+            var event = gel.events.drbblySingleOrDefault(e => e.id === data.id);
+            if (event) {
+                var period = gel.periods.drbblySingleOrDefault(p => p.period === event.period);
+                if (period) {
+                    period.items.drbblyRemove(e => e.id === event.id);
+                }
+                gel.events.drbblyRemove(e => e.id === event.id);
+            }
+        }
+
+        function upsertItem(event) {
+            if (event) {
+                $timeout(function () {
+                    event.performedBy = _allPlayers.drbblySingle(p => p.accountId === event.performedById).account;
+                    massageItem(event);
+                    var period = gel.periods.drbblySingleOrDefault(p => p.period === event.period);
+                    if (period) {
+                        if (period.items.drbblyAny(e => e.id === event.id)) {
+                            updateItem(event);
+                        }
+                        else {
+                            period.items.push(event);
+                            gel.events.push(event);
+                        }
+                    }
+                    else {
+                        period = {
+                            period: event.period,
+                            label: getPeriodLabel(event.period),
+                            items: [event]
+                        };
+                        gel.periods.push(period);
+                        gel.events.push(event);
+                    }
+                });
+            }
         }
 
         gel.$onDestroy = function () {
@@ -186,6 +185,16 @@
             else if (typeof e.additionalData === 'string') {
                 e.additionalData = JSON.parse(e.additionalData);
             }
+            if (e.performedById) {
+                var p = _allPlayers.drbblySingleOrDefault(p => p.accountId === e.performedById);
+                if (p) {
+                    e.performedBy = p.account
+                }
+                else {
+                    console.log(e);
+                }
+            }
+            e.game = gel.game;
             e.isTeam1 = e.teamId === gel.game.team1.teamId;
             e.isTeam2 = e.teamId === gel.game.team2.teamId;
             e.isBothTeams = e.teamId === null;

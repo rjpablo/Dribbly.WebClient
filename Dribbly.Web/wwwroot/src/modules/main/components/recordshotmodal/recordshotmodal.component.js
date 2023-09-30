@@ -19,13 +19,52 @@
 
         rsm.$onInit = function () {
             rsm.saveModel = angular.copy(rsm.model, {});
-            rsm.saveModel.isMade = !rsm.saveModel.isMiss;
+            rsm.saveModel.shot.isMade = !rsm.saveModel.shot.isMiss;
             setTeams();
+            rsm.allPlayers = rsm.opposingTeam.players.concat(rsm.shooterTeam.players);
             rsm.shooterOptions = rsm.opposingTeam.players.concat(rsm.shooterTeam.players)
                 .drbblyWhere(p => p.isInGame);
 
-            if (rsm.saveModel.withFoul) {
-                rsm.addFoul();
+            if (rsm.model.isEdit) {
+                if (rsm.saveModel.withRebound) {
+                    rsm.reboundPlayerOptions = rsm.opposingTeam.players;
+                    rsm.rebound = rsm.saveModel.rebound;
+                    rsm.rebound.isNew = false;
+                    rsm.rebound.performedBy = getGamePlayer(rsm.saveModel.rebound.performedById);
+                }
+                if (rsm.saveModel.withAssist) {
+                    rsm.assistPlayerOptions = rsm.shooterTeam.players
+                        .drbblyWhere(p => p.id !== rsm.saveModel.performedBy.id);
+                    rsm.assist = rsm.saveModel.assist;
+                    rsm.assist.isNew = false;
+                    rsm.saveModel.assist.performedBy = getGamePlayer(rsm.saveModel.assist.performedById);
+                }
+                if (rsm.saveModel.withBlock) {
+                    rsm.blockPlayerOptions = rsm.opposingTeam.players;
+                    rsm.block = rsm.saveModel.block;
+                    rsm.block.isNew = false;
+                    rsm.block.performedBy = getGamePlayer(rsm.saveModel.block.performedById);
+                }
+                if (rsm.saveModel.withFoul) {
+                    rsm.foulPlayerOptions = rsm.opposingTeam.players.drbblyWhere(p => true);
+                    rsm.foulPlayerOptions.sort((a, b) => {
+                        return a.isInGame && !b.isInGame ? -1 :
+                            b.isInGame && !a.isInGame ? 1 :
+                                a.isInGame && b.isInGame ? (a.jerseyNo - b.jerseyNo) :
+                                    0;
+                    });
+                    rsm.foulTypeOptions = constants.Fouls;
+                    rsm.foul = rsm.saveModel.foul;
+                    rsm.foul.isNew = false;
+                    rsm.foul.performedBy = getGamePlayer(rsm.saveModel.foul.performedById);
+                    rsm.foul.foul = rsm.foulTypeOptions.drbblySingle(f => f.id === rsm.saveModel.foul.foulId);
+                }
+            }
+            else {
+                rsm.saveModel.shot.isNew = true;
+                if (rsm.saveModel.withFoul) {
+                    rsm.addFoul();
+                }
             }
 
             rsm.context.setOnInterrupt(rsm.onInterrupt);
@@ -36,6 +75,10 @@
                 }
             }, $scope);
         };
+
+        function getGamePlayer(accountId) {
+            return rsm.allPlayers.drbblySingle(p => p.teamMembership.memberAccountId === accountId);
+        }
 
         rsm.addFoul = function () {
             rsm.foulPlayerOptions = rsm.opposingTeam.players.drbblyWhere( p => true); //returns a new array
@@ -49,7 +92,7 @@
             rsm.saveModel.withFoul = true;
 
             if (!rsm.foul) {
-                rsm.foul = {};
+                rsm.foul = { isNew: true };
                 if (rsm.foulPlayerOptions.length === 1) {
                     // Set as default if there's only one
                     rsm.foul.performedBy = rsm.foulPlayerOptions[0];
@@ -66,7 +109,8 @@
 
             if (!rsm.block) {
                 rsm.block = {
-                    type: constants.enums.gameEventTypeEnum.ShotBlock
+                    type: constants.enums.gameEventTypeEnum.ShotBlock,
+                    isNew: true
                 };
                 if (rsm.blockPlayerOptions.length === 1) {
                     // Set as default if there's only one
@@ -82,7 +126,8 @@
 
             if (!rsm.rebound) {
                 rsm.rebound = {
-                    type: constants.enums.gameEventTypeEnum.Rebound
+                    type: constants.enums.gameEventTypeEnum.Rebound,
+                    isNew: true
                 };
                 if (rsm.reboundPlayerOptions.length === 1) {
                     // Set as default if there's only one
@@ -90,6 +135,12 @@
                 }
             }
         };
+
+        rsm.onShotPerformedBySelect = () => rsm.saveModel.shot.isModified = !rsm.saveModel.shot.isNew;
+        rsm.onReboundPerformedBySelect = () => rsm.rebound.isModified = !rsm.rebound.isNew;
+        rsm.onAssistPerformedBySelect = () => rsm.assist.isModified = !rsm.assist.isNew;
+        rsm.onBlockPerformedBySelect = () => rsm.block.isModified = !rsm.block.isNew;
+        rsm.onFoulPerformedBySelect = () => rsm.foul.isModified = !rsm.foul.isNew;
 
         rsm.addAssist = function () {
             rsm.assistPlayerOptions = rsm.shooterTeam.players
@@ -99,7 +150,8 @@
 
             if (!rsm.assist) {
                 rsm.assist = {
-                    type: constants.enums.gameEventTypeEnum.Assist
+                    type: constants.enums.gameEventTypeEnum.Assist,
+                    isNew: true
                 };
                 if (rsm.assistPlayerOptions.length === 1) {
                     // Set as default if there's only one
@@ -132,7 +184,8 @@
         };
 
         rsm.onMadeMissChanged = function (isMade) {
-            rsm.saveModel.isMiss = !isMade;
+            rsm.saveModel.shot.isMiss = !isMade;
+            rsm.saveModel.shot.isModified = true;
             if (isMade) {
                 rsm.saveModel.withBlock = false;
                 rsm.saveModel.withRebound = false;
@@ -152,22 +205,24 @@
             if (rsm.frmShot.$valid) {
                 var result = {
                     shot: {
-                        points: rsm.saveModel.points,
-                        isMiss: rsm.saveModel.isMiss,
+                        id: rsm.saveModel.shot.id,
+                        points: rsm.saveModel.shot.points,
+                        isMiss: rsm.saveModel.shot.isMiss,
                         performedById: rsm.saveModel.performedBy.teamMembership.memberAccountId,
                         teamId: rsm.saveModel.performedBy.teamMembership.teamId,
-                        gameId: rsm.saveModel.game.id,
-                        period: rsm.saveModel.period,
-                        clockTime: rsm.saveModel.clockTime,
+                        gameId: rsm.saveModel.shot.game.id,
+                        period: rsm.saveModel.shot.period,
+                        clockTime: rsm.saveModel.shot.clockTime,
                     },
-                    withFoul: rsm.saveModel.withFoul,
-                    withBlock: rsm.saveModel.withBlock,
-                    withAssist: rsm.saveModel.withAssist,
-                    withRebound: rsm.saveModel.withRebound && !rsm.saveModel.withFoul,
+                    withFoul: rsm.saveModel.withFoul || (rsm.foul && !rsm.foul.isNew),
+                    withBlock: rsm.saveModel.withBlock || (rsm.block && !rsm.block.isNew),
+                    withAssist: rsm.saveModel.withAssist || (rsm.assist && !rsm.assist.isNew),
+                    withRebound: (rsm.saveModel.withRebound && !rsm.saveModel.withFoul) || (rsm.rebound && !rsm.rebound.isNew)
                 };
 
                 if (result.withFoul) {
                     result.foul = {
+                        id: rsm.foul.id,
                         foulId: rsm.foul.foul.id,
                         foul: rsm.foul.foul,
                         performedById: rsm.foul.performedBy.teamMembership.account.id,
@@ -177,39 +232,54 @@
                         gameId: rsm.saveModel.game.id,
                         teamId: rsm.foul.performedBy.teamMembership.teamId,
                         performedByGamePlayer: rsm.foul.performedBy,
-                        period: rsm.saveModel.period,
-                        clockTime: rsm.saveModel.clockTime
+                        period: rsm.saveModel.shot.period,
+                        clockTime: rsm.saveModel.shot.clockTime,
+                        isNew: rsm.foul.isNew,
+                        isModified: rsm.foul.isModified,
+                        isDeleted: !rsm.saveModel.withFoul,
+                        shotId: rsm.saveModel.shot.id
                     }
                 }
 
                 if (result.withBlock) {
                     result.block = {
+                        id: rsm.block.id,
                         type: constants.enums.gameEventTypeEnum.ShotBlock,
                         performedById: rsm.block.performedBy.teamMembership.account.id,
                         performedBy: rsm.block.performedBy.teamMembership.account,
                         gameId: rsm.saveModel.game.id,
                         teamId: rsm.block.performedBy.teamMembership.teamId,
                         performedByGamePlayer: rsm.block.performedBy,
-                        period: rsm.saveModel.period,
-                        clockTime: rsm.saveModel.clockTime
+                        period: rsm.saveModel.shot.period,
+                        clockTime: rsm.saveModel.shot.clockTime,
+                        isNew: rsm.block.isNew,
+                        isModified: rsm.block.isModified,
+                        isDeleted: !rsm.saveModel.withBlock,
+                        shotId: rsm.saveModel.shot.id
                     }
                 }
 
                 if (result.withAssist) {
                     result.assist = {
+                        id: rsm.assist.id,
                         type: constants.enums.gameEventTypeEnum.Assist,
                         performedById: rsm.assist.performedBy.teamMembership.account.id,
                         performedBy: rsm.assist.performedBy.teamMembership.account,
                         gameId: rsm.saveModel.game.id,
                         teamId: rsm.assist.performedBy.teamMembership.teamId,
                         performedByGamePlayer: rsm.assist.performedBy,
-                        period: rsm.saveModel.period,
-                        clockTime: rsm.saveModel.clockTime
+                        period: rsm.saveModel.shot.period,
+                        clockTime: rsm.saveModel.shot.clockTime,
+                        isNew: rsm.assist.isNew,
+                        isModified: rsm.assist.isModified,
+                        isDeleted: !rsm.saveModel.withAssist,
+                        shotId: rsm.saveModel.shot.id
                     }
                 }
 
                 if (result.withRebound) {
                     result.rebound = {
+                        id: rsm.rebound.id,
                         type: rsm.rebound.performedBy.teamMembership.teamId === rsm.saveModel.performedBy.teamMembership.teamId ?
                             constants.enums.gameEventTypeEnum.OffensiveRebound :
                             constants.enums.gameEventTypeEnum.DefensiveRebound,
@@ -218,8 +288,12 @@
                         gameId: rsm.saveModel.game.id,
                         teamId: rsm.rebound.performedBy.teamMembership.teamId,
                         performedByGamePlayer: rsm.rebound.performedBy,
-                        period: rsm.saveModel.period,
-                        clockTime: rsm.saveModel.clockTime
+                        period: rsm.saveModel.shot.period,
+                        clockTime: rsm.saveModel.shot.clockTime,
+                        isNew: rsm.rebound.isNew,
+                        isModified: rsm.rebound.isModified,
+                        isDeleted: !rsm.saveModel.withRebound || rsm.saveModel.withFoul,
+                        shotId: rsm.saveModel.shot.id
                     }
                 }
 

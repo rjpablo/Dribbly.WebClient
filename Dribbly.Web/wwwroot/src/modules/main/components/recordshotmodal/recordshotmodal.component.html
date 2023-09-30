@@ -14,7 +14,8 @@
                                              class="form-control"
                                              choices="rsm.shooterOptions"
                                              prompt="Shooter"
-                                             modal-container="rsm.options.container"></drbbly-playerselect>
+                                             modal-container="rsm.options.container"
+                                             on-select="rsm.onShotPerformedBySelect"></drbbly-playerselect>
                         <input type="number"
                                name="shooter"
                                required
@@ -33,22 +34,26 @@
                     </div>
                     <div class="col-8">
                         <div class="btn-group mr-2">
-                            <label class="btn btn-primary btn-sm" ng-model="rsm.saveModel.points" uib-btn-radio="1">1pt</label>
-                            <label class="btn btn-primary btn-sm" ng-model="rsm.saveModel.points" uib-btn-radio="2">2pts</label>
-                            <label class="btn btn-primary btn-sm" ng-model="rsm.saveModel.points" uib-btn-radio="3">3pts</label>
+                            <label class="btn btn-primary btn-sm"
+                                   ng-model="rsm.saveModel.shot.points"
+                                   ng-change="rsm.saveModel.shot.isModified = true"
+                                   uib-btn-radio="1">1pt</label>
+                            <label class="btn btn-primary btn-sm"
+                                   ng-model="rsm.saveModel.shot.points"
+                                   ng-change="rsm.saveModel.shot.isModified = true"
+                                   uib-btn-radio="2">2pts</label>
+                            <label class="btn btn-primary btn-sm"
+                                   ng-model="rsm.saveModel.shot.points"
+                                   ng-change="rsm.saveModel.shot.isModified = true"
+                                   uib-btn-radio="3">3pts</label>
                         </div>
-                        <!--<input type="number"
-                        min="1"
-                        max="3"
-                        class="mr-2 points form-control"
-                        ng-model="rsm.saveModel.points" />-->
                         <label>
                             Made
                             <div class="d-inline-block custom-control custom-switch">
                                 <input type="checkbox"
                                        id="swMade"
-                                       ng-model="rsm.saveModel.isMade"
-                                       ng-change="rsm.onMadeMissChanged(rsm.saveModel.isMade)"
+                                       ng-model="rsm.saveModel.shot.isMade"
+                                       ng-change="rsm.onMadeMissChanged(rsm.saveModel.shot.isMade)"
                                        class="custom-control-input">
                                 <label class="custom-control-label" for="swMade"></label>
                             </div>
@@ -72,9 +77,10 @@
                         <drbbly-playerselect player="rsm.foul.performedBy"
                                              class="form-control"
                                              choices="rsm.foulPlayerOptions"
-                                             open-on-init="true"
+                                             open-on-init="!rsm.model.isEdit"
                                              prompt="Fouled By"
-                                             modal-container="rsm.options.container"></drbbly-playerselect>
+                                             modal-container="rsm.options.container"
+                                             on-select="rsm.onFoulPerformedBySelect"></drbbly-playerselect>
                         <input type="text"
                                name="performedBy"
                                required
@@ -128,10 +134,11 @@
                     <div class="col-8 d-flex">
                         <drbbly-playerselect player="rsm.block.performedBy"
                                              class="form-control"
-                                             open-on-init="true"
+                                             open-on-init="!rsm.model.isEdit"
                                              choices="rsm.blockPlayerOptions"
                                              prompt="Blocked By"
-                                             modal-container="rsm.options.container"></drbbly-playerselect>
+                                             modal-container="rsm.options.container"
+                                             on-select="rsm.onBlockPerformedBySelect"></drbbly-playerselect>
                         <input type="text"
                                name="performedBy"
                                required
@@ -158,10 +165,11 @@
                     <div class="col-8 d-flex">
                         <drbbly-playerselect player="rsm.assist.performedBy"
                                              class="form-control"
-                                             open-on-init="true"
+                                             open-on-init="!rsm.model.isEdit"
                                              choices="rsm.assistPlayerOptions"
                                              prompt="Assisted By"
-                                             modal-container="rsm.options.container"></drbbly-playerselect>
+                                             modal-container="rsm.options.container"
+                                             on-select="rsm.onAssistPerformedBySelect"></drbbly-playerselect>
                         <input type="text"
                                name="performedBy"
                                required
@@ -188,10 +196,11 @@
                     <div class="col-8 d-flex">
                         <drbbly-playerselect player="rsm.rebound.performedBy"
                                              class="form-control"
-                                             open-on-init="true"
+                                             open-on-init="!rsm.model.isEdit"
                                              choices="rsm.reboundPlayerOptions"
                                              prompt="Rebounded By"
-                                             modal-container="rsm.options.container"></drbbly-playerselect>
+                                             modal-container="rsm.options.container"
+                                             on-select="rsm.onReboundPerformedBySelect"></drbbly-playerselect>
                         <input type="text"
                                name="performedBy"
                                required
@@ -206,28 +215,6 @@
             </div>
         </form>
     </div>
-    <!--<div class="additional-options">
-        <button class="btn btn-secondary"
-                ng-show="!rsm.saveModel.withFoul && !rsm.saveModel.withBlock && !rsm.saveModel.withRebound"
-                ng-click="rsm.addFoul()">
-            +Foul
-        </button>
-        <button class="btn btn-secondary"
-                ng-show="!rsm.saveModel.withBlock && rsm.saveModel.isMiss && !rsm.saveModel.withFoul"
-                ng-click="rsm.addBlock()">
-            +Blk
-        </button>
-        <button class="btn btn-secondary"
-                ng-show="!rsm.saveModel.isMiss && !rsm.saveModel.withAssist && rsm.shooterTeam.players.length > 1"
-                ng-click="rsm.addAssist()">
-            +Ast
-        </button>
-        <button class="btn btn-secondary"
-                ng-show="rsm.saveModel.isMiss && !rsm.saveModel.withRebound  && !rsm.saveModel.withFoul"
-                ng-click="rsm.addRebound()">
-            +Reb
-        </button>
-    </div>-->
 </div>
 <div class="modal-footer m-1">
     <button class="btn btn-primary"
@@ -250,17 +237,17 @@
             +Foul
         </button>
         <button class="btn btn-secondary"
-                ng-show="!rsm.saveModel.withBlock && rsm.saveModel.isMiss && !rsm.saveModel.withFoul"
+                ng-show="!rsm.saveModel.withBlock && rsm.saveModel.shot.isMiss && !rsm.saveModel.withFoul"
                 ng-click="rsm.addBlock()">
             +Blk
         </button>
         <button class="btn btn-secondary"
-                ng-show="!rsm.saveModel.isMiss && !rsm.saveModel.withAssist && rsm.shooterTeam.players.length > 1"
+                ng-show="!rsm.saveModel.shot.isMiss && !rsm.saveModel.withAssist && rsm.shooterTeam.players.length > 1"
                 ng-click="rsm.addAssist()">
             +Ast
         </button>
         <button class="btn btn-secondary"
-                ng-show="rsm.saveModel.isMiss && !rsm.saveModel.withRebound  && !rsm.saveModel.withFoul"
+                ng-show="rsm.saveModel.shot.isMiss && !rsm.saveModel.withRebound  && !rsm.saveModel.withFoul"
                 ng-click="rsm.addRebound()">
             +Reb
         </button>

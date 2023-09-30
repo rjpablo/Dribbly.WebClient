@@ -229,6 +229,7 @@
 
             rsm.overlay.setToBusy("Saving...");
 
+            rsm.event.game = null; //to avoid "Converting circular structure to JSON" error
             var promise = rsm.eventIsFreeThrow && rsm.event.isNew ?
                 drbblyGameeventsService.upsertFreeThrow(input) :
                 drbblyGameeventsService.update(input);

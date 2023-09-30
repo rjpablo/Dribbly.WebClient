@@ -8,7 +8,8 @@
                 choices: '<',
                 prompt: '@',
                 modalContainer: '<',
-                openOnInit: '<'
+                openOnInit: '<',
+                onSelect: '<'
             },
             controllerAs: 'psd',
             templateUrl: 'drbbly-default',
@@ -40,6 +41,7 @@
                 })
                 .then(player => {
                     psd.player = player;
+                    psd.onSelect && psd.onSelect(player);
                 })
                 .catch(err => { /*modal cancelled, do nothing*/ });
         }

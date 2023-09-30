@@ -350,69 +350,89 @@
                 }
             }
 
-            var modalResult = await showPlayerOptionsModal({
-                view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
-                model: {
+            showShotDetails({
+                game: gdg.game,
+                performedBy: gdg.selectedPlayer,
+                shot: {
                     game: gdg.game,
-                    performedBy: gdg.selectedPlayer,
                     points: points,
                     period: gdg.game.currentPeriod,
+                    performedBy: gdg.selectedPlayer.teamMembership.account,
+                    performedById: gdg.selectedPlayer.teamMembership.memberAccountId,
                     clockTime: gdg.timer.remainingTime,
-                    isMiss: isMiss,
-                    withFoul: withFoul
-                }
+                    isMiss: isMiss
+                },
+                withFoul: withFoul
+            });
+        }
+
+        async function showShotDetails(data) {
+            var modalResult = await showPlayerOptionsModal({
+                view: '<drbbly-recordshotmodal></drbbly-recordshotmodal>',
+                model: data
             }).catch(err => { /*modal cancelled, do nothing*/ });
 
             if (modalResult) {
-                if (modalResult.shot) {
-                    var shotResult = await drbblyGameeventsService.recordShot(modalResult)
-                        .then(data => data)
+                if (data.isEdit) {
+                    return await drbblyGameeventsService.updateShot(modalResult)
+                        .then(data => {
+                            return data;
+                        })
                         .catch(function (err) {
                             drbblyCommonService.handleError(err, null, 'The shot was not recoded due to an error.')
                         });
-                    if (shotResult) {
-                        invokeSetScores(shotResult.team1Score, shotResult.team2Score)
-                        gdg.game.team1Score = shotResult.team1Score;
-                        gdg.game.team1.points = shotResult.team1Score;
-                        gdg.game.team1.fga = shotResult.team1.fga;
-                        gdg.game.team1.fgm = shotResult.team1.fgm;
-                        gdg.game.team1.threePA = shotResult.team1.threePA;
-                        gdg.game.team1.threePM = shotResult.team1.threePM;
-                        gdg.game.team1.blocks = shotResult.team1.blocks;
-                        gdg.game.team1.assists = shotResult.team1.assists;
-                        gdg.game.team1.rebounds = shotResult.team1.rebounds;
+                }
+                else {
+                    if (modalResult.shot) {
+                        var shotResult = await drbblyGameeventsService.recordShot(modalResult)
+                            .then(data => data)
+                            .catch(function (err) {
+                                drbblyCommonService.handleError(err, null, 'The shot was not recoded due to an error.')
+                            });
+                        if (shotResult) {
+                            invokeSetScores(shotResult.team1Score, shotResult.team2Score)
+                            gdg.game.team1Score = shotResult.team1Score;
+                            gdg.game.team1.points = shotResult.team1Score;
+                            gdg.game.team1.fga = shotResult.team1.fga;
+                            gdg.game.team1.fgm = shotResult.team1.fgm;
+                            gdg.game.team1.threePA = shotResult.team1.threePA;
+                            gdg.game.team1.threePM = shotResult.team1.threePM;
+                            gdg.game.team1.blocks = shotResult.team1.blocks;
+                            gdg.game.team1.assists = shotResult.team1.assists;
+                            gdg.game.team1.rebounds = shotResult.team1.rebounds;
 
-                        gdg.game.team2Score = shotResult.team2Score;
-                        gdg.game.team2.points = shotResult.team2Score;
-                        gdg.game.team2.fga = shotResult.team2.fga;
-                        gdg.game.team2.fgm = shotResult.team2.fgm;
-                        gdg.game.team2.threePA = shotResult.team2.threePA;
-                        gdg.game.team2.threePM = shotResult.team2.threePM;
-                        gdg.game.team2.blocks = shotResult.team2.blocks;
-                        gdg.game.team2.assists = shotResult.team2.assists;
-                        gdg.game.team2.rebounds = shotResult.team2.rebounds;
+                            gdg.game.team2Score = shotResult.team2Score;
+                            gdg.game.team2.points = shotResult.team2Score;
+                            gdg.game.team2.fga = shotResult.team2.fga;
+                            gdg.game.team2.fgm = shotResult.team2.fgm;
+                            gdg.game.team2.threePA = shotResult.team2.threePA;
+                            gdg.game.team2.threePM = shotResult.team2.threePM;
+                            gdg.game.team2.blocks = shotResult.team2.blocks;
+                            gdg.game.team2.assists = shotResult.team2.assists;
+                            gdg.game.team2.rebounds = shotResult.team2.rebounds;
 
-                        gdg.selectedPlayer.points = shotResult.takenBy.points;
-                        gdg.selectedPlayer.fga = shotResult.takenBy.fga;
-                        gdg.selectedPlayer.fgm = shotResult.takenBy.fgm;
-                        gdg.selectedPlayer.threePA = shotResult.takenBy.threePA;
-                        gdg.selectedPlayer.threePM = shotResult.takenBy.threePM;
+                            gdg.selectedPlayer.points = shotResult.takenBy.points;
+                            gdg.selectedPlayer.fga = shotResult.takenBy.fga;
+                            gdg.selectedPlayer.fgm = shotResult.takenBy.fgm;
+                            gdg.selectedPlayer.threePA = shotResult.takenBy.threePA;
+                            gdg.selectedPlayer.threePM = shotResult.takenBy.threePM;
 
-                        if (modalResult.shot.isMiss) {
-                            if (modalResult.withBlock) {
-                                modalResult.block.performedByGamePlayer.blocks = shotResult.blockResult.totalBlocks;
+                            if (modalResult.shot.isMiss) {
+                                if (modalResult.withBlock) {
+                                    modalResult.block.performedByGamePlayer.blocks = shotResult.blockResult.totalBlocks;
+                                }
+                                if (modalResult.withRebound) {
+                                    modalResult.rebound.performedByGamePlayer.rebounds = shotResult.reboundResult.totalRebounds;
+                                }
                             }
-                            if (modalResult.withRebound) {
-                                modalResult.rebound.performedByGamePlayer.rebounds = shotResult.reboundResult.totalRebounds;
+                            else if (modalResult.withAssist) {
+                                modalResult.assist.performedByGamePlayer.assists = shotResult.assistResult.totalAssists;
                             }
-                        }
-                        else if (modalResult.withAssist) {
-                            modalResult.assist.performedByGamePlayer.assists = shotResult.assistResult.totalAssists;
-                        }
 
-                        if (modalResult.withFoul) {
-                            applyFoulResult(shotResult.foulResult, modalResult.foul.performedByGamePlayer);
-                            gdg.recordFreeThrow(gdg.selectedPlayer);
+                            if (modalResult.withFoul) {
+                                applyFoulResult(shotResult.foulResult, modalResult.foul.performedByGamePlayer);
+                                gdg.recordFreeThrow(gdg.selectedPlayer);
+                            }
                         }
                     }
                 }
@@ -691,6 +711,7 @@
         };
 
         gdg.showGameEventDetails = async function (event) {
+            var result;
             if (gdg.scoreKeeper && !gdg.gameIsFinished()) {
                 var eventIsShot = event.type === constants.enums.gameEventTypeEnum.ShotMade
                     || event.type === constants.enums.gameEventTypeEnum.ShotMissed;
@@ -701,64 +722,93 @@
                 var eventIsTurnover = event.type === constants.enums.gameEventTypeEnum.Turnover;
                 var eventIsFreeThrow = event.type === constants.enums.gameEventTypeEnum.FreeThrowMade
                     || event.type === constants.enums.gameEventTypeEnum.FreeThrowMissed;
-                if (eventIsShot || eventIsRebound || eventIsAssist || eventIsShotBlock || eventIsTurnover
+
+                var associatedPlays = gdg.game.gameEvents
+                    .drbblyWhere(e => (event.shotId !== null && (e.id === event.shotId || e.shotId === event.shotId)) ||
+                        (e.shotId === event.id));
+
+                if (eventIsRebound || eventIsAssist || eventIsShotBlock || eventIsTurnover
                     || event.type === constants.enums.gameEventTypeEnum.FoulCommitted
                     || event.type === constants.enums.gameEventTypeEnum.Steal
                     || eventIsFreeThrow) {
                     var input = {
                         game: gdg.game,
                         event: event,
-                        associatedPlays: []
+                        associatedPlays: associatedPlays
                     };
 
-                    //get associated plays
-                    input.associatedPlays = gdg.game.gameEvents
-                        .drbblyWhere(e => (event.shotId !== null && (e.id === event.shotId || e.shotId === event.shotId)) ||
-                            (e.shotId === event.id));
-
-                    var result = await showPlayerOptionsModal({
+                    result = await showPlayerOptionsModal({
                         view: '<drbbly-gameeventdetailsmodal></drbbly-gameeventdetailsmodal>',
                         model: input
                     }).catch(err => { /*modal cancelled, do nothing*/ });
+                }
+                else if (eventIsShot) {
+                    var input = {
+                        game: gdg.game,
+                        shot: event,
+                        associatedPlays: associatedPlays,
+                        isEdit: true,
+                        performedBy: gdg.players.drbblySingle(p => p.teamMembership.memberAccountId === event.performedById)
+                    };
 
-                    if (result) {
-                        invokeSetScores(result.game.team1Score, result.game.team2Score)
-                        gdg.game.team1Score = result.game.team1Score;
-                        gdg.game.team2Score = result.game.team2Score;
-                        result.teams.forEach(t => {
-                            var team = gdg.teams.drbblySingle(tm => tm.teamId === t.teamId);
-                            team.points = t.points;
-                            team.teamFoulCount = t.teamFoulCount;
-                            team.fta = t.fta;
-                            team.ftm = t.ftm;
-                        });
-                        result.players.forEach(p => {
-                            var player = gdg.players.drbblySingle(pl => pl.id === p.id);
-                            player.points = p.points;
-                            player.fouls = p.fouls;
-                            player.rebounds = p.rebounds;
-                            player.assists = p.assists;
-                            player.blocks = p.blocks;
-                            player.fga = p.fga;
-                            player.fgm = p.fgm;
-                            player.threePA = p.threePA;
-                            player.threePM = p.threePM;
-                            player.fta = p.fta;
-                            player.ftm = p.ftm;
-                        });
+                    associatedPlays.forEach(e => {
+                        if (e.type === constants.enums.gameEventTypeEnum.DefensiveRebound
+                            || e.type === constants.enums.gameEventTypeEnum.OffensiveRebound) {
+                            input.withRebound = true;
+                            input.rebound = e;
+                        }
+                        else if (e.type === constants.enums.gameEventTypeEnum.Assist) {
+                            input.withAssist = true;
+                            input.assist = e;
+                        }
+                        else if (e.type === constants.enums.gameEventTypeEnum.ShotBlock) {
+                            input.withBlock = true;
+                            input.block = e;
+                        }
+                        else if (e.type === constants.enums.gameEventTypeEnum.FoulCommitted) {
+                            input.withFoul = true;
+                            input.foul = e;
+                        }
+                    });
 
-                        if (!event.isNew) {
-                            if (result.isDelete) {
-                                gdg.playByPlayWidget.removeItem(event);
-                                if (eventIsShot || eventIsFreeThrow)
-                                    input.associatedPlays.forEach(p => gdg.game.gameEvents.drbblyRemove(p));
+                    result = await showShotDetails(input);
+                }
+
+                if (result) {
+                    invokeSetScores(result.game.team1Score, result.game.team2Score)
+                    gdg.game.team1Score = result.game.team1Score;
+                    gdg.game.team2Score = result.game.team2Score;
+                    result.teams.forEach(t => {
+                        var team = gdg.teams.drbblySingle(tm => tm.teamId === t.teamId);
+                        team.points = t.points;
+                        team.teamFoulCount = t.teamFoulCount;
+                        team.fta = t.fta;
+                        team.ftm = t.ftm;
+                    });
+                    result.players.forEach(p => {
+                        var player = gdg.players.drbblySingle(pl => pl.id === p.id);
+                        player.points = p.points;
+                        player.fouls = p.fouls;
+                        player.rebounds = p.rebounds;
+                        player.assists = p.assists;
+                        player.blocks = p.blocks;
+                        player.fga = p.fga;
+                        player.fgm = p.fgm;
+                        player.threePA = p.threePA;
+                        player.threePM = p.threePM;
+                        player.fta = p.fta;
+                        player.ftm = p.ftm;
+                    });
+
+                    if (!event.isNew) {
+                        result.events.forEach(e => {
+                            if (e.isDeleted) {
+                                gdg.playByPlayWidget.removeItem(e);
                             }
                             else {
-                                gdg.playByPlayWidget.updateItem(result.event);
-                                if (eventIsShot || eventIsFreeThrow)
-                                    input.associatedPlays.forEach(p => gdg.playByPlayWidget.updateItem(p));
+                                gdg.playByPlayWidget.upsertItem(e);
                             }
-                        }
+                        });
                     }
                 }
             }

@@ -229,4 +229,27 @@
             ng-disabled="rsm.isBusy">
         <i class="fa fa-trash"></i>
     </button>
+    <div class="additional-options flex-grow-1 d-flex justify-content-end"
+         ng-if="rsm.eventIsShot">
+        <button class="btn btn-secondary"
+                ng-show="!rsm.saveModel.withFoul && !rsm.saveModel.withBlock && !rsm.saveModel.withRebound"
+                ng-click="rsm.addFoul()">
+            +Foul
+        </button>
+        <button class="btn btn-secondary"
+                ng-show="!rsm.saveModel.withBlock && rsm.saveModel.isMiss && !rsm.saveModel.withFoul"
+                ng-click="rsm.addBlock()">
+            +Blk
+        </button>
+        <button class="btn btn-secondary"
+                ng-show="!rsm.saveModel.isMiss && !rsm.saveModel.withAssist && rsm.shooterTeam.players.length > 1"
+                ng-click="rsm.addAssist()">
+            +Ast
+        </button>
+        <button class="btn btn-secondary"
+                ng-show="rsm.saveModel.isMiss && !rsm.saveModel.withRebound  && !rsm.saveModel.withFoul"
+                ng-click="rsm.addRebound()">
+            +Reb
+        </button>
+    </div>
 </div>
