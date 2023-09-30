@@ -3,11 +3,14 @@
 
     angular.module('mainModule')
         .service('drbblyGameshelperService', ['modalService', 'authService', '$timeout', 'settingsService',
-            function (modalService, authService, $timeout, settingsService) {
+            'constants',
+            function (modalService, authService, $timeout, settingsService, constants) {
                 var _hubConnection;
                 var _hub;
                 var _trackedGames = [];
                 var _listeners = [];
+                var _hub;
+                var _connectionStatus = constants.enums.hubConnectionStatusEnum.Disconnected;
                 var events = ['updateClock', 'setTol', 'setBonus', 'updatePeriod', 'setNextPossession',
                     'setTeamFoulCount', 'setScores', 'setTeamLineup'];
 
@@ -57,17 +60,24 @@
                     });
 
                     _hubConnection.reconnecting(function () {
-
+                        _connectionStatus = constants.enums.hubConnectionStatusEnum.Reconnecting;
+                        broadcast('reconnecting');
                     });
 
                     _hubConnection.reconnected(function () {
+                        _connectionStatus = constants.enums.hubConnectionStatusEnum.Connected;
+                        broadcast('reconnected');
                         joinGameHubs();
                     });
 
                     _hubConnection.disconnected(function () {
+                        _connectionStatus = constants.enums.hubConnectionStatusEnum.Disconnected;
+                        broadcast('disconnected');
                         $timeout(function () {
                             _hubConnection.start()
                                 .done(function () {
+                                    _connectionStatus = constants.enums.hubConnectionStatusEnum.Connected;
+                                    broadcast('connected');
                                     joinGameHubs();
                                 })
                                 .fail(function (err) {
@@ -78,6 +88,8 @@
 
                     _hubConnection.start()
                         .done(function () {
+                            _connectionStatus = constants.enums.hubConnectionStatusEnum.Connected;
+                            broadcast('connected');
                             joinGameHubs();
                         })
                         .fail(function (err) {
@@ -134,13 +146,18 @@
                     }
                 }
 
+                _hub = {
+                    on: on,
+                    invoke: invoke,
+                    updateClock: updateClock,
+                    updatePeriod: updatePeriod,
+                    get connectionStatus() {
+                        return _connectionStatus;
+                    }
+                };
+
                 var _service = {
-                    hub: {
-                        on: on,
-                        invoke: invoke,
-                        updateClock: updateClock,
-                        updatePeriod: updatePeriod
-                    },
+                    hub: _hub,
                     initializeGameHub: initializeGameHub,
                     openAddEditGameModal: openAddEditGameModal,
                     track: track,

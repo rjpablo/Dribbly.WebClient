@@ -24,9 +24,6 @@
         drbblyFormshelperService, $timeout, $state, settingsService, drbblyToastService) {
         var gdg = this;
         var _gameId;
-        var _unregisterUpdateClockHandler;
-        var _unregisterUpdatePeriodHandler;
-        var _unregisterSetTolHandler;
         var _hubListeners = [];
         var _hasInitializedGame;
 
@@ -39,6 +36,7 @@
             gdg.gameStatusEnum = constants.enums.gameStatus;
             gdg.gameDetailsOverlay = drbblyOverlayService.buildOverlay();
             setOrientation();
+            gdg.connectionStatus = drbblyGameshelperService.hub.connectionStatus;
 
             angular.element($window).on('resize', setOrientation);
             $('body').addClass('game-tracking');
@@ -68,6 +66,14 @@
                         .on('setScores', handleSetScores));
                     _hubListeners.push(drbblyGameshelperService.hub
                         .on('setTeamLineup', handleSetTeamLineup));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('connected', () => gdg.connectionStatus = constants.enums.hubConnectionStatusEnum.Connected));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('reconnected', () => gdg.connectionStatus = constants.enums.hubConnectionStatusEnum.Connected));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('reconnecting', () => gdg.connectionStatus = constants.enums.hubConnectionStatusEnum.Reconnecting));
+                    _hubListeners.push(drbblyGameshelperService.hub
+                        .on('diconnected', () => gdg.connectionStatus = constants.enums.hubConnectionStatusEnum.Reconnecting));
                 }
                 _hasInitializedGame = true;
             }
