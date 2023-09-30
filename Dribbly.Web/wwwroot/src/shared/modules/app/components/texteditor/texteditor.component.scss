@@ -4,6 +4,8 @@
 drbbly-texteditor {
     .wysiwyg-menu {
         border: 1px solid #ccc;
+        border-radius: 0.25rem 0.25rem 0 0;
+        display: none;
 
         & > div {
             background-color: $white;
@@ -14,8 +16,8 @@ drbbly-texteditor {
         }
     }
 
-    .wysiwyg-text {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+    .wysiwyg-textarea {
+        /*border-top-left-radius: 0;
+        border-top-right-radius: 0;*/
     }
 }
