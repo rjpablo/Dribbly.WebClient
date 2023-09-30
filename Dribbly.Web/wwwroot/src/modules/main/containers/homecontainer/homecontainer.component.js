@@ -66,8 +66,8 @@
             dhc.featuresCarouselSettings.autoplaySpeed = 5000;
             dhc.features = [
                 {
-                    name: 'Create Your Profile',
-                    description: 'Create your own basketball identity. Showcase your skills, stats, and achievements for others to see and connect with you.',
+                    name: 'Show the World What You Got',
+                    description: 'Build your profile, upload your highlights and showcase your skills, achievements and stats and catch the eye of talent scouts and fellow basketball enthusiasts.',
                     backgroundUrl: 'src/images/features_carousel/player_profile.png',
                     action: function () { $state.go('auth.signUp') },
                     actionLabel: 'Sign Up Now',
@@ -75,16 +75,8 @@
                     isHidden: authService.authentication.isAuthenticated
                 },
                 {
-                    name: 'Join or Host You Own Tournament',
-                    description: 'Host your own or participate in thrilling tournaments, challenge opponents, and climb the ladder of success',
-                    backgroundUrl: 'src/images/features_carousel/tournament_hub.jpg',
-                    action: createTournament,
-                    actionLabel: 'Host a Tournament',
-                    backgroundPosition: 'left top'
-                },
-                {
-                    name: 'Join Or Create A Team',
-                    description: 'Join existing teams or create your dream team. Collaborate, strategize, and compete with players who share your passion.',
+                    name: 'Join a Team or Build Your Own',
+                    description: 'Team up with your best basketball buddies and conquer tournaments together.',
                     backgroundUrl: 'src/images/features_carousel/team_formation.jpg',
                     action: function () {
                         drbblyTeamshelperService.openAddTeamModal({})
@@ -96,6 +88,14 @@
                     },
                     actionLabel: 'Create a Team',
                     backgroundPosition: 'left center'
+                },
+                {
+                    name: 'Easily Manage Tournaments',
+                    description: 'Effortlessly manage tournament data such as players, teams, game results, etc. in one place, available anytime, anywhere.',
+                    backgroundUrl: 'src/images/features_carousel/tournament_hub.jpg',
+                    action: createTournament,
+                    actionLabel: 'Host a Tournament',
+                    backgroundPosition: 'left top'
                 },
                 {
                     name: 'Track Game Results',
