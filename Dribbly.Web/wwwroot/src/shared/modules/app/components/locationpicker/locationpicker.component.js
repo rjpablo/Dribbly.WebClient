@@ -121,7 +121,8 @@
         };
 
         function validatePlace(place) {
-            if (place.country_short === 'PH') {
+            var phOnly = false;
+            if (!phOnly || place.country_short === 'PH') {
                 dlp.completeAddress = place.formatted_address;
                 dlp.selectedLocation = place;
                 return true;

@@ -75,10 +75,10 @@
         function getDefaultOptions() {
             return {
                 center: constants.coordinates.PHILIPPINES,
-                zoom: 5,
+                zoom: 10,
                 height: '500px',
                 disableDefaultUI: false,
-                streetViewControl: true,
+                streetViewControl: false,
                 mapTypeControl: true,
                 mapTypeControlOptions: {
                     position: google.maps.ControlPosition.LEFT_BOTTOM

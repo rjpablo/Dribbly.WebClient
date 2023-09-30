@@ -1,12 +1,32 @@
 ﻿<div class="row no-gutters position-fixed h-100 w-100 overflow-auto align-content-start align-content-lg-stretch">
-    <div class="col-12 col-lg-3 p-1 p-sm-3 bg-light">
-        <h3 class="modal-title mb-3">
+    <div class="col-12 col-lg-3 col-xl-2 p-1 p-sm-3">
+        <h3 class="modal-title">
             <i class="fa fa-arrow-left mr-1"
                ng-click="src.cancel()"></i>
             {{::'app.FindACourt' | i18n}}
         </h3>
+        <div class="d-none d-lg-block">
+            <!-- Ad -->
+            <span class="d-block text-center">Advertisement</span>
+            <div class="row">
+                <div class="col-12">
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                </div>
+                <div class="col-12">
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                </div>
+                <div class="col-12">
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-12 col-lg-9 p-1 p-sm-3">
+    <div class="col-12 col-lg-9 col-xl-10 p-1 p-sm-3">
+        <div class="d-lg-none">
+            <!-- Ad -->
+            <span class="d-block text-center">Advertisement</span>
+            <drbbly-ad type="'horizontal'"></drbbly-ad>
+        </div>
         <div class="results">
             <!--Controls-->
             <div class="d-flex justify-content-between mb-2">
@@ -81,30 +101,6 @@
                                            max="100" />
                                 </lable>
                             </div>
-                            <div class="form-group col-12 col-sm-6 col-md-4">
-                                <lable for="txtName">
-                                    {{::'app.RatePerHour' | i18n}}
-                                </lable>
-                                <div class="form-row">
-                                    <div class="col">
-                                        <input type="number"
-                                               ng-model="src.searchInput.rateMin"
-                                               ng-change="src.filterCourts()"
-                                               min="0"
-                                               placeholder="From"
-                                               class="form-control d-inline" />
-                                    </div>
-                                    <div class="col-1 text-center form-text">-</div>
-                                    <div class="col">
-                                        <input type="number"
-                                               ng-model="src.searchInput.rateMax"
-                                               ng-change="src.filterCourts()"
-                                               min="0"
-                                               placeholder="To"
-                                               class="form-control d-inline" />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </fieldset>
                 </form>
@@ -121,6 +117,11 @@
                             on-map-ready="src.onMapReady"
                             on-map-clicked="src.mapClicked"></drbbly-map>
             </div>
+        </div>
+        <div class="d-none d-lg-block">
+            <!-- Ad -->
+            <span class="d-block text-center">Advertisement</span>
+            <drbbly-ad type="'horizontal'"></drbbly-ad>
         </div>
     </div>
 </div>
