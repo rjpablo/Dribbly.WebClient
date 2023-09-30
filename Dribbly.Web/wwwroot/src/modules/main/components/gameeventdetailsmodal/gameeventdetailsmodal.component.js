@@ -131,7 +131,8 @@
         rsm.revert = function () {
             modalService.confirm({
                 titleRaw: 'Revert Play?',
-                bodyTemplate: getRevertConfirmationMessageTemplate()
+                bodyTemplate: getRevertConfirmationMessageTemplate(),
+                container: rsm.options.container
             })
                 .then(confirmed => {
                     if (confirmed) {

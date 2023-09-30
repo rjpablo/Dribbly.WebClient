@@ -75,7 +75,7 @@
                     modalOptions.bindToController = true;
                     modalOptions.keyboard = true;
                     //Fix for: modal and  backdrop not showing
-                    modalOptions.windowClass += ' show' + (modalOptions.isFull? ' drbbly-full-modal' : '');
+                    modalOptions.windowClass += ' show' + (modalOptions.isFull ? ' drbbly-full-modal' : '');
                     modalOptions.backdropClass += ' show';
                     modalOptions.options = modalOptions.options || {};
 
@@ -171,7 +171,8 @@
                         return _show({
                             view: '<drbbly-alertmodal></drbbly-alertmodal>',
                             model: msg1Key,
-                            backdrop: 'static'
+                            backdrop: 'static',
+                            container: msg1Key.container
                         });
                     }
                     else {

@@ -13,11 +13,14 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'constants'];
-    function controllerFn($scope, modalService, drbblyEventsService, constants) {
+    controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'constants', 'drbblyOverlayService',
+        'drbblyGameeventsService', 'drbblyCommonService'];
+    function controllerFn($scope, modalService, drbblyEventsService, constants, drbblyOverlayService,
+        drbblyGameeventsService, drbblyCommonService) {
         var rsm = this;
 
         rsm.$onInit = function () {
+            rsm.overlay = drbblyOverlayService.buildOverlay();
             rsm.saveModel = angular.copy(rsm.model, {});
             rsm.saveModel.shot.isMade = !rsm.saveModel.shot.isMiss;
             setTeams();
@@ -81,7 +84,7 @@
         }
 
         rsm.addFoul = function () {
-            rsm.foulPlayerOptions = rsm.opposingTeam.players.drbblyWhere( p => true); //returns a new array
+            rsm.foulPlayerOptions = rsm.opposingTeam.players.drbblyWhere(p => true); //returns a new array
             rsm.foulPlayerOptions.sort((a, b) => {
                 return a.isInGame && !b.isInGame ? -1 :
                     b.isInGame && !a.isInGame ? 1 :
@@ -193,6 +196,32 @@
                 rsm.saveModel.withAssist = false;
             }
         };
+
+        rsm.revert = function () {
+            modalService.confirm({
+                titleRaw: 'Delete Shot',
+                msg1Raw: 'Delete Shot?',
+                container: rsm.options.container
+            })
+                .then(confirmed => {
+                    if (confirmed) {
+                        rsm.isBusy = true;
+                        rsm.overlay.setToBusy("Deleting...");
+                        drbblyGameeventsService.delete(rsm.saveModel.shot.id)
+                            .then(result => {
+                                result.shotIsDeleted = true;
+                                close(result);
+                            })
+                            .catch(err => {
+                                drbblyCommonService.handleError(err);
+                            })
+                            .finally(() => {
+                                rsm.isBusy = false;
+                                rsm.overlay.setToReady();
+                            });
+                    }
+                })
+        }
 
         function setTeams() {
             rsm.shooterTeam = rsm.model.game.team1.teamId === rsm.model.performedBy.teamId ?

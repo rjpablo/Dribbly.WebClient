@@ -379,7 +379,10 @@
             }).catch(err => { /*modal cancelled, do nothing*/ });
 
             if (modalResult) {
-                if (data.isEdit) {
+                if (modalResult.shotIsDeleted) {
+                    return modalResult;
+                }
+                else if (data.isEdit) {
                     return await drbblyGameeventsService.updateShot(modalResult)
                         .then(data => {
                             return data;

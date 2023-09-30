@@ -209,18 +209,18 @@
     </div>
 </div>
 <div class="modal-footer m-1">
+    <button class="btn btn-secondary"
+            type="button"
+            ng-click="rsm.cancel()"
+            ng-disabled="rsm.isBusy">
+        <i class="fa fa-times"></i>
+    </button>
     <button class="btn btn-primary"
             ng-disabled="rsm.isBusy || ((rsm.event.type === $root.constants.enums.gameEventTypeEnum.ShotMade
          || rsm.event.type === $root.constants.enums.gameEventTypeEnum.ShotMissed) && (rsm.frmEvent.$invalid || rsm.frmEvent.$pristine))"
             type="submit"
             ng-click="rsm.handleSubmitClick()">
         <i class="fa fa-check"></i>
-    </button>
-    <button class="btn btn-secondary"
-            type="button"
-            ng-click="rsm.cancel()"
-            ng-disabled="rsm.isBusy">
-        <i class="fa fa-times"></i>
     </button>
     <button class="btn btn-danger"
             type="button"
