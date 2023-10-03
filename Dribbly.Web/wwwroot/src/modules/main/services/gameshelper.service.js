@@ -12,7 +12,7 @@
                 var _hub;
                 var _connectionStatus = constants.enums.hubConnectionStatusEnum.Disconnected;
                 var events = ['updateClock', 'setTol', 'setBonus', 'updatePeriod', 'setNextPossession',
-                    'setTeamFoulCount', 'setScores', 'setTeamLineup'];
+                    'setTeamFoulCount', 'setScores', 'setTeamLineup', 'soundBuzzer'];
 
                 function openAddEditGameModal(model) {
                     return authService.checkAuthenticationThen(function () {

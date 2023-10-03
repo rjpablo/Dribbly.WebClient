@@ -114,6 +114,7 @@
                 }
             }
             start(data) {
+                if (this.duration === 0) return;
                 data = data || {};
                 if (!this.running) {
                     this._startedAt = new Date();
@@ -140,10 +141,10 @@
                             _this.duration = startDuration - (now - start);
                             if (_this.duration <= 0) {
                                 _this.duration = 0;
-                                _this.stop();
-                                if (!suppressEvents && _this.onEndCallback) {
+                                if (_this.onEndCallback) {
                                     _this.onEndCallback();
                                 }
+                                _this.stop();
                             }
                             displayTime(_this.duration);
                             if (!suppressEvents && _this.onUpdateCallback) {
@@ -151,8 +152,6 @@
                             }
                         }
                     }, 100);
-                } else {
-                    console.info('Timer run prevented');
                 }
             }
             onUpdate(cb) {

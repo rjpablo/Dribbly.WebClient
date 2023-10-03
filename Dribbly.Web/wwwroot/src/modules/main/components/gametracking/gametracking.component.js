@@ -67,6 +67,8 @@
                     _hubListeners.push(drbblyGameshelperService.hub
                         .on('setTeamLineup', handleSetTeamLineup));
                     _hubListeners.push(drbblyGameshelperService.hub
+                        .on('soundBuzzer', soundBuzzer));
+                    _hubListeners.push(drbblyGameshelperService.hub
                         .on('connected', () => gdg.connectionStatus = constants.enums.hubConnectionStatusEnum.Connected));
                     _hubListeners.push(drbblyGameshelperService.hub
                         .on('reconnected', () => gdg.connectionStatus = constants.enums.hubConnectionStatusEnum.Connected));
@@ -145,6 +147,8 @@
             });
 
             gdg.timer.onEnd(function () {
+                soundBuzzer({ gameId: _gameId, isEndOfPeriod: true });
+                drbblyGameshelperService.hub.invoke('soundBuzzer', { gameId: _gameId, isEndOfPeriod: true });
                 gdg.shotTimer.setRemainingTime(0);
             });
 
@@ -175,11 +179,20 @@
                 broadcastUpdateClock(gdg.timer.remainingTime, time.totalMs, false)
             });
             gdg.shotTimer.onEnd(function () {
+                soundBuzzer({ gameId: _gameId, isShotClockViolation: true });
+                drbblyGameshelperService.hub.invoke('soundBuzzer', { gameId: _gameId, isShotClockViolation: true });
                 gdg.timer.stop();
             });
 
             if (gdg.timer) {
                 processGame();
+            }
+        }
+
+        function soundBuzzer(data) {
+            if (data.gameId === _gameId) {
+                var audio = new Audio(data.isEndOfPeriod ? 'sounds/end-of-period.mp3' : 'sounds/shot-clock-violation.mp3');
+                audio.play();
             }
         }
 
@@ -1269,7 +1282,7 @@
             var input = {
                 gameId: _gameId,
                 timeRemaining: gameTimeRemaining,
-                updatedAt: (startedAt || gdg.timer.startedAt).toUTCString(),
+                updatedAt: isLive ? (startedAt || gdg.timer.startedAt).toUTCString() : null,
                 isLive: isLive,
                 shotTimeRemaining: shotTimeRemaining
             };
