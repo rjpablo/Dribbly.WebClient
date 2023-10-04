@@ -83,9 +83,7 @@
                     gvc.group = data;
                     gvc.group.dateAdded = new Date(drbblyDatetimeService.toUtcString(gvc.group.dateAdded))
                     gvc.group.logo = gvc.group.logo || constants.images.defaultGroupLogo;
-                    gvc.group.photos = gvc.group.photos || [];
-                    gvc.group.photos.push(gvc.group.logo);
-                    gvc.isAdmin = authService.isCurrentAccountId(gvc.group.addedById);
+                    gvc.isAdmin = gvc.group.userRelationship.isAdmin;
                     gvc.app.mainDataLoaded();
                     gvc.shouldDisplayAsPublic = true; //TODO should be conditional
                     buildSubPages();
@@ -94,23 +92,14 @@
 
         gvc.joinGroup = function () {
             gvc.isBusy = true;
-            return authService.checkAuthenticationThen(function () {
-                return modalService.show({
-                    view: '<drbbly-joingroupmodal></drbbly-joingroupmodal>',
-                    model: { groupName: gvc.group.name, groupId: gvc.group.id },
-                    size: 'sm'
-                })
-                    .then(function (result) {
-                        gvc.userGroupRelation = result;
-                        gvc.isBusy = false;
-                    })
-                    .catch(function () {
-                        gvc.isBusy = false;
-                    });
-            }, function () { gvc.isBusy = false; })
-                .catch(function (e) {
+            drbblyGroupsService.joinGroup(_groupId)
+                .then(function (result) {
+                    gvc.group.userRelationship.hasJoinRequest = true;
                     gvc.isBusy = false;
-                });;
+                })
+                .catch(function () {
+                    gvc.isBusy = false;
+                });
         };
 
         gvc.leaveGroup = function () {
@@ -140,7 +129,7 @@
             gvc.isBusy = true;
             drbblyGroupsService.cancelJoinRequest(gvc.group.id)
                 .then(function () {
-                    gvc.userGroupRelation.hasPendingJoinRequest = false;
+                    gvc.group.userRelationship.hasJoinRequest = false;
                     gvc.isBusy = false;
                 }, function () {
                     gvc.isBusy = false;
