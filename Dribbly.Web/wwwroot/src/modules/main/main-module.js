@@ -308,6 +308,23 @@
             })
             // #endregion TOURNAMENTS
 
+            // #region GROUPS
+
+            .state('main.group', {
+                params: {
+                    id: ''
+                },
+                abstract: true,
+                url: '/group/:id',
+                component: 'drbblyGroupviewercontainer'
+            })
+
+            .state('main.group.home', {
+                url: '',
+                component: 'drbblyGrouphome'
+            })
+            // #endregion GROUPS
+
             // #region LEAGUE
             .state('main.league', {
                 params: {

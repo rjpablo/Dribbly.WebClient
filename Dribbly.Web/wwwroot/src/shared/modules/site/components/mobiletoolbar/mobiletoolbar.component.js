@@ -13,9 +13,11 @@
         });
 
     controllerFn.$inject = ['$element', 'authService', '$state', '$window', '$rootScope', 'drbblyGameshelperService',
-        'drbblyToolbarService', 'modalService', 'drbblyTeamshelperService', 'drbblyCourtshelperService'];
+        'drbblyToolbarService', 'modalService', 'drbblyTeamshelperService', 'drbblyCourtshelperService',
+        'drbblyGroupsService'];
     function controllerFn($element, authService, $state, $window, $rootScope, drbblyGameshelperService,
-        drbblyToolbarService, modalService, drbblyTeamshelperService, drbblyCourtshelperService) {
+        drbblyToolbarService, modalService, drbblyTeamshelperService, drbblyCourtshelperService,
+        drbblyGroupsService) {
         var mtb = this;
 
         mtb.$onInit = function () {
@@ -46,17 +48,21 @@
                 action: addGame,
                 class: 'btn btn-secondary',
                 isHidden: () => true
-            },{
+            }, {
                 text: 'Create a Team',
                 action: addTeam,
                 class: 'btn btn-secondary'
-            },{
+            }, {
                 text: 'Create a Tournament',
                 action: addTournament,
                 class: 'btn btn-secondary'
-            },{
+            }, {
                 text: 'Register a Court',
                 action: addCourt,
+                class: 'btn btn-secondary'
+            }, {
+                text: 'Create a Group',
+                action: addGroup,
                 class: 'btn btn-secondary'
             },];
 
@@ -86,6 +92,15 @@
                 })
                 .catch(function () { /* do nothing */ });
         }
+
+        function addGroup() {
+            drbblyGroupsService.openGroupDetailsModal({})
+                .then(function (group) {
+                    if (group) {
+                        $state.go('main.group.home', { id: group.id });
+                    }
+                });
+        };
 
         function addCourt() {
             drbblyCourtshelperService.registerCourt()

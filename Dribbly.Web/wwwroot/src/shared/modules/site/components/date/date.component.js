@@ -5,7 +5,7 @@
         .component('drbblyDate', {
             bindings: {
                 date: '<',
-                format: '<',
+                format: '@',
                 asFromNow: '<'
             },
             controllerAs: 'dte',

@@ -1,0 +1,46 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">{{agm.model.isEdit? 'Update Group': 'Create Group'}}</h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="agm.overlay">
+        <form name="agm.frmGroupDetails"
+              novalidate
+              ng-if="agm.saveModel">
+            <fieldset ng-disabled="agm.isBusy">
+                <div class="form-group">
+                    <label for="txtName">What should we call your group?</label>
+                    <input type="text"
+                           name="txtName"
+                           ng-model="agm.saveModel.name"
+                           class="form-control"
+                           ng-class="{'is-invalid': agm.frmGroupDetails.txtName.$touched && agm.frmGroupDetails.txtName.$invalid}"
+                           minlength="3"
+                           required
+                           maxlength="50" />
+                    <drbbly-charcount length="agm.saveModel.name.length"
+                                      class=""
+                                      max-length="50"
+                                      warning-threshold="5"></drbbly-charcount>
+                    <div ng-show="agm.frmGroupDetails.txtName.$error.minlength" class="invalid-feedback">
+                        {{::'site.Error_Common_Minlength' | i18n:{length: 3} }}
+                    </div>
+                    <div ng-show="agm.frmGroupDetails.txtName.$error.required" class="invalid-feedback">
+                        {{::'site.Error_Common_RequiredField' | i18n }}
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="agm.isBusy || agm.frmGroupDetails.$invalid || (agm.model.isEdit && agm.frmGroupDetails.$pristine)"
+            type="submit"
+            ng-click="agm.submit()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-secondary"
+            type="button"
+            ng-click="agm.cancel()"
+            ng-disabled="agm.isBusy"></button>
+</div>

@@ -1,0 +1,9 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-teamhome {
+    drbbly-gamelistitem {
+        margin-bottom: 1rem;
+        height: calc(100% - 1rem);
+    }
+}

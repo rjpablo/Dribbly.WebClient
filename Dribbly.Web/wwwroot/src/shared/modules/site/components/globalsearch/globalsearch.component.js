@@ -65,6 +65,9 @@
                         case constants.enums.entityTypeEnum.Account:
                             model.iconUrl = constants.images.defaultProfilePhotoUrl;
                             break;
+                        case constants.enums.entityTypeEnum.Group:
+                            model.iconUrl = constants.images.defaultGroupLogo.url;
+                            break;
                     }
                 }
             });
@@ -78,6 +81,9 @@
             switch (item.type) {
                 case constants.enums.entityTypeEnum.Team:
                     $state.go('main.team.home', { id: item.value });
+                    break;
+                case constants.enums.entityTypeEnum.Group:
+                    $state.go('main.group.home', { id: item.value });
                     break;
                 case constants.enums.entityTypeEnum.Court:
                     $state.go('main.court.home', { id: item.value });

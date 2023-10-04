@@ -191,6 +191,7 @@
       "wwwroot/src/modules/main/services/gameevents.service.js",
       "wwwroot/src/modules/main/services/gameeventshelper.service.js",
       "wwwroot/src/modules/main/services/carouselhelper.service.js",
+      "wwwroot/src/modules/main/services/group.service.js",
 
       "wwwroot/src/modules/main/components/image/image.component.js",
       "wwwroot/src/modules/main/components/bookingdetailsmodal/bookingdetailsmodal.component.js",
@@ -266,6 +267,8 @@
       "wwwroot/src/modules/main/components/playerselectormodal/playerselectormodal.component.js",
       "wwwroot/src/modules/main/components/playerselect/playerselect.component.js",
       "wwwroot/src/modules/main/components/teamcolorselectormodal/teamcolorselectormodal.component.js",
+      "wwwroot/src/modules/main/components/grouphome/grouphome.component.js",
+      "wwwroot/src/src/modules/main/components/addgroupmodal/addgroupmodal.component.js",
 
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
       "wwwroot/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js",
@@ -276,6 +279,7 @@
       "wwwroot/src/modules/main/containers/maincontainer/maincontainer.component.js",
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.js",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.js",
+      "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.js",
       "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.js"
     ]
   },
@@ -453,7 +457,10 @@
       "wwwroot/src/modules/main/components/playerselectormodal/playerselectormodal.component.css",
       "wwwroot/src/modules/main/components/playerselect/playerselect.component.css",
       "wwwroot/src/modules/main/components/teamcolorselectormodal/teamcolorselectormodal.component.css",
+      "wwwroot/src/modules/main/components/grouphome/grouphome.component.css",
+      "wwwroot/src/modules/main/components/addgroupmodal/addgroupmodal.component.css",
 
+      "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.css",
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css",
       "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.css"

@@ -71,7 +71,7 @@
                 .then(function (imageData) {
                     var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
                     imageData.name = fileNameNoExt + '.png';
-                    drbblyFileService.upload(imageData, 'api/teams/uploadLogo/' + avc.team.id)
+                    drbblyFileService.upload([imageData], 'api/teams/uploadLogo/' + avc.team.id)
                         .then(function (result) {
                             if (result && result.data) {
                                 avc.team.logo = result.data;

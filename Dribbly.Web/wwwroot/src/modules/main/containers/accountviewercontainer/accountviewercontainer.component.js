@@ -134,7 +134,7 @@
                 .then(function (imageData) {
                     var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
                     imageData.name = fileNameNoExt + '.png';
-                    drbblyFileService.upload(imageData, 'api/account/uploadPrimaryPhoto/' + avc.account.id)
+                    drbblyFileService.upload([imageData], 'api/account/uploadPrimaryPhoto/' + avc.account.id)
                         .then(function (result) {
                             if (result && result.data) {
                                 avc.account.profilePhoto = result.data;

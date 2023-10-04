@@ -9,7 +9,8 @@
 
         async function upload(files, apiMethod, otherInfo) {
             var data;
-            var compressedFiles = await compressImages(files);
+            var compressedFiles;
+            compressedFiles = await compressImages(files);
 
             if (compressedFiles.length) {
                 data = { files: compressedFiles };
@@ -42,7 +43,7 @@
                 compressionTasks.push(
                     compressImage(file, {
                         quality: 0.5,
-                        type: 'image/jpeg',
+                        type: file.type,
                     }).then(blob => {
                         result.push(new File([blob], file.name, {
                             type: blob.type,

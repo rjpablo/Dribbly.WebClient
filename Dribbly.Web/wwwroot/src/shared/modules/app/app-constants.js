@@ -45,6 +45,10 @@
                 url: 'src/images/default_images/court_default_1.png',
                 isDefault: true
                 },
+            defaultGroupLogo: {
+                url: 'src/images/default_images/default_group_logo.jpg',
+                isDefault: true
+                },
             defaultTournamentLogo: {
                 url: 'src/images/default_images/default_tournament_logo.jpg',
                 isDefault: true
