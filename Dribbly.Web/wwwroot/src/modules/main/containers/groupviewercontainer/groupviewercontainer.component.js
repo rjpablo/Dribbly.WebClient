@@ -13,10 +13,10 @@
         });
 
     controllerFunc.$inject = ['drbblyGroupsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
-        'constants', 'drbblyDatetimeService', 'modalService', 'drbblyEventsService',
+        'constants', 'drbblyDatetimeService', 'modalService', 'drbblyCommonService',
         'drbblyFileService', 'i18nService'];
     function controllerFunc(drbblyGroupsService, authService, $stateParams, $state, drbblyOverlayService,
-        constants, drbblyDatetimeService, modalService, drbblyEventsService,
+        constants, drbblyDatetimeService, modalService, drbblyCommonService,
         drbblyFileService, i18nService) {
         var gvc = this;
         var _groupId;
@@ -133,6 +133,28 @@
                     gvc.isBusy = false;
                 }, function () {
                     gvc.isBusy = false;
+                });
+        };
+
+        gvc.leaveGroup = function () {
+            modalService.confirm({
+                msg1Raw: `Leave group?`
+            })
+                .then(function (confirmed) {
+                    if (confirmed) {
+                        gvc.isBusy = true;
+                        drbblyGroupsService.leaveGroup(gvc.group.id)
+                            .then(function () {
+                                dad.group.userRelationship.isCurrentMember = false;
+                            })
+                            .catch(function (e) {
+                                drbblyCommonService.handleError(e);
+                            })
+                            .finally(() => gvc.isBusy = false);
+                    }
+                })
+                .catch(function () {
+                    //user cancelled, no action needed
                 });
         };
 

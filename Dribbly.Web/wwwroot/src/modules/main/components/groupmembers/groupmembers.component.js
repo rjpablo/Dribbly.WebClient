@@ -80,7 +80,7 @@
                             .catch(function (e) {
                                 drbblyCommonService.handleError(e);
                             })
-                            .finally(() => member.isBusy = true);
+                            .finally(() => member.isBusy = false);
                     }
                 })
                 .catch(function () {

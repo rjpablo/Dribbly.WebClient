@@ -19,6 +19,9 @@
                     joinGroup: function (groupId) {
                         return drbblyhttpService.post(api + 'joinGroup/' + groupId);
                     },
+                    leaveGroup: function (groupId) {
+                        return drbblyhttpService.post(api + 'leaveGroup/' + groupId);
+                    },
                     openGroupDetailsModal: function (data) {
                         return authService.checkAuthenticationThen(function () {
                             return modalService.show({
