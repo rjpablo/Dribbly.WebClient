@@ -31,6 +31,9 @@
                     processJoinRequest: function (requestId, isApproved) {
                         return drbblyhttpService.post(api + `processJoinRequest/${requestId}/${isApproved}`);
                     },
+                    removeMember: function (groupId, accountId) {
+                        return drbblyhttpService.post(api + `removeMember/${groupId}/${accountId}`);
+                    },
                     updateGroup: function (input) {
                         return drbblyhttpService.post(api + 'updateGroup', input);
                     }

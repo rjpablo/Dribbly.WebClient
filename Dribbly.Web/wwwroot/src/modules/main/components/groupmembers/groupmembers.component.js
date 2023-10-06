@@ -14,8 +14,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$stateParams', 'authService', 'drbblyOverlayService', 'drbblyGroupsService'];
-    function controllerFunc($stateParams, authService, drbblyOverlayService, drbblyGroupsService) {
+    controllerFunc.$inject = ['$stateParams', 'modalService', 'drbblyOverlayService', 'drbblyGroupsService'];
+    function controllerFunc($stateParams, modalService, drbblyOverlayService, drbblyGroupsService) {
         var dad = this;
 
         dad.$onInit = function () {
@@ -65,6 +65,28 @@
                     dad.isBusy = false;
                 });
         }
+
+        dad.removeMember = function (member) {
+            modalService.confirm({
+                msg1Raw: `Remove ${member.name} from the group?`
+            })
+                .then(function (confirmed) {
+                    if (confirmed) {
+                        member.isBusy = true;
+                        drbblyGroupsService.removeMember(dad.group.id, member.accountId)
+                            .then(function () {
+                                dad.group.members.drbblyRemove(m => m.accountId === member.accountId);
+                            })
+                            .catch(function (e) {
+                                drbblyCommonService.handleError(e);
+                            })
+                            .finally(() => member.isBusy = true);
+                    }
+                })
+                .catch(function () {
+                    //user cancelled, no action needed
+                });
+        };
 
         function loadPendingRequests() {
             drbblyGroupsService.getJoinRequests(dad.groupId)
