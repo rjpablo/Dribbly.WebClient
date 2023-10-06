@@ -28,6 +28,9 @@
                             });
                         });
                     },
+                    processJoinRequest: function (requestId, isApproved) {
+                        return drbblyhttpService.post(api + `processJoinRequest/${requestId}/${isApproved}`);
+                    },
                     updateGroup: function (input) {
                         return drbblyhttpService.post(api + 'updateGroup', input);
                     }

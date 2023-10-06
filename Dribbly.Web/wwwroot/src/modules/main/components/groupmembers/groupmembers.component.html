@@ -1,0 +1,104 @@
+﻿<div class="container px-0 px-sm-3 mt-3">
+    <div class="row">
+        <div class="col-12 col-md-9">
+            <uib-tabset active="dad._activeTabIndex">
+                <!-- #region Groups -->
+                <uib-tab index="1" heading="Current Members">
+                    <div class="row pt-3 mb-3">
+                        <div ng-repeat="member in dad.group.members"
+                             class="col-12 col-lg-6 member mb-1">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="photo-container">
+                                            <img class="avatar avatar-lg mr-2"
+                                                 ui-sref="main.account.home({username: member.account.username})"
+                                                 ng-src="{{member.iconUrl || $root.constants.images.defaultProfilePhoto.url}}" />
+                                        </div>
+                                        <div class="overflow-hidden flex-grow-1">
+                                            <h5 ui-sref="main.account.home({username: member.account.username})"
+                                                class="text-white member-name flex-grow-1 text-line-2"
+                                                title="{{member.name}}">
+                                                <small>{{member.name}}</small>
+                                            </h5>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <button class="btn btn-dark btn-sm options">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Ad -->
+                            <span class="d-block text-center">Advertisement</span>
+                            <drbbly-ad type="'horizontal'"></drbbly-ad>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="2"
+                         ng-if="dad.group.userRelationship.isAdmin">
+                    <uib-tab-heading>
+                        Join Requests
+                        <span class="badge badge-primary"
+                              ng-if="dad.group.joinRequests.length">
+                            {{dad.group.joinRequests.length}}
+                        </span>
+                    </uib-tab-heading>
+                    <div class="row pt-3">
+                        <div ng-repeat="request in dad.group.joinRequests"
+                             class="col-12 col-lg-6 request mb-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="wrapper d-flex">
+                                        <div class="photo-container">
+                                            <img class="avatar avatar-lg mr-2"
+                                                 ui-sref="main.account.home({username: request.requestor.username})"
+                                                 ng-src="{{request.requestor.iconUrl || $root.constants.images.defaultProfilePhoto.url}}" />
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h5 ui-sref="main.account.home({username: request.requestor.username})"
+                                                class="text-white member-name flex-grow-1 text-line-2"
+                                                title="{{request.requestor.name}}">
+                                                <small>{{request.requestor.name}}</small>
+                                            </h5>
+                                            <div class="controls">
+                                                <button class="btn btn-primary btn-sm"
+                                                        ng-click="dad.processRequest(request, true)"
+                                                        ng-disabled="request.isBusy">
+                                                    Approve
+                                                </button>
+                                                <button class="btn btn-secondary btn-sm"
+                                                        ng-click="dad.processRequest(request, false)"
+                                                        ng-disabled="request.isBusy">
+                                                    Reject
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <!-- Ad -->
+                            <span class="d-block text-center">Advertisement</span>
+                            <drbbly-ad type="'horizontal'"></drbbly-ad>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+        <div class="col-12 col-md-3 d-none d-md-block">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+</div>

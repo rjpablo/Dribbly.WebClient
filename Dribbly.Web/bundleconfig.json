@@ -269,6 +269,7 @@
       "wwwroot/src/modules/main/components/teamcolorselectormodal/teamcolorselectormodal.component.js",
       "wwwroot/src/modules/main/components/grouphome/grouphome.component.js",
       "wwwroot/src/src/modules/main/components/addgroupmodal/addgroupmodal.component.js",
+      "wwwroot/src/modules/main/components/groupmembers/groupmembers.component.js",
 
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
       "wwwroot/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js",
@@ -459,6 +460,7 @@
       "wwwroot/src/modules/main/components/teamcolorselectormodal/teamcolorselectormodal.component.css",
       "wwwroot/src/modules/main/components/grouphome/grouphome.component.css",
       "wwwroot/src/modules/main/components/addgroupmodal/addgroupmodal.component.css",
+      "wwwroot/src/modules/main/components/groupmembers/groupmembers.component.css",
 
       "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.css",
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",

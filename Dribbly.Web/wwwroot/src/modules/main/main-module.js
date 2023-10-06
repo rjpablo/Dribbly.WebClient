@@ -323,6 +323,11 @@
                 url: '',
                 component: 'drbblyGrouphome'
             })
+
+            .state('main.group.members', {
+                url: '/members',
+                component: 'drbblyGroupmembers'
+            })
             // #endregion GROUPS
 
             // #region LEAGUE
