@@ -4,13 +4,13 @@
 <div class="modal-body">
     <form name="pdm.frmPostDetails"
           novalidate
-          ng-if="pdm.post">
+          ng-if="pdm.saveModel">
         <fieldset ng-disabled="pdm.isBusy">
             <div class="form-group">
                 <drbbly-texteditor class="d-block mb-1 texteditor-dark"
                                    options="{placeholder: 'Write something...'}"
-                                   value="pdm.post.content"></drbbly-texteditor>
-                <input name="content" type="text" hidden ng-model="pdm.post.content" />
+                                   value="pdm.saveModel.content"></drbbly-texteditor>
+                <input name="content" type="text" hidden ng-model="pdm.saveModel.content" />
             </div>
         </fieldset>
     </form>
@@ -45,7 +45,7 @@
         </button>
     </div>
     <button class="btn btn-primary"
-            ng-disabled="pdm.isBusy || pdm.frmPostDetails.$pristine || (!pdm.post.content && pdm.attachments.length === 0)"
+            ng-disabled="pdm.isBusy || pdm.frmPostDetails.$pristine || (!pdm.saveModel.content && pdm.attachments.length === 0)"
             type="submit"
             ng-click="pdm.submit()"
             ng-switch="pdm.isBusy">

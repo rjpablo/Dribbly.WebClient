@@ -13,19 +13,23 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['drbblyPostsService', '$scope', 'modalService', 'drbblyEventsService', 'drbblyFileService'];
-    function controllerFn(drbblyPostsService, $scope, modalService, drbblyEventsService, drbblyFileService) {
+    controllerFn.$inject = ['drbblyPostsService', '$scope', 'modalService', 'drbblyEventsService', 'drbblyFileService',
+        'drbblyCommonService'];
+    function controllerFn(drbblyPostsService, $scope, modalService, drbblyEventsService, drbblyFileService,
+        drbblyCommonService) {
         var pdm = this;
         var _tempId = 0;
 
         pdm.$onInit = function () {
             pdm.attachments = [];
             pdm.methods = {};
-            if (pdm.options.isEdit) {
-                //TODO Retrieve post details
+            if (pdm.model.isEdit) {
+                pdm.saveModel = angular.copy(pdm.model.post);
+                pdm.attachments = (pdm.model.post.files || []).map(f => angular.copy(f.file));
+                pdm.attachments.forEach(f => f.deletable = true);
             }
             else {
-                pdm.post = angular.copy(pdm.model.post);
+                pdm.saveModel = angular.copy(pdm.model.post);
             }
 
             pdm.gridOptions = {
@@ -87,15 +91,15 @@
                     });
             }
             if (proceed) {
-                pdm.post.fileIds = pdm.attachments.map(a => a.id);
+                pdm.saveModel.fileIds = pdm.attachments.map(a => a.id);
                 pdm.frmPostDetails.$setSubmitted();
                 if (pdm.frmPostDetails.$valid) {
                     pdm.isBusy = true;
                     if (pdm.model.isEdit) {
-                        editPost(pdm.post);
+                        editPost(pdm.saveModel);
                     }
                     else {
-                        addPost(pdm.post);
+                        addPost(pdm.saveModel);
                     }
                 }
             }
@@ -117,16 +121,17 @@
 
 
         pdm.deletePhoto = function (img, cb) {
+            pdm.frmPostDetails.$setDirty();
             pdm.attachments.drbblyRemove(a => a.id == img.id);
         };
 
         function editPost(post) {
             drbblyPostsService.updatePost(post)
-                .then(function () {
-                    close(post);
+                .then(function (result) {
+                    close(result);
                 })
-                .catch(function () {
-                    //TODO: handle error
+                .catch(function (e) {
+                    drbblyCommonService.handleError(e);
                 })
                 .finally(function () {
                     pdm.isBusy = false;
@@ -138,8 +143,8 @@
                 .then(function (result) {
                     close(result);
                 })
-                .catch(function () {
-                    //TODO: handle error
+                .catch(function (e) {
+                    drbblyCommonService.handleError(e);
                 })
                 .finally(function () {
                     pdm.isBusy = false;

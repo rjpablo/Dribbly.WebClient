@@ -23,6 +23,7 @@
             drl.methods = {};
             drl.post.additionalData = JSON.parse(drl.post.additionalData);
             drl.files = drl.post.files.map(f => f.file);
+            drl.post.files.sort((a, b) => a.order - b.order);
             drl.galleryOptions = {
                 hideCaptions: true,
                 methods: drl.methods,
@@ -40,10 +41,15 @@
                     model: {
                         isEdit: true,
                         post: drl.post
-                    }
+                    },
+                    backdrop: 'static'
                 }).then(function (result) {
                     if (result) {
-                        drl.post.content = result.content;
+                        drl.post = result;
+                        drl.post.additionalData = JSON.parse(drl.post.additionalData);
+                        drl.files.length = 0;
+                        drl.post.files.forEach(f => drl.files.push(f.file));
+                        drl.post.files.sort((a, b) => a.order - b.order);
                         if (drl.onUpdate) {
                             drl.onUpdate(drl.post);
                         }
