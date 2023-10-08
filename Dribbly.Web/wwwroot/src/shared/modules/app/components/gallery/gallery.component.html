@@ -2,7 +2,7 @@
     <div class="carousel-container mb-3"
          ng-if="glr.hasFiles()">
         <ng-image-gallery images="glr.media"
-                          thumbnails="glr._options.thumbnails"
+                          thumbnails="true"
                           thumb-size="100"
                           inline="glr._options.inline"
                           sortable="glr._options.sortable"
@@ -14,8 +14,9 @@
                           bg-close="true"
                           piracy="true"
                           img-anim="fadeup"
-                          on-before-open="glr.onBeforeOpen(index)"
-                          on-delete="glr.deletePhoto(img, cb)"></ng-image-gallery>
+                          on-before-open="glr.onBeforeOpen"
+                          on-delete="glr.deletePhoto(img, cb)"
+                          image-as-backdrop="glr._options.imageAsBackdrop"></ng-image-gallery>
     </div>
     <div class="mb-3 text-center"
          ng-if="glr.canAdd">

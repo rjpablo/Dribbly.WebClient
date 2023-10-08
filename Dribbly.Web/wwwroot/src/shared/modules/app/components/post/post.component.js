@@ -20,7 +20,17 @@
 
         drl.$onInit = function () {
             drl.postTypeEnum = constants.enums.postTypeEnum;
+            drl.methods = {};
             drl.post.additionalData = JSON.parse(drl.post.additionalData);
+            drl.files = drl.post.files.map(f => f.file);
+            drl.galleryOptions = {
+                hideCaptions: true,
+                methods: drl.methods,
+                imageAsBackdrop: false,
+                inline: true,
+                imgBubbles: true,
+                bubbleSize: 30
+            };
         };
 
         drl.editPost = function () {

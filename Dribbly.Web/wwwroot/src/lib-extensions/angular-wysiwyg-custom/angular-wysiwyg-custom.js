@@ -69,7 +69,7 @@ Requires:
     '$compile',
     function ($timeout, wysiwgGui, $compile) {
       return {
-        template: '<div>' + '<style>' + '   .wysiwyg-textarea[contentEditable="false"] { background-color:#eee}' + '   .wysiwyg-btn-group-margin { margin-right:5px; }' + '   .wysiwyg-select { height:30px;margin-bottom:1px;}' + '   .wysiwyg-colorpicker { font-family: arial, sans-serif !important;font-size:16px !important; padding:2px 10px !important;}' + '</style>' + '<div class="wysiwyg-menu"></div>' + '<div id="{{textareaId}}" ng-attr-style="resize:vertical;height:{{textareaHeight || \'80px\'}}; overflow:auto" contentEditable="{{!disabled}}" class="{{textareaClass}} wysiwyg-textarea" name="{{textareaName}}" ng-model="value"></div>' + '</div>',
+        template: '<div>' + '<style>' + '   .wysiwyg-textarea[contentEditable="false"] { background-color:#eee}' + '   .wysiwyg-btn-group-margin { margin-right:5px; }' + '   .wysiwyg-select { height:30px;margin-bottom:1px;}' + '   .wysiwyg-colorpicker { font-family: arial, sans-serif !important;font-size:16px !important; padding:2px 10px !important;}' + '</style>' + '<div class="wysiwyg-menu"></div>' + '<div id="{{textareaId}}" ng-attr-style="resize:vertical;height:{{textareaHeight || \'80px\'}}; overflow:auto" contentEditable="{{!disabled}}" placeholder={{placeholder}} class="{{textareaClass}} wysiwyg-textarea" name="{{textareaName}}" ng-model="value"></div>' + '</div>',
         restrict: 'E',
         scope: {
           value: '=ngModel',
@@ -80,6 +80,7 @@ Requires:
           textareaId: '@textareaId',
           textareaMenu: '=textareaMenu',
           textareaCustomMenu: '=textareaCustomMenu',
+          placeholder: '@placeholder',
           fn: '&',
           disabled: '=?disabledArea'
         },
@@ -90,6 +91,12 @@ Requires:
       };
       function link(scope, element, attrs, ngModelController) {
         var textarea = element.find('div.wysiwyg-textarea');
+        textarea.focusout(function () {
+            var element = $(this);
+            if (!element.text().replace(" ", "").length) {
+                element.empty();
+            }
+        });
         scope.isLink = false;
         scope.fontSizes = [
           {

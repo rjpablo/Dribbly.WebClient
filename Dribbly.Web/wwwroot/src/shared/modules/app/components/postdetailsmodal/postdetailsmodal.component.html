@@ -7,20 +7,45 @@
           ng-if="pdm.post">
         <fieldset ng-disabled="pdm.isBusy">
             <div class="form-group">
-                <drbbly-texteditor class="d-block mb-1"
+                <drbbly-texteditor class="d-block mb-1 texteditor-dark"
+                                   options="{placeholder: 'Write something...'}"
                                    value="pdm.post.content"></drbbly-texteditor>
                 <input name="content" type="text" hidden ng-model="pdm.post.content" />
             </div>
         </fieldset>
     </form>
+    <ng-image-gallery images="pdm.attachments"
+                      methods="pdm.methods"
+                      thumbnails="true"
+                      thumb-size="100"
+                      inline="true"
+                      bubbles="true"
+                      bubble-size="30"
+                      img-bubbles="true"
+                      bg-close="true"
+                      piracy="true"
+                      img-anim="fadeup"
+                      image-as-backdrop="false"
+                      on-delete="pdm.deletePhoto(img, cb)"></ng-image-gallery>
     <div ng-class="{'d-block': pdm.frmPostDetails.$invalid && pdm.frmPostDetails.$submitted}"
          class="invalid-feedback mb-0 mt-3">
         {{::'site.Error_Common_PleaseFixErrors' | i18n}}
     </div>
 </div>
 <div class="modal-footer">
+    <div class="mr-auto">
+        <button id="btn-replace-photo"
+                class="btn"
+                ngf-select="pdm.onMediaSelect($files)"
+                ngf-pattern="'image/*'"
+                ngf-accept="'image/*'"
+                ngf-multiple="true"
+                ngf-max-size="20MB">
+            <i class="fa fa-photo"></i>
+        </button>
+    </div>
     <button class="btn btn-primary"
-            ng-disabled="pdm.isBusy"
+            ng-disabled="pdm.isBusy || pdm.frmPostDetails.$pristine || (!pdm.post.content && pdm.attachments.length === 0)"
             type="submit"
             ng-click="pdm.submit()"
             ng-switch="pdm.isBusy">

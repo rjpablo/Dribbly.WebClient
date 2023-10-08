@@ -17,7 +17,7 @@
         var dte = this;
 
         dte.$onInit = function () {
-            dte._options = Object.assign(getDefaultOptions(), dte.options | {});
+            dte._options = Object.assign(getDefaultOptions(), dte.options || {});
         };
 
         function getDefaultOptions() {

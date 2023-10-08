@@ -37,6 +37,9 @@
                 .then(function (posts) {
                     drl.isLoading = false;
                     if (posts && posts.length) {
+                        posts.sort((a, b) => {
+                            return a.dateAdded - b.dateAdded;
+                        })
                         drl.posts.push(...posts);
                         drl.hasLoadedAll = posts.length < _loadSize;
                         _ceilingPostId = posts[posts.length - 1].id;

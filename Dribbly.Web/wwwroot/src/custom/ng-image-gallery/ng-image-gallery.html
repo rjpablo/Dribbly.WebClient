@@ -26,20 +26,41 @@
             <!--// actions icons container-->
             <div class="actions-icons-container">
                 <!--// Delete image icon-->
-                <div class="delete-img" ng-repeat="image in images track by image.id" ng-if="_activeImg == image && image.deletable" title="{{textValues.deleteButtonTitle}}" ng-click="_deleteImg(image, $event)"></div>
+                <!--<div class="delete-img"
+                     ng-repeat="image in images track by image.id"
+                     ng-if="_activeImg == image && image.deletable"
+                     title="{{textValues.deleteButtonTitle}}"
+                     ng-click="_deleteImg(image, $event)">
+                </div>-->
                 <!--// Edit image icon-->
-                <div class="edit-img" ng-repeat="image in images track by image.id" ng-if="_activeImg == image && image.editable" title="{{textValues.editButtonTitle}}" ng-click="_editImg(image)"></div>
+                <div class="edit-img"
+                     ng-repeat="image in images track by image.id"
+                     ng-if="_activeImg == image && image.editable"
+                     title="{{textValues.editButtonTitle}}"
+                     ng-click="_editImg(image)"></div>
             </div>
 
             <!--// control icons container-->
             <div class="control-icons-container">
                 <!--// External link icon-->
-                <a class="ext-url" ng-repeat="image in images track by image.id" ng-show="_activeImg == image && image.extUrl" href="{{image.extUrl}}" target="_blank" title="{{textValues.externalLinkButtonTitle}}">
+                <a class="ext-url"
+                   ng-show="image.extUrl"
+                   href="{{image.extUrl}}" target="_blank"
+                   title="{{textValues.externalLinkButtonTitle}}">
                     <i class="fa fa-external-link"></i>
                 </a>
                 <!--// Close Icon (hidden in inline gallery)-->
-                <div class="close" ng-click="methods.close();" ng-show="!inline" title="{{textValues.closeButtonTitle}}">
+                <div class="close"
+                     ng-click="methods.close();"
+                     ng-show="!inline"
+                     title="{{textValues.closeButtonTitle}}">
                     <i class="fa fa-times"></i>
+                </div>
+                <div class="delete"
+                     ng-if="_activeImg.deletable"
+                     title="{{textValues.deleteButtonTitle}}"
+                     ng-click="_deleteImg(_activeImg, $event)">
+                    <i class="fa fa-trash"></i>
                 </div>
             </div>
 
@@ -47,7 +68,7 @@
             <div class="galleria" ng-class="{'cover': cover}">
                 <!--// Images container-->
                 <div class="galleria-images img-anim-{{imgAnim}} img-move-dir-{{_imgMoveDirection}}">
-                    <div ng-style="{'background-image': 'url(' + _activeImg.url + ')'}"
+                    <div ng-style="{'background-image': imageAsBackdrop === false? 'none': 'url(' + _activeImg.url + ')'}"
                          ng-show="inline && !cover"
                          class="galleria-image-backdrop"></div>
                     <img class="galleria-image" ng-right-click ng-repeat="image in images track by image.id" ng-if="_activeImg == image" ng-src="{{image.url}}" ondragstart="return false;" ng-attr-alt="{{image.alt || undefined}}"

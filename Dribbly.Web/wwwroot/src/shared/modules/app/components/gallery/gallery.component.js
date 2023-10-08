@@ -23,6 +23,7 @@
         var glr = this;
 
         glr.$onInit = function () {
+            glr.modalMethods = {};
             glr.media = glr.media || [];
             glr._options = glr.options || {};
         };
@@ -44,23 +45,28 @@
 
         glr.hasFiles = () => glr.media && glr.media.length > 0;
 
-        glr.onBeforeOpen = function (index) {
-            modalService.show({
-                view: '<drbbly-gallerymodal></drbbly-gallerymodal>',
-                model: {
-                    photos: glr.media,
-                    onDelete: glr.onDelete,
-                    methods: glr.options.methods
-                },
-                isFull: true
-            })
-                .catch(() => { /*do nothing*/ });
+        glr.onBeforeOpen = function (data) {
+            if (!(glr.options.inline && data.isAutoOpen)) {
+                modalService.show({
+                    view: '<drbbly-gallerymodal></drbbly-gallerymodal>',
+                    model: {
+                        photos: glr.media,
+                        onDelete: glr.onDelete,
+                        methods: glr.modalMethods
+                    },
+                    isFull: true
+                })
+                    .catch(() => { /*do nothing*/ });
 
-            $timeout(function () {
-                glr.options.methods.open(index);
-            }, 100)
+                $timeout(function () {
+                    glr.modalMethods.open(data.index);
+                }, 100)
 
-            return false;
+                return false;
+            }
+            else {
+                return true;
+            }
         }
     }
 })();

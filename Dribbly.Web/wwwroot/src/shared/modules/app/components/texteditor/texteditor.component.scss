@@ -16,8 +16,17 @@ drbbly-texteditor {
         }
     }
 
-    .wysiwyg-textarea {
-        /*border-top-left-radius: 0;
-        border-top-right-radius: 0;*/
+    &.texteditor-dark {
+        .wysiwyg-textarea {
+            background-color: $black;
+            border-color: $secondary;
+            color: $white;
+
+            &:focus {
+                background-color: $black;
+                border-color: $secondary;
+                color: $white;
+            }
+        }
     }
 }

@@ -33,6 +33,16 @@
             var compressionTasks = [];
             var result = [];
             for (var file of files) {
+                var filename;
+                var type;
+                if (!['png', 'gif', 'jpg'].includes(getExtension(file.name))) {
+                    filename = file.name.substr(0, file.name.lastIndexOf(".")) + ".jpg";
+                    type = 'image/jpg';
+                }
+                else {
+                    filename = file.name;
+                    type = file.type;
+                }
                 // We don't have to compress files that aren't images
                 if (!file.type.startsWith('image')) {
                     result.push(file);
@@ -43,10 +53,10 @@
                 compressionTasks.push(
                     compressImage(file, {
                         quality: 0.5,
-                        type: file.type,
+                        type: type
                     }).then(blob => {
-                        result.push(new File([blob], file.name, {
-                            type: blob.type,
+                        result.push(new File([blob], filename, {
+                            type: type,
                         }));
                     })
                 );
@@ -56,6 +66,15 @@
                 .then(function () {
                     return result;
                 })
+        }
+
+        function getExtension(path) {
+            let baseName = path.split(/[\\/]/).pop(), // extracts file name from full path
+                // (supports separators `\\` and `/`)
+                pos = baseName.lastIndexOf("."); // gets the last position of `.`
+            if (baseName === "" || pos < 1) // if the file name is empty or ...
+                return ""; // the dot not found (-1) or comes first (0)
+            return baseName.slice(pos + 1); // extracts extension ignoring "."
         }
 
         const compressImage = async (file, { quality = 0.8, type = file.type }) => {

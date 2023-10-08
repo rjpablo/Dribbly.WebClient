@@ -205,12 +205,13 @@
                         cover: '=?', // the image will cover the whole gallery
                         sortable: '=?', // true|false
 
-                        onBeforeOpen: '&?',	// function
+                        onBeforeOpen: '=?',	// function
                         onOpen: '&?',		// function
                         onClose: '&?',		// function,
                         onDelete: '&?',
                         onEdit: '&?',
-                        onSort: '&?'
+                        onSort: '&?',
+                        imageAsBackdrop: '<' //whether or not to use the image as the backdrop for itself. Default: true
                     },
                     templateUrl: '/src/custom/ng-image-gallery/ng-image-gallery.html',
                     link: {
@@ -420,7 +421,7 @@
                             // Open modal automatically if inline
                             scope.$watch('inline', function () {
                                 $timeout(function () {
-                                    if (scope.inline) scope.methods.open(scope._activeImageIndex);
+                                    if (scope.inline) scope.methods.open(scope._activeImageIndex, true);
                                 });
                             });
 
@@ -448,8 +449,8 @@
                             **/
 
                             // Open gallery modal
-                            scope.methods.open = function (imgIndex) {
-                                if (scope.onBeforeOpen && !scope.onBeforeOpen({ index: imgIndex })) {
+                            scope.methods.open = function (imgIndex, isAutoOpen) {
+                                if (scope.onBeforeOpen && !scope.onBeforeOpen({ index: imgIndex, isAutoOpen: isAutoOpen })) {
                                     return;
                                 }
 
@@ -514,6 +515,9 @@
 
                             // Change image to prev
                             scope.methods.expand = function (imgIndex) {
+                                if (scope.onBeforeOpen && !scope.onBeforeOpen({ index: imgIndex, isAutoOpen: false })) {
+                                    return;
+                                }
                                 scope.isOriginallyInline = scope.inline;
                                 scope.inline = false;
                                 scope.methods.open(imgIndex);
