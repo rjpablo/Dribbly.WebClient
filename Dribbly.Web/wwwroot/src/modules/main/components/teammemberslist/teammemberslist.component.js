@@ -99,7 +99,6 @@
                             teamId: tml.team.id,
                             jerseyNo: member.jerseyNo,
                             position: member.position,
-                            id: member.id,
                             requestedByName: member.name,
                             memberAccountId: member.memberAccountId
                         }
