@@ -52,15 +52,12 @@
                     model: {
                         photos: glr.media,
                         onDelete: glr.onDelete,
-                        methods: glr.modalMethods
+                        methods: glr.modalMethods,
+                        activeIndex: data.index
                     },
                     isFull: true
                 })
                     .catch(() => { /*do nothing*/ });
-
-                $timeout(function () {
-                    glr.modalMethods.open(data.index);
-                }, 100)
 
                 return false;
             }

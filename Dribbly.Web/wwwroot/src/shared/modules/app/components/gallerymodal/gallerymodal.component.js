@@ -13,11 +13,15 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', 'modalService', 'drbblyEventsService', 'constants', 'drbblyOverlayService'];
-    function controllerFn($scope, modalService, drbblyEventsService, constants, drbblyOverlayService) {
+    controllerFn.$inject = ['$scope', '$timeout', 'drbblyEventsService'];
+    function controllerFn($scope, $timeout, drbblyEventsService) {
         var gmc = this;
 
         gmc.$onInit = function () {
+            $timeout(function () {
+                gmc.model.methods.open(gmc.model.activeIndex);
+            }, 100)
+
             gmc.context.setOnInterrupt(gmc.onInterrupt);
             drbblyEventsService.on('modal.closing', function (event, reason, result) {
                 if (!gmc.context.okToClose) {
