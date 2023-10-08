@@ -27,10 +27,11 @@
 
             gsm.resultGroups = [
                 createGroup(null, 'All'),
-                createGroup(constants.enums.entityTypeEnum.Team, 'Teams'),
                 createGroup(constants.enums.entityTypeEnum.Account, 'Accounts'),
+                createGroup(constants.enums.entityTypeEnum.Team, 'Teams'),
                 createGroup(constants.enums.entityTypeEnum.Court, 'Courts'),
                 createGroup(constants.enums.entityTypeEnum.Tournament, 'Tournaments'),
+                createGroup(constants.enums.entityTypeEnum.Group, 'Groups'),
                 createGroup(constants.enums.entityTypeEnum.Game, 'Games'),
             ];
 
