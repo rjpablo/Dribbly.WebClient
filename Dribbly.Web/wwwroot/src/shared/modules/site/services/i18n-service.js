@@ -289,7 +289,6 @@
                     Notification_ABookingHasBeenMadeForYouAtCourtName: 'A game has been booked for you at <strong>{courtName}</strong>',
                     Notification_JoinGroupRequest: '<strong>{requestorName}</strong> is requesting to join <strong>{groupName}</strong>',
                     Notification_JoinGroupRequestApproved: 'Your request to join <strong>{groupName}</strong> has been approved.',
-                    Notification_JoinTeamRequest: '<strong>{requestorName}</strong> is requesting to join <strong>{groupName}</strong>',
                     Notification_JoinTeamRequest: '<strong>{requestorName}</strong> is requesting to join <strong>{teamName}</strong>',
                     Notification_JoinTeamRequestApproved: 'Your request to join <strong>{teamName}</strong> has been approved.',
                     Notification_JoinTournamentRequestApproved: 'You request for <strong>{teamName}</strong> to join <strong>{tournamentName}</strong> has been approved.',

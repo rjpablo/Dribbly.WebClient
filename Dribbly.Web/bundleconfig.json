@@ -268,7 +268,7 @@
       "wwwroot/src/modules/main/components/playerselect/playerselect.component.js",
       "wwwroot/src/modules/main/components/teamcolorselectormodal/teamcolorselectormodal.component.js",
       "wwwroot/src/modules/main/components/grouphome/grouphome.component.js",
-      "wwwroot/src/src/modules/main/components/addgroupmodal/addgroupmodal.component.js",
+      "wwwroot/src/modules/main/components/addgroupmodal/addgroupmodal.component.js",
       "wwwroot/src/modules/main/components/groupmembers/groupmembers.component.js",
 
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
