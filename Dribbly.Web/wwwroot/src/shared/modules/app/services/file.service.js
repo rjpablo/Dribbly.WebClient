@@ -77,7 +77,7 @@
             return baseName.slice(pos + 1); // extracts extension ignoring "."
         }
 
-        const compressImage = async (file, { quality = 0.8, type = file.type }) => {
+        const compressImage = async (file, options) => {
             // Get as image data
             const imageBitmap = await createImageBitmap(file);
 
@@ -90,7 +90,7 @@
 
             // Turn into Blob
             return new Promise((resolve) =>
-                canvas.toBlob(resolve, type, quality)
+                canvas.toBlob(resolve, options.type, options.quality)
             );
         };
 
