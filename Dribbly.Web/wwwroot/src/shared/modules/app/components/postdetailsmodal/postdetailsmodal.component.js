@@ -78,6 +78,7 @@
         pdm.submit = async function () {
             var newAttachments = pdm.attachments.drbblyWhere(f => f.isNew);
             var proceed = true;
+            pdm.isBusy = true;
             if (newAttachments.length > 0) {
                 await drbblyFileService.upload(newAttachments.map(f => f.file), 'api/Multimedia/Upload')
                     .then(result => {
@@ -85,8 +86,10 @@
                         for (var x = 0; x < uploadedFiles.length; x++) {
                             Object.assign(newAttachments[x], uploadedFiles[x]);
                         }
+                        proceed = true;
                     })
                     .catch(error => {
+                        drbblyCommonService.handleError(error);
                         proceed = false;
                     });
             }
@@ -94,7 +97,6 @@
                 pdm.saveModel.fileIds = pdm.attachments.map(a => a.id);
                 pdm.frmPostDetails.$setSubmitted();
                 if (pdm.frmPostDetails.$valid) {
-                    pdm.isBusy = true;
                     if (pdm.model.isEdit) {
                         editPost(pdm.saveModel);
                     }
@@ -102,6 +104,9 @@
                         addPost(pdm.saveModel);
                     }
                 }
+            }
+            else {
+                pdm.isBusy = false;
             }
         };
 

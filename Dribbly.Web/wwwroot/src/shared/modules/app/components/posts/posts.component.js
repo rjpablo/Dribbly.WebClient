@@ -95,7 +95,7 @@
                                 return result;
                             })
                             .catch(function (error) {
-                                post.isBusy = true;
+                                drbblyCommonService.handleError(error);
                             })
                     }
 
