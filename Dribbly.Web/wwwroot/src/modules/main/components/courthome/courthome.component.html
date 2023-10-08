@@ -5,14 +5,22 @@
         <div ng-if="dcd.court">
             <div class="row">
                 <div class="col-12 col-md-8">
-                    <div class="row mb-5">
+                    <div class="row mb-5 upcoming-games">
                         <div class="col-12 d-flex">
                             <h5 class="drbbly-header">Upcoming Games</h5>
                             <a ui-sref="main.court.games({id: dcd.courtId})"
                                class="ml-auto">See All</a>
                         </div>
                         <div class="col-12">
-                            <div class="row">
+                            <div class="game-list overflow-auto">
+                                <drbbly-gamelistitem ng-repeat="game in (dcd.upcomingGames | orderBy: 'start') track by game.id"
+                                                     game="game"></drbbly-gamelistitem>
+                            </div>
+                            <div class="text-center p-3"
+                                 ng-if="dcd.upcomingGames.length === 0">
+                                No upcoming games at the moment
+                            </div>
+                            <!--<div class="row">
                                 <div class="col-lg-6"
                                      ng-repeat="game in (dcd.upcomingGames | orderBy: 'start') track by game.id">
                                     <drbbly-gamelistitem class="w-100 mb-3"
@@ -22,7 +30,7 @@
                                      ng-if="dcd.upcomingGames.length === 0">
                                     No upcoming games at the moment
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -72,39 +80,38 @@
                                             {{::'app.FullDetails' | i18n}}
                                         </a>
                                     </div>
-                                    <div class="card-body"
-                                         ng-class="{'p-0': dcd.isEditingDescription}">
-                                        <div ng-show="!dcd.isEditingDescription">
+                                    <div class="card-body">
+                                        <div ng-show="!dcd.isEditingDescription"
+                                             class="mb-2">
                                             <div ng-show="dcd.court.additionalInfo"
                                                  ng-bind-html="dcd.court.additionalInfo"></div>
                                             <span ng-show="!dcd.court.additionalInfo"
                                                   class="text-muted">({{'app.NoDescriptionProvided' | i18n}})</span>
                                         </div>
                                         <div ng-if="dcd.isEditingDescription">
-                                            <drbbly-texteditor class="d-block mb-1"
+                                            <drbbly-texteditor class="d-block mb-2"
                                                                ng-disabled="dcd.isBusy"
                                                                value="dcd.tempDescription"></drbbly-texteditor>
                                         </div>
-                                    </div>
-                                    <div class="card-footer d-flex p-0"
-                                         ng-if="dcd.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)">
-                                        <button type="button" ng-click="dcd.editDescription()"
-                                                ng-show="!dcd.isEditingDescription"
-                                                class="btn btn-secondary flex-grow-1">
-                                            <small>{{::'site.Edit' | i18n}}</small>
-                                        </button>
-                                        <button type="button" class="btn btn-primary flex-grow-1"
-                                                ng-show="dcd.isEditingDescription"
-                                                ng-disabled="dcd.frmEditDescription.$pristine || dcd.isBusy"
-                                                ng-click="dcd.updateDescription()">
-                                            {{::'site.Submit' | i18n}}
-                                        </button>
-                                        <button type="button" class="btn btn-secondary flex-grow-1"
-                                                ng-show="dcd.isEditingDescription"
-                                                ng-disabled="dcd.isBusy"
-                                                ng-click="dcd.isEditingDescription = false;">
-                                            {{::'site.Cancel' | i18n}}
-                                        </button>
+                                        <div class="d-flex">
+                                            <button type="button" ng-click="dcd.editDescription()"
+                                                    ng-show="!dcd.isEditingDescription"
+                                                    class="btn btn-secondary flex-grow-1">
+                                                <small>{{::'site.Edit' | i18n}}</small>
+                                            </button>
+                                            <button type="button" class="btn btn-primary flex-grow-1"
+                                                    ng-show="dcd.isEditingDescription"
+                                                    ng-disabled="dcd.frmEditDescription.$pristine || dcd.isBusy"
+                                                    ng-click="dcd.updateDescription()">
+                                                {{::'site.Submit' | i18n}}
+                                            </button>
+                                            <button type="button" class="btn btn-secondary flex-grow-1"
+                                                    ng-show="dcd.isEditingDescription"
+                                                    ng-disabled="dcd.isBusy"
+                                                    ng-click="dcd.isEditingDescription = false;">
+                                                {{::'site.Cancel' | i18n}}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </ng-form>

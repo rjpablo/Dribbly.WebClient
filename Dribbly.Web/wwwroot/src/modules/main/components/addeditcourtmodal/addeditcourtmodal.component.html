@@ -147,11 +147,11 @@
             type="submit"
             ng-click="aec.submit()"
             ng-switch="aec.isBusy">
-        <span ng-switch-default>{{::'site.Submit'| i18n}}</span>
+        <span ng-switch-default>Next</span>
         <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
     </button>
     <button i18n="{{::'site.Cancel'}}"
-            class="btn btn-warning"
+            class="btn btn-secondary"
             type="button"
             ng-click="aec.cancel()"></button>
 </div>
