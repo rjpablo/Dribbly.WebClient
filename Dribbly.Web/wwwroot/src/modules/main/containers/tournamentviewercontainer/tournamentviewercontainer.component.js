@@ -83,7 +83,7 @@
                 .then(function (imageData) {
                     var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
                     imageData.name = fileNameNoExt + '.png';
-                    return drbblyFileService.upload(imageData, 'api/tournaments/updateLogo/' + lvc.tournament.id)
+                    return drbblyFileService.upload([imageData], 'api/tournaments/updateLogo/' + lvc.tournament.id)
                         .then(function (result) {
                             if (result && result.data) {
                                 lvc.tournament.logo = result.data;
