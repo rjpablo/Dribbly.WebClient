@@ -11,9 +11,10 @@ drbbly-videolistitem {
 
         &.video {
             position: relative;
+            height: 100%;
             min-height: 120px;
-            max-height: 120px;
-            border: 1px solid $gray-500;
+            max-height: 100%;
+            border: 1px solid $gray-900;
             color: $gray-100;
             background: #000;
 

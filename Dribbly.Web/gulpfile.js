@@ -338,7 +338,7 @@ gulp.task('watch', gulp.parallel('watch-scripts', 'watch-styles', 'watch-html'),
 // concat //
 gulp.task('bundle', function () {
     var streams = [];
-    streams.push(gulp.src([paths.baseDest + 'js/main.js', paths.baseDest + 'js/libraries.js'])
+    streams.push(gulp.src([paths.baseDest + 'js/libraries.js'])
         .pipe(uglify())
         .pipe(rename(function (path) {
             path.extname = ".min.js";

@@ -74,6 +74,8 @@
                     LogOutConfirmationMsg2: 'Are you sure you want to log out?',
                     MobileNo: 'Mobile No.',
                     MobileNoPlaceholder: '10-digit no. (e.g. \'912 345 6789\')',
+                    'MultimediaTypeEnum.Photo_0': 'Photo',
+                    'MultimediaTypeEnum.Video_1': 'Video',
                     Name: 'Name',
                     NewPassword: 'New Password',
                     No: 'No',

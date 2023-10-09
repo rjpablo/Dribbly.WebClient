@@ -14,13 +14,14 @@
         });
 
     controllerFn.$inject = ['drbblyPostsService', '$scope', 'modalService', 'drbblyEventsService', 'drbblyFileService',
-        'drbblyCommonService'];
+        'drbblyCommonService', 'constants', 'drbblyOverlayService'];
     function controllerFn(drbblyPostsService, $scope, modalService, drbblyEventsService, drbblyFileService,
-        drbblyCommonService) {
+        drbblyCommonService, constants, drbblyOverlayService) {
         var pdm = this;
         var _tempId = 0;
 
         pdm.$onInit = function () {
+            pdm.overlay = drbblyOverlayService.buildOverlay();
             pdm.attachments = [];
             pdm.methods = {};
             if (pdm.model.isEdit) {
@@ -79,6 +80,7 @@
             var newAttachments = pdm.attachments.drbblyWhere(f => f.isNew);
             var proceed = true;
             pdm.isBusy = true;
+            pdm.overlay.setToBusy();
             if (newAttachments.length > 0) {
                 await drbblyFileService.upload(newAttachments.map(f => f.file), 'api/Multimedia/Upload')
                     .then(result => {
@@ -89,6 +91,7 @@
                         proceed = true;
                     })
                     .catch(error => {
+                        pdm.overlay.setToReady();
                         drbblyCommonService.handleError(error);
                         proceed = false;
                     });
@@ -110,20 +113,24 @@
             }
         };
 
-        pdm.onMediaSelect = function (files) {
+        pdm.onMediaSelect = function (files, type) {
             var newMedia = files.map(file => {
                 return {
                     id: --_tempId,
                     url: URL.createObjectURL(file),
                     deletable: true,
                     isNew: true,
-                    file: file
+                    file: file,
+                    type: file.type.indexOf('video/') === 0 ? constants.enums.multimediaTypeEnum.Video : constants.enums.multimediaTypeEnum.Photo
                 };
             })
             pdm.attachments = pdm.attachments.concat(newMedia);
             pdm.frmPostDetails.$setDirty();
         }
 
+        pdm.onVideoSelected = function (video) {
+
+        }
 
         pdm.deletePhoto = function (img, cb) {
             pdm.frmPostDetails.$setDirty();
@@ -140,6 +147,7 @@
                 })
                 .finally(function () {
                     pdm.isBusy = false;
+                    pdm.overlay.setToReady();
                 });
         }
 
@@ -153,6 +161,7 @@
                 })
                 .finally(function () {
                     pdm.isBusy = false;
+                    pdm.overlay.setToReady();
                 });
         }
 

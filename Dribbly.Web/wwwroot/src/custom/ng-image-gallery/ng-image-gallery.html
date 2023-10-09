@@ -69,10 +69,21 @@
                 <!--// Images container-->
                 <div class="galleria-images img-anim-{{imgAnim}} img-move-dir-{{_imgMoveDirection}}">
                     <div ng-style="{'background-image': imageAsBackdrop === false? 'none': 'url(' + _activeImg.url + ')'}"
-                         ng-show="inline && !cover"
+                         ng-show="inline && !cover && !isVideo(_activeImg)"
                          class="galleria-image-backdrop"></div>
-                    <img class="galleria-image" ng-right-click ng-repeat="image in images track by image.id" ng-if="_activeImg == image" ng-src="{{image.url}}" ondragstart="return false;" ng-attr-alt="{{image.alt || undefined}}"
-                         ng-click="methods.expand($index);" />
+                    <div ng-class="bg-black"
+                         ng-show="inline && !cover && isVideo(_activeImg)"
+                         class="galleria-image-backdrop"></div>
+                    <div ng-repeat="image in images track by image.id">
+                        <img class="galleria-image" ng-right-click
+                             ng-if="_activeImg === image && !isVideo(image)" ng-src="{{image.url}}"
+                             ondragstart="return false;" ng-attr-alt="{{image.alt || undefined}}"
+                             ng-click="methods.expand($index);" />
+                        <drbbly-videolistitem ng-if="_activeImg === image && isVideo(image)"
+                                              class="galleria-video"
+                                              options="{hideUploadDate: true}"
+                                              video="image"></drbbly-videolistitem>
+                    </div>
                 </div>
 
                 <!--// Image description container-->
@@ -94,7 +105,29 @@
                 <!--// Image bubble navigation container-->
                 <div class="galleria-bubbles-wrapper" ng-if="bubbles && imgBubbles" ng-hide="images.length == 1" ng-style="{'height' : bubbleSize + 'px'}" bubble-auto-fit>
                     <div class="galleria-bubbles" bubble-auto-scroll ng-style="{'margin-left': _bubblesContainerMarginLeft}">
-                        <span class="galleria-bubble img-bubble" ng-click="_setActiveImg(image);" ng-repeat="image in images track by image.id" ng-class="{active : (_activeImg == image)}" show-image-async="{{image.bubbleUrl || image.thumbUrl || image.url}}" async-kind="bubble" ng-style="{'width' : bubbleSize + 'px', 'height' : bubbleSize + 'px', 'border-width' : bubbleSize/10 + 'px', margin: _bubbleMargin}"></span>
+                        <div ng-repeat="image in images track by image.id"
+                             class="d-inline-block">
+                            <span class="galleria-bubble img-bubble"
+                                  ng-if="!isVideo(image)"
+                                  ng-click="_setActiveImg(image);"
+                                  ng-class="{active : (_activeImg == image)}"
+                                  show-image-async="{{image.bubbleUrl || image.thumbUrl || image.url}}"
+                                  async-kind="bubble"
+                                  ng-style="{'width' : bubbleSize + 'px', 'height' : bubbleSize + 'px', 'border-width' : bubbleSize/10 + 'px', margin: _bubbleMargin}"></span>
+                            <span class="galleria-bubble img-bubble"
+                                  ng-if="isVideo(image)"
+                                  ng-click="_setActiveImg(image);"
+                                  ng-class="{active : (_activeImg == image)}"
+                                  ng-style="{'width' : bubbleSize + 'px', 'height' : bubbleSize + 'px', 'border-width' : bubbleSize/10 + 'px', margin: _bubbleMargin}">
+                                <video ng-src="{{image.url + '#t=0.1'}}"
+                                       ng-style="{'object-fit':'cover', 'width': '100%', 'height': '100%'}"
+                                       preload="metadata"></video>
+                                <span style="background-color: rgba(0,0,0,0.4); font-size: 0.6rem; position: absolute; top: 0; height: 100%; width: 100%; margin: 0;"
+                                      class="d-flex align-items-center justify-content-center text-white">
+                                    <i class="fa fa-play"></i>
+                                </span>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -164,7 +164,7 @@
         dcc.changePrimaryPicture = function (file) {
             if (!file) { return; }
             dcc.updatingPrimaryPhoto = true;
-            drbblyFileService.upload(file, 'api/courts/updateCourtPhoto/' + dcc.court.id)
+            drbblyFileService.upload([file], 'api/courts/updateCourtPhoto/' + dcc.court.id)
                 .then(function (result) {
                     loadCourt();
                 })

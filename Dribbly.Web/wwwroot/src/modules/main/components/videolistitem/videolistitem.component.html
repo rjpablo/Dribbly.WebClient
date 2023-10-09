@@ -34,7 +34,7 @@
     <span class="title text-white font-weight-semibold">
         {{vli.video.title}}
     </span>
-    <small>
+    <small ng-if="!vli.options.hideUploadDate">
         <drbbly-date date="vli.video.dateAdded"
                      as-from-now="true"
                      class="text-muted"></drbbly-date>

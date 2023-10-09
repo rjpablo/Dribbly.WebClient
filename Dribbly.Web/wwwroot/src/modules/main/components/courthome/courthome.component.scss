@@ -1,3 +1,7 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+
 drbbly-courthome {
 
     div.primary-photo-container {
@@ -21,5 +25,21 @@ drbbly-courthome {
     .court-details .name {
         color: #fff;
         font-weight: bold;
+    }
+
+    .upcoming-games {
+        .game-list {
+            overflow-x: auto;
+            white-space: nowrap;
+
+            drbbly-gamelistitem {
+                width: 90%;
+                max-width: 320px;
+
+                &:not(:last-child) {
+                    margin-right: $spacer/2;
+                }
+            }
+        }
     }
 }

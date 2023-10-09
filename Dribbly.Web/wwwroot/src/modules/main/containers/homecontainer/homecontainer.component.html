@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <section class="features-carousel">
+    <section class="features-carousel mb-5">
         <div class="slick-slider"
              ng-class="{'slick-dotted': dhc.featuresCarouselSettings.dots}">
             <slick settings="dhc.featuresCarouselSettings"
@@ -26,7 +26,7 @@
             </slick>
         </div>
     </section>
-    <section drbbly-overlay="dhc.topPlayersOverlay" class="pt-3 top-players">
+    <section drbbly-overlay="dhc.topPlayersOverlay" class="pt-3 top-players mb-5">
         <div class="section-header">
             <h5 class="drbbly-header">Top Players</h5>
             <a ui-sref="main.players"
@@ -43,7 +43,7 @@
             </slick>
         </div>
     </section>
-    <section drbbly-overlay="dhc.tournamentsOverlay" class="pt-3 tournaments">
+    <section drbbly-overlay="dhc.tournamentsOverlay" class="pt-3 tournaments mb-5">
         <div class="section-header">
             <h5 class="drbbly-header">New Tournaments</h5>
         </div>
@@ -58,7 +58,7 @@
             </slick>
         </div>
     </section>
-    <div>
+    <div class="mb-5">
         <!-- Ad -->
         <span class="d-block text-center">Advertisement</span>
         <div class="row">
@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    <section drbbly-overlay="dhc.teamsOverlay" class="pt-3 top-teams">
+    <section drbbly-overlay="dhc.teamsOverlay" class="pt-3 top-teams mb-5">
         <div class="section-header">
             <h5 class="drbbly-header">Top Teams</h5>
             <a ui-sref="main.teams"
@@ -93,7 +93,7 @@
             </slick>
         </div>
     </section>
-    <section drbbly-overlay="dhc.courtsListOverlay" class="pt-3 featured-courts">
+    <section drbbly-overlay="dhc.courtsListOverlay" class="pt-3 featured-courts mb-5">
         <div class="section-header d-flex">
             <h5 class="drbbly-header">
                 {{::'app.FeaturedCourts' | i18n}}

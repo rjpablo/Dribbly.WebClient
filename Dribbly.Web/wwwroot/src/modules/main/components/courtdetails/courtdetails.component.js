@@ -163,17 +163,5 @@
                 })
                 .catch(function () { /*do nothing*/ });
         };
-
-        dcd.changePrimaryPicture = function (file) {
-            if (!file) { return; }
-            drbblyFileService.upload(file, 'api/courts/updateCourtPhoto/' + dcd.court.id)
-                .then(function (result) {
-                    //loadCourt();
-                    dcd.onUpdate();
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        };
     }
 })();
