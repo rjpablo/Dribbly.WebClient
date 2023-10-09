@@ -13,8 +13,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$scope', '$state', 'drbblyCourtsService', 'drbblyOverlayService'];
-    function controllerFn($scope, $state, drbblyCourtsService, drbblyOverlayService) {
+    controllerFn.$inject = ['$scope', '$state', 'drbblyCourtsService', 'drbblyOverlayService', 'constants'];
+    function controllerFn($scope, $state, drbblyCourtsService, drbblyOverlayService, constants) {
         var cpm = this;
 
         cpm.$onInit = function () {
@@ -23,6 +23,10 @@
             drbblyCourtsService.getCourt(cpm.model.court.id)
                 .then(function (court) {
                     cpm.court = court;
+                    cpm.photos = court.photos.map(p => p.photo);
+                    if (cpm.photos.length === 0) {
+                        cpm.photos.push(constants.images.defaultCourtLogo);
+                    }
                     cpm.overlay.setToReady();
                 })
                 .catch(cpm.overlay.setToError);

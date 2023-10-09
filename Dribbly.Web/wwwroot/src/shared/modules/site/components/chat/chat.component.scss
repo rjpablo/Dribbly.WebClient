@@ -153,9 +153,13 @@ drbbly-chat {
                                 white-space: normal;
                             }
 
-                            .ng-image-gallery-thumbnails .thumb {
-                                height: 50px !important;
-                                width: 25% !important;
+                            drbbly-gallery {
+                                height: unset;
+
+                                .ng-image-gallery-thumbnails .thumb {
+                                    height: 50px !important;
+                                    width: 25% !important;
+                                }
                             }
                         }
                     }
@@ -171,12 +175,18 @@ drbbly-chat {
                     border-top: 1px solid #ccc;
                     position: relative;
 
-                    .media-preview .ng-image-gallery-thumbnails .thumb {
-                        height: 50px !important;
-                        width: 20% !important;
+                    .media-preview {
+                        drbbly-gallery {
+                            height: unset;
 
-                        .thumb-actions > * {
-                            padding: 0.125rem 0.25rem;
+                            .ng-image-gallery-thumbnails .thumb {
+                                height: 50px !important;
+                                width: 20% !important;
+
+                                .thumb-actions > * {
+                                    padding: 0.125rem 0.25rem;
+                                }
+                            }
                         }
                     }
 

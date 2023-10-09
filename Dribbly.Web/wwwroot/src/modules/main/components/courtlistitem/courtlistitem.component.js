@@ -23,8 +23,7 @@
 
         cli.clicked = function (e) {
             if (cli.onClick) {
-                cli.onClick(cli.court);
-                e.preventDefault();
+                cli.onClick(cli.court, e);
             }
         };
     }

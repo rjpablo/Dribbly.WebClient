@@ -27,7 +27,7 @@
             <span class="d-block text-center">Advertisement</span>
             <drbbly-ad type="'horizontal'"></drbbly-ad>
         </div>
-        <div class="results">
+        <div drbbly-overlay="src.overlay">
             <!--Controls-->
             <div class="d-flex justify-content-between mb-2">
                 <strong class="align-self-center">{{ !src.isBusy? src.filteredCourts.length + ' court(s) found.' : ''}}</strong>
@@ -107,6 +107,7 @@
             </div>
             <drbbly-Courtlist courts="src.filteredCourts"
                               ng-show="src.resultView === 'list'"
+                              settings="{initialItemCount: 30, previewOnItemClick: true}"
                               wrap-items="true"></drbbly-Courtlist>
             <div class="map-container"
                  ng-if="src.mapApiKey"

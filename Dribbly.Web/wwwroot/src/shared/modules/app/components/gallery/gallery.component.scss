@@ -2,29 +2,15 @@
 @import '../../../../../lib/bootstrap/_variables.scss';
 @import '../../../../../lib/bootstrap/_breakpoints.scss';
 
-bad-gallery {
+drbbly-gallery {
+    display: inline-block;
+    height: 300px;
+    width: 100%;
+    position: relative;
 
-    @include media-breakpoint-down(xl) {
-        bad-image,
-        .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
-            height: 150px !important;
-            width: 20% !important;
-        }
-    }
-
-    @include media-breakpoint-down(lg) {
-        bad-image,
-        .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
-            height: 150px !important;
-            width: 25% !important;
-        }
-    }
-
-    @include media-breakpoint-down(md) {
-        bad-image,
-        .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
-            height: 100px !important;
-            width: 33.3333% !important;
-        }
+    & > div,
+    & > div > div.carousel-container,
+    & > div > div.carousel-container > div.ng-image-gallery {
+        height: 100%;
     }
 }
