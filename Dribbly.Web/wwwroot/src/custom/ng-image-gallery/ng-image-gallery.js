@@ -238,6 +238,8 @@
                                 // if not image object received
                                 if (!imgObj) return $q.reject();
 
+                                if (imgObj.type == 1) return $q.resolve(imgObj); //video
+
                                 var deferred = $q.defer();
 
                                 // Show loader
@@ -283,7 +285,9 @@
                                 // Load image
                                 scope._loadImg(imgObj).then(function (imgObj) {
                                     scope._activeImg = imgObj;
-                                    scope._imageGalleryContentStyle = { 'background-image': 'url(' + imgObj.url + ')' }
+                                    if (imgObj.type !== 1) { // not video
+                                        scope._imageGalleryContentStyle = { 'background-image': 'url(' + imgObj.url + ')' }
+                                    }
                                     scope.imgError = false;
                                 }, function () {
                                     /**** Customization - START****/
@@ -534,6 +538,10 @@
                                     values.push(image);
                                 });
                                 return values;
+                            }
+
+                            scope.isVideo = function (file) {
+                                return file && file.type === 1;
                             }
 
                             // Close gallery on background click
