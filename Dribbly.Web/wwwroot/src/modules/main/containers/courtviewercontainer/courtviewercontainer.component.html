@@ -71,18 +71,19 @@
                                             <a ui-sref="main.court.reviews({id: dcc.court.id})"
                                                class="text-secondary">{{'app.ReviewCountDisplay' | i18n : {count: dcc.court.reviewCount} }}</a>
                                         </div>
-                                        <span class="text-white">{{'site.FollowerCountDisplay' | i18n:{count: (dcc.court.followerCount | drbblyNumber)} }}</span>
+                                        <!--<span class="text-white">{{'site.FollowerCountDisplay' | i18n:{count: (dcc.court.followerCount | drbblyNumber)} }}</span>-->
                                     </div>
                                     <div class="col-12 col-md-6 col-lg-7">
                                         <div class="row">
                                             <div class="col-12 col-lg-7 mb-3 text-center">
                                                 <button class="btn btn-primary"
                                                         type="button"
+                                                        ng-if="dcc.isOwned"
                                                         ng-disabled="dcc.isBusy"
                                                         ng-click="dcc.addGame()">
                                                     <i class="fa fa-plus mr-1"></i>{{::'app.NewGame' | i18n}}
                                                 </button>
-                                                <button class="btn btn-primary"
+                                                <!--<button class="btn btn-primary"
                                                         type="button"
                                                         ng-if="!dcc.isOwned"
                                                         ng-disabled="dcc.isBusy"
@@ -90,13 +91,13 @@
                                                         ng-switch="dcc.court.isFollowed">
                                                     <span ng-switch-when="true">{{::'site.Unfollow' | i18n}}</span>
                                                     <span ng-switch-default>+ {{::'site.Follow' | i18n}}</span>
-                                                </button>
-                                                <button ng-click="dcc.showContact()"
+                                                </button>-->
+                                                <!--<button ng-click="dcc.showContact()"
                                                         class="btn btn-secondary"
                                                         ng-if="!dcc.isOwned"
                                                         type="button">
                                                     <i class="fa fa-phone"></i>&nbsp;{{::'site.Contact' | i18n}}
-                                                </button>
+                                                </button>-->
                                                 <div class="dropdown dropdown d-inline-block"
                                                      ng-if="dcc.isOwned || ('Court.DeleteNotOwned' | drbblyPermission)">
                                                     <button type="button" class="btn btn-secondary dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
