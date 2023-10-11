@@ -1,0 +1,18 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-teammemberslist {
+    .team-member-list-item {
+
+        .jersey-no,
+        .position {
+            color: $white;
+            font-size: 1.5em;
+            line-height: 1;
+            -webkit-text-stroke: 1px $black;
+        }
+
+        .position {
+            font-size: 1em;
+        }
+    }
+}

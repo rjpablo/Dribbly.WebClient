@@ -1,0 +1,35 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-9 mb-5">
+            <div class="toolbar mb-3">
+                <span class="text-white"
+                      ng-if="dap.photos">{{'app.FoundCountPhotos' | i18n: {count: dap.photos.length} }}</span>
+                <a class="btn-link float-right"
+                   ng-if="::dap.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
+                   ngf-select="dap.addPhotos($files)"
+                   ngf-pattern="'image/*'"
+                   ngf-multiple="true"
+                   ngf-accept="'image/*'"
+                   ngf-max-size="20MB"
+                   href="#">
+                    <i class="fa fa-plus"></i>&nbsp;{{::'app.UploadAPhoto' | i18n}}
+                </a>
+            </div>
+            <div class="carousel-container mb-3"
+                 ng-if="dap.photos">
+                <drbbly-gallery can-add="false"
+                                media="dap.photos"
+                                on-delete="dap.deletePhoto"
+                                options="{hideCaptions: true, methods: dap.methods}"></drbbly-gallery>
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+</div>

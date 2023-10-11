@@ -1,0 +1,37 @@
+﻿<div class="row mb-3">
+    <div class="col-12">
+        <div class="p-3">
+            <h5 class="drbbly-header d-inline-block line-height-2 m-0">
+                {{drl.options.title || ('site.Posts' | i18n)}}
+            </h5>
+            <button type="button"
+                    class="btn btn-sm btn-primary pull-right"
+                    ng-click="drl.createPost()"
+                    ng-if="drl.options.canPost">
+                <i class="fa fa-plus mb-1"></i>
+                {{drl.options.addButtonLabel || ('app.NewPost' | i18n)}}
+            </button>
+        </div>
+    </div>
+    <div class="col-12">
+        <drbbly-post ng-repeat="post in drl.posts track by post.id"
+                     on-delete="drl.onPostDelete"
+                     post="post">
+        </drbbly-post>
+        <button type="button"
+                class="btn btn-secondary w-100"
+                ng-disabled="drl.isLoading"
+                ng-click="drl.loadMore()"
+                ng-show="!drl.hasLoadedAll"
+                ng-switch="drl.isLoading">
+            <span ng-switch-default>{{::'app.LoadMore' | i18n}}</span>
+            <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-sin"></i></span>
+        </button>
+        <div ng-if="drl.hasLoadedAll && drl.posts.length === 0"
+             class="black-transparent-bg text-center p-3">
+            {{drl.options.emplyLabel || 'No posts found.'}}
+        </div>
+        <span class="d-block text-center text-muted"
+              ng-show="drl.hasLoadedAll && drl.posts.length > 0 ">{{::'app.NoMoreItemsToLoad' | i18n}}</span>
+    </div>
+</div>

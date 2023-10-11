@@ -1,0 +1,28 @@
+drbbly-courtlistitem {
+    display: inline-block;
+    vertical-align: top;
+
+    .photo-container {
+        position: relative;
+        height: 100px;
+
+        .primary-photo {
+            position: absolute;
+        }
+
+        .rate {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            color: #fff;
+            background-color: rgba(89, 125, 96, 0.9);
+            line-height: 1rem;
+            padding: 0.125rem;
+        }
+    }
+
+    .details .name {
+        white-space: initial;
+        line-height: 1.2;
+    }
+}

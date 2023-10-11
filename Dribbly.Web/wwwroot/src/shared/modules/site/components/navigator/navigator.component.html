@@ -1,0 +1,81 @@
+﻿<div class="bg-dark top-bar non-mobile">
+    <nav class="container navbar navbar-dark p-0 px-sm-3"
+         ng-class="{'non-mobile': nav.usingSideNavigator}">
+        <drbbly-sitelogo class="d-none d-sm-block"></drbbly-sitelogo>
+        <ul class="nav mr-0 mr-sm-auto w-xs-100">
+            <li class="nav-item">
+                <a class="nav-link"
+                   ng-class="{'active': nav.$state.current.name === 'main.players'}"
+                   ui-sref="main.players">
+                    <span class="d-block d-sm-inline text-center drbbly-font players menu-item-icon"></span>
+                    <span class="d-block d-sm-inline menu-item-text">{{'site.Players' | i18n}}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   ng-class="{'active': nav.$state.current.name === 'main.teams'}"
+                   ui-sref="main.teams">
+                    <span class="d-block d-sm-inline text-center drbbly-font games menu-item-icon"></span>
+                    <span class="d-block d-sm-inline menu-item-text">{{'site.Teams' | i18n}}</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link"
+                   ng-class="{'active': nav.$state.current.name === 'main.courts'}"
+                   ui-sref="main.courts">
+                    <span class="d-block d-sm-inline text-center drbbly-font court-inclined menu-item-icon"></span>
+                    <span class="d-block d-sm-inline menu-item-text">{{'site.Courts' | i18n}}</span>
+                </a>
+            </li>
+        </ul>
+        <div class="dropdown">
+            <button class="btn btn-primary"
+                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-plus"></i>&nbsp;{{::'app.New' | i18n}}...
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <!--<a class="dropdown-item" ng-click="nav.addGame()">{{::'app.Game' | i18n}}</a>-->
+                <a class="dropdown-item" ng-click="nav.addTeam()">{{::'app.Team' | i18n}}</a>
+                <a class="dropdown-item" ng-click="nav.addCourt()">{{::'app.Court' | i18n}}</a>
+                <!--<a class="dropdown-item" ng-click="nav.addLeague()">{{::'app.League' | i18n}}</a>-->
+                <a class="dropdown-item" ng-click="nav.addTournament()">{{::'app.Tournament' | i18n}}</a>
+                <a class="dropdown-item" ng-click="nav.addGroup()">Group</a>
+            </div>
+        </div>
+        <drbbly-globalsearch class="d-none d-sm-inline my-2 ml-3"
+                             max-count="10">
+        </drbbly-globalsearch>
+        <ul class="nav ml-3 float-right dropdown non-mobile">
+            <li ng-if="nav.isAuthenticated()"
+                class="nav-item">
+                <drbbly-notificationswidget></drbbly-notificationswidget>
+            </li>
+            <li ng-if="nav.isAuthenticated()"
+                class="nav-item">
+                <div uib-dropdown>
+                    <a class="btn btn-link no-caret"
+                       uib-dropdown-toggle>
+                        <img class="avatar" ng-src="{{$root.auth.profilePicture}}" />
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right"
+                         uib-dropdown-menu
+                         role="menu">
+                        <h6 class="dropdown-header" ng-bind-html="'site.LoggedInAs' | i18n:({username: $root.auth.username})"></h6>
+                        <a ui-sref="main.account.home({username: $root.auth.username})"
+                           class="dropdown-item">
+                            My Profile
+                        </a>
+                        <a class="dropdown-item"
+                           ng-click="nav.logOut()"
+                           tabindex>{{'site.LogOut' | i18n}}</a>
+                    </div>
+                </div>
+            </li>
+            <li ng-if="!nav.isAuthenticated()"
+                class="nav-item">
+                <a ui-sref="auth.login"
+                   class="btn btn-warning">{{::'auth.LogIn' | i18n}}</a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,29 @@
+﻿<span class="d-block text-center small"
+      ng-if="dtc.label">{{dtc.label}}</span>
+<drbbly-lcddisplay text="dtc.time"
+                   is-danger="dtc.timer.isOver()"
+                   is-warning="dtc.isWarning()"
+                   should-blink="dtc.isPaused()"
+                   on-click="dtc.clicked"
+                   font-size="dtc.fontSize"></drbbly-lcddisplay>
+<div class="controls text-center"
+     ng-if="dtc.showControls">
+    <button class="btn btn-sm"
+            ng-if="!dtc.timer.isOver()"
+            ng-click="dtc.timer.toggle()">
+        <i class="fa text-white"
+           ng-class="dtc.timer.isRunning()? 'fa-pause':'fa-play'"></i>
+    </button>
+    <button class="btn btn-sm"
+            ng-disabled="dtc.timer.isRunning()"
+            ng-click="dtc.timer.reset()">
+        <i class="fa fa-undo text-white"
+           uib-tooltip="{{dtc.timer.isRunning()? 'Cannot reset the clock while it is running':'Reset the clock'}}"></i>
+    </button>
+    <button class="btn btn-sm"
+            ng-disabled="dtc.timer.isRunning()"
+            ng-click="dtc.timer.edit()">
+        <i class="fa fa-pencil text-white"
+           uib-tooltip="{{dtc.timer.isRunning()? 'Cannot edit the clock while it is running':'Edit the clock'}}"></i>
+    </button>
+</div>

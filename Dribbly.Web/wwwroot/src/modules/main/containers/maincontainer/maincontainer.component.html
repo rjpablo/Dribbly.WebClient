@@ -1,0 +1,17 @@
+﻿<div id="page-header-container" class="fixed-top"
+     ng-show="!dmc.app.noHeader">
+    <drbbly-mobiletoolbar ng-if="dmc.app.toolbar"
+                          app="dmc.app"
+                          toolbar="dmc.app.toolbar"></drbbly-mobiletoolbar>
+    <drbbly-navigator></drbbly-navigator>
+</div>
+<drbbly-sidenavigator class="mobile-only" widget="dmc.sideNavigator"></drbbly-sidenavigator>
+<div id="page-body-container">
+    <ui-view ng-if="dmc.app" app="dmc.app" class="d-block"></ui-view>
+</div>
+<div id="page-footer-container"
+     ng-show="!dmc.app.noFooter">
+    <drbbly-footer on-content-change="dmc.app.onSectionResize"
+                   toolbar="dmc.app.toolbar"></drbbly-footer>
+</div>
+<drbbly-chat ng-hide="dmc.app.chatIsHidden"></drbbly-chat>

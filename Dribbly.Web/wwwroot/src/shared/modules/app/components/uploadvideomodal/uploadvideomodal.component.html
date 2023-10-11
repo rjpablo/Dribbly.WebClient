@@ -1,0 +1,66 @@
+﻿<div class="modal-header">
+    <button class="modal-title btn btn-lg" i18n="{{::'app.UploadVideo'}}"></button>
+</div>
+<div class="modal-body">
+    <form name="uvm.frmUploadVideo"
+          novalidate>
+        <fieldset ng-disabled="uvm.isBusy">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <video controls
+                                   preload="metadata"></video>
+                        </div>
+                        <div class="col-12">
+                            <div class="file-details d-flex align-items-start">
+                                <span class="text-secondary">{{::'app.File' | i18n}}:</span>&nbsp;{{uvm.fileName}}
+                                <button class="btn btn-secondary"
+                                        ng-if="uvm.tempUrl"
+                                        ng-click="uvm.replaceVideo($event)">
+                                    {{::'site.Change' | i18n}}
+                                </button>
+                            </div>
+                            <hr class="d-block d-lg-none">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="txtName">Caption:</label>
+                        <input type="text"
+                               name="txtTitle"
+                               ng-model="uvm.saveModel.title"
+                               class="form-control"
+                               maxlength="100" />
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="txtName">{{::'app.Description' | i18n}}:</label>
+                        <textarea class="form-control"
+                                  name="txtDesc"
+                                  ng-model="uvm.saveModel.description"
+                                  maxlength="2000"
+                                  rows="3"></textarea>
+                    </div>-->
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            ng-disabled="uvm.isBusy || uvm.frmUploadVideo.$invalid"
+            type="submit"
+            ng-click="uvm.submit()">
+        <span ng-if="!uvm.isUploading && !uvm.uploadIsDone">{{::'site.Submit' | i18n}}</span>
+        <span ng-if="uvm.isUploading">
+            {{'app.UploadingWithProgress' | i18n : { progress: uvm.uploadProgress } }}
+        </span>
+        <span ng-if="uvm.uploadIsDone">{{::'app.ProcessingEllipsis' | i18n}}</span>
+    </button>
+    <button i18n="{{::'site.Cancel'}}"
+            ng-disabled="uvm.uploadIsDone"
+            class="btn btn-warning"
+            type="button"
+            ng-click="uvm.cancel()"></button>
+</div>

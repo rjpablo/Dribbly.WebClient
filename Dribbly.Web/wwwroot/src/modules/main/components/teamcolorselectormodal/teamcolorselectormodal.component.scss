@@ -1,0 +1,15 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-teamcolorselectormodal {
+    .colors-container {
+        display: flex;
+        flex-wrap: wrap;
+
+        .color-box {
+            height: 30px;
+            width: 30px;
+            border: 1px solid rgb(255, 255, 255, 0.3);
+        }
+    }
+}

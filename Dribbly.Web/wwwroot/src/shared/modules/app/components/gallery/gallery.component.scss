@@ -1,0 +1,16 @@
+@import '../../../../../lib/bootstrap/_functions.scss';
+@import '../../../../../lib/bootstrap/_variables.scss';
+@import '../../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-gallery {
+    display: inline-block;
+    height: 300px;
+    width: 100%;
+    position: relative;
+
+    & > div,
+    & > div > div.carousel-container,
+    & > div > div.carousel-container > div.ng-image-gallery {
+        height: 100%;
+    }
+}

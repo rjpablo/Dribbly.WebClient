@@ -1,0 +1,96 @@
+﻿(function () {
+    'use strict';
+
+    var module = angular.module('siteModule', [
+        'ui.router',
+        'ngSanitize',
+        'ngAnimate',
+        'toaster',
+        'ngTouch',
+        'ui.bootstrap',
+        'ui.bootstrap.datetimepicker',
+        'infinite-scroll',
+        'aa.formExtensions',
+        'aa.notify'
+    ]);
+
+    module.constant('constants', {
+        site: {
+            name: window.Dribbly.clientSettings.siteName,
+            description: window.Dribbly.clientSettings.siteDescription,
+            shareImageUrl: window.Dribbly.clientSettings.siteSharedImageUrl,
+            logoUrl: window.Dribbly.clientSettings.siteLogoUrl,
+            tagLine: window.Dribbly.clientSettings.tagLine
+        }
+    });
+
+    module.value('THROTTLE_MILLISECONDS', 500);
+
+    module.config(['$provide', function ($provide) {
+        /* Information about AngularJS decorator can be found at: 
+         * https://docs.angularjs.org/api/auto/service/$provide
+         */
+        $provide.decorator('$log', [
+            '$delegate',
+            function (
+                // delegate is the original instance of $log 
+                $delegate
+            ) {
+                var levels = ['debug', 'info', 'warn', 'error'];
+
+                angular.forEach(levels, function (level) {
+
+                    // storing the original function
+                    var original = $delegate[level];
+
+                    // creating a wrapped version of each $log level function
+                    // _.wrap is from the underscore.js library
+                    $delegate[level] = function () {
+
+                        // logger data to be sent/logged to console
+                        var data = arguments[0];
+
+                        if (angular.isObject(data)) {
+                            /* The angular $http service cannot be used in the $log 
+                             * decorator because it will cause a circular dependecy.
+                             * To overcome this  a direct ajax call should be made.
+                             */
+                            window.Dribbly.logClientException(data.message, data.errorMessage || data.description,
+                                data.url, data.errorCode, data.stack, data.lineNo, data.column);
+                        }
+
+                        // call to the original function which will write to the console
+                        original.apply($delegate, arguments);
+                    };
+                });
+                // returning to $log object with the new wrapped log-level functions
+                return $delegate;
+            }
+        ]);
+
+        $provide.decorator('$exceptionHandler', ['$log', function ($log) {
+            return function (exception, cause) {
+                $log.error(exception);
+            };
+        }]);
+
+        window.Dribbly.isNumber = function (val) {
+            //test to see if this == number (NOT this === number)
+
+            //isNaN is too unreliable... too many annoying edge case (like isNaN('') === false !!!)
+            //parseFloat is too unreliable... example:  parseFloat("40 years") === 40 !!!
+
+            //NaN is the only value in JS that is unequal to itself (thus the last check).
+
+            if (val === null || val === '' || val === undefined || val !== val) {
+                return false;
+            }
+
+            var str = val.toString();
+
+            return /^-?[\d.]+(?:e?(-|\+)?\d+)?$/.test(str);
+        };
+    }
+    ]);
+
+})();

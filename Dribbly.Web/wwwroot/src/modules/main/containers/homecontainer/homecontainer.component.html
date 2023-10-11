@@ -1,0 +1,122 @@
+﻿<div class="container">
+    <section class="features-carousel mb-5">
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.featuresCarouselSettings.dots}">
+            <slick settings="dhc.featuresCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="feature in dhc.features | filter : {isHidden: '!true'}"
+                     class="feature px-3">
+                    <div class="background"
+                         ng-style="{'background-image': 'url(' + feature.backgroundUrl + ')',
+                                    'background-position': feature.backgroundPosition}"></div>
+                    <div class="content p-3 pt-5">
+                        <div class="feature-name">
+                            <h3>{{feature.name}}</h3>
+                            <div class="feature-description mb-2">
+                                {{feature.description}}
+                            </div>
+                            <button class="btn btn-primary action"
+                                    ng-if="feature.action"
+                                    ng-click="feature.action()">
+                                {{feature.actionLabel}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </slick>
+        </div>
+    </section>
+    <section drbbly-overlay="dhc.topPlayersOverlay" class="pt-3 top-players mb-5">
+        <div class="section-header">
+            <h5 class="drbbly-header">Top Players</h5>
+            <a ui-sref="main.players"
+               class="ml-auto">See all</a>
+        </div>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.carouselSettings.dots}">
+            <slick settings="dhc.carouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="player in dhc.topPlayers"
+                     class="px-3">
+                    <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
+    <section drbbly-overlay="dhc.tournamentsOverlay" class="pt-3 tournaments mb-5">
+        <div class="section-header">
+            <h5 class="drbbly-header">New Tournaments</h5>
+        </div>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.tournamentsCarouselSettings.dots}">
+            <slick settings="dhc.tournamentsCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="tournament in dhc.tournaments"
+                     class="px-3">
+                    <drbbly-tournamentlistitem tournament="tournament"></drbbly-tournamentlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
+    <div class="mb-5">
+        <!-- Ad -->
+        <span class="d-block text-center">Advertisement</span>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-lg-block">
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-xl-block">
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+    <section drbbly-overlay="dhc.teamsOverlay" class="pt-3 top-teams mb-5">
+        <div class="section-header">
+            <h5 class="drbbly-header">Top Teams</h5>
+            <a ui-sref="main.teams"
+               class="ml-auto">See all</a>
+        </div>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.teamsCarouselSettings.dots}">
+            <slick settings="dhc.teamsCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="team in dhc.teams"
+                     class="px-3">
+                    <drbbly-teamlistitem team="team"></drbbly-teamlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
+    <section drbbly-overlay="dhc.courtsListOverlay" class="pt-3 featured-courts mb-5">
+        <div class="section-header d-flex">
+            <h5 class="drbbly-header">
+                {{::'app.FeaturedCourts' | i18n}}
+            </h5>
+            <a ui-sref="main.courts"
+               class="ml-auto">See all</a>
+        </div>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.courtsCarouselSettings.dots}">
+            <slick settings="dhc.courtsCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="court in dhc.courts"
+                     class="px-3">
+                    <drbbly-courtlistitem class="w-100"
+                                          court="court"
+                                          on-click="dhc.featuredCourtClick"></drbbly-courtlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
+    <div>
+        <!-- Ad -->
+        <span class="d-block text-center">Advertisement</span>
+        <drbbly-ad type="'horizontal'"></drbbly-ad>
+    </div>
+</div>

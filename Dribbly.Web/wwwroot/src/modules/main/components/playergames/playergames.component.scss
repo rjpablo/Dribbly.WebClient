@@ -1,0 +1,28 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+$jersey-no-width: 2.5rem;
+
+drbbly-playergames {
+    .player-stats {
+        th, td {
+            background-color: $black;
+        }
+
+        th.jersey-no,
+        td.jersey-no {
+            position: sticky;
+            left: 0;
+            text-align: center;
+            background-color: $dark;
+        }
+
+        th.gameId,
+        td.gameId {
+            left: 0;
+            max-width: 150px;
+            text-overflow: ellipsis;
+            text-align: left;
+            position: sticky;
+        }
+    }
+}

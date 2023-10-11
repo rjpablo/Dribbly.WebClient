@@ -1,0 +1,40 @@
+﻿<div class="row mt-sm-3">
+    <div class="col">
+        <section>
+            <div ng-if="cgc.seasons && cgc.seasons.length">
+                <form name="cgc.searchForm" class="bg-light p-3 form">
+                    <div class="form-group">
+                        <input class="form-control" ng-model="cgc.titleFilter" placeholder="{{::'app.FilterBookingsByTitle' | i18n}}" />
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col">
+                        <div class="bg-light p-3">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-secondary">{{::'app.Name' | i18n}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="season in cgc.seasons | filter : cgc.courtFilter">
+                                        <td>{{season.name}}</td>
+                                    </tr>
+                                    <tr ng-if="cgc.seasons.length === 0">
+                                        <td>No seasons found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="!cgc.seasons.length"
+                 class="card mt-3 mt-sm-0">
+                <div class="card-body text-center">
+                    <button class="btn btn-primary"><i class="fa fa-plus"></i> Add New Season</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿<div class="modal-header">
+    {{stu.title}}
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="stu.overlay">
+        <div class="d-flex">
+            <div class="choices">
+                <div class="label">
+                    Choices
+                </div>
+                <div class="team-list">
+                    <button class="btn btn-outline-primary team" ng-repeat="team in stu.teams | filter : {selected: false} | orderBy : 'name'"
+                            ng-click="stu.toggleSelected(team)">
+                        <img ng-src="{{team.logo? team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
+                             class="logo"/>
+                        <span class="name text-line-1">{{team.name}}</span>
+                    </button>
+                </div>
+            </div>
+            <div class="selected">
+                <div class="label">
+                    Selected ({{(stu.teams | filter : {selected: true}).length}})
+                </div>
+                <div class="team-list">
+                    <button class="btn btn-outline-primary team" ng-repeat="team in stu.teams | filter : {selected: true} | orderBy : 'name'"
+                            ng-click="stu.toggleSelected(team)">
+                        <img ng-src="{{team.logo? team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
+                             class="logo" />
+                        <span class="name text-line-1">{{team.name}}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="!stu.hasMadeChanges || stu.isBusy"
+            type="submit"
+            ng-click="stu.handleSubmitClick()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-secondary"
+            type="button"
+            ng-click="stu.cancel()"></button>
+</div>

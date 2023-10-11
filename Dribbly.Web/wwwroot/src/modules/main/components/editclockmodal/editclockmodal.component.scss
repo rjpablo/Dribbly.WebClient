@@ -1,0 +1,36 @@
+drbbly-editclockmodal {
+    fieldset > div {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+
+        .form-group {
+            display: inline-block;
+            margin-bottom: 0;
+            flex-grow: 1;
+
+            input {
+                display: block;
+                font-size: 2rem;
+                text-align: right;
+                width: 100%;
+            }
+
+            label {
+                display: block;
+                text-align: center;
+                font-weight: 600;
+            }
+        }
+
+        .separator {
+            font-size: 2rem;
+        }
+    }
+
+    .shot-clock{
+        .form-group{
+            max-width: 100px
+        }
+    }
+}

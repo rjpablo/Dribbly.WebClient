@@ -1,0 +1,70 @@
+﻿<div class="modal-header">
+    <h3>JUMP BALL</h3>
+</div>
+<div class="modal-body">
+    <div class="border-bottom mb-3">
+        <form name="jbm.frmJumpball">
+            <div class="form-row">
+                <div class="col-5">
+                    <div class="team-details">
+                        <img class="logo" ng-src="{{jbm.team1.team.logo.url}}" />
+                        <span class="d-inline-block">
+                            {{jbm.team1.team.shortName}}
+                        </span>
+                    </div>
+                    <div class="players">
+                        <div class="form-group">
+                            <drbbly-playerselect player="jbm.team1Player"
+                                                 prompt="Select jumper for {{jbm.team1.team.shortName}}"
+                                                 class="form-control"
+                                                 choices="jbm.team1PlayerOptions"
+                                                 modal-container="jbm.options.container"></drbbly-playerselect>
+                            <input type="text"
+                                   name="performedBy"
+                                   required
+                                   hidden
+                                   ng-model="jbm.team1Player.teamMembership.account.id" />
+                        </div>
+                    </div>
+                </div>
+                <div class="vs col-2">
+                    VS
+                </div>
+                <div class="col-5">
+                    <div class="team-details">
+                        <img class="logo" ng-src="{{jbm.team2.team.logo.url}}" />
+                        <span class="d-inline-block">
+                            {{jbm.team2.team.shortName}}
+                        </span>
+                    </div>
+                    <div class="players">
+                        <div class="form-group">
+                            <drbbly-playerselect player="jbm.team2Player"
+                                                 prompt="Select jumper for {{jbm.team2.team.shortName}}"
+                                                 class="form-control"
+                                                 choices="jbm.team2PlayerOptions"
+                                                 modal-container="jbm.options.container"></drbbly-playerselect>
+                            <input type="text"
+                                   name="performedBy"
+                                   required
+                                   hidden
+                                   ng-model="jbm.team2Player.teamMembership.account.id" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div>
+        <button class="btn btn-primary btn-block btn-lg mb-1"
+                ng-disabled="jbm.frmJumpball.$invalid"
+                ng-click="jbm.startClock()">
+            Start Clock
+        </button>
+        <button class="btn btn-secondary btn-block btn-lg mb-1"
+                ng-click="jbm.close()">
+            {{jbm.clockHasStarted? 'Close':'Cancel'}}
+        </button>
+    </div>
+</div>

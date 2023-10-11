@@ -1,0 +1,32 @@
+@import '../../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-texteditor {
+    .wysiwyg-menu {
+        border: 1px solid #ccc;
+        border-radius: 0.25rem 0.25rem 0 0;
+        display: none;
+
+        & > div {
+            background-color: $white;
+
+            button {
+                color: $black;
+            }
+        }
+    }
+
+    &.texteditor-dark {
+        .wysiwyg-textarea {
+            background-color: $black;
+            border-color: $secondary;
+            color: $white;
+
+            &:focus {
+                background-color: $black;
+                border-color: $secondary;
+                color: $white;
+            }
+        }
+    }
+}

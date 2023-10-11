@@ -10,11 +10,19 @@
 #Documentation
 Documentation.docx
 
+#Compiles css files
+Dribbly.Web/wwwroot/src/**/*.css
+
+#JSDoc output
+Dribbly.Web/jsdoc/out/
+
 #NPM cache
 Appsnodejsnpm-cache
 
+Dribbly.Web/wwwroot/dest/
+Dribbly.Web/wwwroot/dist/
 Deployment Files/
-
+Designs/
 #Libraries
 [Ll]ib/
 
@@ -270,3 +278,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Dribbly.Web/wwwroot/src/custom/ng-image-gallery/ng-image-gallery.min.css

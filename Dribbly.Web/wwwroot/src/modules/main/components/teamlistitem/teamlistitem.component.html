@@ -1,0 +1,34 @@
+﻿<div class="photo-container"
+     ui-sref="main.team.home({id: tli.team.teamId})">
+    <img ng-src="{{tli.team.logo? tli.team.logo.url : $root.constants.images.defaultTeamLogoUrl}}"
+         class="w-100" />
+    <div class="stats">
+        <table>
+            <tr class="stat">
+                <td class="label" title="Win Percentage">W%</td>
+                <td class="value">{{(tli.team.gw / tli.team.gp) * 100 | number : 0}}</td>
+            </tr>
+            <tr class="stat">
+                <td class="label" title="Points Per Game">PPG</td>
+                <td class="value">{{tli.team.ppg | number : 0}}</td>
+            </tr>
+            <tr class="stat">
+                <td class="label" title="Assists Per Game">APG</td>
+                <td class="value">{{tli.team.apg | number : 1}}</td>
+            </tr>
+            <tr class="stat">
+                <td class="label" title="Rebounds Per Game">RPG</td>
+                <td class="value">{{tli.team.rpg | number : 1}}</td>
+            </tr>
+            <tr class="stat" title="3-Point Percentage">
+                <td class="label">3P%</td>
+                <td class="value">{{tli.team.threePP * 100 | number : 0}}</td>
+            </tr>
+            <tr class="stat">
+                <td class="label" title="Games Played">GP</td>
+                <td class="value">{{tli.team.gp}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<a ui-sref="main.team.home({id: tli.team.teamId})">{{tli.team.name}}</a>

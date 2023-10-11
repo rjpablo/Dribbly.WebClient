@@ -4,21 +4,16 @@
     ViewData["Title"] = "Main";
 }
 
-<div ui-view></div>
+<div id="drbbly-body-overlay"></div>
+<div id="drbbly-root-container"
+     app="app"
+     ng-if="!app.overlay.isError && app.authVerified"
+     ui-view></div>
+<div id="app-overlay"
+     ng-class="{'has-error': app.overlay.isError}">
+    <div class="d-flex flex-column p-3">
+        <img src="~/src/images/backgrounds/ball_stuck.png" />
+        <h3 class="text-light my-3 text-center">{{::'site.Error_Common_UnexpectedError' | i18n}}</h3>
+    </div>
+</div>
 
-@section Scripts{
-    <script src="~/modules/main/main-module.js"></script>
-    <script src="~/modules/main/main-controller.js"></script>
-
-    @* shared components *@
-    <script src="~/modules/main/components/shared/main-container/main-container-component.js"></script>
-    <script src="~/modules/main/components/shared/main-container/main-container-service.js"></script>
-
-    @* home components *@
-    <script src="~/modules/main/components/home/home-container/home-container-service.js"></script>
-    <script src="~/modules/main/components/home/home-container/home-container-component.js"></script>
-
-    @* courts components *@
-    <script src="~/modules/main/components/courts/courts-container/courts-container-service.js"></script>
-    <script src="~/modules/main/components/courts/courts-container/courts-container-component.js"></script>
-}

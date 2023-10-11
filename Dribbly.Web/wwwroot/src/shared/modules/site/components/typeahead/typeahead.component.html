@@ -1,0 +1,61 @@
+﻿<div class="selected-items">
+    <div ng-repeat="item in dta.selectedItems"
+         class="bg-white rounded-left rounded-right selected-item">
+        <div class="d-flex align-items-center">
+            <img ng-if="item.iconUrl"
+                 ng-src="{{item.iconUrl}}"
+                 class="suggestion-icon mx-1" />
+            {{item.text}}
+            <a class="btn px-1 py-0"
+                    tabindex="-1"
+                    ng-click="dta.unselect(item)">
+                <i class="fa fa-times-circle"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div uib-dropdown
+     auto-close="disabled"
+     is-open="dta.isShowingStatus"
+     ng-class="{'results-hidden': dta.config.hideResults}">
+    <input type="text"
+           class="typeahead-text-input dropdown-toggle"
+           ng-class="{'w-100': !dta.selectedItems.length}"
+           ng-hide="!dta.config.isMultiple && dta.selectedItems.length > 0"
+           ng-model="dta.keyword"
+           ng-change="dta.keywordChanged(dta.keyword)"
+           placeholder="{{::dta.config.placeholder || ('app.StartTypingToLoadSuggestions' | i18n)}}"
+           uib-typeahead="item.text for item in dta._getItems($viewValue)"
+           typeahead-editable="false"
+           typeahead-focus-first="true"
+           typeahead-wait-ms="300"
+           typeahead-on-select="dta._onSelect($item, $model, $label, $event)"
+           typeahead-loading="dta.isLoading"
+           typeahead-no-results="dta._noResults"
+           typeahead-template-url="{{'dribbly-typeahead-match.html'}}">
+    <span class="loading-indicator"
+          ng-show="dta.isLoading && dta.config.hideResults">
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+    </span>
+    <div class="dropdown-menu"
+         uib-dropdown-menu
+         ng-show="dta.isLoading || (dta._noResults || dta.keyword)">
+        <span class="dropdown-item"
+              ng-show="dta.isLoading">
+            <i class="fa fa-refresh fa-spin"></i>&nbsp;{{::'app.LoadingSuggestionsEllipsis' | i18n}}
+        </span>
+        <span class="dropdown-item"
+              ng-show="dta._noResults || dta.keyword">
+            <i class="fa fa-times"></i>&nbsp;{{::'app.NoSuggestionsFound' | i18n}}
+        </span>
+    </div>
+</div>
+<script type="text/ng-template" id="dribbly-typeahead-match.html">
+    <button tabindex="-1"
+            type="button"
+            class="dropdown-item">
+        <img ng-src="{{match.model.iconUrl}}"
+             class="suggestion-icon" />
+        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+    </button>
+</script>

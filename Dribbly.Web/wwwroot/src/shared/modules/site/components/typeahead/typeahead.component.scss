@@ -1,0 +1,48 @@
+drbbly-typeahead {
+    display: inline-block;
+    align-items: center;
+    height: auto !important;
+    position: relative;
+
+    .selected-item {
+        display: inline-block;
+        background-color: #ddd;
+
+        img {
+            border-radius: 50%;
+            width: 1.25em !important;
+            height: 1.25em !important;
+        }
+    }
+
+    [uib-dropdown] {
+        display: flex;
+        flex-grow: 1;
+        width: 100%;
+
+        input.typeahead-text-input {
+            border: none !important;
+            min-width: 150px;
+            outline: none !important;
+            flex-grow: 1;
+        }
+
+        .loading-indicator {
+            margin-left: auto;
+        }
+
+        .dropdown-menu {
+            .uib-typeahead-match .suggestion-icon {
+                border-radius: 50%;
+                width: 2em !important;
+                height: 2em !important;
+            }
+        }
+
+        &.results-hidden {
+            & > .dropdown-menu {
+                display: none !important;
+            }
+        }
+    }
+}

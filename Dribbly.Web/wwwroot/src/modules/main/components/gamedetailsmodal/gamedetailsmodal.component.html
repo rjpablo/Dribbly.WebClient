@@ -1,0 +1,344 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" i18n="{{::bgm.model.isEdit? 'app.UpdateGameDetails' : 'app.NewGameDetails'}}"></h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="bgm.overlay">
+        <form name="bgm.frmGameDetails"
+              novalidate>
+            <fieldset ng-disabled="bgm.isBusy">
+                <div class="form-row">
+                    <div class="col-3">
+                        <label for="txtName">{{::'app.Title' | i18n}} <small class="text-lowercase">({{::'site.Optional' | i18n}})</small>:</label>
+                    </div>
+                    <div class="col-9">
+                        <div class="form-group">
+                            <input type="text"
+                                   name="txtName"
+                                   ng-model="bgm.saveModel.title"
+                                   placeholder="{{::'app.Untitled' | i18n}}"
+                                   class="form-control"
+                                   ng-class="{'is-invalid': bgm.frmGameDetails.txtName.$touched && bgm.frmGameDetails.txtName.$invalid}"
+                                   minlength="5" />
+                            <div ng-show="bgm.frmGameDetails.txtName.$error.minlength" class="invalid-feedback">
+                                {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-3">
+                        <label for="start">Teams*:</label>
+                    </div>
+                    <div class="col-9">
+                        <div class="form-group">
+                            <drbbly-typeahead selected-items="bgm.team1Selection"
+                                              config="bgm.team1TypeAheadConfig"
+                                              ng-required="!bgm.saveModel.isTeam1Open"
+                                              ng-show="!bgm.saveModel.isTeam1Open"
+                                              name="typTeam1"
+                                              ng-model="bgm.saveModel.team1Id"
+                                              class="form-control mb-0">
+                            </drbbly-typeahead>
+                            <div class="text-center">vs</div>
+                            <drbbly-typeahead selected-items="bgm.team2Selection"
+                                              config="bgm.team2TypeAheadConfig"
+                                              ng-required="!bgm.saveModel.isTeam2Open"
+                                              ng-show="!bgm.saveModel.isTeam2Open"
+                                              name="typTeam2"
+                                              ng-model="bgm.saveModel.team2Id"
+                                              class="form-control">
+                            </drbbly-typeahead>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-3">
+                        <label for="typCourt">{{::'app.Court' | i18n}}*:</label>
+                    </div>
+                    <div class="col-9">
+                        <div class="form-group">
+                            <drbbly-typeahead selected-items="bgm.selectedCourts"
+                                              config="bgm.typeAheadConfig"
+                                              required
+                                              name="typCourt"
+                                              ng-model="bgm.saveModel.courtId"
+                                              class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-3">
+                        <label for="start">{{::'app.Schedule' | i18n}}*:</label>
+                    </div>
+                    <div class="col-9">
+                        <div class="form-group">
+                            <drbbly-datetimepicker ng-model="bgm.saveModel.start"
+                                                   name="dtpStart"
+                                                   sid="start"
+                                                   value-changed="bgm.startChanged"
+                                                   required
+                                                   options="bgm.startDateOptions"></drbbly-datetimepicker>
+                            <!-- This is a remedy for the error message to display properly.
+                            It requires a sibling with classes .is-invalid and .form-control for it to appear,
+                            but adding those classes to the datetime picker does not yield a very good result-->
+                            <span class="form-control d-none"
+                                  ng-class="{'is-invalid': bgm.frmGameDetails.dtpStart.$touched && bgm.frmGameDetails.dtpStart.$invalid}"></span>
+                            <div ng-show="bgm.frmGameDetails.dtpStart.$error.required" class="invalid-feedback">
+                                {{::'site.Required' | i18n}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-row">
+                    <div class="col-3">
+                        <label>Timed</label>
+                    </div>
+                    <div class="col-9">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox"
+                                   id="swTimed"
+                                   ng-model="bgm.saveModel.isTimed"
+                                   class="custom-control-input">
+                            <label class="custom-control-label" for="swTimed"></label>
+                        </div>
+                    </div>
+                </div>-->
+                <ul class="nav nav-tabs" id="myTab" role="tablist"
+                    ng-show="bgm.saveModel.isTimed">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active"
+                           href
+                           data-toggle="tab"
+                           data-target="#periods"
+                           role="tab"
+                           aria-controls="periods"
+                           aria-selected="true">
+                            Periods
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link"
+                           href
+                           data-toggle="tab"
+                           data-target="#clock"
+                           role="tab"
+                           aria-controls="clock">
+                            Clock
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link"
+                           href
+                           data-toggle="tab"
+                           data-target="#timeouts"
+                           role="tab"
+                           aria-controls="timeouts">
+                            Timeouts
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link"
+                           href
+                           data-toggle="tab"
+                           data-target="#fouls"
+                           role="tab"
+                           aria-controls="fouls">
+                            Fouls
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent"
+                     ng-show="bgm.saveModel.isTimed">
+                    <div class="tab-pane show active" id="periods" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtRegulationPeriodCount">No. of Regulation Periods:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtRegulationPeriodCount"
+                                                   ng-required="bgm.saveModel.isTimed"
+                                                   min="0"
+                                                   ng-model="bgm.saveModel.numberOfRegulationPeriods"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtRegulationDuration">Regulation Period Duration(in minutes):</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtRegulationDuration"
+                                                   ng-required="bgm.saveModel.isTimed"
+                                                   min="0"
+                                                   ng-model="bgm.saveModel.regulationPeriodDuration"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtOvertimeDuration">Overtime Period Duration(in minutes):</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtOvertimeDuration"
+                                                   ng-required="bgm.saveModel.isTimed"
+                                                   min="0"
+                                                   ng-model="bgm.saveModel.overtimePeriodDuration"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane show" id="clock" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtdefaultShotClockDuration">Default Shot Clock Duration(minutes):</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtdefaultShotClockDuration"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.defaultShotClockDuration"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtOffensiveRebondShotClockDuration">Off. Rebound Shot Clock Reset(minutes):</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtOffensiveRebondShotClockDuration"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.offensiveRebondShotClockDuration"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="swUseRunningClock">Use Running Clock</label>
+                                            <i class="fa fa-info-circle" uib-tooltip="If turned on, the clock will not automatically stop after a successful field goal"></i>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="custom-control custom-switch pb-4">
+                                                <input type="checkbox"
+                                                       id="swUseRunningClock"
+                                                       ng-model="bgm.saveModel.usesRunningClock"
+                                                       class="custom-control-input">
+                                                <label class="custom-control-label" for="swUseRunningClock"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="timeouts" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtFullTimeoutLimit">Full Timeout Limit:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtFullTimeoutLimit"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.fullTimeoutLimit"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtShortTimeoutLimit">Short Timeout Limit:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtShortTimeoutLimit"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.shortTimeoutLimit"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="fouls" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtPersonalFoulLimit">Personal Foul Limit:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtPersonalFoulLimit"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.personalFoulLimit"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-6">
+                                            <label for="txtTechnicalFoulLimit">Teachnical Foul Limit:</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   name="txtTechnicalFoulLimit"
+                                                   min="1"
+                                                   ng-model="bgm.saveModel.technicalFoulLimit"
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            ng-disabled="bgm.isBusy || bgm.frmGameDetails.$invalid || (bgm.model.isEdit && bgm.frmGameDetails.$pristine)"
+            type="submit"
+            ng-click="bgm.submit()">
+        <span ng-if="!bgm.isBusy">
+            Submit
+        </span>
+        <span ng-if="bgm.isBusy">
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+        </span>
+    </button>
+    <button i18n="site.Cancel"
+            class="btn btn-secondary"
+            type="button"
+            ng-click="bgm.cancel()"
+            ng-disabled="bgm.isBusy"></button>
+</div>

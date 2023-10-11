@@ -1,0 +1,30 @@
+@import '../../../../lib/bootstrap/_functions.scss';
+@import '../../../../lib/bootstrap/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-courtphotos {
+
+    @include media-breakpoint-down(xl) {
+        drbbly-image,
+        .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
+            height: 150px !important;
+            width: 20% !important;
+        }
+    }
+
+    @include media-breakpoint-down(lg) {
+        drbbly-image,
+        .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
+            height: 150px !important;
+            width: 25% !important;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        drbbly-image,
+        .ng-image-gallery .ng-image-gallery-thumbnails .thumb {
+            height: 100px !important;
+            width: 33.3333% !important;
+        }
+    }
+}

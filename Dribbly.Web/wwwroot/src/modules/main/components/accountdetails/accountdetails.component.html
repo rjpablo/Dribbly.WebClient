@@ -1,0 +1,90 @@
+﻿<div drbbly-overlay="dad.overlay">
+    <div class="container px-0 px-sm-3">
+        <div class="row">            
+            <div class="col-12 col-md-9">
+                <div class="card drbbly-card w-100 mb-3">
+                    <div class="card-header">
+                        <h5 class="drbbly-header d-inline-block m-0">
+                            {{::'app.Details' | i18n}}
+                        </h5>
+                        <button ng-if="dad.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
+                                ng-click="dad.edit()"
+                                class="btn btn-sm btn-secondary float-right">
+                            <span class="fa fa-pencil" aria-hidden="true"></span>&nbsp;
+                            {{::'site.Edit' | i18n}}
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="text-secondary" class="text-secondary">{{::'site.FirstName' | i18n}}</label>
+                            </div>
+                            <div class="col-8">
+                                <span>{{dad.account.firstName}}</span>
+                            </div>
+                            <div class="col-4">
+                                <label class="text-secondary">{{::'site.LastName' | i18n}}</label>
+                            </div>
+                            <div class="col-8">
+                                <span>{{dad.account.lastName}}</span>
+                            </div>
+                            <div class="col-4">
+                                <label class="text-secondary">{{::'app.Position' | i18n}}</label>
+                            </div>
+                            <div class="col-8">
+                                <span ng-if="dad.account.position">{{('app.PlayerPositionEnum.' + dad.account.position) | i18n}}</span>
+                                <span ng-show="!dad.account.position"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                            </div>
+                            <div class="col-4">
+                                <label class="text-secondary">{{::'app.Height' | i18n}}</label>
+                            </div>
+                            <div class="col-8">
+                                {{dad.account.heightInches | height}}
+                            </div>
+                            <div class="col-4">
+                                <label class="text-secondary">{{::'app.HomeCourt' | i18n}}:</label>
+                            </div>
+                            <div class="col-8">
+                                <drbbly-entitystub entity="dad.account.homeCourt"
+                                                   ng-if="dad.account.homeCourt"></drbbly-entitystub>
+                                <span ng-show="!dad.account.homeCourt"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                            </div>
+                            <div class="col-4">
+                                <label class="text-secondary">{{::'app.Gender' | i18n}}</label>
+                            </div>
+                            <div class="col-8">
+                                {{dad.account.gender | gender}}
+                            </div>
+                            <div class="col-4"
+                                ng-if="dad.isOwned">
+                                <label class="text-secondary">{{::'app.Age' | i18n}}</label>
+                            </div>
+                            <div class="col-8"
+                                ng-if="dad.isOwned">
+                                <span ng-if="dad.account.age">{{'app.AgeValue' | i18n : { age: dad.account.age } }}</span>
+                                <span ng-show="!dad.account.age"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                            </div>
+                            <div class="col-4">
+                                <label class="text-secondary">{{::'app.DateJoined' | i18n}}</label>
+                            </div>
+                            <div class="col-8">
+                                <span>{{dad.account.dateAdded | date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="sticky-top">
+                    <!-- Ad -->
+                    <span class="d-block text-center">Advertisement</span>
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

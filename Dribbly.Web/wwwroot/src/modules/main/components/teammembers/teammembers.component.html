@@ -1,0 +1,65 @@
+﻿<div class="container px-0 px-sm-3 mt-3">
+    <div class="row">
+        <div class="col-12 col-md-9">
+            <uib-tabset active="dad._activeTabIndex">
+                <!-- #region Teams -->
+                <uib-tab index="1" heading="Current Members">
+                    <div class="row">
+                        <div class="col-12">
+                            <div drbbly-overlay="dad.overlay">
+                                <drbbly-teammemberslist members="dad.currentMembers"
+                                                        team="dad.team"
+                                                        settings="dad.memberListSettings"
+                                                        can-remove="dad.isManager"
+                                                        on-request-processed="dad.onRequestProcessed"
+                                                        on-member-removed="dad.onMemberRemoved"
+                                                        class="d-block mb-3">
+                                </drbbly-teammemberslist>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <!-- Ad -->
+                            <span class="d-block text-center">Advertisement</span>
+                            <drbbly-ad type="'horizontal'"></drbbly-ad>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="2"
+                         ng-if="dad.isManager">
+                    <uib-tab-heading>
+                        Join Requests
+                        <span class="badge badge-primary"
+                              ng-if="dad.requestingMembers.length">
+                            {{dad.requestingMembers.length}}
+                        </span>
+                    </uib-tab-heading>
+                    <div class="row pt-3">
+                        <div class="col-12">
+                            <drbbly-teammemberslist members="dad.requestingMembers"
+
+                                                    team="dad.team"
+                                                    settings="dad.memberListSettings"
+                                                    can-process-request="dad.isManager"
+                                                    on-request-processed="dad.onRequestProcessed"
+                                                    class="d-block mb-3">
+                            </drbbly-teammemberslist>
+                        </div>
+                        <div class="col-12">
+                            <!-- Ad -->
+                            <span class="d-block text-center">Advertisement</span>
+                            <drbbly-ad type="'horizontal'"></drbbly-ad>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+        <div class="col-12 col-md-3 d-none d-md-block">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿<form name="dlf.frmLogin" class="drrbly-login-form">
+    <p ng-if="dlf.messageKey"
+       class="text-center">{{::dlf.messageKey | i18n}}</p>
+    <p ng-if="dlf.errorMessage"
+       class="alert alert-danger">
+        {{dlf.errorMessage}}
+    </p>
+    <fieldset ng-disabled="dlf.isBusy">
+        <div class="form-group">
+            <input class="form-control" required ng-model="dlf.loginData.username" name="email" type="text" placeholder="{{'site.Email' | i18n
+        }}" />
+        </div>
+        <div class="form-group">
+            <input class="form-control" required ng-model="dlf.loginData.password" name="password" type="password" placeholder="{{'site.Password' | i18n}}" />
+            <a ui-sref="auth.forgotPassword"
+               class="btn btn-link p-0"
+               tabindex="-1">{{'auth.ForgotPassword' | i18n}}</a>
+        </div>
+    </fieldset>
+    <div class="form-group">
+        <button type="submit"
+                ng-click="dlf.login()"
+                ng-disabled="dlf.frmLogin.$invalid || dlf.isBusy"
+                class="btn btn-primary w-100"
+                ng-switch="dlf.isBusy">
+            <span ng-switch-when="true">
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+            </span>
+            <span ng-switch-default>{{::'auth.LogIn' | i18n}}</span>
+        </button>
+    </div>
+    <p class="text-center">{{'auth.DontHaveAnAccount' | i18n}}<a class="btn btn-link" ui-sref="auth.signUp">{{'auth.SignUp' | i18n}}</a></p>
+    <p class="text-center">{{ 'site.Or' | i18n }}</p>
+    <drbbly-socialauth active="true"
+                       is-busy="dlf.isBusy"></drbbly-socialauth>
+</form>

@@ -1,0 +1,32 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" i18n="{{::'app.Title'}}"></h3>
+</div>
+<div class="modal-body">
+    <form name="mod.frmCourtDetails"
+          ng-if="mod.saveModel">
+        <fieldset ng-disabled="mod.isBusy">
+            <div class="form-group">
+                <lable for="txtName">
+                    {{::'site.Name' | i18n}}
+                    <input type="text"
+                           name="txtName"
+                           ng-model="mod.saveModel.name"
+                           class="form-control"
+                           required
+                           max="100" />
+                </lable>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button i18n="{{::'site.Submit'}}"
+            class="btn btn-primary"
+            ng-disabled="mod.isBusy || mod.frmCourtDetails.$invalid || mod.frmCourtDetails.$prestine"
+            type="button"
+            ng-click="mod.submit()"></button>
+    <button i18n="{{::'site.Cancel'}}"
+            class="btn btn-warning"
+            type="button"
+            ng-click="mod.cancel()"></button>
+</div>

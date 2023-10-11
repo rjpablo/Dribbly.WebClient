@@ -1,0 +1,37 @@
+﻿<a ng-href="{{::dni.targetLink}}" class="link-unstyled">
+    <div class="text-wrap">
+        <!--#region Booking-Related  -->
+        <div ng-if="dni.item.type === $root.constants.enums.notificationTypeEnum.NewBookingForBooker"
+             ng-bind-html="('app.Notification_ABookingHasBeenMadeForYouAtCourtName' | i18n : {courtName: dni.item.courtName})">
+        </div>
+        <div ng-if="dni.item.type === $root.constants.enums.notificationTypeEnum.NewBookingForOwner"
+             ng-bind-html="('app.Notification_UserMadeABookingAtCourtName' | i18n : {courtName: dni.item.courtName, username: dni.item.bookedByName})">
+        </div>
+        <!--#endregion Booking-Related  -->
+        <!--#region Game-Related  -->
+        <div ng-if="dni.item.type === $root.constants.enums.notificationTypeEnum.GameUpdatedForBooker ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.GameUpdatedForOwner"
+             ng-bind-html="('app.Notification_UserUpdatedGame' | i18n : {courtName: dni.item.game.title, username: dni.item.updatedByName})">
+        </div>
+        <!--#endregion Game-Related  -->
+        <!--#region Tournament-Related  -->
+        <div ng-if="dni.item.type === $root.constants.enums.notificationTypeEnum.NewJoinTournamentRequest ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTeamRequest ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTeamRequestApproved ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTournamentRequestApproved ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinTournamentRequestRejected ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.TournamentTeamRemoved ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.NewGameForOwner ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.NewGameForBooker ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.AssignedAsTimekeeper ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinGroupRequest ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinGroupRequestApproved"
+             ng-bind-html="::dni.getTemplate(dni.item)">
+        </div>
+        <!--#endregion JoinTeamRequest-Related -->
+    </div>
+    <small class="text-muted float-right">
+        <drbbly-date date="dni.item.dateAdded"
+                     as-from-now="true"></drbbly-date>
+    </small>
+</a>

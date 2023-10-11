@@ -1,0 +1,25 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-courts-container {
+
+    .search-section {
+        padding-top: 3rem;
+        background-image: url(../../../../images/backgrounds/basketball_court_1.jpg);
+        height: 350px;
+        background-size: cover;
+        background-position-x: left;
+        background-position-y: center;
+
+        .search-box {
+            background-color: rgba(225, 225, 225, 0.9);
+
+            .search-textbox {
+                color: $gray-800;
+            }
+        }
+    }
+
+    drbbly-courtlistitem .details .name {
+        color: #fff;
+    }
+}

@@ -1,0 +1,51 @@
+﻿<div>
+    <div class="container-fluid">
+        <section class="search-section row">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 mx-auto">
+                <div class="row no-gutters p-3 search-box">
+                    <div class="col-12 d-flex justify-content-between">
+                        <h4 class="text-dark m-0">{{::'app.FindACourt' | i18n}}</h4>
+                        <button class="btn btn-link"
+                                ng-click="dcc.addCourt()">
+                            <span class="fa fa-plus"></span>&nbsp;{{::'app.AddACourt' | i18n}}
+                        </button>
+                    </div>
+                    <input type="text"
+                           ng-click="dcc.beginSearch()"
+                           readonly="readonly"
+                           class="search-textbox text-center form-control col-12"
+                           placeholder="{{::'app.CourtSearchPrompt' | i18n}}"
+                           ng-model="dcc.searchKey"
+                           name="txtSearch" />
+                    <div class="d-none col-12 text-center">{{::'site.Or' | i18n}}</div>
+                    <button class="d-none col-12 btn btn-primary"><i class="fa fa-map-marker"></i>&nbsp;{{::'app.UseMap' | i18n}}</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="container">
+        <section drbbly-overlay="dcc.courtsListOverlay" class="pt-3 featured-courts">
+            <h4 class="drbbly-header">{{::'app.FeaturedCourts' | i18n}}</h4>
+            <div class="slick-slider"
+                 ng-class="{'slick-dotted': dcc.carouselSettings.dots}">
+                <slick settings="dcc.carouselSettings"
+                       class="dark-transparent-bg">
+                    <div ng-repeat="court in dcc.courts"
+                         class="px-3">
+                        <drbbly-courtlistitem class="w-100"
+                                              court="court"
+                                              on-click="dcc.featuredCourtClick"></drbbly-courtlistitem>
+                    </div>
+                </slick>
+            </div>
+        </section>
+    </div>
+    <div class="container">
+        <drbbly-nearbycourts initial-item-count="12"></drbbly-nearbycourts>
+        <div>
+            <!-- Ad -->
+            <span class="d-block text-center">Advertisement</span>
+            <drbbly-ad type="'horizontal'"></drbbly-ad>
+        </div>
+    </div>
+</div>

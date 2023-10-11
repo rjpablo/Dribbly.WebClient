@@ -1,0 +1,55 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-tournamentstages {
+    .stage {
+
+        .nav {
+            display: block;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+
+            .nav-item {
+                display: inline-block;
+            }
+        }
+
+        .ui-droppable-hover {
+            .bracket-name {
+                color: $white !important;
+                text-decoration: underline;
+            }
+        }
+
+        .bracket-list-item,
+        .team {
+            margin-bottom: 0.1em;
+            display: flex;
+            padding: 0;
+            border: 1px solid #1a1a1a;
+            background-color: #000;
+            color: $white;
+        }
+
+        .team {
+
+            .logo {
+                height: 30px;
+                width: 30px;
+                flex-shrink: 0;
+                border-radius: 50%;
+            }
+
+            .name {
+                flex-grow: 1;
+                text-align: left;
+                padding: 0 0.15em;
+            }
+
+            .drag-handle {
+                align-self: center;
+                padding: 0 0.5em;
+            }
+        }
+    }
+}

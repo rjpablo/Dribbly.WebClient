@@ -1,0 +1,56 @@
+﻿<div class="container">
+    <div class="row mt-sm-3">
+        <section class="col-12 col-lg-9">
+            <div class="section-header d-flex">
+                <h5 class="drbbly-header">Games</h5>
+            </div>
+            <div class="filters">
+                <div class="py-3 d-flex justify-content-center"
+                     ng-show="dtg.hasStages">
+                    <form>
+                        <select ng-model="dtg.selectedDate"
+                                class="form-control"
+                                ng-change="dtg.stageFilterChanged(dtg.filter.stage)"
+                                ng-options="date as date.label for date in dtg.gameDates | orderBy : 'date' track by date.date">
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <div ng-if="dtg.selectedDate.games && dtg.selectedDate.games.length">
+                <div class="row">
+                    <div class="col-md-6"
+                         ng-repeat="game in (dtg.selectedDate.games | orderBy: 'start') track by game.id">
+                        <drbbly-gamelistitem class="w-100 mb-3"
+                                             can-delete="dtg.canDeleteItem"
+                                             can-edit="dtg.canEditItem"
+                                             game="game"></drbbly-gamelistitem>
+                    </div>
+                    <div class="col-12">
+                        <div class="sticky-top">
+                            <!-- Ad -->
+                            <span class="d-block text-center">Advertisement</span>
+                            <drbbly-ad type="'horizontal'"></drbbly-ad>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="dtg.selectedDate.games && dtg.selectedDate.length === 0 && !dtg.isManager">
+                <p class="text-secondary">(No games scheduled.)</p>
+            </div>
+            <div ng-if="dtg.tournament.games && dtg.tournament.games.length === 0 && dtg.isManager">
+                <p ng-if="dtg.isManager">
+                    Use the <a ui-sref="main.tournament.stages({id: dtg.tournament.id})" tabindex>Stages tab</a> to
+                    add games and teams to each stage of the tournament.
+                </p>
+            </div>
+        </section>
+        <div class="col-12 col-lg-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+</div>

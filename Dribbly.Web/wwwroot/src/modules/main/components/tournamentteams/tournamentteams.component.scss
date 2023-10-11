@@ -1,0 +1,48 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-tournamentteams {
+    .join-requests,
+    .current-teams {
+        .team-logo {
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+        }
+    }
+
+    .ui-droppable-hover {
+        .bracket-name {
+            color: $white !important;
+            text-decoration: underline;
+        }
+    }
+
+    .stage {
+
+        .team {
+            margin-bottom: 0.1em;
+            display: flex;
+            padding: 0;
+            border: 1px solid $gray-900;
+            background-color: $black;
+
+            .logo {
+                height: 30px;
+                width: 30px;
+                flex-shrink: 0;
+                border-radius: 50%;
+            }
+
+            .name {
+                flex-grow: 1;
+                text-align: left;
+                padding: 0 0.15em;
+            }
+
+            .drag-handle {
+                align-self: center;
+                padding: 0 0.5em;
+            }
+        }
+    }
+}

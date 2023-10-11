@@ -1,0 +1,22 @@
+﻿<div ng-if="dam.model.titleKey || dam.model.titleRaw" class="modal-header">
+    <h3 class="modal-title">{{dam.model.titleRaw || (dam.model.titleKey | i18n)}}</h3>
+</div>
+<div class="text-center modal-body">
+    <div ng-if="!dam.model.bodyTemplate">
+        <h5 ng-if="dam.model.msg1Key">{{dam.model.msg1Key | i18n}}</h5>
+        <h5 ng-if="dam.model.msg1Raw">{{dam.model.msg1Raw}}</h5>
+        <p ng-if="dam.model.msg2Key">{{dam.model.msg2Key | i18n}}</p>
+        <p ng-if="dam.model.msg2Raw">{{dam.model.msg2Raw}}</p>
+    </div>
+    <div ng-if="dam.model.bodyTemplate"
+         ng-bind-html="dam.model.bodyTemplate">
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button"
+            ng-repeat="btn in dam.model.options.buttons"
+            ng-class="btn.class"
+            ng-click="btn.action()">
+        {{::btn.textKey | i18n}}
+    </button>
+</div>

@@ -1,0 +1,87 @@
+﻿<div class="container">
+    <section class="pt-3 top-players">
+        <div class="">
+            <h5 class="drbbly-header">Top Players</h5>
+        </div>
+        <div drbbly-overlay="dhc.topPlayersOverlay">
+            <div class="slick-slider"
+                 ng-class="{'slick-dotted': dhc.carouselSettings.dots}">
+                <slick settings="dhc.carouselSettings"
+                       class="dark-transparent-bg">
+                    <div ng-repeat="player in dhc.topPlayers"
+                         class="px-3">
+                        <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
+                    </div>
+                </slick>
+            </div>
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-12 col-lg-9">
+            <section class="pt-3 top-players leaders">
+                <div>
+                    <h5 class="drbbly-header">Leaders Per Category</h5>
+                </div>
+                <div drbbly-overlay="dhc.leadersOverlay">
+                    <div class="row">
+                        <div ng-repeat="group in dhc.leaderGroups"
+                             class="col-12 col-sm-6 col-md-4">
+                            <h6 class="text-uppercase border-bottom">{{::('app.StatEnum.' + group.category) | i18n}}</h6>
+                            <ul class="list-unstyled"
+                                ng-if="!group.failedToLoad">
+                                <li ng-repeat="player in group.players"
+                                    class="mb-1"
+                                    ng-class="{'font-weight-bold': $first}"
+                                    title="{{player.name}}">
+                                    <div class="d-flex flex-nowrap">
+                                        <a ui-sref="main.account.home({username: player.username})"
+                                           class="player-name">
+                                            <img ng-src="{{player.profilePhoto? player.profilePhoto.url : 'src/images/default_images/default_profile_photo.jpg'}}"
+                                                 class="avatar mr-1" />
+                                        </a>
+                                        <a ui-sref="main.account.home({username: player.username})"
+                                           class="player-name text-line-1">{{player.name}}</a>
+                                        <span class="ml-auto">{{group.getValue(player)}}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div ng-if="group.failedToLoad" class="text-secondary">(Failed to load.)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="pt-3 new-players">
+                <div class="">
+                    <h5 class="drbbly-header">New Players</h5>
+                </div>
+                <div class="row">
+                    <div ng-repeat="player in dhc.newPlayers"
+                         class="col-6 col-sm-4 col-md-3 col-xl-2">
+                        <drbbly-playerlistitem player="player"
+                                               class="w-100"></drbbly-playerlistitem>
+                    </div>
+                    <div drbbly-overlay="dhc.newPlayersOverlay"
+                         class="col-12">
+                        <button class="btn btn-secondary btn-block"
+                                ng-click="dhc.loadNewPlayers()">
+                            Load More
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-12 col-lg-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!-- Ad -->
+        <span class="d-block text-center">Advertisement</span>
+        <drbbly-ad type="'horizontal'"></drbbly-ad>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿<div drbbly-overlay="dad.overlay">
+    <div class="container px-0 px-sm-3">
+        <div class="row">
+            <div class="col-12 col-md-9">
+                <div class="card mb-3 highlights"
+                     ng-if="dad.isOwned || dad.highlights.length > 0">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <h5 class="drbbly-header">Highlights</h5>
+                        </div>
+                        <div class="col-12">
+                            <div class="videos-wrapper">
+                                <drbbly-videolistitem ng-repeat="video in dad.highlights"
+                                                      options="dad.highlightsOptions"
+                                                      video="video"></drbbly-videolistitem>
+                            </div>
+                            <button type="button"
+                                    ng-if="dad.isOwned"
+                                    class="btn btn-sm btn-outline-secondary text-center"
+                                    ngf-select="dad.addHighlight($files)"
+                                    ngf-pattern="'video/*'"
+                                    ngf-multiple="true"
+                                    ngf-accept="'video/*'"
+                                    ngf-max-size="20MB">
+                                + Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <drbbly-posts options="dad.postsOptions"></drbbly-posts>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="sticky-top">
+                    <!-- Ad -->
+                    <span class="d-block text-center">Advertisement</span>
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Create League</h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="alm.overlay">
+        <form name="alm.frmLeagueDetails"
+              novalidate
+              ng-if="alm.saveModel">
+            <fieldset ng-disabled="alm.isBusy">
+                <div class="form-group pb-3">
+                    <label for="txtName">{{::'app.LeagueNamePrompt' | i18n}}</label>
+                    <input type="text"
+                           name="txtName"
+                           ng-model="alm.saveModel.name"
+                           class="form-control"
+                           ng-class="{'is-invalid': alm.frmLeagueDetails.txtName.$touched && alm.frmLeagueDetails.txtName.$invalid}"
+                           minlength="5" />
+                    <div ng-show="alm.frmLeagueDetails.txtName.$error.minlength" class="invalid-feedback">
+                        {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="alm.isBusy || alm.frmLeagueDetails.$invalid || (alm.model.isEdit && alm.frmLeagueDetails.$pristine)"
+            type="submit"
+            ng-click="alm.submit()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-warning"
+            type="button"
+            ng-click="alm.cancel()"
+            ng-disabled="alm.isBusy"></button>
+</div>

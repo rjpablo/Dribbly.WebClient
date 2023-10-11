@@ -1,0 +1,1 @@
+./node_modules/.bin/jsdoc -c ./jsdoc/jsdoc.json -r -d ./jsdoc/out

@@ -1,0 +1,110 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+
+drbbly-gameeventslist {
+    display: block;
+    width: 100%;
+    overflow-y: auto;
+
+    .teams {
+
+        .logo {
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+    .period {
+        position: sticky;
+        top: 0;
+        background-color: $black;
+    }
+
+    .event-row {
+        padding: 0.25rem;
+
+        .event-wrapper {
+            display: flex;
+            align-items: center;
+
+            .player-logo,
+            .team-logo {
+                width: 27px;
+                height: 27px;
+                object-fit: cover;
+                margin: 0 0.25rem;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+
+            .clock {
+                width: 50px;
+                font-size: 0.9rem;
+                flex-shrink: 0;
+            }
+        }
+
+        &.is-team1,
+        &.is-team2 {
+            display: flex;
+        }
+    }
+
+    .side-by-side {
+
+        .teams {
+            display: flex;
+            justify-content: space-around;
+
+            & > div {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .period {
+            text-align: center;
+        }
+
+        .event-row {
+
+            &.is-team1 {
+                .event-wrapper {
+                    flex-direction: row-reverse;
+
+                    .event-description {
+                        text-align: right;
+                    }
+                }
+            }
+
+            &.is-team2 {
+                justify-content: flex-end;
+            }
+
+            &.is-team1,
+            &.is-team2 {
+
+                .event-wrapper {
+                    width: calc(50% + 36px);
+                }
+            }
+
+            &.is-both {
+                text-align: center;
+
+                .event-wrapper {
+                    display: block;
+                }
+            }
+
+            .event-wrapper {
+                .clock {
+                    width: 72px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

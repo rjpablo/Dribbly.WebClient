@@ -1,0 +1,22 @@
+﻿<div class="modal-header d-flex"
+     ng-hide="mmc.model.hideHeader">
+    <h4 ng-if="mmc.model.title"
+        class="mb-0">
+        {{mmc.model.title}}
+    </h4>
+    <button class="btn btn-sm btn-outline-secondary ml-auto"
+            ng-click="mmc.cancel()">
+        <i class="fa fa-times"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <button ng-repeat="btn in mmc.model.buttons"
+            class="btn btn-block"
+            ng-if="!btn.isHidden || !btn.isHidden()"
+            ng-class="btn.class"
+            ng-click="mmc.onItemClicked(btn)">
+        <i ng-if="btn.iconClass"
+           class="fa"></i>
+        {{btn.text}}
+    </button>
+</div>

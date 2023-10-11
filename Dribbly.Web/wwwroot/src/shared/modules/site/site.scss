@@ -1,0 +1,512 @@
+@import '../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../lib/bootstrap/_breakpoints.scss';
+
+body {
+    background: url('../../../images/backgrounds/site_background.jpg') fixed center;
+}
+
+a[ng-click]:not(.nav-link, .dropdown-item, [href]) {
+    color: $gray-500 !important;
+
+    &:hover {
+        color: $gray-100 !important;
+    }
+}
+
+*[ui-sref],
+*[ng-click]:not([disabled]) {
+    cursor: pointer;
+}
+
+.link-unstyled {
+    &,
+    &:visited,
+    &:hover,
+    &:active,
+    &:focus,
+    &:active:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+// Scroll bars
+@include media-breakpoint-up(sm) {
+
+    *::-webkit-scrollbar,
+    *::-webkit-scrollbar-thumb {
+        width: 26px;
+        height: 26px;
+        border-radius: 13px;
+        background-clip: padding-box;
+        border: 10px solid transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        box-shadow: inset 0 0 0 10px;
+    }
+}
+
+#cookieConsent {
+    z-index: 2;
+}
+
+.top-bar {
+    border-bottom: 2px solid $orange;
+}
+
+.bg-black {
+    background-color: $black;
+}
+
+/*.bg-dark {
+    background-color: #282828 !important;
+    color: $bgDarkFontColor;
+}*/
+
+.bg-dark .separator {
+    border: 1px #5a5a5a inset;
+}
+
+.nav li > a {
+    color: #777;
+}
+
+.nav li > a:hover, .nav li > a:active, .nav li > a.active {
+    color: $primary;
+}
+
+.drbbly-header {
+    color: $white;
+    text-transform: uppercase;
+}
+
+.nav-tabs {
+    .nav-link {
+        border: $nav-tabs-border-width solid $nav-tabs-border-color;
+    }
+}
+
+.gradent-gray-black-v-bg {
+    background: linear-gradient(180deg, $gray-700 0%, $black 62%);
+}
+
+.black-transparent-bg {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: $gray-100;
+    border: 1px solid #0f0f0f;
+}
+
+.black-transparent-95-bg {
+    background-color: rgba(225, 225, 225, 0.95);
+    color: $gray-100;
+}
+
+.white-transparent-bg {
+    background-color: rgba(225, 225, 225, 0.6);
+}
+
+/***************
+    TABLES
+***************/
+
+th {
+    color: $secondary;
+    font-weight: normal;
+}
+
+/***************
+    FORMS
+***************/
+
+form {
+    label {
+        color: $secondary;
+    }
+}
+
+/***************
+    INPUTS
+***************/
+
+input + drbbly-charcount {
+    float: right;
+}
+
+/***************
+    TAB SETS
+***************/
+
+.sub-tabset {
+    .nav {
+        background-color: $gray-700;
+        border-bottom-color: $gray-700;
+
+        .nav-item {
+
+            .nav-link {
+                border: none;
+                border-radius: 0;
+                padding: 0.5em 1rem;
+                line-height: 1em;
+
+                &.active {
+                    color: $white !important;
+                    background-color: $gray-700;
+                }
+            }
+        }
+    }
+}
+
+/***************
+    SECTIONS
+***************/
+
+section {
+    .section-header {
+        border-bottom: 1px solid $gray-700;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/****************
+    Animations
+****************/
+
+.blink {
+    animation: blinker 1s infinite;
+}
+
+@keyframes blinker {
+    from {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    51% {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/****************
+    Icons
+****************/
+/* Register our own font */
+@font-face {
+    font-family: 'dribbly';
+    src: url('../../../fonts/dribbly/dribbly.eot?#iefix') format('embedded-opentype');
+    src: url('../../../fonts/dribbly/dribbly.eot?#iefix') format('embedded-opentype'), url('../../../fonts/dribbly/dribbly.ttf') format('truetype'), url('../../../fonts/dribbly/dribbly.woff') format('woff'), url('../../../fonts/dribbly/dribbly.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.drbbly-font {
+    font-family: dribbly;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.drbbly-font.court-inclined::before {
+    content: '\e903';
+}
+
+.drbbly-font.players::before {
+    content: '\e901';
+}
+
+.drbbly-font.games::before {
+    content: '\e904';
+}
+
+.drbbly-font.trashcan::before {
+    content: '\e905';
+}
+
+.drbbly-font.court-horizontal::before {
+    content: '\e900';
+}
+
+/****************
+    Avatars
+****************/
+
+img.avatar {
+    width: 1.7rem;
+    height: 1.7rem;
+    object-fit: cover;
+    border-radius: 50%;
+
+    &.avatar-in-text {
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    &.avatar-lg {
+        height: 3rem;
+        width: 3rem;
+    }
+
+    &.square {
+        border-radius: 0;
+    }
+}
+
+/****************
+    Widths
+****************/
+@media (max-width: 575px) {
+
+    .w-xs-100 {
+        width: 100%;
+    }
+    /* for things that should not show on mobile design */
+    .non-mobile {
+        display: none !important;
+    }
+}
+/****************
+    Heights
+****************/
+.min-height-300 {
+    min-height: 300px;
+}
+/****************
+   Typography
+****************/
+@font-face {
+    font-family: "sportsjersey";
+    src: url("../../../fonts/sportsjersey/sportsjersey.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.text-sporty {
+    font-family: "sportsjersey"
+}
+
+.line-height-1 {
+    line-height: 1rem;
+}
+
+.line-height-1-point-5 {
+    line-height: 1.5;
+}
+
+.line-height-2 {
+    line-height: 2;
+}
+
+.text-underlined {
+    text-decoration: underline;
+}
+
+.text-line-1 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.text-line-2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.text-line-6 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* number of lines to show */
+    line-clamp: 6;
+    -webkit-box-orient: vertical;
+}
+
+.font-weight-semibold {
+    font-weight: 600;
+}
+/*************
+   Widgets
+*************/
+/* Details List */
+.detail-list > .list-group > .list-group-item > .row > div:first-child {
+    text-transform: uppercase;
+
+    @include media-breakpoint-down(xs) {
+        font-size: 0.8em;
+        line-height: 0.8em;
+        margin-bottom: 0.2em;
+    }
+}
+/*******************
+    Miscellaneous
+*******************/
+@media (min-width: 576px) {
+    /* for things that are only for mobile design */
+    .mobile-only {
+        display: none !important;
+    }
+}
+/*************************
+    Library Overrides
+*************************/
+/* AngularJS */
+//prevents flicker when hiding/showing elements using ng-show/ng-hide
+.drbbly-no-animation {
+    .ng-hide.ng-hide-animate {
+        display: none;
+    }
+}
+/* NgMap */
+.pac-container {
+    z-index: 1050 !important; /*Allows auto complete results to show over bootstrap modals. Modals have 1050 z-index*/
+}
+/***** Bootstrap *****/
+/* Buttons */
+.btn {
+    /*border-radius: 0;*/
+}
+
+/* Modals */
+
+.modal.drbbly-full-modal {
+
+    .modal-dialog {
+        min-width: 100%;
+        margin: 0;
+
+        .modal-content {
+            min-height: 100vh;
+            border-radius: 0;
+        }
+    }
+}
+
+.modal.has-container {
+    position: absolute;
+
+    .modal-dialog {
+        margin: 0 auto;
+        height: calc(100% - 10px);
+        max-height: 100%;
+
+        .modal-content {
+            max-height: calc(100% - 20px);
+            max-width: calc(100% - 25px);
+            overflow-y: auto;
+            margin: 10px;
+        }
+    }
+
+    & + .modal-backdrop {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.modal.no-background {
+    .modal-content {
+        background-color: rgba(0,0,0,0);
+    }
+}
+
+.modal.no-border {
+    .modal-content {
+        border: none;
+
+        .modal-header {
+            border: none;
+        }
+    }
+}
+
+.modal-content {
+    border-color: $primary;
+}
+
+/* Dropdowns */
+/*.dropdown-menu {
+    background-color: rgba(0,0,0,0.95);
+    border: 1px solid $gray-900;
+
+    &:hover {
+        background-color: rgba(0,0,0,0.95);
+    }
+}*/
+/*.dropdown-item {
+    color: $gray-400;
+}*/
+
+.dropdown-toggle {
+    &.no-caret::after {
+        display: none;
+    }
+}
+
+/* Tooltips */
+.tooltip-inner {
+    border: 1px solid $primary;
+}
+
+.bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^=top] .arrow::before {
+    border-top-color: $primary;
+}
+
+/* Cards */
+.card.drbbly-card {
+    border-radius: 0;
+
+    @extend .black-transparent-bg;
+
+    .card-header {
+        border: none;
+        padding-right: $spacer;
+        padding-left: $spacer;
+    }
+
+    .card-body {
+        padding: $spacer;
+        padding-top: 0;
+    }
+}
+/******** Ng-Image-Gallery ********/
+/* Removes space between thumbnails */
+.ng-image-gallery .ng-image-gallery-thumbnails .thumb {
+    margin: 0 !important;
+}
+
+.ng-image-gallery .ng-image-gallery-thumbnails .thumb > .loader {
+    width: unset !important;
+}
+/******* Videogualr *********/
+/* Fixes incorrect current time indicator for wider screens */
+videogular vg-scrub-bar .container {
+    max-width: 100%;
+}
+/***** Angular Slick Carousel *****/
+slick.dark-transparent-bg {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-top: 15px;
+    border-radius: 5px;
+}
+
+.slick-dots {
+
+    li button:before,
+    li.slick-active button:before {
+        color: #fff;
+    }
+}

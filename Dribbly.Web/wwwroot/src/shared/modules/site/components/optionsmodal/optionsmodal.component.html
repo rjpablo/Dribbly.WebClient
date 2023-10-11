@@ -1,0 +1,10 @@
+﻿<ul class="list-group">
+    <li ng-repeat="item in dom.model.items"
+        class="list-group-item">
+        <button type="button"
+                class="btn btn-block"
+                ng-click="dom.onItemClick(item)">
+            <span>{{::item.textKey | i18n}}</span>
+        </button>
+    </li>
+</ul>

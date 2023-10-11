@@ -1,0 +1,18 @@
+﻿<div class="modal-header d-flex">
+    <h4 ng-if="psm.model.title"
+        class="mb-0">
+        {{psm.model.title}}
+    </h4>
+    <button class="btn btn-sm btn-outline-secondary ml-auto"
+            ng-click="psm.cancel()">
+        <i class="fa fa-times"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="colors-container">
+        <div class="color-box" ng-repeat="color in psm.colors"
+             ng-click="psm.select(color)"
+             ng-style="{'background-color': color}">
+        </div>
+    </div>
+</div>

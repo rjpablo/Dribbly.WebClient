@@ -1,0 +1,57 @@
+﻿<div ng-if="inp.model.titleKey || inp.model.titleRaw" class="modal-header">
+    <h3 class="modal-title">{{inp.model.titleRaw || (inp.model.titleKey | i18n)}}</h3>
+</div>
+<div class="modal-body">
+    <div ng-if="!inp.model.bodyTemplate">
+        <h5 ng-if="inp.model.msg1Key">{{inp.model.msg1Key | i18n}}</h5>
+        <h5 ng-if="inp.model.msg1Raw">{{inp.model.msg1Raw}}</h5>
+        <p ng-if="inp.model.msg2Key">{{inp.model.msg2Key | i18n}}</p>
+        <p ng-if="inp.model.msg2Raw">{{inp.model.msg2Raw}}</p>
+    </div>
+    <form name="inp.frmInput"
+          ng-submit="inp.submit()">
+        <div class="form-group"
+             ng-switch="inp.model.type">
+            <label for="input">{{inp.model.prompt}}</label>
+            <input type="text"
+                   ng-switch-when="email"
+                   drbbly-emailinput
+                   name="input"
+                   min="inp.model.min"
+                   max="inp.model.max"
+                   maxlength="{{inp.model.maxLength}}"
+                   minlength="{{inp.model.minLength}}"
+                   class="form-control d-block"
+                   ng-required="inp.model.required"
+                   ng-model="inp.model.value" />
+            <drbbly-typeahead selected-items="inp.selectedItems"
+                              ng-switch-when="typeahead"
+                              config="inp.typeAheadConfig"
+                              ng-required="inp.model.required"
+                              name="input"
+                              ng-model="inp.model.value"
+                              class="form-control" />
+            <input type="{{inp.model.type}}"
+                   ng-switch-default
+                   name="input"
+                   min="inp.model.min"
+                   max="inp.model.max"
+                   maxlength="{{inp.model.maxLength}}"
+                   minlength="{{inp.model.minLength}}"
+                   class="form-control d-block"
+                   ng-required="inp.model.required"
+                   ng-model="inp.model.value" />
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button"
+            i18n="site.Submit"
+            class="btn btn-primary"
+            ng-disabled="inp.frmInput.$pristine || inp.frmInput.$invalid || (inp.model.isValid && !inp.model.isValid(inp.model.value))"
+            ng-click="inp.submit()"></button>
+    <button type="button"
+            i18n="site.Cancel"
+            class="btn btn-secondary"
+            ng-click="inp.cancel()"></button>
+</div>

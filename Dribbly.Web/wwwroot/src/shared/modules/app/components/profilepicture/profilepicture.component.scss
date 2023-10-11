@@ -1,0 +1,7 @@
+.drbbly-profilepicture {
+    & > a {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

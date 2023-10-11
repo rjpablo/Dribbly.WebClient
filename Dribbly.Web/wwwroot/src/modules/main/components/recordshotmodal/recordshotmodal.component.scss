@@ -1,0 +1,29 @@
+drbbly-recordshotmodal {
+    .modal-header {
+        .player-details {
+            width: 100%;
+
+            drbbly-image {
+                min-width: 80px;
+            }
+        }
+    }
+
+    .modal-footer {
+        .additional-options {
+            & > :not(:last-child) {
+                margin-right: 0.25rem;
+            }
+        }
+    }
+
+    .form-row .col-8 {
+        select {
+            width: calc(100% - 28px);
+        }
+    }
+
+    input.points {
+        max-width: 80px;
+    }
+}

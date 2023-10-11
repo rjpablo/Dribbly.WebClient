@@ -1,0 +1,9 @@
+drbbly-courtprice > div {
+    display: block;
+    background-color: #28a745 !important;
+    color: #fff;
+
+    drbbly-courtprice .amount {
+        line-height: 2.5rem;
+    }
+}

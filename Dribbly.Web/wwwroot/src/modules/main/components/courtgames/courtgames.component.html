@@ -1,0 +1,58 @@
+﻿<div class="container mt-3">
+    <div class="row">
+        <div class="col-12 col-lg-9">
+            <section drbbly-overlay="cgc.gamesOverlay">
+                <div ng-if="cgc.displayedGames && cgc.displayedGames.length">
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <div class="row"
+                                 id="court-games">
+                                <div class="col-lg-6"
+                                     ng-repeat="game in (cgc.displayedGames | orderBy: 'start') track by game.id">
+                                    <drbbly-gamelistitem class="w-100 mb-3"
+                                                         game="game"></drbbly-gamelistitem>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="justify-content-center mb-0"
+                                        uib-pagination
+                                        total-items="cgc.games.length"
+                                        items-per-page="cgc.pagination.pageSize"
+                                        ng-model="cgc.pagination.currentPage"
+                                        boundary-links="true"
+                                        ng-change="cgc.showPage(cgc.pagination.currentPage)"
+                                        previous-text="&lsaquo;"
+                                        next-text="&rsaquo;"
+                                        first-text="&laquo;"
+                                        last-text="&raquo;"></ul>
+                                </div>
+                                <div class="col text-center p-3"
+                                     ng-if="cgc.displayedGames.length === 0">
+                                    No games found.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="cgc.games && !cgc.games.length"
+                     class="card mt-3 mt-sm-0">
+                    <div class="card-body text-center">
+                        <p class="m-0">{{::'app.NoGamesOnThisCourtYet' | i18n}}</p>
+                    </div>
+                </div>
+            </section>
+            <div>
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'horizontal'"></drbbly-ad>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+</div>

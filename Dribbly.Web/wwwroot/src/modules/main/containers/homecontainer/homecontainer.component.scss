@@ -1,0 +1,39 @@
+﻿@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-home-container {
+    .features-carousel {
+        .feature {
+            height: 300px;
+            position: relative;
+
+            @include media-breakpoint-up(md) {
+                height: 500px;
+            }
+
+            .background {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .content {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(0deg, rgba($black, 0.8), rgba($black, 0.6) 60%, transparent)
+            }
+        }
+    }
+
+    .top-players {
+        drbbly-playerlistitem {
+            width: 100%;
+        }
+    }
+}

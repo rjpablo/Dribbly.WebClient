@@ -1,0 +1,69 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-9">
+            <div class="bg-dark mt-3 py-3">
+                <uib-tabset active="dgs.activeTab">
+                    <uib-tab index="dgs.tabs.players" heading="Players">
+                        <div class="player-stats">
+                            <div ng-if="dgs.tournament.players"
+                                 class="p-3">
+                                <drbbly-datatable on-ready="dgs.onPlayersTableReady"></drbbly-datatable>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab index="dgs.tabs.teams" heading="Teams">
+                        <div class="team-stats">
+                            <div ng-if="dgs.tournament.topTeams"
+                                 class="p-3">
+                                <drbbly-datatable on-ready="dgs.onTeamStatTableReady"></drbbly-datatable>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3 d-none d-lg-block">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+        <div class="col-12 d-lg-none">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <drbbly-ad type="'square'"></drbbly-ad>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <drbbly-ad type="'square'"></drbbly-ad>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" drbbly-template="dgs.playerColumnTemplate">
+    <a ui-sref="main.account.home({username: rowData.dataItem.username})"
+       class="mr-1">
+        <img class="avatar avatar-in-text"
+             ng-src="{{rowData.dataItem.profilePhoto.url}}" />
+    </a>
+    <a ui-sref="main.account.home({username: rowData.dataItem.username})">
+        {{rowData.dataItem.name}}
+    </a>
+</script>
+
+<script type="text/ng-template" drbbly-template="dgs.tournamentTeamColumnTemplate">
+    <a ui-sref="main.team.home({id: rowData.dataItem.teamId})">
+        <img class="avatar avatar-in-text"
+             ng-src="{{rowData.dataItem.logo.url}}" />
+    </a>
+    <a ui-sref="main.team.home({id: rowData.dataItem.teamId})">
+        {{rowData.dataItem.name}}
+    </a>
+</script>

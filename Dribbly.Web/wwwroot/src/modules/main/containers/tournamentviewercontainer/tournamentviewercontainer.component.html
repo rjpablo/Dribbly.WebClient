@@ -1,0 +1,71 @@
+﻿<div class="app-container">
+    <div drbbly-overlay="lvc.overlay">
+        <div id="app-header"
+             class="container app-header px-0 px-sm-3">
+            <div class="bg-dark p-3 d-flex flex-column align-items-center flex-md-row align-items-md-start">
+                <div class="logo">
+                    <img ng-src="{{lvc.tournament.logo.url}}"
+                         class="profile-photo"
+                         ng-click="lvc.onLogoClicked()" />
+                    <div class="controls float-right d-none">
+                        <button id="btn-replace-photo"
+                                class="btn btn-sm btn-outline-light"
+                                ng-if="lvc.isManager"
+                                ngf-select="lvc.onLogoSelect($file)"
+                                ng-model="lvc.tournament.logo"
+                                ngf-pattern="'image/*'"
+                                ngf-accept="'image/*'"
+                                ngf-max-size="20MB">
+                            <span class="fa fa-pencil" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="pl-3 flex-md-grow-1 text-center text-md-left">
+                    <h5 class="text-white">{{lvc.tournament.name}}</h5>
+                    <button class="btn btn-primary"
+                            ng-click="lvc.onJoinClicked()">
+                        Join
+                    </button>
+                    <button type="button" class="btn btn-facebook"
+                            ng-click="lvc.fbShare()">
+                        <i class="fa fa-facebook"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- The gallery is put here instead of inside the app-header element
+            so that the app-navigation-container element won't be displayed over the
+            gallery when opened -->
+        <ng-image-gallery images="lvc.photos"
+                          methods="lvc.methods"
+                          thumbnails="false"
+                          thumb-size="100"
+                          inline="false"
+                          bubbles="true"
+                          bubble-size="30"
+                          img-bubbles="true"
+                          bg-close="true"
+                          piracy="true"
+                          img-anim="fadeup"
+                          on-delete="lvc.deletePhoto(img, cb)"></ng-image-gallery>
+        <div id="app-navigation-container" class="container sticky-top px-0 px-sm-3">
+            <div class="row">
+                <div class="col-12">
+                    <drbbly-appnavigator id="app-navigator"
+                                         class="bg-dark"
+                                         nav-items="lvc.app.toolbar._navItems"
+                                         app="lvc.app"></drbbly-appnavigator>
+                </div>
+            </div>
+        </div>
+        <div id="app-body"
+             class="app-body">
+            <div ng-if="lvc.tournament">
+                <ui-view app="lvc.app"
+                         tournament="lvc.tournament"
+                         on-update="lvc.onTournamentUpdate"
+                         massage-stages="lvc.massageStages"></ui-view>
+            </div>
+        </div>
+    </div>
+</div>

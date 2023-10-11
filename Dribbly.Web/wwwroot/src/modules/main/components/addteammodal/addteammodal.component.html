@@ -1,0 +1,66 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">{{::bgm.model.isEdit? 'Edit Team Details' : 'New Team Details'}}</h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="bgm.overlay">
+        <form name="bgm.frmTeamDetails"
+              novalidate
+              ng-if="bgm.saveModel">
+            <fieldset ng-disabled="bgm.isBusy">
+                <div class="form-group">
+                    <label for="txtShortName">Short Name:</label>
+                    <input type="text"
+                           name="txtShortName"
+                           ng-model="bgm.saveModel.shortName"
+                           class="form-control"
+                           ng-class="{'is-invalid': bgm.frmTeamDetails.txtShortName.$touched && bgm.frmTeamDetails.txtShortName.$invalid}"
+                           required
+                           maxlength="15" />
+                    <drbbly-charcount length="bgm.saveModel.shortName.length"
+                                      class=""
+                                      max-length="15"
+                                      warning-threshold="5"></drbbly-charcount>
+                    <div ng-show="bgm.frmTeamDetails.txtShortName.$error.minlength" class="invalid-feedback">
+                        {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                    </div>
+                    <div ng-show="bgm.frmTeamDetails.txtShortName.$error.required" class="invalid-feedback">
+                        {{::'site.Error_Common_RequiredField' | i18n }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtName">Full Name:</label>
+                    <input type="text"
+                           name="txtName"
+                           ng-model="bgm.saveModel.name"
+                           class="form-control"
+                           ng-class="{'is-invalid': bgm.frmTeamDetails.txtName.$touched && bgm.frmTeamDetails.txtName.$invalid}"
+                           minlength="5"
+                           required
+                           maxlength="50" />
+                    <drbbly-charcount length="bgm.saveModel.name.length"
+                                      class=""
+                                      max-length="50"
+                                      warning-threshold="5"></drbbly-charcount>
+                    <div ng-show="bgm.frmTeamDetails.txtName.$error.minlength" class="invalid-feedback">
+                        {{::'site.Error_Common_Minlength' | i18n:{length: 5} }}
+                    </div>
+                    <div ng-show="bgm.frmTeamDetails.txtName.$error.required" class="invalid-feedback">
+                        {{::'site.Error_Common_RequiredField' | i18n }}
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="bgm.isBusy || bgm.frmTeamDetails.$invalid || (bgm.model.isEdit && bgm.frmTeamDetails.$pristine)"
+            type="submit"
+            ng-click="bgm.submit()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-secondary"
+            type="button"
+            ng-click="bgm.cancel()"
+            ng-disabled="bgm.isBusy"></button>
+</div>

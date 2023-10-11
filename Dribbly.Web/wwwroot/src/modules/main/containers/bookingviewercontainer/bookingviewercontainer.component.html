@@ -1,0 +1,23 @@
+﻿<div drbbly-overlay="dcc.bookingDetailsOverlay">
+    <div class="container px-0">
+        <div class="row no-gutters mt-3 border">
+            <div class="bg-black text-center col-12 py-3">
+                <h3 class="drbbly-header">
+                    {{gcc.booking.title}}
+                </h3>
+                <div class="text-white">
+                    <drbbly-date date="gcc.booking.start"></drbbly-date> - <drbbly-date date="gcc.booking.end"></drbbly-date>
+                </div>
+                <a ui-sref="main.court.home({id: gcc.booking.court.id})" class="m-0 p-0 pb-1 d-block">
+                    <i class="fa fa-map-marker mr-1"></i>
+                    <span ng-click="cpm.viewCourtDetails($event, gcc.booking.court)">
+                        {{gcc.booking.court.name}}
+                    </span>
+                </a>
+                <div ng-if="gcc.booking.bookedBy">
+                    <small class="text-muted">{{::'app.BookedBy' | i18n}}</small>&nbsp;<drbbly-userstub user="gcc.booking.bookedBy"></drbbly-userstub>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

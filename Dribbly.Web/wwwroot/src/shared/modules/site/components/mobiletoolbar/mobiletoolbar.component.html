@@ -1,0 +1,34 @@
+﻿<div class="bg-dark container-fluid mobile-toolbar top-bar mobile-only">
+    <div class="row">
+        <div class="col d-flex align-items-center">
+            <button class="btn ml-n2 sidenav-toggle" ng-click="mtb.toggleSideNavigator()">
+                <h4 class="m-0"><i class="fa fa-bars"></i></h4>
+            </button>
+            <div class="flex-grow-1 d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <drbbly-sitelogo></drbbly-sitelogo>
+                </div>
+                <button ng-repeat="item in mtb.items"
+                        class="btn ml-n2 float-right"
+                        ng-class="item.buttonClass"
+                        ng-click="item.action()">
+                    <i ng-class="item.iconClass"></i>
+                </button>
+                <button class="btn ml-auto"
+                        ng-click="mtb.openCreateMenu()">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <button class="btn ml-auto"
+                        ng-click="mtb.openSearchModal()">
+                    <i class="fa fa-search"></i>
+                </button>
+                <drbbly-notificationswidget class="ml-auto"
+                                            ng-if="mtb.isAuthenticated()"></drbbly-notificationswidget>
+                <!-- TODO: remove refenrences if app-navigator stays in the footer permanently -->
+                <!--<div ng-if="mtb.toolbar._navItems && mtb.toolbar._navItems.length" class="app-navigator">
+        <drbbly-appnavigator nav-items="mtb.toolbar._navItems"></drbbly-appnavigator>
+    </div>-->
+            </div>
+        </div>
+    </div>
+</div>

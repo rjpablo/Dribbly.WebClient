@@ -1,0 +1,38 @@
+﻿<div class="modal-header d-flex">
+    <h4 ng-if="psm.model.title"
+        class="mb-0">
+        {{psm.model.title}}
+    </h4>
+    <button class="btn btn-sm btn-outline-secondary ml-auto"
+            ng-click="psm.cancel()">
+        <i class="fa fa-times"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <!--<uib-tabset active="psm.activeTab">
+        <uib-tab ng-repeat="team in psm.teams"
+                 index="team.id">
+            <uib-tab-heading>
+                <div ng-class="{'text-danger': team.inValid}"
+                     class="px-3 py-1">
+                    <i class="fa fa-exclamation-circle"
+                       ng-show="team.inValid"></i>
+                    <span>{{team.shortName}}</span>
+                </div>
+            </uib-tab-heading>-->
+    <div class="">
+        <div class="team"
+             ng-repeat="team in psm.teams">
+            <div class="player-list">
+                <button class="btn btn-secondary player" ng-repeat="player in team.players"
+                        ng-click="psm.select(player)"
+                        ng-style="{'background-color': player.teamColor}">
+                    <span class="jersey-no text-sporty">{{player.jerseyNo}}</span>
+                    <span class="name text-line-1">{{player.account.lastName}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--</uib-tab>
+    </uib-tabset>-->
+</div>

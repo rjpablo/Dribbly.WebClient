@@ -1,0 +1,128 @@
+﻿<div class="row no-gutters position-fixed h-100 w-100 overflow-auto align-content-start align-content-lg-stretch">
+    <div class="col-12 col-lg-3 col-xl-2 p-1 p-sm-3">
+        <h3 class="modal-title">
+            <i class="fa fa-arrow-left mr-1"
+               ng-click="src.cancel()"></i>
+            {{::'app.FindACourt' | i18n}}
+        </h3>
+        <div class="d-none d-lg-block">
+            <!-- Ad -->
+            <span class="d-block text-center">Advertisement</span>
+            <div class="row">
+                <div class="col-12">
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                </div>
+                <div class="col-12">
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                </div>
+                <div class="col-12">
+                    <drbbly-ad type="'square'"></drbbly-ad>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-9 col-xl-10 p-1 p-sm-3">
+        <div class="d-lg-none">
+            <!-- Ad -->
+            <span class="d-block text-center">Advertisement</span>
+            <drbbly-ad type="'horizontal'"></drbbly-ad>
+        </div>
+        <div drbbly-overlay="src.overlay">
+            <!--Controls-->
+            <div class="d-flex justify-content-between mb-2">
+                <strong class="align-self-center">{{ !src.isBusy? src.filteredCourts.length + ' court(s) found.' : ''}}</strong>
+                <div class="d-flex">
+                    <button type="button"
+                            ng-click="src.isFiltersCollapsed = !src.isFiltersCollapsed"
+                            class="btn btn-light"
+                            ng-class="{'active': !src.isFiltersCollapsed}"
+                            data-toggle="button">
+                        <i class="fa fa-filter"></i>
+                    </button>
+                    <button type="button"
+                            ng-show="src.searchInput"
+                            ng-click="src.clearFilters()"
+                            class="btn btn-light ml-1 p-0 px-1"
+                            data-toggle="button">
+                        <span class="fa-stack">
+                            <i class="fa fa-filter fa-stack-1x"></i>
+                            <i class="fa fa-times text-danger fa-stack-1x"></i>
+                        </span>
+                    </button>
+                    <div class="dropdown ml-2"
+                         ng-show="src.resultView === 'list'">
+                        <button class="btn btn-light"
+                                type="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <i class="fa fa-sort-alpha-asc"></i>
+                        </button>
+                        <form class="dropdown-menu">
+                            <h6 class="dropdown-header">{{::'app.SortBy' | i18n}}</h6>
+                            <button ng-repeat="item in src.sortOptions"
+                                    ng-click="src.sortCourts(item)"
+                                    ng-class="{'active': src.sortField === item.field}"
+                                    class="dropdown-item"
+                                    type="button">
+                                {{::item.textKey | i18n}}
+                                <i class="fa fa-arrow"
+                                   ng-class="item.reverse ? 'fa-long-arrow-down' : 'fa-long-arrow-up'"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="btn-group ml-2">
+                        <button class="btn btn-light"
+                                style="width: 42px;"
+                                ng-model="src.resultView" uib-btn-radio="'map'">
+                            <i class="fa fa-map-marker"></i>
+                        </button>
+                        <button class="btn btn-light" ng-model="src.resultView" uib-btn-radio="'list'">
+                            <i class="fa fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--Filters-->
+            <div uib-collapse="src.isFiltersCollapsed"
+                 ng-class="{'show': !src.isFiltersCollapsed}">
+                <form name="src.frmCourtDetails">
+                    <fieldset ng-disabled="src.isBusy">
+                        <div class="row">
+                            <div class="form-group col-12 col-sm-6 col-md-4">
+                                <lable for="txtName" class="label">
+                                    {{::'app.CourtNameContains' | i18n}}
+                                    <input type="text"
+                                           name="txtName"
+                                           ng-model="src.searchInput.name"
+                                           ng-change="src.filterCourts()"
+                                           class="form-control"
+                                           required
+                                           max="100" />
+                                </lable>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <drbbly-Courtlist courts="src.filteredCourts"
+                              ng-show="src.resultView === 'list'"
+                              settings="{initialItemCount: 30, previewOnItemClick: true}"
+                              wrap-items="true"></drbbly-Courtlist>
+            <div class="map-container"
+                 ng-if="src.mapApiKey"
+                 ng-show="src.resultView === 'map'"
+                 map-lazy-load="{{'https://maps.google.com/maps/api/js?key=' + src.mapApiKey}}">
+                <drbbly-map style="height: 100%;"
+                            options="src.mapOptions"
+                            on-map-ready="src.onMapReady"
+                            on-map-clicked="src.mapClicked"></drbbly-map>
+            </div>
+        </div>
+        <div class="d-none d-lg-block">
+            <!-- Ad -->
+            <span class="d-block text-center">Advertisement</span>
+            <drbbly-ad type="'horizontal'"></drbbly-ad>
+        </div>
+    </div>
+</div>

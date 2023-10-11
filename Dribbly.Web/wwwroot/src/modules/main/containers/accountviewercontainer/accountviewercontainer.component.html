@@ -1,0 +1,137 @@
+﻿<div class="app-container">
+    <div id="app-header"
+         class="container app-header px-0 px-sm-3">
+        <div class="gradent-gray-black-v-bg py-3 border-left border-right top-section">
+            <div class="row">
+                <!-- #region Photo + Details -->
+                <div class="col-12 col-md-7 col-lg-6 col-xl-5">
+                    <div class="d-flex flex-column flex-md-row align-items-center align-items-md-start">
+                        <!-- #region Photo -->
+                        <div class="mx-3">
+                            <img ng-src="{{avc.account.profilePhoto.url}}"
+                                 class="profile-photo"
+                                 ng-click="avc.onProfilePhotoClick()" />
+                            <div class="controls float-right d-none">
+                                <button id="btn-replace-photo"
+                                        class="btn btn-sm btn-outline-light"
+                                        ng-if="avc.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
+                                        ngf-select="avc.onPrimaryPhotoSelect($file)"
+                                        ng-model="avc.account.profilePhoto"
+                                        ngf-pattern="'image/*'"
+                                        ngf-accept="'image/*'"
+                                        ngf-max-size="20MB">
+                                    <span class="fa fa-pencil" aria-hidden="true"></span>
+                                </button><br />
+                            </div>
+                            <ng-image-gallery images="avc.account.photos"
+                                              methods="avc.methods"
+                                              thumbnails="false"
+                                              thumb-size="100"
+                                              inline="false"
+                                              bubbles="true"
+                                              bubble-size="30"
+                                              img-bubbles="true"
+                                              bg-close="true"
+                                              piracy="true"
+                                              img-anim="fadeup"
+                                              on-delete="avc.onDeletePhoto(img, cb)"></ng-image-gallery>
+                        </div>
+                        <!-- #endregion -->
+                        <!-- #region Details -->
+                        <div class="text-white text-center text-md-left">
+                            <h3 class="text-white text-center text-md-left">{{avc.account.name}}</h3>
+                            <div>
+                                <!--<button type="button" class="btn btn-primary mb-3"
+                                ng-if="!avc.isOwned">{{::'app.PlusFollow' | i18n}}</button>-->
+                                <button type="button"
+                                        ng-if="!avc.isOwned"
+                                        class="btn btn-secondary mb-3"
+                                        ng-click="avc.message()">
+                                    {{::'app.Message' | i18n}}
+                                </button>
+                                <button type="button" class="btn btn-facebook mb-3"
+                                        ng-click="avc.fbShare()">
+                                    <i class="fa fa-facebook"></i> Share
+                                </button>
+                            </div>
+                        </div>
+                        <!-- #endregion -->
+                    </div>
+                </div>
+                <!-- #endregion -->
+                <!-- #region STATS -->
+                <div class="col-12 col-md-5 col-lg-6 col-xl-7">
+                    <div class="d-flex justify-content-around align-items-center h-100">
+                        <div class="d-inline-block text-center">
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.ppg | number : 0) : '-'}}</h3>
+                            <small class="text-muted"
+                                   title="Points Per Game">PPG</small>
+                        </div>
+                        <div class="d-inline-block text-center">
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.apg | number : 1) : '-'}}</h3>
+                            <small class="text-muted"
+                                   title="Assists Per Game">APG</small>
+                        </div>
+                        <div class="d-inline-block text-center">
+                            <h3 class="m-0 d-block text-white">{{avc.stats && avc.stats.threePP != null? ((avc.stats.threePP * 100) | number : 0) : '-'}}</h3>
+                            <small class="text-muted"
+                                   title="Three-Point Percentage">3P%</small>
+                        </div>
+                        <div class="d-inline-block text-center">
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.rpg | number : 1) : '-'}}</h3>
+                            <small class="text-muted"
+                                   title="Rebounds Per Game">RPG</small>
+                        </div>
+                        <div class="d-inline-block text-center">
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.bpg | number : 1) : '-'}}</h3>
+                            <small class="text-muted"
+                                   title="Blocks Per Game">BPG</small>
+                        </div>
+                        <div class="d-inline-block text-center">
+                            <h3 class="m-0 d-block text-white">{{avc.stats && avc.stats.ftp != null? ((avc.stats.ftp * 100) | number : 0) : '-'}}</h3>
+                            <small class="text-muted"
+                                   title="Three-Point Percentage">FT%</small>
+                        </div>
+                        <div class="d-inline-block text-center">
+                            <h3 class="m-0 d-block text-white">{{avc.stats? (avc.stats.gp) : '-'}}</h3>
+                            <small class="text-muted"
+                                   title="Games Played">GP</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- #endregion -->
+            </div>
+        </div>
+    </div>
+    <div id="app-navigation-container" class="container sticky-top mb-3 px-0 px-sm-3">
+        <drbbly-appnavigator nav-items="avc.app.toolbar._navItems"
+                             app="avc.app"
+                             class="border-left border-right"></drbbly-appnavigator>
+    </div>
+    <div class="app-body"
+         id="app-body">
+        <div class="container px-0 px-sm-3"
+             ng-if="avc.account && avc.account.entityStatus !== $root.constants.enums.accountStatus.Active">
+            <div class="card">
+                <div class="card-body text-center">
+                    {{::'app.ContentNotCurrentlyAvailable' | i18n}}
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="avc.account && avc.account.entityStatus === $root.constants.enums.accountStatus.Active">
+            <ui-view account="avc.account"
+                     app="avc.app"
+                     on-update="avc.onAccountUpdate"
+                     ng-if="avc.shouldDisplayAsPublic"></ui-view>
+            <div class="container"
+                 ng-if="!avc.shouldDisplayAsPublic">
+                <div class="card">
+                    <div class="card-body text-center">
+                        {{::'app.ThisAccountIsPrivate' | i18n}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

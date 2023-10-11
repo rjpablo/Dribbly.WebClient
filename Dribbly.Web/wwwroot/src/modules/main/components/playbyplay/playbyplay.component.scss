@@ -1,0 +1,8 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-playbyplay {
+    drbbly-gameeventslist {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+}

@@ -1,0 +1,6 @@
+{
+"source": {
+"include":["./wwwroot/src"],
+"exclude":["./wwwroot/src/lib"]
+}
+}

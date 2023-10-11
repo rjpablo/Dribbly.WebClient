@@ -1,0 +1,44 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+
+$jersey-no-width: 2.5rem;
+
+drbbly-gamestats {
+    th, td {
+        text-align: right;
+    }
+
+    .player-stats {
+
+        th.jersey-no,
+        td.jersey-no {
+            width: $jersey-no-width;
+            position: sticky;
+            left: 0;
+            text-align: center;
+            background-color: $dark;
+        }
+
+        th.player,
+        td.player {
+            text-align: left;
+            position: sticky;
+            left: $jersey-no-width;
+            white-space: nowrap;
+            background-color: $dark;
+        }
+    }
+
+    .team-stats {
+
+        th.team,
+        td.team {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            white-space: nowrap;
+            background-color: $dark;
+        }
+    }
+}

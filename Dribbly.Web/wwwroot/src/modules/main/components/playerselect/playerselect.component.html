@@ -1,0 +1,8 @@
+﻿<div ng-if="psd.player"
+     class="w-100">
+    <img class="avatar" ng-src="{{psd.player.profilePhoto.url}}" />&nbsp;<span class="text-sporty">{{psd.player.jerseyNo}}</span>&nbsp;<span>{{psd.player.account.lastName}}</span>
+</div>
+<div ng-if="!psd.player"
+     class="text-center w-100">
+    <span>--</span>
+</div>

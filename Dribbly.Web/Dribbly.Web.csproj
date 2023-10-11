@@ -1,36 +1,59 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <NoWin32Manifest>true</NoWin32Manifest>
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <StartupObject>Dribbly.Web.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\modules\home\**" />
+    <Compile Remove="obj\Debug\netcoreapp2.2\win-x86\PubTmp\Out\wwwroot\shared\modules\site\components\sitelogo\wwwroot\**" />
+    <Compile Remove="wwwroot\dest\**" />
+    <Compile Remove="wwwroot\src\modules\home\**" />
     <Compile Remove="wwwroot\node_modules\**" />
-    <Content Remove="wwwroot\modules\home\**" />
+    <Compile Remove="wwwroot\src\shared\modules\app\components\numberspinner\**" />
+    <Content Remove="obj\Debug\netcoreapp2.2\win-x86\PubTmp\Out\wwwroot\shared\modules\site\components\sitelogo\wwwroot\**" />
+    <Content Remove="wwwroot\dest\**" />
+    <Content Remove="wwwroot\src\modules\home\**" />
     <Content Remove="wwwroot\node_modules\**" />
-    <EmbeddedResource Remove="wwwroot\modules\home\**" />
+    <Content Remove="wwwroot\src\shared\modules\app\components\numberspinner\**" />
+    <EmbeddedResource Remove="obj\Debug\netcoreapp2.2\win-x86\PubTmp\Out\wwwroot\shared\modules\site\components\sitelogo\wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\dest\**" />
+    <EmbeddedResource Remove="wwwroot\src\modules\home\**" />
     <EmbeddedResource Remove="wwwroot\node_modules\**" />
-    <None Remove="wwwroot\modules\home\**" />
+    <EmbeddedResource Remove="wwwroot\src\shared\modules\app\components\numberspinner\**" />
+    <None Remove="obj\Debug\netcoreapp2.2\win-x86\PubTmp\Out\wwwroot\shared\modules\site\components\sitelogo\wwwroot\**" />
+    <None Remove="wwwroot\dest\**" />
+    <None Remove="wwwroot\src\modules\home\**" />
     <None Remove="wwwroot\node_modules\**" />
+    <None Remove="wwwroot\src\shared\modules\app\components\numberspinner\**" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <PackageReference Include="AngularJS.Core" Version="1.7.8" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
 
   <ItemGroup>
     <Folder Include="Enums\" />
-    <Folder Include="wwwroot\lib\" />
-    <Folder Include="wwwroot\shared\services\" />
+    <Folder Include="wwwroot\src\custom\NewFolder\" />
+    <Folder Include="wwwroot\src\lib\" />
+    <Folder Include="wwwroot\src\lib\angular-ui-router-title\" />
+    <Folder Include="wwwroot\src\modules\auth\directives\" />
+    <Folder Include="wwwroot\src\modules\main\scripts\" />
+    <Folder Include="wwwroot\src\shared\modules\app\components\scheduletimetable\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\src\shared\modules\app\components\gallery\gallery.component.js" />
+    <None Include="wwwroot\src\shared\modules\app\components\gallery\gallery.component.scss" />
+    <None Include="wwwroot\src\shared\modules\site\components\chat\chat.component.js" />
+    <None Include="wwwroot\src\shared\modules\site\components\chat\chat.component.scss" />
   </ItemGroup>
 
 </Project>

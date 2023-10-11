@@ -1,0 +1,6 @@
+﻿<div class="display d-inline-block"
+     ng-class="lcd.isDanger?'danger' : lcd.isWarning? 'warning' : ''"
+     ng-click="lcd.clicked()"
+     style="font-size: {{ lcd.fontSize || '1em' }}">
+    <span ng-class="{'blink': lcd.shouldBlink}">{{lcd.text}}</span>
+</div>

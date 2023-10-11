@@ -1,0 +1,107 @@
+﻿<div class="container">
+    <div drbbly-overlay="das.overlay">
+        <div class="row">
+            <div class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6 px-0 px-sm-3">
+                <div class="card drbbly-card w-100 mb-3">
+                    <div class="card-header">
+                        <h5 class="drbbly-header d-inline-block m-0">
+                            {{::'app.Security' | i18n}}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-sm-3">
+                                <label class="text-secondary">{{::'site.Email' | i18n}}</label>
+                            </div>
+                            <div class="col-12 col-sm-9 d-flex">
+                                <div class="flex-grow-1">
+                                    <span>{{das.account.email}}</span>
+                                </div>
+                                <button class="btn btn-link p-0" tabindex="-1"
+                                        ng-click="das.replaceEmail()">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <label class="text-secondary">{{::'site.Password' | i18n}}</label>
+                            </div>
+                            <div class="col-12 col-sm-9">
+                                <button ng-click="das.changePassword()"
+                                        class="btn btn-link p-0"
+                                        tabindex="-1">
+                                    {{::'app.Change' | i18n}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6 px-0 px-sm-3">
+                <div class="card drbbly-card w-100 mb-3">
+                    <div class="card-header">
+                        <h5 class="drbbly-header d-inline-block m-0">
+                            {{::'app.Profile' | i18n}}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-sm-3">
+                                <label class="text-secondary">{{::'app.KeepPrivate' | i18n}}</label>
+                            </div>
+                            <div class="col-12 col-sm-9 d-flex">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox"
+                                           id="swKeepPrivate"
+                                           ng-model="das.isPrivate"
+                                           ng-change="das.handleIsPublicChanged()"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="swKeepPrivate"></label>
+                                </div>
+                            </div>
+                            <!--<div class="col-12 col-sm-3">
+                                <label class="text-secondary">{{::'app.ShowMyBirthDate' | i18n}}</label>
+                            </div>
+                            <div class="col-12 col-sm-9">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox"
+                                           id="swShowBirthDate"
+                                           ng-model="das.accountSettings.showBirthDate"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="swShowBirthDate"></label>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <section class="detail-list mt-3 col-12 col-sm-10 col-lg-8 col-xl-6">
+                <button type="button"
+                        class="btn btn-secondary d-none"
+                        ng-disabled="das.isBusy"
+                        ng-class="{'d-inline-block': das.account.status === $root.constants.enums.accountStatus.Active}"
+                        ng-click="das.deactivate()">
+                    {{::'site.DeactivateAccount' | i18n}}
+                </button>
+                <button type="button"
+                        class="btn btn-secondary d-none"
+                        ng-class="{'d-inline-block': das.account.status === $root.constants.enums.accountStatus.Inactive ||
+                                   das.account.status === $root.constants.enums.accountStatus.Deleted}"
+                        ng-disabled="das.isBusy"
+                        ng-click="das.reactivate()">
+                    {{::'site.ReactivateAccount' | i18n}}
+                </button>
+                <button type="button"
+                        class="btn btn-danger d-none"
+                        ng-class="{'d-inline-block': das.account.status !== $root.constants.enums.accountStatus.Deleted}"
+                        ng-disabled="das.isBusy"
+                        ng-click="das.deleteAccount()">
+                    {{::'site.DeleteAccount' | i18n}}
+                </button>
+            </section>
+        </div>
+    </div>
+</div>

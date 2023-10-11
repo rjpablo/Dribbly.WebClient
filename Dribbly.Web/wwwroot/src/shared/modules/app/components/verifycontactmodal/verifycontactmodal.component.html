@@ -1,0 +1,61 @@
+﻿<div class="text-center modal-body">
+    <form name="vcm.frmContactVerification">
+        <fieldset ng-disabled="vcm.isBusy">
+            <div ng-if="!vcm.isVerificationComplete">
+                <div ng-if="!vcm.codeHasBeenSent">
+                    <p>{{::'site.ContactVerificationNotice' | i18n : {contactNumber: vcm.model.contactNumber} }}</p>
+                    <div class="invalid-feedback"
+                         ng-class="{'d-block' : vcm.codeGenerationError}">
+                        {{vcm.codeGenerationError}}
+                    </div>
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="vcm.sendCode()"
+                            ng-switch="vcm.isBusy">
+                        <span ng-switch-default>{{::'site.SendCode'| i18n}}</span>
+                        <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+                    </button>
+                    <button type="button"
+                            class="btn btn-secondary"
+                            ng-click="vcm.onInterrupt()">
+                        {{::'site.Cancel'| i18n}}
+                    </button>
+                </div>
+                <div ng-if="vcm.codeHasBeenSent">
+                    <p>{{::'site.VerificationCodePrompt' | i18n : {contactNumber: vcm.model.contactNumber} }}</p>
+                    <div class="form-group">
+                        <input type="text"
+                               name="txtTitle"
+                               ng-model="vcm.code"
+                               class="form-control"
+                               ng-class="{'is-invalid' : vcm.verificationError}"
+                               required />
+                        <div class="invalid-feedback"
+                             ng-if="vcm.verificationError">
+                            {{vcm.verificationError}}
+                        </div>
+                    </div>
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-disabled="vcm.frmContactVerification.$invalid || vcm.frmContactVerification.$pristine"
+                            ng-click="vcm.submitCode()">
+                        {{::'site.Submit'| i18n}}
+                    </button>
+                    <button type="button"
+                            class="btn btn-secondary"
+                            ng-click="vcm.onInterrupt()">
+                        {{::'site.Cancel'| i18n}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+        <div ng-if="vcm.isVerificationComplete">
+            <p class="alert alert-success">{{'site.VerificationSuccessful' | i18n}}</p>
+            <button type="button"
+                    class="btn btn-primary"
+                    ng-click="vcm.close()">
+                {{::'site.Close'| i18n}}
+            </button>
+        </div>
+    </form>
+</div>

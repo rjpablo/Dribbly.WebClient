@@ -1,0 +1,13 @@
+drbbly-timer {
+    display: inline-block;
+
+    drbbly-lcddisplay {
+        width: 100%;
+
+        &.is-up {
+            .display {
+                border-color: red;
+            }
+        }
+    }
+}

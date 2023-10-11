@@ -1,0 +1,99 @@
+﻿<div class="container">
+    <div class="row py-3">
+        <div class="col-12 col-md-9">
+            <div class="row black-transparent-bg py-3 mb-3">
+                <div class="col-12">
+                    <h5 class="drbbly-header">Details</h5>
+                </div>
+                <div class="col-12">
+                    <ul class="list-group">
+                        <li class="d-block">
+                            <span class="text-muted">Full Name:</span>
+                            <span class="text-white">{{thc.team.name}}</span>
+                        </li>
+                        <li class="d-block">
+                            <span class="text-muted">Managed By:</span>
+                            <drbbly-entitystub entity="thc.team.managedBy"></drbbly-entitystub>
+                        </li>
+                        <li class="d-block">
+                            <span class="text-muted">Created On:</span>
+                            <drbbly-date date="thc.team.dateAdded"></drbbly-date>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row black-transparent-bg py-3 mb-3">
+                <div class="col-12 d-flex">
+                    <h5 class="drbbly-header">Upcoming Games</h5>
+                    <a ui-sref="main.team.games({id: thc.teamId})"
+                       class="ml-auto">See All</a>
+                </div>
+                <div class="col-12">
+                    <div drbbly-overlay="thc.upcomingGamesOverlay">
+                        <div class="row">
+                            <div class="col-lg-6"
+                                 ng-repeat="game in (thc.upcomingGames | orderBy: 'start') track by game.id">
+                                <drbbly-gamelistitem class="w-100 mb-3"
+                                                     game="game"></drbbly-gamelistitem>
+                            </div>
+                            <div class="col text-center p-3"
+                                 ng-if="thc.upcomingGames.length === 0">
+                                No upcoming games at the moment
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row black-transparent-bg py-3 mb-3">
+                <div class="col-12 d-flex">
+                    <h5 class="drbbly-header">Top Players</h5>
+                    <a ui-sref="main.team.members({id: thc.teamId})"
+                       class="ml-auto">See All</a>
+                </div>
+                <div class="col-12">
+                    <div drbbly-overlay="thc.topPlayersOverlay">
+                        <div class="slick-slider"
+                             ng-if="thc.topPlayers.length > 0"
+                             ng-class="{'slick-dotted': thc.carouselSettings.dots}">
+                            <slick settings="thc.carouselSettings"
+                                   class="dark-transparent-bg">
+                                <div ng-repeat="player in thc.topPlayers"
+                                     class="px-3">
+                                    <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
+                                </div>
+                            </slick>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center p-3"
+                                 ng-if="thc.topPlayers.length === 0">
+                                No data yet
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- Ad -->
+                    <span class="d-block text-center">Advertisement</span>
+                    <drbbly-ad type="'horizontal'"></drbbly-ad>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <!-- Ad -->
+            <span class="d-block text-center">Advertisement</span>
+            <drbbly-ad type="'horizontal'"></drbbly-ad>
+        </div>
+    </div>
+</div>

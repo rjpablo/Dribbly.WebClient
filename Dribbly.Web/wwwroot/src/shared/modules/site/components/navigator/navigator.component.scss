@@ -1,0 +1,32 @@
+drbbly-navigator {
+    z-index: 4;
+    box-shadow: 0px 2px 2px #1d1d1d;
+
+    @media (max-width: 575px) {
+        nav {
+            padding-top: 0;
+            padding-bottom: 0;
+            position: fixed;
+            bottom: 0;
+
+            .nav-link {
+                padding-top: 0.3rem;
+                padding-bottom: 0.3rem;
+
+                > .menu-item-icon,
+                > .menu-item-text {
+                    line-height: 1rem;
+                }
+
+                > .menu-item-text {
+                    font-size: 0.8rem;
+                }
+
+                > .menu-item-icon {
+                    font-size: 1.5rem;
+                    line-height: 1.5rem;
+                }
+            }
+        }
+    }
+}

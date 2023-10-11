@@ -1,0 +1,16 @@
+﻿<div>
+    <div ng-show="ovl.isVisible" class="overlay-blocker">
+        <div class="overlay-content">
+            <div>
+                <i class="{{ovl.iconBusy}}"></i>
+                <i class="{{ovl.icon}}"></i>
+                <br />
+                <span ng-bind-html="ovl.msg"></span> <!--May contain HTML.  This should NEVER be user-defined text. -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Use invisible attribute to keep the content's shape. 
+    -->
+    <div class="covered-content" ng-transclude></div>
+</div>

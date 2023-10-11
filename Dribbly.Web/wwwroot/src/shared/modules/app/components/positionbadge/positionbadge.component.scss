@@ -1,0 +1,17 @@
+drbbly-positionbadge {
+    .circle {
+        border: 2px solid white;
+        border-radius: 50%;
+        background: #000;
+        height: 32px;
+        width: 32px;
+        text-align: center;
+        color: #fff;
+
+        & > span {
+            color: #fff;
+            line-height: 1.7rem;
+            font-size: 1.2rem;
+        }
+    }
+}

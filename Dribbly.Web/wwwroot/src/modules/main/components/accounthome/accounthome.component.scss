@@ -1,0 +1,23 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-accounthome {
+    .top-section {
+
+        .profile-photo {
+            height: auto;
+            width: 150px;
+        }
+    }
+
+    .highlights {
+        .videos-wrapper{
+            white-space: nowrap;
+            overflow-x:auto;
+
+            drbbly-videolistitem:not(:last-child){
+                margin-right: 5px;
+            }
+        }
+    }
+}

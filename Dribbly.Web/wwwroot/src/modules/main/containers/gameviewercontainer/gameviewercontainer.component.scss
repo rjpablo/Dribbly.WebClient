@@ -1,0 +1,19 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+
+drbbly-gameviewercontainer {
+    .teams {
+
+        .status {
+            height: 5rem;
+        }
+
+        .score {
+            font-size: 3rem;
+        }
+
+        .logo {
+            height: 3rem;
+            width: 3rem;
+        }
+    }
+}

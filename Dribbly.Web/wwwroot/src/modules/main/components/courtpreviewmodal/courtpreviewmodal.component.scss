@@ -1,0 +1,21 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-courtpreviewmodal .photo-container {
+
+    drbbly-gallery {
+        height: 250px;
+    }
+
+    @include media-breakpoint-up(md) {
+        drbbly-gallery {
+            height: 350px;
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        drbbly-gallery {
+            height: 500px;
+        }
+    }
+}

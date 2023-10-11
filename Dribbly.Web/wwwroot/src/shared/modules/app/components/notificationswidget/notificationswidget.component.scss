@@ -1,0 +1,73 @@
+@import '../../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-notificationswidget {
+    .notification-badge-container {
+        position: relative;
+        display: inline;
+
+        small {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+        }
+    }
+
+    .notifications-dropdown-menu {
+        max-width: 350px;
+        width: 350px;
+        padding-top: 0;
+
+        .content-wrappper {
+            height: 100%;
+            width: 100%;
+
+            .header {
+                position: sticky;
+                top: 0;
+            }
+
+            .items-container {
+                max-height: 400px;
+                overflow-y: auto;
+
+                .items {
+
+                    .unviewed:not(:hover) {
+                        background-color: rgba(44,44,44,0.9);
+                    }
+                }
+
+                .loading-indicator {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-down(xs) {
+        a.toggle > i{
+            color: $white !important;
+        }
+
+        .notifications-dropdown-menu {
+            border-color: $primary;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            max-width: unset;
+            width: unset;
+
+            .content-wrappper {
+                display: flex;
+                flex-direction: column;
+
+                .items-container {
+                    max-height: unset;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Add Stage</h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="asm.overlay">
+        <form name="asm.frmStageDetails">
+            <fieldset ng-disabled="asm.isBusy">
+                <div class="form-group">
+                    <label for="txtName">Name</label>
+                    <input type="text"
+                           name="txtName"
+                           ng-model="asm.saveModel.stageName"
+                           placeholder="e.g. Elimination, Quarterfinals, etc."
+                           class="form-control"
+                           required
+                           ng-class="{'is-invalid': asm.frmStageDetails.txtName.$touched && asm.frmStageDetails.txtName.$invalid}" />
+                </div>
+                <div class="form-group">
+                    <label for="txtName">No. of Brackets:</label>
+                    <input type="number"
+                           name="txtBrackets"
+                           ng-model="asm.saveModel.bracketsCount"
+                           class="form-control"
+                           min="1"
+                           required
+                           ng-class="{'is-invalid': asm.frmStageDetails.txtBrackets.$touched && asm.frmStageDetails.txtBrackets.$invalid}" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="asm.isBusy || asm.frmStageDetails.$invalid || (asm.model.isEdit && asm.frmStageDetails.$pristine)"
+            type="submit"
+            ng-click="asm.submit()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-warning"
+            type="button"
+            ng-click="asm.cancel()"
+            ng-disabled="asm.isBusy"></button>
+</div>

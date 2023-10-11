@@ -1,0 +1,46 @@
+﻿<div class="modal-body p-0">
+    <div class="sticky-top bg-black">
+        <div class="d-flex search-form border-bottom mt-1 pr-3">
+            <button class="btn mb-2"
+                    ng-click="gsm.cancel()">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <drbbly-globalsearch class="flex-grow-1 mb-2"
+                                 on-ready="gsm.onSearchComponentReady"
+                                 on-cleared="gsm.onCleared"
+                                 hide-results="true"
+                                 on-results-updated="gsm.onResultsUpdated">
+            </drbbly-globalsearch>
+        </div>
+        <div class="groups p-1"
+             ng-show="gsm.hasSearched && gsm.results.length > 0">
+            <small class="text-secondary mx-1 group"
+                   ng-class="{'selected': gsm.selectedGroup === group}"
+                   ng-repeat="group in gsm.resultGroups"
+                   ng-show="group.items.length > 0"
+                   ng-click="gsm.selectedGroup = group">
+                {{group.title}}({{group.items.length > 99? '99+' : group.items.length}})
+            </small>
+        </div>
+    </div>
+    <div class="results-container">
+        <div class="items">
+            <button ng-repeat="item in gsm.selectedGroup.items"
+                    class="btn result-item"
+                    ng-click="gsm.onItemSelected(item)">
+                <img ng-src="{{item.iconUrl}}"
+                     class="result-icon" />
+                <span class="result-text">{{item.text}}</span>
+            </button>
+            <div class="groups p-1 text-center py-5"
+                 ng-show="gsm.hasSearched && gsm.results.length === 0">
+                No results found.
+            </div>
+        </div>
+    </div>
+    <div>
+        <!-- Ad -->
+        <span class="d-block text-center">Advertisement</span>
+        <drbbly-ad type="'square'"></drbbly-ad>
+    </div>
+</div>

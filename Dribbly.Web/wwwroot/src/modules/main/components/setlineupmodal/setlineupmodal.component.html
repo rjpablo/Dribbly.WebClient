@@ -1,0 +1,56 @@
+﻿<div class="modal-body">
+    <div drbbly-overlay="stu.overlay">
+        <uib-tabset active="stu.activeTab">
+            <uib-tab ng-repeat="team in stu.teams"
+                     index="team.id">
+                <uib-tab-heading>
+                    <div ng-class="{'text-danger': team.inValid}"
+                         class="px-3 py-1">
+                        <i class="fa fa-exclamation-circle"
+                           ng-show="team.inValid"></i>
+                        <span>{{team.shortName + ' Lineup'}}</span>
+                    </div>
+                </uib-tab-heading>
+                <div class="d-flex border border-top-0">
+                    <div class="selected">
+                        <div class="label">
+                            In-Game <span ng-class="{'text-danger': (team.players | filter : {selected: true}).length > 5}">
+                                ({{(team.players | filter : {selected: true}).length}})
+                            </span>
+                        </div>
+                        <div class="player-list">
+                            <button class="btn btn-secondary player" ng-repeat="player in team.players | filter : {selected: true}"
+                                    ng-click="stu.toggleSelected(player, team)">
+                                <span class="jersey-no text-sporty">{{player.jerseyNo}}</span>
+                                <span class="name">{{player.account.lastName}}</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="choices">
+                        <div class="label">
+                            Reserve ({{(team.players | filter : {selected: false}).length}})
+                        </div>
+                        <div class="player-list">
+                            <button class="btn btn-secondary player" ng-repeat="player in team.players | filter : {selected: false}"
+                                    ng-click="stu.toggleSelected(player, team)">
+                                <span class="jersey-no text-sporty">{{player.jerseyNo}}</span>
+                                <span class="name">{{player.account.lastName}}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="!stu.hasMadeChanges || stu.inValid"
+            type="submit"
+            ng-click="stu.handleSubmitClick()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-secondary"
+            type="button"
+            ng-click="stu.cancel()"></button>
+</div>

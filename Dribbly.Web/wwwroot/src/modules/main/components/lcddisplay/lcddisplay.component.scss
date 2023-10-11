@@ -1,0 +1,30 @@
+@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-lcddisplay {
+    display: inline-block;
+
+    .label {
+        display: block;
+        width: 100%;
+    }
+
+    .display {
+        width: 100%;
+        border: 1px solid #fff;
+        padding: 0.2em;
+        line-height: 1em;
+
+        &.danger {
+            color: $danger;
+            border-color: $danger;
+            box-shadow: 0 0 5px 1px $danger, inset 0 0 5px 1px $danger;
+        }
+
+        &.warning {
+            color: $warning;
+            border-color: $warning;
+            box-shadow: 0 0 5px 1px $warning, inset 0 0 5px 1px $warning;
+        }
+    }
+}

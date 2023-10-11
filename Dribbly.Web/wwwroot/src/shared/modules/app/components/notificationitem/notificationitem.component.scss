@@ -1,0 +1,8 @@
+drbbly-notificationitem {
+    padding: 0;
+
+    & > a {
+        padding: 0.25rem 1.5rem;
+        display: inline-block;
+    }
+}

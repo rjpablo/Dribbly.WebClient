@@ -1,0 +1,33 @@
+﻿<div>
+    <div class="carousel-container mb-3"
+         ng-if="glr.hasFiles()">
+        <ng-image-gallery images="glr.media"
+                          thumbnails="true"
+                          thumb-size="100"
+                          inline="glr._options.inline"
+                          sortable="glr._options.sortable"
+                          hide-captions="glr._options.hideCaptions"
+                          cover="glr._options.cover"
+                          bubbles="glr._options.bubbles"
+                          bubble-size="glr._options.bubbleSize"
+                          img-bubbles="glr._options.imgBubbles"
+                          bg-close="true"
+                          piracy="true"
+                          img-anim="fadeup"
+                          on-before-open="glr.onBeforeOpen"
+                          on-delete="glr.deletePhoto(img, cb)"
+                          image-as-backdrop="glr._options.imageAsBackdrop"></ng-image-gallery>
+    </div>
+    <div class="mb-3 text-center"
+         ng-if="glr.canAdd">
+        <a class="btn-link"
+           ngf-select="glr.addPhotos($files)"
+           ngf-pattern="'image/*'"
+           ngf-multiple="true"
+           ngf-accept="'image/*'"
+           ngf-max-size="20MB"
+           href="#">
+            <i class="fa fa-plus"></i>&nbsp;{{::(glr.addButtonLabel || ('site.Add' | badI18n))}}
+        </a>
+    </div>
+</div>

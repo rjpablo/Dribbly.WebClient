@@ -1,0 +1,11 @@
+﻿<nav class="py-3 border-top border-bottom"
+     ng-if="dan.navItems && dan.navItems.length > 0">
+    <ul class="nav">
+        <li class="nav-item" ng-repeat="item in dan.navItems | filter : { isRemoved: '!true' } "
+             ng-click="dan.itemClicked(item, $event)">
+            <a class="nav-link" ng-class="{'active': item.isActive}" ng-href="{{dan.getHref(item)}}">
+                <span>{{::item.textKey | i18n}}</span>
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,13 @@
+﻿<span ng-if="dus.user.entityStatus == $root.constants.enums.accountStatus.Inactive"
+      class="text-muted">
+    {{::'app.InactiveAccount' | i18n}}
+</span>
+<span ng-if="dus.user.entityStatus == $root.constants.enums.accountStatus.Deleted">
+    {{::'app.DeletedAccount' | i18n}}
+</span>
+<div ng-if="dus.user.entityStatus == $root.constants.enums.accountStatus.Active"
+     class="d-inline-block">
+    <drbbly-profilepicture user="dus.user"></drbbly-profilepicture>
+    <a ui-sref="main.account.home({username: dus.user.name})"
+       class="username">{{dus.user.name}}</a>
+</div>

@@ -1,0 +1,66 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Edit {{ecm.model.isShotClock? 'Shot Clock': 'Game CLock'}}</h3>
+</div>
+<div class="modal-body"
+     ng-class="{'shot-clock': ecm.model.isShotClock}">
+    <div drbbly-overlay="ecm.overlay">
+        <form name="ecm.frmEditClock"
+              novalidate
+              ng-if="ecm.saveModel">
+            <fieldset ng-disabled="ecm.isBusy"
+                      class="d-flex">
+                <div>
+                    <div class="form-group"
+                         ng-show="!ecm.model.isShotClock">
+                        <input name="min"
+                               type="number"
+                               required
+                               ng-model="ecm.saveModel.min"
+                               class="min"
+                               max="12"
+                               min="0" />
+                        <label ng-class="{'text-danger': ecm.frmEditClock.min.$invalid}">min</label>
+                    </div>
+                    <span class="separator px-2"
+                          ng-show="!ecm.model.isShotClock">:</span>
+                    <div class="form-group"
+                         ng-class="">
+                        <input name="sec"
+                               type="number"
+                               required
+                               ng-model="ecm.saveModel.sec"
+                               class="sec"
+                               max="59"
+                               min="0" />
+                        <label ng-class="{'text-danger': ecm.frmEditClock.sec.$invalid}">sec</label>
+                    </div>
+                    <span class="separator px-2"
+                          ng-show="!ecm.model.isShotClock">.</span>
+                    <div class="form-group"
+                         ng-show="!ecm.model.isShotClock">
+                        <input name="ms"
+                               type="number"
+                               required
+                               ng-model="ecm.saveModel.ms"
+                               class="ms"
+                               max="999"
+                               min="0" />
+                        <label ng-class="{'text-danger': ecm.frmEditClock.ms.$invalid}">ms</label>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="ecm.isBusy || ecm.frmEditClock.$invalid || ecm.frmEditClock.$pristine"
+            type="submit"
+            ng-click="ecm.handleSubmitClick()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-warning"
+            type="button"
+            ng-click="ecm.cancel()"
+            ng-disabled="ecm.isBusy"></button>
+</div>

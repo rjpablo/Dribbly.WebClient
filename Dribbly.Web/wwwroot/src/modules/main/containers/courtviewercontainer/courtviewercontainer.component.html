@@ -1,0 +1,155 @@
+﻿<div class="app-container px-0 px-sm-3">
+    <div drbbly-overlay="dcc.courtsDetailsOverlay">
+        <div class="alert alert-info mt-3" role="alert"
+             ng-if="dcc.court && dcc.court.isDeleted"
+             i18n="app.TheRequestedCourtIsNotAvailable">
+        </div>
+        <div ng-if="dcc.court && !dcc.court.isDeleted">
+            <div id="app-header"
+                 class="app-header container px-0 px-sm-3">
+                <div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="primary-photo-container border border-top-0 border-bottom-0">
+                                <div ng-if="!dcc.court.primaryPhoto"
+                                     class="d-flex justify-content-center align-items-center bg-secondary h-100">
+                                    <button class="btn btn-sm btn-outline-light"
+                                            ng-if="dcc.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
+                                            ngf-select="dcc.changePrimaryPicture($file)"
+                                            ng-model="dcc.profilePicture"
+                                            ngf-pattern="'image/*'"
+                                            ngf-accept="'image/*'"
+                                            ngf-max-size="20MB"
+                                            ng-disabled="dcc.updatingPrimaryPhoto">
+                                        <span ng-if="dcc.updatingPrimaryPhoto">
+                                            <i class="fa fa-circle-o-notch fa-spin"></i> Processing...
+                                        </span>
+                                        <span ng-if="!dcc.updatingPrimaryPhoto">
+                                            <i class="fa fa-plus"></i> Upload Photo
+                                        </span>
+                                    </button>
+                                </div>
+                                <div ng-if="dcc.court.primaryPhoto"
+                                     class="h-100">
+                                    <drbbly-image class="primary-photo"
+                                                  on-click="dcc.onPrimaryPhotoClick"
+                                                  image-url="{{dcc.court.primaryPhoto.url || './images/default_images/court_default_1.png'}}"></drbbly-image>
+                                    <div class="controls float-right">
+                                        <button class="btn btn-sm btn-outline-light"
+                                                ng-if="dcc.isOwned || ('Court.UpdateNotOwned' | drbblyPermission)"
+                                                ngf-select="dcc.changePrimaryPicture($file)"
+                                                ng-model="dcc.profilePicture"
+                                                ngf-pattern="'image/*'"
+                                                ngf-accept="'image/*'"
+                                                ngf-max-size="20MB">
+                                            <span class="fa fa-pencil" aria-hidden="true"></span>
+                                        </button><br />
+                                    </div>
+                                </div>
+                                <ng-image-gallery images="dcc.photos"
+                                                  methods="dcc.methods"
+                                                  thumbnails="false"
+                                                  thumb-size="100"
+                                                  inline="false"
+                                                  bubbles="true"
+                                                  bubble-size="30"
+                                                  img-bubbles="true"
+                                                  bg-close="true"
+                                                  piracy="true"
+                                                  img-anim="fadeup"
+                                                  on-delete="dcc.deletePhoto(img, cb)"></ng-image-gallery>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3 bg-black border-left border-right">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-lg-5 mb-3 text-center text-md-left">
+                                        <h4 class="name d-block text-white">{{dcc.court.name}}</h4>
+                                        <div class="d-block"
+                                             ng-if="dcc.court.reviewCount">
+                                            <drbbly-rating value="dcc.court.rating"></drbbly-rating>
+                                            <a ui-sref="main.court.reviews({id: dcc.court.id})"
+                                               class="text-secondary">{{'app.ReviewCountDisplay' | i18n : {count: dcc.court.reviewCount} }}</a>
+                                        </div>
+                                        <!--<span class="text-white">{{'site.FollowerCountDisplay' | i18n:{count: (dcc.court.followerCount | drbblyNumber)} }}</span>-->
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-7">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-7 mb-3 text-center">
+                                                <button class="btn btn-primary"
+                                                        type="button"
+                                                        ng-if="dcc.isOwned"
+                                                        ng-disabled="dcc.isBusy"
+                                                        ng-click="dcc.addGame()">
+                                                    <i class="fa fa-plus mr-1"></i>{{::'app.NewGame' | i18n}}
+                                                </button>
+                                                <!--<button class="btn btn-primary"
+                                                        type="button"
+                                                        ng-if="!dcc.isOwned"
+                                                        ng-disabled="dcc.isBusy"
+                                                        ng-click="dcc.follow()"
+                                                        ng-switch="dcc.court.isFollowed">
+                                                    <span ng-switch-when="true">{{::'site.Unfollow' | i18n}}</span>
+                                                    <span ng-switch-default>+ {{::'site.Follow' | i18n}}</span>
+                                                </button>-->
+                                                <!--<button ng-click="dcc.showContact()"
+                                                        class="btn btn-secondary"
+                                                        ng-if="!dcc.isOwned"
+                                                        type="button">
+                                                    <i class="fa fa-phone"></i>&nbsp;{{::'site.Contact' | i18n}}
+                                                </button>-->
+                                                <div class="dropdown dropdown d-inline-block"
+                                                     ng-if="dcc.isOwned || ('Court.DeleteNotOwned' | drbblyPermission)">
+                                                    <button type="button" class="btn btn-secondary dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="fa fa-ellipsis-h"></span>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item text-danger"
+                                                           ng-if="dcc.isOwned || ('Court.DeleteNotOwned' | drbblyPermission)"
+                                                           ng-click="dcc.deleteCourt()">{{::'app.DeleteCourt' | i18n}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--<div class="col-12 col-lg-5 mb-3 text-center">
+                                                <h3 class="text-warning rate"
+                                                    ng-if="!dcc.court.isFreeToPlay">
+                                                    {{ (dcc.court.ratePerHour || 0) | currency:'P':0 }}
+                                                    <small>{{::'site.SlashHour' | i18n}}</small>
+                                                </h3>
+                                                <h3>
+                                                    <span ng-if="dcc.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
+                                                </h3>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="app-navigation-container" class="container sticky-top px-0 px-sm-3">
+                <drbbly-appnavigator nav-items="dcc.app.toolbar._navItems"
+                                     app="dcc.app"
+                                     class="border-left border-right"></drbbly-appnavigator>
+            </div>
+            <div id="app-body"
+                 class="app-body">
+                <ui-view court="dcc.court"
+                         app="dcc.app"
+                         on-update="dcc.onCourtUpdate"></ui-view>
+                <div class="container">
+                    <drbbly-nearbycourts reference-coordinates="dcc.court"
+                                         title="{{'app.CourtsNearCourtName' | i18n : {courtName: dcc.court.name} }}"
+                                         excluded-court="dcc.court"
+                                         ng-if="dcc.court"></drbbly-nearbycourts>
+                    <div>
+                        <!-- Ad -->
+                        <span class="d-block text-center">Advertisement</span>
+                        <drbbly-ad type="'horizontal'"></drbbly-ad>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
