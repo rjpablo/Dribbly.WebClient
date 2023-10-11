@@ -3,14 +3,6 @@
          ng-class="{'non-mobile': nav.usingSideNavigator}">
         <drbbly-sitelogo class="d-none d-sm-block"></drbbly-sitelogo>
         <ul class="nav mr-0 mr-sm-auto w-xs-100">
-            <li class="nav-item active">
-                <a class="nav-link"
-                   ng-class="{'active': nav.$state.current.name === 'main.courts'}"
-                   ui-sref="main.courts">
-                    <span class="d-block d-sm-inline text-center drbbly-font court-inclined menu-item-icon"></span>
-                    <span class="d-block d-sm-inline menu-item-text">{{'site.Courts' | i18n}}</span>
-                </a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link"
                    ng-class="{'active': nav.$state.current.name === 'main.players'}"
@@ -27,12 +19,12 @@
                     <span class="d-block d-sm-inline menu-item-text">{{'site.Teams' | i18n}}</span>
                 </a>
             </li>
-            <li class="nav-item d-inline d-sm-none">
+            <li class="nav-item active">
                 <a class="nav-link"
-                   ng-class="{'active': nav.$state.current.name === 'main.teams'}"
-                   ng-click="nav.searchClicked()">
-                    <i class="d-block d-sm-inline text-center fa fa-search text-secondary menu-item-icon"></i>
-                    <span class="d-block d-sm-inline menu-item-text">{{'site.Search' | i18n}}</span>
+                   ng-class="{'active': nav.$state.current.name === 'main.courts'}"
+                   ui-sref="main.courts">
+                    <span class="d-block d-sm-inline text-center drbbly-font court-inclined menu-item-icon"></span>
+                    <span class="d-block d-sm-inline menu-item-text">{{'site.Courts' | i18n}}</span>
                 </a>
             </li>
         </ul>

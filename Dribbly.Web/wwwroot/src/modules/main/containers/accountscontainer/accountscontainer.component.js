@@ -24,17 +24,28 @@
                 description: 'Discover top athletes grouped by statistics, showcasing the game\'s rising stars and seasoned legends.'
             });
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
+            dhc.newPlayersOverlay = drbblyOverlayService.buildOverlay();
             dhc.leadersOverlay = drbblyOverlayService.buildOverlay();
             dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();
             drbblyToolbarService.setItems([]);
 
+            dhc.newPlayers = [];
+            dhc.newPlayersNextPageNumber = 1;
+            dhc.getNewPlayersFilter = {
+                sortBy: constants.enums.getPlayersSortByEnum.DateJoined,
+                sortDirection: constants.enums.sortDirection.Descending,
+                pageSize: 10,
+                page: dhc.newPlayersNextPageNumber
+            };
+
             loadTopPlayers();
             loadLeaders();
+            dhc.loadNewPlayers();
             dhc.app.mainDataLoaded();
         };
 
         function loadLeaders() {
-            var sortByEnum = constants.enums.statEnum;
+            var sortByEnum = constants.enums.getPlayersSortByEnum;
             var categories = [
                 {
                     sortBy: sortByEnum.PPG,
@@ -71,12 +82,7 @@
                     getValue: player => {
                         return $filter('number')(player.spg, 1);
                     }
-                },
-                //sortByEnum.APG,
-                //sortByEnum.RPG,
-                //sortByEnum.ThreePP,
-                //sortByEnum.BPG,
-                //sortByEnum.FGP
+                }
             ];
             dhc.leaderGroups = categories.map(c => {
                 var group = {
@@ -103,6 +109,21 @@
                 .then(dhc.leadersOverlay.setToReady)
                 .catch(() => dhc.leadersOverlay.setToError());
 
+        }
+
+        dhc.loadNewPlayers = function () {
+            dhc.getNewPlayersFilter.page = dhc.newPlayersNextPageNumber;
+            dhc.newPlayersOverlay.setToBusy();
+            return drbblyAccountsService.getPlayers(dhc.getNewPlayersFilter)
+                .then(result => {
+                    dhc.newPlayersNextPageNumber++;
+                    if (result.length > 0) {
+                        dhc.getNewPlayersFilter.joinedBeforeDate = result[result.length - 1].dateAdded;
+                    }
+                    dhc.newPlayers = dhc.newPlayers.concat(result);
+                })
+                .catch(e => drbblyCommonService.handleError(e))
+                .finally(() => dhc.newPlayersOverlay.setToReady());
         }
 
         function loadTopPlayers() {
