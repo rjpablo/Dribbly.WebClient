@@ -46,7 +46,7 @@
         glr.hasFiles = () => glr.media && glr.media.length > 0;
 
         glr.onBeforeOpen = function (data) {
-            if (!(glr.options.inline && data.isAutoOpen)) {
+            if (!(glr._options.inline && data.isAutoOpen)) {
                 modalService.show({
                     view: '<drbbly-gallerymodal></drbbly-gallerymodal>',
                     model: {

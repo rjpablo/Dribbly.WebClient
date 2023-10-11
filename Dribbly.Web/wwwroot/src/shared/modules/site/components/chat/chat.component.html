@@ -104,6 +104,7 @@
                     <div class="media-preview">
                         <drbbly-gallery can-add="false"
                                         on-delete="cht.onRemovePhoto"
+                                        ng-if="cht.previewImages.length > 0"
                                         media="cht.previewImages"></drbbly-gallery>
                     </div>
                     <form ng-submit="cht.send()"

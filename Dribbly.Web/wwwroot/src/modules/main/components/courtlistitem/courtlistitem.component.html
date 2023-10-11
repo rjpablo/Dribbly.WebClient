@@ -1,5 +1,6 @@
-﻿<div class="mb-3" ng-click="cli.clicked($event)">
+﻿<div class="mb-3">
     <div class="photo-container"
+         ng-click="cli.clicked($event)"
          ui-sref="main.court.home({id: cli.court.id})">
         <drbbly-image class="primary-photo"
                       image-url="{{cli.court.primaryPhoto.url || './images/default_images/court_default_1.png'}}"></drbbly-image>
@@ -7,7 +8,8 @@
     </div>
     <div class="details">
         <a ui-sref="main.court.home({id: cli.court.id})"
-           class="name text-line-2"'
+           class="name text-line-2"
+           ng-click="cli.clicked($event)"
            title="{{cli.court.name}}">{{cli.court.name}}</a>
         <drbbly-rating class="d-block" value="cli.court.rating"></drbbly-rating>
         <span ng-if="cli.court.distance"

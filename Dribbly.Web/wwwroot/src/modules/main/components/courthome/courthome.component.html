@@ -95,7 +95,7 @@
                                         </div>
                                         <div class="d-flex">
                                             <button type="button" ng-click="dcd.editDescription()"
-                                                    ng-show="!dcd.isEditingDescription"
+                                                    ng-show="dcd.isOwned && !dcd.isEditingDescription"
                                                     class="btn btn-secondary flex-grow-1">
                                                 <small>{{::'site.Edit' | i18n}}</small>
                                             </button>

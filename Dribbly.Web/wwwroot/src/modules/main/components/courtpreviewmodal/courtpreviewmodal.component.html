@@ -1,79 +1,99 @@
 ﻿<div drbbly-overlay="cpm.overlay">
     <div class="modal-body">
-        <div class="photo-container mx-n3 mt-n3">
-            <drbbly-image class="primary-photo"
-                          image-url="{{cpm.court.primaryPhoto.url || './images/default_images/court_default_1.png'}}"></drbbly-image>
-        </div>
-        <div class="row court-details">
-            <div class="col-12 hilighted-details py-2">
-                <span class="name d-block line-height-1">{{cpm.court.name}}</span>
-                <span class="rate">
+        <div class="row my-n3">
+            <div class="col-12 col-lg-8 px-0 py-0">
+                <div class="photo-container">
+                    <!--<drbbly-image class="primary-photo"
+                    image-url="{{cpm.court.primaryPhoto.url || './images/default_images/court_default_1.png'}}"></drbbly-image>-->
+                    <drbbly-gallery ng-if="cpm.photos.length > 0"
+                                    media="cpm.photos"
+                                    options="{inline: true}"></drbbly-gallery>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 d-flex flex-column">
+                <div class="details py-3 mb-3 flex-grow-1">
+                    <h3 class="name">{{cpm.court.name}}</h3>
+                    <drbbly-rating class="d-block" value="cpm.court.rating"></drbbly-rating>
+                    <div class="additional-info text-line-6"
+                         ng-bind-html="cpm.court.additionalInfo"
+                         ng-if="cpm.court.additionalInfo"></div>
+                </div>
+
+                <!--<div class="row court-details">
+                    <div class="col-12 hilighted-details py-2">
+                        <span class="name d-block line-height-1">{{cpm.court.name}}</span>-->
+                <!--<span class="rate">
                     {{ (cpm.court.ratePerHour || 0) | currency:'P':0 }}
                     <small>{{::'site.SlashHour' | i18n}}</small>
-                </span>
-                <drbbly-rating class="d-block" value="cpm.court.rating"></drbbly-rating>
-                <span ng-if="cpm.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
-                <span class="text-muted">{{'site.FollowerCountDisplay' | i18n:{count: (cpm.court.followerCount | drbblyNumber)} }}</span>
-            </div>
-            <div class="more-details col-12 py-2">
-                <table class="table">
-                    <tr>
-                        <td>
-                            <i class="fa fa-money"></i>
-                        </td>
-                        <td>
-                            <span class="rate">
-                                {{ (cpm.court.ratePerHour || 0) | currency:'P':0 }}
-                                <small>{{::'site.SlashHour' | i18n}}</small>
-                            </span>
-                        </td>
-                    </tr>
-                    <!--<tr>
-                        <td>
-                            <i class="fa fa-map-marker"></i>
-                        </td>
-                        <td>
-                            <span class="">{{'San Juan City'}}</span>
-                        </td>
-                    </tr>-->
-                    <tr>
-                        <td>
-                            <i class="fa fa-user"></i>
-                        </td>
-                        <td>
-                            <drbbly-entitystub entity="cpm.court.owner"></drbbly-entitystub>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-calendar"></i>
-                        </td>
-                        <td>
-                            <span>{{cpm.court.dateAdded | date}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-info-circle"></i>
-                        </td>
-                        <td>
-                            <div ng-bind-html="cpm.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
-                        </td>
-                    </tr>
-                </table>
+                </span>-->
+                <!--<drbbly-rating class="d-block" value="cpm.court.rating"></drbbly-rating>-->
+                <!--<span ng-if="cpm.court.isFreeToPlay" class="badge badge-success">{{::'app.FreeToPlay' | i18n}}</span>
+                <span class="text-muted">{{'site.FollowerCountDisplay' | i18n:{count: (cpm.court.followerCount | drbblyNumber)} }}</span>-->
+                <!--</div>
+                <div class="more-details col-12 py-2">
+                    <table class="table">-->
+                <!--<tr>
+                    <td>
+                        <i class="fa fa-money"></i>
+                    </td>
+                    <td>
+                        <span class="rate">
+                            {{ (cpm.court.ratePerHour || 0) | currency:'P':0 }}
+                            <small>{{::'site.SlashHour' | i18n}}</small>
+                        </span>
+                    </td>
+                </tr>-->
+                <!--<tr>
+                    <td>
+                        <i class="fa fa-map-marker"></i>
+                    </td>
+                    <td>
+                        <span class="">{{'San Juan City'}}</span>
+                    </td>
+                </tr>-->
+                <!--r>
+                                         <tr>
+                                             <td>
+                                                 <i class="fa fa-user"></i>
+                                             </td>
+                                             <td>
+                                                 <drbbly-entitystub entity="cpm.court.owner"
+                                                                    ng-if="cpm.court.owner"></drbbly-entitystub>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td>
+                                                 <i class="fa fa-calendar"></i>
+                                             </td>
+                                             <td>
+                                                 <span>{{cpm.court.dateAdded | date}}</span>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td>
+                                                 <i class="fa fa-info-circle"></i>
+                                             </td>
+                                             <td>
+                                                 <div ng-bind-html="cpm.court.additionalInfo || ('app.NoAdditionalInfo' | i18n)"></div>
+                                             </td>
+                                         </tr>
+                                     </table>
+                                 </div>
+                             </div>-->
+                <div class="controls mb-3">
+                    <a ui-sref="main.court.home({id: cpm.court.id})" class="m-0 p-0 pb-1 d-block">
+                        <span type="button"
+                              class="btn-block btn btn-primary"
+                              ng-click="cpm.viewCourtDetails($event, cpm.court)">
+                            {{::'app.ViewFullDetails' | i18n}}
+                            <!--&nbsp;
+                            <i class="fa fa-external-link"></i>-->
+                        </span>
+                    </a>
+                    <button class="btn btn-secondary btn-block" ng-click="cpm.close()">Close</button>
+                </div>
             </div>
         </div>
-        <div class="controls">
-            <a ui-sref="main.court.home({id: cpm.court.id})" class="m-0 p-0 pb-1 d-block">
-                <span type="button"
-                      class="btn-block btn btn-primary"
-                      ng-click="cpm.viewCourtDetails($event, cpm.court)">
-                    {{::'app.ViewFullDetails' | i18n}}
-                    <!--&nbsp;
-                    <i class="fa fa-external-link"></i>-->
-                </span>
-            </a>
-            <button class="btn btn-secondary btn-block" ng-click="cpm.close()">Close</button>
-        </div>
+
     </div>
 </div>

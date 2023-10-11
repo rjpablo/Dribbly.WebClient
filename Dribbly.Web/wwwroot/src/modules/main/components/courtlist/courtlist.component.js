@@ -29,6 +29,13 @@
             setDisplayedCourts();
         };
 
+        dcl.$onChanges = function (changes) {
+            if (changes.courts && !changes.courts.isFirstChange()) {
+                dcl.currentSize = Math.min((dcl.courts || []).length, dcl._settings.initialItemCount);
+                setDisplayedCourts();
+            }
+        }
+
         function setSettings(settings) {
             var defaultSettings = {
                 wrapItems: true,
@@ -39,13 +46,18 @@
             dcl._settings = Object.assign({}, defaultSettings, settings);
         }
 
-        dcl.onItemClick = function (court) {
-            modalService.show({
-                view: '<drbbly-courtpreviewmodal></drbbly-courtpreviewmodal>',
-                model: { court: court }
-            })
-                .then(function () { /*do nothing*/ })
-                .catch(function () { /*do nothing*/ });
+        dcl.onItemClick = function (court, e) {
+            if (dcl.settings.previewOnItemClick) {
+                e.preventDefault();
+                e.stopPropagation();
+                modalService.show({
+                    view: '<drbbly-courtpreviewmodal></drbbly-courtpreviewmodal>',
+                    model: { court: court },
+                    size: 'xl'
+                })
+                    .then(function () { /*do nothing*/ })
+                    .catch(function () { /*do nothing*/ });
+            }
         };
 
         dcl.loadMore = function () {

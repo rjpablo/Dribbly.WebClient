@@ -14,9 +14,9 @@
         });
 
     controllerFn.$inject = ['$scope', 'drbblyCommonService', 'drbblyEventsService', 'drbblyCourtsService', 'settingsService',
-        'mapService', 'constants', 'modalService', '$filter', 'orderByFilter'];
+        'mapService', 'constants', 'modalService', '$filter', 'orderByFilter', 'drbblyOverlayService'];
     function controllerFn($scope, drbblyCommonService, drbblyEventsService, drbblyCourtsService, settingsService,
-        mapService, constants, modalService, $filter, orderByFilter) {
+        mapService, constants, modalService, $filter, orderByFilter, drbblyOverlayService) {
         var src = this;
         var _okToClose;
         var _markers;
@@ -24,11 +24,12 @@
         var _removeListener;
 
         src.$onInit = function () {
+            src.overlay = drbblyOverlayService.buildOverlay();
             src.mapApiKey = settingsService[constants.settings.googleMapApiKey];
             src.filteredCourts = [];
             src.mapOptions = {
                 id: 'court-search-map',
-                zoom: 15,
+                zoom: 8,
                 disableDefaultUI: false,
                 streetViewControl: false
             };
@@ -53,6 +54,7 @@
 
         src.onMapReady = function (map) {
             src.map = map;
+            src.overlay.setToBusy('Retrieving courts...');
             drbblyCourtsService.getAllCourts()
                 .then(function (result) {
                     src.isBusy = false;
@@ -70,6 +72,9 @@
                 })
                 .catch(function (error) {
                     drbblyCommonService.handleError(error);
+                })
+                .finally(() => {
+                    src.overlay.setToReady();
                 });
         };
 
@@ -102,6 +107,7 @@
                     lng: position.coords.longitude
                 };
                 src.map.setCenter(pos);
+                src.map.setZoom(src.mapOptions.zoom);
             }, function () {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
@@ -144,7 +150,8 @@
         function previewCourt(court) {
             modalService.show({
                 view: '<drbbly-courtpreviewmodal></drbbly-courtpreviewmodal>',
-                model: { court: court }
+                model: { court: court },
+                size: 'lg'
             })
                 .then(function () { /*do nothing*/ })
                 .catch(function () { /*do nothing*/ });
