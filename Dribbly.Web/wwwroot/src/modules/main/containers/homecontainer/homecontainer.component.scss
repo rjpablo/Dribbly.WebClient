@@ -6,6 +6,7 @@ drbbly-home-container {
         .feature {
             height: 300px;
             position: relative;
+            overflow: hidden;
 
             @include media-breakpoint-up(md) {
                 height: 500px;

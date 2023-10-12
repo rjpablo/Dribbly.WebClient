@@ -2,12 +2,15 @@
 
 drbbly-tournamentlistitem {
     display: inline-block;
-    position:relative;
+    position: relative;
     width: 150px;
 
     .photo-container {
         position: relative;
         width: 100%;
-        
+
+        & > img {
+            border-radius: 0.5rem;
+        }
     }
 }
