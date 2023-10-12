@@ -2,21 +2,14 @@
     <div class="container px-0 px-sm-3">
         <div class="row">
             <div class="col-12 col-md-9">
-                <div class="card mb-3 highlights"
+                <div class="row"
                      ng-if="dad.isOwned || dad.highlights.length > 0">
-                    <div class="card-body">
-                        <div class="col-12">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center mb-3 px-3">
                             <h5 class="drbbly-header">Highlights</h5>
-                        </div>
-                        <div class="col-12">
-                            <div class="videos-wrapper">
-                                <drbbly-videolistitem ng-repeat="video in dad.highlights"
-                                                      options="dad.highlightsOptions"
-                                                      video="video"></drbbly-videolistitem>
-                            </div>
                             <button type="button"
                                     ng-if="dad.isOwned"
-                                    class="btn btn-sm btn-outline-secondary text-center"
+                                    class="btn btn-sm btn-primary text-center ml-auto"
                                     ngf-select="dad.addHighlight($files)"
                                     ngf-pattern="'video/*'"
                                     ngf-multiple="true"
@@ -25,9 +18,24 @@
                                 + Add
                             </button>
                         </div>
+                        <div class="card mb-3 highlights"
+                             ng-if="dad.highlights.length === 0">
+                            <div class="card-body pb-0">
+                                <p>Upload videos that showcase your skills.</p>
+                            </div>
+                        </div>
+                        <div class="videos-wrapper">
+                            <drbbly-videolistitem ng-repeat="video in dad.highlights"
+                                                  options="dad.highlightsOptions"
+                                                  video="video"></drbbly-videolistitem>
+                        </div>
                     </div>
                 </div>
-                <drbbly-posts options="dad.postsOptions"></drbbly-posts>
+                <div class="row">
+                    <div class="col-12">
+                        <drbbly-posts options="dad.postsOptions"></drbbly-posts>
+                    </div>
+                </div>
             </div>
             <div class="col-12 col-md-3">
                 <div class="sticky-top">
