@@ -30,7 +30,7 @@
                                                      game="game"></drbbly-gamelistitem>
                             </div>
                             <div class="col-12"
-                                 ng-if="(tgc.team.games | filter: tgc.upcomingFilter).length === 0">
+                                 ng-if="tgc.team.games.length === 0">
                                 <p class="text-center py-3">No games yet.</p>
                             </div>
                             <div class="col-12">
