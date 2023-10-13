@@ -1,64 +1,74 @@
-﻿<div class="card mb-3">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center">
-            <drbbly-entitystub entity="drl.post.addedBy"
-                               class="text-white"></drbbly-entitystub>
-            <div>
+﻿<div class="border">
+    <div class="d-flex align-items-center p-3">
+        <div class="flex-grow-1 d-flex">
+            <a ng-href="{{drl.link}}">
+                <img ng-src="{{drl.post.addedBy.iconUrl}}"
+                     class="avatar avatar-lg mr-1" />
+            </a>
+            <div class="d-flex flex-column">
+                <a ng-href="{{drl.link}}"
+                   class="posted-by-name text-capitalize">{{drl.post.addedBy.name}}</a>
                 <drbbly-date class="text-muted small" date="drl.post.dateAdded"
                              format="dd-MMM-yy"></drbbly-date>
-                <div class="d-inline-block"
-                     uib-dropdown
-                     is-open="drl.isDropdownOpen"
-                     on-toggle="drl.onToggle(open)"
-                     auto-close="outsideClick"
-                     ng-disabled="drl.isBusy"
-                     ng-class="{'invisible': !drl.shouldShowMenu()}"
-                     ng-if="drl.canEdit() || drl.canDelete()">
-                    <button class="btn btn-link my-n3"
-                            ng-click="drl.isDropdownOpen = !drl.isDropdownOpen; $event.stopPropagation();"
-                            type="button">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right"
-                         uib-dropdown-menu
-                         role="menu">
-                        <a class="dropdown-item"
-                           ng-if="drl.canEdit()"
-                           ng-click="drl.editPost()">{{::'site.Edit' | i18n}}</a>
-                        <a class="dropdown-item"
-                           ng-if="drl.canDelete()"
-                           ng-click="drl.deletePost()">{{::'site.Delete' | i18n}}</a>
-                    </div>
+            </div>
+        </div>
+        <div>
+            <div class="d-inline-block"
+                 uib-dropdown
+                 is-open="drl.isDropdownOpen"
+                 on-toggle="drl.onToggle(open)"
+                 auto-close="outsideClick"
+                 ng-disabled="drl.isBusy"
+                 ng-class="{'invisible': !drl.shouldShowMenu()}"
+                 ng-if="drl.canEdit() || drl.canDelete()">
+                <button class="btn btn-link my-n3"
+                        ng-click="drl.isDropdownOpen = !drl.isDropdownOpen; $event.stopPropagation();"
+                        type="button">
+                    <i class="fa fa-ellipsis-h"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right"
+                     uib-dropdown-menu
+                     role="menu">
+                    <a class="dropdown-item"
+                       ng-if="drl.canEdit()"
+                       ng-click="drl.editPost()">{{::'site.Edit' | i18n}}</a>
+                    <a class="dropdown-item"
+                       ng-if="drl.canDelete()"
+                       ng-click="drl.deletePost()">{{::'site.Delete' | i18n}}</a>
                 </div>
             </div>
         </div>
-        <div ng-if="drl.post.type !== drl.postTypeEnum.GameCreated
+    </div>
+    <div>
+        <div class="px-3">
+            <div ng-if="drl.post.type !== drl.postTypeEnum.GameCreated
          && drl.post.type !== drl.postTypeEnum.GameRescheduled
          && drl.post.type !== drl.postTypeEnum.TournamentCreated"
-             ng-bind-html="drl.post.content" class="my-3"></div>
-        <!-- #region Games -->
-        <div ng-if="drl.post.type === drl.postTypeEnum.GameCreated"
-             class="my-3">
-            <a ui-sref="main.account.home({username: drl.post.additionalData.gameCreatedByUsername})">
-                {{drl.post.additionalData.gameCreatedByName}}
-            </a>
-            &nbsp;created the game;
+                 ng-bind-html="drl.post.content" class="mb-3"></div>
+            <!-- #region Games -->
+            <div ng-if="drl.post.type === drl.postTypeEnum.GameCreated"
+                 class="my-3">
+                <a ui-sref="main.account.home({username: drl.post.additionalData.gameCreatedByUsername})">
+                    {{drl.post.additionalData.gameCreatedByName}}
+                </a>
+                &nbsp;created the game;
+            </div>
+            <div ng-if="drl.post.type === drl.postTypeEnum.GameRescheduled"
+                 class="my-3">
+                Game schedule moved to <drbbly-date date="drl.post.additionalData.newSchedule"
+                                                    class="font-weight-bold"></drbbly-date>
+            </div>
+            <!-- #endregion -->
+            <!-- #region Tournaments -->
+            <div ng-if="drl.post.type === drl.postTypeEnum.TournamentCreated"
+                 class="my-3">
+                <a ui-sref="main.account.home({username: drl.post.additionalData.createdByUsername})">
+                    {{drl.post.additionalData.createdByName}}
+                </a>
+                &nbsp;created the tournament;
+            </div>
+            <!-- #endregion -->
         </div>
-        <div ng-if="drl.post.type === drl.postTypeEnum.GameRescheduled"
-             class="my-3">
-            Game schedule moved to <drbbly-date date="drl.post.additionalData.newSchedule"
-                                                class="font-weight-bold"></drbbly-date>
-        </div>
-        <!-- #endregion -->
-        <!-- #region Tournaments -->
-        <div ng-if="drl.post.type === drl.postTypeEnum.TournamentCreated"
-             class="my-3">
-            <a ui-sref="main.account.home({username: drl.post.additionalData.createdByUsername})">
-                {{drl.post.additionalData.createdByName}}
-            </a>
-            &nbsp;created the tournament;
-        </div>
-        <!-- #endregion -->
         <drbbly-gallery can-add="false"
                         ng-if="drl.files.length > 0"
                         media="drl.files"

@@ -39,6 +39,12 @@
             loadTournaments();
             loadCourts();
             loadTeams();
+
+            dhc.postsOptions = {
+                postedOnType: constants.enums.entityTypeEnum.Account,
+                getCount: 10,
+                title: 'Latest Posts'
+            }
             dhc.app.mainDataLoaded();
         };
 
