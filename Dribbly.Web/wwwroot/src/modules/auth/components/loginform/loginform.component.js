@@ -8,7 +8,8 @@
                 showResetPassword: '<',
                 onLoginSuccess: '<',
                 messageKey: '<',
-                app: '<'
+                app: '<',
+                isModal: '<'
             },
             controllerAs: 'dlf',
             templateUrl: 'drbbly-default',
@@ -44,6 +45,12 @@
 
                         if (resumeUrl) {
                             $location.url(resumeUrl);
+                        }
+                        else if (!dlf.isModal) {
+                            $state.go('main.account.home', { username: authService.authentication.username }, {location: 'replace'})
+                                .catch(function () {
+                                    dlf.isBusy = false;
+                                });
                         }
                         else {
                             $state.go('main.home')
