@@ -14,8 +14,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', 'modalService', 'permissionsService', 'constants', '$state'];
-    function controllerFunc(authService, modalService, permissionsService, constants, $state) {
+    controllerFunc.$inject = ['authService', 'modalService', 'permissionsService', 'constants', '$state', '$sce'];
+    function controllerFunc(authService, modalService, permissionsService, constants, $state, $sce) {
         var drl = this;
 
         drl.$onInit = function () {
@@ -24,6 +24,9 @@
             drl.post.additionalData = JSON.parse(drl.post.additionalData);
             if (!drl.post.addedBy.iconUrl) {
                 drl.post.addedBy.iconUrl = constants.images.defaultProfilePhoto.url;
+            }
+            if (drl.post.embedCode) {
+                drl.embedCode = $sce.trustAsHtml(drl.post.embedCode);
             }
             setLink();
             drl.files = drl.post.files.map(f => f.file);

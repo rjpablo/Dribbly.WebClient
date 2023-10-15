@@ -41,7 +41,7 @@
     </div>
     <div>
         <div class="px-3">
-            <div ng-if="drl.post.type !== drl.postTypeEnum.GameCreated
+            <div ng-if="drl.post.content && drl.post.type !== drl.postTypeEnum.GameCreated
          && drl.post.type !== drl.postTypeEnum.GameRescheduled
          && drl.post.type !== drl.postTypeEnum.TournamentCreated"
                  ng-bind-html="drl.post.content" class="mb-3"></div>
@@ -73,5 +73,8 @@
                         ng-if="drl.files.length > 0"
                         media="drl.files"
                         options="drl.galleryOptions"></drbbly-gallery>
+        <div ng-if="drl.embedCode"
+             class="embeded-content"
+             ng-bind-html="drl.embedCode"></div>
     </div>
 </div>

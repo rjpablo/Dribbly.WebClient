@@ -43,7 +43,8 @@
             dhc.postsOptions = {
                 postedOnType: constants.enums.entityTypeEnum.Account,
                 getCount: 10,
-                title: 'Latest Posts'
+                title: 'Latest Posts',
+                canPost: true
             }
             dhc.app.mainDataLoaded();
         };
