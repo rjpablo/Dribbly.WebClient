@@ -7,4 +7,10 @@ drbbly-post {
     & > div {
         border-radius: 0.25rem;
     }
+
+    .embeded-content {
+        & > iframe {
+            width: 100%;
+        }
+    }
 }

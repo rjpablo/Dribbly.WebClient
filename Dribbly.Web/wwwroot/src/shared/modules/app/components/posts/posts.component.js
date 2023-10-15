@@ -59,7 +59,8 @@
                     model: {
                         isEdit: true,
                         post: drl.post
-                    }
+                    },
+                    backdrop: 'static'
                 }).then(function (result) {
                     if (result) {
                         drl.post.content = result.content;

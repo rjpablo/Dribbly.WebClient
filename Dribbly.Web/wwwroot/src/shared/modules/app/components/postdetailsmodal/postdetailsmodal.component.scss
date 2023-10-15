@@ -1,0 +1,19 @@
+drbbly-postdetailsmodal {
+
+    .wysiwyg-textarea {
+        height: 5rem !important;
+    }
+
+    .embeded-content {
+
+        & > div > iframe {
+            width: 100%;
+            min-height: 250px;
+            max-height: 300px;
+        }
+    }
+
+    [drbbly-overlay] {
+        min-height: unset;
+    }
+}
