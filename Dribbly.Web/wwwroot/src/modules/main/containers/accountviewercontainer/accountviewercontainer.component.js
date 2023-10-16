@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyAccountsService', 'authService', '$stateParams', '$state', 'permissionsService',
-        'modalService', 'drbblyFileService', 'constants', 'drbblyEventsService'];
+        'modalService', 'drbblyFileService', 'constants', 'drbblyEventsService', 'drbblyOverlayService'];
     function controllerFunc(drbblyAccountsService, authService, $stateParams, $state, permissionsService,
-        modalService, drbblyFileService, constants, drbblyEventsService) {
+        modalService, drbblyFileService, constants, drbblyEventsService, drbblyOverlayService) {
         var avc = this;
         var _username;
 
