@@ -20,6 +20,7 @@
         var _username;
 
         avc.$onInit = function () {
+            avc.overlay = drbblyOverlayService.buildOverlay();
             _username = $stateParams.username;
             loadAccount();
         };
@@ -132,6 +133,7 @@
                 }
             })
                 .then(function (imageData) {
+                    avc.overlay.setToBusy('');
                     var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
                     imageData.name = fileNameNoExt + '.png';
                     drbblyFileService.upload([imageData], 'api/account/uploadPrimaryPhoto/' + avc.account.id)
@@ -139,6 +141,7 @@
                             if (result && result.data) {
                                 avc.account.profilePhoto = result.data;
                                 avc.account.profilePhotoId = result.data.id;
+                                avc.overlay.setToReady();
                             }
                         })
                         .catch(function (error) {

@@ -15,7 +15,7 @@
                             <div class="controls float-right d-none">
                                 <button id="btn-replace-photo"
                                         class="btn btn-sm btn-outline-light"
-                                        ng-if="avc.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
+                                        ng-if="!avc.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
                                         ngf-select="avc.onPrimaryPhotoSelect($file)"
                                         ng-model="avc.account.profilePhoto"
                                         ngf-pattern="'image/*'"
