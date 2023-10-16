@@ -56,9 +56,7 @@
 
         avc.onLogoSelect = function (file) {
             if (!file) { return; }
-
             var url = URL.createObjectURL(file);
-
             return modalService.show({
                 view: '<drbbly-croppermodal></drbbly-croppermodal>',
                 model: {

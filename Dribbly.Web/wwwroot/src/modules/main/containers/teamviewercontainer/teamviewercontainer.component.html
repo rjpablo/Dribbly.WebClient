@@ -8,10 +8,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-12 col-md-auto logo-container">
+                                    <div drbbly-overlay="avc.profileOverlay"
+                                         class="col-12 col-md-auto logo-container">
                                         <img ng-src="{{avc.team.logo.url}}"
+                                             alt="Team Logo"
                                              class="profile-photo d-block mx-auto"
-                                             ng-click="avc.onLogoClick()" />
+                                             ng-click="avc.onLogoClick()">
                                         <button id="btn-replace-photo"
                                                 class="d-none"
                                                 ngf-select="avc.onLogoSelect($file)"
