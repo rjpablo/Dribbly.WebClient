@@ -14,14 +14,21 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', 'modalService', 'permissionsService', 'constants', 'drbblyCommonService'];
-    function controllerFunc(authService, modalService, permissionsService, constants, drbblyCommonService) {
+    controllerFunc.$inject = ['authService', 'modalService', 'permissionsService', 'constants', '$state', '$sce'];
+    function controllerFunc(authService, modalService, permissionsService, constants, $state, $sce) {
         var drl = this;
 
         drl.$onInit = function () {
             drl.postTypeEnum = constants.enums.postTypeEnum;
             drl.methods = {};
             drl.post.additionalData = JSON.parse(drl.post.additionalData);
+            if (!drl.post.addedBy.iconUrl) {
+                drl.post.addedBy.iconUrl = constants.images.defaultProfilePhoto.url;
+            }
+            if (drl.post.embedCode) {
+                drl.embedCode = $sce.trustAsHtml(drl.post.embedCode);
+            }
+            setLink();
             drl.files = drl.post.files.map(f => f.file);
             drl.post.files.sort((a, b) => a.order - b.order);
             drl.galleryOptions = {
@@ -32,6 +39,15 @@
                 imgBubbles: true,
                 bubbleSize: 30
             };
+        };
+
+        function setLink() {
+            if (drl.post.addedBy.entityType === constants.enums.entityType.Court) {
+                drl.link = $state.href('main.court.home', { id: drl.post.addedBy.id });
+            }
+            else if (drl.post.addedBy.entityType === constants.enums.entityType.Account) {
+                drl.link = $state.href('main.account.home', { username: drl.post.addedBy.username });
+            }
         };
 
         drl.editPost = function () {

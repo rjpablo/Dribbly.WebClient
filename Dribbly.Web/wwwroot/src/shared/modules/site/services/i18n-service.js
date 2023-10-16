@@ -211,6 +211,7 @@
                     'EntityTypeEnum.Leage_5': 'League',
                     'EntityTypeEnum.Tournament_6': 'Tournament',
                     'EntityTypeEnum.Group_7': 'Group',
+                    'EntityTypeEnum.All_8': 'All',
                     FeaturedCourts: 'Featured Courts',
                     Feet_Abbrev: 'ft.',
                     Female: 'Female',

@@ -12,11 +12,16 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['modalService', 'constants', '$state'];
-    function controllerFn(modalService, constants, $state) {
+    controllerFn.$inject = ['constants', '$state'];
+    function controllerFn(constants, $state) {
         var dus = this;
 
         dus.$onInit = function () {
+            if (!dus.entity.iconUrl) {
+                if (dus.entity.entityType === constants.enums.entityType.Account) {
+                    dus.entity.iconUrl = constants.images.defaultProfilePhoto.url;
+                }
+            }
             setLink();
         };
 

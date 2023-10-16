@@ -4,8 +4,20 @@
         'appModule'
     ]);
 
-    module.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', configFn]);
-    function configFn($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    module.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', '$sceDelegateProvider', configFn]);
+    function configFn($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $sceDelegateProvider) {
+
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain. **.
+            'https://www.facebook.com/**',
+            'https://facebook.com/**',
+            'https://www.fb.watch/**',
+            'https://fb.watch/**',
+            'https://www.youtube.com/**',
+            'https://youtube.com/**',
+        ]);
 
         $urlRouterProvider.otherwise('home');
 
