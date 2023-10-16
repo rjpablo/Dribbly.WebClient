@@ -22,6 +22,7 @@
         var _teamId;
 
         avc.$onInit = function () {
+            avc.profileOverlay = drbblyOverlayService.buildOverlay();
             avc.overlay = drbblyOverlayService.buildOverlay();
             _teamId = $stateParams.id;
             loadTeam()
@@ -67,6 +68,7 @@
                 }
             })
                 .then(function (imageData) {
+                    avc.profileOverlay.setToBusy('');
                     var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
                     imageData.name = fileNameNoExt + '.png';
                     drbblyFileService.upload([imageData], 'api/teams/uploadLogo/' + avc.team.id)
@@ -74,11 +76,10 @@
                             if (result && result.data) {
                                 avc.team.logo = result.data;
                                 avc.team.logoId = result.data.id;
+                                avc.profileOverlay.setToReady();
                             }
                         })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                        .catch(() => { avc.profileOverlay.setToError(); });
                 })
                 .finally(function () {
                     URL.revokeObjectURL(url)

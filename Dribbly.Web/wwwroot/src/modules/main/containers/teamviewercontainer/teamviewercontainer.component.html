@@ -13,14 +13,15 @@
                                         <img ng-src="{{avc.team.logo.url}}"
                                              alt="Team Logo"
                                              class="profile-photo d-block mx-auto"
-                                             ng-click="avc.onLogoClick()">
+                                             ng-click="avc.onLogoClick()"/>
                                         <button id="btn-replace-photo"
                                                 class="d-none"
                                                 ngf-select="avc.onLogoSelect($file)"
                                                 ng-model="avc.profilePicture"
                                                 ngf-pattern="'image/*'"
                                                 ngf-accept="'image/*'"
-                                                ngf-max-size="20MB"></button>
+                                                ngf-max-size="20MB">
+                                        </button>
                                     </div>
                                     <div class="col-12 col-md-auto pl-md-0 d-flex align-items-center flex-column align-items-md-start">
                                         <h3 class="text-white mb-1">{{avc.team.isOpen? '(' + ('app.OpenTeam' | i18n) + ')' : avc.team.shortName}}</h3>
