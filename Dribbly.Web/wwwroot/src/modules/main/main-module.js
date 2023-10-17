@@ -420,6 +420,14 @@
             })
             // #endregion TRACKING
 
+            // #region POST
+
+            .state('main.post', {
+                url: '/post/:id',
+                component: 'drbblyPostcontainer'
+            })
+            // #endregion POST
+
             // #region PRIVACY POLICY
             .state('main.privacypolicy', {
                 params: {

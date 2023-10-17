@@ -10,6 +10,10 @@
                     return drbblyhttpService.post(api + 'getPosts', input);
                 }
 
+                function getPost(postId) {
+                    return drbblyhttpService.get(api + `getPost/${postId}`);
+                }
+
                 function addPost(postDetails) {
                     return drbblyhttpService.post(api + 'addPost', postDetails);
                 }
@@ -34,6 +38,7 @@
                     addPost,
                     addReaction,
                     deletePost,
+                    getPost,
                     getPosts,
                     removeReaction,
                     updatePost

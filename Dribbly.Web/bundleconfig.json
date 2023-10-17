@@ -281,7 +281,8 @@
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.js",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.js",
       "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.js",
-      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.js"
+      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.js",
+      "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.js"
     ]
   },
   // styles
@@ -466,7 +467,8 @@
       "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.css",
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css",
-      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.css"
+      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.css",
+      "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.css"
     ]
   }
 ]

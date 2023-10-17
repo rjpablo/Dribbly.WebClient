@@ -56,8 +56,7 @@
                     dni.targetLink = $state.href('main.group.members', { id: dni.item.additionalInfo.groupId });
                     break;
                 case _notificationTypes.PostReceivedReaction:
-                    dni.targetLink = $state.href('main.account.home', {
-                        username: authService.authentication.username});
+                    dni.targetLink = $state.href('main.post', { id: dni.item.additionalInfo.postId });
                     break;
             }
         }
