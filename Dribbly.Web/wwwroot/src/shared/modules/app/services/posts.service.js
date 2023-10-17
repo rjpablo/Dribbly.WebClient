@@ -14,6 +14,14 @@
                     return drbblyhttpService.post(api + 'addPost', postDetails);
                 }
 
+                function addReaction(input) {
+                    return drbblyhttpService.post(api + `addReaction`, input);
+                }
+
+                function removeReaction(input) {
+                    return drbblyhttpService.post(api + `removeReaction`, input);
+                }
+
                 function updatePost(postDetails) {
                     return drbblyhttpService.post(api + 'updatePost', postDetails);
                 }
@@ -23,10 +31,12 @@
                 }
 
                 var _service = {
-                    addPost: addPost,
-                    deletePost: deletePost,
-                    getPosts: getPosts,
-                    updatePost: updatePost,
+                    addPost,
+                    addReaction,
+                    deletePost,
+                    getPosts,
+                    removeReaction,
+                    updatePost
                 };
 
                 return _service;

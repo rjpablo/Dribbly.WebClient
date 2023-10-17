@@ -14,8 +14,10 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', 'modalService', 'permissionsService', 'constants', '$state', '$sce'];
-    function controllerFunc(authService, modalService, permissionsService, constants, $state, $sce) {
+    controllerFunc.$inject = ['authService', 'modalService', 'permissionsService', 'constants', '$state', '$sce',
+        'drbblyPostsService', 'drbblyCommonService'];
+    function controllerFunc(authService, modalService, permissionsService, constants, $state, $sce,
+        drbblyPostsService, drbblyCommonService) {
         var drl = this;
 
         drl.$onInit = function () {
@@ -31,6 +33,8 @@
             setLink();
             drl.files = drl.post.files.map(f => f.file);
             drl.post.files.sort((a, b) => a.order - b.order);
+            drl.reactionCount = drl.post.reactions.length
+            drl.liked = drl.post.reactions.drbblyAny(r => r.reactorId === authService.authentication.accountId)
             drl.galleryOptions = {
                 hideCaptions: true,
                 methods: drl.methods,
@@ -49,6 +53,23 @@
                 drl.link = $state.href('main.account.home', { username: drl.post.addedBy.username });
             }
         };
+
+        drl.toggleLike = function () {
+            drl.liked = !drl.liked;
+            drl.reactionCount += drl.liked ? 1 : -1;
+            drl.isBusy = true;
+            var method = drl.liked ? drbblyPostsService.addReaction : drbblyPostsService.removeReaction;
+            method({
+                postId: drl.post.id,
+                reactionType: constants.enums.reactionTypeEnum.Like
+            })
+                .catch((e) => {
+                    drl.liked = !drl.liked;
+                    drl.reactionCount += drl.liked ? -1 : 1;
+                    drbblyCommonService.handleError(e);
+                })
+                .finally(() => drl.isBusy = false);
+        }
 
         drl.editPost = function () {
             return authService.checkAuthenticationThen(function () {
@@ -79,12 +100,12 @@
         };
 
         drl.canEdit = function () {
-            return drl.post.addedById === authService.authentication.userId
+            return drl.post.addedById === authService.authentication.accountId
                 && drl.post.type !== drl.postTypeEnum.GameCreated;
         };
 
         drl.canDelete = function () {
-            return drl.post.addedById === authService.authentication.userId ||
+            return drl.post.addedById === authService.authentication.accountId ||
                 permissionsService.hasPermission('Post.DeleteNotOwned');
         };
 
