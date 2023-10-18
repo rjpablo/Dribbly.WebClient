@@ -74,8 +74,8 @@
                 reactionType: constants.enums.reactionTypeEnum.Like
             })
                 .catch((e) => {
-                    drl.liked = !drl.liked;
                     drl.reactionCount += drl.liked ? -1 : 1;
+                    drl.liked = !drl.liked;
                     drbblyCommonService.handleError(e);
                 })
                 .finally(() => drl.isBusy = false);
