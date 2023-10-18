@@ -54,6 +54,16 @@
             }
         };
 
+        drl.showReactors = function() {
+            modalService.show({
+                view: '<drbbly-accountlistmodal></drbbly-accountlistmodal>',
+                model: {
+                    accounts: drl.post.reactions.map(r => r.reactor)
+                },
+                size: 'sm'
+            })
+        }
+
         drl.toggleLike = function () {
             drl.liked = !drl.liked;
             drl.reactionCount += drl.liked ? 1 : -1;

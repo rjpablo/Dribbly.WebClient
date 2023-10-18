@@ -1,0 +1,14 @@
+﻿<div class="modal-body">
+    <div class="mb-3">
+        <div ng-repeat="account in alm.model.accounts"
+             class="mb-2">
+            <drbbly-entitystub entity="account"></drbbly-entitystub>
+        </div>
+    </div>
+    <div class="">
+        <button class="btn btn-secondary w-100"
+                ng-click="alm.close()">
+            Close
+        </button>
+    </div>
+</div>
