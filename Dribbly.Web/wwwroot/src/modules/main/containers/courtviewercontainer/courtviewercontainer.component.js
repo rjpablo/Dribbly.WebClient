@@ -30,7 +30,9 @@
         };
 
         dcc.$onDestroy = function () {
-            _priceComponent.remove();
+            if (_priceComponent) {
+                _priceComponent.remove();
+            }
             dcc.app.toolbar.clearNavItems();
         };
 

@@ -107,7 +107,7 @@
             })
 
             .state('main.court.home', {
-                url: '/home',
+                url: '',
                 component: 'drbblyCourthome'
             })
 
@@ -436,7 +436,7 @@
                 url: '/privacy-policy',
                 component: 'drbblyPrivacypolicycontainer'
             })
-            // #endregion PRIVACY POLICY
+        // #endregion PRIVACY POLICY
 
         $locationProvider.html5Mode(true);
 
