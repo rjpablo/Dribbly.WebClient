@@ -18,6 +18,9 @@
         modalService, drbblyFileService, constants, drbblyEventsService) {
         var avc = this;
         var _username;
+        var flagKeys = {
+            uploadPrimaryPhoto: 'upload_primary_photo'
+        };
 
         avc.$onInit = function () {
             _username = $stateParams.username;
@@ -35,9 +38,46 @@
                         permissionsService.hasPermission('Account.UpdateNotOwned');
                     avc.app.mainDataLoaded();
                     buildSubPages();
+
+                    if (avc.isOwned && data.flags.drbblyAny(f => f.key === flagKeys.uploadPrimaryPhoto)) {
+                        promptForProfilePhoto();
+                    }
                 }, function (error) {
 
                 });
+        }
+
+        function promptForProfilePhoto() {
+            return modalService.show({
+                view: '<drbbly-alertmodal></drbbly-alertmodal>',
+                model: {
+                    msg1Raw: 'Upload a profile photo so other users would recognize you.',
+                    options: {
+                        buttons: [
+                            {
+                                textKey: 'app.SelectPhoto',
+                                action: (modalContext) => {
+                                    angular.element('#btn-replace-photo').triggerHandler('click');
+                                    modalContext.okToClose = true;
+                                    modalContext.submit();
+                                    drbblyAccountsService.removeFlag(flagKeys.uploadPrimaryPhoto)
+                                },
+                                class: 'btn btn-primary'
+                            },
+                            {
+                                textKey: 'site.Skip',
+                                action: (modalContext) => {
+                                    modalContext.okToClose = true;
+                                    modalContext.dismiss();
+                                    drbblyAccountsService.removeFlag(flagKeys.uploadPrimaryPhoto)
+                                },
+                                class: 'btn btn-secondary'
+                            },
+                        ]
+                    }
+                },
+                backdrop: 'static'
+            })
         }
 
         avc.onAccountUpdate = function () {

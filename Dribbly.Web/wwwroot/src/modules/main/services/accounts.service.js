@@ -94,6 +94,10 @@
                     return drbblyhttpService.post(api + 'setStatus/' + accountId + '/' + status);
                 }
 
+                function removeFlag(key) {
+                    return drbblyhttpService.post(api + 'removeFlag/' + key);
+                }
+
                 function replaceEmail(input) {
                     return drbblyhttpService.post(api + 'replaceEmail', input);
                 }
@@ -130,6 +134,7 @@
                     getPlayers: getPlayers,
                     getTopPlayers: getTopPlayers,
                     register: register,
+                    removeFlag,
                     removeHighlight: removeHighlight,
                     replaceEmail: replaceEmail,
                     setIsPublic: setIsPublic,
