@@ -14,10 +14,12 @@
 
     controllerFunc.$inject = ['drbblyCourtsService', 'permissionsService', 'drbblyCourtshelperService',
         'drbblyOverlayService', '$stateParams', 'drbblyFooterService', '$scope', '$state', 'authService',
-        'drbblyGameshelperService', 'i18nService', 'modalService', 'drbblyFileService', 'constants'];
+        'drbblyGameshelperService', 'i18nService', 'modalService', 'drbblyFileService', 'drbblyCommonService',
+        'drbblyAccountsService'];
     function controllerFunc(drbblyCourtsService, permissionsService, drbblyCourtshelperService,
         drbblyOverlayService, $stateParams, drbblyFooterService, $scope, $state, authService,
-        drbblyGameshelperService, i18nService, modalService, drbblyFileService, constants) {
+        drbblyGameshelperService, i18nService, modalService, drbblyFileService, drbblyCommonService,
+        drbblyAccountsService) {
         var dcc = this;
         var _courtId;
         var _priceComponent;
@@ -89,6 +91,32 @@
                     }
                 });
         };
+
+        dcc.makeHomeCourt = function () {
+            dcc.isBusy = true;
+            authService.checkAuthenticationThen(() => {
+                return drbblyAccountsService.setHomeCourt(dcc.court.id)
+                    .then(function () {
+                        dcc.court.isHomeCourt = true;
+                    })
+                    .catch(e => {
+                        drbblyCommonService.handleError(e);
+                    });
+            })
+                .finally(() => dcc.isBusy = false);
+        }
+
+        dcc.unmarkHomeCourt = function () {
+            dcc.isBusy = true;
+            drbblyAccountsService.setHomeCourt(null)
+                .then(function () {
+                    dcc.court.isHomeCourt = false;
+                })
+                .catch(e => {
+                    drbblyCommonService.handleError(e);
+                })
+                .finally(() => dcc.isBusy = false);
+        }
 
         function massagePhotos(photos) {
             var canDeleteNotOwned = permissionsService.hasPermission('Court.DeletePhotoNotOwned');

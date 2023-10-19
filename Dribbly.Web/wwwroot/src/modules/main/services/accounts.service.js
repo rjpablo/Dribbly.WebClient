@@ -94,6 +94,10 @@
                     return drbblyhttpService.post(api + 'setStatus/' + accountId + '/' + status);
                 }
 
+                function setHomeCourt(courtId) {
+                    return drbblyhttpService.post(api + 'setHomeCourt/' + courtId);
+                }
+
                 function removeFlag(key) {
                     return drbblyhttpService.post(api + 'removeFlag/' + key);
                 }
@@ -138,6 +142,7 @@
                     removeHighlight: removeHighlight,
                     replaceEmail: replaceEmail,
                     setIsPublic: setIsPublic,
+                    setHomeCourt,
                     setStatus: setStatus,
                     updateAccount: updateAccount
                 };
