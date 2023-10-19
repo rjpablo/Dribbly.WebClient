@@ -82,7 +82,7 @@
                         .catch(() => { avc.profileOverlay.setToError(); });
                 })
                 .finally(function () {
-                    URL.revokeObjectURL(url)
+                    avc.isReady = true;
                 });
         };
 
