@@ -48,8 +48,13 @@
         avc.$onDestroy = function () {
             avc.app.toolbar.clearNavItems();
         };
-
+       
         avc.onProfilePhotoClick = function () {
+            if (!avc.isOwned) {
+                viewPrimaryPhoto();
+                return;
+            }
+
             modalService.showMenuModal({
                 model: {
                     buttons: [
@@ -144,12 +149,10 @@
                                 avc.overlay.setToReady();
                             }
                         })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                        .catch(() => { avc.overlay.setToError(); });
                 })
                 .finally(function () {
-                    URL.revokeObjectURL(url)
+                    avc.isReady = true;
                 });
         };
 
