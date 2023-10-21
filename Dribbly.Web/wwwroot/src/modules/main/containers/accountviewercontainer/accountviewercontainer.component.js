@@ -146,14 +146,17 @@
                             if (result && result.data) {
                                 avc.account.profilePhoto = result.data;
                                 avc.account.profilePhotoId = result.data.id;
-                                avc.overlay.setToReady();
                             }
                         })
-                        .catch(() => { avc.overlay.setToError(); });
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                        .finally(function () {
+                            URL.revokeObjectURL(url)
+                            avc.overlay.setToReady();
+                        });
                 })
-                .finally(function () {
-                    avc.isReady = true;
-                });
+
         };
 
         avc.onDeletePhoto = function (img, callback) {
