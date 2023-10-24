@@ -31,7 +31,10 @@
                         var deferred = $q.defer();
 
                         settingsService.getInitialSettings()
-                            .then(deferred.resolve)
+                            .then((data) => {
+                                deferred.resolve(data);
+                                $rootScope.$broadcast('set-app-overlay', { status: '' });
+                            })
                             .catch(function () {
                                 //window.location.href = '/ErrorPage';
                                 $rootScope.$broadcast('set-app-overlay', { status: 'error' });

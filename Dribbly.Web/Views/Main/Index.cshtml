@@ -7,13 +7,19 @@
 <div id="drbbly-body-overlay"></div>
 <div id="drbbly-root-container"
      app="app"
-     ng-if="!app.overlay.isError && app.authVerified"
+     ng-if="!app.overlay.isError && !app.overlay.isBusy && app.authVerified"
      ui-view></div>
 <div id="app-overlay"
-     ng-class="{'has-error': app.overlay.isError}">
-    <div class="d-flex flex-column p-3">
+     ng-class="{'has-error': app.overlay.isError, 'is-busy': app.overlay.isBusy}">
+    <div class="d-flex flex-column p-3"
+         ng-show="app.overlay.isError">
         <img src="~/src/images/backgrounds/ball_stuck.png" />
         <h3 class="text-light my-3 text-center">{{::'site.Error_Common_UnexpectedError' | i18n}}</h3>
+    </div>
+    <div class="p-5 d-flex flex-column align-items-center"
+         ng-show="app.overlay.isBusy">
+        <i class="fa fa-4x fa-circle-o-notch fa-spin"></i>
+        <span>warming up...</span>
     </div>
 </div>
 
