@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyAccountsService', 'authService', '$stateParams', '$state', 'permissionsService',
-        'modalService', 'drbblyFileService', 'constants', 'drbblyEventsService', 'drbblyOverlayService'];
+        'modalService', 'drbblyFileService', 'constants', 'drbblyEventsService', 'drbblyOverlayService', 'drbblyCommonService'];
     function controllerFunc(drbblyAccountsService, authService, $stateParams, $state, permissionsService,
-        modalService, drbblyFileService, constants, drbblyEventsService, drbblyOverlayService) {
+        modalService, drbblyFileService, constants, drbblyEventsService, drbblyOverlayService, drbblyCommonService) {
         var avc = this;
         var _username;
 
@@ -148,8 +148,8 @@
                                 avc.account.profilePhotoId = result.data.id;
                             }
                         })
-                        .catch(function (error) {
-                            console.log(error);
+                        .catch(err => {
+                            drbblyCommonService.handleError(err);
                         })
                         .finally(function () {
                             URL.revokeObjectURL(url)
