@@ -14,10 +14,10 @@
 
     controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
         'constants', 'drbblyDatetimeService', 'drbblyTeamshelperService', 'modalService', 'drbblyEventsService',
-        'drbblyFileService', 'i18nService'];
+        'drbblyFileService', 'i18nService', 'drbblyCommonService'];
     function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService,
         constants, drbblyDatetimeService, drbblyTeamshelperService, modalService, drbblyEventsService,
-        drbblyFileService, i18nService) {
+        drbblyFileService, i18nService, drbblyCommonService) {
         var avc = this;
         var _teamId;
 
@@ -79,11 +79,13 @@
                                 avc.profileOverlay.setToReady();
                             }
                         })
-                        .catch(() => { avc.profileOverlay.setToError(); });
+                        .catch(err => {
+                            drbblyCommonService.handleError(err);
+                        })
+                        .finally(function () {
+                            avc.profileOverlay.setToReady();
+                        });
                 })
-                .finally(function () {
-                    avc.isReady = true;
-                });
         };
 
         function loadTeam() {
