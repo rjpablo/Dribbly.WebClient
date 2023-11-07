@@ -13,8 +13,8 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$stateParams', 'drbblyGamesService', 'drbblyOverlayService', 'constants'];
-    function controllerFunc($stateParams, drbblyGamesService, drbblyOverlayService, constants) {
+    controllerFunc.$inject = ['$stateParams', 'drbblyGamesService', 'drbblyOverlayService', 'constants', 'drbblyCommonService'];
+    function controllerFunc($stateParams, drbblyGamesService, drbblyOverlayService, constants, drbblyCommonService) {
         var cgc = this;
 
         cgc.$onInit = function () {
@@ -43,7 +43,12 @@
                     cgc.games = result;
                     cgc.showPage(cgc.pagination.currentPage, false);
                 })
-                .catch(() => cgc.gamesOverlay.setToError());
+                .catch(err => {
+                    drbblyCommonService.handleError(err);
+                })
+                .finally(function () {
+                    cgc.gamesOverlay.setToReady();
+                });
         }
 
         cgc.showPage = function(pageNumber, scrollToTop) {
