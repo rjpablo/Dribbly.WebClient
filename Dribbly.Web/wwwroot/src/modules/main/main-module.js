@@ -31,7 +31,10 @@
                         var deferred = $q.defer();
 
                         settingsService.getInitialSettings()
-                            .then(deferred.resolve)
+                            .then((data) => {
+                                deferred.resolve(data);
+                                $rootScope.$broadcast('set-app-overlay', { status: '' });
+                            })
                             .catch(function () {
                                 //window.location.href = '/ErrorPage';
                                 $rootScope.$broadcast('set-app-overlay', { status: 'error' });
@@ -107,7 +110,7 @@
             })
 
             .state('main.court.home', {
-                url: '/home',
+                url: '',
                 component: 'drbblyCourthome'
             })
 
@@ -362,6 +365,12 @@
             .state('auth', {
                 abstract: true,
                 url: '',
+                resolve: {
+                    settings: ['$q', '$rootScope', function ($q, $rootScope) {
+                        $rootScope.$broadcast('set-app-overlay', { status: '' });
+                        return $q.resolve();
+                    }]
+                },
                 component: 'drbblyAuthcontainer'
             })
 
@@ -420,6 +429,14 @@
             })
             // #endregion TRACKING
 
+            // #region POST
+
+            .state('main.post', {
+                url: '/post/:id',
+                component: 'drbblyPostcontainer'
+            })
+            // #endregion POST
+
             // #region PRIVACY POLICY
             .state('main.privacypolicy', {
                 params: {
@@ -428,7 +445,7 @@
                 url: '/privacy-policy',
                 component: 'drbblyPrivacypolicycontainer'
             })
-            // #endregion PRIVACY POLICY
+        // #endregion PRIVACY POLICY
 
         $locationProvider.html5Mode(true);
 

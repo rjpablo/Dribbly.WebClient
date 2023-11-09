@@ -9,8 +9,14 @@ drbbly-post {
     }
 
     .embeded-content {
+        background-color: $black;
+
         & > iframe {
             width: 100%;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
         }
     }
 }

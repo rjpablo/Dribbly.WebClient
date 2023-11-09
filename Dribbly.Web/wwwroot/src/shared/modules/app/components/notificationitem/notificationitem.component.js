@@ -11,8 +11,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$state', 'constants', 'i18nService'];
-    function controllerFn($state, constants, i18nService) {
+    controllerFn.$inject = ['$state', 'constants', 'i18nService', 'authService'];
+    function controllerFn($state, constants, i18nService, authService) {
         var dni = this;
         var _notificationTypes;
         var _i18n = i18nService.getString;
@@ -54,6 +54,9 @@
                     dni.targetLink = $state.href('main.group.home', { id: dni.item.additionalInfo.groupId });
                 case _notificationTypes.JoinGroupRequest:
                     dni.targetLink = $state.href('main.group.members', { id: dni.item.additionalInfo.groupId });
+                    break;
+                case _notificationTypes.PostReceivedReaction:
+                    dni.targetLink = $state.href('main.post', { id: dni.item.additionalInfo.postId });
                     break;
             }
         }

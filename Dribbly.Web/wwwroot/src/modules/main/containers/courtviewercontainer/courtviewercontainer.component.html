@@ -76,13 +76,30 @@
                                     <div class="col-12 col-md-6 col-lg-7">
                                         <div class="row">
                                             <div class="col-12 col-lg-7 mb-3 text-center">
-                                                <button class="btn btn-primary"
+                                                <!--<button class="btn btn-primary"
                                                         type="button"
                                                         ng-if="dcc.isOwned"
                                                         ng-disabled="dcc.isBusy"
                                                         ng-click="dcc.addGame()">
                                                     <i class="fa fa-plus mr-1"></i>{{::'app.NewGame' | i18n}}
+                                                </button>-->
+                                                <button class="btn btn-primary"
+                                                        type="button"
+                                                        ng-disabled="dcc.isBusy"
+                                                        ng-if="!dcc.court.isHomeCourt"
+                                                        ng-click="dcc.makeHomeCourt()">
+                                                    <i class="fa fa-home mr-1"></i>Make Home Court
                                                 </button>
+                                                <div class="dropdown dropdown d-inline-block"
+                                                     ng-if="dcc.court.isHomeCourt">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="fa fa-home"></span> Your Home Court
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item text-danger"
+                                                           ng-click="dcc.unmarkHomeCourt()">Unmark as Home Court</a>
+                                                    </div>
+                                                </div>
                                                 <!--<button class="btn btn-primary"
                                                         type="button"
                                                         ng-if="!dcc.isOwned"

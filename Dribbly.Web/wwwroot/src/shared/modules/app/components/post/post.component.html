@@ -77,4 +77,16 @@
              class="embeded-content"
              ng-bind-html="drl.embedCode"></div>
     </div>
+    <div class="p-1 border-top">
+        <button ng-click="drl.toggleLike()"
+                ng-disabled="drl.isBusy"
+                class="btn">
+            <i class="fa fa-thumbs-o-up text-primary"
+               ng-if="!drl.liked"></i>
+            <i class="fa fa-thumbs-up text-primary"
+               ng-if="drl.liked"></i>
+        </button>
+        <span ng-if="drl.reactionCount > 0"
+              ng-click="drl.showReactors()">{{drl.reactionCount}} like{{drl.reactionCount > 1? 's':''}}</span>
+    </div>
 </div>
