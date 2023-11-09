@@ -14,14 +14,15 @@
 
     controllerFunc.$inject = ['drbblyTeamsService', 'authService', '$stateParams', '$state', 'drbblyOverlayService',
         'constants', 'drbblyDatetimeService', 'drbblyTeamshelperService', 'modalService', 'drbblyEventsService',
-        'drbblyFileService', 'i18nService'];
+        'drbblyFileService', 'i18nService', 'drbblyCommonService'];
     function controllerFunc(drbblyTeamsService, authService, $stateParams, $state, drbblyOverlayService,
         constants, drbblyDatetimeService, drbblyTeamshelperService, modalService, drbblyEventsService,
-        drbblyFileService, i18nService) {
+        drbblyFileService, i18nService, drbblyCommonService) {
         var avc = this;
         var _teamId;
 
         avc.$onInit = function () {
+            avc.profileOverlay = drbblyOverlayService.buildOverlay();
             avc.overlay = drbblyOverlayService.buildOverlay();
             _teamId = $stateParams.id;
             loadTeam()
@@ -56,9 +57,7 @@
 
         avc.onLogoSelect = function (file) {
             if (!file) { return; }
-
             var url = URL.createObjectURL(file);
-
             return modalService.show({
                 view: '<drbbly-croppermodal></drbbly-croppermodal>',
                 model: {
@@ -69,6 +68,7 @@
                 }
             })
                 .then(function (imageData) {
+                    avc.profileOverlay.setToBusy('');
                     var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
                     imageData.name = fileNameNoExt + '.png';
                     drbblyFileService.upload([imageData], 'api/teams/uploadLogo/' + avc.team.id)
@@ -76,15 +76,16 @@
                             if (result && result.data) {
                                 avc.team.logo = result.data;
                                 avc.team.logoId = result.data.id;
+                                avc.profileOverlay.setToReady();
                             }
                         })
-                        .catch(function (error) {
-                            console.log(error);
+                        .catch(err => {
+                            drbblyCommonService.handleError(err);
+                        })
+                        .finally(function () {
+                            avc.profileOverlay.setToReady();
                         });
                 })
-                .finally(function () {
-                    URL.revokeObjectURL(url)
-                });
         };
 
         function loadTeam() {

@@ -13,9 +13,9 @@
         });
 
     controllerFunc.$inject = ['drbblyAccountsService', 'authService', '$stateParams', '$state', 'permissionsService',
-        'modalService', 'drbblyFileService', 'constants', 'drbblyEventsService'];
+        'modalService', 'drbblyFileService', 'constants', 'drbblyEventsService', 'drbblyOverlayService', 'drbblyCommonService'];
     function controllerFunc(drbblyAccountsService, authService, $stateParams, $state, permissionsService,
-        modalService, drbblyFileService, constants, drbblyEventsService) {
+        modalService, drbblyFileService, constants, drbblyEventsService, drbblyOverlayService, drbblyCommonService) {
         var avc = this;
         var _username;
         var flagKeys = {
@@ -23,6 +23,7 @@
         };
 
         avc.$onInit = function () {
+            avc.overlay = drbblyOverlayService.buildOverlay();
             _username = $stateParams.username;
             loadAccount();
         };
@@ -87,8 +88,13 @@
         avc.$onDestroy = function () {
             avc.app.toolbar.clearNavItems();
         };
-
+       
         avc.onProfilePhotoClick = function () {
+            if (!avc.isOwned) {
+                viewPrimaryPhoto();
+                return;
+            }
+
             modalService.showMenuModal({
                 model: {
                     buttons: [
@@ -172,6 +178,7 @@
                 }
             })
                 .then(function (imageData) {
+                    avc.overlay.setToBusy('');
                     var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
                     imageData.name = fileNameNoExt + '.png';
                     drbblyFileService.upload([imageData], 'api/account/uploadPrimaryPhoto/' + avc.account.id)
@@ -181,13 +188,15 @@
                                 avc.account.profilePhotoId = result.data.id;
                             }
                         })
-                        .catch(function (error) {
-                            console.log(error);
+                        .catch(err => {
+                            drbblyCommonService.handleError(err);
+                        })
+                        .finally(function () {
+                            URL.revokeObjectURL(url)
+                            avc.overlay.setToReady();
                         });
                 })
-                .finally(function () {
-                    URL.revokeObjectURL(url)
-                });
+
         };
 
         avc.onDeletePhoto = function (img, callback) {
