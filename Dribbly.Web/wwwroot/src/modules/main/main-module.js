@@ -365,6 +365,12 @@
             .state('auth', {
                 abstract: true,
                 url: '',
+                resolve: {
+                    settings: ['$q', '$rootScope', function ($q, $rootScope) {
+                        $rootScope.$broadcast('set-app-overlay', { status: '' });
+                        return $q.resolve();
+                    }]
+                },
                 component: 'drbblyAuthcontainer'
             })
 
