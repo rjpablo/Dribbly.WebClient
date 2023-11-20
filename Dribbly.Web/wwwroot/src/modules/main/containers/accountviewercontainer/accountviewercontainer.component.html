@@ -40,7 +40,24 @@
                         <!-- #endregion -->
                         <!-- #region Details -->
                         <div class="text-white text-center text-md-left">
-                            <h3 class="text-white text-center text-md-left text-capitalize">{{avc.account.name}}</h3>
+                            <div class="mb-2 w-100">
+                                <h3 class="text-white text-center text-md-left text-capitalize mb-0">{{avc.account.name}}</h3>
+                                <div class="">
+                                    <span ng-if="avc.account.heightInches">{{avc.account.heightInches | height}}</span>
+                                    <span ng-if="avc.account.position">{{('app.PlayerPositionEnum.' + avc.account.position) | i18n}}</span>
+                                </div>
+                                <div ng-show="avc.account.city"
+                                     class="text-center text-md-left d-block">
+                                    <span><i class="fa fa-map-marker"></i></span>
+                                    <span>{{avc.account.city.name}}</span>
+                                </div>
+                                <div>
+                                    <a ng-click="avc.editDetails()"
+                                       class="text-secondary small"
+                                       tabindex="0"
+                                       ng-if="avc.isOwned"><i class="fa fa-pencil"></i> Edit Details</a>
+                                </div>
+                            </div>
                             <div>
                                 <!--<button type="button" class="btn btn-primary mb-3"
                                 ng-if="!avc.isOwned">{{::'app.PlusFollow' | i18n}}</button>-->
@@ -48,6 +65,7 @@
                                         ng-if="!avc.isOwned"
                                         class="btn btn-secondary mb-3"
                                         ng-click="avc.message()">
+
                                     {{::'app.Message' | i18n}}
                                 </button>
                                 <button type="button" class="btn btn-facebook mb-3"

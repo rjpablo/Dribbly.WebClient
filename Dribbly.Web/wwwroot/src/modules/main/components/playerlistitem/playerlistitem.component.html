@@ -31,3 +31,7 @@
    class="text-line-2 text-center">
     {{pli.player.name}}
 </a>
+<div class="text-secondary text-center">
+    <span ng-if="pli.player.heightInches">{{pli.player.heightInches | height}}</span>
+    <span ng-if="pli.player.position">{{('app.PlayerPositionEnum.' + pli.player.position) | i18n}}</span>
+</div>

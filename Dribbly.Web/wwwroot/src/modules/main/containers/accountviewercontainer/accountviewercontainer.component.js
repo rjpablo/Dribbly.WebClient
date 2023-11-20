@@ -81,6 +81,20 @@
             })
         }
 
+        avc.editDetails = function () {
+            authService.checkAuthenticationThen(function () {
+                modalService.show({
+                    view: '<drbbly-accountdetailsmodal></drbbly-accountdetailsmodal>',
+                    model: { accountId: avc.account.id }
+                })
+                    .then(function (result) {
+                        if (result) {
+                            avc.onAccountUpdate();
+                        }
+                    });
+            });
+        }
+
         avc.onAccountUpdate = function () {
             loadAccount();
         };

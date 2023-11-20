@@ -6,7 +6,8 @@
             bindings: {
                 options: '=',
                 onPlaceChanged: '<',
-                onSearch: '<'
+                onSearch: '<',
+                keyword: '@'
             },
             controllerAs: 'msc',
             templateUrl: 'drbbly-default',
