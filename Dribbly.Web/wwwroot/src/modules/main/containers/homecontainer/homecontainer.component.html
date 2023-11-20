@@ -26,23 +26,6 @@
             </slick>
         </div>
     </section>
-    <section drbbly-overlay="dhc.topPlayersOverlay" class="pt-3 top-players mb-5">
-        <div class="section-header">
-            <h5 class="drbbly-header">Top Players</h5>
-            <a ui-sref="main.players"
-               class="ml-auto">See all</a>
-        </div>
-        <div class="slick-slider"
-             ng-class="{'slick-dotted': dhc.carouselSettings.dots}">
-            <slick settings="dhc.carouselSettings"
-                   class="dark-transparent-bg">
-                <div ng-repeat="player in dhc.topPlayers"
-                     class="px-3">
-                    <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
-                </div>
-            </slick>
-        </div>
-    </section>
     <section drbbly-overlay="dhc.newPlayersOverlay" class="pt-3 new-players mb-5">
         <div class="section-header">
             <h5 class="drbbly-header">New Players</h5>
@@ -54,6 +37,23 @@
             <slick settings="dhc.newPlayerCarouselSettings"
                    class="dark-transparent-bg">
                 <div ng-repeat="player in dhc.newPlayers"
+                     class="px-3">
+                    <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
+    <section drbbly-overlay="dhc.topPlayersOverlay" class="pt-3 top-players mb-5">
+        <div class="section-header">
+            <h5 class="drbbly-header">Top Players</h5>
+            <a ui-sref="main.players"
+               class="ml-auto">See all</a>
+        </div>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.carouselSettings.dots}">
+            <slick settings="dhc.carouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="player in dhc.topPlayers"
                      class="px-3">
                     <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
                 </div>

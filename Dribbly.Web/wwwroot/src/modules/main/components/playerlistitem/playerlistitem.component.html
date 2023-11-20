@@ -28,10 +28,18 @@
     </div>
 </div>
 <a ui-sref="main.account.home({username: pli.player.username})"
-   class="text-line-2 text-center">
+   class="text-line-2 text-center text-capitalize player-name">
     {{pli.player.name}}
 </a>
-<div class="text-secondary text-center">
-    <span ng-if="pli.player.heightInches">{{pli.player.heightInches | height}}</span>
-    <span ng-if="pli.player.position">{{('app.PlayerPositionEnum.' + pli.player.position) | i18n}}</span>
+<div class="additional-details">
+    <div class="text-secondary text-center">
+        <small ng-if="pli.player.heightInches">{{pli.player.heightInches | height}}</small>
+        <small ng-if="pli.player.position">{{('app.PlayerPositionEnum.' + pli.player.position) | i18n}}</small>
+    </div>
+    <div ng-show="pli.player.city"
+         title="{{pli.player.city.name}}"
+         class="text-center text-secondary text-line-1">
+        <small><i class="fa fa-map-marker"></i></small>
+        <small>{{pli.player.city.name}}</small>
+    </div>
 </div>
