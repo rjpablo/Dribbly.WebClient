@@ -97,6 +97,13 @@
             })
             // #endregion ACCOUNT
 
+            // PLAYER SEARCH
+
+            .state('main.playersearch', {
+                url: '/player-search?placeid&position',
+                component: 'drbblyPlayersearchcontainer'
+            })
+
             // #region Court
             .state('main.courts', {
                 url: '/courts',

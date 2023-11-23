@@ -1,0 +1,82 @@
+﻿<div class="card mb-3">
+    <div class="card-body p-2">
+        <form name="dps.frmPlayerSearch"
+              ng-submit="dps.submit()"
+              novalidate>
+            <fieldset ng-disabled="dps.isBusy">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-1 mb-md-3">
+                            <div class="border bg-white p-1 d-flex align-items-center"
+                                 style="border-radius: 0.25rem">
+                                <div class="d-flex align-items-center flex-grow-1">
+                                    <drbbly-mapsearchcontrol options="dps.searchOptions"
+                                                             on-ready="dps.onMapSearchReady"
+                                                             class="flex-grow-1"
+                                                             keyword="{{dps.citySearchKeyword}}"
+                                                             on-place-changed="dps.placeChanged" />
+                                    <a tabindex="0"
+                                       ng-show="dps.searchData.place"
+                                       class="px-1"
+                                       ng-click="dps.removeCity()"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                            <input hidden
+                                   type="text"
+                                   ng-model="dps.searchData.place.googleId"
+                                   required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="border bg-white p-1 d-flex align-items-center"
+                                 style="border-radius: 0.25rem">
+                                <select class="form-control border-0"
+                                        ng-model="dps.searchData.position">
+                                    <option ng-repeat="option in dps.ddlPositionOptions"
+                                            value="{{option.value}}"
+                                            ng-selected="dps.searchData.position === option.value">
+                                        {{option.text}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                </div>
+                <button class="btn btn-primary btn-block"
+                        ng-disabled="!(dps.searchData.place.googleId || dps.searchData.position)"
+                        type="submit">
+                    Search
+                </button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<section class="pt-3 new-players"
+         ng-show="dps.hasSearched">
+    <div class="mb-3">
+        <h5 class="drbbly-header">Search Result:</h5>
+    </div>
+    <div class="row">
+        <div ng-repeat="player in dps.players"
+             class="col-6 col-sm-4 col-lg-3">
+            <drbbly-playerlistitem player="player"
+                                   class="w-100"></drbbly-playerlistitem>
+        </div>
+        <div drbbly-overlay="dps.overlay"
+             class="col-12"
+             ng-show="!dps.isLastPage">
+            <button class="btn btn-secondary btn-block"
+                    ng-click="dps.loadNextPage()">
+                Load More
+            </button>
+        </div>
+        <div class="p-3 text-center w-100"
+             ng-show="dps.isLastPage">
+            <p>{{dps.players.length > 0? 'No more items to load' : 'No players found. Try changing your search criteria.'}}</p>
+        </div>
+    </div>
+</section>

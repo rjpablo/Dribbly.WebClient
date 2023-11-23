@@ -271,8 +271,9 @@
       "wwwroot/src/modules/main/components/grouphome/grouphome.component.js",
       "wwwroot/src/modules/main/components/addgroupmodal/addgroupmodal.component.js",
       "wwwroot/src/modules/main/components/groupmembers/groupmembers.component.js",
-
+      "wwwroot/src/modules/main/components/playersearch/playersearch.component.js",
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
+
       "wwwroot/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js",
       "wwwroot/src/modules/main/containers/courtschedulecontainer/courtschedulecontainer.component.js",
       "wwwroot/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.js",
@@ -283,7 +284,8 @@
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.js",
       "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.js",
       "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.js",
-      "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.js"
+      "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.js",
+      "wwwroot/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.js"
     ]
   },
   // styles
@@ -377,7 +379,7 @@
       "wwwroot/src/shared/modules/app/app.css",
       "wwwroot/src/shared/modules/app/components/gallery/gallery.component.css",
       "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.css",
-      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.css"
+      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.css",
     ]
   },
   {
@@ -465,12 +467,14 @@
       "wwwroot/src/modules/main/components/grouphome/grouphome.component.css",
       "wwwroot/src/modules/main/components/addgroupmodal/addgroupmodal.component.css",
       "wwwroot/src/modules/main/components/groupmembers/groupmembers.component.css",
+      "wwwroot/src/modules/main/components/playersearch/playersearch.component.css",
 
       "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.css",
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css",
       "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.css",
-      "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.css"
+      "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.css",
+      "wwwroot/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.css"
     ]
   }
 ]
