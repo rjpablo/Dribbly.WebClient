@@ -109,6 +109,15 @@
         }
 
         adm.submit = function () {
+            adm.invalidLink = adm.account.fbLink &&
+                !/https?:\/\/(?:(www|web)\.)?(mbasic\.facebook|m\.facebook|facebook|fb)\.(com|me)(\/?(#!))?(\/[\w\.(#!)-\?]*)+/ig
+                .test(adm.account.fbLink);
+            adm.invalidIgLink = adm.account.igLink &&
+                !/(http|https):\/\/(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im
+                .test(adm.account.igLink);
+            if (adm.invalidLink || adm.invalidIgLink) {
+                return;
+            }
             var saveModel = angular.copy(adm.account);
             if (saveModel.birthDate) {
                 saveModel.birthDate = drbblyDatetimeService.toUtcDate(saveModel.birthDate);
