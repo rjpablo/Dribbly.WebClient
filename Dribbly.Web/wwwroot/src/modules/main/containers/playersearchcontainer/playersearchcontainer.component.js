@@ -28,7 +28,9 @@
 
         function setDefaults() {
             psc.searchData = {
-                position: $stateParams.position
+                position: $stateParams.position,
+                minHeightInches: $stateParams.minheightinches,
+                maxHeightInches: $stateParams.maxheightinches
             };
 
             if ($stateParams.placeid) {
@@ -66,8 +68,9 @@
         psc.onSearch = searchData => {
             var params = {
                 placeid: searchData.placeId,
-                position: searchData.position
-
+                position: searchData.position,
+                minheightinches: searchData.minHeightInches,
+                maxheightinches: searchData.maxHeightInches
             };
             $state.go('main.playersearch', params, { notify: false, location: 'replace' })
         }

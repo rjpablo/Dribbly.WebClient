@@ -5,8 +5,8 @@
               novalidate>
             <fieldset ng-disabled="dps.isBusy">
                 <div class="form-row">
-                    <div class="col-md-6">
-                        <div class="form-group mb-1 mb-md-3">
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="form-group mb-1 mb-xl-3">
                             <div class="border bg-white p-1 d-flex align-items-center"
                                  style="border-radius: 0.25rem">
                                 <div class="d-flex align-items-center flex-grow-1">
@@ -27,8 +27,8 @@
                                    required />
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="form-group mb-1 mb-xl-3">
                             <div class="border bg-white p-1 d-flex align-items-center"
                                  style="border-radius: 0.25rem">
                                 <select class="form-control border-0"
@@ -42,11 +42,42 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-6 col-xl-4"
+                         ng-show="dps.anyHeight">
+                        <div class="form-group mb-1 mb-xl-3">
+                            <div class="p-1 d-flex align-items-center"
+                                 style="border-radius: 0.25rem; height: 48px">
+                                <label class="mb-0 mr-1 text-white">Any Height</label>
+                                <div class="custom-control custom-switch ml-auto">
+                                    <input type="checkbox"
+                                           id="swAnyHeight"
+                                           ng-model="dps.anyHeight"
+                                           ng-change="dps.onAnyHeightChange(dps.anyHeight)"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="swAnyHeight"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-4"
+                         ng-show="!dps.anyHeight">
+                        <div class="form-group">
+                            <div class="p-1 d-flex align-items-center"
+                                 style="border-radius: 0.25rem;">
+                                <label class="mb-0 mr-1 text-white">Height:</label>
+                                <rzslider rz-slider-model="dps.minHeightInches"
+                                          rz-slider-high="dps.maxHeightInches"
+                                          rz-slider-options="dps.sliderOption"></rzslider>
+                                <a ng-click="dps.onAnyHeightChange(true)"
+                                      class="ml-2"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-row">
                 </div>
                 <button class="btn btn-primary btn-block"
-                        ng-disabled="!(dps.searchData.place.googleId || dps.searchData.position)"
+                        ng-disabled="!(dps.searchData.place.googleId || dps.searchData.position || !dps.anyHeight)"
                         type="submit">
                     Search
                 </button>

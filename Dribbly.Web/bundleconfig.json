@@ -51,7 +51,8 @@
       "wwwroot/src/lib/angular-dragdrop/angular-dragdrop.js",
       "wwwroot/src/custom/uiroutertitle/uiroutertitle.module.js",
       "wwwroot/src/custom/daypilot/js/daypilot-all.min.js",
-      "wwwroot/src/lib/video-js/video.min.js"
+      "wwwroot/src/lib/video-js/video.min.js",
+      "wwwroot/src/lib/angularjs-slider/rzslider.min.js"
     ]
   },
   {
@@ -308,6 +309,7 @@
       "wwwroot/src/custom/ng-image-gallery/ng-image-gallery.css",
       "wwwroot/src/custom/glyphicon-to-font-awesome/glyphicon-to-font-awesome.css",
       "wwwroot/src/lib/video-js/video-js.min.css",
+      "wwwroot/src/lib/angularjs-slider/rzslider.min.css",
       "wwwroot/src/lib-extensions/angular-wysiwyg-custom/angular-wysiwyg-custom.css"
     ]
   },
@@ -379,7 +381,7 @@
       "wwwroot/src/shared/modules/app/app.css",
       "wwwroot/src/shared/modules/app/components/gallery/gallery.component.css",
       "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.css",
-      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.css",
+      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.css"
     ]
   },
   {

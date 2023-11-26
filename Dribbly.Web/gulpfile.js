@@ -80,6 +80,13 @@ var nodeLibs = {
         ],
         destination: 'angularjs-toaster'
     },
+    angularjs_slider: {
+        source: [
+            'angularjs-slider/dist/rzslider.min.js',
+            'angularjs-slider/dist/rzslider.min.css'
+        ],
+        destination: 'angularjs-slider'
+    },
     bootstrap: {
         source: [
             'bootstrap/dist/css/bootstrap.css',

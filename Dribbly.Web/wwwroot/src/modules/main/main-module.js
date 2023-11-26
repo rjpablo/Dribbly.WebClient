@@ -100,7 +100,7 @@
             // PLAYER SEARCH
 
             .state('main.playersearch', {
-                url: '/player-search?placeid&position',
+                url: '/player-search?placeid&position&minheightinches&maxheightinches',
                 component: 'drbblyPlayersearchcontainer'
             })
 

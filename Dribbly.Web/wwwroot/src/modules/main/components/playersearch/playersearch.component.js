@@ -16,9 +16,9 @@
         });
 
     controllerFn.$inject = ['drbblyFormshelperService', 'drbblyAccountsService', 'drbblyCommonService',
-        '$state', 'constants', 'drbblyOverlayService'];
+        '$state', 'constants', 'drbblyOverlayService', '$filter'];
     function controllerFn(drbblyFormshelperService, drbblyAccountsService, drbblyCommonService,
-        $state, constants, drbblyOverlayService) {
+        $state, constants, drbblyOverlayService, $filter) {
         var dps = this;
 
         dps.$onInit = function () {
@@ -27,6 +27,9 @@
                 page: 0,
                 pageSize: 10
             };
+            dps.minHeightInches = 48;
+            dps.maxHeightInches = 78;
+            dps.anyHeight = true;
             dps.players = [];
             dps.searchOptions = {
                 types: ['locality', 'administrative_area_level_3'],
@@ -40,6 +43,17 @@
                     emptyText: 'Any Position',
                     excludeValues: [constants.enums.playerPositionEnum.Coach]
                 });
+            dps.sliderOption = {
+                floor: 36,
+                ceil: 96,
+                translate: function (value, sliderId, label) {
+                    return $filter('height')(value);
+                }
+            };
+        };
+
+        dps.onAnyHeightChange = anyHeight => {
+            dps.anyHeight = anyHeight;
         };
 
         dps.placeChanged = function (place) {
@@ -74,6 +88,11 @@
                     },
                     search: data => {
                         dps.searchData = Object.assign(dps.searchData, data);
+                        dps.anyHeight = !dps.searchData.minHeightInches && !dps.searchData.maxHeightInches;
+                        if (!dps.anyHeight) {
+                            dps.minHeightInches = dps.searchData.minHeightInches;
+                            dps.maxHeightInches = dps.searchData.maxHeightInches;
+                        }
                         dps.submit();
                     }
                 })
@@ -97,14 +116,19 @@
             if (dps.redirectOnSubmit) {
                 var params = {
                     placeid: dps.searchData.placeId,
-                    position: dps.searchData.position
+                    position: dps.searchData.position,
+                    minheightinches: dps.anyHeight ? null : dps.minHeightInches,
+                    maxheightinches: dps.anyHeight ? null : dps.maxHeightInches
 
                 };
                 $state.go('main.playersearch', params);
                 return;
             }
+            
             dps.players.length = 0;
             dps.searchData.page = 0;
+            dps.searchData.minHeightInches = dps.anyHeight ? null : dps.minHeightInches;
+            dps.searchData.maxHeightInches = dps.anyHeight ? null : dps.maxHeightInches;
             dps.loadNextPage();
             dps.isLastPage = false;
             dps.hasSearched = true;
