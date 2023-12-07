@@ -26,6 +26,10 @@
                     return drbblyhttpService.post(api + `removeReaction`, input);
                 }
 
+                function postComment(comment) {
+                    return drbblyhttpService.post(api + `postComment`, comment);
+                }
+
                 function updatePost(postDetails) {
                     return drbblyhttpService.post(api + 'updatePost', postDetails);
                 }
@@ -40,6 +44,7 @@
                     deletePost,
                     getPost,
                     getPosts,
+                    postComment,
                     removeReaction,
                     updatePost
                 };

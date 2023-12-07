@@ -89,4 +89,38 @@
         <span ng-if="drl.reactionCount > 0"
               ng-click="drl.showReactors()">{{drl.reactionCount}} like{{drl.reactionCount > 1? 's':''}}</span>
     </div>
+    <div class="p-3">
+        <form name="drl.frmComment"
+              ng-submit="drl.postComment()">
+            <div class="form-group">
+                <textarea class="form-control"
+                          required
+                          placeholder="Post a comment..."
+                          ng-model="drl.message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-block btn-primary"
+                    ng-disabled="drl.frmComment.$invalid || drl.isBusy">
+                Post
+            </button>
+        </form>
+    </div>
+    <div class="px-3">
+        <div class="mb-2">Comments</div>
+        <div ng-repeat="comment in drl.comments track by comment.id"
+             class="d-flex mb-2 comment">
+            <img ng-src="{{comment.addedBy.profilePhoto.url}}"
+                 class="avatar mr-1" />
+            <div class="flex-grow-1">
+                <div class="p-2 content">
+                    <h6><a ui-sref="main.account.home({username: comment.addedBy.name})">{{comment.addedBy.name}}</a></h6>
+                    <span class="flex-grow-1">{{comment.message}}</span>
+                </div>
+                <small class="text-secondary">{{comment.dateAdded | drbblydate}}</small>
+            </div>
+        </div>
+        <button ng-click="drl.loadComments()"
+           ng-show="drl.hasMoreComments"
+           ng-disabled="drl.loadingComments"
+           class="btn-block btn btn-link">Load older comments...</button>
+    </div>
 </div>

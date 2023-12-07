@@ -15,10 +15,11 @@
         });
 
     controllerFunc.$inject = ['authService', 'modalService', 'permissionsService', 'constants', '$state', '$sce',
-        'drbblyPostsService', 'drbblyCommonService'];
+        'drbblyPostsService', 'drbblyCommonService', 'drbblyCommentsService', 'drbblyDatetimeService'];
     function controllerFunc(authService, modalService, permissionsService, constants, $state, $sce,
-        drbblyPostsService, drbblyCommonService) {
+        drbblyPostsService, drbblyCommonService, drbblyCommentsService, drbblyDatetimeService) {
         var drl = this;
+        var _commentsPage
 
         drl.$onInit = function () {
             drl.postTypeEnum = constants.enums.postTypeEnum;
@@ -43,6 +44,15 @@
                 imgBubbles: true,
                 bubbleSize: 30
             };
+            drl.getCommentsInput = {
+                commentedOnType: constants.enums.commentedOnTypeEnum.Post,
+                commentedOnId: drl.post.id,
+                pageSize: 2,
+                page: 0,
+                afterDate: null
+            };
+            drl.comments = [];
+            drl.loadComments();
         };
 
         function setLink() {
@@ -54,7 +64,43 @@
             }
         };
 
-        drl.showReactors = function() {
+        drl.loadComments = function () {
+            drl.getCommentsInput.page++;
+            drl.loadingComments = true;
+            drbblyCommentsService.getComments(drl.getCommentsInput)
+                .then(comments => {
+                    comments = comments.map(c => {
+                        return { ...c, dateAdded: drbblyDatetimeService.toUtcString(c.dateAdded) };
+                    })
+                    drl.comments.push(...comments);
+                    drl.hasMoreComments = comments.length == drl.getCommentsInput.pageSize;
+                    drl.getCommentsInput.pageSize = 5;
+                    if (comments.length > 0) {
+                        drl.getCommentsInput.afterDate = drbblyDatetimeService.toUtcDate(comments[comments.length - 1].dateAdded);
+                    }
+                })
+                .catch(e => drbblyCommonService.handleError(e))
+                .finally(() => drl.loadingComments = false);
+        }
+
+        drl.postComment = () => {
+            drl.isBusy = true;
+            var comment = {
+                commentedOnType: constants.enums.commentedOnTypeEnum.Post,
+                commentedOnId: drl.post.id,
+                message: drl.message
+            };
+
+            drbblyCommentsService.addComment(comment)
+                .then(comment => {
+                    drl.message = '';
+                    drl.comments.unshift(comment);
+                })
+                .catch(e => drbblyCommonService.handleError(e))
+                .finally(() => drl.isBusy = false);
+        }
+
+        drl.showReactors = function () {
             modalService.show({
                 view: '<drbbly-accountlistmodal></drbbly-accountlistmodal>',
                 model: {
