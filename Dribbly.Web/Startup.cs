@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dribbly.Web.Models;
+using Dribbly.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,6 +37,7 @@ namespace Dribbly.Web
                 Configuration.GetSection("ClientSettings");
             services.Configure<ClientSettings>(ClientSettingsSection);
 
+            services.AddScoped<IHttpService, HttpService>();
 
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.Configure<CookiePolicyOptions>(options =>
@@ -72,6 +74,15 @@ namespace Dribbly.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Main}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "account",
+                    template: "account/{username}",
+                    defaults: new
+                    {
+                        controller = "Account",
+                        Action = "Index",
+                    });
 
                 // Reroute all requests to Main/Index
                 // Required 

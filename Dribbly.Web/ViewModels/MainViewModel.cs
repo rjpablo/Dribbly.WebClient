@@ -5,7 +5,7 @@ namespace Dribbly.Web.ViewModels
     public class MainViewModel : SiteViewModel
     {
 
-        public MainViewModel(ClientSettings clientSettings) : base("mainModule", clientSettings)
+        public MainViewModel(ClientSettings clientSettings, string title = "", string imageUrl = "", string description = "") : base("mainModule", clientSettings, title, imageUrl, description)
         {
 
         }
