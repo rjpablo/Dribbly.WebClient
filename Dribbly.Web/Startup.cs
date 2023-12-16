@@ -94,6 +94,33 @@ namespace Dribbly.Web
                         controller = "Court",
                         Action = "Games",
                     });
+                
+                routes.MapRoute(
+                    name: "court photos",
+                    template: "court/{courtId}/photos",
+                    defaults: new
+                    {
+                        controller = "Court",
+                        Action = "Photos",
+                    });
+                
+                routes.MapRoute(
+                    name: "court videos",
+                    template: "court/{courtId}/videos",
+                    defaults: new
+                    {
+                        controller = "Court",
+                        Action = "Videos",
+                    });
+
+                routes.MapRoute(
+                    name: "court details",
+                    template: "court/{courtId}/details",
+                    defaults: new
+                    {
+                        controller = "Court",
+                        Action = "Details",
+                    });
 
                 routes.MapRoute(
                     name: "court",
