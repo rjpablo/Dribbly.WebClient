@@ -48,7 +48,7 @@
             dcd.loadLocalPlayers();
             dcd.overlay.setToReady();
             dcd.app.updatePageDetails({
-                title: dcd.court.name + ' - Home',
+                title: dcd.court.name,
                 image: (dcd.court.primaryPhoto || constants.images.defaultCourtLogo).url
             });
         };
