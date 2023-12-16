@@ -63,6 +63,29 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>City:</label><br />
+                    <div ng-show="adm.editingCity" class="d-flex align-items-center">
+                        <drbbly-mapsearchcontrol options="adm._searchOptions"
+                                                 class="flex-grow-1"
+                                                 keyword="{{adm.citySearchKeyword}}"
+                                                 on-place-changed="adm._placeChanged" />
+                        <a tabindex="0"
+                           class="px-1"
+                           ng-click="adm.editingCity = false"><i class="fa fa-times"></i></a>
+                    </div>
+                    <div ng-show="!adm.editingCity">
+                        <span ng-click="adm.editCity()"
+                              ng-show="adm.account.city">{{adm.account.city.name}}</span>
+                        <span ng-show="!adm.account.city"
+                              class="text-secondary">(Not Set)</span>
+                        <a tabindex="0"
+                           ng-click="adm.editCity()"><i class="fa fa-pencil"></i></a>
+                        <a tabindex="0"
+                           ng-click="adm.removeCity()"
+                           ng-show="adm.account.city"><i class="text-danger fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label>{{::'app.Gender' | i18n}}:</label><br />
                     <div class="btn-group">
                         <label class="btn btn-secondary" ng-model="adm.account.gender" uib-btn-radio="0">{{::'app.Male' | i18n}}</label>
@@ -98,6 +121,32 @@
                                       config="adm.typeAheadConfig"
                                       class="form-control" />
                 </div>
+                <div class="form-group">
+                    <label for="txtFbLink">Facebook Link</label>
+                    <input type="text"
+                           name="txtFbLink"
+                           ng-model="adm.account.fbLink"
+                           placeholder="e.g. 'https://www.facebook.com/freehoops'"
+                           class="form-control"
+                           ng-class="{'is-invalid': adm.invalidLink}"
+                           maxlength="100" />
+                    <div class="invalid-feedback">
+                        Invalid link
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtFbLink">Instagram Link</label>
+                    <input type="text"
+                           name="txtFbLink"
+                           ng-model="adm.account.igLink"
+                           placeholder="e.g. 'https://www.instagram.com/freehoops'"
+                           class="form-control"
+                           ng-class="{'is-invalid': adm.invalidIgLink}"
+                           maxlength="100" />
+                    <div class="invalid-feedback">
+                        Invalid link
+                    </div>
+                </div>
             </fieldset>
         </form>
         <div ng-class="{'d-block': adm.frmAccountDetails.$invalid && adm.frmAccountDetails.$submitted}"
@@ -108,7 +157,7 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary"
-            ng-disabled="adm.isBusy"
+            ng-disabled="adm.isBusy || adm.editingCity"
             type="submit"
             ng-click="adm.submit()"
             ng-switch="adm.isBusy">

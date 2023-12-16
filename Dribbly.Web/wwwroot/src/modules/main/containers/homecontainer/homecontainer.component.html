@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <section class="features-carousel mb-5">
+    <section class="features-carousel mb-5 mx-n3">
         <div class="slick-slider"
              ng-class="{'slick-dotted': dhc.featuresCarouselSettings.dots}">
             <slick settings="dhc.featuresCarouselSettings"
@@ -22,6 +22,23 @@
                             </button>
                         </div>
                     </div>
+                </div>
+            </slick>
+        </div>
+    </section>
+    <section drbbly-overlay="dhc.newPlayersOverlay" class="pt-3 new-players mb-5">
+        <div class="section-header">
+            <h5 class="drbbly-header">New Players</h5>
+            <a ui-sref="main.players"
+               class="ml-auto">See all</a>
+        </div>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.newPlayerCarouselSettings.dots}">
+            <slick settings="dhc.newPlayerCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="player in dhc.newPlayers"
+                     class="px-3">
+                    <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
                 </div>
             </slick>
         </div>
@@ -118,5 +135,22 @@
         <!-- Ad -->
         <span class="d-block text-center">Advertisement</span>
         <drbbly-ad type="'horizontal'"></drbbly-ad>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-9">
+            <div class="row">
+                <div class="col-12">
+                    <drbbly-posts options="dhc.postsOptions"></drbbly-posts>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
     </div>
 </div>

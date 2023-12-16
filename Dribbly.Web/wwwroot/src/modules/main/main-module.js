@@ -4,8 +4,20 @@
         'appModule'
     ]);
 
-    module.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', configFn]);
-    function configFn($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    module.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', '$sceDelegateProvider', configFn]);
+    function configFn($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $sceDelegateProvider) {
+
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain. **.
+            'https://www.facebook.com/**',
+            'https://facebook.com/**',
+            'https://www.fb.watch/**',
+            'https://fb.watch/**',
+            'https://www.youtube.com/**',
+            'https://youtube.com/**',
+        ]);
 
         $urlRouterProvider.otherwise('home');
 
@@ -19,7 +31,10 @@
                         var deferred = $q.defer();
 
                         settingsService.getInitialSettings()
-                            .then(deferred.resolve)
+                            .then((data) => {
+                                deferred.resolve(data);
+                                $rootScope.$broadcast('set-app-overlay', { status: '' });
+                            })
                             .catch(function () {
                                 //window.location.href = '/ErrorPage';
                                 $rootScope.$broadcast('set-app-overlay', { status: 'error' });
@@ -82,6 +97,13 @@
             })
             // #endregion ACCOUNT
 
+            // PLAYER SEARCH
+
+            .state('main.playersearch', {
+                url: '/player-search?placeid&position&minheightinches&maxheightinches',
+                component: 'drbblyPlayersearchcontainer'
+            })
+
             // #region Court
             .state('main.courts', {
                 url: '/courts',
@@ -95,7 +117,7 @@
             })
 
             .state('main.court.home', {
-                url: '/home',
+                url: '',
                 component: 'drbblyCourthome'
             })
 
@@ -350,6 +372,12 @@
             .state('auth', {
                 abstract: true,
                 url: '',
+                resolve: {
+                    settings: ['$q', '$rootScope', function ($q, $rootScope) {
+                        $rootScope.$broadcast('set-app-overlay', { status: '' });
+                        return $q.resolve();
+                    }]
+                },
                 component: 'drbblyAuthcontainer'
             })
 
@@ -408,6 +436,14 @@
             })
             // #endregion TRACKING
 
+            // #region POST
+
+            .state('main.post', {
+                url: '/post/:id',
+                component: 'drbblyPostcontainer'
+            })
+            // #endregion POST
+
             // #region PRIVACY POLICY
             .state('main.privacypolicy', {
                 params: {
@@ -416,7 +452,7 @@
                 url: '/privacy-policy',
                 component: 'drbblyPrivacypolicycontainer'
             })
-            // #endregion PRIVACY POLICY
+        // #endregion PRIVACY POLICY
 
         $locationProvider.html5Mode(true);
 

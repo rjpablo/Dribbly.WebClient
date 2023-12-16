@@ -12,13 +12,14 @@
         'thatisuday.ng-image-gallery',
         'slickCarousel',
         'angular-inview',
-        'ngDragDrop'
+        'ngDragDrop',
+        'rzSlider'
     ]);
 
     module.run(['authService', '$transitions', '$rootScope', 'drbblyToolbarService', 'constants', '$filter',
         'drbblyGameshelperService',
         async function runFn(authService, $transitions, $rootScope, drbblyToolbarService, constants, $filter,
-            drbblyGameshelperService) {            
+            drbblyGameshelperService) {
             $rootScope.$root.constants = constants;
             $rootScope.$root.$filter = $filter;
             await authService.verifyToken();

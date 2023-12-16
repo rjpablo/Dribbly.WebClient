@@ -39,10 +39,16 @@
                 postedOnId: dcd.courtId
             };
             dcd.loadUpcomingGames();
+            dcd.loadLocalPlayersInput = {
+                courtIds: [dcd.courtId],
+                pageSize: 10,
+                page: 1
+            };
+            dcd.localPlayers = [];
             dcd.loadLocalPlayers();
             dcd.overlay.setToReady();
             dcd.app.updatePageDetails({
-                title: dcd.court.name + ' - Home',
+                title: dcd.court.name,
                 image: (dcd.court.primaryPhoto || constants.images.defaultCourtLogo).url
             });
         };
@@ -71,15 +77,13 @@
         }
 
         dcd.loadLocalPlayers = function () {
-            var input = {
-                courtIds: [dcd.courtId]
-            };
-            dcd.localPlayersOverlay.setToBusy();
-            drbblyAccountsService.getPlayers(input)
+            dcd.localPlayersOverlay.setToBusy('');
+            drbblyAccountsService.getPlayers(dcd.loadLocalPlayersInput)
                 .then(result => {
                     dcd.localPlayersOverlay.setToReady();
-                    dcd.localPlayers = result;
-                    dcd.carouselSettings.enabled = true;
+                    dcd.loadLocalPlayersInput.page++;
+                    dcd.localPlayers = dcd.localPlayers.concat(result);
+                    dcd.allLocalPlayersLoaded = result.length < dcd.loadLocalPlayersInput.pageSize;
                 })
                 .catch(() => dcd.localPlayersOverlay.setToError());
         }

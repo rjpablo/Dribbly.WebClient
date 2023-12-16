@@ -25,6 +25,12 @@
             return marker;
         };
 
+        function getPlaceById(placeId) {
+            const geocoder = new google.maps.Geocoder();
+            return geocoder.geocode({ placeId: placeId })
+                .then(result => result.results);
+        }
+
         var _getAddress = function (latLng) {
             var _geocoder = new google.maps.Geocoder;
             var deferred = $q.defer();
@@ -174,6 +180,7 @@
         this.getCityFromLocation = _getCityFromLocation;
         this.getPlaceComponents = _getAddressComponents;
         this.getMap = getMap;
+        this.getPlaceById = getPlaceById;
         this.validateCity = _validateCity;
         return this;
     }

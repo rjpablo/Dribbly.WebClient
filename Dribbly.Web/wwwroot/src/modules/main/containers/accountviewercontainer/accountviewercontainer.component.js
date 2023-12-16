@@ -13,13 +13,17 @@
         });
 
     controllerFunc.$inject = ['drbblyAccountsService', 'authService', '$stateParams', '$state', 'permissionsService',
-        'modalService', 'drbblyFileService', 'constants', 'drbblyEventsService'];
+        'modalService', 'drbblyFileService', 'constants', 'drbblyEventsService', 'drbblyOverlayService', 'drbblyCommonService'];
     function controllerFunc(drbblyAccountsService, authService, $stateParams, $state, permissionsService,
-        modalService, drbblyFileService, constants, drbblyEventsService) {
+        modalService, drbblyFileService, constants, drbblyEventsService, drbblyOverlayService, drbblyCommonService) {
         var avc = this;
         var _username;
+        var flagKeys = {
+            uploadPrimaryPhoto: 'upload_primary_photo'
+        };
 
         avc.$onInit = function () {
+            avc.overlay = drbblyOverlayService.buildOverlay();
             _username = $stateParams.username;
             loadAccount();
         };
@@ -35,9 +39,61 @@
                         permissionsService.hasPermission('Account.UpdateNotOwned');
                     avc.app.mainDataLoaded();
                     buildSubPages();
+
+                    if (avc.isOwned && data.flags.drbblyAny(f => f.key === flagKeys.uploadPrimaryPhoto)) {
+                        promptForProfilePhoto();
+                    }
                 }, function (error) {
 
                 });
+        }
+
+        function promptForProfilePhoto() {
+            return modalService.show({
+                view: '<drbbly-alertmodal></drbbly-alertmodal>',
+                model: {
+                    msg1Raw: 'Upload a profile photo so other users would recognize you.',
+                    options: {
+                        buttons: [
+                            {
+                                textKey: 'app.SelectPhoto',
+                                action: (modalContext) => {
+                                    angular.element('#btn-replace-photo').triggerHandler('click');
+                                    modalContext.okToClose = true;
+                                    modalContext.submit();
+                                    drbblyAccountsService.removeFlag(flagKeys.uploadPrimaryPhoto)
+                                },
+                                class: 'btn btn-primary'
+                            },
+                            {
+                                textKey: 'site.Skip',
+                                action: (modalContext) => {
+                                    modalContext.okToClose = true;
+                                    modalContext.dismiss();
+                                    drbblyAccountsService.removeFlag(flagKeys.uploadPrimaryPhoto)
+                                },
+                                class: 'btn btn-secondary'
+                            },
+                        ]
+                    }
+                },
+                backdrop: 'static'
+            })
+        }
+
+        avc.editDetails = function () {
+            authService.checkAuthenticationThen(function () {
+                modalService.show({
+                    view: '<drbbly-accountdetailsmodal></drbbly-accountdetailsmodal>',
+                    model: { accountId: avc.account.id },
+                    backdrop: 'static'
+                })
+                    .then(function (result) {
+                        if (result) {
+                            avc.onAccountUpdate();
+                        }
+                    });
+            });
         }
 
         avc.onAccountUpdate = function () {
@@ -47,8 +103,13 @@
         avc.$onDestroy = function () {
             avc.app.toolbar.clearNavItems();
         };
-
+       
         avc.onProfilePhotoClick = function () {
+            if (!avc.isOwned) {
+                viewPrimaryPhoto();
+                return;
+            }
+
             modalService.showMenuModal({
                 model: {
                     buttons: [
@@ -132,6 +193,7 @@
                 }
             })
                 .then(function (imageData) {
+                    avc.overlay.setToBusy('');
                     var fileNameNoExt = (file.name.split('\\').pop().split('/').pop().split('.'))[0]
                     imageData.name = fileNameNoExt + '.png';
                     drbblyFileService.upload([imageData], 'api/account/uploadPrimaryPhoto/' + avc.account.id)
@@ -141,13 +203,15 @@
                                 avc.account.profilePhotoId = result.data.id;
                             }
                         })
-                        .catch(function (error) {
-                            console.log(error);
+                        .catch(err => {
+                            drbblyCommonService.handleError(err);
+                        })
+                        .finally(function () {
+                            URL.revokeObjectURL(url)
+                            avc.overlay.setToReady();
                         });
                 })
-                .finally(function () {
-                    URL.revokeObjectURL(url)
-                });
+
         };
 
         avc.onDeletePhoto = function (img, callback) {

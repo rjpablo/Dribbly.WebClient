@@ -1,5 +1,5 @@
 ﻿<div class="modal-header">
-    <h3 class="modal-title" i18n="{{::pdm.model.isEdit? 'app.EditPost':'app.CreateANewPost'}}"></h3>
+    <h3 class="modal-title">{{::pdm.model.isEdit? 'Edit Post':'Create Post'}}</h3>
 </div>
 <div class="modal-body">
     <div drbbly-overlay="pdm.overlay">
@@ -8,13 +8,43 @@
               ng-if="pdm.saveModel">
             <fieldset ng-disabled="pdm.isBusy">
                 <div class="form-group">
-                    <drbbly-texteditor class="d-block mb-1 texteditor-dark"
+                    <drbbly-texteditor class="d-block texteditor-dark"
                                        options="{placeholder: 'Write something...'}"
                                        value="pdm.saveModel.content"></drbbly-texteditor>
                     <input name="content" type="text" hidden ng-model="pdm.saveModel.content" />
                 </div>
             </fieldset>
         </form>
+        <div ng-if="pdm.postingEmbededContent">
+            <form name="pdm.frmEmbed">
+                <div>
+                    <div class="d-flex align-items-center">
+                        <label>Paste Facebook/YouTube embed code:</label>
+                        <button class="btn btn-sm ml-auto"
+                                ng-click="pdm.postingEmbededContent = false">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <input type="text"
+                           id="embed-code-input"
+                           class="form-control"
+                           required
+                           ng-model="pdm.embedCode"
+                           ng-change="pdm.embedCodePasted(pdm.embedCode)" />
+                    <div class="invalid-feedback"
+                         ng-class="{'d-block':pdm.invalidEmbedCode}">
+                        Unsupported embed code
+                    </div>
+                </div>
+            </form>
+            <div class="overflow-auto embeded-content"
+                 ng-show="pdm.embedSrc">
+                <div class="bg-white w-100">
+                    <iframe ng-src="{{pdm.embedSrc}}"
+                            class="w-100"></iframe>
+                </div>
+            </div>
+        </div>
         <ng-image-gallery images="pdm.attachments"
                           methods="pdm.methods"
                           thumbnails="true"
@@ -35,19 +65,29 @@
     </div>
 </div>
 <div class="modal-footer">
-    <div class="mr-auto">
-        <button class="btn"
+    <div class="mr-auto"
+         ng-show="!pdm.postingEmbededContent">
+        <button class="btn px-2"
                 ngf-select="pdm.onMediaSelect($files)"
                 ngf-pattern="'image/*,video/*'"
                 ngf-accept="'image/*,video/*'"
                 ngf-multiple="true"
                 ngf-max-size="20MB"
-                ng-disabled="pdm.isBusy">
+                ng-disabled="pdm.isBusy"
+                title="Add a Photo or Video">
             <i class="fa fa-photo"></i>
+        </button>
+        <button class="btn px-2"
+                ng-if="pdm.attachments.length === 0"
+                ng-click="pdm.embedFacebook()"
+                title="Share Content From Another Website">
+            <i class="fa fa-code"></i>
         </button>
     </div>
     <button class="btn btn-primary"
-            ng-disabled="pdm.isBusy || pdm.frmPostDetails.$pristine || (!pdm.saveModel.content && pdm.attachments.length === 0)"
+            ng-disabled="pdm.isBusy || (pdm.frmPostDetails.$pristine && pdm.frmEmbed.$pristine)
+            || (!pdm.saveModel.content && pdm.attachments.length === 0 && !pdm.embedCode)
+            || (pdm.postingEmbededContent && pdm.invalidEmbedCode)"
             type="submit"
             ng-click="pdm.submit()"
             ng-switch="pdm.isBusy">

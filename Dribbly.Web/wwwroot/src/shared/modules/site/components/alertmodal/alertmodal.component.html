@@ -16,7 +16,7 @@
     <button type="button"
             ng-repeat="btn in dam.model.options.buttons"
             ng-class="btn.class"
-            ng-click="btn.action()">
+            ng-click="btn.action(dam.context)">
         {{::btn.textKey | i18n}}
     </button>
 </div>

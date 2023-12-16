@@ -9,11 +9,11 @@
     <base href="/" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="@Model.clientSettings.SiteDescription" />
-    <title>@(Model.clientSettings.SiteName) - @(Model.clientSettings.TagLine)</title>
-    <meta property="og:title" content="@(Model.clientSettings.SiteName) - @(Model.clientSettings.TagLine)" />
-    <meta property="og:description" content="@(Model.clientSettings.SiteDescription)" />
-    <meta property="og:image" content="@(Model.clientSettings.SiteSharedImageUrl)" />
+    <meta name="description" content="@Model.Description" />
+    <title>@Model.Title</title>
+    <meta property="og:title" content="@Model.Title" />
+    <meta property="og:description" content="@Model.Description" />
+    <meta property="og:image" content="@Model.ImageUrl" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
 
@@ -35,6 +35,7 @@
         <link href="~/src/lib/slick-carousel/slick-theme.css" rel="stylesheet" />
         <link href="https://vjs.zencdn.net/8.5.2/video-js.css" rel="stylesheet" />
         <link href="~/src/lib/video-js/video-js.min.css" rel="stylesheet" />
+        <link href="~/src/lib/angularjs-slider/rzslider.min.css" rel="stylesheet" />
         <link href="~/src/lib-extensions/angular-wysiwyg-custom/angular-wysiwyg-custom.css" rel="stylesheet" />
 
         @* Custom *@
@@ -101,6 +102,7 @@
         <link href="~/src/shared/modules/app/app.css" rel="stylesheet" />
         <link href="~/src/shared/modules/app/components/gallery/gallery.component.css" rel="stylesheet" />
         <link href="~/src/shared/modules/app/components/gallerymodal/gallerymodal.component.css" rel="stylesheet" />
+        <link href="~/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.css" rel="stylesheet" />
 
         @* Main *@
         <link href="~/src/modules/main/components/image/image.component.css" rel="stylesheet" />
@@ -189,6 +191,9 @@
         <link href="~/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.css" rel="stylesheet" />
         <link href="~/src/modules/main/components/addgroupmodal/addgroupmodal.component.css" rel="stylesheet" />
         <link href="~/src/modules/main/components/groupmembers/groupmembers.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/postcontainer/postcontainer.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/components/playersearch/playersearch.component.css" rel="stylesheet" />
+        <link href="~/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.css" rel="stylesheet" />
     </environment>
 
     <environment exclude="Development">
@@ -288,6 +293,7 @@
         <script src="~/src/lib/ng-file-upload/ng-file-upload.js"></script>
         <script src="~/src/lib/angular-dragdrop/angular-dragdrop.js"></script>
         <script src="~/src/lib/video-js/video.min.js"></script>
+        <script src="~/src/lib/angularjs-slider/rzslider.min.js"></script>
 
         @*Custom Modules*@
         <script src="~/src/custom/uiroutertitle/uiroutertitle.module.js"></script>
@@ -359,6 +365,7 @@
         <script src="~/src/shared/modules/app/services/map.service.js"></script>
         <script src="~/src/shared/modules/app/services/file.service.js"></script>
         <script src="~/src/shared/modules/app/services/posts.service.js"></script>
+        <script src="~/src/shared/modules/app/services/comments.service.js"></script>
 
         @*appModule components*@
         <script src="~/src/shared/modules/app/filters/height-filter.js"></script>
@@ -392,6 +399,7 @@
         <script src="~/src/shared/modules/app/components/posts/posts.component.js"></script>
         <script src="~/src/shared/modules/app/components/gallery/gallery.component.js"></script>
         <script src="~/src/shared/modules/app/components/gallerymodal/gallerymodal.component.js"></script>
+        <script src="~/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.js"></script>
 
         @*main Module*@
         <script src="~/src/modules/main/main-module.js"></script>
@@ -492,6 +500,8 @@
         <script src="~/src/modules/main/components/grouphome/grouphome.component.js"></script>
         <script src="~/src/modules/main/components/addgroupmodal/addgroupmodal.component.js"></script>
         <script src="~/src/modules/main/components/groupmembers/groupmembers.component.js"></script>
+        <script src="~/src/modules/main/components/playersearch/playersearch.component.js"></script>
+        <script src="~/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.js"></script>
 
         @* authModule components *@
         <script src="~/src/modules/auth/components/socialauth/socialauth.component.js"></script>
@@ -503,6 +513,7 @@
         <script src="~/src/modules/auth/components/passwordresetform/passwordresetform.component.js"></script>
         <script src="~/src/modules/auth/components/loginmodal/loginmodal.component.js"></script>
         <script src="~/src/modules/auth/components/authcontainer/authcontainer.component.js"></script>
+        <script src="~/src/modules/main/containers/postcontainer/postcontainer.component.js"></script>
 
         @*Containers*@
 

@@ -51,7 +51,8 @@
       "wwwroot/src/lib/angular-dragdrop/angular-dragdrop.js",
       "wwwroot/src/custom/uiroutertitle/uiroutertitle.module.js",
       "wwwroot/src/custom/daypilot/js/daypilot-all.min.js",
-      "wwwroot/src/lib/video-js/video.min.js"
+      "wwwroot/src/lib/video-js/video.min.js",
+      "wwwroot/src/lib/angularjs-slider/rzslider.min.js"
     ]
   },
   {
@@ -136,6 +137,7 @@
       "wwwroot/src/shared/modules/app/services/map.service.js",
       "wwwroot/src/shared/modules/app/services/file.service.js",
       "wwwroot/src/shared/modules/app/services/posts.service.js",
+      "wwwroot/src/shared/modules/app/services/comments.service.js",
 
       "wwwroot/src/shared/modules/app/filters/height-filter.js",
       "wwwroot/src/shared/modules/app/filters/courts.filter.js",
@@ -167,7 +169,8 @@
       "wwwroot/src/shared/modules/app/components/post/post.component.js",
       "wwwroot/src/shared/modules/app/components/posts/posts.component.js",
       "wwwroot/src/shared/modules/app/components/gallery/gallery.component.js",
-      "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.js"
+      "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.js",
+      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.js"
     ]
   },
   {
@@ -270,8 +273,9 @@
       "wwwroot/src/modules/main/components/grouphome/grouphome.component.js",
       "wwwroot/src/modules/main/components/addgroupmodal/addgroupmodal.component.js",
       "wwwroot/src/modules/main/components/groupmembers/groupmembers.component.js",
-
+      "wwwroot/src/modules/main/components/playersearch/playersearch.component.js",
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
+
       "wwwroot/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js",
       "wwwroot/src/modules/main/containers/courtschedulecontainer/courtschedulecontainer.component.js",
       "wwwroot/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.js",
@@ -281,7 +285,9 @@
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.js",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.js",
       "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.js",
-      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.js"
+      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.js",
+      "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.js",
+      "wwwroot/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.js"
     ]
   },
   // styles
@@ -304,6 +310,7 @@
       "wwwroot/src/custom/ng-image-gallery/ng-image-gallery.css",
       "wwwroot/src/custom/glyphicon-to-font-awesome/glyphicon-to-font-awesome.css",
       "wwwroot/src/lib/video-js/video-js.min.css",
+      "wwwroot/src/lib/angularjs-slider/rzslider.min.css",
       "wwwroot/src/lib-extensions/angular-wysiwyg-custom/angular-wysiwyg-custom.css"
     ]
   },
@@ -374,7 +381,8 @@
       "wwwroot/src/shared/modules/app/components/posts/posts.component.css",
       "wwwroot/src/shared/modules/app/app.css",
       "wwwroot/src/shared/modules/app/components/gallery/gallery.component.css",
-      "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.css"
+      "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.css",
+      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.css"
     ]
   },
   {
@@ -462,11 +470,14 @@
       "wwwroot/src/modules/main/components/grouphome/grouphome.component.css",
       "wwwroot/src/modules/main/components/addgroupmodal/addgroupmodal.component.css",
       "wwwroot/src/modules/main/components/groupmembers/groupmembers.component.css",
+      "wwwroot/src/modules/main/components/playersearch/playersearch.component.css",
 
       "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.css",
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css",
-      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.css"
+      "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.css",
+      "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.css",
+      "wwwroot/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.css"
     ]
   }
 ]

@@ -26,7 +26,7 @@
             };
             loadGames();
             cgc.app.updatePageDetails({
-                title: cgc.court.name + ' - Games',
+                title: 'Games at ' + cgc.court.name,
                 description: 'Games scheduled at ' + cgc.court.name,
                 image: (cgc.court.primaryPhoto || constants.images.defaultCourtLogo).url
             });

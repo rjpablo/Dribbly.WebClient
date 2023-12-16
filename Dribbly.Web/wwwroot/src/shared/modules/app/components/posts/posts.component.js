@@ -59,7 +59,8 @@
                     model: {
                         isEdit: true,
                         post: drl.post
-                    }
+                    },
+                    backdrop: 'static'
                 }).then(function (result) {
                     if (result) {
                         drl.post.content = result.content;
@@ -109,20 +110,22 @@
 
         drl.createPost = function () {
             return authService.checkAuthenticationThen(function () {
-                return modalService.show({
-                    view: '<drbbly-postdetailsmodal></drbbly-postdetailsmodal>',
-                    model: {
-                        post: {
-                            postedOnType: drl.options.postedOnType,
-                            postedOnId: drl.options.postedOnId,
-                            addedByType: constants.enums.entityType.Account //TODO temporary. Set this on the modal
+                return modalService
+                    .show({
+                        view: '<drbbly-postdetailsmodal></drbbly-postdetailsmodal>',
+                        model: {
+                            post: {
+                                postedOnType: drl.options.postedOnType,
+                                postedOnId: authService.authentication.accountId,
+                                addedByType: constants.enums.entityType.Account //TODO temporary. Set this on the modal
+                            }
                         }
-                    }
-                }).then(function (post) {
-                    if (post) {
-                        drl.posts.unshift(post);
-                    }
-                });
+                    })
+                    .then(function (post) {
+                        if (post) {
+                            drl.posts.unshift(post);
+                        }
+                    });
             });
         };
     }

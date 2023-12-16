@@ -510,3 +510,43 @@ slick.dark-transparent-bg {
         color: #fff;
     }
 }
+
+/***** AngularJS Slider *****/
+.rzslider {
+    margin: 19px 0 15px 0;
+
+    .rz-pointer {
+        top: 0px;
+        width: 15px;
+        height: 15px;
+        background-color: $primary;
+
+        &:after {
+            top: 5px;
+            left: 5px;
+            width: 5px;
+            height: 5px;
+        }
+
+        &.rz-active:after {
+            background-color: #fff;
+        }
+    }
+
+    .rz-bubble {
+        bottom: 2px;
+        color: inherit;
+
+        &.rz-limit {
+            display: none;
+        }
+    }
+
+    .rz-bar-wrapper {
+        padding-top: 20px;
+    }
+
+    .rz-selection {
+        background-color: $primary;
+    }
+}

@@ -2,11 +2,15 @@
 
 drbbly-playerlistitem {
     display: inline-block;
-    position:relative;
+    position: relative;
 
     .photo-container {
         position: relative;
         width: 100%;
+
+        & > img {
+            border-radius: 0.5rem;
+        }
 
         .stats {
             position: absolute;
@@ -30,5 +34,14 @@ drbbly-playerlistitem {
                 }
             }
         }
+    }
+
+    .player-name{
+        line-height: 1.2;
+    }
+    
+    .additional-details {
+        font-size: 1rem;
+        line-height: 1;
     }
 }

@@ -6,6 +6,7 @@ drbbly-home-container {
         .feature {
             height: 300px;
             position: relative;
+            overflow: hidden;
 
             @include media-breakpoint-up(md) {
                 height: 500px;
@@ -31,7 +32,7 @@ drbbly-home-container {
         }
     }
 
-    .top-players {
+    .top-players, .new-players {
         drbbly-playerlistitem {
             width: 100%;
         }

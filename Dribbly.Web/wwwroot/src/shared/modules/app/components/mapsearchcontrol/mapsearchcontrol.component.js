@@ -6,7 +6,9 @@
             bindings: {
                 options: '=',
                 onPlaceChanged: '<',
-                onSearch: '<'
+                onSearch: '<',
+                keyword: '@',
+                onReady: '<'
             },
             controllerAs: 'msc',
             templateUrl: 'drbbly-default',
@@ -25,6 +27,12 @@
             angular.element(window).on('click.mapSearch', function () {
                 clearSuggestions();
             });
+
+            if (msc.onReady) {
+                msc.onReady({
+                    setText: msc.setText
+                });
+            }
         };
 
         msc.$onDestroy = function () {
@@ -55,10 +63,17 @@
             }
         };
 
+        msc.setText = (text) => msc.keyword = text;
+
+        msc.blur = () => {
+            msc.options.onBlur && msc.options.onBlur();
+        };
+
         msc.itemClicked = function (prediction) {
             if (msc.onPlaceChanged) {
                 _geocoder.geocode({ placeId: prediction.place_id }, function (places, status) {
                     if (status === 'OK') {
+                        msc.keyword = places[0].formatted_address;
                         msc.onPlaceChanged(places[0]);
                         clearSuggestions();
                     }

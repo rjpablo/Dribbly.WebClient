@@ -20,17 +20,6 @@
                                  ng-if="dcd.upcomingGames.length === 0">
                                 No upcoming games at the moment
                             </div>
-                            <!--<div class="row">
-                                <div class="col-lg-6"
-                                     ng-repeat="game in (dcd.upcomingGames | orderBy: 'start') track by game.id">
-                                    <drbbly-gamelistitem class="w-100 mb-3"
-                                                         game="game"></drbbly-gamelistitem>
-                                </div>
-                                <div class="col text-center p-3"
-                                     ng-if="dcd.upcomingGames.length === 0">
-                                    No upcoming games at the moment
-                                </div>
-                            </div>-->
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -38,22 +27,22 @@
                             <h5 class="drbbly-header">Local Players</h5>
                         </div>
                         <div class="col-12">
-                            <div drbbly-overlay="dcd.localPlayersOverlay">
-                                <div class="slick-slider"
-                                     ng-if="dcd.localPlayers.length > 0"
-                                     ng-class="{'slick-dotted': dcd.carouselSettings.dots}">
-                                    <slick settings="dcd.carouselSettings"
-                                           class="dark-transparent-bg">
-                                        <div ng-repeat="player in dcd.localPlayers"
-                                             class="px-3">
-                                            <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
-                                        </div>
-                                    </slick>
+                            <div class="row">
+                                <div ng-repeat="player in dcd.localPlayers track by $index"
+                                     class="col-6 col-sm-4 col-md-3 col-xl-2">
+                                    <drbbly-playerlistitem player="player"
+                                                           class="w-100"></drbbly-playerlistitem>
                                 </div>
-                                <div class="row">
-                                    <div class="col text-center p-3"
-                                         ng-if="dcd.localPlayers.length === 0">
-                                        No data yet
+                                <div drbbly-overlay="dcd.localPlayersOverlay"
+                                     class="col-12">
+                                    <button class="btn btn-secondary btn-block"
+                                            ng-if="!dcd.allLocalPlayersLoaded"
+                                            ng-click="dcd.loadLocalPlayers()">
+                                        Load More
+                                    </button>
+                                    <div class="col-12 p-3 text-center"
+                                         ng-if="dcd.allLocalPlayersLoaded && dcd.localPlayers.length === 0">
+                                        No local players found.
                                     </div>
                                 </div>
                             </div>

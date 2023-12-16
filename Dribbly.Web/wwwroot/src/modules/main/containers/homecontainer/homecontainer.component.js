@@ -25,7 +25,9 @@
                 description: constants.site.description
             });
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
+            dhc.newPlayersOverlay = drbblyOverlayService.buildOverlay();
             dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();
+            dhc.newPlayerCarouselSettings = drbblyCarouselhelperService.buildSettings();
             dhc.tournamentsOverlay = drbblyOverlayService.buildOverlay();
             dhc.tournamentsCarouselSettings = drbblyCarouselhelperService.buildSettings();
             dhc.teamsOverlay = drbblyOverlayService.buildOverlay();
@@ -35,12 +37,41 @@
             drbblyToolbarService.setItems([]);
             showFeatures();
 
+            loadNewPlayers();
             loadTopPlayers();
             loadTournaments();
             loadCourts();
             loadTeams();
+
+            dhc.postsOptions = {
+                postedOnType: constants.enums.entityTypeEnum.Account,
+                getCount: 10,
+                title: 'Latest Posts',
+                canPost: true
+            }
             dhc.app.mainDataLoaded();
         };
+
+        function loadNewPlayers() {
+            dhc.newPlayersOverlay.setToBusy();
+            var input = {
+                sortBy: constants.enums.getPlayersSortByEnum.DateJoined,
+                sortDirection: constants.enums.sortDirection.Descending,
+                pageSize: 10,
+                page: 1
+            };
+            drbblyAccountsService.getPlayers(input)
+                .then(data => {
+                    dhc.newPlayers = data;
+                    $timeout(function () {
+                        dhc.newPlayerCarouselSettings.enabled = true;
+                        dhc.newPlayersOverlay.setToReady();
+                    }, 300);
+                })
+                .catch(e => {
+                    dhc.topPlayersOverlay.setToError();
+                });
+        }
 
         function loadTopPlayers() {
             dhc.topPlayersOverlay.setToBusy();

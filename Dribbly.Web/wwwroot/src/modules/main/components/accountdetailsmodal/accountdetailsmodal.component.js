@@ -24,6 +24,9 @@
             adm.overlay = drbblyOverlayService.buildOverlay();
             adm.overlay.setToBusy();
             adm.ddlPositionOptions = drbblyFormshelperService.getDropDownListChoices({ enumKey: 'app.PlayerPositionEnum' });
+            adm._searchOptions = {
+                types: ['locality', 'administrative_area_level_3']
+            };
             setTypeAheadConfig();
 
             drbblyAccountsService.getAccountDetailsModal(adm.model.accountId)
@@ -52,6 +55,22 @@
             }, $scope);
         };
 
+        adm._placeChanged = function (place) {
+            adm.account.cityId = null;
+            if (place) {
+                adm.account.city = {
+                    googleId: place.place_id,
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng(),
+                    name: place.formatted_address
+                };
+            }
+            else {
+                adm.account.city.city = null;
+            }
+            adm.editingCity = !!!place;
+        };
+
         adm.onInterrupt = function (reason) {
             if (adm.frmAccountDetails.$dirty) {
                 modalService.showUnsavedChangesWarning()
@@ -71,6 +90,18 @@
             }
         };
 
+        adm.editCity = () => {
+            adm.editingCity = true;
+            if (adm.account.city) {
+                adm.citySearchKeyword = adm.account.city.name;
+            }
+        };
+
+        adm.removeCity = () => {
+            adm.account.cityId = null;
+            adm.account.city = null;
+        };
+
         function setTypeAheadConfig() {
             adm.typeAheadConfig = {
                 entityTypes: [constants.enums.entityType.Court]
@@ -78,6 +109,15 @@
         }
 
         adm.submit = function () {
+            adm.invalidLink = adm.account.fbLink &&
+                !/https?:\/\/(?:(www|web)\.)?(mbasic\.facebook|m\.facebook|facebook|fb)\.(com|me)(\/?(#!))?(\/[\w\.(#!)-\?]*)+/ig
+                .test(adm.account.fbLink);
+            adm.invalidIgLink = adm.account.igLink &&
+                !/(http|https):\/\/(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im
+                .test(adm.account.igLink);
+            if (adm.invalidLink || adm.invalidIgLink) {
+                return;
+            }
             var saveModel = angular.copy(adm.account);
             if (saveModel.birthDate) {
                 saveModel.birthDate = drbblyDatetimeService.toUtcDate(saveModel.birthDate);

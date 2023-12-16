@@ -14,9 +14,9 @@
         });
 
     controllerFn.$inject = ['drbblyPostsService', '$scope', 'modalService', 'drbblyEventsService', 'drbblyFileService',
-        'drbblyCommonService', 'constants', 'drbblyOverlayService'];
+        'drbblyCommonService', 'constants', 'drbblyOverlayService', '$sce', '$element', '$timeout'];
     function controllerFn(drbblyPostsService, $scope, modalService, drbblyEventsService, drbblyFileService,
-        drbblyCommonService, constants, drbblyOverlayService) {
+        drbblyCommonService, constants, drbblyOverlayService, $sce, $element, $timeout) {
         var pdm = this;
         var _tempId = 0;
 
@@ -28,6 +28,9 @@
                 pdm.saveModel = angular.copy(pdm.model.post);
                 pdm.attachments = (pdm.model.post.files || []).map(f => angular.copy(f.file));
                 pdm.attachments.forEach(f => f.deletable = true);
+                pdm.embedCode = pdm.model.post.embedCode;
+                pdm.embedSrc = getEmbedSrc(pdm.embedCode);
+                pdm.postingEmbededContent = !!pdm.embedCode;
             }
             else {
                 pdm.saveModel = angular.copy(pdm.model.post);
@@ -76,6 +79,42 @@
             }
         };
 
+        pdm.embedCodePasted = function (code) {
+            pdm.invalidEmbedCode = false;
+            if (code) {
+                pdm.embedCode = code;
+                var src = getEmbedSrc(code);
+                if (!src || !/^https:\/\/(www\.)?(facebook.com|fb.watch|youtube.com)\/.*/.test(src)) {
+                    pdm.invalidEmbedCode = true;
+                    pdm.embedSrc = '';
+                    return;
+                }
+                pdm.embedSrc = src;
+            }
+            else {
+                pdm.embedCode = '';
+                pdm.embedSrc = '';
+            }
+        }
+
+        function getEmbedSrc(code) {
+            if (code) {
+                let match = code.match(/src=\x22([^\x22]*)\x22.*/);
+                if (match && match.length === 2) {
+                    return match[1];
+                }
+            }
+            return '';
+        }
+
+        pdm.embedFacebook = function () {
+            pdm.postingEmbededContent = true;
+            $timeout(() => {
+                var input = document.getElementById('embed-code-input');
+                input.focus();
+            }, 100);
+        };
+
         pdm.submit = async function () {
             var newAttachments = pdm.attachments.drbblyWhere(f => f.isNew);
             var proceed = true;
@@ -97,6 +136,7 @@
                     });
             }
             if (proceed) {
+                pdm.saveModel.embedCode = pdm.embedCode;
                 pdm.saveModel.fileIds = pdm.attachments.map(a => a.id);
                 pdm.frmPostDetails.$setSubmitted();
                 if (pdm.frmPostDetails.$valid) {

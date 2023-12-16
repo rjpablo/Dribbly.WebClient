@@ -38,7 +38,8 @@
             authService.checkAuthenticationThen(function () {
                 modalService.show({
                     view: '<drbbly-accountdetailsmodal></drbbly-accountdetailsmodal>',
-                    model: { accountId: dad.account.id }
+                    model: { accountId: dad.account.id },
+                    backdrop: 'static'
                 })
                     .then(function (result) {
                         if (result) {

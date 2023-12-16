@@ -25,6 +25,7 @@
     "angular-touch": "1.7.8",
     "angular-ui-calendar": "1.0.2",
     "angular-ui-router": "1.0.22",
+    "angularjs-slider": "^7.1.0",
     "angularjs-toaster": "3.0.0",
     "bootstrap": "4.3.0",
     "bootstrap-social": "5.1.1",

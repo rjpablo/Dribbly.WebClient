@@ -7,7 +7,8 @@
                 <div class="col-12 col-md-7 col-lg-6 col-xl-5">
                     <div class="d-flex flex-column flex-md-row align-items-center align-items-md-start">
                         <!-- #region Photo -->
-                        <div class="mx-3">
+                        <div drbbly-overlay="avc.overlay"
+                             class="mx-3">
                             <img ng-src="{{avc.account.profilePhoto.url}}"
                                  class="profile-photo"
                                  ng-click="avc.onProfilePhotoClick()" />
@@ -39,7 +40,38 @@
                         <!-- #endregion -->
                         <!-- #region Details -->
                         <div class="text-white text-center text-md-left">
-                            <h3 class="text-white text-center text-md-left">{{avc.account.name}}</h3>
+                            <div class="mb-2 w-100">
+                                <h3 class="text-white text-center text-md-left text-capitalize mb-0">{{avc.account.name}}</h3>
+                                <div class="">
+                                    <span ng-if="avc.account.heightInches">{{avc.account.heightInches | height}}</span>
+                                    <span ng-if="avc.account.position">{{('app.PlayerPositionEnum.' + avc.account.position) | i18n}}</span>
+                                </div>
+                                <div ng-show="avc.account.city"
+                                     class="text-center text-md-left d-block mb-1">
+                                    <span><i class="fa fa-map-marker"></i></span>
+                                    <span>{{avc.account.city.name}}</span>
+                                </div>
+                                <div>
+                                    <a class="btn btn-sm btn-facebook"
+                                       ng-href="{{avc.account.fbLink}}"
+                                       target="_blank"
+                                       ng-if="avc.account.fbLink">
+                                        <i class="fa fa-facebook-f"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-instagram"
+                                       ng-href="{{avc.account.igLink}}"
+                                       target="_blank"
+                                       ng-if="avc.account.igLink">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a ng-click="avc.editDetails()"
+                                       class="text-secondary small"
+                                       tabindex="0"
+                                       ng-if="avc.isOwned"><i class="fa fa-pencil"></i> Edit Details</a>
+                                </div>
+                            </div>
                             <div>
                                 <!--<button type="button" class="btn btn-primary mb-3"
                                 ng-if="!avc.isOwned">{{::'app.PlusFollow' | i18n}}</button>-->
@@ -47,12 +79,13 @@
                                         ng-if="!avc.isOwned"
                                         class="btn btn-secondary mb-3"
                                         ng-click="avc.message()">
+
                                     {{::'app.Message' | i18n}}
                                 </button>
-                                <button type="button" class="btn btn-facebook mb-3"
+                                <!--<button type="button" class="btn btn-facebook mb-3"
                                         ng-click="avc.fbShare()">
                                     <i class="fa fa-facebook"></i> Share
-                                </button>
+                                </button>-->
                             </div>
                         </div>
                         <!-- #endregion -->

@@ -35,7 +35,7 @@
                     // todo: show error overlay
                 });
             dcv.app.updatePageDetails({
-                title: dcv.court.name + ' - Videos',
+                title: dcv.court.name + ' Videos',
                 image: (dcv.court.primaryPhoto || constants.images.defaultCourtLogo).url
             });
         };

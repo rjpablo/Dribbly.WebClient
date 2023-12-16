@@ -5,11 +5,17 @@
     position: fixed !important;
     height: 100%;
     width: 100%;
-    background-color: black;
     display: none;
 
     &.has-error {
         display: block;
+        background-color: black;
+    }
+
+    &.is-busy {
+        display: flex;
+        justify-content: center;
+        align-items:center;
     }
 
     img {

@@ -10,7 +10,7 @@
         authService, drbblyEventsService) {
         var app = this;
         var _adjustingSections;
-        app.overlay = drbblyOverlayService.buildOverlay();
+        app.overlay = drbblyOverlayService.buildOverlay('busy');
 
         app.$onInit = async function () {
             app.authVerified = authService.isAuthVerified();
