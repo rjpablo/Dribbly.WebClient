@@ -45,7 +45,7 @@
                 bubbleSize: 30
             };
             drl.getCommentsInput = {
-                commentedOnType: constants.enums.commentedOnTypeEnum.Post,
+                commentedOnType: constants.enums.entityTypeEnum.Post,
                 commentedOnId: drl.post.id,
                 pageSize: 2,
                 page: 0,
@@ -86,7 +86,7 @@
         drl.postComment = () => {
             drl.isBusy = true;
             var comment = {
-                commentedOnType: constants.enums.commentedOnTypeEnum.Post,
+                commentedOnType: constants.enums.entityTypeEnum.Post,
                 commentedOnId: drl.post.id,
                 message: drl.message
             };
@@ -169,6 +169,24 @@
             drl.onDelete(drl.post)
                 .finally(function () {
                     drl.isBusy = false;
+                });
+        };
+
+        drl.deleteComment = function (comment) {
+            modalService.confirm({
+                msg1Raw: 'Delete this comment?'
+            })
+                .then(function (result) {
+                    if (result) {
+                        drbblyCommentsService.deleteComment(comment.id)
+                            .then(() => {
+                                drl.comments.drbblyRemove(c => c.id == comment.id);
+                            })
+                            .catch(drbblyCommonService.handleError());
+                    }
+                })
+                .catch(function () {
+                    // user cancelled. Do nothing
                 });
         };
     }

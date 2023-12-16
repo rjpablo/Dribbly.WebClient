@@ -112,15 +112,39 @@
                  class="avatar mr-1" />
             <div class="flex-grow-1">
                 <div class="p-2 content">
-                    <h6><a ui-sref="main.account.home({username: comment.addedBy.name})">{{comment.addedBy.name}}</a></h6>
+                    <div class="d-flex">
+                        <h6 class="flex-grow-1">
+                            <a ui-sref="main.account.home({username: comment.addedBy.username})">{{comment.addedBy.name}}</a>
+                        </h6>
+                        <div class="d-inline-block"
+                             ng-if="$root.auth.accountId === comment.addedById"
+                             uib-dropdown
+                             is-open="comment.isDropdownOpen"
+                             auto-close="outsideClick"
+                             ng-disabled="drl.isBusy">
+                            <button class="btn btn-link my-n3"
+                                    ng-click="comment.isDropdownOpen = !comment.isDropdownOpen; $event.stopPropagation();"
+                                    type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right"
+                                 uib-dropdown-menu
+                                 role="menu">
+                                <a class="dropdown-item"
+                                   ng-click="drl.deleteComment(comment)">{{::'site.Delete' | i18n}}</a>
+                            </div>
+                        </div>
+                    </div>
                     <span class="flex-grow-1">{{comment.message}}</span>
                 </div>
                 <small class="text-secondary">{{comment.dateAdded | drbblydate}}</small>
             </div>
         </div>
         <button ng-click="drl.loadComments()"
-           ng-show="drl.hasMoreComments"
-           ng-disabled="drl.loadingComments"
-           class="btn-block btn btn-link">Load older comments...</button>
+                ng-show="drl.hasMoreComments"
+                ng-disabled="drl.loadingComments"
+                class="btn-block btn btn-link">
+            Load older comments...
+        </button>
     </div>
 </div>

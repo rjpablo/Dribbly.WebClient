@@ -14,8 +14,13 @@
                     return drbblyhttpService.post(api + 'addComment', commentDetails);
                 }
 
+                function deleteComment(commentId) {
+                    return drbblyhttpService.post(api + 'delete/' + commentId);
+                }
+
                 var _service = {
                     addComment,
+                    deleteComment,
                     getComments
                 };
 
