@@ -32,7 +32,7 @@
             };
             dcd.overlay.setToReady();
             dcd.app.updatePageDetails({
-                title: dcd.court.name + ' - Details',
+                title: dcd.court.name + ' Details',
                 image: (dcd.court.primaryPhoto || constants.images.defaultCourtLogo).url
             });
         };

@@ -31,7 +31,7 @@
                     // TODO: show error in a toast
                 });
             dcp.app.updatePageDetails({
-                title: dcp.court.name + ' - Photos',
+                title: dcp.court.name + ' Photos',
                 image: (dcp.court.primaryPhoto || constants.images.defaultCourtLogo).url
             });
         };

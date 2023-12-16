@@ -140,6 +140,7 @@
                     'ChatTypeEnum.Private_0': 'Private',
                     'ChatTypeEnum.Team_1': 'Team',
                     City: 'City',
+                    'CommentedOnTypeEnum.Post_1': 'Post',
                     Court: 'Court',
                     CourtDetailsMobileNoLabel: 'Mobile no. that users can contact to inquire about this court',
                     CourtsNearCourtName: 'Courts Near {courtName}',

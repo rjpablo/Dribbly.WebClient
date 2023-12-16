@@ -137,6 +137,7 @@
       "wwwroot/src/shared/modules/app/services/map.service.js",
       "wwwroot/src/shared/modules/app/services/file.service.js",
       "wwwroot/src/shared/modules/app/services/posts.service.js",
+      "wwwroot/src/shared/modules/app/services/comments.service.js",
 
       "wwwroot/src/shared/modules/app/filters/height-filter.js",
       "wwwroot/src/shared/modules/app/filters/courts.filter.js",

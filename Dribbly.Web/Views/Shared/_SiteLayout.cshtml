@@ -9,11 +9,11 @@
     <base href="/" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="@Model.clientSettings.SiteDescription" />
-    <title>@(Model.clientSettings.SiteName) - @(Model.clientSettings.TagLine)</title>
-    <meta property="og:title" content="@(Model.clientSettings.SiteName) - @(Model.clientSettings.TagLine)" />
-    <meta property="og:description" content="@(Model.clientSettings.SiteDescription)" />
-    <meta property="og:image" content="@(Model.clientSettings.SiteSharedImageUrl)" />
+    <meta name="description" content="@Model.Description" />
+    <title>@Model.Title</title>
+    <meta property="og:title" content="@Model.Title" />
+    <meta property="og:description" content="@Model.Description" />
+    <meta property="og:image" content="@Model.ImageUrl" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
 
@@ -365,6 +365,7 @@
         <script src="~/src/shared/modules/app/services/map.service.js"></script>
         <script src="~/src/shared/modules/app/services/file.service.js"></script>
         <script src="~/src/shared/modules/app/services/posts.service.js"></script>
+        <script src="~/src/shared/modules/app/services/comments.service.js"></script>
 
         @*appModule components*@
         <script src="~/src/shared/modules/app/filters/height-filter.js"></script>

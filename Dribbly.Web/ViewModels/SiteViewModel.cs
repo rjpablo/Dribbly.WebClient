@@ -8,12 +8,20 @@ namespace Dribbly.Web.ViewModels
         public string Controller { get; set; }
         public bool UsesNavigationBar { get; set; } = true;
         public ClientSettings clientSettings { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
 
-        public SiteViewModel(string module, ClientSettings clientSettings) : base()
+        public SiteViewModel(string module, ClientSettings clientSettings, string title = null, string imageUrl = null, string description = null) : base()
         {
             Module = module;
             Controller = module.Replace("Module", "Controller");
             this.clientSettings = clientSettings;
+            Title = title == null ?
+                ($"{clientSettings.SiteName} - {clientSettings.SiteDescription}") :
+                ($"{title} - {clientSettings.SiteName}");
+            ImageUrl = imageUrl ?? clientSettings.SiteSharedImageUrl;
+            Description = description ?? clientSettings.SiteDescription;
         }
     }
 }

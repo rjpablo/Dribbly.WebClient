@@ -19,4 +19,11 @@ drbbly-post {
             display: block;
         }
     }
+
+    .comment{
+        & .content{
+            background-color: $gray-900;
+            border-radius: 0.5rem;
+        }
+    }
 }
