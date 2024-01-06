@@ -77,7 +77,7 @@ namespace Dribbly.Web
                 #region Account
                 routes.MapRoute(
                     name: "account",
-                    template: "account/{username}",
+                    template: "account/{username}/{path?}",
                     defaults: new
                     {
                         controller = "Account",
