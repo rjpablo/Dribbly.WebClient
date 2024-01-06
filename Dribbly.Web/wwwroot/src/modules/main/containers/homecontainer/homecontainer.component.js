@@ -22,6 +22,7 @@
 
         dhc.$onInit = function () {
             dhc.app.updatePageDetails({
+                title: constants.site.defaultSiteTitle,
                 description: constants.site.description
             });
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();

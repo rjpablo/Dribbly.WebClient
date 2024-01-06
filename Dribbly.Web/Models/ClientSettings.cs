@@ -10,6 +10,7 @@
         public string NotificationsHubName { get; set; }
         public string SiteName { get; set; }
         public string SiteDescription { get; set; }
+        public string DefaultSiteTitle { get; set; }
         public string SiteSharedImageUrl { get; set; }
         public string SiteLogoUrl { get; set; }
         public string TagLine { get; set; }

@@ -12,13 +12,13 @@ namespace Dribbly.Web.ViewModels
         public string Description { get; set; }
         public string ImageUrl { get; set; }
 
-        public SiteViewModel(string module, ClientSettings clientSettings, string title = null, string imageUrl = null, string description = null) : base()
+        public SiteViewModel(string module, ClientSettings clientSettings, string title = "", string imageUrl = null, string description = null) : base()
         {
             Module = module;
             Controller = module.Replace("Module", "Controller");
             this.clientSettings = clientSettings;
-            Title = title == null ?
-                ($"{clientSettings.SiteName} - {clientSettings.SiteDescription}") :
+            Title = string.IsNullOrEmpty(title) ?
+                clientSettings.DefaultSiteTitle :
                 ($"{title} - {clientSettings.SiteName}");
             ImageUrl = imageUrl ?? clientSettings.SiteSharedImageUrl;
             Description = description ?? clientSettings.SiteDescription;

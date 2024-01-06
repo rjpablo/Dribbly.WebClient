@@ -18,6 +18,7 @@
         site: {
             name: window.Dribbly.clientSettings.siteName,
             description: window.Dribbly.clientSettings.siteDescription,
+            defaultSiteTitle: window.Dribbly.clientSettings.defaultSiteTitle,
             shareImageUrl: window.Dribbly.clientSettings.siteSharedImageUrl,
             logoUrl: window.Dribbly.clientSettings.siteLogoUrl,
             tagLine: window.Dribbly.clientSettings.tagLine
