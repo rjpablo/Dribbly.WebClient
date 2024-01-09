@@ -12,7 +12,7 @@ namespace Dribbly.Web.ViewModels
         public string Description { get; set; }
         public string ImageUrl { get; set; }
 
-        public SiteViewModel(string module, ClientSettings clientSettings, string title = "", string imageUrl = null, string description = null) : base()
+        public SiteViewModel(string module, ClientSettings clientSettings, string title = "", string imageUrl = "", string description = "") : base()
         {
             Module = module;
             Controller = module.Replace("Module", "Controller");
@@ -20,8 +20,8 @@ namespace Dribbly.Web.ViewModels
             Title = string.IsNullOrEmpty(title) ?
                 clientSettings.DefaultSiteTitle :
                 ($"{title} - {clientSettings.SiteName}");
-            ImageUrl = imageUrl ?? clientSettings.SiteSharedImageUrl;
-            Description = description ?? clientSettings.SiteDescription;
+            ImageUrl = string.IsNullOrEmpty(imageUrl) ? clientSettings.SiteSharedImageUrl : imageUrl;
+            Description = string.IsNullOrEmpty(description) ? clientSettings.SiteDescription : description;
         }
     }
 }
