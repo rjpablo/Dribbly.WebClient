@@ -14,5 +14,6 @@
         public string SiteSharedImageUrl { get; set; }
         public string SiteLogoUrl { get; set; }
         public string TagLine { get; set; }
+        public bool RequestCookieConsent { get; set; }
     }
 }
