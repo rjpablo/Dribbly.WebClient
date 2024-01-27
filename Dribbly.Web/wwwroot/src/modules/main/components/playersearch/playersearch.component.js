@@ -32,7 +32,8 @@
             dps.anyHeight = true;
             dps.players = [];
             dps.searchOptions = {
-                types: ['locality', 'administrative_area_level_3'],
+                type: 'city',
+                //type: ['locality', 'administrative_area_level_3'], //for google maps to search Cities only
                 textInput: { borderless: true },
                 placeHolder: 'Any City',
                 onBlur: onCityBlur
@@ -59,14 +60,14 @@
         dps.placeChanged = function (place) {
             dps.searchData.placeId = null;
             if (place) {
-                dps.mapSearch.setText(place.formatted_address);
+                dps.mapSearch.setText(place.name);
                 dps.searchData.place = {
-                    googleId: place.place_id,
-                    lat: place.geometry.location.lat(),
-                    lng: place.geometry.location.lng(),
-                    name: place.formatted_address
+                    googleId: place.id,
+                    lat: place.latitude,
+                    lng: place.longitude,
+                    name: place.name
                 };
-                dps.searchData.placeId = place.place_id;
+                dps.searchData.placeId = place.id;
             }
             else {
                 dps.mapSearch.setText('');
@@ -119,7 +120,6 @@
                     position: dps.searchData.position,
                     minheightinches: dps.anyHeight ? null : dps.minHeightInches,
                     maxheightinches: dps.anyHeight ? null : dps.maxHeightInches
-
                 };
                 $state.go('main.playersearch', params);
                 return;

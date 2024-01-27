@@ -29,7 +29,7 @@
             src.filteredCourts = [];
             src.mapOptions = {
                 id: 'court-search-map',
-                zoom: 8,
+                zoom: 5,
                 disableDefaultUI: false,
                 streetViewControl: false
             };
@@ -62,10 +62,6 @@
                     src.filteredCourts = result;
                     sortCourts(src.sortOptions[0]); // sort by dateAdded by default
 
-                    _clusterer = new MarkerClusterer(src.map, [],
-                        {
-                            imagePath: '../src/custom/markerclusterer/m'
-                        });
 
                     updateCourtsList(result);
                     goToCurrentPosition();
@@ -106,8 +102,8 @@
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
-                src.map.setCenter(pos);
-                src.map.setZoom(src.mapOptions.zoom);
+                mapService.panTo(src.map, pos);
+                mapService.setZoom(src.map, src.mapOptions.zoom);
             }, function () {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
@@ -124,7 +120,6 @@
         }
 
         function setCourtMarkers(courts) {
-            clearMarkers();
             angular.forEach(courts, function (court) {
                 var marker = mapService.addMarker({ lat: court.latitude, lng: court.longitude }, src.map, false);
                 _markers.push(marker);
@@ -132,10 +127,6 @@
                     previewCourt(court);
                 });
             });
-            if (src.resultView === 'map' && courts.length) {
-                _clusterer.addMarkers(_markers);
-                _clusterer.fitMapToMarkers();
-            }
         }
 
         function clearMarkers() {

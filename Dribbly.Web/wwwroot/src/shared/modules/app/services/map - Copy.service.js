@@ -1,29 +1,10 @@
-﻿/*
- * Place Object Format:
- * {
- *  id: string,             // 
- *  name: string,           // Short name of the place
- *  displayName: string,    // Complete name of the place
- *  latitude: double,
- *  longitude: double,
- *  country: string,        // Country
- *  countryCode: string,    // Country Code
- *  state: string,          // Province/State
- *  city: string,           // Town/City
- *  village: string,        // Village/Barangay
- *  road: string            // Road/Street
- *  placeType: string       // The type of this place (e.g. Country, State, City, Residential, etc)
- * } 
- * 
- * */
-
-(function () {
+﻿(function () {
     'use strict';
 
     angular.module('appModule')
-        .service('mapService', ['drbblyhttpService', 'modalService', '$q', 'NgMap', 'settingsService', map]);
+        .service('mapService', ['drbblyToastService', 'modalService', '$q', 'NgMap', map]);
 
-    function map(drbblyhttpService, modalService, $q, NgMap, settingsService) {
+    function map(drbblyToastService, modalService, $q, NgMap) {
 
         var _earthRadius = 6378.137; // Earth radius in km
 
@@ -32,11 +13,15 @@
             return geocoder.geocode({ address: address }, callback);
         };
 
-        var _addMarker = function (latLng, map, panToMarker) {
+        var _addMarker = function (latLng, map, panToMarker, animate) {
+            var options = { position: latLng, map: map };
+            if (animate) {
+                options.animation = google.maps.Animation.BOUNCE;
+            }
             if (panToMarker) {
                 map.panTo(latLng);
             }
-            var marker = L.marker([latLng.lat, latLng.lng]).addTo(map);
+            var marker = new google.maps.Marker(options);
             return marker;
         };
 
@@ -47,32 +32,16 @@
         }
 
         var _getAddress = function (latLng) {
+            var _geocoder = new google.maps.Geocoder;
             var deferred = $q.defer();
-            drbblyhttpService.getRaw('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + latLng.lat + '&lon=' + latLng.lng)
-                .then(result => {
-                    console.log(result);
-                    if (!result || !result.address) {
-                        deferred.resolve(null);
-                    }
-                    else {
-                        var res = {
-                            id: result.place_id,
-                            name: result.name,
-                            displayName: result.display_name,
-                            latitude: result.lat,
-                            longitude: result.lon,
-                            country: result.address.country,
-                            countryCode: result.address.country_code.toUpperCase(),
-                            state: result.address.state,
-                            city: result.address.town || result.address.city,
-                            village: result.address.village,
-                            road: result.address.road,
-                            placeType: result.type
-                        };
-                        deferred.resolve(res);
-                    }
-                })
-                .catch(deferred.reject);
+            _geocoder.geocode({ 'location': latLng }, (results, status) => {
+                if (status === 'OK') {
+                    deferred.resolve(results.length ? _getAddressComponents(results[0]) : null);
+                }
+                else {
+                    deferred.reject(status);
+                }
+            });
             return deferred.promise;
             // Old way:
             //return $http.get('https://maps.googleapis.com/maps/api/geocode/json?key=######&latlng='
@@ -90,17 +59,6 @@
         var _getLngFromLocation = function (loc) {
             return angular.isFunction(loc.geometry.location.lng) ? loc.geometry.location.lng() : loc.geometry.location.lng;
         };
-
-        var _panTo = (map, latLng, zoom) => {
-            map.panTo(latLng);
-            if (zoom) {
-                _setZoom(map, zoom);
-            }
-        }
-
-        var _setZoom = (map, zoom) => {
-            map.setZoom(zoom);
-        }
 
         var _getAddressComponents = function (place) {
             var components;
@@ -202,48 +160,13 @@
             return d;
         }
 
+
         function degToRad(n) {
             return n * Math.PI / 180;
         }
 
         function getMap(options) {
             return NgMap.getMap(options);
-        }
-
-        function _search(input) {
-            var query = `https://api.geoapify.com/v1/geocode/autocomplete?format=json&apiKey=${settingsService.geoapifyKey}&limit=1`;
-            if (input.keyword) {
-                query += `&text=${input.keyword}`
-            }
-            if (input.type === 'city') {
-                query += `&type=city`;
-            }
-            return drbblyhttpService.getRaw(query, { doNotAddBearerToken: true })
-                .then(results => {
-                    return results.results.map(r => {
-                        if (input.type === 'city') {
-                            r.name = r.name || r.city;
-                        }
-                        return _searchResultToPlace(r)
-                    });
-                });
-        }
-
-        function _searchResultToPlace(address) {
-            return {
-                id: address.place_id,
-                name: address.name,
-                displayName: address.formatted,
-                latitude: address.lat,
-                longitude: address.lon,
-                country: address.country,
-                countryCode: address.country_code?.toUpperCase(),
-                state: address.state,
-                city: address.town || address.city,
-                village: address.village,
-                road: address.road,
-                placeType: address.result_type
-            };
         }
 
         this.getAddressCoordinates = _getAddressCoordinates;
@@ -258,10 +181,6 @@
         this.getPlaceComponents = _getAddressComponents;
         this.getMap = getMap;
         this.getPlaceById = getPlaceById;
-        this.panTo = _panTo;
-        this.setZoom = _setZoom;
-        this.search = _search;
-        this.searchResultToPlace = _searchResultToPlace;
         this.validateCity = _validateCity;
         return this;
     }

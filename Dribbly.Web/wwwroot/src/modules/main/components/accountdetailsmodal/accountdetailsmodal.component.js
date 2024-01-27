@@ -43,6 +43,12 @@
                     adm.height = {};
                     adm.height.feet = Math.floor(data.account.heightInches / 12);
                     adm.height.inches = data.account.heightInches % 12;
+                    if (adm.account.latitude && adm.account.longitude) {
+                        adm.location = {
+                            latitude: adm.account.latitude,
+                            longitude: adm.account.longitude
+                        };
+                    }
                 })
                 .catch(adm.overlay.setToError);
 
@@ -55,14 +61,24 @@
             }, $scope);
         };
 
+        adm.onLocationPickerReady = function (locationPicker) {
+            adm.locationPicker = locationPicker;
+        }
+
+        adm.locationSelected = function (place) {
+            adm.location = place;
+            adm.frmAccountDetails.txtLatitude.$setDirty();
+            adm.frmAccountDetails.txtLongitude.$setDirty();
+        };
+
         adm._placeChanged = function (place) {
             adm.account.cityId = null;
             if (place) {
                 adm.account.city = {
-                    googleId: place.place_id,
-                    lat: place.geometry.location.lat(),
-                    lng: place.geometry.location.lng(),
-                    name: place.formatted_address
+                    googleId: place.id,
+                    lat: place.latitude,
+                    lng: place.longitude,
+                    name: place.name
                 };
             }
             else {
@@ -111,10 +127,10 @@
         adm.submit = function () {
             adm.invalidLink = adm.account.fbLink &&
                 !/https?:\/\/(?:(www|web)\.)?(mbasic\.facebook|m\.facebook|facebook|fb)\.(com|me)(\/?(#!))?(\/[\w\.(#!)-\?]*)+/ig
-                .test(adm.account.fbLink);
+                    .test(adm.account.fbLink);
             adm.invalidIgLink = adm.account.igLink &&
                 !/(http|https):\/\/(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im
-                .test(adm.account.igLink);
+                    .test(adm.account.igLink);
             if (adm.invalidLink || adm.invalidIgLink) {
                 return;
             }
@@ -122,6 +138,10 @@
             if (saveModel.birthDate) {
                 saveModel.birthDate = drbblyDatetimeService.toUtcDate(saveModel.birthDate);
             }
+
+            saveModel.latitude = adm.location?.latitude;
+            saveModel.longitude = adm.location?.longitude;
+
             saveModel.heightInches = getHeightInches();
             adm.overlay.setToBusy();
             drbblyAccountsService.updateAccount(saveModel)

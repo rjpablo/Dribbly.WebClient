@@ -18,7 +18,6 @@
     function controllerFn($compile, mapService, $timeout, $scope, settingsService, constants) {
         var dbm = this;
         var _widget;
-        var _markers = [];
 
         dbm.$onInit = function () {
             dbm.mapApiKey = settingsService[constants.settings.googleMapApiKey];
@@ -36,32 +35,25 @@
             initializeWidget();
 
             $timeout(function () {
-                dbm.map = L.map(document.getElementById(dbm._options.id), dbm._options)
-                    .setView([dbm._options.center.lat, dbm._options.center.lng], dbm._options.zoom);
-
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                }).addTo(dbm.map);
-
-                dbm.map.on('click', dbm._mapClicked);
-                dbm.map.on('zoom', e => {
-                    console.log('zoomed to ' + dbm.map.getZoom());
-                });
-
+                dbm.map = new google.maps.Map(document.getElementById(dbm._options.id), dbm._options);
                 if (dbm.onMapReady) {
                     dbm.onMapReady.apply(_widget, [dbm.map]);
                 }
+                dbm.map.addListener('click', function (e) {
+                    dbm._mapClicked(e);
+                });
                 if (dbm._options.allowSearch) {
                     addSearchControl();
                 }
+                dbm.map.addListener('bounds_changed', function () {
+                    dbm._searchOptions.bounds = dbm.map.getBounds();
+                });
             });
         };
 
         function initializeWidget() {
             _widget = {
-                addMarkers,
-                resetMarkers
+                addMarkers: addMarkers
             }
         }
 
@@ -71,48 +63,13 @@
          */
         function addMarkers(markers) {
             angular.forEach(markers, function (marker) {
-                _markers.push(mapService.addMarker(marker, dbm.map));
+                mapService.addMarker({ lat: marker.latitude, lng: marker.longitude }, dbm.map, true, true);
             });
-        }
-
-        function resetMarkers(markers) {
-            angular.forEach(_markers, function (marker) {
-                dbm.map.removeLayer(marker);
-            });
-            _markers.length = 0;
-            addMarkers(markers);
         }
 
         function addSearchControl() {
-            
-            const addressSearchControl = L.control.addressSearch(settingsService.geoapifyKey, {
-                position: 'topleft',
-
-                //set it true to search addresses nearby first
-                mapViewBias: true,
-
-                //Text shown in the Address Search field when it's empty
-                placeholder: dbm._searchOptions.inputPlaceholder,
-
-                // /Callback to notify when a user has selected an address
-                resultCallback: (address) => {
-                    //Prevent throwing Errors when the address search box is empty
-                    if (!address) {
-                        return;
-                    }
-                    dbm.map.setView([address.lat, address.lon], 18);
-                    console.log('selected suggestion:', address);
-                    var res = mapService.searchResultToPlace(address);
-                    dbm._placeChanged(res);
-                },
-
-                //Callback to notify when new suggestions have been obtained for the entered text
-                suggestionsCallback: (suggestions) => {
-                    console.log(suggestions);
-                }
-            });
-
-            dbm.map.addControl(addressSearchControl);
+            var component = $compile(dbm.searchControlTemplate)($scope);
+            dbm.map.controls[google.maps.ControlPosition.TOP_LEFT].push(component[0]);
         }
 
         function getDefaultOptions() {
@@ -132,14 +89,13 @@
         function getDefaultSearchOptions() {
             return {
                 size: 80,
-                markSelectedPlace: true,
-                inputPlaceholder: 'Enter an address to search'
+                markSelectedPlace: true
             };
         }
 
         dbm._mapClicked = function (e) {
             if (dbm.onMapClicked) {
-                dbm.onMapClicked({ latLng: e.latlng });
+                dbm.onMapClicked(e);
             }
         };
 

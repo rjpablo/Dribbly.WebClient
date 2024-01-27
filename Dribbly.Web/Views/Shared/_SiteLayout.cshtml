@@ -17,6 +17,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
 
+    <meta name="facebook-domain-verification" content="nu2m0bh8c54e1ab5tgefr1fsgexqhi" />
+
     <environment include="Development">
 
         @* External Libraries *@
@@ -203,9 +205,18 @@
         <link href="~/dist/css/app.min.css?v=@timeStamp" rel="stylesheet" />
         <link href="~/dist/css/main.min.css?v=@timeStamp" rel="stylesheet" />
     </environment>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin="" />          
+    <link rel="stylesheet" href="https://unpkg.com/@@geoapify/leaflet-address-search-plugin@@^1/dist/L.Control.GeoapifyAddressSearch.min.css" />
 </head>
 <body ng-controller="appController as app">
     <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="https://unpkg.com/@@geoapify/leaflet-address-search-plugin@@^1/dist/L.Control.GeoapifyAddressSearch.min.js"></script>
     <script type="text/javascript">
         window.Dribbly = {};
         window.Dribbly.clientSettings = @Html.Raw(Json.Serialize(Model.clientSettings));
@@ -275,7 +286,7 @@
         <script src="~/src/lib/ng-infinite-scroll/ng-infinite-scroll.min.js"></script>
         <script src="~/src/lib/slick-carousel/slick.min.js"></script>
         <script src="~/src/lib/angular-slick-carousel/angular-slick.js"></script>
-        <script src="https://maps.google.com/maps/api/js?key=AIzaSyD8rY4ZOWDSbgsAlydn2m1LExO0sHrpQkE&libraries=placeses,visualization,drawing,geometry,places"></script> @*Account Linked: rjpablo.secondary@gmail.com*@
+        <script src="https://maps.google.com/maps/api/js?key=AIzaSyD8rY4ZOWDSbgsAlydn2m1LExO0sHrpQkE&libraries=places,visualization,drawing,geometry,places"></script> @*Account Linked: rjpablo.secondary@gmail.com*@
         <script src="~/src/custom/markerclusterer/markerclusterer.js"></script>
         <script src="~/src/lib/ngmap/ng-map.js"></script>
         <script src="~/src/lib/fullcalendar/core/main.js"></script>
@@ -533,7 +544,7 @@
         <script src="~/src/modules/main/containers/maincontainer/maincontainer.component.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="https://maps.google.com/maps/api/js?key=AIzaSyD8rY4ZOWDSbgsAlydn2m1LExO0sHrpQkE&libraries=placeses,visualization,drawing,geometry,places"></script> @*Account Linked: rjpablo.secondary@gmail.com*@
+        <script src="https://maps.google.com/maps/api/js?key=AIzaSyD8rY4ZOWDSbgsAlydn2m1LExO0sHrpQkE&libraries=places,visualization,drawing,geometry,places"></script> @*Account Linked: rjpablo.secondary@gmail.com*@
         <script src="~/dist/js/scripts.min.js?v=@timeStamp"></script>
         <script src="~/dist/js/libraries.min.js?v=@timeStamp"></script>
 

@@ -2,7 +2,6 @@
     <input class="form-control"
            ng-class="{ 'border-0': msc.options.textInput.borderless}"
            ng-model="msc.keyword"
-           ng-model-options="{ debounce: 1000 }"
            type="text"
            ng-change="msc.keywordChanged()"
            ng-blur="msc.blur()"
@@ -13,11 +12,10 @@
          class="pac-item"
          ng-click="msc.itemClicked(place)">
         <span class="pac-icon pac-icon-marker"></span>
-        <strong class="pac-item-query">
-            {{place.name}}
-        </strong>
-        <span class="text-secondary">
-            {{place.displayName}}
+        <span class="pac-item-query">
+            <span class="pac-matched"></span>
+            {{place.structured_formatting.main_text}}
         </span>
+        <span>{{place.structured_formatting.secondary_text}}</span>
     </div>
 </div>

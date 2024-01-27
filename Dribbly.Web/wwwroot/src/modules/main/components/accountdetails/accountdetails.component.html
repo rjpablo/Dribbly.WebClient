@@ -43,11 +43,18 @@
                                 {{dad.account.heightInches | height}}
                             </div>
                             <div class="col-4">
+                                <label class="text-secondary">Location</label>
+                            </div>
+                            <div class="col-8 text-line-1">
+                                <drbbly-map options="dad.mapOptions"
+                                            on-map-ready="dad.onMapReady"></drbbly-map>
+                            </div>
+                            <!--<div class="col-4">
                                 <label class="text-secondary">City</label>
                             </div>
                             <div class="col-8 text-line-1">
                                 {{dad.account.city.name}}
-                            </div>
+                            </div>-->
                             <div class="col-4">
                                 <label class="text-secondary">{{::'app.HomeCourt' | i18n}}:</label>
                             </div>

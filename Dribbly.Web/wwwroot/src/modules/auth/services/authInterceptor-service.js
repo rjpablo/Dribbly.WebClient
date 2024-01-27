@@ -10,7 +10,7 @@
 
                     config.headers = config.headers || {};
 
-                    if (!config.isRefreshToken) {
+                    if (!config.doNotAddBearerToken) {
                         // adding Authorization header to token refresh call causes it to fail
                         var authData = localStorageService.get('authorizationData');
                         if (authData) {

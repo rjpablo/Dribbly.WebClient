@@ -28,7 +28,12 @@
             dcd.overlay = drbblyOverlayService.buildOverlay();
             dcd.isOwned = authService.isCurrentAccountId(dcd.court.ownerId);
             dcd.mapOptions = {
-                id: 'location-picker-map'
+                id: 'court-details-map',
+                center: {
+                    lat: dcd.court.latitude,
+                    lng: dcd.court.longitude
+                },
+                zoom: 15
             };
             dcd.overlay.setToReady();
             dcd.app.updatePageDetails({
@@ -50,7 +55,7 @@
         };
 
         dcd.onMapReady = function () {
-            this.addMarkers([dcd.court]);
+            this.addMarkers([{ lat: dcd.court.latitude, lng: dcd.court.longitude }]);
         };
 
         dcd.deleteCourt = function () {

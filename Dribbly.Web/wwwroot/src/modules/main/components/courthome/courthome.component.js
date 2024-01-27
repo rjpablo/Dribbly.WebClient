@@ -32,7 +32,12 @@
             dcd.isOwned = authService.isCurrentAccountId(dcd.court.ownerId);
             dcd.mapOptions = {
                 id: 'location-picker-map',
-                height: '300px'
+                height: '300px',
+                center: {
+                    lat: dcd.court.latitude,
+                    lng: dcd.court.longitude
+                },
+                zoom: 15
             };
             dcd.postsOptions = {
                 postedOnType: constants.enums.entityType.Court,

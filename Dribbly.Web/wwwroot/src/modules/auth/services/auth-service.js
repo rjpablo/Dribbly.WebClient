@@ -153,7 +153,7 @@
                 if (_authQueue.length === 0) {
                     var data = 'grant_type=refresh_token&refresh_token=' + authData.refreshToken + '&client_id=' + settingsService.clientId;
 
-                    $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, isRefreshToken: true })
+                    $http.post(settingsService.serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, doNotAddBearerToken: true })
                         .then(function (response) {
                             localStorageService.set('authorizationData', {
                                 token: response.data.access_token,

@@ -6,8 +6,12 @@
             function ($http, settingsService, $q) {
 
                 function _get(url, config) {
+                    return _getRaw(settingsService.serviceBase + url, config);
+                }
+
+                function _getRaw(url, config) {
                     var deferred = $q.defer();
-                    $http.get(settingsService.serviceBase + url, config)
+                    $http.get(url, config)
                         .then(function (response) {
                             deferred.resolve(response.data);
                         })
@@ -33,6 +37,7 @@
 
                 var service = {
                     get: _get,
+                    getRaw: _getRaw,
                     post: _post
                 };
 

@@ -5,7 +5,9 @@
         .component('drbblyLocationpicker', {
             bindings: {
                 onLocationSelected: '<?',
-                initialPosition: '<?'
+                pickOnSearch: '<',          // whether to automatically pick the location selected in search results
+                initialPosition: '<?',
+                selectedLocation: '<'
             },
             controllerAs: 'dlp',
             templateUrl: 'drbbly-default',
@@ -19,10 +21,12 @@
         dlp.$onInit = function () {
             dlp.mapOptions = {
                 id: 'location-picker-map',
-                allowSearch: true
+                allowSearch: true,
+                zoomControl: false,
+                height: '300px'
             };
-            if (dlp.initialPosition && dlp.initialPosition.latlng) {
-                dlp.mapOptions.center = dlp.initialPosition.latlng;
+            if (dlp.initialPosition) {
+                dlp.mapOptions.center = { lat: dlp.initialPosition.latitude, lng: dlp.initialPosition.longitude };
             }
             dlp.searchOptions = {
                 onPlaceChanged: dlp.onPlaceChanged,
@@ -30,9 +34,24 @@
             };
         };
 
+        dlp.$onChanges = function (changes) {
+            if (changes.selectedLocation && dlp.map) {
+                resetMark(changes.selectedLocation.currentValue ?
+                    { lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude } :
+                    null);
+                mapService.panTo(dlp.map, { lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });
+            }
+        }
+
         dlp.onMapReady = function (map) {
             dlp.map = map;
-            setInitialPosition();
+            if (dlp.selectedLocation) {
+                resetMark({ lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });
+                mapService.panTo(dlp.map, { lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });
+            }
+            else {
+                setInitialPosition();
+            }
         };
 
         function setInitialPosition() {
@@ -46,8 +65,7 @@
         function focusCurrentPosition() {
             mapService.getCurrentPosition(
                 function (pos) {
-                    var currentPos = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-                    centerMap(currentPos);
+                    centerMap({ lat: pos.coords.latitude, lng: pos.coords.longitude });
                 },
                 function (error) {
                     console.log('Unable to get location: ' + error.message);
@@ -56,14 +74,14 @@
         }
 
         function centerMap(latLng) {
-            dlp.map.setCenter(latLng);
+            mapService.panTo(dlp.map, latLng);
         }
 
         dlp.onMapClicked = function (e) {
             mapService.getAddress(e.latLng).then(function (location) {
                 if (location) {
                     if (validatePlace(location)) {
-                        resetMark(e);
+                        resetMark(e.latLng);
                         returnSelectedLocation(location);
                     }
                 } else {
@@ -77,30 +95,31 @@
         };
 
         function returnSelectedLocation(place) {
-            if (dlp.onLocationSelected) {
-                var latLng = {
-                    latitude: place.geometry.location.lat(),
-                    longitude: place.geometry.location.lng()
-                };
-                dlp.onLocationSelected(latLng);
-            }
+            dlp.onLocationSelected && dlp.onLocationSelected(place);
         }
 
-        function resetMark(e) {
+        function resetMark(latLng) {
             if (dlp.locationMarker) { //delete marker if existing
-                dlp.locationMarker.setMap(null);
-                dlp.locationMarker = null;
+                dlp.map.removeLayer(dlp.locationMarker);
             }
 
-            dlp.locationMarker = mapService.addMarker(e.latLng || e.location, dlp.map, true, true);
+            if (latLng) {
+                dlp.locationMarker = mapService.addMarker(latLng, dlp.map, true, true);
+            }
+            else {
+                dlp.locationMarker = null;
+            }
         }
 
         dlp.onPlaceChanged = function (place) {
             if (dlp.map) {
-                if (place.geometry) {
-                    if (validatePlace(mapService.getAddressComponents(place))) {
-                        resetMark(place.geometry);
-                        returnSelectedLocation(place);
+                if (place) {
+                    if (validatePlace(place)) {
+                        mapService.panTo(dlp.map, { lat: place.latitude, lng: place.longitude }, 18);
+                        if (dlp.pickOnSearch) {
+                            resetMark({ lat: place.latitude, lng: place.longitude });
+                            returnSelectedLocation(place);
+                        }
                     }
                 } else {
                     // this is executed when the user presses enter on the address search box
@@ -122,8 +141,8 @@
 
         function validatePlace(place) {
             var phOnly = false;
-            if (!phOnly || place.country_short === 'PH') {
-                dlp.completeAddress = place.formatted_address;
+            if (!phOnly || place.countryCode === 'PH') {
+                dlp.completeAddress = place.displayName;
                 dlp.selectedLocation = place;
                 return true;
                 //dlp.map.setCenter(place.geometry.location || place.geometry.latLng);

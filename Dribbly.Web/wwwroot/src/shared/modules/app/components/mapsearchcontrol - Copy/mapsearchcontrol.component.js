@@ -15,8 +15,8 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['$timeout', '$scope', '$log', 'mapService'];
-    function controllerFn($timeout, $scope, $log, mapService) {
+    controllerFn.$inject = ['$timeout', '$scope', '$log'];
+    function controllerFn($timeout, $scope, $log) {
         var msc = this;
         var _autocomplete;
         var _geocoder;
@@ -41,20 +41,25 @@
 
         msc.keywordChanged = function () {
             var request = {
-                keyword: msc.keyword,
-                type: msc.options.type
+                input: msc.keyword,
+                types: msc.options.types,
+                componentRestrictions: msc.options.componentRestrictions,
+                bounds: msc.options.bounds
             };
             clearSuggestions();
 
             if (msc.keyword) {
-                mapService.search(request)
-                    .then((result) => {
-                        console.log('search results: ', result);
+                _autocomplete.getPlacePredictions(request, function (result, status) {
+                    if (status === 'OK') {
                         msc.suggestions = result;
                         $timeout(function () {
                             $scope.$apply(); //needed for suggestions to show immediately
                         });
-                    });
+                    }
+                    else {
+                        $log.error(new Error('Map search error. Search key: ' + msc.keyword + ', Status = ' + status));
+                    }
+                });
             }
         };
 
@@ -64,10 +69,15 @@
             msc.options.onBlur && msc.options.onBlur();
         };
 
-        msc.itemClicked = function (place) {
+        msc.itemClicked = function (prediction) {
             if (msc.onPlaceChanged) {
-                msc.keyword = place.name;
-                msc.onPlaceChanged(place);
+                _geocoder.geocode({ placeId: prediction.place_id }, function (places, status) {
+                    if (status === 'OK') {
+                        msc.keyword = places[0].formatted_address;
+                        msc.onPlaceChanged(places[0]);
+                        clearSuggestions();
+                    }
+                });
             }
         };
 
