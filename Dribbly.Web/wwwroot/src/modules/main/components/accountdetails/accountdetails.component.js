@@ -14,8 +14,10 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['$stateParams', 'authService', 'drbblyOverlayService', '$timeout', 'modalService', 'mapService'];
-    function controllerFunc($stateParams, authService, drbblyOverlayService, $timeout, modalService, mapService) {
+    controllerFunc.$inject = ['$stateParams', 'authService', 'drbblyOverlayService', '$timeout', 'modalService', 'mapService',
+        'constants'];
+    function controllerFunc($stateParams, authService, drbblyOverlayService, $timeout, modalService, mapService,
+        constants) {
         var dad = this;
         var _map;
 
@@ -25,13 +27,17 @@
             dad.isOwned = authService.isCurrentUserId(dad.account.identityUserId);
             dad.mapOptions = {
                 id: 'account-details-map',
-                center: {
-                    lat: dad.account.latitude,
-                    lng: dad.account.longitude
-                },
                 zoom: 10,
                 height: '300px'
             };
+            if (dad.account.latitude && dad.account.longitude) {
+                dad.accountLatLng = {
+                    lat: dad.account.latitude,
+                    lng: dad.account.longitude,
+                    type: constants.enums.mapMarkerTypeEnum.Player
+                };
+                dad.mapOptions.center = dad.accountLatLng;
+            }
             loadAccount();
             dad.app.updatePageDetails({
                 title: dad.account.name + ' - Account Details',
@@ -41,8 +47,18 @@
 
         dad.$onChanges = function (changes) {
             if (changes.account?.currentValue && _map) {
-                _map.resetMarkers([{ lat: dad.account.latitude, lng: dad.account.longitude }]);
-                mapService.panTo(_map, { lat: dad.account.latitude, lng: dad.account.longitude });
+                if (dad.account.latitude && dad.account.longitude) {
+                    dad.accountLatLng = {
+                        lat: dad.account.latitude,
+                        lng: dad.account.longitude,
+                        type: constants.enums.mapMarkerTypeEnum.Player
+                    };
+                    _map.resetMarkers([dad.accountLatLng]);
+                    mapService.panTo(_map, dad.accountLatLng);
+                }
+                else {
+                    dad.accountLatLng = null;
+                }
             }
         }
 
@@ -51,9 +67,11 @@
             $timeout(dad.overlay.setToReady, 1000);
         }
 
-        dad.onMapReady = function (map) {
+        dad.onMapReady = function () {
             _map = this;
-            this.addMarkers([{ lat: dad.account.latitude, lng: dad.account.longitude }]);
+            if (dad.accountLatLng) {
+                this.addMarkers([dad.accountLatLng]);
+            }
         };
 
         dad.edit = function () {

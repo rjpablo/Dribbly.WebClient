@@ -47,7 +47,10 @@
                             </div>
                             <div class="col-8 text-line-1">
                                 <drbbly-map options="dad.mapOptions"
-                                            on-map-ready="dad.onMapReady"></drbbly-map>
+                                            on-map-ready="dad.onMapReady"
+                                            ng-if="dad.accountLatLng"></drbbly-map>
+                                <span ng-show="!dad.accountLatLng"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
                             </div>
                             <!--<div class="col-4">
                                 <label class="text-secondary">City</label>

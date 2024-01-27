@@ -17,6 +17,7 @@
     function controllerFunc(drbblyToolbarService, drbblyCommonService, drbblyAccountsService,
         drbblyOverlayService, $timeout, drbblyCarouselhelperService, constants, $q, $filter) {
         var dhc = this;
+        var _map;
 
         dhc.$onInit = function () {
             dhc.app.updatePageDetails({
@@ -28,6 +29,11 @@
             dhc.leadersOverlay = drbblyOverlayService.buildOverlay();
             dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();
             drbblyToolbarService.setItems([]);
+            dhc.mapOptions = {
+                id: 'players-page-map',
+                zoom: 5,
+                height: '500px'
+            };
 
             dhc.newPlayers = [];
             dhc.newPlayersNextPageNumber = 1;
@@ -41,8 +47,36 @@
             loadTopPlayers();
             loadLeaders();
             dhc.loadNewPlayers();
+            getMappedUsers();
             dhc.app.mainDataLoaded();
         };
+
+        dhc.onMapReady = function () {
+            _map = this;
+            if (dhc.mappedUsers) {
+                mapUsers(dhc.mappedUsers);
+            }
+        };
+
+        function getMappedUsers() {
+            drbblyAccountsService.getAccountsWithLocation()
+                .then(data => {
+                    dhc.mappedUsers = data.map(user => {
+                        return {
+                            lat: user.latitude,
+                            lng: user.longitude,
+                            type: constants.enums.mapMarkerTypeEnum.Player
+                        };
+                    });
+                    if (_map) {
+                        mapUsers(dhc.mappedUsers);
+                    }
+                });
+        }
+
+        function mapUsers(data) {
+            _map.resetMarkers(data);
+        }
 
         function loadLeaders() {
             var sortByEnum = constants.enums.getPlayersSortByEnum;

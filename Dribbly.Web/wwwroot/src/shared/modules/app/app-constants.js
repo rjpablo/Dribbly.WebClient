@@ -40,25 +40,28 @@
             defaultProfilePhoto: {
                 url: 'src/images/default_images/default_profile_photo.jpg',
                 isDefault: true
-                },
+            },
             defaultCourtLogo: {
                 url: 'src/images/default_images/court_default_1.png',
                 isDefault: true
-                },
+            },
             defaultGroupLogo: {
                 url: 'src/images/default_images/default_group_logo.jpg',
                 isDefault: true
-                },
+            },
             defaultTournamentLogo: {
                 url: 'src/images/default_images/default_tournament_logo.jpg',
                 isDefault: true
-                },
+            },
             defaultTeamLogo: {
                 url: 'src/images/default_images/default_team_logo_1.png',
                 isDefault: true
-                },
+            },
+            mapMarkerPlayer: {
+                url: 'src/images/default_images/map_markers_player.png'
+            }
         };
-        
+
         /**
          * @namespace
          * @memberof constants

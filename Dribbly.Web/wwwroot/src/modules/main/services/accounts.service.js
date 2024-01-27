@@ -10,6 +10,10 @@
                     return drbblyhttpService.get(api + 'getAllAccounts');
                 }
 
+                function getAccountsWithLocation(accountType = 1) {
+                    return drbblyhttpService.get(api + 'getAccountsWithLocation/' + accountType);
+                }
+
                 function getTopPlayers() {
                     return drbblyhttpService.get(api + 'getTopPlayers');
                 }
@@ -134,6 +138,7 @@
                     getAccountSettings: getAccountSettings,
                     getAccountVideos: getAccountVideos,
                     getAccountViewerData: getAccountViewerData,
+                    getAccountsWithLocation: getAccountsWithLocation,
                     getPlayerGames: getPlayerGames,
                     getPlayers: getPlayers,
                     getTopPlayers: getTopPlayers,

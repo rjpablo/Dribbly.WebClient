@@ -51,6 +51,24 @@
                     return $filter('height')(value);
                 }
             };
+
+            if (dps.onReady) {
+                dps.onReady({
+                    setPlace: place => {
+                        dps.searchData.place = place;
+                        mapSearch.setText(place.formatted_address);
+                    },
+                    search: data => {
+                        dps.searchData = Object.assign(dps.searchData, data);
+                        dps.anyHeight = !dps.searchData.minHeightInches && !dps.searchData.maxHeightInches;
+                        if (!dps.anyHeight) {
+                            dps.minHeightInches = dps.searchData.minHeightInches;
+                            dps.maxHeightInches = dps.searchData.maxHeightInches;
+                        }
+                        dps.submit();
+                    }
+                })
+            }
         };
 
         dps.onAnyHeightChange = anyHeight => {

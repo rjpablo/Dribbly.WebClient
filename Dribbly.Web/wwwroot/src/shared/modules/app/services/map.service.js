@@ -21,9 +21,9 @@
     'use strict';
 
     angular.module('appModule')
-        .service('mapService', ['drbblyhttpService', 'modalService', '$q', 'NgMap', 'settingsService', map]);
+        .service('mapService', ['drbblyhttpService', 'modalService', '$q', 'NgMap', 'settingsService', 'constants', map]);
 
-    function map(drbblyhttpService, modalService, $q, NgMap, settingsService) {
+    function map(drbblyhttpService, modalService, $q, NgMap, settingsService, constants) {
 
         var _earthRadius = 6378.137; // Earth radius in km
 
@@ -36,7 +36,18 @@
             if (panToMarker) {
                 map.panTo(latLng);
             }
-            var marker = L.marker([latLng.lat, latLng.lng]).addTo(map);
+
+            var options = {};
+
+            if (latLng.type === constants.enums.mapMarkerTypeEnum.Player) {
+                options.icon = L.icon({
+                    iconUrl: constants.images.mapMarkerPlayer.url,
+                    iconSize: [38, 38],
+                    iconAnchor: [19, 38]
+                });
+            }
+
+            var marker = L.marker([latLng.lat, latLng.lng], options).addTo(map);
             return marker;
         };
 

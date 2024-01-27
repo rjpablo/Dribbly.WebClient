@@ -61,8 +61,13 @@
         function initializeWidget() {
             _widget = {
                 addMarkers,
-                resetMarkers
+                resetMarkers,
+                panTo
             }
+        }
+
+        function panTo(latLng) {
+            dbm.map.panTo(latLng);
         }
 
         /**

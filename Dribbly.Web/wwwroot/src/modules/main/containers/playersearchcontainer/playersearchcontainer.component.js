@@ -56,6 +56,11 @@
                         }
                     });
             }
+            else {
+                if (psc.searchComponent) {
+                    psc.searchComponent.search(psc.searchData);
+                }
+            }
         }
 
         psc.onSearchComponentReady = (searchComponent) => {
