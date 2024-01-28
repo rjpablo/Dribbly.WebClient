@@ -405,7 +405,7 @@
             })
 
             .state('auth.signUp', {
-                url: '/signup',
+                url: '/signup?lat&lng',
                 params: {
                     data: null
                 },

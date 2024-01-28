@@ -44,6 +44,8 @@
         suf.signUp = function () {
             suf.errors = [];
             suf.isBusy = true;
+            suf.model.latitude = $stateParams.lat;
+            suf.model.longitude = $stateParams.lng;
             if (suf.isExternal) {
                 authService.registerExternal(suf.model)
                     .then(function (response) {

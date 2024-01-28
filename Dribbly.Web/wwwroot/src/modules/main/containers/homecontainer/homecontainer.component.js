@@ -75,9 +75,16 @@
             popupScope.onClick = () => {
                 addCourt(e.latLng);
             };
+            popupScope.onAddMeClick = () => {
+                $state.go('auth.signUp', { lat: e.latLng.lat, lng: e.latLng.lng });
+            };
+            popupScope.isAuthenticated = authService.authentication.isAuthenticated;
             var popupContent = $compile(`
                 <div class="d-flex flex-column">
-                    <button class="btn btn-sm btn-primary mb-1" ng-click="onClick()">Add a court here</button>
+                    ${!authService.authentication.isAuthenticated ?
+                    '<button class="btn btn-sm btn-primary mb-1" ng-show="!isAuthenticated" ng-click="onAddMeClick()">Add me here</button>' :
+                    ''}
+                    <button class="btn btn-sm btn-secondary mb-1" ng-click="onClick()">Add a court here</button>
                 </div>`
             )(popupScope);
 

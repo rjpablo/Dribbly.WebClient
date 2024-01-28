@@ -32,6 +32,9 @@
         <drbbly-map options="dhc.mapOptions"
                     on-map-clicked="dhc.onMapClicked"
                     on-map-ready="dhc.onMapReady"></drbbly-map>
+        <div ng-if="!$root.auth.isAuthenticated" class="text-center p-2">
+            <h5><i class="fa fa-info-circle text-info"></i>&nbsp;Click on the map to add yourself</h5>
+        </div>
     </section>
 </div>
 <div class="container">
