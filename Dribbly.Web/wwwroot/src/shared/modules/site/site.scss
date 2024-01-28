@@ -550,3 +550,21 @@ slick.dark-transparent-bg {
         background-color: $primary;
     }
 }
+
+
+/****** Leftlet ******/
+/*Popup*/
+div.leaflet-popup {
+    .leaflet-popup-content-wrapper {
+        .leaflet-popup-content {
+            margin: 0.5rem;
+        }
+    }
+
+    a.leaflet-popup-close-button {
+        top: -18px;
+        right: -18px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+}

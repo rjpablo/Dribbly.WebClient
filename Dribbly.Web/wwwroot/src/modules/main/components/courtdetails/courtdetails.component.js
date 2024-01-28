@@ -54,8 +54,10 @@
                 });
         };
 
-        dcd.onMapReady = function () {
-            this.addMarkers([{ lat: dcd.court.latitude, lng: dcd.court.longitude }]);
+        dcd.onMapReady = function (map) {
+            if (dcd.court.latitude && dcd.court.longitude) {
+                map.addCourtMarker(dcd.court);
+            }
         };
 
         dcd.deleteCourt = function () {

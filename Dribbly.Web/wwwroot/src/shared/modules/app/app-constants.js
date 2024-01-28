@@ -59,6 +59,9 @@
             },
             mapMarkerPlayer: {
                 url: 'src/images/default_images/map_markers_player.png'
+            },
+            mapMarkerCourt: {
+                url: 'src/images/default_images/map_markers_court.png'
             }
         };
 

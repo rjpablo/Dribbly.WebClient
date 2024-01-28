@@ -170,7 +170,8 @@
       "wwwroot/src/shared/modules/app/components/posts/posts.component.js",
       "wwwroot/src/shared/modules/app/components/gallery/gallery.component.js",
       "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.js",
-      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.js"
+      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.js",
+      "wwwroot/src/shared/modules/app/components/playerinfocard/playerinfocard.component.js"
     ]
   },
   {
@@ -382,7 +383,8 @@
       "wwwroot/src/shared/modules/app/app.css",
       "wwwroot/src/shared/modules/app/components/gallery/gallery.component.css",
       "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.css",
-      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.css"
+      "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.css",
+      "wwwroot/src/shared/modules/app/components/playerinfocard/playerinfocard.component.css"
     ]
   },
   {

@@ -58,8 +58,8 @@
             });
         };
 
-        dcd.onMapReady = function () {
-            this.addMarkers([dcd.court]);
+        dcd.onMapReady = function (map) {
+            map.addCourtMarker(dcd.court);
         };
 
         dcd.editDescription = function () {

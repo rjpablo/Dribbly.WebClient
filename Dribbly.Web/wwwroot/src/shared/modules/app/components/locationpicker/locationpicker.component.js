@@ -39,7 +39,7 @@
                 resetMark(changes.selectedLocation.currentValue ?
                     { lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude } :
                     null);
-                mapService.panTo(dlp.map, { lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });
+                dlp.map.panTo({ lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });
             }
         }
 
@@ -47,7 +47,7 @@
             dlp.map = map;
             if (dlp.selectedLocation) {
                 resetMark({ lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });
-                mapService.panTo(dlp.map, { lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });
+                dlp.map.panTo({ lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });
             }
             else {
                 setInitialPosition();
@@ -74,7 +74,7 @@
         }
 
         function centerMap(latLng) {
-            mapService.panTo(dlp.map, latLng);
+            dlp.map.panTo(latLng);
         }
 
         dlp.onMapClicked = function (e) {
@@ -100,11 +100,11 @@
 
         function resetMark(latLng) {
             if (dlp.locationMarker) { //delete marker if existing
-                dlp.map.removeLayer(dlp.locationMarker);
+                dlp.map.resetMarkers([]);
             }
 
             if (latLng) {
-                dlp.locationMarker = mapService.addMarker(latLng, dlp.map, true, true);
+                dlp.locationMarker = dlp.map.addMarker(latLng);
             }
             else {
                 dlp.locationMarker = null;
@@ -115,7 +115,7 @@
             if (dlp.map) {
                 if (place) {
                     if (validatePlace(place)) {
-                        mapService.panTo(dlp.map, { lat: place.latitude, lng: place.longitude }, 18);
+                        dlp.map.panTo({ lat: place.latitude, lng: place.longitude }, 18);
                         if (dlp.pickOnSearch) {
                             resetMark({ lat: place.latitude, lng: place.longitude });
                             returnSelectedLocation(place);

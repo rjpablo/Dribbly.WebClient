@@ -51,25 +51,18 @@
             dhc.app.mainDataLoaded();
         };
 
-        dhc.onMapReady = function () {
-            _map = this;
-            if (dhc.mappedUsers) {
-                mapUsers(dhc.mappedUsers);
-            }
+        dhc.onMapReady = function (map) {
+            _map = map;
         };
 
         function getMappedUsers() {
             drbblyAccountsService.getAccountsWithLocation()
                 .then(data => {
-                    dhc.mappedUsers = data.map(user => {
-                        return {
-                            lat: user.latitude,
-                            lng: user.longitude,
-                            type: constants.enums.mapMarkerTypeEnum.Player
-                        };
-                    });
                     if (_map) {
-                        mapUsers(dhc.mappedUsers);
+                        _map.resetMarkers([]);
+                        data.forEach(player => {
+                            _map.addPlayerMarker(player);
+                        })
                     }
                 });
         }

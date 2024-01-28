@@ -53,8 +53,8 @@
                         lng: dad.account.longitude,
                         type: constants.enums.mapMarkerTypeEnum.Player
                     };
-                    _map.resetMarkers([dad.accountLatLng]);
-                    mapService.panTo(_map, dad.accountLatLng);
+                    _map.resetMarkers([]);
+                    _map.addPlayerMarker(dad.account);
                 }
                 else {
                     dad.accountLatLng = null;
@@ -67,10 +67,10 @@
             $timeout(dad.overlay.setToReady, 1000);
         }
 
-        dad.onMapReady = function () {
-            _map = this;
+        dad.onMapReady = function (map) {
+            _map = map;
             if (dad.accountLatLng) {
-                this.addMarkers([dad.accountLatLng]);
+                _map.addPlayerMarker(dad.account);
             }
         };
 

@@ -19,6 +19,11 @@
         var dbm = this;
         var _widget;
         var _markers = [];
+        var defaultIconOptions = {
+            iconSize: [38, 38],
+            iconAnchor: [19, 38],
+            popupAnchor: [0, -19]
+        };
 
         dbm.$onInit = function () {
             dbm.mapApiKey = settingsService[constants.settings.googleMapApiKey];
@@ -50,7 +55,7 @@
                 });
 
                 if (dbm.onMapReady) {
-                    dbm.onMapReady.apply(_widget, [dbm.map]);
+                    dbm.onMapReady(_widget);
                 }
                 if (dbm._options.allowSearch) {
                     addSearchControl();
@@ -60,7 +65,10 @@
 
         function initializeWidget() {
             _widget = {
+                addMarker,
                 addMarkers,
+                addCourtMarker,
+                addPlayerMarker,
                 resetMarkers,
                 panTo
             }
@@ -68,6 +76,44 @@
 
         function panTo(latLng) {
             dbm.map.panTo(latLng);
+        }
+
+        function addPlayerMarker(account) {
+            var latLng = { lat: account.latitude, lng: account.longitude };
+            var popUp = L.popup({ minWidth: 100, keepInView: true })
+                .setLatLng(latLng);
+            var mapOptions = {
+                icon: L.icon({
+                    ...defaultIconOptions,
+                    iconUrl: constants.images.mapMarkerPlayer.url
+                })
+            };
+            var marker = L.marker([latLng.lat, latLng.lng], mapOptions).addTo(dbm.map);
+            marker.bindPopup(popUp);
+            marker.on('popupopen', e => {
+                var popupScope = $scope.$new()
+                popupScope.account = account;
+                popupScope.onClick = account => alert(account.name);
+                var popupContent = $compile('<drbbly-playerinfocard player="account"></drbbly-playerinfocard>')(popupScope);
+                popUp.setContent(popupContent[0]);
+                var el = popUp.getElement();
+                angular.element(el.querySelector('.leaflet-popup-content')).addClass('m-1');
+            });
+        }
+
+        function addCourtMarker(court) {
+            var latLng = { lat: court.latitude, lng: court.longitude };
+            var popUp = L.popup({ minWidth: 100, keepInView: true })
+                .setLatLng(latLng)
+                .setContent(court.name)
+            var mapOptions = {
+                icon: L.icon({
+                    ...defaultIconOptions,
+                    iconUrl: constants.images.mapMarkerCourt.url
+                })
+            };
+            var marker = L.marker([latLng.lat, latLng.lng], mapOptions).addTo(dbm.map);
+            marker.bindPopup(popUp);
         }
 
         /**
@@ -80,6 +126,12 @@
             });
         }
 
+        function addMarker(latLng) {
+            var marker = mapService.addMarker(latLng, dbm.map);
+            _markers.push(marker);
+            return marker;
+        }
+
         function resetMarkers(markers) {
             angular.forEach(_markers, function (marker) {
                 dbm.map.removeLayer(marker);
@@ -89,7 +141,7 @@
         }
 
         function addSearchControl() {
-            
+
             const addressSearchControl = L.control.addressSearch(settingsService.geoapifyKey, {
                 position: 'topleft',
 
