@@ -95,6 +95,7 @@
                                     <input type="text"
                                            name="txtName"
                                            ng-model="src.searchInput.name"
+                                           ng-model-options="{debounce: 500}"
                                            ng-change="src.filterCourts()"
                                            class="form-control"
                                            required
@@ -110,9 +111,7 @@
                               settings="{initialItemCount: 30, previewOnItemClick: true}"
                               wrap-items="true"></drbbly-Courtlist>
             <div class="map-container"
-                 ng-if="src.mapApiKey"
-                 ng-show="src.resultView === 'map'"
-                 map-lazy-load="{{'https://maps.google.com/maps/api/js?key=' + src.mapApiKey}}">
+                 ng-show="src.resultView === 'map'">
                 <drbbly-map style="height: 100%;"
                             options="src.mapOptions"
                             on-map-ready="src.onMapReady"

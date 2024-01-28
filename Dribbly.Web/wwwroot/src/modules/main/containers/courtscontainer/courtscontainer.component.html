@@ -23,6 +23,12 @@
             </div>
         </section>
     </div>
+    <div class="container-fluid">
+        <section class="mt-3">
+            <drbbly-map options="dcc.mapOptions"
+                        on-map-ready="dcc.onMapReady"></drbbly-map>
+        </section>
+    </div>
     <div class="container">
         <section drbbly-overlay="dcc.courtsListOverlay" class="pt-3 featured-courts">
             <h4 class="drbbly-header">{{::'app.FeaturedCourts' | i18n}}</h4>

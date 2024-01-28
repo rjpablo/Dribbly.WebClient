@@ -29,9 +29,7 @@
             src.filteredCourts = [];
             src.mapOptions = {
                 id: 'court-search-map',
-                zoom: 5,
-                disableDefaultUI: false,
-                streetViewControl: false
+                zoom: 5
             };
             src.isBusy = true;
             src.isFiltersCollapsed = false;
@@ -61,10 +59,8 @@
                     src.allCourts = result;
                     src.filteredCourts = result;
                     sortCourts(src.sortOptions[0]); // sort by dateAdded by default
-
-
                     updateCourtsList(result);
-                    goToCurrentPosition();
+                    //goToCurrentPosition();
                 })
                 .catch(function (error) {
                     drbblyCommonService.handleError(error);
@@ -120,13 +116,17 @@
         }
 
         function setCourtMarkers(courts) {
-            angular.forEach(courts, function (court) {
-                var marker = mapService.addMarker({ lat: court.latitude, lng: court.longitude }, src.map, false);
-                _markers.push(marker);
-                google.maps.event.addListener(marker, 'click', function () {
-                    previewCourt(court);
-                });
-            });
+            src.map.resetMarkers([]);
+            courts.forEach(court => {
+                src.map.addCourtMarker(court);
+            })
+            //angular.forEach(courts, function (court) {
+            //    var marker = mapService.addMarker({ lat: court.latitude, lng: court.longitude }, src.map, false);
+            //    _markers.push(marker);
+            //    google.maps.event.addListener(marker, 'click', function () {
+            //        previewCourt(court);
+            //    });
+            //});
         }
 
         function clearMarkers() {

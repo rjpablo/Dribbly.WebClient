@@ -26,7 +26,7 @@
                 height: '300px'
             };
             if (dlp.initialPosition) {
-                dlp.mapOptions.center = { lat: dlp.initialPosition.latitude, lng: dlp.initialPosition.longitude };
+                dlp.mapOptions.center = { lat: dlp.initialPosition.lat, lng: dlp.initialPosition.lng };
             }
             dlp.searchOptions = {
                 onPlaceChanged: dlp.onPlaceChanged,

@@ -1,0 +1,22 @@
+﻿<div class="photo-container mb-1"
+     ui-sref="main.courrt.home({username: pli.court.username})">
+    <!--<img ng-src="{{pli.court.primaryPhoto? pli.court.primaryPhoto.url : $root.constants.images.defaultCourtLogo.url}}"
+         class="w-100" />-->
+    <drbbly-image image-url="{{pli.court.primaryPhoto? pli.court.primaryPhoto.url : $root.constants.images.defaultCourtLogo.url}}"></drbbly-image>
+</div>
+<a ui-sref="main.court.home({id: pli.court.id})"
+   class="text-line-2 text-center text-capitalize court-name">
+    {{pli.court.name}}
+</a>
+<div class="additional-details">
+    <div class="text-secondary text-center">
+        <small ng-if="pli.court.heightInches">{{pli.court.heightInches | height}}</small>
+        <small ng-if="pli.court.position">{{('app.PlayerPositionEnum.' + pli.court.position) | i18n}}</small>
+    </div>
+    <div ng-show="pli.court.city"
+         title="{{pli.court.city.name}}"
+         class="text-center text-secondary text-line-1">
+        <small><i class="fa fa-map-marker"></i></small>
+        <small>{{pli.court.city.name}}</small>
+    </div>
+</div>

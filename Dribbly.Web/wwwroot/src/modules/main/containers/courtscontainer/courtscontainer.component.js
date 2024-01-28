@@ -17,17 +17,27 @@
     function controllerFunc(drbblyCourtsService, $element, drbblyToolbarService, drbblyCourtshelperService,
         drbblyOverlayService, $timeout, $state, modalService, constants) {
         var dcc = this;
+        var _map;
 
         dcc.$onInit = function () {
             dcc.app.updatePageDetails({
                 title: 'Courts',
                 description: 'Find the perfect spot for your next match, whether you\'re searching for public Basketball courts or facilities available for rent.'
             });
+            dcc.mapOptions = {
+                id: 'courts-page-map',
+                zoom: 5,
+                height: '500px'
+            };
             $element.addClass('drbbly-courts-container');
             dcc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             setInitialCarouselSettings();
             loadCourts();
             $timeout(setToolbarItems, 100); //using timetout to wait for toolbar to initialized
+        };
+
+        dcc.onMapReady = function (map) {
+            _map = map;
         };
 
         function loadCourts() {
@@ -38,7 +48,13 @@
                     $timeout(function () {
                         dcc.carouselSettings.enabled = true;
                         dcc.courtsListOverlay.setToReady();
-                    }, 300);
+                    }, 300)
+                    if (_map) {
+                        _map.resetMarkers([]);
+                        data.forEach(court => {
+                            _map.addCourtMarker(court);
+                        })
+                    }
                 })
                 .catch(dcc.courtsListOverlay.setToError);
         }

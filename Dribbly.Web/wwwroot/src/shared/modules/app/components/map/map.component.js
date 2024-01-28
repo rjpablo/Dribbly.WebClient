@@ -99,13 +99,13 @@
                 var el = popUp.getElement();
                 angular.element(el.querySelector('.leaflet-popup-content')).addClass('m-1');
             });
+            _markers.push(marker);
         }
 
         function addCourtMarker(court) {
             var latLng = { lat: court.latitude, lng: court.longitude };
-            var popUp = L.popup({ minWidth: 100, keepInView: true })
-                .setLatLng(latLng)
-                .setContent(court.name)
+            var popUp = L.popup({ minWidth: 190, keepInView: true })
+                .setLatLng(latLng);
             var mapOptions = {
                 icon: L.icon({
                     ...defaultIconOptions,
@@ -114,6 +114,16 @@
             };
             var marker = L.marker([latLng.lat, latLng.lng], mapOptions).addTo(dbm.map);
             marker.bindPopup(popUp);
+            marker.on('popupopen', e => {
+                var popupScope = $scope.$new()
+                popupScope.court = court;
+                popupScope.onClick = account => alert(account.name);
+                var popupContent = $compile('<drbbly-courtinfocard court="court"></drbbly-courtinfocard>')(popupScope);
+                popUp.setContent(popupContent[0]);
+                var el = popUp.getElement();
+                angular.element(el.querySelector('.leaflet-popup-content')).addClass('m-1');
+            });
+            _markers.push(marker);
         }
 
         /**

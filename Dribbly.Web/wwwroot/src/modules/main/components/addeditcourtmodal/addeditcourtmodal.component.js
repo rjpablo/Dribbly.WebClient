@@ -28,10 +28,8 @@
                 aec.fullMobileNumber = aec.tempCourt.contact && aec.tempCourt.contact.number;
                 if (aec.tempCourt.latitude || aec.tempCourt.longitude) {
                     aec.initialPosition = {
-                        latLng: {
-                            lat: aec.tempCourt.latitude,
-                            lng: aec.tempCourt.longitude
-                        }
+                        lat: aec.tempCourt.latitude,
+                        lng: aec.tempCourt.longitude
                     };
                 }
             }

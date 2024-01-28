@@ -42,7 +42,7 @@
                 isDefault: true
             },
             defaultCourtLogo: {
-                url: 'src/images/default_images/court_default_1.png',
+                url: 'src/images/default_images/court_default.png',
                 isDefault: true
             },
             defaultGroupLogo: {
