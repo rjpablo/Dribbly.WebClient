@@ -66,6 +66,7 @@
                 addMarkers,
                 addCourtMarker,
                 addPlayerMarker,
+                addPopup,
                 resetMarkers,
                 panTo
             }
@@ -189,7 +190,8 @@
                 mapTypeControl: true,
                 mapTypeControlOptions: {
                     position: google.maps.ControlPosition.LEFT_BOTTOM
-                }
+                },
+                zoomControl: false
             };
         }
 
@@ -205,7 +207,14 @@
             if (dbm.onMapClicked) {
                 dbm.onMapClicked({ latLng: e.latlng });
             }
+            if (dbm.options.canAddCourt) {
+
+            }
         };
+
+        function addPopup(popup){
+            return popup.openOn(dbm.map);
+        }
 
         function resetMarker(geometry) {
             if (dbm.selectionMarker) { //delete marker if existing

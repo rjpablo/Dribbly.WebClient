@@ -23,7 +23,7 @@
                 id: 'location-picker-map',
                 allowSearch: true,
                 zoomControl: false,
-                height: '300px'
+                height: '500px'
             };
             if (dlp.initialPosition) {
                 dlp.mapOptions.center = { lat: dlp.initialPosition.lat, lng: dlp.initialPosition.lng };

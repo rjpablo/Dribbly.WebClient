@@ -13,11 +13,11 @@
         });
 
     controllerFunc.$inject = ['drbblyTeamsService', 'drbblyToolbarService', '$state', 'drbblyAccountsService',
-        'drbblyOverlayService', '$timeout', 'drbblyTournamentsService', 'drbblyCarouselhelperService',
-        'drbblyCourtsService', 'authService', 'drbblyTeamshelperService', 'modalService', 'constants'];
+        'drbblyOverlayService', '$timeout', 'drbblyTournamentsService', 'drbblyCarouselhelperService', 'drbblyCourtsService',
+        'authService', 'drbblyTeamshelperService', 'modalService', 'constants', '$scope', '$compile', 'drbblyCourtshelperService'];
     function controllerFunc(drbblyTeamsService, drbblyToolbarService, $state, drbblyAccountsService,
         drbblyOverlayService, $timeout, drbblyTournamentsService, drbblyCarouselhelperService, drbblyCourtsService,
-        authService, drbblyTeamshelperService, modalService, constants) {
+        authService, drbblyTeamshelperService, modalService, constants, $scope, $compile, drbblyCourtshelperService) {
         var dhc = this;
         var _map;
         var _mapReadyTasks = [];
@@ -50,7 +50,9 @@
             dhc.mapOptions = {
                 id: 'home-page-map',
                 zoom: 5,
-                height: '500px'
+                height: '500px',
+                allowSearch: true,
+                worldCopyJump: true
             };
 
             dhc.postsOptions = {
@@ -67,6 +69,33 @@
             _mapReadyTasks.forEach(t => t());
             _mapReadyTasks.length = 0;
         };
+
+        dhc.onMapClicked = (e) => {
+            var popupScope = $scope.$new()
+            popupScope.onClick = () => {
+                addCourt(e.latLng);
+            };
+            var popupContent = $compile(`
+                <div class="d-flex flex-column">
+                    <button class="btn btn-sm btn-primary mb-1" ng-click="onClick()">Add a court here</button>
+                </div>`
+            )(popupScope);
+
+            var popup = L.popup({ minWidth: 50 })
+                .setLatLng(e.latLng)
+                .setContent(popupContent[0]);
+            _map.addPopup(popup);
+        }
+
+        function addCourt(options) {
+            var tempCourt = { latitude: options.lat, longitude: options.lng };
+            drbblyCourtshelperService.registerCourt({ court: tempCourt })
+                .then(function (court) {
+                    if (court) {
+                        $state.go('main.court.details', { id: court.id });
+                    }
+                });
+        }
 
         function loadAllPlayers() {
             var input = {

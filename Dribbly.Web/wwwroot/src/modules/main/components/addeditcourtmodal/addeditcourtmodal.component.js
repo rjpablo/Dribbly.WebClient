@@ -26,15 +26,16 @@
             if (aec.options.isEdit) {
                 aec.tempCourt.isManaged = Boolean(aec.tempCourt.contactId);
                 aec.fullMobileNumber = aec.tempCourt.contact && aec.tempCourt.contact.number;
-                if (aec.tempCourt.latitude || aec.tempCourt.longitude) {
-                    aec.initialPosition = {
-                        lat: aec.tempCourt.latitude,
-                        lng: aec.tempCourt.longitude
-                    };
-                }
             }
             else {
                 aec.tempCourt.isFreeToPlay = true;
+            }
+
+            if (aec.tempCourt.latitude || aec.tempCourt.longitude) {
+                aec.initialPosition = {
+                    lat: aec.tempCourt.latitude,
+                    lng: aec.tempCourt.longitude
+                };
             }
 
             aec.context.setOnInterrupt(aec.onInterrupt);

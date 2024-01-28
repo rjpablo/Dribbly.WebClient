@@ -5,11 +5,11 @@
         .service('drbblyCourtshelperService', ['modalService', 'authService', 'mapService',
             function (modalService, authService, mapService) {
 
-                function registerCourt() {
+                function registerCourt(data) {
                     return authService.checkAuthenticationThen(function () {
                         return modalService.show({
                             view: '<drbbly-addeditcourtmodal></drbbly-addeditcourtmodal>',
-                            model: {}
+                            model: data
                         });
                     });
                 }
