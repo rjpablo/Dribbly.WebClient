@@ -50,9 +50,6 @@
                 }).addTo(dbm.map);
 
                 dbm.map.on('click', dbm._mapClicked);
-                dbm.map.on('zoom', e => {
-                    console.log('zoomed to ' + dbm.map.getZoom());
-                });
 
                 if (dbm.onMapReady) {
                     dbm.onMapReady(_widget);

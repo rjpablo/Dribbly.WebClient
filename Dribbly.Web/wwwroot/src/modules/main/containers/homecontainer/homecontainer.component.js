@@ -20,6 +20,7 @@
         authService, drbblyTeamshelperService, modalService, constants) {
         var dhc = this;
         var _map;
+        var _mapReadyTasks = [];
 
         dhc.$onInit = function () {
             dhc.app.updatePageDetails({
@@ -63,6 +64,8 @@
 
         dhc.onMapReady = function (map) {
             _map = map;
+            _mapReadyTasks.forEach(t => t());
+            _mapReadyTasks.length = 0;
         };
 
         function loadAllPlayers() {
@@ -72,11 +75,19 @@
             };
             drbblyAccountsService.getPlayers(input)
                 .then(data => {
-                    data.forEach(player => {
-                        if (player.latitude && player.longitude) {
-                            _map.addPlayerMarker(player);
-                        }
-                    })
+                    function mapPlayers() {
+                        data.forEach(player => {
+                            if (player.latitude && player.longitude) {
+                                _map.addPlayerMarker(player);
+                            }
+                        })
+                    }
+                    if (_map) {
+                        mapPlayers();
+                    }
+                    else {
+                        _mapReadyTasks.push(mapPlayers);
+                    }
                 });
         }
 
@@ -225,9 +236,17 @@
             drbblyCourtsService.getAllCourts()
                 .then(function (data) {
                     dhc.courts = data;
-                    data.forEach(court => {
-                        _map.addCourtMarker(court);
-                    })
+                    function mapCourts() {
+                        dhc.courts.forEach(court => {
+                            _map.addCourtMarker(court);
+                        });
+                    }
+                    if (_map) {
+                        mapCourts();
+                    }
+                    else {
+                        _mapReadyTasks.push(mapCourts);
+                    }
                     $timeout(function () {
                         dhc.courtsCarouselSettings.enabled = true;
                         dhc.courtsListOverlay.setToReady();
