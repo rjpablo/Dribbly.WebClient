@@ -15,3 +15,15 @@
                    toolbar="dmc.app.toolbar"></drbbly-footer>
 </div>
 <drbbly-chat ng-hide="dmc.app.chatIsHidden"></drbbly-chat>
+<div class="container position-sticky"
+     style="bottom: 0; z-index: 2000"
+     ng-if="!$root.auth.isAuthenticated">
+    <div class="row bg-black border border-dark">
+        <div class="col-12">
+            <div class="p-3 d-flex justify-content-center text-white align-items-center">
+                <button class="btn btn-primary bt-lg" ui-sref="auth.signUp()">Join Now</button>&nbsp;or&nbsp;
+                <button class="btn btn-secondary" ui-sref="auth.login()">Log In</button>
+            </div>
+        </div>
+    </div>
+</div>
