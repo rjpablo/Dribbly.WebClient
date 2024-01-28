@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿<div class="container" hidden>
     <section class="features-carousel mb-5 mx-n3">
         <div class="slick-slider"
              ng-class="{'slick-dotted': dhc.featuresCarouselSettings.dots}">
@@ -26,6 +26,14 @@
             </slick>
         </div>
     </section>
+</div>
+<div class="container-fluid">
+    <section class="mt-3">
+        <drbbly-map options="dhc.mapOptions"
+                    on-map-ready="dhc.onMapReady"></drbbly-map>
+    </section>
+</div>
+<div class="container">
     <section drbbly-overlay="dhc.newPlayersOverlay" class="pt-3 new-players mb-5">
         <div class="section-header">
             <h5 class="drbbly-header">New Players</h5>

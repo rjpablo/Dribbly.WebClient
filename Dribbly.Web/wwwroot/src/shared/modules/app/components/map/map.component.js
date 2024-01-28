@@ -94,7 +94,7 @@
                 var popupScope = $scope.$new()
                 popupScope.account = account;
                 popupScope.onClick = account => alert(account.name);
-                var popupContent = $compile('<drbbly-playerinfocard player="account"></drbbly-playerinfocard>')(popupScope);
+                var popupContent = $compile('<drbbly-playerinfocard style="max-width: 100%" player="account"></drbbly-playerinfocard>')(popupScope);
                 popUp.setContent(popupContent[0]);
                 var el = popUp.getElement();
                 angular.element(el.querySelector('.leaflet-popup-content')).addClass('m-1');

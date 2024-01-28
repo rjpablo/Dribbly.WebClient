@@ -1,7 +1,7 @@
 ﻿<div class="photo-container"
      ui-sref="main.account.home({username: pli.player.username})">
     <img ng-src="{{pli.player.profilePhoto? pli.player.profilePhoto.url : 'src/images/default_images/default_profile_photo.jpg'}}"
-         class="w-100" />
+         class="w-100 mb-1" />
     <a ui-sref="main.account.home({username: pli.player.username})"
        class="text-line-2 text-center text-capitalize player-name">
         {{pli.player.name}}

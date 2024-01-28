@@ -19,6 +19,7 @@
         drbblyOverlayService, $timeout, drbblyTournamentsService, drbblyCarouselhelperService, drbblyCourtsService,
         authService, drbblyTeamshelperService, modalService, constants) {
         var dhc = this;
+        var _map;
 
         dhc.$onInit = function () {
             dhc.app.updatePageDetails({
@@ -38,11 +39,18 @@
             drbblyToolbarService.setItems([]);
             showFeatures();
 
+            loadCourts();
+            loadAllPlayers()
             loadNewPlayers();
             loadTopPlayers();
             loadTournaments();
-            loadCourts();
             loadTeams();
+
+            dhc.mapOptions = {
+                id: 'home-page-map',
+                zoom: 5,
+                height: '500px'
+            };
 
             dhc.postsOptions = {
                 postedOnType: constants.enums.entityTypeEnum.Account,
@@ -52,6 +60,25 @@
             }
             dhc.app.mainDataLoaded();
         };
+
+        dhc.onMapReady = function (map) {
+            _map = map;
+        };
+
+        function loadAllPlayers() {
+            var input = {
+                sortBy: constants.enums.getPlayersSortByEnum.DateJoined,
+                sortDirection: constants.enums.sortDirection.Descending
+            };
+            drbblyAccountsService.getPlayers(input)
+                .then(data => {
+                    data.forEach(player => {
+                        if (player.latitude && player.longitude) {
+                            _map.addPlayerMarker(player);
+                        }
+                    })
+                });
+        }
 
         function loadNewPlayers() {
             dhc.newPlayersOverlay.setToBusy();
@@ -198,6 +225,9 @@
             drbblyCourtsService.getAllCourts()
                 .then(function (data) {
                     dhc.courts = data;
+                    data.forEach(court => {
+                        _map.addCourtMarker(court);
+                    })
                     $timeout(function () {
                         dhc.courtsCarouselSettings.enabled = true;
                         dhc.courtsListOverlay.setToReady();
