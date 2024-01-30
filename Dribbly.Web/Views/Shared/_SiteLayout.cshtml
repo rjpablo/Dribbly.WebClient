@@ -210,8 +210,26 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossorigin="" />          
+          crossorigin="" />
     <link rel="stylesheet" href="https://unpkg.com/@@geoapify/leaflet-address-search-plugin@@^1/dist/L.Control.GeoapifyAddressSearch.min.css" />
+    <style>
+        #site-loader .loader-icon {
+            animation-name: spin;
+            animation-duration: 5000ms;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @@keyframes spin {
+            from {
+                transform: rotate(360deg);
+            }
+
+            to {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
 </head>
 <body ng-controller="appController as app">
     <script src="https://accounts.google.com/gsi/client" async></script>
@@ -260,7 +278,32 @@
 
     <partial name="_CookieConsentPartial" />
     @RenderBody()
-
+    <div id="site-loader" style="position: absolute; height: 100%; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <svg class="loader-icon" fill="white" height="80" width="80" viewBox="0 0 488 488">
+            <g>
+                <g>
+                    <path d="M457.835,126.465c0,0,0,0,0-0.1c-0.9-1.7-1.9-3.3-2.8-5C388.222,6.654,241.896-33.45,126.476,30.156c0,0-0.1,0-0.1,0.1
+			c-0.1,0-0.1,0.1-0.2,0.1c-1.6,0.9-3.201,1.8-4.801,2.7C6.654,99.863-33.453,246.177,30.159,361.588v0.1c0,0,0,0.1,0.1,0.1
+			c0.9,1.6,1.8,3.2,2.701,4.8c32.706,56.205,85.515,96.409,148.626,113.111c20.904,5.5,42.107,8.301,63.111,8.301
+			c40.607,0,80.614-10.201,116.921-30.203c0,0,0.1,0,0.1-0.1l0.1-0.1c1.6-0.9,3.201-1.8,4.801-2.7
+			c55.71-32.403,95.617-84.508,112.62-146.714c0.1-0.3,0.2-0.6,0.3-1c0.1-0.3,0.1-0.5,0.2-0.8l0,0
+			C495.942,245.177,488.14,181.471,457.835,126.465z M309.909,30.056c50.609,15.501,95.817,48.905,125.322,97.309L316.91,192.472
+			C290.905,142.767,288.305,81.761,309.909,30.056z M290.405,24.856c-10.902,27.103-16.003,56.705-15.003,86.408
+			c1.1,31.903,9.402,63.106,24.004,90.809l-51.509,28.303L144.779,43.057C191.287,20.055,242.597,14.655,290.405,24.856z
+			 M127.276,52.758l103.118,187.318l-52.909,29.103c-16.403-25.502-38.607-47.605-64.711-64.206
+			c-24.904-15.801-52.909-26.403-81.615-30.903C47.262,125.165,80.168,81.561,127.276,52.758z M25.758,193.572
+			c54.91,7.801,103.919,39.004,134.124,85.308L43.061,343.186C19.457,295.382,14.456,242.576,25.758,193.572z M180.986,458.797
+			c-53.81-15.802-99.018-50.405-128.223-98.109l117.321-64.606C195.688,344.486,199.789,405.192,180.986,458.797z M200.489,463.598
+			c9.702-28.603,13.702-59.406,11.702-89.809c-2.1-31.003-10.602-61.006-24.604-87.408l52.409-28.803l103.118,187.218
+			C298.907,466.798,249.198,473.299,200.489,463.598z M360.618,435.195L257.599,247.977l52.209-28.703
+			c16.303,23.802,37.807,44.704,62.911,60.806c25.505,16.402,54.41,27.703,84.115,33.103
+			C440.332,364.288,406.626,407.092,360.618,435.195z M462.236,293.781c-55.11-9.401-104.219-40.104-134.824-84.308l117.521-64.606
+			C467.837,191.072,473.938,243.177,462.236,293.781z" />
+                </g>
+            </g>
+        </svg>
+        <span style="padding: 15px;">LOADING...</span>
+    </div>
 
     <environment include="Development">
         <script src="~/src/scripts/js-error-handler.js"></script>

@@ -11,6 +11,7 @@
         var app = this;
         var _adjustingSections;
         app.overlay = drbblyOverlayService.buildOverlay('busy');
+        $('#site-loader').hide();
 
         app.$onInit = async function () {
             app.authVerified = authService.isAuthVerified();

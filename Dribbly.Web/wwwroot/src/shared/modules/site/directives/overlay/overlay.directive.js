@@ -76,7 +76,7 @@
                         }
                         switch (ovl.overlay._status) {
                             case 'busy':
-                                ovl.iconBusy = getItem('busyIcon', 'fa fa-circle-o-notch fa-spin loader ' + iconSizeClass);
+                                ovl.iconBusy = getItem('busyIcon', 'fa loader ' + iconSizeClass);
                                 ovl.icon = 'ng-cloak';
                                 ovl.msg = getMessage('busyMsg', _busyMessage);
                                 break;
