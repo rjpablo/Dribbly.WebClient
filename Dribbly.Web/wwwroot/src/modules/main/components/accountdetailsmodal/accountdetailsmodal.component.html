@@ -80,6 +80,19 @@
                     <input name="txtLatitude" required hidden ng-model="adm.location.latitude" />
                     <input name="txtLongitude" required hidden ng-model="adm.location.longitude" />
                 </div>
+                <div class="form-group">
+                    <label class="text-secondary mr-2">Hide My Location</label>
+                    <div class="d-inline-block custom-control custom-switch">
+                        <input type="checkbox"
+                               id="swHideLocation"
+                               ng-model="adm.account.hideLocation"
+                               class="custom-control-input">
+                        <label class="custom-control-label" for="swHideLocation"></label>
+                    </div>
+                    <div ng-show="adm.account.hideLocation">
+                        <small><i class="fa fa-info-circle text-info"></i> Your profile will not appear in location searches.</small>
+                    </div>
+                </div>
                 <!--<div class="form-group">
                     <label>City:</label><br />
                     <div ng-show="adm.editingCity" class="d-flex align-items-center">

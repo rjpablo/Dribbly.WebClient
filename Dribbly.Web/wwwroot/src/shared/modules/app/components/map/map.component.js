@@ -89,11 +89,16 @@
             var marker = L.marker([latLng.lat, latLng.lng], mapOptions).addTo(dbm.map);
             marker.bindPopup(popUp);
             marker.on('popupopen', e => {
-                var popupScope = $scope.$new()
-                popupScope.account = account;
-                popupScope.onClick = account => alert(account.name);
-                var popupContent = $compile('<drbbly-playerinfocard style="max-width: 100%" player="account"></drbbly-playerinfocard>')(popupScope);
-                popUp.setContent(popupContent[0]);
+                if (account.hideLocation) {
+                    popUp.setContent('<div class="text-center">(Private User)</div>');
+                }
+                else {
+                    var popupScope = $scope.$new()
+                    popupScope.account = account;
+                    popupScope.onClick = account => alert(account.name);
+                    var popupContent = $compile('<drbbly-playerinfocard style="max-width: 100%" player="account"></drbbly-playerinfocard>')(popupScope);
+                    popUp.setContent(popupContent[0]);
+                }
                 var el = popUp.getElement();
                 angular.element(el.querySelector('.leaflet-popup-content')).addClass('m-1');
             });

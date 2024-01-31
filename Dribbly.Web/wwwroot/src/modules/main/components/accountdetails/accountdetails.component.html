@@ -48,9 +48,15 @@
                             <div class="col-8 text-line-1">
                                 <drbbly-map options="dad.mapOptions"
                                             on-map-ready="dad.onMapReady"
-                                            ng-if="dad.accountLatLng"></drbbly-map>
-                                <span ng-show="!dad.accountLatLng"
+                                            ng-if="(dad.isOwned || !dad.account.hideLocation) && dad.accountLatLng"></drbbly-map>
+                                <span ng-show="!dad.account.hideLocation && !dad.accountLatLng"
                                       class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                                <span ng-show="dad.account.hideLocation && !dad.isOwned"
+                                      class="text-muted">({{dad.account.firstName}} doesn't share his/her location)</span>
+                                <div ng-show="dad.accountLatLng && dad.isOwned">
+                                    <i class="fa fa-info-circle"></i>&nbsp;<span class="text-muted">Your location is {{dad.account.hideLocation?'not ':''}}visible to other users.</span>
+                                    <a class="btn btn-sm btn-link" ng-click="dad.edit()">Change</a>
+                                </div>
                             </div>
                             <!--<div class="col-4">
                                 <label class="text-secondary">City</label>

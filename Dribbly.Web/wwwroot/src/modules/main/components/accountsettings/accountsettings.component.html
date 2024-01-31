@@ -60,6 +60,19 @@
                                     <label class="custom-control-label" for="swKeepPrivate"></label>
                                 </div>
                             </div>
+                            <div class="col-12 col-sm-3">
+                                <label class="text-secondary">Hide My Location</label>
+                            </div>
+                            <div class="col-12 col-sm-9 d-flex">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox"
+                                           id="swHideLocation"
+                                           ng-model="das.account.hideLocation"
+                                           ng-change="das.hideLocationChanged()"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="swHideLocation"></label>
+                                </div>
+                            </div>
                             <!--<div class="col-12 col-sm-3">
                                 <label class="text-secondary">{{::'app.ShowMyBirthDate' | i18n}}</label>
                             </div>
