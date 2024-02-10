@@ -18,6 +18,7 @@
         drbblyOverlayService, $timeout, drbblyCarouselhelperService, constants, $q, $filter) {
         var dhc = this;
         var _map;
+        dhc.showTopPlayers = false;
 
         dhc.$onInit = function () {
             dhc.app.updatePageDetails({
@@ -26,8 +27,10 @@
             });
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
             dhc.newPlayersOverlay = drbblyOverlayService.buildOverlay();
+            dhc.featuredPlayersOverlay = drbblyOverlayService.buildOverlay();
             dhc.leadersOverlay = drbblyOverlayService.buildOverlay();
             dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();
+            dhc.featuredPlayerCarouselSettings = drbblyCarouselhelperService.buildSettings();
             drbblyToolbarService.setItems([]);
             dhc.mapOptions = {
                 id: 'players-page-map',
@@ -43,13 +46,32 @@
                 pageSize: 10,
                 page: dhc.newPlayersNextPageNumber
             };
-
-            loadTopPlayers();
+            
+            if (dhc.showTopPlayers) loadTopPlayers();
             loadLeaders();
+            loadFeaturedPlayers();
             dhc.loadNewPlayers();
             getMappedUsers();
             dhc.app.mainDataLoaded();
         };
+
+        function loadFeaturedPlayers() {
+            dhc.featuredPlayersOverlay.setToBusy();
+            var input = {
+                isFeatured: true
+            };
+            drbblyAccountsService.getPlayers(input)
+                .then(data => {
+                    dhc.featuredPlayers = data;
+                    $timeout(function () {
+                        dhc.featuredPlayerCarouselSettings.enabled = true;
+                        dhc.featuredPlayersOverlay.setToReady();
+                    }, 300);
+                })
+                .catch(e => {
+                    dhc.topPlayersOverlay.setToError();
+                });
+        }
 
         dhc.onMapReady = function (map) {
             _map = map;

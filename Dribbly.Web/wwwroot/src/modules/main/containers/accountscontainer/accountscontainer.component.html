@@ -15,7 +15,24 @@
             </div>
         </div>
     </section>
-    <section class="pt-3 top-players">
+    <section drbbly-overlay="dhc.featuredPlayersOverlay" class="pt-3 featured-players mb-5">
+        <div class="section-header">
+            <h5 class="drbbly-header">Featured Players</h5>
+            <a ui-sref="main.players"
+               class="ml-auto">See all</a>
+        </div>
+        <div class="slick-slider"
+             ng-class="{'slick-dotted': dhc.featuredPlayerCarouselSettings.dots}">
+            <slick settings="dhc.featuredPlayerCarouselSettings"
+                   class="dark-transparent-bg">
+                <div ng-repeat="player in dhc.featuredPlayers"
+                     class="px-3">
+                    <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
+                </div>
+            </slick>
+        </div>
+    </section>
+    <section class="pt-3 top-players" ng-if="dhc.showTopPlayers">
         <div class="">
             <h5 class="drbbly-header">Top Players</h5>
         </div>
