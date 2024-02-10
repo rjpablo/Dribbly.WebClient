@@ -21,6 +21,7 @@
         var dhc = this;
         var _map;
         var _mapReadyTasks = [];
+        dhc.showTopPlayers = false;
 
         dhc.$onInit = function () {
             dhc.app.updatePageDetails({
@@ -28,9 +29,10 @@
                 description: constants.site.description
             });
             dhc.topPlayersOverlay = drbblyOverlayService.buildOverlay();
-            dhc.newPlayersOverlay = drbblyOverlayService.buildOverlay();
+            dhc.featuredPlayersOverlay = drbblyOverlayService.buildOverlay();
+            dhc.featuredPlayersOverlay = drbblyOverlayService.buildOverlay();
             dhc.carouselSettings = drbblyCarouselhelperService.buildSettings();
-            dhc.newPlayerCarouselSettings = drbblyCarouselhelperService.buildSettings();
+            dhc.featuredPlayerCarouselSettings = drbblyCarouselhelperService.buildSettings();
             dhc.tournamentsOverlay = drbblyOverlayService.buildOverlay();
             dhc.tournamentsCarouselSettings = drbblyCarouselhelperService.buildSettings();
             dhc.teamsOverlay = drbblyOverlayService.buildOverlay();
@@ -41,9 +43,10 @@
             showFeatures();
 
             loadCourts();
-            loadAllPlayers()
+            loadAllPlayers();
+            loadFeaturedPlayers();
             loadNewPlayers();
-            loadTopPlayers();
+            if (dhc.showTopPlayers) loadTopPlayers();
             loadTournaments();
             loadTeams();
 
@@ -71,7 +74,7 @@
         };
 
         dhc.onMapClicked = (e) => {
-            var popupScope = $scope.$new()
+            var popupScope = $scope.$featured()
             popupScope.onClick = () => {
                 addCourt(e.latLng);
             };
@@ -127,8 +130,26 @@
                 });
         }
 
+        function loadFeaturedPlayers() {
+            dhc.featuredPlayersOverlay.setToBusy();
+            var input = {
+                isFeatured: true
+            };
+            drbblyAccountsService.getPlayers(input)
+                .then(data => {
+                    dhc.featuredPlayers = data;
+                    $timeout(function () {
+                        dhc.featuredPlayerCarouselSettings.enabled = true;
+                        dhc.featuredPlayersOverlay.setToReady();
+                    }, 300);
+                })
+                .catch(e => {
+                    dhc.topPlayersOverlay.setToError();
+                });
+        }
+
         function loadNewPlayers() {
-            dhc.newPlayersOverlay.setToBusy();
+            dhc.featuredPlayersOverlay.setToBusy();
             var input = {
                 sortBy: constants.enums.getPlayersSortByEnum.DateJoined,
                 sortDirection: constants.enums.sortDirection.Descending,
@@ -137,10 +158,10 @@
             };
             drbblyAccountsService.getPlayers(input)
                 .then(data => {
-                    dhc.newPlayers = data;
+                    dhc.featuredPlayers = data;
                     $timeout(function () {
-                        dhc.newPlayerCarouselSettings.enabled = true;
-                        dhc.newPlayersOverlay.setToReady();
+                        dhc.featuredPlayerCarouselSettings.enabled = true;
+                        dhc.featuredPlayersOverlay.setToReady();
                     }, 300);
                 })
                 .catch(e => {
