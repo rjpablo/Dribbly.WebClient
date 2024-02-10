@@ -12,7 +12,7 @@
                         return feet + '\' ' + inches + '"';
                     }
                     else {
-                        return i18nService.getString('app.Unspecified');
+                        return '';
                     }
                 };
 

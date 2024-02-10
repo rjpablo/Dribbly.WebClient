@@ -5,6 +5,16 @@
     <div class="stats">
         <table>
             <tr class="stat">
+                <td class="label" title="Height"></td>
+                <td class="value">{{pli.player.heightInches | height}}</td>
+            </tr>
+            <tr class="stat" ng-if="pli.player.position">
+                <td class="label" title="Points Per Game"></td>
+                <td class="value">
+                    <span ng-if="pli.player.position">{{('app.PlayerPositionEnum.' + pli.player.position) | i18n}}</span>
+                </td>
+            </tr>
+            <!--<tr class="stat">
                 <td class="label" title="Points Per Game">PPG</td>
                 <td class="value">{{pli.player.ppg | number : 1}}</td>
             </tr>
@@ -23,7 +33,7 @@
             <tr class="stat">
                 <td class="label" title="Games Played">GP</td>
                 <td class="value">{{pli.player.gp}}</td>
-            </tr>
+            </tr>-->
         </table>
     </div>
 </div>

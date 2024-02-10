@@ -19,27 +19,35 @@ drbbly-playerlistitem {
             right: 0;
             bottom: 0;
             background: linear-gradient(to right, rgba($black,0), rgba($black,0.6) 40%, rgba($black,0.9));
+            display: flex;
+            justify-content: end;
+            align-items: end;
+            max-width: 50%;
 
-            .stat {
-                .label {
-                    font-size: 0.7em;
-                    color: $gray-300;
-                    vertical-align: bottom;
-                    line-height: 1
-                }
+            table {
 
-                .value {
-                    color: $white;
-                    line-height: 1
+                .stat {
+                    .label {
+                        font-size: 0.7em;
+                        color: $gray-300;
+                        vertical-align: bottom;
+                        line-height: 1
+                    }
+
+                    .value {
+                        color: $white;
+                        line-height: 1;
+                        text-align: right;
+                    }
                 }
             }
         }
     }
 
-    .player-name{
+    .player-name {
         line-height: 1.2;
     }
-    
+
     .additional-details {
         font-size: 1rem;
         line-height: 1;
