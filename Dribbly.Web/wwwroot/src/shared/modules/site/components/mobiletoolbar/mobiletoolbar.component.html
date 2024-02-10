@@ -31,4 +31,13 @@
             </div>
         </div>
     </div>
+    <ul class="nav d-flex border-top mx-n3">
+        <li ng-repeat="item in mtb.navItems">
+            <a class="nav-link py-1"
+               ng-class="{'active': mtb.$state.current.name === item.targetState}"
+               ui-sref="{{::item.targetState}}">
+                <small class="d-inline menu-item-text">{{item.textKey | i18n}}</small>
+            </a>
+        </li>
+    </ul>
 </div>

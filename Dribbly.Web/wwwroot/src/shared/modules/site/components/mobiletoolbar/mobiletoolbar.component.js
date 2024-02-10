@@ -19,6 +19,7 @@
         drbblyToolbarService, modalService, drbblyTeamshelperService, drbblyCourtshelperService,
         drbblyGroupsService) {
         var mtb = this;
+        mtb.$state = $state;
 
         mtb.$onInit = function () {
             $element.addClass('mobile-toolbar');
@@ -41,6 +42,24 @@
         mtb.isAuthenticated = function () {
             return authService.authentication.isAuthenticated;
         };
+
+        mtb.navItems = [{
+            textKey: 'site.Home',
+            targetState: 'main.home',
+            icon: 'players'
+        }, {
+            textKey: 'site.Players',
+            targetState: 'main.players',
+            icon: 'players'
+        }, {
+            textKey: 'site.Courts',
+            targetState: 'main.courts',
+            icon: 'court-inclined'
+        }, {
+            textKey: 'site.Teams',
+            targetState: 'main.teams',
+            icon: 'players'
+        }];
 
         mtb.openCreateMenu = function () {
             var buttons = [{
