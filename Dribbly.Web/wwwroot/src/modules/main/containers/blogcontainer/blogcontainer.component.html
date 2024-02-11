@@ -1,0 +1,50 @@
+﻿<div class="container">
+    <div class="row pt-3">
+        <div class="col-12 col-md-9">
+            <div class="p-3 bg-white text-dark card">
+                <div drbbly-overlay="dpc.overlay">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <h1 class="text-dark m-0">{{dbc.blog.name}}</h1>
+                            <span class="text-secondary">{{dbc.blog.dateAdded | drbblydate : 'MMMM dd, yyyy'}}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <img ng-src="{{dbc.blog.iconUrl}}" class="w-100" />
+                        </div>
+                    </div>
+                    <div ng-repeat="part in dbc.contentParts">
+                        <div ng-bind-html="part"></div>
+                        <div class="mb-5">
+                            <!-- Ad -->
+                            <span class="d-block text-center">Advertisement</span>
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <drbbly-ad type="'square'"></drbbly-ad>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <drbbly-ad type="'square'"></drbbly-ad>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-lg-block">
+                                    <drbbly-ad type="'square'"></drbbly-ad>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-xl-block">
+                                    <drbbly-ad type="'square'"></drbbly-ad>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+</div>

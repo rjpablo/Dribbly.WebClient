@@ -217,6 +217,7 @@
                     'EntityTypeEnum.Tournament_6': 'Tournament',
                     'EntityTypeEnum.Group_7': 'Group',
                     'EntityTypeEnum.All_8': 'All',
+                    'EntityTypeEnum.Blog_9': 'Blog',
                     FeaturedCourts: 'Featured Courts',
                     Feet_Abbrev: 'ft.',
                     Female: 'Female',

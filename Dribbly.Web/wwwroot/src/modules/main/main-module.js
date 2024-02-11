@@ -444,6 +444,13 @@
             })
             // #endregion POST
 
+            // #region BLOGS
+            .state('main.blog', {
+                url: '/blog/:slug',
+                component: 'drbblyBlogcontainer'
+            })
+            // #endregion POST
+
             // #region PRIVACY POLICY
             .state('main.privacypolicy', {
                 params: {

@@ -74,6 +74,7 @@ namespace Dribbly.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Main}/{action=Index}/{id?}");
+
                 #region Account
                 routes.MapRoute(
                     name: "account",
@@ -81,6 +82,17 @@ namespace Dribbly.Web
                     defaults: new
                     {
                         controller = "Account",
+                        Action = "Index",
+                    });
+                #endregion
+
+                #region Blog
+                routes.MapRoute(
+                    name: "blog",
+                    template: "blog/{slug}",
+                    defaults: new
+                    {
+                        controller = "Blog",
                         Action = "Index",
                     });
                 #endregion
