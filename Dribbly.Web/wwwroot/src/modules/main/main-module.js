@@ -445,6 +445,11 @@
             // #endregion POST
 
             // #region BLOGS
+            .state('main.blogs', {
+                url: '/blogs',
+                component: 'drbblyBlogscontainer'
+            })
+
             .state('main.blog', {
                 url: '/blog/:slug',
                 component: 'drbblyBlogcontainer'

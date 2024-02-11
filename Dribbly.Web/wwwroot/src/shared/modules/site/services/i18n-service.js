@@ -12,6 +12,7 @@
                     AboutUs: 'About Us',
                     AccountDetails: 'Account Details',
                     AccountSettings: 'Account Settings',
+                    Blogs: 'Blogs',
                     Bookings: 'Bookings',
                     Cancel: 'Cancel',
                     Confirm: 'Confirm',

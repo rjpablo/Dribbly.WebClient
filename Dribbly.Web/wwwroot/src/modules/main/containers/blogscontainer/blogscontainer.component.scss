@@ -1,0 +1,16 @@
+﻿@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-blogscontainer {
+    .blog-listitem {
+        img {
+            width: 100%;
+            height: 15em;
+            object-fit: cover;
+
+            @include media-breakpoint-up(lg) {
+                height: 20em;
+            }
+        }
+    }
+}

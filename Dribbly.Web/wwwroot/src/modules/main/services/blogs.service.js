@@ -9,6 +9,9 @@
                 return {
                     getBlog: function (slug) {
                         return drbblyhttpService.get(api + slug);
+                    },
+                    getBlogs: function () {
+                        return drbblyhttpService.get(api);
                     }
                 };
             }]);

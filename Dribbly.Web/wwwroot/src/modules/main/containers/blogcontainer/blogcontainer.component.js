@@ -34,7 +34,7 @@
                             title: blog.name,
                             description: blog.content
                         });
-                        dbc.contentParts = dbc.blog.content.split('<drbbly-ad>');
+                        dbc.contentParts = dbc.blog.content.split('<!--<drbbly-slice>-->');
                     }
                     else {
                         dbc.app.updatePageDetails({

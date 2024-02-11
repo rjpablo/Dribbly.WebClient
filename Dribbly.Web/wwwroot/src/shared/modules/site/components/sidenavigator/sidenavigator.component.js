@@ -43,6 +43,10 @@
                 textKey: 'site.Teams',
                 targetState: 'main.teams',
                 icon: 'players'
+            }, {
+                textKey: 'site.Blogs',
+                targetState: 'main.blogs',
+                icon: 'players'
             }];
 
             _widget = {};

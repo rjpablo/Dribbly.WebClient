@@ -59,6 +59,10 @@
             textKey: 'site.Teams',
             targetState: 'main.teams',
             icon: 'players'
+        }, {
+            textKey: 'site.Blogs',
+            targetState: 'main.blogs',
+            icon: 'players'
         }];
 
         mtb.openCreateMenu = function () {

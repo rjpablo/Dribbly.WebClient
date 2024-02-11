@@ -33,6 +33,7 @@
                 createGroup(constants.enums.entityTypeEnum.Tournament, 'Tournaments'),
                 createGroup(constants.enums.entityTypeEnum.Group, 'Groups'),
                 createGroup(constants.enums.entityTypeEnum.Game, 'Games'),
+                createGroup(constants.enums.entityTypeEnum.Blog, 'Blogs'),
             ];
 
             gsm.context.setOnInterrupt(gsm.onInterrupt);

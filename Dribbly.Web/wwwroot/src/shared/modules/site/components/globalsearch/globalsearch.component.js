@@ -94,6 +94,9 @@
                 case constants.enums.entityTypeEnum.Account:
                     $state.go('main.account.home', { username: JSON.parse(item.additionalData).username });
                     break;
+                case constants.enums.entityTypeEnum.Blog:
+                    $state.go('main.blog', { slug: JSON.parse(item.additionalData).slug });
+                    break;
                 case constants.enums.entityTypeEnum.Game:
                     $state.go('main.game.details', { id: item.value });
                     break;

@@ -1,0 +1,48 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-9">
+            <h1 class="my-5">Blogs</h1>
+            <div class="card bg-white blog-listitem px-3 mb-5 border-0 overflow-hidden" ng-repeat="blog in dhc.blogs">
+                <div class="row">
+                    <div class="col-12 px-0">
+                        <img ng-src="{{blog.iconUrl}}" class="w-100" />
+                    </div>
+                    <div class="col-12 py-3">
+                        <h3 class="text-primary"><a ui-sref="main.blog({slug: blog.slug})" class="text-line-2">{{blog.name}}</a></h3>
+                        <div class="line-height-1 text-black">
+                            {{blog.dateAdded | drbblydate : 'MMM dd, yyyy'}}<br />
+                            <i class="fa fa-eye mr-1"></i>{{blog.visitCount}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="row blog-listitem mb-3 border border-dark bg-white" ng-repeat="blog in dhc.blogs">
+        <div class="col-5 px-0">
+            <img ng-src="{{blog.iconUrl}}" class="w-100" />
+        </div>
+        <div class="col-7">
+            <a ui-sref="main.blog({slug: blog.slug})" class="text-line-2"><h3 class="my-3">{{blog.name}}</h3></a>
+            <div>
+                {{blog.dateAdded | drbblydate : 'MMMM dd, yyyy'}}
+            </div>
+            <div>
+                <small class="text-secondary">Views: </small>{{blog.visitCount}}
+            </div>
+        </div>
+    </div>-->
+        </div>
+        <div class="col-12 col-lg-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!-- Ad -->
+        <span class="d-block text-center">Advertisement</span>
+        <drbbly-ad type="'horizontal'"></drbbly-ad>
+    </div>
+</div>
