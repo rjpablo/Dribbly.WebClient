@@ -194,6 +194,10 @@
             // #endregion TEAM
 
             // #region EVENTS
+            .state('main.events', {
+                url: '/events',
+                component: 'drbblyEventscontainer'
+            })
 
             .state('main.event', {
                 params: {
@@ -207,6 +211,11 @@
             .state('main.event.home', {
                 url: '',
                 component: 'drbblyEventhome'
+            })
+
+            .state('main.event.attendees', {
+                url: '/attendees/',
+                component: 'drbblyEventattendees'
             })
             // #endregion EVENTS
             // #region BOOKING

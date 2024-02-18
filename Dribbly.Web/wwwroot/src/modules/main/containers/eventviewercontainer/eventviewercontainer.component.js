@@ -83,6 +83,8 @@
                     gvc.event.dateAdded = new Date(drbblyDatetimeService.toUtcString(gvc.event.dateAdded));
                     gvc.event.startDate = new Date(drbblyDatetimeService.toUtcString(data.startDate));
                     gvc.event.logo = gvc.event.logo || constants.images.defaultEventLogo;
+                    gvc.event.currentAttendees = gvc.event.attendees.drbblyWhere(a => a.isApproved);
+                    gvc.event.joinRequests = gvc.event.attendees.drbblyWhere(a => !a.isApproved);
                     gvc.isAdmin = gvc.event.userRelationship.isAdmin;
                     gvc.app.mainDataLoaded();
                     gvc.shouldDisplayAsPublic = true; //TODO should be conditional
@@ -96,31 +98,9 @@
                 .then(function (result) {
                     gvc.event.userRelationship.hasJoinRequest = true;
                     gvc.isBusy = false;
+                    loadEvent();
                 })
                 .catch(function () {
-                    gvc.isBusy = false;
-                });
-        };
-
-        gvc.leaveEvent = function () {
-            gvc.isBusy = true;
-            return modalService.confirm({
-                msg1Raw: 'Leave Event?'
-            })
-                .then(function (result) {
-                    if (result) {
-                        return authService.checkAuthenticationThen(function () {
-                            return drbblyEvtService.leaveEvent(gvc.event.id)
-                                .then(function (result) {
-                                    gvc.userEventRelation = result;
-                                    gvc.isBusy = false;
-                                }, function () {
-                                    gvc.isBusy = false;
-                                });
-                        }, function () { gvc.isBusy = false; });
-                    }
-                })
-                .finally(function () {
                     gvc.isBusy = false;
                 });
         };
@@ -129,6 +109,7 @@
             gvc.isBusy = true;
             drbblyEvtService.cancelJoinRequest(gvc.event.id)
                 .then(function () {
+                    loadEvent();
                     gvc.event.userRelationship.hasJoinRequest = false;
                     gvc.isBusy = false;
                 }, function () {
@@ -145,7 +126,8 @@
                         gvc.isBusy = true;
                         drbblyEvtService.leaveEvent(gvc.event.id)
                             .then(function () {
-                                dad.event.userRelationship.isCurrentMember = false;
+                                loadEvent();
+                                gvc.event.userRelationship.isCurrentMember = false;
                             })
                             .catch(function (e) {
                                 drbblyCommonService.handleError(e);
@@ -218,7 +200,7 @@
                 },
                 {
                     textKey: 'app.Attendees',
-                    targetStateName: 'main.event.members',
+                    targetStateName: 'main.event.attendees',
                     targetStateParams: { id: _eventId },
                     action: function () {
                         $state.go(this.targetStateName, this.targetStateParams);

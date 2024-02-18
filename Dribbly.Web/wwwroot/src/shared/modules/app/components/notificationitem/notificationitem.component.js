@@ -50,6 +50,12 @@
                 case _notificationTypes.JoinTeamRequest:
                     dni.targetLink = $state.href('main.team.members', { id: dni.item.additionalInfo.teamId });
                     break;
+                case _notificationTypes.JoinEventRequestApproved:
+                    dni.targetLink = $state.href('main.event.home', { id: dni.item.additionalInfo.eventId });
+                    break;
+                case _notificationTypes.JoinEventRequest:
+                    dni.targetLink = $state.href('main.event.attendees', { id: dni.item.additionalInfo.eventId });
+                    break;
                 case _notificationTypes.JoinGroupRequestApproved:
                     dni.targetLink = $state.href('main.group.home', { id: dni.item.additionalInfo.groupId });
                 case _notificationTypes.JoinGroupRequest:

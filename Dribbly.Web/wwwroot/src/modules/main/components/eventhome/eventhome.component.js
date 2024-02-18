@@ -36,7 +36,7 @@
             ghc.overlay.setToBusy()
             ghc.isBusy = true
             ghc.app.updatePageDetails({
-                title: (ghc.event.name) + ' - Home',
+                title: (ghc.event.name),
                 image: ghc.event.iconUrl || constants.images.defaultEventLogo.url
             });
             ghc.postsOptions = {

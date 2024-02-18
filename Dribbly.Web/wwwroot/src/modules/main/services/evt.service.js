@@ -34,8 +34,8 @@
                     processJoinRequest: function (requestId, isApproved) {
                         return drbblyhttpService.post(api + `processJoinRequest/${requestId}/${isApproved}`);
                     },
-                    removeMember: function (eventId, accountId) {
-                        return drbblyhttpService.post(api + `removeMember/${eventId}/${accountId}`);
+                    removeAttendee: function (eventId, accountId) {
+                        return drbblyhttpService.post(api + `removeAttendee/${eventId}/${accountId}`);
                     },
                     updateEvent: function (input) {
                         return drbblyhttpService.post(api + 'updateEvent', input);

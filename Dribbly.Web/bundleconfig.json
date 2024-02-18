@@ -276,6 +276,8 @@
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
       "wwwroot/src/modules/main/components/addeventmodal/addeventmodal.component.js",
       "wwwroot/src/modules/main/components/eventhome/eventhome.component.js",
+      "wwwroot/src/modules/main/components/eventattendees/eventattendees.component.js",
+
       "wwwroot/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js",
       "wwwroot/src/modules/main/containers/courtschedulecontainer/courtschedulecontainer.component.js",
       "wwwroot/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.js",
@@ -478,6 +480,8 @@
       "wwwroot/src/modules/main/components/playersearch/playersearch.component.css",
       "wwwroot/src/modules/main/components/eventhome/eventhome.component.css",
       "wwwroot/src/modules/main/components/addeventmodal/addeventmodal.component.css",
+      "wwwroot/src/modules/main/components/eventattendees/eventattendees.component.css",
+
       "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.css",
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css",

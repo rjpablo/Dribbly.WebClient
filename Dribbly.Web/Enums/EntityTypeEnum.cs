@@ -10,6 +10,8 @@
         League = 5,
         Tournament = 6,
         Group = 7,
-        All = 8
+        All = 8,
+        Blog = 9,
+        Event = 10
     }
 }

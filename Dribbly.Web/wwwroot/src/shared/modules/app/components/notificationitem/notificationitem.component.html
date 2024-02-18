@@ -26,7 +26,9 @@
              dni.item.type === $root.constants.enums.notificationTypeEnum.AssignedAsTimekeeper ||
              dni.item.type === $root.constants.enums.notificationTypeEnum.JoinGroupRequest ||
              dni.item.type === $root.constants.enums.notificationTypeEnum.JoinGroupRequestApproved ||
-             dni.item.type === $root.constants.enums.notificationTypeEnum.PostReceivedReaction"
+             dni.item.type === $root.constants.enums.notificationTypeEnum.PostReceivedReaction ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinEventRequest ||
+             dni.item.type === $root.constants.enums.notificationTypeEnum.JoinEventRequestApproved"
              ng-bind-html="::dni.getTemplate(dni.item)">
         </div>
         <!--#endregion JoinTeamRequest-Related -->

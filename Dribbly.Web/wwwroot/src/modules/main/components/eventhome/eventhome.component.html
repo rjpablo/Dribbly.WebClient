@@ -12,7 +12,10 @@
                                 <table class="mb-3">
                                     <tr>
                                         <td class="text-center"><span class="text-muted"><i class="fa fa-users"></i></span></td>
-                                        <td class="pl-1"><span class="text-white">{{ghc.getAttendees(true)}} attendees, {{ghc.getAttendees(false)}} interested</span></td>
+                                        <td class="pl-1">
+                                            <span class="text-white">{{ghc.event.currentAttendees.length}} attendees</span>
+                                            <span ng-show="ghc.event.joinRequests.length > 0">, {{ghc.event.joinRequests.length}} interested</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center"><span class="text-muted"><i class="fa fa-map-marker"></i></span></td>
@@ -66,9 +69,24 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <!-- Ad -->
-            <span class="d-block text-center">Advertisement</span>
-            <drbbly-ad type="'horizontal'"></drbbly-ad>
+            <div class="mb-5">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                        <drbbly-ad type="'square'"></drbbly-ad>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                        <drbbly-ad type="'square'"></drbbly-ad>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-lg-block">
+                        <drbbly-ad type="'square'"></drbbly-ad>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-xl-block">
+                        <drbbly-ad type="'square'"></drbbly-ad>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

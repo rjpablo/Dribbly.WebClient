@@ -97,6 +97,26 @@ namespace Dribbly.Web
                     });
                 #endregion
 
+                #region Events              
+                routes.MapRoute(
+                    name: "event attendees",
+                    template: "event/{eventId}/attendees",
+                    defaults: new
+                    {
+                        controller = "Event",
+                        Action = "Attendees",
+                    });
+
+                routes.MapRoute(
+                    name: "event",
+                    template: "event/{eventId}",
+                    defaults: new
+                    {
+                        controller = "Event",
+                        Action = "Index",
+                    });
+                #endregion
+
                 #region Game
                 routes.MapRoute(
                     name: "court games",

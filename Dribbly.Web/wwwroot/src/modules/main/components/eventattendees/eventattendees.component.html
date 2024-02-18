@@ -1,0 +1,161 @@
+﻿<div class="container px-0 px-sm-3 mt-3">
+    <div class="row">
+        <div class="col-12 col-md-9">
+            <uib-tabset active="dad._activeTabIndex">
+                <!-- #region Events -->
+                <uib-tab index="1">
+                    <uib-tab-heading>
+                        Attendees
+                        <span class="badge badge-primary"
+                              ng-if="dad.event.currentAttendees.length">
+                            {{dad.event.currentAttendees.length}}
+                        </span>
+                    </uib-tab-heading>
+                    <div class="row pt-3 mb-5">
+                        <div ng-repeat="attendee in dad.event.currentAttendees"
+                             class="col-12 col-lg-6 attendee mb-1">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="photo-container">
+                                            <img class="avatar avatar-lg mr-2"
+                                                 ui-sref="main.account.home({username: attendee.account.username})"
+                                                 ng-src="{{attendee.iconUrl || $root.constants.images.defaultProfilePhoto.url}}" />
+                                        </div>
+                                        <div class="overflow-hidden flex-grow-1">
+                                            <h5 ui-sref="main.account.home({username: attendee.account.username})"
+                                                class="text-white attendee-name flex-grow-1 text-line-2"
+                                                title="{{attendee.name}}">
+                                                <small>{{attendee.name}}</small>
+                                            </h5>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="dropdown d-inline-block"
+                                                 ng-if="dad.event.userRelationship.isAdmin">
+                                                <button class="btn btn-dark btn-sm options dropdown-toggle no-caret"
+                                                        ng-disabled="attendee.isBusy"
+                                                        data-toggle="dropdown">
+                                                    <i ng-if="!attendee.isBusy" class="fa fa-ellipsis-h"></i>
+                                                    <i ng-if="attendee.isBusy" class="fa fa-circle-o-notch fa-spin"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <button class="dropdown-item btn btn-sm btn-secondary"
+                                                            ng-click="dad.removeAttendee(attendee)">
+                                                        Remove
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="dad.event.currentAttendees.length === 0"
+                             class="col-12 p-3 text-center bg-black text-white">
+                            There are no approved attendees yet
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-5">
+                                <!-- Ad -->
+                                <span class="d-block text-center">Advertisement</span>
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <drbbly-ad type="'square'"></drbbly-ad>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <drbbly-ad type="'square'"></drbbly-ad>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-lg-block">
+                                        <drbbly-ad type="'square'"></drbbly-ad>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-xl-block">
+                                        <drbbly-ad type="'square'"></drbbly-ad>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="2"
+                         ng-if="dad.event.userRelationship.isAdmin">
+                    <uib-tab-heading>
+                        Join Requests
+                        <span class="badge badge-primary"
+                              ng-if="dad.event.joinRequests.length">
+                            {{dad.event.joinRequests.length}}
+                        </span>
+                    </uib-tab-heading>
+                    <div class="row pt-3">
+                        <div ng-repeat="request in dad.event.joinRequests"
+                             class="col-12 col-lg-6 request mb-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="wrapper d-flex">
+                                        <div class="photo-container">
+                                            <img class="avatar avatar-lg mr-2"
+                                                 ui-sref="main.account.home({username: request.account.username})"
+                                                 ng-src="{{request.iconUrl || $root.constants.images.defaultProfilePhoto.url}}" />
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h5 ui-sref="main.account.home({username: request.account.username})"
+                                                class="text-white attendee-name flex-grow-1 text-line-2"
+                                                title="{{request.name}}">
+                                                <small>{{request.name}}</small>
+                                            </h5>
+                                            <div class="controls">
+                                                <button class="btn btn-primary btn-sm"
+                                                        ng-click="dad.processRequest(request, true)"
+                                                        ng-disabled="request.isBusy">
+                                                    Approve
+                                                </button>
+                                                <button class="btn btn-secondary btn-sm"
+                                                        ng-click="dad.processRequest(request, false)"
+                                                        ng-disabled="request.isBusy">
+                                                    Reject
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="dad.event.joinRequests.length === 0"
+                             class="col-12 p-3 text-center mb-5 bg-black text-white">
+                            There are no pending requests
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-5">
+                                <!-- Ad -->
+                                <span class="d-block text-center">Advertisement</span>
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <drbbly-ad type="'square'"></drbbly-ad>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <drbbly-ad type="'square'"></drbbly-ad>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-lg-block">
+                                        <drbbly-ad type="'square'"></drbbly-ad>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 d-none d-xl-block">
+                                        <drbbly-ad type="'square'"></drbbly-ad>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+        <div class="col-12 col-md-3 d-none d-md-block">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+</div>
