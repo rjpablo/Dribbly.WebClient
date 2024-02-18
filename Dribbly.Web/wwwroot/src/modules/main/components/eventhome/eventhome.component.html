@@ -1,0 +1,74 @@
+﻿<div class="container">
+    <div class="row py-3">
+        <div class="col-12 col-md-9">
+            <div class="row">
+                <div class="col-12">
+                    <div class="black-transparent-bg p-3 mb-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="drbbly-header">Details</h5>
+                            </div>
+                            <div class="col-12">
+                                <table class="mb-3">
+                                    <tr>
+                                        <td class="text-center"><span class="text-muted"><i class="fa fa-users"></i></span></td>
+                                        <td class="pl-1"><span class="text-white">{{ghc.getAttendees(true)}} attendees, {{ghc.getAttendees(false)}} interested</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"><span class="text-muted"><i class="fa fa-map-marker"></i></span></td>
+                                        <td class="pl-1">
+                                            <a ui-sref="main.court.home({id: ghc.event.court.id})" class="m-0 p-0 pb-1">
+                                                <span>
+                                                    {{ghc.event.court.name}}
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"><span class="text-muted"><i class="fa fa-calendar"></i></span></td>
+                                        <td class="pl-1">
+                                            <span>
+                                                Created on
+                                                <drbbly-date date="ghc.event.dateAdded" format="dd-MMM-yy"></drbbly-date>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"><span class="text-muted"><i class="fa fa-user"></i></span></td>
+                                        <td class="pl-1">
+                                            <span>
+                                                Added by
+                                                <drbbly-entitystub entity="ghc.event.addedBy"></drbbly-entitystub>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <drbbly-text value="ghc.event.description"
+                                             clip-at="150"></drbbly-text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <drbbly-posts options="ghc.postsOptions"
+                                  ng-if="ghc.postsOptions"></drbbly-posts>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <!-- Ad -->
+            <span class="d-block text-center">Advertisement</span>
+            <drbbly-ad type="'horizontal'"></drbbly-ad>
+        </div>
+    </div>
+</div>

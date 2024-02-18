@@ -193,6 +193,22 @@
             })
             // #endregion TEAM
 
+            // #region EVENTS
+
+            .state('main.event', {
+                params: {
+                    id: ''
+                },
+                abstract: true,
+                url: '/event/:id',
+                component: 'drbblyEventviewercontainer'
+            })
+
+            .state('main.event.home', {
+                url: '',
+                component: 'drbblyEventhome'
+            })
+            // #endregion EVENTS
             // #region BOOKING
 
             .state('main.booking', {

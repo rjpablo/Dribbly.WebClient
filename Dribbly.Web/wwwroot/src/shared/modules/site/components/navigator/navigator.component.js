@@ -10,9 +10,9 @@
         });
 
     controllerFn.$inject = ['authService', '$state', 'drbblyTeamshelperService', 'settingsService', 'modalService',
-        'drbblyCourtshelperService', 'drbblyGameshelperService', 'drbblyGroupsService'];
+        'drbblyCourtshelperService', 'drbblyGameshelperService', 'drbblyGroupsService', 'drbblyEventshelperService'];
     function controllerFn(authService, $state, drbblyTeamshelperService, settingsService, modalService,
-        drbblyCourtshelperService, drbblyGameshelperService, drbblyGroupsService) {
+        drbblyCourtshelperService, drbblyGameshelperService, drbblyGroupsService, drbblyEventshelperService) {
         var nav = this;
 
         nav.$onInit = function () {
@@ -48,6 +48,15 @@
                 .then(function (group) {
                     if (group) {
                         $state.go('main.group.home', { id: group.id });
+                    }
+                });
+        };
+
+        nav.addEvent = function () {
+            drbblyEventshelperService.openEventDetailsModal({})
+                .then(function (event) {
+                    if (event) {
+                        $state.go('main.event.home', { id: event.id });
                     }
                 });
         };

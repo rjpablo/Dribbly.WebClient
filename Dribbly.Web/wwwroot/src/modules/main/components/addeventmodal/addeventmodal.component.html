@@ -1,0 +1,91 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">{{agm.model.isEdit? 'Update Event': 'Create Event'}}</h3>
+</div>
+<div class="modal-body">
+    <div drbbly-overlay="agm.overlay">
+        <form name="agm.frmEventDetails"
+              novalidate
+              ng-if="agm.saveModel">
+            <fieldset ng-disabled="agm.isBusy">
+                <div class="form-group">
+                    <label for="txtTitle">Title*:</label>
+                    <input type="text"
+                           name="txtTitle"
+                           ng-model="agm.saveModel.title"
+                           class="form-control"
+                           ng-class="{'is-invalid': agm.frmEventDetails.txtTitle.$touched && agm.frmEventDetails.txtTitle.$invalid}"
+                           minlength="3"
+                           required
+                           maxlength="50" />
+                    <drbbly-charcount length="agm.saveModel.title.length"
+                                      class=""
+                                      max-length="50"
+                                      warning-threshold="5"></drbbly-charcount>
+                    <div ng-show="agm.frmEventDetails.txtTitle.$error.minlength" class="invalid-feedback">
+                        {{::'site.Error_Common_Minlength' | i18n:{length: 3} }}
+                    </div>
+                    <div ng-show="agm.frmEventDetails.txtTitle.$error.required" class="invalid-feedback">
+                        {{::'site.Error_Common_RequiredField' | i18n }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="start">{{::'app.Schedule' | i18n}}*:</label>
+                    <drbbly-datetimepicker ng-model="agm.saveModel.startDate"
+                                           name="dtpStart"
+                                           sid="start"
+                                           value-changed="agm.startChanged"
+                                           required
+                                           options="agm.startDateOptions"></drbbly-datetimepicker>
+                    <!-- This is a remedy for the error message to display properly.
+                    It requires a sibling with classes .is-invalid and .form-control for it to appear,
+                    but adding those classes to the datetime picker does not yield a very good result-->
+                    <span class="form-control d-none"
+                          ng-class="{'is-invalid': agm.frmEventDetails.dtpStart.$touched && agm.frmEventDetails.dtpStart.$invalid}"></span>
+                    <div ng-show="agm.frmEventDetails.dtpStart.$error.required" class="invalid-feedback">
+                        {{::'site.Required' | i18n}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="typCourt">{{::'app.Court' | i18n}}*:</label>
+                    <drbbly-typeahead selected-items="agm.selectedCourts"
+                                      config="agm.typeAheadConfig"
+                                      required
+                                      name="typCourt"
+                                      ng-model="agm.saveModel.courtId"
+                                      class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="txtDetails">Additional Details:</label>
+                    <textarea type="text"
+                              name="txtDetails"
+                              ng-model="agm.saveModel.description"
+                              class="form-control"
+                              ng-class="{'is-invalid': agm.frmEventDetails.txtDetails.$touched && agm.frmEventDetails.txtDetails.$invalid}"
+                              minlength="0"
+                              required
+                              rows="4"
+                              maxlength="500" />
+                    <drbbly-charcount length="agm.saveModel.description.length"
+                                      class=""
+                                      max-length="500"
+                                      warning-threshold="15"></drbbly-charcount>
+                    <div ng-show="agm.frmEventDetails.txtDetails.$error.required" class="invalid-feedback">
+                        {{::'site.Error_Common_RequiredField' | i18n }}
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            i18n="site.Submit"
+            ng-disabled="agm.isBusy || agm.frmEventDetails.$invalid || (agm.model.isEdit && agm.frmEventDetails.$pristine)"
+            type="submit"
+            ng-click="agm.submit()"></button>
+    <button i18n="site.Cancel"
+            class="btn btn-secondary"
+            type="button"
+            ng-click="agm.cancel()"
+            ng-disabled="agm.isBusy"></button>
+</div>

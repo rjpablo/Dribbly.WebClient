@@ -100,6 +100,9 @@
                 case constants.enums.entityTypeEnum.Game:
                     $state.go('main.game.details', { id: item.value });
                     break;
+                case constants.enums.entityTypeEnum.Event:
+                    $state.go('main.event.home', { id: item.value });
+                    break;
             }
             gcc.items = [];
         }

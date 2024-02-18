@@ -116,7 +116,7 @@
                         model: {
                             post: {
                                 postedOnType: drl.options.postedOnType,
-                                postedOnId: authService.authentication.accountId,
+                                postedOnId: drl.options.postedOnId,
                                 addedByType: constants.enums.entityType.Account //TODO temporary. Set this on the modal
                             }
                         }

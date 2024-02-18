@@ -1,0 +1,135 @@
+﻿<div class="app-container">
+    <div drbbly-overlay="gvc.overlay">
+        <div id="app-header"
+             class="container info-summary px-0 px-sm-3">
+            <div class="row app-header">
+                <div class="col-12">
+                    <div class="p-3 border-left border-right gradent-gray-black-v-bg">
+                        <div class="row">
+                            <div class="col-12 col-md-auto logo-container">
+                                <img ng-src="{{gvc.event.logo.url}}"
+                                     class="logo d-block mx-auto"
+                                     ng-click="gvc.onLogoClick()" />
+                                <button id="btn-replace-photo"
+                                        class="d-none"
+                                        ngf-select="gvc.onLogoSelect($file)"
+                                        ng-model="gvc.logo"
+                                        ngf-pattern="'image/*'"
+                                        ngf-accept="'image/*'"
+                                        ngf-max-size="20MB"></button>
+                            </div>
+                            <div class="col-12 col-md-auto pl-md-0 d-flex align-items-center flex-column align-items-md-start">
+                                <h3 class="text-center text-md-left text-white mb-0 text-line-2">{{gvc.event.title}}</h3>
+                                <div class="mb-1 d-flex flex-column align-items-center align-items-md-start">
+                                    <div>
+                                        <span>{{gvc.event.startDate | date : 'dd-MMM-yy HH:mm a'}}</span>
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-map-marker mr-1"></i>
+                                        <a ui-sref="main.court.home({id: gvc.event.court.id})" class="m-0 p-0 pb-1">
+                                            <span>
+                                                {{gvc.event.court.name}}
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex" ng-hide="gvc.isBusy">
+                                        <div ng-show="!gvc.userEventRelation.hasPendingJoinRequest && !dad.event.userRelationship.isAdmin"
+                                             class="d-inline-block">
+                                            <button type="button"
+                                                    class="btn btn-primary mb-3"
+                                                    ng-show="!gvc.event.userRelationship.isCurrentMember && !gvc.event.userRelationship.hasJoinRequest"
+                                                    ng-click="gvc.joinEvent()">
+                                                {{::'app.Join' | i18n}}
+                                            </button>
+                                        </div>
+                                        <button type="button"
+                                                class="btn btn-secondary mb-3"
+                                                ng-show="gvc.event.userRelationship.hasJoinRequest"
+                                                ng-click="gvc.cancelJoinRequest()">
+                                            {{::'app.CancelRequestToJoin' | i18n}}
+                                        </button>
+                                        <button class="btn btn-facebook mb-3 ml-1"
+                                                ng-click="gvc.fbShare()">
+                                            <i class="fa fa-facebook"></i> Share
+                                        </button>
+                                        <div class="dropdown d-inline-block ml-1"
+                                             ng-if="gvc.isAdmin || gvc.event.userRelationship.isCurrentMember">
+                                            <button type="button"
+                                                    class="btn btn-secondary dropdown-toggle-split"
+                                                    data-toggle="dropdown">
+                                                <span class="fa fa-ellipsis-h"></span>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <button class="dropdown-item btn btn-secondary"
+                                                        ng-if="gvc.isAdmin"
+                                                        ng-click="gvc.update()">
+                                                    Update Details
+                                                </button>
+                                                <button class="dropdown-item btn btn-secondary"
+                                                        ng-show="gvc.event.userRelationship.isCurrentMember && !dad.event.userRelationship.isAdmin"
+                                                        ng-click="gvc.leaveEvent()">
+                                                    Leave Event
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span ng-hide="!gvc.isBusy"
+                                          class="btn btn-secondary"><i class="fa fa-circle-o-notch fa-spin"></i></span>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-image-gallery images="[gvc.event.logo]"
+                          methods="gvc.methods"
+                          thumbnails="false"
+                          inline="false"
+                          bubbles="true"
+                          bubble-size="30"
+                          img-bubbles="true"
+                          bg-close="true"
+                          piracy="true"
+                          img-anim="fadeup"
+                          on-delete="gvc.onDeletePhoto(img, cb)"></ng-image-gallery>
+        <div id="app-navigation-container"
+             class="container px-0 px-sm-3">
+            <div class="row">
+                <div class="col-12">
+                    <drbbly-appnavigator nav-items="gvc.app.toolbar._navItems"
+                                         app="gvc.app"
+                                         class="border-left border-right"></drbbly-appnavigator>
+                </div>
+            </div>
+        </div>
+        <div id="app-body"
+             class="app-body">
+            <div class="container"
+                 ng-if="gvc.event && gvc.event.entityStatus !== $root.constants.enums.entityStatus.Active">
+                <div class="card">
+                    <div class="card-body text-center">
+                        {{::'app.ContentNotCurrentlyAvailable' | i18n}}
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="gvc.event && gvc.event.entityStatus === $root.constants.enums.entityStatus.Active">
+                <ui-view event="gvc.event"
+                         app="gvc.app"
+                         on-update="gvc.onEventUpdate"
+                         ng-if="gvc.shouldDisplayAsPublic"></ui-view>
+                <div class="container"
+                     ng-if="!gvc.shouldDisplayAsPublic">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            {{::'app.ThisEventIsPrivate' | i18n}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

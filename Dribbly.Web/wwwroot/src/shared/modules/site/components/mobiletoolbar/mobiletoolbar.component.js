@@ -14,10 +14,10 @@
 
     controllerFn.$inject = ['$element', 'authService', '$state', '$window', '$rootScope', 'drbblyGameshelperService',
         'drbblyToolbarService', 'modalService', 'drbblyTeamshelperService', 'drbblyCourtshelperService',
-        'drbblyGroupsService'];
+        'drbblyGroupsService', 'drbblyEventshelperService'];
     function controllerFn($element, authService, $state, $window, $rootScope, drbblyGameshelperService,
         drbblyToolbarService, modalService, drbblyTeamshelperService, drbblyCourtshelperService,
-        drbblyGroupsService) {
+        drbblyGroupsService, drbblyEventshelperService) {
         var mtb = this;
         mtb.$state = $state;
 
@@ -87,7 +87,11 @@
                 text: 'Create a Group',
                 action: addGroup,
                 class: 'btn btn-secondary'
-            },];
+            }, {
+                text: 'Create a Event',
+                action: addEvent,
+                class: 'btn btn-secondary'
+            }];
 
             modalService.showMenuModal({
                 model: {
@@ -121,6 +125,15 @@
                 .then(function (group) {
                     if (group) {
                         $state.go('main.group.home', { id: group.id });
+                    }
+                });
+        };
+
+        function addEvent() {
+            drbblyEventshelperService.openEventDetailsModal({})
+                .then(function (event) {
+                    if (event) {
+                        $state.go('main.event.home', { id: event.id });
                     }
                 });
         };

@@ -1,0 +1,22 @@
+﻿@import '../../../../custom/bootstrap/scss/_variables.scss';
+@import '../../../../lib/bootstrap/_breakpoints.scss';
+
+drbbly-eventviewercontainer {
+    .info-summary {
+        & > div.black-transparent-bg {
+            border: 1px solid $gray-700;
+            background: linear-gradient(180deg, $gray-700 0%, $black 62%);
+        }
+
+        .logo-container {
+            img {
+                width: 120px;
+                height: 120px;
+            }
+
+            drbbly-positionbadge {
+                z-index: 2;
+            }
+        }
+    }
+}

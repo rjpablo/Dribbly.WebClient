@@ -129,8 +129,10 @@ form {
     INPUTS
 ***************/
 
-input + drbbly-charcount {
-    float: right;
+input, textarea {
+    & + drbbly-charcount {
+        float: right;
+    }
 }
 
 /***************
@@ -290,7 +292,7 @@ img.avatar {
     font-style: normal;
 }
 
-.text-black{
+.text-black {
     color: $black;
 }
 
@@ -342,7 +344,7 @@ img.avatar {
     font-weight: 600;
 }
 
-.bg-white{
+.bg-white {
     h1, h2, h3, h4, h5, h6 {
         color: $black;
     }

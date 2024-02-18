@@ -1,7 +1,4 @@
-//NOTE: minifiacation of main.js fails. Run 'bundle' gulp task from Task Runner Explorer to minify it
-
 [
-  // scripts
   {
     "outputFileName": "wwwroot/dist/js/scripts.js",
     "inputFiles": [
@@ -113,7 +110,6 @@
       "wwwroot/src/modules/auth/services/authInterceptor-service.js",
       "wwwroot/src/modules/auth/filters/permission-filter.js",
       "wwwroot/src/modules/auth/auth-controller.js",
-
       "wwwroot/src/modules/auth/components/socialauth/socialauth.component.js",
       "wwwroot/src/modules/auth/components/loggedoutmenubar/loggedoutmenubar.component.js",
       "wwwroot/src/modules/auth/components/changepasswordmodal/changepasswordmodal.component.js",
@@ -131,14 +127,12 @@
       "wwwroot/src/shared/modules/app/app-module.js",
       "wwwroot/src/shared/modules/app/app-controller.js",
       "wwwroot/src/shared/modules/app/app-constants.js",
-
       "wwwroot/src/shared/modules/app/services/toolbar.service.js",
       "wwwroot/src/shared/modules/app/services/footer.service.js",
       "wwwroot/src/shared/modules/app/services/map.service.js",
       "wwwroot/src/shared/modules/app/services/file.service.js",
       "wwwroot/src/shared/modules/app/services/posts.service.js",
       "wwwroot/src/shared/modules/app/services/comments.service.js",
-
       "wwwroot/src/shared/modules/app/filters/height-filter.js",
       "wwwroot/src/shared/modules/app/filters/courts.filter.js",
       "wwwroot/src/shared/modules/app/filters/schedule-filter.js",
@@ -172,7 +166,8 @@
       "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.js",
       "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.js",
       "wwwroot/src/shared/modules/app/components/playerinfocard/playerinfocard.component.js",
-      "wwwroot/src/shared/modules/app/components/courtinfocard/courtinfocard.component.js"
+      "wwwroot/src/shared/modules/app/components/courtinfocard/courtinfocard.component.js",
+      "wwwroot/src/shared/modules/site/components/text/text.component.js"
     ]
   },
   {
@@ -198,7 +193,8 @@
       "wwwroot/src/modules/main/services/carouselhelper.service.js",
       "wwwroot/src/modules/main/services/group.service.js",
       "wwwroot/src/modules/main/services/blogs.service.js",
-
+      "wwwroot/src/modules/main/services/evt.service.js",
+      "wwwroot/src/modules/main/services/eventshelper.service.js",
       "wwwroot/src/modules/main/components/image/image.component.js",
       "wwwroot/src/modules/main/components/bookingdetailsmodal/bookingdetailsmodal.component.js",
       "wwwroot/src/modules/main/components/timegridevent/timegridevent.component.js",
@@ -278,7 +274,8 @@
       "wwwroot/src/modules/main/components/groupmembers/groupmembers.component.js",
       "wwwroot/src/modules/main/components/playersearch/playersearch.component.js",
       "wwwroot/src/modules/main/containers/homecontainer/homecontainer.component.js",
-
+      "wwwroot/src/modules/main/components/addeventmodal/addeventmodal.component.js",
+      "wwwroot/src/modules/main/components/eventhome/eventhome.component.js",
       "wwwroot/src/modules/main/containers/accountviewercontainer/accountviewercontainer.component.js",
       "wwwroot/src/modules/main/containers/courtschedulecontainer/courtschedulecontainer.component.js",
       "wwwroot/src/modules/main/containers/gameviewercontainer/gameviewercontainer.component.js",
@@ -292,10 +289,10 @@
       "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.js",
       "wwwroot/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.js",
       "wwwroot/src/modules/main/containers/blogcontainer/blogcontainer.component.js",
-      "wwwroot/src/modules/main/containers/blogscontainer/blogscontainer.component.js"
+      "wwwroot/src/modules/main/containers/blogscontainer/blogscontainer.component.js",
+      "wwwroot/src/modules/main/containers/eventviewercontainer/eventviewercontainer.component.js"
     ]
   },
-  // styles
   {
     "outputFileName": "wwwroot/dist/css/libraries.css",
     "inputFiles": [
@@ -389,7 +386,8 @@
       "wwwroot/src/shared/modules/app/components/gallerymodal/gallerymodal.component.css",
       "wwwroot/src/shared/modules/app/components/accountlistmodal/accountlistmodal.component.css",
       "wwwroot/src/shared/modules/app/components/playerinfocard/playerinfocard.component.css",
-      "wwwroot/src/shared/modules/app/components/courtinfocard/courtinfocard.component.css"
+      "wwwroot/src/shared/modules/app/components/courtinfocard/courtinfocard.component.css",
+      "wwwroot/src/shared/modules/site/components/text/text.component.css"
     ]
   },
   {
@@ -478,14 +476,16 @@
       "wwwroot/src/modules/main/components/addgroupmodal/addgroupmodal.component.css",
       "wwwroot/src/modules/main/components/groupmembers/groupmembers.component.css",
       "wwwroot/src/modules/main/components/playersearch/playersearch.component.css",
-
+      "wwwroot/src/modules/main/components/eventhome/eventhome.component.css",
+      "wwwroot/src/modules/main/components/addeventmodal/addeventmodal.component.css",
       "wwwroot/src/modules/main/containers/groupviewercontainer/groupviewercontainer.component.css",
       "wwwroot/src/modules/main/containers/accountscontainer/accountscontainer.component.css",
       "wwwroot/src/modules/main/containers/teamscontainer/teamscontainer.component.css",
       "wwwroot/src/modules/main/containers/privacypolicycontainer/privacypolicycontainer.component.css",
       "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.css",
       "wwwroot/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.css",
-      "wwwroot/src/modules/main/containers/blogscontainer/blogscontainer.component.css"
+      "wwwroot/src/modules/main/containers/blogscontainer/blogscontainer.component.css",
+      "wwwroot/src/modules/main/containers/eventviewercontainer/eventviewercontainer.component.css"
     ]
   }
 ]
