@@ -41,6 +41,7 @@
         var timestamp = Date.now();
         module.component = function (componentName, options) {
             var moduleName = module.name.replace('Module', '');
+            var serviceBase = window.location.protocol + "//" + window.location.host;
             //if registering a component... (vs. retrieving)
             if (arguments.length === 2) {
                 //override templateUrl
@@ -48,24 +49,24 @@
                     var trimmedComponentName = componentName.replace('drbbly', '').toLowerCase();
                     if (moduleName === 'main') {
                         if (trimmedComponentName.indexOf('container') > -1) {
-                            options.templateUrl = './src/modules/main/containers/' + trimmedComponentName + '/'
+                            options.templateUrl = serviceBase + '/src/modules/main/containers/' + trimmedComponentName + '/'
                                 + trimmedComponentName + '.component.html?v=' + timestamp;
                         }
                         else {
-                            options.templateUrl = './src/modules/main/components/' + trimmedComponentName + '/'
+                            options.templateUrl = serviceBase + '/src/modules/main/components/' + trimmedComponentName + '/'
                                 + trimmedComponentName + '.component.html?v=' + timestamp;
                         }
                     }
                     else if (moduleName === 'app') {
-                        options.templateUrl = './src/shared/modules/app/components/' + trimmedComponentName + '/'
+                        options.templateUrl = serviceBase + '/src/shared/modules/app/components/' + trimmedComponentName + '/'
                             + trimmedComponentName + '.component.html?v=' + timestamp;
                     }
                     else if (moduleName === 'site') {
-                        options.templateUrl = './src/shared/modules/site/components/' + trimmedComponentName + '/'
+                        options.templateUrl = serviceBase + '/src/shared/modules/site/components/' + trimmedComponentName + '/'
                             + trimmedComponentName + '.component.html?v=' + timestamp;
                     }
                     else if (moduleName === 'auth') {
-                        options.templateUrl = './src/modules/auth/components/' + trimmedComponentName + '/'
+                        options.templateUrl = serviceBase + '/src/modules/auth/components/' + trimmedComponentName + '/'
                             + trimmedComponentName + '.component.html?v=' + timestamp;
                     }
                 }
