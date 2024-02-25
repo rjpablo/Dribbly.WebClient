@@ -54,6 +54,7 @@
                     dni.targetLink = $state.href('main.event.home', { id: dni.item.additionalInfo.eventId });
                     break;
                 case _notificationTypes.JoinEventRequest:
+                case _notificationTypes.JoinedEvent:
                     dni.targetLink = $state.href('main.event.attendees', { id: dni.item.additionalInfo.eventId });
                     break;
                 case _notificationTypes.JoinGroupRequestApproved:
