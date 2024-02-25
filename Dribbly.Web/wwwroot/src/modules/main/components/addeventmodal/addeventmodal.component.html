@@ -54,6 +54,30 @@
                                       ng-model="agm.saveModel.courtId"
                                       class="form-control" />
                 </div>
+                <div class="form-group d-flex">
+                    <div class="d-inline-block custom-control custom-switch">
+                        <input type="checkbox"
+                               id="swHideLocation"
+                               ng-model="agm.saveModel.requireApproval"
+                               class="custom-control-input">
+                        <label class="custom-control-label" for="swHideLocation"></label>
+                    </div>
+                    <div>
+                        <label class="text-secondary mr-2 mb-0">
+                            Require my approval when joining
+                        </label>
+                        <div>
+                            <small>
+                                <i class="fa fa-info-circle text-info"></i>
+                                {{
+                        agm.saveModel.requireApproval?
+                        'You will need to manually approve requests to join the event.' :
+                        'Requests to join the event will be automatically approved.'
+                                }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="txtDetails">Additional Details:</label>
                     <textarea type="text"
@@ -62,7 +86,6 @@
                               class="form-control"
                               ng-class="{'is-invalid': agm.frmEventDetails.txtDetails.$touched && agm.frmEventDetails.txtDetails.$invalid}"
                               minlength="0"
-                              required
                               rows="4"
                               maxlength="500" />
                     <drbbly-charcount length="agm.saveModel.description.length"
@@ -70,7 +93,9 @@
                                       max-length="500"
                                       warning-threshold="15"></drbbly-charcount>
                     <div ng-show="agm.frmEventDetails.txtDetails.$error.required" class="invalid-feedback">
-                        {{::'site.Error_Common_RequiredField' | i18n }}
+                        {{
+::'site.Error_Common_RequiredField' | i18n
+                        }}
                     </div>
                 </div>
             </fieldset>

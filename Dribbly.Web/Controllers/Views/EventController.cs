@@ -25,7 +25,7 @@ namespace Dribbly.Web.Controllers
             var evt = await _http.Get<IndexedEntityModel>
                 ($"{_clienSettings.ServiceBase}/api/shared/getIndexedEntity/{EntityTypeEnum.Event}/{evtId}");
             var vm = new MainViewModel(_clienSettings, string.Format(titleTemplate, evt.Name), evt.IconUrl);
-            vm.Description = string.Format(evt.Description, evt.Name);
+            vm.Description = evt.Description;
             return vm;
         }
 

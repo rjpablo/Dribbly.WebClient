@@ -44,6 +44,10 @@
                 targetState: 'main.teams',
                 icon: 'players'
             }, {
+                textKey: 'site.Events',
+                targetState: 'main.events',
+                icon: 'events'
+            }, {
                 textKey: 'site.Blogs',
                 targetState: 'main.blogs',
                 icon: 'players'

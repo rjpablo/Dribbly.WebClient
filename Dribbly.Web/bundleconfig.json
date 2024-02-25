@@ -292,7 +292,8 @@
       "wwwroot/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.js",
       "wwwroot/src/modules/main/containers/blogcontainer/blogcontainer.component.js",
       "wwwroot/src/modules/main/containers/blogscontainer/blogscontainer.component.js",
-      "wwwroot/src/modules/main/containers/eventviewercontainer/eventviewercontainer.component.js"
+      "wwwroot/src/modules/main/containers/eventviewercontainer/eventviewercontainer.component.js",
+      "wwwroot/src/modules/main/containers/eventscontainer/eventscontainer.component.js"
     ]
   },
   {
@@ -489,7 +490,8 @@
       "wwwroot/src/modules/main/containers/postcontainer/postcontainer.component.css",
       "wwwroot/src/modules/main/containers/playersearchcontainer/playersearchcontainer.component.css",
       "wwwroot/src/modules/main/containers/blogscontainer/blogscontainer.component.css",
-      "wwwroot/src/modules/main/containers/eventviewercontainer/eventviewercontainer.component.css"
+      "wwwroot/src/modules/main/containers/eventviewercontainer/eventviewercontainer.component.css",
+      "wwwroot/src/modules/main/containers/eventscontainer/eventscontainer.component.css"
     ]
   }
 ]

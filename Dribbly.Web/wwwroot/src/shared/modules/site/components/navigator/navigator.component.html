@@ -29,6 +29,14 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
+                   ng-class="{'active': nav.$state.current.name === 'main.events'}"
+                   ui-sref="main.events">
+                    <!--<span class="d-block d-sm-inline text-center drbbly-font games menu-item-icon"></span>-->
+                    <span class="d-block d-sm-inline menu-item-text">{{'site.Events' | i18n}}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
                    ng-class="{'active': nav.$state.current.name === 'main.blogs'}"
                    ui-sref="main.blogs">
                     <!--<span class="d-block d-sm-inline text-center drbbly-font games menu-item-icon"></span>-->

@@ -58,6 +58,7 @@
                     Error_PhoneVerification_CouldNotSend: 'We couldn\'t send the verification code. Please make sure that the number is correct and then try again.',
                     Error_PhoneVerification_IncorrectCode: 'The code that you entered was incorrect. Please try again.',
                     Error_PhoneVerification_NumberNeedsVerification: 'Contact no. needs to be verified',
+                    Events: 'Events',
                     FirstName: 'First Name',
                     Follow: 'Follow',
                     FollowerCountDisplay: '{count} Follower(s)',

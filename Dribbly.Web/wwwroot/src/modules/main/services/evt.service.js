@@ -16,6 +16,9 @@
                     getEventViewerData: function (eventId) {
                         return drbblyhttpService.get(api + 'getEventViewerData/' + eventId);
                     },
+                    getEvents: function (input) {
+                        return drbblyhttpService.post(api + 'getEvents/', input);
+                    },
                     joinEvent: function (eventId) {
                         return drbblyhttpService.post(api + 'joinEvent/' + eventId);
                     },

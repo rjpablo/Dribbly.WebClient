@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <ul class="nav d-flex border-top mx-n3">
+    <ul class="nav d-flex border-top mx-n3 flex-nowrap overflow-auto">
         <li ng-repeat="item in mtb.navItems">
             <a class="nav-link py-1"
                ng-class="{'active': mtb.$state.current.name === item.targetState}"

@@ -1,0 +1,73 @@
+﻿<div class="container">
+    <div class="row">
+        <main class="col-12 col-lg-9">
+            <div class="bg-black p-3 mb-3 border border-dark">
+                <h1 class="mb-0">Events</h1>
+            </div>
+            <div class="bg-black p-3 mb-5 border border-dark mt-3">
+                <h2>Upcoming Events</h2>
+                <div class="row mx-n1">
+                    <div class="col-12 col-md-6 col-lg-4 px-1 mb-3" ng-repeat="event in dhc.events">
+                        <div class="card event-listitem px-3 border-0 overflow-hidden">
+                            <div class="row">
+                                <div class="col-12 px-0 logo-container">
+                                    <img ng-src="{{event.logo.url}}" class="w-100" />
+                                </div>
+                                <div class="col-12 p-1 bg-white details d-flex flex-column">
+                                    <div class="flex-grow-1">
+                                        <div class="line-height-1 text-black">
+                                            <small class="font-weight-semibold text-uppercase">{{event.startDate | drbblydate : 'MMM dd, yyyy'}}</small>
+                                        </div>
+                                        <h5 class="text-primary text-line-2 m-0"><a ui-sref="main.event.home({id: event.id})" class="text-line-2">{{event.name}}</a></h5>
+                                        <small class="text-secondary">
+                                            <i class="fa fa-map-marker mr-1"></i>
+                                            <a ui-sref="main.court.home({id: event.court.id})" class="m-0 p-0 pb-1">
+                                                <span>
+                                                    {{event.court.name}}
+                                                </span>
+                                            </a>
+                                        </small><br />
+                                        <small class="text-secondary" ng-if="event.attendees.length > 0">{{event.attendees.length}} going</small>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-block btn-primary"
+                                                ng-disabled="event.isBusy"
+                                                ng-if="!event.userRelationship.isCurrentMember && !event.userRelationship.hasJoinRequest"
+                                                ng-click="dhc.joinEvent(event)">
+                                            Join
+                                        </button>
+                                        <button class="btn btn-sm btn-block btn-secondary"
+                                                ng-disabled="event.isBusy"
+                                                ng-if="event.userRelationship.hasJoinRequest"
+                                                ng-click="dhc.cancelRequest(event)">
+                                            Cancel Request
+                                        </button>
+                                        <button class="btn btn-sm btn-block btn-secondary"
+                                                ng-disabled="event.isBusy"
+                                                ng-if="event.userRelationship.isCurrentMember"
+                                                ng-click="dhc.withdraw(event)">
+                                            Withdraw
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <aside class="col-12 col-lg-3">
+            <div class="sticky-top">
+                <!-- Ad -->
+                <span class="d-block text-center">Advertisement</span>
+                <drbbly-ad type="'square'"></drbbly-ad>
+                <drbbly-ad type="'square'"></drbbly-ad>
+            </div>
+        </aside>
+    </div>
+    <div>
+        <!-- Ad -->
+        <span class="d-block text-center">Advertisement</span>
+        <drbbly-ad type="'horizontal'"></drbbly-ad>
+    </div>
+</div>

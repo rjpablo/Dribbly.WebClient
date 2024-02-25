@@ -30,6 +30,10 @@
                     agm.selectedCourts = [{ text: agm.saveModel.court.name, value: agm.saveModel.court.id }];
                 }
             }
+            else {
+                agm.saveModel.requireApproval = true;
+                agm.saveModel.startDate = agm.saveModel.startDate || new Date();
+            }
 
             $timeout(() => {
                 $element.find('[name="txtTitle"]').focus();
