@@ -3,12 +3,15 @@
 drbbly-playerlistitem {
     display: inline-block;
     position: relative;
+    height: 100px;
+    width: 100%;
 
     .photo-container {
         position: relative;
         width: 100%;
+        height: 100%;
 
-        & > img {
+        & > drbbly-image {
             border-radius: 0.5rem;
         }
 

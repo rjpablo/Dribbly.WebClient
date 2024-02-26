@@ -1,6 +1,17 @@
-﻿<div class="background"
+﻿<div class="loader d-flex justify-content-center align-items-center h-100 w-100 bg-secondary text-center flex-column"
+     ng-if="dic.status === 'loading'">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+    <small>loading image</small>
+</div>
+<div class="loader d-flex justify-content-center align-items-center h-100 w-100 text-danger text-center flex-column"
+     ng-if="dic.status === 'error'">
+    <i class="fa fa-exclamation-triangle"></i>
+    <small>image failed to load</small>
+</div>
+<div class="background"
      ng-click="dic.onClick()"
      ng-style="{'background-image': 'url(' + dic.imageUrl + ')'}">
 </div>
 <img class="image"
+     ng-show="dic.status === 'ready'"
      ng-src="{{dic.imageUrl}}" />

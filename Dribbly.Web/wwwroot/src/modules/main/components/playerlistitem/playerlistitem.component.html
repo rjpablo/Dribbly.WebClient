@@ -1,7 +1,6 @@
 ﻿<div class="photo-container"
      ui-sref="main.account.home({username: pli.player.username})">
-    <img ng-src="{{pli.player.profilePhoto? pli.player.profilePhoto.url : 'src/images/default_images/default_profile_photo.jpg'}}"
-         class="w-100" />
+    <drbbly-image image-url="{{pli.player.profilePhoto? pli.player.profilePhoto.url : 'src/images/default_images/default_profile_photo.jpg'}}"></drbbly-image>
     <div class="stats" hidden>
         <table>
             <tr class="stat">
