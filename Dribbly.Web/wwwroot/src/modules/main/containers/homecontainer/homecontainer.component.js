@@ -291,7 +291,7 @@
 
         function loadCourts() {
             dhc.courtsListOverlay.setToBusy();
-            drbblyCourtsService.getAllCourts()
+            drbblyCourtsService.getFeaturedCourts()
                 .then(function (data) {
                     dhc.courts = data;
                     function mapCourts() {

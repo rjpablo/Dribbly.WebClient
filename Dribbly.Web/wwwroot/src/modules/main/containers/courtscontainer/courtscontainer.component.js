@@ -42,7 +42,7 @@
 
         function loadCourts() {
             dcc.courtsListOverlay.setToBusy();
-            drbblyCourtsService.getAllCourts()
+            drbblyCourtsService.getFeaturedCourts()
                 .then(function (data) {
                     dcc.courts = data;
                     $timeout(function () {

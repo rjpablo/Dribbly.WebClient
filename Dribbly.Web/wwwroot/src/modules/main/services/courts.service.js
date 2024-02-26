@@ -26,6 +26,10 @@
                     return drbblyhttpService.get(api + 'getCourtPhotos/' + id);
                 }
 
+                function getFeaturedCourts() {
+                    return drbblyhttpService.get(api + 'getFeaturedCourts');
+                }
+
                 function getReviews(id) {
                     return drbblyhttpService.get(api + 'getReviews/' + id);
                 }
@@ -105,6 +109,7 @@
                     getCourtBookings: getCourtBookings,
                     getCourtGames: getCourtGames,
                     getCourtPhotos: getCourtPhotos,
+                    getFeaturedCourts,
                     getReviews: getReviews,
                     getCourtVideos: getCourtVideos,
                     register: register,
