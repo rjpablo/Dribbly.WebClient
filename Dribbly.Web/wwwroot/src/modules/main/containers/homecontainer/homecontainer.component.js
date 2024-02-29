@@ -75,7 +75,7 @@
         };
 
         dhc.onMapClicked = (e) => {
-            var popupScope = $scope.$featured()
+            var popupScope = $scope.$new()
             popupScope.onClick = () => {
                 addCourt(e.latLng);
             };
