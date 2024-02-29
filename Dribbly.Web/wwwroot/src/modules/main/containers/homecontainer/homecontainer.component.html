@@ -55,19 +55,23 @@
             </slick>
         </div>
     </section>
-    <section drbbly-overlay="dhc.newPlayersOverlay" class="pt-3 new-players mb-5">
-        <div class="section-header">
-            <h5 class="drbbly-header">New Players</h5>
-            <a ui-sref="main.players"
+    <section drbbly-overlay="dhc.courtsListOverlay" class="pt-3 featured-courts mb-5">
+        <div class="section-header d-flex">
+            <h5 class="drbbly-header">
+                {{::'app.FeaturedCourts' | i18n}}
+            </h5>
+            <a ui-sref="main.courts"
                class="ml-auto">See all</a>
         </div>
         <div class="slick-slider"
-             ng-class="{'slick-dotted': dhc.newPlayerCarouselSettings.dots}">
-            <slick settings="dhc.newPlayerCarouselSettings"
+             ng-class="{'slick-dotted': dhc.courtsCarouselSettings.dots}">
+            <slick settings="dhc.courtsCarouselSettings"
                    class="dark-transparent-bg">
-                <div ng-repeat="player in dhc.newPlayers"
+                <div ng-repeat="court in dhc.courts"
                      class="px-1">
-                    <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
+                    <drbbly-courtlistitem class="w-100"
+                                          court="court"
+                                          on-click="dhc.featuredCourtClick"></drbbly-courtlistitem>
                 </div>
             </slick>
         </div>
@@ -135,27 +139,6 @@
                 <div ng-repeat="team in dhc.teams"
                      class="px-1">
                     <drbbly-teamlistitem team="team"></drbbly-teamlistitem>
-                </div>
-            </slick>
-        </div>
-    </section>
-    <section drbbly-overlay="dhc.courtsListOverlay" class="pt-3 featured-courts mb-5">
-        <div class="section-header d-flex">
-            <h5 class="drbbly-header">
-                {{::'app.FeaturedCourts' | i18n}}
-            </h5>
-            <a ui-sref="main.courts"
-               class="ml-auto">See all</a>
-        </div>
-        <div class="slick-slider"
-             ng-class="{'slick-dotted': dhc.courtsCarouselSettings.dots}">
-            <slick settings="dhc.courtsCarouselSettings"
-                   class="dark-transparent-bg">
-                <div ng-repeat="court in dhc.courts"
-                     class="px-1">
-                    <drbbly-courtlistitem class="w-100"
-                                          court="court"
-                                          on-click="dhc.featuredCourtClick"></drbbly-courtlistitem>
                 </div>
             </slick>
         </div>

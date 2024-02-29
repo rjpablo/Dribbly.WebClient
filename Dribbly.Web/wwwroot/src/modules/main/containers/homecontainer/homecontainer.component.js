@@ -45,6 +45,7 @@
             drbblyToolbarService.setItems([]);
             showFeatures();
 
+            loadFeaturedCourts();
             loadCourts();
             loadAllPlayers();
             loadFeaturedPlayers();
@@ -303,11 +304,10 @@
 
         function loadCourts() {
             dhc.courtsListOverlay.setToBusy();
-            drbblyCourtsService.getFeaturedCourts()
+            drbblyCourtsService.getAllCourts()
                 .then(function (data) {
-                    dhc.courts = data;
                     function mapCourts() {
-                        dhc.courts.forEach(court => {
+                        data.forEach(court => {
                             _map.addCourtMarker(court);
                         });
                     }
@@ -317,6 +317,19 @@
                     else {
                         _mapReadyTasks.push(mapCourts);
                     }
+                    $timeout(function () {
+                        dhc.courtsCarouselSettings.enabled = true;
+                        dhc.courtsListOverlay.setToReady();
+                    }, 300);
+                })
+                .catch(dhc.courtsListOverlay.setToError);
+        }
+
+        function loadFeaturedCourts() {
+            dhc.courtsListOverlay.setToBusy();
+            drbblyCourtsService.getFeaturedCourts()
+                .then(function (data) {
+                    dhc.courts = data;
                     $timeout(function () {
                         dhc.courtsCarouselSettings.enabled = true;
                         dhc.courtsListOverlay.setToReady();

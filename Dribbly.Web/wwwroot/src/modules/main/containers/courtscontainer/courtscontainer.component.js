@@ -32,6 +32,7 @@
             $element.addClass('drbbly-courts-container');
             dcc.courtsListOverlay = drbblyOverlayService.buildOverlay();
             setInitialCarouselSettings();
+            loadFeaturedCourts();
             loadCourts();
             $timeout(setToolbarItems, 100); //using timetout to wait for toolbar to initialized
         };
@@ -40,15 +41,22 @@
             _map = map;
         };
 
-        function loadCourts() {
+        function loadFeaturedCourts() {
             dcc.courtsListOverlay.setToBusy();
             drbblyCourtsService.getFeaturedCourts()
                 .then(function (data) {
-                    dcc.courts = data;
+                    dcc.featuredCourts = data;
                     $timeout(function () {
                         dcc.carouselSettings.enabled = true;
                         dcc.courtsListOverlay.setToReady();
                     }, 300)
+                })
+                .catch(dcc.courtsListOverlay.setToError);
+        }
+
+        function loadCourts() {
+            drbblyCourtsService.getAllCourts()
+                .then(function (data) {
                     if (_map) {
                         _map.resetMarkers([]);
                         data.forEach(court => {
@@ -56,7 +64,7 @@
                         })
                     }
                 })
-                .catch(dcc.courtsListOverlay.setToError);
+                .catch(() => { });
         }
 
         function setInitialCarouselSettings() {

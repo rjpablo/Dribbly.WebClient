@@ -37,7 +37,7 @@
             dhc.mapOptions = {
                 id: 'players-page-map',
                 zoom: 5,
-                height: '50vh'
+                height: '30vh'
             };
 
             dhc.newPlayers = [];
@@ -50,7 +50,7 @@
             };
 
             if (dhc.showTopPlayers) loadTopPlayers();
-            loadLeaders();
+            //loadLeaders();
             loadFeaturedPlayers();
             dhc.loadNewPlayers();
             getMappedUsers();
