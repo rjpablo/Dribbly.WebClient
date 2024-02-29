@@ -1,6 +1,6 @@
-﻿<div class="black-transparent-bg py-3 list-container row mx-0">
+﻿<div class="black-transparent-bg py-3 list-container row mx-n1">
     <drbbly-courtlistitem ng-repeat="court in dcl.displayedCourts track by court.id"
-                          ng-class="dcl._settings.wrapItems? 'col-6 col-sm-4 col-md-3 col-lg-2' : 'mx-3'"
+                          ng-class="dcl._settings.wrapItems? 'col-6 col-sm-4 col-md-3 col-lg-2 px-1' : 'mx-3'"
                           court="court"
                           on-click="dcl.onItemClick"></drbbly-courtlistitem>
     <div class="col-12">

@@ -49,7 +49,7 @@
             <slick settings="dhc.featuredPlayerCarouselSettings"
                    class="dark-transparent-bg">
                 <div ng-repeat="player in dhc.featuredPlayers track by player.accountId"
-                     class="px-3">
+                     class="px-1">
                     <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
                 </div>
             </slick>
@@ -66,7 +66,7 @@
             <slick settings="dhc.newPlayerCarouselSettings"
                    class="dark-transparent-bg">
                 <div ng-repeat="player in dhc.newPlayers"
-                     class="px-3">
+                     class="px-1">
                     <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
                 </div>
             </slick>
@@ -83,7 +83,7 @@
             <slick settings="dhc.carouselSettings"
                    class="dark-transparent-bg">
                 <div ng-repeat="player in dhc.topPlayers"
-                     class="px-3">
+                     class="px-1">
                     <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
                 </div>
             </slick>
@@ -98,7 +98,7 @@
             <slick settings="dhc.tournamentsCarouselSettings"
                    class="dark-transparent-bg">
                 <div ng-repeat="tournament in dhc.tournaments"
-                     class="px-3">
+                     class="px-1">
                     <drbbly-tournamentlistitem tournament="tournament"></drbbly-tournamentlistitem>
                 </div>
             </slick>
@@ -133,7 +133,7 @@
             <slick settings="dhc.teamsCarouselSettings"
                    class="dark-transparent-bg">
                 <div ng-repeat="team in dhc.teams"
-                     class="px-3">
+                     class="px-1">
                     <drbbly-teamlistitem team="team"></drbbly-teamlistitem>
                 </div>
             </slick>
@@ -152,7 +152,7 @@
             <slick settings="dhc.courtsCarouselSettings"
                    class="dark-transparent-bg">
                 <div ng-repeat="court in dhc.courts"
-                     class="px-3">
+                     class="px-1">
                     <drbbly-courtlistitem class="w-100"
                                           court="court"
                                           on-click="dhc.featuredCourtClick"></drbbly-courtlistitem>

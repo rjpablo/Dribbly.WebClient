@@ -27,7 +27,7 @@
             dcc.mapOptions = {
                 id: 'courts-page-map',
                 zoom: 5,
-                height: '500px'
+                height: '50vh'
             };
             $element.addClass('drbbly-courts-container');
             dcc.courtsListOverlay = drbblyOverlayService.buildOverlay();

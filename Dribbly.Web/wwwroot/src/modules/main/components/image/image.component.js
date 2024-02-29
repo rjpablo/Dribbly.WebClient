@@ -19,15 +19,20 @@
 
         dic.$onInit = function () {
             var image = new Image();
+            image.onloadstart = function () {
+                $scope.$apply(() => {
+                    dic.status = 'loading';
+                });
+            }
             image.onload = function () {
-                $timeout(() => {
+                $scope.$apply(() => {
                     dic.status = 'ready';
                 });
             };
             image.src = dic.imageUrl;
-            dic.status = 'loading';
+            dic.status = 'ready';
             image.onerror = function () {
-                $timeout(() => {
+                $scope.$apply(() => {
                     dic.status = 'error';
                 });
             }
