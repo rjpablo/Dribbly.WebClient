@@ -212,9 +212,6 @@
             if (dbm.onMapClicked) {
                 dbm.onMapClicked({ latLng: e.latlng });
             }
-            if (dbm.options.canAddCourt) {
-
-            }
         };
 
         function addPopup(popup){

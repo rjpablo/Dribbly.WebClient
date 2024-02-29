@@ -48,7 +48,7 @@
              ng-class="{'slick-dotted': dhc.featuredPlayerCarouselSettings.dots}">
             <slick settings="dhc.featuredPlayerCarouselSettings"
                    class="dark-transparent-bg">
-                <div ng-repeat="player in dhc.featuredPlayers"
+                <div ng-repeat="player in dhc.featuredPlayers track by player.accountId"
                      class="px-3">
                     <drbbly-playerlistitem player="player"></drbbly-playerlistitem>
                 </div>

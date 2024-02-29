@@ -12,10 +12,12 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['drbblyToolbarService', 'drbblyCommonService', 'drbblyAccountsService',
-        'drbblyOverlayService', '$timeout', 'drbblyCarouselhelperService', 'constants', '$q', '$filter'];
-    function controllerFunc(drbblyToolbarService, drbblyCommonService, drbblyAccountsService,
-        drbblyOverlayService, $timeout, drbblyCarouselhelperService, constants, $q, $filter) {
+    controllerFunc.$inject = ['drbblyToolbarService', 'drbblyCommonService', 'drbblyAccountsService', '$scope',
+        'drbblyOverlayService', '$timeout', 'drbblyCarouselhelperService', 'constants', '$q', '$filter', 'authService',
+        '$state', '$compile', 'modalService'];
+    function controllerFunc(drbblyToolbarService, drbblyCommonService, drbblyAccountsService, $scope,
+        drbblyOverlayService, $timeout, drbblyCarouselhelperService, constants, $q, $filter, authService,
+        $state, $compile, modalService) {
         var dhc = this;
         var _map;
         dhc.showTopPlayers = false;
@@ -35,7 +37,7 @@
             dhc.mapOptions = {
                 id: 'players-page-map',
                 zoom: 5,
-                height: '500px'
+                height: '50vh'
             };
 
             dhc.newPlayers = [];
@@ -46,7 +48,7 @@
                 pageSize: 10,
                 page: dhc.newPlayersNextPageNumber
             };
-            
+
             if (dhc.showTopPlayers) loadTopPlayers();
             loadLeaders();
             loadFeaturedPlayers();
@@ -77,6 +79,36 @@
             _map = map;
         };
 
+        dhc.onMapClicked = (e) => {
+            var popupScope = $scope.$new()
+            popupScope.onAddMeClick = () => {
+                if (authService.authentication.isAuthenticated) {
+                    modalService.confirm({ msg1Raw: 'Set your location to here?' })
+                        .then(confirmed => {
+                            if (confirmed) {
+                                drbblyAccountsService.setLocation(authService.authentication.accountId, e.latLng)
+                                    .then(getMappedUsers)
+                                    .catch(e => drbblyCommonService.handleError(e));
+                            }
+                        })
+                }
+                else {
+                    $state.go('auth.signUp', { lat: e.latLng.lat, lng: e.latLng.lng });
+                }
+                popup.remove();
+            };
+            var popupContent = $compile(`
+                <div class="d-flex flex-column">
+                    <button class="btn btn-sm btn-primary mb-1" ng-click="onAddMeClick()">Add me here</button>
+                </div>`
+            )(popupScope);
+
+            var popup = L.popup({ minWidth: 50 })
+                .setLatLng(e.latLng)
+                .setContent(popupContent[0]);
+            _map.addPopup(popup);
+        }
+
         function getMappedUsers() {
             drbblyAccountsService.getAccountsWithLocation()
                 .then(data => {
@@ -87,10 +119,6 @@
                         })
                     }
                 });
-        }
-
-        function mapUsers(data) {
-            _map.resetMarkers(data);
         }
 
         function loadLeaders() {

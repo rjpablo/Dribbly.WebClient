@@ -98,6 +98,10 @@
                     return drbblyhttpService.post(api + 'setStatus/' + accountId + '/' + status);
                 }
 
+                function setLocation(accountId, latLng) {
+                    return drbblyhttpService.post(api + 'setLocation/' + accountId, latLng);
+                }
+
                 function setHomeCourt(courtId) {
                     return drbblyhttpService.post(api + 'setHomeCourt/' + courtId);
                 }
@@ -148,6 +152,7 @@
                     replaceEmail: replaceEmail,
                     setIsPublic: setIsPublic,
                     setHomeCourt,
+                    setLocation,
                     setStatus: setStatus,
                     updateAccount: updateAccount
                 };

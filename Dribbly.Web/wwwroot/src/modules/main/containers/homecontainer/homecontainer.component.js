@@ -14,10 +14,12 @@
 
     controllerFunc.$inject = ['drbblyTeamsService', 'drbblyToolbarService', '$state', 'drbblyAccountsService',
         'drbblyOverlayService', '$timeout', 'drbblyTournamentsService', 'drbblyCarouselhelperService', 'drbblyCourtsService',
-        'authService', 'drbblyTeamshelperService', 'modalService', 'constants', '$scope', '$compile', 'drbblyCourtshelperService'];
+        'authService', 'drbblyTeamshelperService', 'modalService', 'constants', '$scope', '$compile', 'drbblyCourtshelperService',
+        'drbblyCommonService'];
     function controllerFunc(drbblyTeamsService, drbblyToolbarService, $state, drbblyAccountsService,
         drbblyOverlayService, $timeout, drbblyTournamentsService, drbblyCarouselhelperService, drbblyCourtsService,
-        authService, drbblyTeamshelperService, modalService, constants, $scope, $compile, drbblyCourtshelperService) {
+        authService, drbblyTeamshelperService, modalService, constants, $scope, $compile, drbblyCourtshelperService,
+        drbblyCommonService) {
         var dhc = this;
         var _map;
         var _mapReadyTasks = [];
@@ -54,7 +56,7 @@
             dhc.mapOptions = {
                 id: 'home-page-map',
                 zoom: 5,
-                height: '500px',
+                height: '50vh',
                 allowSearch: true,
                 worldCopyJump: true
             };
@@ -80,14 +82,24 @@
                 addCourt(e.latLng);
             };
             popupScope.onAddMeClick = () => {
-                $state.go('auth.signUp', { lat: e.latLng.lat, lng: e.latLng.lng });
+                if (authService.authentication.isAuthenticated) {
+                    modalService.confirm({ msg1Raw: 'Set your location to here?' })
+                        .then(confirmed => {
+                            if (confirmed) {
+                                drbblyAccountsService.setLocation(authService.authentication.accountId, e.latLng)
+                                    .then(loadAllPlayers)
+                                    .catch(e => drbblyCommonService.handleError(e));
+                            }
+                        })
+                }
+                else {
+                    $state.go('auth.signUp', { lat: e.latLng.lat, lng: e.latLng.lng });
+                }
+                popup.remove();
             };
-            popupScope.isAuthenticated = authService.authentication.isAuthenticated;
             var popupContent = $compile(`
                 <div class="d-flex flex-column">
-                    ${!authService.authentication.isAuthenticated ?
-                    '<button class="btn btn-sm btn-primary mb-1" ng-show="!isAuthenticated" ng-click="onAddMeClick()">Add me here</button>' :
-                    ''}
+                    <button class="btn btn-sm btn-primary mb-1" ng-show="!isAuthenticated" ng-click="onAddMeClick()">Add me here</button>
                     <button class="btn btn-sm btn-secondary mb-1" ng-click="onClick()">Add a court here</button>
                 </div>`
             )(popupScope);
