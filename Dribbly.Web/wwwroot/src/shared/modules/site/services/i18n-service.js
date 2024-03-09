@@ -383,6 +383,7 @@
                     'PostTypeEnum.GameCreated_1': 'Game Created',
                     'PostTypeEnum.GameRescheduled_2': 'Game Rescheduled',
                     'PostTypeEnum.TournamentCreated_11': 'Tournament Created',
+                    'PostTypeEnum.AccountHighlightAdded_21': 'Account Highligh Added',
                     PrimaryPhoto: 'PrimaryPhoto',
                     Private: 'Private',
                     ProcessingEllipsis: 'Processing...',

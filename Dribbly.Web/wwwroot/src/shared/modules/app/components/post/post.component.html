@@ -51,7 +51,7 @@
                 <a ui-sref="main.account.home({username: drl.post.additionalData.gameCreatedByUsername})">
                     {{drl.post.additionalData.gameCreatedByName}}
                 </a>
-                &nbsp;created the game;
+                &nbsp;created the game
             </div>
             <div ng-if="drl.post.type === drl.postTypeEnum.GameRescheduled"
                  class="my-3">
@@ -65,7 +65,16 @@
                 <a ui-sref="main.account.home({username: drl.post.additionalData.createdByUsername})">
                     {{drl.post.additionalData.createdByName}}
                 </a>
-                &nbsp;created the tournament;
+                &nbsp;created the tournament
+            </div>
+            <!-- #endregion -->
+            <!-- #region Accounts -->
+            <div ng-if="drl.post.type === drl.postTypeEnum.AccountHighlightAdded"
+                 class="my-3">
+                <a ui-sref="main.account.home({username: drl.post.addedBy.username})">
+                    {{drl.post.addedBy.name}}
+                </a>
+                &nbsp;added a highlight
             </div>
             <!-- #endregion -->
         </div>

@@ -25,7 +25,7 @@
                 ng-show="!drl.hasLoadedAll"
                 ng-switch="drl.isLoading">
             <span ng-switch-default>{{::'app.LoadMore' | i18n}}</span>
-            <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-sin"></i></span>
+            <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
         </button>
         <div ng-if="drl.hasLoadedAll && drl.posts.length === 0"
              class="black-transparent-bg text-center p-3">

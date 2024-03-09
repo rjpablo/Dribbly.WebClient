@@ -12,11 +12,13 @@
             controller: controllerFunc
         });
 
-    controllerFunc.$inject = ['authService', 'modalService', 'drbblyPostsService', 'constants', 'drbblyCommonService'];
-    function controllerFunc(authService, modalService, drbblyPostsService, constants, drbblyCommonService) {
+    controllerFunc.$inject = ['authService', 'modalService', 'drbblyPostsService', 'constants', 'drbblyCommonService',
+        'drbblyDatetimeService'];
+    function controllerFunc(authService, modalService, drbblyPostsService, constants, drbblyCommonService,
+        drbblyDatetimeService) {
         var drl = this;
         var _loadSize = 5;
-        var _ceilingPostId;
+        var _beforeDate;
 
         drl.$onInit = function () {
             drl.canPost = true; //TODO set value
@@ -29,7 +31,7 @@
                 postedOnType: drl.options.postedOnType,
                 postedOnId: drl.options.postedOnId,
                 getCount: _loadSize,
-                ceilingPostId: _ceilingPostId
+                addedBefore: _beforeDate
             };
 
             drl.isLoading = true;
@@ -42,7 +44,7 @@
                         })
                         drl.posts.push(...posts);
                         drl.hasLoadedAll = posts.length < _loadSize;
-                        _ceilingPostId = posts[posts.length - 1].id;
+                        _beforeDate = drbblyDatetimeService.toUtcDate(drbblyDatetimeService.toUtcString(posts[posts.length - 1].dateAdded));
                     }
                     else {
                         drl.hasLoadedAll = true;
