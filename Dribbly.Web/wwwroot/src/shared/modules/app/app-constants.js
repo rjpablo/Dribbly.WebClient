@@ -25,6 +25,8 @@
          */
         constants.PASSWORD_VALIDATION_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,14}$/;
         constants.MOBILENO_VALIDATION_REGEX = /^\d{3}[- ]?\d{3}[- ]?\d{4}$/;
+        constants.ALPHANUMERIC_REGEX = /^\w*$/;
+        constants.USERNAME_REGEX = /^[a-zA-Z0-9]{5,20}$/;
 
         /**
          * 
