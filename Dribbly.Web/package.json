@@ -60,6 +60,8 @@
     "jquery-ui": "^1.13.2",
     "jquery-ui-touch-punch": "^0.2.3",
     "jsdoc": "~3.6.6",
+    "leaflet.fullscreen": "3.0.1",
+    "leaflet.locatecontrol": "0.79.0",
     "merge-stream": "2.0.0",
     "sass": "^1.47.0",
     "useref": "1.4.1",

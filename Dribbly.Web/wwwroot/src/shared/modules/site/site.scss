@@ -596,3 +596,13 @@ div.leaflet-popup {
         border-radius: 50%;
     }
 }
+
+.leaflet-touch .leaflet-bar a.leaflet-control-zoom-fullscreen {
+    background-image: url(/src/images/icons/fullscreen-on.svg);
+    background-position-y: center;
+
+    &.leaflet-fullscreen-on {
+        background-image: url(/src/images/icons/fullscreen-off.svg);
+        background-position-y: center;
+    }
+}

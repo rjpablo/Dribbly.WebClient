@@ -49,7 +49,9 @@
       "wwwroot/src/custom/uiroutertitle/uiroutertitle.module.js",
       "wwwroot/src/custom/daypilot/js/daypilot-all.min.js",
       "wwwroot/src/lib/video-js/video.min.js",
-      "wwwroot/src/lib/angularjs-slider/rzslider.min.js"
+      "wwwroot/src/lib/angularjs-slider/rzslider.min.js",
+      "wwwroot/src/lib/leaflet-locatecontrol/l.control.locate.min.js",
+      "wwwroot/src/lib/leaflet-fullscreen/control.fullscreen.js"
     ]
   },
   {
@@ -317,7 +319,9 @@
       "wwwroot/src/custom/glyphicon-to-font-awesome/glyphicon-to-font-awesome.css",
       "wwwroot/src/lib/video-js/video-js.min.css",
       "wwwroot/src/lib/angularjs-slider/rzslider.min.css",
-      "wwwroot/src/lib-extensions/angular-wysiwyg-custom/angular-wysiwyg-custom.css"
+      "wwwroot/src/lib-extensions/angular-wysiwyg-custom/angular-wysiwyg-custom.css",
+      "wwwroot/src/lib/leaflet-locatecontrol/l.control.locate.min.css",
+      "wwwroot/src/lib/leaflet-fullscreen/control.fullscreen.css"
     ]
   },
   {

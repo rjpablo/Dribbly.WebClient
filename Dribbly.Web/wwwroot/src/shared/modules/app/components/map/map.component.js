@@ -49,13 +49,25 @@
                     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 }).addTo(dbm.map);
 
+                if (dbm._options.allowSearch) {
+                    addSearchControl();
+                }
+
+                //add find current location button
+                L.control
+                    .locate({
+                        position: 'bottomright',
+                        showPopup: false,
+                        locateOptions: {
+                            watch: false
+                        }
+                    })
+                    .addTo(dbm.map);
+
                 dbm.map.on('click', dbm._mapClicked);
 
                 if (dbm.onMapReady) {
                     dbm.onMapReady(_widget);
-                }
-                if (dbm._options.allowSearch) {
-                    addSearchControl();
                 }
             });
         };
@@ -67,9 +79,14 @@
                 addCourtMarker,
                 addPlayerMarker,
                 addPopup,
+                rerender,
                 resetMarkers,
                 panTo
             }
+        }
+
+        function rerender() {
+            dbm.map.invalidateSize();
         }
 
         function panTo(latLng) {
@@ -196,7 +213,11 @@
                 mapTypeControlOptions: {
                     position: google.maps.ControlPosition.LEFT_BOTTOM
                 },
-                zoomControl: false
+                zoomControl: false,
+                fullscreenControl: true,
+                fullscreenControlOptions: {
+                    position: 'bottomright'
+                }
             };
         }
 
@@ -214,7 +235,7 @@
             }
         };
 
-        function addPopup(popup){
+        function addPopup(popup) {
             return popup.openOn(dbm.map);
         }
 

@@ -5,6 +5,7 @@
         .component('drbblyLocationpicker', {
             bindings: {
                 onLocationSelected: '<?',
+                onMapReady: '<?',
                 pickOnSearch: '<',          // whether to automatically pick the location selected in search results
                 initialPosition: '<?',
                 selectedLocation: '<'
@@ -43,8 +44,9 @@
             }
         }
 
-        dlp.onMapReady = function (map) {
+        dlp._onMapReady = function (map) {
             dlp.map = map;
+            dlp.onMapReady && dlp.onMapReady(map);
             if (dlp.selectedLocation) {
                 resetMark({ lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });
                 dlp.map.panTo({ lat: dlp.selectedLocation.latitude, lng: dlp.selectedLocation.longitude });

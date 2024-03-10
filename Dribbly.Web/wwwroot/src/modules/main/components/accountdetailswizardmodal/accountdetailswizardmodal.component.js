@@ -13,10 +13,10 @@
             controller: controllerFn
         });
 
-    controllerFn.$inject = ['drbblyAccountsService', '$scope', 'modalService', 'drbblyEventsService', 'constants', 'drbblyFileService',
-        'drbblyOverlayService', 'drbblyDatetimeService', 'drbblyFormshelperService', 'drbblyCommonService'];
-    function controllerFn(drbblyAccountsService, $scope, modalService, drbblyEventsService, constants, drbblyFileService,
-        drbblyOverlayService, drbblyDatetimeService, drbblyFormshelperService, drbblyCommonService) {
+    controllerFn.$inject = ['drbblyAccountsService', '$scope', 'modalService', 'drbblyEventsService', 'constants', '$timeout',
+        'drbblyOverlayService', 'drbblyDatetimeService', 'drbblyFormshelperService', 'drbblyCommonService', 'drbblyFileService'];
+    function controllerFn(drbblyAccountsService, $scope, modalService, drbblyEventsService, constants, $timeout,
+        drbblyOverlayService, drbblyDatetimeService, drbblyFormshelperService, drbblyCommonService, drbblyFileService) {
         var adm = this;
 
         adm.$onInit = function () {
@@ -65,6 +65,9 @@
 
         adm.next = () => {
             adm.currentStepIndex = Math.min(adm.currentStepIndex + 1, adm.steps.length - 1);
+            if (adm.steps[adm.currentStepIndex] === 'Location') {
+                $timeout(adm.map.rerender);
+            }
         }
 
         adm.back = () => {
@@ -74,6 +77,8 @@
         adm.hasNextPage = () => adm.currentStepIndex + 1 < adm.steps.length;
 
         adm.canGoBack = () => adm.currentStepIndex > 0;
+
+        adm.onMapReady = map => adm.map = map;
 
         adm.onPrimaryPhotoSelect = function (file) {
             if (!file) { return; }

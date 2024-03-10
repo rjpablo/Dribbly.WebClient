@@ -167,6 +167,20 @@ var nodeLibs = {
         source: 'jquery-ui-touch-punch/jquery.ui.touch-punch.js',
         destination: 'jquery-ui-touch-punch'
     },
+    leaflet_fullscreen: {
+        source: [
+            'leaflet.fullscreen/Control.FullScreen.js',
+            'leaflet.fullscreen/Control.FullScreen.css'
+            ],
+        destination: 'leaflet-fullscreen'
+    },
+    leaflet_locate_control: {
+        source: [
+            'leaflet.locatecontrol/dist/L.Control.Locate.min.js',
+            'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
+            ],
+        destination: 'leaflet-locatecontrol'
+    },
     local_storage: {
         source: 'angular-local-storage/dist/angular-local-storage.js',
         destination: 'angular-local-storage'
