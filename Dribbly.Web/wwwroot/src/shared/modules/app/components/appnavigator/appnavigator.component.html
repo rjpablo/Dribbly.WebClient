@@ -1,14 +1,13 @@
-﻿<nav class="py-1 border-top border-bottom"
+﻿<nav class="py-2 border-top border-bottom"
      ng-if="dan.navItems && dan.navItems.length > 0">
     <ul class="nav">
         <li class="nav-item mr-1" ng-repeat="item in dan.navItems | filter : { isRemoved: '!true' } "
             ng-class="{'ml-1': $first}"
             ng-click="dan.itemClicked(item, $event)">
             <a class="nav-link" ng-class="{'active': item.isActive}" ng-href="{{dan.getHref(item)}}">
-                <div class="badge badge-pill"
-                     ng-class="item.isActive? 'badge-primary':'badge-secondary'">
-                    <h6 class="mb-0 p-1 text-uppercase">{{::item.textKey | i18n}}</h6>
-                </div>
+                <h6 class="mb-0 py-1 mx-1 text-uppercase">
+                {{::item.textKey | i18n}}
+                </h6>
             </a>
         </li>
     </ul>

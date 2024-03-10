@@ -13,15 +13,8 @@ drbbly-appnavigator {
             & > .nav-link {
                 padding: 0;
 
-                > span {
-                    padding-right: 0.75rem;
-                }
-            }
-
-            &:first-child > .nav-link {
-
-                > span {
-                    padding-left: 0.75rem;
+                &.active > *{
+                    border-bottom: 3px solid $primary;
                 }
             }
         }
