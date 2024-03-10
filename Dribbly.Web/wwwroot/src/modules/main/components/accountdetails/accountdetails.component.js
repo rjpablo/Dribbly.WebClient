@@ -7,6 +7,7 @@
             bindings: {
                 account: '<',
                 onUpdate: '<',
+                editDetails: '<',
                 app: '<'
             },
             controllerAs: 'dad',
@@ -75,18 +76,7 @@
         };
 
         dad.edit = function () {
-            authService.checkAuthenticationThen(function () {
-                modalService.show({
-                    view: '<drbbly-accountdetailsmodal></drbbly-accountdetailsmodal>',
-                    model: { accountId: dad.account.id },
-                    backdrop: 'static'
-                })
-                    .then(function (result) {
-                        if (result) {
-                            dad.onUpdate();
-                        }
-                    });
-            });
+            dad.editDetails();
         };
     }
 })();

@@ -2,17 +2,54 @@
     <div class="container px-0 px-sm-3">
         <div class="row">
             <div class="col-12 col-md-9">
+                <div class="d-flex justify-content-between align-items-center mb-3 px-3 px-md-0">
+                    <h4>Details</h4>
+                    <button ng-if="dad.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
+                            ng-click="dad.edit()"
+                            class="btn btn-sm btn-secondary">
+                        <span class="fa fa-pencil" aria-hidden="true"></span>&nbsp;
+                        {{::'site.Edit' | i18n}}
+                    </button>
+                </div>
                 <div class="card drbbly-card w-100 mb-3">
                     <div class="card-header">
-                        <h5 class="drbbly-header d-inline-block m-0">
-                            {{::'app.Details' | i18n}}
-                        </h5>
-                        <button ng-if="dad.isOwned || ('Account.UpdateNotOwned' | drbblyPermission)"
-                                ng-click="dad.edit()"
-                                class="btn btn-sm btn-secondary float-right">
-                            <span class="fa fa-pencil" aria-hidden="true"></span>&nbsp;
-                            {{::'site.Edit' | i18n}}
-                        </button>
+                        <h6 class="drbbly-header d-inline-block m-0">
+                            Player Profile
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="text-secondary">{{::'app.Height' | i18n}}</label>
+                            </div>
+                            <div class="col-8">
+                                {{dad.account.heightInches | height}}
+                            </div>
+                            <div class="col-4">
+                                <label class="text-secondary">Playing Position</label>
+                            </div>
+                            <div class="col-8">
+                                <span ng-if="dad.account.position">{{('app.PlayerPositionEnum.' + dad.account.position) | i18n}}</span>
+                                <span ng-show="!dad.account.position"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                            </div>
+                            <div class="col-4">
+                                <label class="text-secondary">{{::'app.HomeCourt' | i18n}}</label>
+                            </div>
+                            <div class="col-8">
+                                <drbbly-entitystub entity="dad.account.homeCourt"
+                                                   ng-if="dad.account.homeCourt"></drbbly-entitystub>
+                                <span ng-show="!dad.account.homeCourt"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card drbbly-card w-100 mb-3">
+                    <div class="card-header">
+                        <h6 class="drbbly-header d-inline-block m-0">
+                            Personal Data
+                        </h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -27,51 +64,6 @@
                             </div>
                             <div class="col-8">
                                 <span>{{dad.account.lastName}}</span>
-                            </div>
-                            <div class="col-4">
-                                <label class="text-secondary">{{::'app.Position' | i18n}}</label>
-                            </div>
-                            <div class="col-8">
-                                <span ng-if="dad.account.position">{{('app.PlayerPositionEnum.' + dad.account.position) | i18n}}</span>
-                                <span ng-show="!dad.account.position"
-                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
-                            </div>
-                            <div class="col-4">
-                                <label class="text-secondary">{{::'app.Height' | i18n}}</label>
-                            </div>
-                            <div class="col-8">
-                                {{dad.account.heightInches | height}}
-                            </div>
-                            <div class="col-4">
-                                <label class="text-secondary">Location</label>
-                            </div>
-                            <div class="col-8 text-line-1">
-                                <drbbly-map options="dad.mapOptions"
-                                            on-map-ready="dad.onMapReady"
-                                            ng-if="(dad.isOwned || !dad.account.hideLocation) && dad.accountLatLng"></drbbly-map>
-                                <span ng-show="!dad.account.hideLocation && !dad.accountLatLng"
-                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
-                                <span ng-show="dad.account.hideLocation && !dad.isOwned"
-                                      class="text-muted">({{dad.account.firstName}} doesn't share his/her location)</span>
-                                <div ng-show="dad.accountLatLng && dad.isOwned">
-                                    <i class="fa fa-info-circle"></i>&nbsp;<span class="text-muted">Your location is {{dad.account.hideLocation?'not ':''}}visible to other users.</span>
-                                    <a class="btn btn-sm btn-link" ng-click="dad.edit()">Change</a>
-                                </div>
-                            </div>
-                            <!--<div class="col-4">
-                                <label class="text-secondary">City</label>
-                            </div>
-                            <div class="col-8 text-line-1">
-                                {{dad.account.city.name}}
-                            </div>-->
-                            <div class="col-4">
-                                <label class="text-secondary">{{::'app.HomeCourt' | i18n}}:</label>
-                            </div>
-                            <div class="col-8">
-                                <drbbly-entitystub entity="dad.account.homeCourt"
-                                                   ng-if="dad.account.homeCourt"></drbbly-entitystub>
-                                <span ng-show="!dad.account.homeCourt"
-                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
                             </div>
                             <div class="col-4">
                                 <label class="text-secondary">{{::'app.Gender' | i18n}}</label>
@@ -90,6 +82,38 @@
                                       class="text-muted">({{::'site.NotSet' | i18n}})</span>
                             </div>
                             <div class="col-4">
+                                <label class="text-secondary">Location</label>
+                            </div>
+                            <div class="col-8">
+                                <drbbly-map options="dad.mapOptions"
+                                            on-map-ready="dad.onMapReady"
+                                            ng-if="(dad.isOwned || !dad.account.hideLocation) && dad.accountLatLng"></drbbly-map>
+                                <span ng-show="!dad.account.hideLocation && !dad.accountLatLng"
+                                      class="text-muted">({{::'site.NotSet' | i18n}})</span>
+                                <span ng-show="dad.account.hideLocation && !dad.isOwned"
+                                      class="text-muted">({{dad.account.firstName}} doesn't share his/her location)</span>
+                                <div ng-show="dad.accountLatLng && dad.isOwned">
+                                    <i class="fa fa-info-circle"></i>&nbsp;<span class="text-muted">Your location is {{dad.account.hideLocation?'not ':''}}visible to other users.</span>
+                                </div>
+                            </div>
+                            <!--<div class="col-4">
+                    <label class="text-secondary">City</label>
+                </div>
+                <div class="col-8 text-line-1">
+                    {{dad.account.city.name}}
+                </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card drbbly-card w-100 mb-3">
+                    <div class="card-header">
+                        <h6 class="drbbly-header d-inline-block m-0">
+                            Social Links
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
                                 <label class="text-secondary">Facebook:</label>
                             </div>
                             <div class="col-8">
@@ -107,6 +131,17 @@
                                     {{dad.account.igLink}}
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card drbbly-card w-100 mb-3">
+                    <div class="card-header">
+                        <h6 class="drbbly-header d-inline-block m-0">
+                            Other Info
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
                             <div class="col-4">
                                 <label class="text-secondary">
                                     {{::'app.DateJoined' | i18n}}

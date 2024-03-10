@@ -41,12 +41,28 @@
                     buildSubPages();
 
                     if (avc.isOwned && data.flags.drbblyAny(f => f.key === flagKeys.uploadPrimaryPhoto)) {
-                        promptForProfilePhoto();
+                        promptForInfoUpdate();
                     }
                 }, function (error) {
 
                 });
         }
+
+        function promptForInfoUpdate() {
+            authService.checkAuthenticationThen(function () {
+                drbblyAccountsService.removeFlag(flagKeys.uploadPrimaryPhoto);
+                modalService.show({
+                    view: '<drbbly-accountdetailswizardmodal></drbbly-accountdetailswizardmodal>',
+                    model: { accountId: avc.account.id, canClose: false},
+                    backdrop: 'static'
+                })
+                    .then(function (result) {
+                        if (result) {
+                            loadAccount();
+                        }
+                    });
+            });
+        };
 
         function promptForProfilePhoto() {
             return modalService.show({
@@ -82,10 +98,11 @@
         }
 
         avc.editDetails = function () {
+            var steps = avc.account.profilePhoto ? ['Player Profile', 'Personal Information', 'Location', 'Links'] : null;
             authService.checkAuthenticationThen(function () {
                 modalService.show({
-                    view: '<drbbly-accountdetailsmodal></drbbly-accountdetailsmodal>',
-                    model: { accountId: avc.account.id },
+                    view: '<drbbly-accountdetailswizardmodal></drbbly-accountdetailswizardmodal>',
+                    model: { accountId: avc.account.id, steps: steps },
                     backdrop: 'static'
                 })
                     .then(function (result) {

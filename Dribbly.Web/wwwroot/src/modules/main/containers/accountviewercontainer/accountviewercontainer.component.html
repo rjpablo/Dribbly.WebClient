@@ -156,6 +156,7 @@
             <ui-view account="avc.account"
                      app="avc.app"
                      on-update="avc.onAccountUpdate"
+                     edit-details="avc.editDetails"
                      ng-if="avc.shouldDisplayAsPublic"></ui-view>
             <div class="container"
                  ng-if="!avc.shouldDisplayAsPublic">
