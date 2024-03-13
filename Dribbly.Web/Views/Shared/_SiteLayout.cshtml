@@ -1,6 +1,6 @@
 ﻿@model Dribbly.Web.ViewModels.SiteViewModel
 @{
-    var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+    var version = Model.clientSettings.Version;
 }
 
 <!DOCTYPE html>
@@ -214,11 +214,11 @@
     </environment>
 
     <environment exclude="Development">
-        <link href="~/dist/css/libraries.min.css?v=@timeStamp" rel="stylesheet" />
-        <link href="~/dist/css/site.min.css?v=@timeStamp" rel="stylesheet" />
-        <link href="~/dist/css/auth.min.css?v=@timeStamp" rel="stylesheet" />
-        <link href="~/dist/css/app.min.css?v=@timeStamp" rel="stylesheet" />
-        <link href="~/dist/css/main.min.css?v=@timeStamp" rel="stylesheet" />
+        <link href="~/dist/css/libraries.min.css?v=@version" rel="stylesheet" />
+        <link href="~/dist/css/site.min.css?v=@version" rel="stylesheet" />
+        <link href="~/dist/css/auth.min.css?v=@version" rel="stylesheet" />
+        <link href="~/dist/css/app.min.css?v=@version" rel="stylesheet" />
+        <link href="~/dist/css/main.min.css?v=@version" rel="stylesheet" />
     </environment>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -620,13 +620,13 @@
     </environment>
     <environment exclude="Development">
         <script src="https://maps.google.com/maps/api/js?key=AIzaSyD8rY4ZOWDSbgsAlydn2m1LExO0sHrpQkE&libraries=places,visualization,drawing,geometry,places"></script> @*Account Linked: rjpablo.secondary@gmail.com*@
-        <script src="~/dist/js/scripts.min.js?v=@timeStamp"></script>
-        <script src="~/dist/js/libraries.min.js?v=@timeStamp"></script>
+        <script src="~/dist/js/scripts.min.js?v=@version"></script>
+        <script src="~/dist/js/libraries.min.js?v=@version"></script>
 
-        <script src="~/dist/js/site.min.js?v=@timeStamp"></script>
-        <script src="~/dist/js/auth.min.js?v=@timeStamp"></script>
-        <script src="~/dist/js/app.min.js?v=@timeStamp"></script>
-        <script src="~/dist/js/main.min.js?v=@timeStamp"></script>
+        <script src="~/dist/js/site.min.js?v=@version"></script>
+        <script src="~/dist/js/auth.min.js?v=@version"></script>
+        <script src="~/dist/js/app.min.js?v=@version"></script>
+        <script src="~/dist/js/main.min.js?v=@version"></script>
     </environment>
 
     <script src="@(Model.clientSettings.ServiceBase)signalr/hubs"></script>

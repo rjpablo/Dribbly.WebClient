@@ -16,5 +16,6 @@
         public string TagLine { get; set; }
         public bool RequestCookieConsent { get; set; }
         public string GeoapifyKey { get; set; }
+        public string Version { get; set; } // used for cache-busting
     }
 }

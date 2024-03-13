@@ -38,7 +38,7 @@
 
     function overrideComponentFunc(module) {
         var originalComponentFn = module.component;
-        var timestamp = Date.now();
+        var version = window.Dribbly.clientSettings;
         module.component = function (componentName, options) {
             var moduleName = module.name.replace('Module', '');
             var serviceBase = window.location.protocol + "//" + window.location.host;
@@ -50,24 +50,24 @@
                     if (moduleName === 'main') {
                         if (trimmedComponentName.indexOf('container') > -1) {
                             options.templateUrl = serviceBase + '/src/modules/main/containers/' + trimmedComponentName + '/'
-                                + trimmedComponentName + '.component.html?v=' + timestamp;
+                                + trimmedComponentName + '.component.html?v=' + version;
                         }
                         else {
                             options.templateUrl = serviceBase + '/src/modules/main/components/' + trimmedComponentName + '/'
-                                + trimmedComponentName + '.component.html?v=' + timestamp;
+                                + trimmedComponentName + '.component.html?v=' + version;
                         }
                     }
                     else if (moduleName === 'app') {
                         options.templateUrl = serviceBase + '/src/shared/modules/app/components/' + trimmedComponentName + '/'
-                            + trimmedComponentName + '.component.html?v=' + timestamp;
+                            + trimmedComponentName + '.component.html?v=' + version;
                     }
                     else if (moduleName === 'site') {
                         options.templateUrl = serviceBase + '/src/shared/modules/site/components/' + trimmedComponentName + '/'
-                            + trimmedComponentName + '.component.html?v=' + timestamp;
+                            + trimmedComponentName + '.component.html?v=' + version;
                     }
                     else if (moduleName === 'auth') {
                         options.templateUrl = serviceBase + '/src/modules/auth/components/' + trimmedComponentName + '/'
-                            + trimmedComponentName + '.component.html?v=' + timestamp;
+                            + trimmedComponentName + '.component.html?v=' + version;
                     }
                 }
             }
