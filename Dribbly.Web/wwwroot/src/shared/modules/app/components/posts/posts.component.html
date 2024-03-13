@@ -16,14 +16,15 @@
         <drbbly-post ng-repeat="post in drl.posts track by post.id"
                      on-delete="drl.onPostDelete"
                      post="post"
-                     class="mb-2">
+                     class="mb-3">
         </drbbly-post>
         <button type="button"
                 class="btn btn-secondary w-100"
                 ng-disabled="drl.isLoading"
                 ng-click="drl.loadMore()"
                 ng-show="!drl.hasLoadedAll"
-                ng-switch="drl.isLoading">
+                ng-switch="drl.isLoading"
+                in-view="$inview && !drl.hasLoadedAll && drl.loadMore()" in-view-options="{offset: '200%'}">
             <span ng-switch-default>{{::'app.LoadMore' | i18n}}</span>
             <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
         </button>
@@ -31,7 +32,7 @@
              class="black-transparent-bg text-center p-3">
             {{drl.options.emplyLabel || 'No posts found.'}}
         </div>
-        <span class="d-block text-center text-muted"
-              ng-show="drl.hasLoadedAll && drl.posts.length > 0 ">{{::'app.NoMoreItemsToLoad' | i18n}}</span>
+        <span class="d-block text-center text-muted py-5"
+              ng-show="drl.hasLoadedAll && drl.posts.length > 0">No more older posts found</span>
     </div>
 </div>

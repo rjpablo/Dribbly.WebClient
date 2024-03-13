@@ -113,7 +113,7 @@
             </button>
         </form>
     </div>
-    <div class="px-3">
+    <div class="px-3 pb-3" ng-if="drl.comments.length">
         <div class="mb-2">Comments</div>
         <div ng-repeat="comment in drl.comments track by comment.id"
              class="d-flex mb-2 comment">
