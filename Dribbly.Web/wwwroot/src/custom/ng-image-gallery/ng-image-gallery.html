@@ -79,10 +79,10 @@
                              ng-if="_activeImg === image && !isVideo(image)" ng-src="{{image.url}}"
                              ondragstart="return false;" ng-attr-alt="{{image.alt || undefined}}"
                              ng-click="methods.expand($index);" />
-                        <drbbly-videolistitem ng-if="_activeImg === image && isVideo(image)"
+                        <drbbly-video ng-if="_activeImg === image && isVideo(image)"
                                               class="galleria-video"
                                               options="{hideUploadDate: true}"
-                                              video="image"></drbbly-videolistitem>
+                                              video="image"></drbbly-video>
                     </div>
                 </div>
 
