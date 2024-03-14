@@ -75,10 +75,15 @@
 
         dad.addHighlight = function (files) {
             if (files && files.length) {
+                var vid = files[0];
+                if (vid.type !== 'video/mp4') {
+                    modalService.show({ msg1Raw: 'Only .mp4 files are currently supported.', msgTitleRaw: 'Invalid File Type' });
+                    return;
+                }
                 modalService.show({
                     view: '<drbbly-uploadvideomodal></drbbly-uploadvideomodal>',
                     model: {
-                        file: files[0],
+                        file: vid,
                         accountId: dad.account.id,
                         isAccount: true,
                         onSubmit: function (file, video) {

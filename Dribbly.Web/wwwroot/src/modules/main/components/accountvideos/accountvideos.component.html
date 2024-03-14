@@ -8,9 +8,9 @@
                     <a class="btn-link float-right"
                        ng-if="::dav.isOwned || ('Account.AddVideoNotOwned' | drbblyPermission)"
                        ngf-select="dav.addVideo($files)"
-                       ngf-pattern="'video/*'"
+                       ngf-pattern="'*'"
                        ngf-multiple="false"
-                       ngf-accept="'video/*'"
+                       ngf-accept="'video/mp4'"
                        ngf-max-size="{{dav.maxSize}}"
                        href="#">
                         <i class="fa fa-plus"></i>&nbsp;{{::'app.UploadAVideo' | i18n}}

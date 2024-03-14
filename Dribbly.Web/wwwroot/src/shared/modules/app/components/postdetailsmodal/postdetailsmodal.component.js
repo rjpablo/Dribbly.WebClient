@@ -154,18 +154,38 @@
         };
 
         pdm.onMediaSelect = function (files, type) {
-            var newMedia = files.map(file => {
-                return {
-                    id: --_tempId,
-                    url: URL.createObjectURL(file),
-                    deletable: true,
-                    isNew: true,
-                    file: file,
-                    type: file.type.indexOf('video/') === 0 ? constants.enums.multimediaTypeEnum.Video : constants.enums.multimediaTypeEnum.Photo
-                };
-            })
-            pdm.attachments = pdm.attachments.concat(newMedia);
-            pdm.frmPostDetails.$setDirty();
+            if (files.length > 0) {
+                var _files = [];
+                var filesExcluded = []; // a file was removed
+                files.forEach(f => {
+                    if (f.type.includes('video/') && f.type !== 'video/mp4') {
+                        filesExcluded.push(f);
+                    }
+                    else {
+                        _files.push(f);
+                    }
+                });
+                if (_files.length > 0) {
+                    if (filesExcluded.length > 0) {
+                        drbblyCommonService.toast.error(filesExcluded.length + ' file(s) excluded');
+                    }
+                    var newMedia = _files.map(file => {
+                        return {
+                            id: --_tempId,
+                            url: URL.createObjectURL(file),
+                            deletable: true,
+                            isNew: true,
+                            file: file,
+                            type: file.type.indexOf('video/') === 0 ? constants.enums.multimediaTypeEnum.Video : constants.enums.multimediaTypeEnum.Photo
+                        };
+                    })
+                    pdm.attachments = pdm.attachments.concat(newMedia);
+                    pdm.frmPostDetails.$setDirty();
+                }
+                else {
+                    drbblyCommonService.toast.error('Unsupport file type(s)');
+                }
+            }
         }
 
         pdm.onVideoSelected = function (video) {

@@ -38,6 +38,12 @@
 
         vli.$onInit = function () {
             $timeout(function () {
+                
+            });
+        };
+
+        vli.$onChanges = function (changes) {
+            if (changes.video && changes.video.currentValue) {
                 _videoElement = $element.find('video-js')[0];
                 _player = videojs(_videoElement, {
                     children: [
@@ -49,6 +55,10 @@
                     autoplay: false,
                     preload: 'auto'
                 });
+
+                if (!vli.video.extension && vli.video.file?.type) { // happens when the video is a blob
+                    vli.video.extension = vli.video.file.type.substr(vli.video.file.type.lastIndexOf('/') + 1);
+                }
 
                 _player.src({ type: 'video/' + vli.video.extension, src: vli.video.url + '#t=0.1' });
 
@@ -66,12 +76,6 @@
                         vli.duration = duration;
                     });
                 };
-            });
-        };
-
-        vli.$onChanges = function (changes) {
-            if (changes.video && changes.video.currentValue) {
-
             }
         }
 
