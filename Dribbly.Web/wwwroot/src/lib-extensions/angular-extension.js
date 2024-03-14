@@ -38,7 +38,7 @@
 
     function overrideComponentFunc(module) {
         var originalComponentFn = module.component;
-        var version = window.Dribbly.clientSettings;
+        var version = window.Dribbly.clientSettings.version;
         module.component = function (componentName, options) {
             var moduleName = module.name.replace('Module', '');
             var serviceBase = window.location.protocol + "//" + window.location.host;
