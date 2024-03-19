@@ -24,7 +24,7 @@
                 ng-click="drl.loadMore()"
                 ng-show="!drl.hasLoadedAll"
                 ng-switch="drl.isLoading"
-                in-view="$inview && !drl.hasLoadedAll && drl.loadMore()" in-view-options="{offset: '200%'}">
+                in-view="$inview && !drl.hasLoadedAll && drl.loadMore()" in-view-options="{offset: [1500, 0 , 0, 0]}">
             <span ng-switch-default>{{::'app.LoadMore' | i18n}}</span>
             <span ng-switch-when="true"><i class="fa fa-circle-o-notch fa-spin"></i></span>
         </button>

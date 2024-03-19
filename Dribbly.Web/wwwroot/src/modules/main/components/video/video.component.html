@@ -1,9 +1,22 @@
 ﻿<div class="video" in-view="vli.onEnterView($inviewInfo)" in-view-options="{offset: ['-100%', 0, '-50%', 0]}">
     <div class="video-wrapper">
-        <video-js class="video-js"></video-js>
+        <!--<video-js class="video-js"></video-js>-->
+        <img class="thumbnail"
+             ng-src="{{vli.video.thumbnailUrl}}"
+             ng-if="!vli.videoShown && vli.video.thumbnailUrl" />
+        <div class="d-flex flex-column align-items-center loader"
+             ng-show="vli.isLoading">
+            <i class="fa fa-4x fa-circle-o-notch fa-spin"></i>
+        </div>
+        <div class="d-flex flex-column align-items-center play-button"
+             ng-show="!vli.hasPlayed && !vli.isLoading"
+             ng-click="vli.onPlayButtonClick()">
+            <i class="fa fa-4x fa-play-circle-o"></i>
+        </div>
     </div>
     <!--<div class="drbbly-video-overlay"
-         ng-click="vli.clicked()">
+         ng-click="vli.onOverlayClick()"
+         ng-if="!vli.videoShown">
         <span class="duration"
               ng-hide="vli.options.hideDetails">{{vli.duration}}</span>
     </div>-->

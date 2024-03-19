@@ -17,7 +17,7 @@
     function controllerFunc(authService, modalService, drbblyPostsService, constants, drbblyCommonService,
         drbblyDatetimeService) {
         var drl = this;
-        var _loadSize = 5;
+        var _loadSize = 10;
         var _beforeDate;
 
         drl.$onInit = function () {
@@ -83,7 +83,9 @@
         };
 
         drl.loadMore = function () {
-            getPosts();
+            if (!drl.isLoading) {
+                getPosts();
+            }
         };
 
         drl.onPostDelete = function (post) {

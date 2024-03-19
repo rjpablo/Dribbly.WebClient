@@ -1,5 +1,8 @@
 ﻿<div class="video">
     <div class="video-wrapper">
+        <img ng-if="vli.video.thumbnailUrl"
+             ng-src="{{vli.video.thumbnailUrl}}"
+             style="position: absolute; height: 100%; width: 100%; object-fit: cover" />
         <video preload="metadata"></video>
     </div>
     <div class="drbbly-video-overlay"

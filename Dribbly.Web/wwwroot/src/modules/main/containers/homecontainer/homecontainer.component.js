@@ -45,14 +45,14 @@
             drbblyToolbarService.setItems([]);
             showFeatures();
 
-            loadFeaturedCourts();
-            loadCourts();
-            loadAllPlayers();
+            //loadFeaturedCourts();
+            //loadCourts();
+            //loadAllPlayers();
             loadFeaturedPlayers();
-            loadNewPlayers();
+            //loadNewPlayers();
             if (dhc.showTopPlayers) loadTopPlayers();
-            loadTournaments();
-            loadTeams();
+            //loadTournaments();
+            //loadTeams();
 
             dhc.mapOptions = {
                 id: 'home-page-map',
