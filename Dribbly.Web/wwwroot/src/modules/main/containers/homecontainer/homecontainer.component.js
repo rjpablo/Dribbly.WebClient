@@ -46,8 +46,8 @@
             showFeatures();
 
             //loadFeaturedCourts();
-            //loadCourts();
-            //loadAllPlayers();
+            loadCourts();
+            loadAllPlayers();
             loadFeaturedPlayers();
             //loadNewPlayers();
             if (dhc.showTopPlayers) loadTopPlayers();
